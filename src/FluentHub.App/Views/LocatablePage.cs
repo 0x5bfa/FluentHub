@@ -72,14 +72,20 @@ namespace FluentHub.App.Views
 			if (currentTabNavigationBar.NavigationBarItems is null)
 				return;
 
+			var selectedCorrectOne = false;
+
 			foreach (var item in currentTabNavigationBar.NavigationBarItems)
 			{
 				if (item.PageItemKey == _currentPageItemKey)
 				{
 					currentTabNavigationBar.SelectedNavigationBarItem = item;
+					selectedCorrectOne = true;
 					break;
 				}
 			}
+
+			if (!selectedCorrectOne)
+				currentTabNavigationBar.SelectedNavigationBarItem = null;
 		}
 	}
 }

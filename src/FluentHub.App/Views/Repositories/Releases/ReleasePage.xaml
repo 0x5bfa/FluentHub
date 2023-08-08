@@ -1,4 +1,4 @@
-﻿<Page
+﻿<views:LocatablePage
 	x:Class="FluentHub.App.Views.Repositories.Releases.ReleasePage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,9 +12,10 @@
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
 	mc:Ignorable="d">
 
-	<UserControl.Resources>
+	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary>
@@ -25,30 +26,53 @@
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</UserControl.Resources>
+	</views:LocatablePage.Resources>
 
 	<Grid>
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryReleasePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8" RowSpacing="8">
+				<Grid Padding="24,24" RowSpacing="12">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<!--<primer:Avatar
+								Width="32"
+								Height="32"
+								IsSquare="True"
+								Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />-->
+
+							<TextBlock
+								VerticalAlignment="Center"
+								Style="{StaticResource SubtitleTextBlockStyle}"
+								Text="Release on" />
+
+							<TextBlock
+								VerticalAlignment="Center"
+								Style="{StaticResource SubtitleTextBlockStyle}"
+								Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+						</StackPanel>
+					</Grid>
 
 					<Grid
 						Grid.Row="1"
-						Padding="32,24"
+						Padding="16,12"
 						Background="{ThemeResource LayerFillColorDefaultBrush}"
 						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 						BorderThickness="1"
 						CornerRadius="8">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
@@ -136,55 +160,38 @@
 							</StackPanel>
 						</StackPanel>
 
-						<Grid
+						<TextBlock
 							Grid.Row="1"
-							Margin="-12,12"
-							Background="{ThemeResource SolidBackgroundFillColorBase}"
-							CornerRadius="8">
-							<WebView2
-								x:Name="SingleReleaseWebView2"
-								Margin="12,8"
-								DefaultBackgroundColor="Transparent"
-								Loaded="OnSingleReleaseWebView2Loaded"
-								NavigationCompleted="OnSingleReleaseWebView2NavigationCompleted"
-								SizeChanged="OnSingleReleaseWebView2SizeChanged" />
-
-							<TextBlock
-								x:Name="FailedToLoadWebView2ContentCautionTextBlock"
-								Margin="32"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								x:Load="{x:Bind ViewModel.FailedToLoadWebView2Content, Mode=OneWay}"
-								Foreground="{ThemeResource SystemFillColorCaution}"
-								Text="Failed to load latest release content" />
-						</Grid>
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Text="No contents available here for now." />
 
 						<MenuFlyoutSeparator Grid.Row="2" Margin="-32,0" />
 
 						<!--<Grid Grid.Row="3" Margin="0,12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Contributors" />
+							<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Contributors" />
 
-                            <StackPanel
-                                Grid.Row="1"
-                                Margin="0,12,0,0"
-                                Orientation="Horizontal">
-                                <ItemsRepeater ItemsSource="{x:Bind ViewModel.SingleRelease.ReleaseAssets.Nodes, Mode=OneWay}">
-                                    <ItemsRepeater.Layout>
-                                        <StackLayout Orientation="Vertical" Spacing="6" />
-                                    </ItemsRepeater.Layout>
-                                    <DataTemplate x:DataType="modelsV4:ReleaseAsset">
-                                        <primer:Avatar Size="32" Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
-                                    </DataTemplate>
-                                </ItemsRepeater>
-                            </StackPanel>
-                        </Grid>
+							<StackPanel
+								Grid.Row="1"
+								Margin="0,12,0,0"
+								Orientation="Horizontal">
+								<ItemsRepeater ItemsSource="{x:Bind ViewModel.SingleRelease.ReleaseAssets.Nodes, Mode=OneWay}">
+									<ItemsRepeater.Layout>
+										<StackLayout Orientation="Vertical" Spacing="6" />
+									</ItemsRepeater.Layout>
+									<DataTemplate x:DataType="modelsV4:ReleaseAsset">
+										<primer:Avatar Size="32" Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
+									</DataTemplate>
+								</ItemsRepeater>
+							</StackPanel>
+						</Grid>
 
-                        <MenuFlyoutSeparator Grid.Row="4" Margin="-32,0" />-->
+						<MenuFlyoutSeparator Grid.Row="4" Margin="-32,0" />-->
 
 						<Grid Grid.Row="5" Margin="0,12,0,0">
 							<Grid.RowDefinitions>
@@ -253,4 +260,4 @@
 		</Grid>
 
 	</Grid>
-</Page>
+</views:LocatablePage>

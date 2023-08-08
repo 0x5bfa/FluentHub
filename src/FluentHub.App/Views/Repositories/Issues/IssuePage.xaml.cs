@@ -12,37 +12,37 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Issues
 {
-    public sealed partial class IssuePage : LocatablePage
-    {
-        public IssueViewModel ViewModel { get; }
+	public sealed partial class IssuePage : LocatablePage
+	{
+		public IssueViewModel ViewModel { get; }
 
-        private readonly INavigationService _navigation;
+		private readonly INavigationService _navigation;
 
-        public IssuePage()
-            : base(NavigationPageKind.Repository, NavigationPageKey.Issues)
-        {
-            InitializeComponent();
+		public IssuePage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Issues)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<IssueViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<IssueViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
 
-            if (param == null)
-            {
-                throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
-            }
+			if (param == null)
+			{
+				throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
+			}
 
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
-            ViewModel.Number = param.Number;
+			ViewModel.Login = param.UserLogin;
+			ViewModel.Name = param.RepositoryName;
+			ViewModel.Number = param.Number;
 
-            var command = ViewModel.LoadRepositoryIssuePageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadRepositoryIssuePageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

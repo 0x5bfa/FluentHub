@@ -24,20 +24,19 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestCommitsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid RowSpacing="8">
+			<ScrollViewer>
+				<Grid Padding="32,24,32,32" RowSpacing="16">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
+					<ov:PullRequestOverview Grid.Row="0" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
-					<Grid Grid.Row="2" Padding="24,12,24,24">
+					<Grid Grid.Row="1">
 						<ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
 							<ItemsRepeater.Layout>
-								<StackLayout Orientation="Vertical" Spacing="6" />
+								<StackLayout Orientation="Vertical" Spacing="4" />
 							</ItemsRepeater.Layout>
 							<DataTemplate x:DataType="bbvm:CommitBlockButtonViewModel">
 								<bb:CommitBlockButton ViewModel="{x:Bind}" />

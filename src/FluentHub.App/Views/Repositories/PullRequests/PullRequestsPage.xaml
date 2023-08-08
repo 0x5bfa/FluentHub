@@ -24,8 +24,8 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Padding="24,24,24,24">
+			<ScrollViewer>
+				<Grid Padding="32,24,32,32" RowSpacing="16">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
@@ -44,7 +44,7 @@
 					<Grid Grid.Row="1">
 						<ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}">
 							<ItemsRepeater.Layout>
-								<StackLayout Orientation="Vertical" Spacing="6" />
+								<StackLayout Orientation="Vertical" Spacing="4" />
 							</ItemsRepeater.Layout>
 							<DataTemplate x:DataType="bbvm:PullBlockButtonViewModel">
 								<bbuc:PullBlockButton ViewModel="{x:Bind}" />
@@ -64,6 +64,7 @@
 									TextAlignment="Center" />
 							</toolkit:Case>
 						</toolkit:SwitchPresenter>
+
 					</Grid>
 
 				</Grid>

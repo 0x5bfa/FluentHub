@@ -11,42 +11,33 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Releases
 {
-    public sealed partial class ReleasePage : Page
-    {
-        public ReleasePage()
-        {
-            InitializeComponent();
+	public sealed partial class ReleasePage : LocatablePage
+	{
+		public ReleaseViewModel ViewModel;
 
-            ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+		private readonly INavigationService _navigation;
 
-        public ReleaseViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+		public ReleasePage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            _ = param ?? throw new ArgumentNullException("param");
+			ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
-            ViewModel.TagName = param.Parameters.ElementAtOrDefault(0) as string;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			_ = param ?? throw new ArgumentNullException("param");
 
-            var command = ViewModel.LoadRepositoryReleasePageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
+			ViewModel.Login = param.UserLogin;
+			ViewModel.Name = param.RepositoryName;
+			ViewModel.TagName = param.Parameters.ElementAtOrDefault(0) as string;
 
-        private void OnSingleReleaseWebView2Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.ReleaseDescriptionWebView2 = SingleReleaseWebView2;
-        }
-
-        private async void OnSingleReleaseWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
-            => await sender.HandleResize();
-
-        private async void OnSingleReleaseWebView2SizeChanged(object sender, SizeChangedEventArgs e)
-            => await ((WebView2)sender).HandleResize();
-    }
+			var command = ViewModel.LoadRepositoryReleasePageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

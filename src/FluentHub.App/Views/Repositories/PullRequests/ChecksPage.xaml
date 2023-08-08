@@ -20,11 +20,11 @@
 	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />-->
+			<SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+			<SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+			<SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+			<SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+			<SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />-->
 			<Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
 			<Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
 			<x:Double x:Key="ExpanderMinHeight">0</x:Double>
@@ -43,8 +43,8 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestChecksPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid RowSpacing="8">
+			<ScrollViewer>
+				<Grid Padding="32,24,32,32" RowSpacing="16">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
@@ -53,7 +53,7 @@
 
 					<ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
-					<Grid Padding="24,0,24,24" Grid.Row="2" ColumnSpacing="8">
+					<Grid Grid.Row="2" ColumnSpacing="8">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" MaxWidth="360" />
 							<ColumnDefinition Width="*" />
@@ -420,6 +420,7 @@
 
 						</Grid>
 					</Grid>
+
 				</Grid>
 			</ScrollViewer>
 		</Grid>

@@ -25,7 +25,7 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer>
-				<Grid>
+				<Grid Padding="32,24,32,32" RowSpacing="16">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
@@ -34,27 +34,20 @@
 					<Grid
 						x:Name="PinnedIssuesBlock"
 						Grid.Row="0"
-						Margin="0,24,0,0"
-						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+						RowSpacing="12">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<Grid Padding="32,0,32,4">
+						<TextBlock
+							VerticalAlignment="Center"
+							FontSize="14"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="Pinned issues" />
 
-							<TextBlock
-								VerticalAlignment="Center"
-								FontSize="14"
-								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="Pinned issues" />
-
-						</Grid>
-
-						<ItemsRepeater
-							Grid.Row="1"
-							Margin="24,12,24,0"
-							ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+						<ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
 							<ItemsRepeater.Layout>
 								<UniformGridLayout
 									ItemsStretch="Fill"
@@ -75,7 +68,7 @@
 
 					</Grid>
 
-					<Grid Grid.Row="1" Padding="24,12,24,24" RowSpacing="12">
+					<Grid Grid.Row="1" RowSpacing="12">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -86,7 +79,7 @@
 						<Grid Grid.Row="1">
 							<ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
 								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
+									<StackLayout Orientation="Vertical" Spacing="4" />
 								</ItemsRepeater.Layout>
 								<DataTemplate x:DataType="bbvm:IssueBlockButtonViewModel">
 									<bbuc:IssueBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />

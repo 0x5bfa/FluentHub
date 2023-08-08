@@ -10,48 +10,43 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Releases
 {
-    public sealed partial class ReleasesPage : Page
-    {
-        public ReleasesPage()
-        {
-            InitializeComponent();
+	public sealed partial class ReleasesPage : LocatablePage
+	{
+		public ReleasesViewModel ViewModel;
 
-            ViewModel = Ioc.Default.GetRequiredService<ReleasesViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		private readonly INavigationService _navigation;
 
-            ViewModel.LatestReleaseDescriptionWebView2 = LatestReleaseWebView2;
-        }
+		public ReleasesPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
 
-        public ReleasesViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+			ViewModel = Ioc.Default.GetRequiredService<ReleasesViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            _ = param ?? throw new ArgumentNullException("param");
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			_ = param ?? throw new ArgumentNullException("param");
 
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
+			ViewModel.Login = param.UserLogin;
+			ViewModel.Name = param.RepositoryName;
 
-            var command = ViewModel.LoadRepositoryReleasesPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
+			var command = ViewModel.LoadRepositoryReleasesPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
 
-        private void OnLatestReleaseWebView2Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.LatestReleaseDescriptionWebView2 = LatestReleaseWebView2;
-        }
-
-        private void OnReleaseBlockButtonClick(object sender, RoutedEventArgs e)
-        {
-            _navigation.Navigate<ReleasePage>(
-                new FrameNavigationParameter()
-                {
-                    UserLogin = ViewModel.Repository.Owner.Login,
-                    RepositoryName = ViewModel.Repository.Name,
-                    Parameters = new() { $"{(sender as Button).Tag as string}" }
-                });
-        }
-    }
+		private void OnReleaseBlockButtonClick(object sender, RoutedEventArgs e)
+		{
+			_navigation.Navigate<ReleasePage>(
+				new FrameNavigationParameter()
+				{
+					UserLogin = ViewModel.Repository.Owner.Login,
+					RepositoryName = ViewModel.Repository.Name,
+					Parameters = new() { $"{(sender as Button).Tag as string}" }
+				});
+		}
+	}
 }

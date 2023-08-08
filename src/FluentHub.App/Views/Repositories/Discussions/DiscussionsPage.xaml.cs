@@ -8,28 +8,30 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Discussions
 {
-    public sealed partial class DiscussionsPage : Page
-    {
-        public DiscussionsPage()
-        {
-            InitializeComponent();
+	public sealed partial class DiscussionsPage : LocatablePage
+	{
+		public DiscussionsViewModel ViewModel;
 
-            ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+		private readonly INavigationService _navigation;
 
-        public DiscussionsViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+		public DiscussionsPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Discussions)
+		{
+			InitializeComponent();
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
+			ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-            var command = ViewModel.LoadRepositoryDiscussionsPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.UserLogin;
+			ViewModel.Name = param.RepositoryName;
+
+			var command = ViewModel.LoadRepositoryDiscussionsPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

@@ -192,15 +192,20 @@ namespace FluentHub.App.Data.Items
 					currentTabNavigationBar.NavigationBarItems.Add(item);
 			}
 
-			// Select item
+			var selectedCorrectOne = false;
+
 			foreach (var item in currentTabNavigationBar.NavigationBarItems)
 			{
 				if (item.PageItemKey == CurrentItem.PageKey)
 				{
 					currentTabNavigationBar.SelectedNavigationBarItem = item;
+					selectedCorrectOne = true;
 					break;
 				}
 			}
+
+			if (!selectedCorrectOne)
+				currentTabNavigationBar.SelectedNavigationBarItem = null;
 		}
 	}
 }

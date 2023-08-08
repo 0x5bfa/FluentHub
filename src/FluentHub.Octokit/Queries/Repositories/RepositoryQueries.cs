@@ -257,7 +257,7 @@
                         })
                         .Single(),
 
-                        LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+                        LatestRelease = x.Releases(1, null, null, null, null).Nodes.Select(release => new Release
                         {
                             DescriptionHTML = release.DescriptionHTML,
                             IsDraft = release.IsDraft,

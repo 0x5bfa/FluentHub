@@ -25,7 +25,7 @@
 	<Grid>
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadDetailsViewPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer>
-				<Grid Padding="24,24" RowSpacing="8">
+				<Grid Padding="32,24" RowSpacing="8">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
@@ -193,7 +193,7 @@
 							x:Name="RepositoryMetaInfoBlock"
 							Grid.Column="1"
 							Width="256"
-							Padding="24,12,0,0"
+							Padding="12,12,0,0"
 							x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
 							RowSpacing="12">
 							<Grid.RowDefinitions>
@@ -210,23 +210,23 @@
 										Text="About" />
 
 									<!--<Button
-                                        x:Name="SettingsButton"
-                                        Width="36"
-                                        Height="32"
-                                        Padding="0"
-                                        HorizontalAlignment="Right"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        IsEnabled="False">
-                                        <AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
-                                            <AnimatedIcon.Source>
-                                                <animatedvisuals:AnimatedSettingsVisualSource />
-                                            </AnimatedIcon.Source>
-                                            <AnimatedIcon.FallbackIconSource>
-                                                <SymbolIconSource Symbol="Setting" />
-                                            </AnimatedIcon.FallbackIconSource>
-                                        </AnimatedIcon>
-                                    </Button>-->
+										x:Name="SettingsButton"
+										Width="36"
+										Height="32"
+										Padding="0"
+										HorizontalAlignment="Right"
+										Background="Transparent"
+										BorderThickness="0"
+										IsEnabled="False">
+										<AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
+											<AnimatedIcon.Source>
+												<animatedvisuals:AnimatedSettingsVisualSource />
+											</AnimatedIcon.Source>
+											<AnimatedIcon.FallbackIconSource>
+												<SymbolIconSource Symbol="Setting" />
+											</AnimatedIcon.FallbackIconSource>
+										</AnimatedIcon>
+									</Button>-->
 								</Grid>
 
 								<TextBlock

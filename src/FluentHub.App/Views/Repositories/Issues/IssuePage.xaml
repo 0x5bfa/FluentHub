@@ -1418,7 +1418,7 @@
 					<!--  Overview  -->
 					<Grid
 						Grid.Row="0"
-						Padding="24,12,24,12"
+						Padding="32,24,32,12"
 						ColumnSpacing="12"
 						RowSpacing="12">
 						<Grid.RowDefinitions>
