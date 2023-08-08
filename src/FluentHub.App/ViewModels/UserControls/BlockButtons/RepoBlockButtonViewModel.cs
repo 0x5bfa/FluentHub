@@ -26,10 +26,13 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 		private void GoRepository()
 		{
 			var _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
 
-			parameter.UserLogin = Repository.Owner.Login;
-			parameter.RepositoryName = Repository.Name;
+			var navBar = _navigation.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = Repository.Owner.Login,
+				SecondaryText = Repository.Name,
+			};
 
 			if (App.AppSettings.UseDetailsView)
 				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();

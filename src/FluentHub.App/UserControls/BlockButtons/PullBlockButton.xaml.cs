@@ -38,8 +38,8 @@ namespace FluentHub.App.UserControls.BlockButtons
             navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
                 new FrameNavigationParameter()
                 {
-                    UserLogin = ViewModel.PullItem.Repository.Owner.Login,
-                    RepositoryName = ViewModel.PullItem.Repository.Name,
+                    PrimaryText = ViewModel.PullItem.Repository.Owner.Login,
+                    SecondaryText = ViewModel.PullItem.Repository.Name,
                     Number = ViewModel.PullItem.Number,
                 });
         }

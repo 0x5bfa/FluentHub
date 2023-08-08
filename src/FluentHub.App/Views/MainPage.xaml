@@ -178,16 +178,16 @@
 							<TextBlock
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.UserLogin, Mode=OneWay}"
-								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
+								Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}"
+								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
 							<StackPanel
 								Orientation="Horizontal"
 								Spacing="8"
-								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 								<TextBlock
 									VerticalAlignment="Center"
 									Style="{StaticResource BodyTextBlockStyle}"
-									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.UserLogin, Mode=OneWay}" />
+									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
 								<TextBlock
 									VerticalAlignment="Center"
 									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -196,7 +196,7 @@
 								<TextBlock
 									VerticalAlignment="Center"
 									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Mode=OneWay}" />
+									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
 							</StackPanel>
 						</StackPanel>
 

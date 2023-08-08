@@ -62,14 +62,14 @@ namespace FluentHub.App.UserControls.Overview
                     navService.Navigate<Views.Organizations.OverviewPage>(
                     new FrameNavigationParameter()
                     {
-                        UserLogin = ViewModel.Organization.Login,
+                        PrimaryText = ViewModel.Organization.Login,
                     });
                     break;
                 case "repositories":
                     navService.Navigate<Views.Organizations.RepositoriesPage>(
                     new FrameNavigationParameter()
                     {
-                        UserLogin = ViewModel.Organization.Login,
+                        PrimaryText = ViewModel.Organization.Login,
                     });
                     break;
             }

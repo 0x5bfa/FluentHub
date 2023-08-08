@@ -21,17 +21,17 @@ namespace FluentHub.App.Data.Items
 				if (value is not null && SetProperty(ref _SelectedNavigationBarItem, value))
 				{
 					// Parameters validation
-					if ((value.PageKind == NavigationPageKind.User && Parameter?.UserLogin is not null) ||
-						(value.PageKind == NavigationPageKind.Repository && Parameter?.RepositoryName is not null) ||
-						(value.PageKind == NavigationPageKind.Organization && Parameter?.UserLogin is not null))
+					if ((value.PageKind == NavigationPageKind.User && Context?.PrimaryText is not null) ||
+						(value.PageKind == NavigationPageKind.Repository && Context?.SecondaryText is not null) ||
+						(value.PageKind == NavigationPageKind.Organization && Context?.PrimaryText is not null))
 					{
 						var service = Ioc.Default.GetRequiredService<INavigationService>();
 						service.Navigate(
 							value.PageToNavigate,
 							new FrameNavigationParameter()
 							{
-								UserLogin = Parameter.UserLogin,
-								RepositoryName = Parameter.RepositoryName,
+								PrimaryText = Context.PrimaryText,
+								SecondaryText = Context.SecondaryText,
 							});
 					}
 				}
@@ -52,11 +52,11 @@ namespace FluentHub.App.Data.Items
 		public bool IsNavigationBarShown
 			=> PageKind != NavigationPageKind.None;
 
-		private FrameNavigationParameter _Parameter = new();
-		public FrameNavigationParameter Parameter
+		private FrameNavigationParameter _Context = new();
+		public FrameNavigationParameter Context
 		{
-			get => _Parameter;
-			set => SetProperty(ref _Parameter, value);
+			get => _Context;
+			set => SetProperty(ref _Context, value);
 		}
 	}
 }

@@ -9,15 +9,23 @@ namespace FluentHub.App.Views.Viewers
 {
 	public sealed partial class NotificationsPage : LocatablePage
 	{
+		public NotificationsViewModel ViewModel { get; }
+
+		private readonly INavigationService _navigation;
+
 		public NotificationsPage()
 			:	base(NavigationPageKind.None, NavigationPageKey.None)
 		{
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<NotificationsViewModel>();
-		}
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-		public NotificationsViewModel ViewModel { get; }
+			_navigation.TabView.SelectedItem.NavigationBar.Context = new()
+			{
+				PrimaryText = "Notifications"
+			};
+		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{

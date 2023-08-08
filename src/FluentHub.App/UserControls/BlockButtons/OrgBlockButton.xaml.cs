@@ -37,7 +37,7 @@ namespace FluentHub.App.UserControls.BlockButtons
             service.Navigate<Views.Organizations.OverviewPage>(
                 new FrameNavigationParameter()
                 {
-                    UserLogin = ViewModel.OrgItem.Login,
+                    PrimaryText = ViewModel.OrgItem.Login,
                 });
         }
     }

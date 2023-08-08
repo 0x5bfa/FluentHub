@@ -40,8 +40,8 @@ namespace FluentHub.App.UserControls.Overview
 
             var param = new FrameNavigationParameter()
             {
-                UserLogin = ViewModel.PullRequest?.Repository?.Owner?.Login,
-                RepositoryName = ViewModel.PullRequest?.Repository?.Name,
+                PrimaryText = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                SecondaryText = ViewModel.PullRequest?.Repository?.Name,
                 Number = ViewModel.PullRequest.Number,
             };
 

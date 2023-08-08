@@ -13,137 +13,136 @@ using Microsoft.UI.Xaml;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class RepositoriesViewModel : ObservableObject
-    {
-        public RepositoriesViewModel()
-        {
-            // Dependency Injection
-            _logger = Ioc.Default.GetRequiredService<ILogger>();
-            _messenger = Ioc.Default.GetRequiredService<IMessenger>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
+	public class RepositoriesViewModel : ObservableObject
+	{
+		public RepositoriesViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
-            Login = parameter.UserLogin;
-            if (parameter.AsViewer)
-            {
-                var currentTabItem = _navigation.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-                DisplayTitle = true;
-            }
+				DisplayTitle = true;
+			}
 
-            _repositories = new();
-            Repositories = new(_repositories);
+			_repositories = new();
+			Repositories = new(_repositories);
 
-            LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
-        }
+			LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
+		}
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
-        private readonly INavigationService _navigation;
+		#region Fields and Properties
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        public IAsyncRelayCommand LoadUserRepositoriesPageCommand { get; }
-        #endregion
+		public IAsyncRelayCommand LoadUserRepositoriesPageCommand { get; }
+		#endregion
 
-        private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+		private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            string _currentTaskingMethodName = nameof(LoadUserRepositoriesPageAsync);
+			string _currentTaskingMethodName = nameof(LoadUserRepositoriesPageAsync);
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-                _currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
-                await LoadUserRepositoriesAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+				_currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
+				await LoadUserRepositoriesAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-        private async Task LoadUserRepositoriesAsync(string login)
-        {
-            RepositoryQueries queries = new();
-            var response = await queries.GetAllAsync(login);
+		private async Task LoadUserRepositoriesAsync(string login)
+		{
+			RepositoryQueries queries = new();
+			var response = await queries.GetAllAsync(login);
 
-            _repositories.Clear();
-            foreach (var item in response)
-            {
-                RepoBlockButtonViewModel viewModel = new()
-                {
-                    Repository = item,
-                    DisplayDetails = true,
-                    DisplayStarButton = true,
-                };
+			_repositories.Clear();
+			foreach (var item in response)
+			{
+				RepoBlockButtonViewModel viewModel = new()
+				{
+					Repository = item,
+					DisplayDetails = true,
+					DisplayStarButton = true,
+				};
 
-                _repositories.Add(viewModel);
-            }
-        }
+				_repositories.Add(viewModel);
+			}
+		}
 
-        private async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+		private async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            User = response ?? new();
+			User = response ?? new();
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-                SelectedTag = "repositories",
-            };
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+				SelectedTag = "repositories",
+			};
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Repositories";
-            currentItem.Description = $"{Login}'s repositories";
-            currentItem.UserLogin = User?.Login;
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
-        }
-    }
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Repositories";
+			currentItem.Description = $"{Login}'s repositories";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+			};
+		}
+	}
 }

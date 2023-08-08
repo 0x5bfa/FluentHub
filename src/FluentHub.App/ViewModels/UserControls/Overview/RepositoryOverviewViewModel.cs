@@ -41,7 +41,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
 				service.Navigate<Views.Organizations.OverviewPage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = Repository.Owner.Login,
+						PrimaryText = Repository.Owner.Login,
 					});
 			}
 			else
@@ -49,7 +49,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
 				service.Navigate<Views.Users.OverviewPage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = Repository.Owner.Login,
+						PrimaryText = Repository.Owner.Login,
 					});
 			}
 		}

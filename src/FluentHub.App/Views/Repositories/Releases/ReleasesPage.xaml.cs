@@ -30,8 +30,8 @@ namespace FluentHub.App.Views.Repositories.Releases
 			var param = e.Parameter as FrameNavigationParameter;
 			_ = param ?? throw new ArgumentNullException("param");
 
-			ViewModel.Login = param.UserLogin;
-			ViewModel.Name = param.RepositoryName;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
 
 			var command = ViewModel.LoadRepositoryReleasesPageCommand;
 			if (command.CanExecute(null))
@@ -43,8 +43,8 @@ namespace FluentHub.App.Views.Repositories.Releases
 			_navigation.Navigate<ReleasePage>(
 				new FrameNavigationParameter()
 				{
-					UserLogin = ViewModel.Repository.Owner.Login,
-					RepositoryName = ViewModel.Repository.Name,
+					PrimaryText = ViewModel.Repository.Owner.Login,
+					SecondaryText = ViewModel.Repository.Name,
 					Parameters = new() { $"{(sender as Button).Tag as string}" }
 				});
 		}

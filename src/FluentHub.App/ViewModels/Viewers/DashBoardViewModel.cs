@@ -77,10 +77,10 @@ namespace FluentHub.App.ViewModels.Viewers
 			if (repo is null)
 				return;
 
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 
-			parameter.UserLogin = repo.Owner.Login;
-			parameter.RepositoryName = repo.Name;
+			parameter.PrimaryText = repo.Owner.Login;
+			parameter.SecondaryText = repo.Name;
 
 			if (App.AppSettings.UseDetailsView)
 				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
@@ -101,8 +101,8 @@ namespace FluentHub.App.ViewModels.Viewers
 					_navigation.Navigate<Views.Repositories.Issues.IssuePage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = notification.Repository.Owner.Login,
-						RepositoryName = notification.Repository.Name,
+						PrimaryText = notification.Repository.Owner.Login,
+						SecondaryText = notification.Repository.Name,
 						Number = notification.Subject.Number,
 					});
 					break;
@@ -113,8 +113,8 @@ namespace FluentHub.App.ViewModels.Viewers
 					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = notification.Repository.Owner.Login,
-						RepositoryName = notification.Repository.Name,
+						PrimaryText = notification.Repository.Owner.Login,
+						SecondaryText = notification.Repository.Name,
 						Number = notification.Subject.Number,
 					});
 					break;

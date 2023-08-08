@@ -151,9 +151,14 @@ namespace FluentHub.App.Views
 		{
 			var mfi = (MenuFlyoutItem)sender;
 
-			var parameter = NavigationService.TabView.SelectedItem.NavigationBar.Parameter;
-			parameter.UserLogin = ViewModel.SignedInUser.Login;
-			parameter.AsViewer = false;
+			var parameter = NavigationService.TabView.SelectedItem.NavigationBar.Context;
+
+			var navBar = NavigationService.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = ViewModel.SignedInUser.Login,
+				AsViewer = false,
+			};
 
 			switch (mfi.Tag.ToString())
 			{

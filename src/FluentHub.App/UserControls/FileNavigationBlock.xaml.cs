@@ -127,8 +127,8 @@ namespace FluentHub.App.UserControls
             navService.Navigate<Views.Repositories.Code.DetailsLayoutView>(
                 new FrameNavigationParameter()
                 {
-                    UserLogin = ViewModel.ContextViewModel.Repository.Owner.Login,
-                    RepositoryName = ViewModel.ContextViewModel.Repository.Name,
+                    PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
+                    SecondaryText = ViewModel.ContextViewModel.Repository.Name,
                     Parameters = param,
                 });
         }

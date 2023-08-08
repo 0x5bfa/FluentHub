@@ -31,8 +31,8 @@ namespace FluentHub.App.Views.Repositories.Releases
 			var param = e.Parameter as FrameNavigationParameter;
 			_ = param ?? throw new ArgumentNullException("param");
 
-			ViewModel.Login = param.UserLogin;
-			ViewModel.Name = param.RepositoryName;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
 			ViewModel.TagName = param.Parameters.ElementAtOrDefault(0) as string;
 
 			var command = ViewModel.LoadRepositoryReleasePageCommand;

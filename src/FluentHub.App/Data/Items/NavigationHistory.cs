@@ -165,7 +165,7 @@ namespace FluentHub.App.Data.Items
 			{
 				currentTabNavigationBar.NavigationBarItems = new();
 				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
-				currentTabNavigationBar.Parameter = CurrentItem.Context ?? new();
+				currentTabNavigationBar.Context = CurrentItem.Context ?? new();
 
 				return;
 			}
@@ -174,6 +174,7 @@ namespace FluentHub.App.Data.Items
 			if (previousItem.PageKind != CurrentItem.PageKind)
 			{
 				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
+				currentTabNavigationBar.Context = CurrentItem.Context ?? new();
 
 				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
 					currentTabNavigationBar.NavigationBarItems.Clear();
@@ -192,20 +193,21 @@ namespace FluentHub.App.Data.Items
 					currentTabNavigationBar.NavigationBarItems.Add(item);
 			}
 
-			var selectedCorrectOne = false;
-
-			foreach (var item in currentTabNavigationBar.NavigationBarItems)
+			if (CurrentItem.PageKey is NavigationPageKey.None)
 			{
-				if (item.PageItemKey == CurrentItem.PageKey)
+				currentTabNavigationBar.SelectedNavigationBarItem = null;
+			}
+			else
+			{
+				foreach (var item in currentTabNavigationBar.NavigationBarItems)
 				{
-					currentTabNavigationBar.SelectedNavigationBarItem = item;
-					selectedCorrectOne = true;
-					break;
+					if (item.PageItemKey == CurrentItem.PageKey)
+					{
+						currentTabNavigationBar.SelectedNavigationBarItem = item;
+						break;
+					}
 				}
 			}
-
-			if (!selectedCorrectOne)
-				currentTabNavigationBar.SelectedNavigationBarItem = null;
 		}
 	}
 }

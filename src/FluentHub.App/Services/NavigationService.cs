@@ -114,7 +114,6 @@ namespace FluentHub.App.Services
 
 			currentItem.Header = newEntry.Header ?? string.Empty;
 			currentItem.Description = newEntry.Description ?? string.Empty;
-			currentItem.UserLogin = newEntry.UserLogin ?? string.Empty;
 
 			if (newEntry.Icon is not null)
 				currentItem.Icon = newEntry.Icon;

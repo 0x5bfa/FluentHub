@@ -21,8 +21,8 @@ namespace FluentHub.App.ViewModels.Users
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
-			Login = parameter.UserLogin;
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
 
 			_pinnedRepositories = new();
 			PinnedRepositories = new(_pinnedRepositories);
@@ -161,7 +161,6 @@ namespace FluentHub.App.ViewModels.Users
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 			currentItem.Header = $"{User?.Login}";
 			currentItem.Description = $"{User?.Login}";
-			currentItem.UserLogin = User?.Login;
 			currentItem.Icon = new ImageIconSource
 			{
 				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))

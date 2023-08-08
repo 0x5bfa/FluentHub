@@ -34,8 +34,8 @@ namespace FluentHub.App.UserControls.BlockButtons
 
             var param = new FrameNavigationParameter()
             {
-                UserLogin = ViewModel.CommitItem.Repository.Owner.Login,
-                RepositoryName = ViewModel.CommitItem.Repository.Name,
+                PrimaryText = ViewModel.CommitItem.Repository.Owner.Login,
+                SecondaryText = ViewModel.CommitItem.Repository.Name,
                 Parameters = new() { ViewModel.CommitItem },
             };
 

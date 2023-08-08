@@ -9,26 +9,6 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 {
 	public class DetailsLayoutViewModel : ObservableObject
 	{
-		public DetailsLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
-		{
-			_messenger = messenger;
-			_logger = logger;
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
-			Login = parameter.UserLogin;
-			Name = parameter.RepositoryName;
-
-			if (parameter.Parameters is not null)
-				CurrentPath = parameter.Parameters.ElementAtOrDefault(0) as string;
-
-			_items = new();
-			Items = new(_items);
-
-			LoadDetailsViewPageCommand = new AsyncRelayCommand(LoadDetailsViewPageAsync);
-		}
-
-		#region Fields and Properties
 		private readonly ILogger _logger;
 
 		private readonly IMessenger _messenger;
@@ -69,7 +49,25 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
 		public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
-		#endregion
+
+		public DetailsLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
+		{
+			_messenger = messenger;
+			_logger = logger;
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			Name = parameter.SecondaryText;
+
+			if (parameter.Parameters is not null)
+				CurrentPath = parameter.Parameters.ElementAtOrDefault(0) as string;
+
+			_items = new();
+			Items = new(_items);
+
+			LoadDetailsViewPageCommand = new AsyncRelayCommand(LoadDetailsViewPageAsync);
+		}
 
 		private async Task LoadDetailsViewPageAsync()
 		{
@@ -263,9 +261,6 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-
-			currentItem.UserLogin = Repository.Owner.Login;
-			currentItem.RepositoryName = Repository.Name;
 		}
 	}
 }

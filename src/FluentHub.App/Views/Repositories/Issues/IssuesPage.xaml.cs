@@ -30,8 +30,8 @@ namespace FluentHub.App.Views.Repositories.Issues
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.Login = param.UserLogin;
-			ViewModel.Name = param.RepositoryName;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
 
 			var command = ViewModel.LoadRepositoryIssuesPageCommand;
 			if (command.CanExecute(null))

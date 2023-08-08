@@ -41,8 +41,8 @@ namespace FluentHub.App.UserControls.Overview
                 case "code":
                     var param = new FrameNavigationParameter()
                     {
-                        UserLogin = ViewModel.Repository?.Owner?.Login,
-                        RepositoryName = ViewModel.Repository?.Name,
+                        PrimaryText = ViewModel.Repository?.Owner?.Login,
+                        SecondaryText = ViewModel.Repository?.Name,
                     };
 
                     if (App.AppSettings.UseDetailsView)
@@ -55,8 +55,8 @@ namespace FluentHub.App.UserControls.Overview
                         typeof(Views.Repositories.Issues.IssuesPage),
                         new FrameNavigationParameter()
                         {
-                            UserLogin = ViewModel.Repository?.Owner?.Login,
-                            RepositoryName = ViewModel.Repository?.Name,
+                            PrimaryText = ViewModel.Repository?.Owner?.Login,
+                            SecondaryText = ViewModel.Repository?.Name,
                         });
                     break;
                 case "pullrequests":
@@ -64,8 +64,8 @@ namespace FluentHub.App.UserControls.Overview
                         typeof(Views.Repositories.PullRequests.PullRequestsPage),
                         new FrameNavigationParameter()
                         {
-                            UserLogin = ViewModel.Repository?.Owner?.Login,
-                            RepositoryName = ViewModel.Repository?.Name,
+                            PrimaryText = ViewModel.Repository?.Owner?.Login,
+                            SecondaryText = ViewModel.Repository?.Name,
                         });
                     break;
                 case "discussions":
@@ -73,8 +73,8 @@ namespace FluentHub.App.UserControls.Overview
                         typeof(Views.Repositories.Discussions.DiscussionsPage),
                         new FrameNavigationParameter()
                         {
-                            UserLogin = ViewModel.Repository?.Owner?.Login,
-                            RepositoryName = ViewModel.Repository?.Name,
+                            PrimaryText = ViewModel.Repository?.Owner?.Login,
+                            SecondaryText = ViewModel.Repository?.Name,
                         });
                     break;
                 case "projects":
@@ -82,8 +82,8 @@ namespace FluentHub.App.UserControls.Overview
                         typeof(Views.Repositories.Projects.ProjectsPage),
                         new FrameNavigationParameter()
                         {
-                            UserLogin = ViewModel.Repository?.Owner?.Login,
-                            RepositoryName = ViewModel.Repository?.Name,
+                            PrimaryText = ViewModel.Repository?.Owner?.Login,
+                            SecondaryText = ViewModel.Repository?.Name,
                         });
                     break;
                 case "insights":

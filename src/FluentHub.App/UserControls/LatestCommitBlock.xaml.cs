@@ -58,8 +58,8 @@ namespace FluentHub.App.UserControls
             navigationService.Navigate<CommitsPage>(
                 new FrameNavigationParameter()
                 {
-                    UserLogin = ViewModel.ContextViewModel.Repository.Owner.Login,
-                    RepositoryName = ViewModel.ContextViewModel.Repository.Name,
+                    PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
+                    SecondaryText = ViewModel.ContextViewModel.Repository.Name,
                     Parameters = new() { ViewModel.ContextViewModel },
                 });
         }

@@ -51,8 +51,8 @@ namespace FluentHub.App.Views.Repositories.Code
 			_navigation.Navigate<DetailsLayoutView>(
 				new FrameNavigationParameter()
 				{
-					UserLogin = ViewModel.Repository.Owner.Login,
-					RepositoryName = ViewModel.Repository.Name,
+					PrimaryText = ViewModel.Repository.Owner.Login,
+					SecondaryText = ViewModel.Repository.Name,
 					Parameters = param,
 				});
 		}
@@ -62,8 +62,8 @@ namespace FluentHub.App.Views.Repositories.Code
 			_navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
 				new FrameNavigationParameter()
 				{
-					UserLogin = ViewModel.Repository.Owner.Login,
-					RepositoryName = ViewModel.Repository.Name,
+					PrimaryText = ViewModel.Repository.Owner.Login,
+					SecondaryText = ViewModel.Repository.Name,
 					Parameters = new() { ViewModel.ContextViewModel },
 				});
 		}

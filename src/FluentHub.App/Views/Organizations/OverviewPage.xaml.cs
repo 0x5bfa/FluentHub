@@ -22,7 +22,7 @@ namespace FluentHub.App.Views.Organizations
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.UserLogin;
+            ViewModel.Login = param.PrimaryText;
 
             var command = ViewModel.LoadOrganizationOverviewPageCommand;
             if (command.CanExecute(null))

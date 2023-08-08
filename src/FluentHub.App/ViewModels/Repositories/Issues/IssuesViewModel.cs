@@ -137,8 +137,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
             INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.UserLogin = Repository.Owner.Login;
-            currentItem.RepositoryName = Repository.Name;
             currentItem.Header = "Issues";
             currentItem.Description = "Issues";
             currentItem.Icon = new ImageIconSource

@@ -5,9 +5,9 @@ namespace FluentHub.App.Data.Parameters
 {
 	public class FrameNavigationParameter
 	{
-		public string? UserLogin { get; set; }
+		public string? PrimaryText { get; set; }
 
-		public string? RepositoryName { get; set; }
+		public string? SecondaryText { get; set; }
 
 		public int Number { get; set; }
 

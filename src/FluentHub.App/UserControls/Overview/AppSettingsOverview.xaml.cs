@@ -59,7 +59,7 @@ namespace FluentHub.App.UserControls.Overview
             // Parameter (should not use)
             FrameNavigationParameter parameter = new()
             {
-                UserLogin = ViewModel?.User?.Login,
+                PrimaryText = ViewModel?.User?.Login,
             };
 
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())

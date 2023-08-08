@@ -22,6 +22,11 @@ namespace FluentHub.App.Views.Viewers
 			// Dependency injection
 			ViewModel = Ioc.Default.GetRequiredService<DashBoardViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			_navigation.TabView.SelectedItem.NavigationBar.Context = new()
+			{
+				PrimaryText = "Dashboard"
+			};
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

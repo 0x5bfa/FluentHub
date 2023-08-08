@@ -36,8 +36,8 @@ namespace FluentHub.App.Views.Repositories.Issues
 				throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
 			}
 
-			ViewModel.Login = param.UserLogin;
-			ViewModel.Name = param.RepositoryName;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
 			ViewModel.Number = param.Number;
 
 			var command = ViewModel.LoadRepositoryIssuePageCommand;

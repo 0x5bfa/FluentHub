@@ -33,6 +33,9 @@ namespace FluentHub.App.Views
 
 		public void CheckIfNavigationBarShouldBeChanged()
 		{
+			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
+				_navigationService.TabView.SelectedItem.NavigationBar.Context;
+
 			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
 			if (currentTabNavigationBar is null)
 				return;

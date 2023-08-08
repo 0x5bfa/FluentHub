@@ -40,8 +40,8 @@ namespace FluentHub.App.UserControls.BlockButtons
 					navService.Navigate<Views.Repositories.Issues.IssuePage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = ViewModel.Item.Repository.Owner.Login,
-						RepositoryName = ViewModel.Item.Repository.Name,
+						PrimaryText = ViewModel.Item.Repository.Owner.Login,
+						SecondaryText = ViewModel.Item.Repository.Name,
 						Number = ViewModel.Item.Subject.Number,
 					});
 					break;
@@ -52,8 +52,8 @@ namespace FluentHub.App.UserControls.BlockButtons
 					navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
 					new FrameNavigationParameter()
 					{
-						UserLogin = ViewModel.Item.Repository.Owner.Login,
-						RepositoryName = ViewModel.Item.Repository.Name,
+						PrimaryText = ViewModel.Item.Repository.Owner.Login,
+						SecondaryText = ViewModel.Item.Repository.Name,
 						Number = ViewModel.Item.Subject.Number,
 					});
 					break;

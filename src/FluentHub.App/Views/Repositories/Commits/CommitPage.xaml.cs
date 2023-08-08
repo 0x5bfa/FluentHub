@@ -27,8 +27,8 @@ namespace FluentHub.App.Views.Repositories.Commits
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
+            ViewModel.Login = param.PrimaryText;
+            ViewModel.Name = param.SecondaryText;
             ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
 
             var command = ViewModel.LoadRepositoryCommitPageCommand;

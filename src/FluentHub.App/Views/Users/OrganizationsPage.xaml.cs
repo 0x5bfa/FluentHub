@@ -31,8 +31,8 @@ namespace FluentHub.App.Views.Users
 		{
 			var parameter = (FrameNavigationParameter)e.Parameter;
 
-			ViewModel.Login = parameter.UserLogin
-				?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
+			ViewModel.Login = parameter.PrimaryText
+				?? throw new ArgumentNullException(nameof(parameter.PrimaryText), "Login parameter cannot be null in this context.");
 
 			if (parameter.AsViewer)
 			{

@@ -12,137 +12,134 @@ using Microsoft.UI.Xaml;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class StarredReposViewModel : ObservableObject
-    {
-        public StarredReposViewModel()
-        {
-            // Dependency Injection
-            _logger = Ioc.Default.GetRequiredService<ILogger>();
-            _messenger = Ioc.Default.GetRequiredService<IMessenger>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
+	public class StarredReposViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
-            Login = parameter.UserLogin;
-            if (parameter.AsViewer)
-            {
-                var currentTabItem = _navigation.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-                DisplayTitle = true;
-            }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-            _repositories = new();
-            Repositories = new(_repositories);
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-            LoadUserStarredRepositoriesPageCommand = new AsyncRelayCommand(LoadUserStarredRepositoriesPageAsync);
-        }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
-        private readonly INavigationService _navigation;
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		public IAsyncRelayCommand LoadUserStarredRepositoriesPageCommand { get; }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		public StarredReposViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
+				DisplayTitle = true;
+			}
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			_repositories = new();
+			Repositories = new(_repositories);
 
-        public IAsyncRelayCommand LoadUserStarredRepositoriesPageCommand { get; }
-        #endregion
+			LoadUserStarredRepositoriesPageCommand = new AsyncRelayCommand(LoadUserStarredRepositoriesPageAsync);
+		}
 
-        private async Task LoadUserStarredRepositoriesPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+		private async Task LoadUserStarredRepositoriesPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            string _currentTaskingMethodName = nameof(LoadUserStarredRepositoriesPageAsync);
+			string _currentTaskingMethodName = nameof(LoadUserStarredRepositoriesPageAsync);
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-                _currentTaskingMethodName = nameof(LoadUserStarredRepositoriesAsync);
-                await LoadUserStarredRepositoriesAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+				_currentTaskingMethodName = nameof(LoadUserStarredRepositoriesAsync);
+				await LoadUserStarredRepositoriesAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-        private async Task LoadUserStarredRepositoriesAsync(string login)
-        {
-            StarredRepoQueries queries = new();
-            var response = await queries.GetAllAsync(login);
+		private async Task LoadUserStarredRepositoriesAsync(string login)
+		{
+			StarredRepoQueries queries = new();
+			var response = await queries.GetAllAsync(login);
 
-            _repositories.Clear();
-            foreach (var item in response)
-            {
-                RepoBlockButtonViewModel viewModel = new()
-                {
-                    Repository = item,
-                    DisplayDetails = true,
-                    DisplayStarButton = true,
-                };
+			_repositories.Clear();
+			foreach (var item in response)
+			{
+				RepoBlockButtonViewModel viewModel = new()
+				{
+					Repository = item,
+					DisplayDetails = true,
+					DisplayStarButton = true,
+				};
 
-                _repositories.Add(viewModel);
-            }
-        }
+				_repositories.Add(viewModel);
+			}
+		}
 
-        public async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+		public async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            User = response ?? new();
+			User = response ?? new();
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-                SelectedTag = "stars",
-            };
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+				SelectedTag = "stars",
+			};
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Stars";
-            currentItem.Description = $"{User?.Login}'s stars";
-            currentItem.UserLogin = User?.Login;
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
-            };
-        }
-    }
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Stars";
+			currentItem.Description = $"{User?.Login}'s stars";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
+			};
+		}
+	}
 }
