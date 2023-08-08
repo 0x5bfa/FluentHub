@@ -1,9 +1,9 @@
-# Update Degital Signature
+# Update Digital Signature
 
-We're temporarily suspending the degital signature of msix file, and you can install it using powershell as stated in the README or follow following steps.
+We're temporarily suspending the digital signature of msix file, and you can install it using powershell as stated in the README or follow following steps.
 
-1. Right-click on the misx file to open the property
-2. Open the Degital signature tab
+1. Right-click on the msix file to open the property
+2. Open the Digital signature tab
 3. Select item that signer is FluentHub and click Details
 4. Click View Certificate
 5. Click install Certificate
