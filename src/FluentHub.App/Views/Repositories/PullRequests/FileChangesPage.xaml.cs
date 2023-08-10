@@ -12,30 +12,30 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.PullRequests
 {
-    public sealed partial class FileChangesPage : LocatablePage
-    {
-        public FileChangesViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+	public sealed partial class FileChangesPage : LocatablePage
+	{
+		public FileChangesViewModel ViewModel { get; }
+		private readonly INavigationService _navigation;
 
-        public FileChangesPage()
-            : base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
-        {
-            InitializeComponent();
+		public FileChangesPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<FileChangesViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<FileChangesViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
-            ViewModel.Number = param.Number;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
+			ViewModel.Number = param.Number;
 
-            var command = ViewModel.LoadRepositoryPullRequestFileChangesPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadRepositoryPullRequestFileChangesPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

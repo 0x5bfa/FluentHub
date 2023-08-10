@@ -14,159 +14,168 @@ using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
-    public class RepositoriesViewModel : ObservableObject
-    {
-        public RepositoriesViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class RepositoriesViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _repositories = new();
-            Repositories = new(_repositories);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadOrganizationRepositoriesPageCommand = new AsyncRelayCommand(LoadOrganizationRepositoriesPageAsync);
-        }
+		private Organization _organization;
+		public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
+		public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private bool _oauthAppIsRestrictedByOrgSettings;
+		public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
-        private Organization _organization;
-        public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-        private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
-        public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _oauthAppIsRestrictedByOrgSettings;
-        public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
+		public IAsyncRelayCommand LoadOrganizationRepositoriesPageCommand { get; }
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
+		public RepositoriesViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			}
 
-        public IAsyncRelayCommand LoadOrganizationRepositoriesPageCommand { get; }
-        #endregion
+			_repositories = new();
+			Repositories = new(_repositories);
 
-        private async Task LoadOrganizationRepositoriesPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			LoadOrganizationRepositoriesPageCommand = new AsyncRelayCommand(LoadOrganizationRepositoriesPageAsync);
+		}
 
-            string _currentTaskingMethodName = nameof(LoadOrganizationRepositoriesPageAsync);
+		private async Task LoadOrganizationRepositoriesPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadOrganizationAsync);
-                await LoadOrganizationAsync(Login);
+			string _currentTaskingMethodName = nameof(LoadOrganizationRepositoriesPageAsync);
 
-                _currentTaskingMethodName = nameof(LoadOrganizationRepositoriesAsync);
-                await LoadOrganizationRepositoriesAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadOrganizationAsync);
+				await LoadOrganizationAsync(Login);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_currentTaskingMethodName = nameof(LoadOrganizationRepositoriesAsync);
+				await LoadOrganizationRepositoriesAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-        private async Task LoadOrganizationRepositoriesAsync(string org)
-        {
-            try
-            {
-                RepositoryQueries queries = new();
-                var response = await queries.GetAllAsync(org);
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                _repositories.Clear();
-                foreach (var item in response)
-                {
-                    RepoBlockButtonViewModel viewModel = new()
-                    {
-                        Repository = item,
-                        DisplayDetails = true,
-                        DisplayStarButton = true,
-                    };
+		private async Task LoadOrganizationRepositoriesAsync(string org)
+		{
+			try
+			{
+				RepositoryQueries queries = new();
+				var response = await queries.GetAllAsync(org);
 
-                    _repositories.Add(viewModel);
-                }
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadOrganizationRepositoriesAsync), ex);
+				_repositories.Clear();
+				foreach (var item in response)
+				{
+					RepoBlockButtonViewModel viewModel = new()
+					{
+						Repository = item,
+						DisplayDetails = true,
+						DisplayStarButton = true,
+					};
 
-                // OAuth restriction exception
-                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
-                {
-                    OAuthAppIsRestrictedByOrgSettings = true;
-                    return;
-                }
-                else if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-        }
+					_repositories.Add(viewModel);
+				}
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadOrganizationRepositoriesAsync), ex);
 
-        private async Task LoadOrganizationAsync(string org)
-        {
-            try
-            {
-                OrganizationQueries queries = new();
-                var response = await queries.GetAsync(org);
+				// OAuth restriction exception
+				if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+				{
+					OAuthAppIsRestrictedByOrgSettings = true;
+					return;
+				}
+				else if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
+		}
 
-                Organization = response ?? new();
+		private async Task LoadOrganizationAsync(string org)
+		{
+			try
+			{
+				OrganizationQueries queries = new();
+				var response = await queries.GetAsync(org);
 
-                // View model
-                OrganizationProfileOverviewViewModel = new()
-                {
-                    Organization = Organization,
-                    SelectedTag = "repositories",
-                };
-            }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadOrganizationAsync), ex);
+				Organization = response ?? new();
 
-                // OAuth restriction exception
-                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
-                {
-                    OAuthAppIsRestrictedByOrgSettings = true;
-                }
-                else if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-        }
+				// View model
+				OrganizationProfileOverviewViewModel = new()
+				{
+					Organization = Organization,
+					SelectedTag = "repositories",
+				};
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadOrganizationAsync), ex);
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+				// OAuth restriction exception
+				if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+				{
+					OAuthAppIsRestrictedByOrgSettings = true;
+				}
+				else if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
+		}
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Repositories";
-            currentItem.Description = "Repositories";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
-        }
-    }
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Repositories";
+			currentItem.Description = "Repositories";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+			};
+		}
+	}
 }

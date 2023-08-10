@@ -23,7 +23,8 @@ namespace FluentHub.App.Views.Viewers
 			ViewModel = Ioc.Default.GetRequiredService<DashBoardViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-			_navigation.TabView.SelectedItem.NavigationBar.Context = new()
+			_navigation.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
+				_navigation.TabView.SelectedItem.NavigationBar.Context = new()
 			{
 				PrimaryText = "Dashboard"
 			};

@@ -14,27 +14,6 @@ namespace FluentHub.App.ViewModels.Users
 {
 	public class OverviewViewModel : ObservableObject
 	{
-		public OverviewViewModel()
-		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-
-			_pinnedRepositories = new();
-			PinnedRepositories = new(_pinnedRepositories);
-
-			_pinnableRepositories = new();
-			PinnableRepositories = new(_pinnableRepositories);
-
-			LoadUserOverviewCommand = new AsyncRelayCommand(LoadUserOverviewAsync);
-			ShowPinnedRepositoriesEditorDialogCommand = new AsyncRelayCommand(ShowPinnedRepositoriesEditorDialogAsync);
-		}
-
-		#region Fields and Properties
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
 		private readonly INavigationService _navigation;
@@ -62,7 +41,26 @@ namespace FluentHub.App.ViewModels.Users
 
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
-		#endregion
+
+		public OverviewViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+
+			_pinnedRepositories = new();
+			PinnedRepositories = new(_pinnedRepositories);
+
+			_pinnableRepositories = new();
+			PinnableRepositories = new(_pinnableRepositories);
+
+			LoadUserOverviewCommand = new AsyncRelayCommand(LoadUserOverviewAsync);
+			ShowPinnedRepositoriesEditorDialogCommand = new AsyncRelayCommand(ShowPinnedRepositoriesEditorDialogAsync);
+		}
 
 		private async Task LoadUserOverviewAsync()
 		{

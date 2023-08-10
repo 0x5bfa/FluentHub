@@ -13,34 +13,18 @@ namespace FluentHub.App.Views.Users
 {
 	public sealed partial class IssuesPage : LocatablePage
 	{
-		private readonly INavigationService _navigationService;
-
 		public IssuesViewModel ViewModel { get; }
 
 		public IssuesPage()
-			: base(NavigationPageKind.User, NavigationPageKey.None)
+			: base(NavigationPageKind.User, NavigationPageKey.Issues)
 		{
 			InitializeComponent();
 
-			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			ViewModel = Ioc.Default.GetRequiredService<IssuesViewModel>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var parameter = (FrameNavigationParameter)e.Parameter;
-
-			ViewModel.Login = parameter.PrimaryText
-				?? throw new ArgumentNullException(nameof(parameter.PrimaryText), "Login parameter cannot be null in this context.");
-
-			if (parameter.AsViewer)
-			{
-				ViewModel.DisplayTitle = true;
-
-				var currentTabItem = _navigationService.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-			}
-
 			var command = ViewModel.LoadUserIssuesPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);

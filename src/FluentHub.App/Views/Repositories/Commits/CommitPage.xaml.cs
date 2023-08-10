@@ -11,29 +11,30 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Commits
 {
-    public sealed partial class CommitPage : Page
-    {
-        public CommitPage()
-        {
-            InitializeComponent();
+	public sealed partial class CommitPage : LocatablePage
+	{
+		public CommitViewModel ViewModel { get; }
+		private readonly INavigationService _navigation;
 
-            ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+		public CommitPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
 
-        public CommitViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+			ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
-            ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
+			ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
 
-            var command = ViewModel.LoadRepositoryCommitPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadRepositoryCommitPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

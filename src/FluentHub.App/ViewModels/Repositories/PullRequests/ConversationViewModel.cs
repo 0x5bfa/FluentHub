@@ -13,141 +13,147 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
-    public class ConversationViewModel : ObservableObject
-    {
-        public ConversationViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class ConversationViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _timelineItems = new();
-            TimelineItems = new(_timelineItems);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadRepositoryPullRequestConversationPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestConversationPageAsync);
-        }
+		private string _name;
+		public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private int _number;
+		public int Number { get => _number; set => SetProperty(ref _number, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private int _number;
-        public int Number { get => _number; set => SetProperty(ref _number, value); }
+		private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
+		public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+		private PullRequest pullItem;
+		public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+		private readonly ObservableCollection<object> _timelineItems;
+		public ReadOnlyObservableCollection<object> TimelineItems { get; set; }
 
-        private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
-        public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private PullRequest pullItem;
-        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
+		public IAsyncRelayCommand LoadRepositoryPullRequestConversationPageCommand { get; }
 
-        private readonly ObservableCollection<object> _timelineItems;
-        public ReadOnlyObservableCollection<object> TimelineItems { get; set; }
+		public ConversationViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			Name = parameter.SecondaryText;
+			Number = parameter.Number;
 
-        public IAsyncRelayCommand LoadRepositoryPullRequestConversationPageCommand { get; }
-        #endregion
+			_timelineItems = new();
+			TimelineItems = new(_timelineItems);
 
-        private async Task LoadRepositoryPullRequestConversationPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			LoadRepositoryPullRequestConversationPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestConversationPageAsync);
+		}
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestConversationPageAsync);
+		private async Task LoadRepositoryPullRequestConversationPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
-                await LoadRepositoryAsync(Login, Name);
+			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestConversationPageAsync);
 
-                _currentTaskingMethodName = nameof(LoadPullRequestAsync);
-                await LoadPullRequestAsync(Login, Name);
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
 
-                _currentTaskingMethodName = nameof(LoadRepositoryPullRequestCommentsAsync);
-                await LoadRepositoryPullRequestCommentsAsync(Login, Name);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+				_currentTaskingMethodName = nameof(LoadPullRequestAsync);
+				await LoadPullRequestAsync(Login, Name);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestCommentsAsync);
+				await LoadRepositoryPullRequestCommentsAsync(Login, Name);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-        private async Task LoadRepositoryPullRequestCommentsAsync(string owner, string name)
-        {
-            PullRequestQueries pullRequestQueries = new();
-            PullRequestEventQueries queries = new();
-            _timelineItems.Clear();
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            // Get pull request body comment
-            var bodyComment = await pullRequestQueries.GetBodyAsync(owner, name, Number);
-            _timelineItems.Add(bodyComment);
+		private async Task LoadRepositoryPullRequestCommentsAsync(string owner, string name)
+		{
+			PullRequestQueries pullRequestQueries = new();
+			PullRequestEventQueries queries = new();
+			_timelineItems.Clear();
 
-            // Get all pull request event timeline items
-            var pullEvents = await queries.GetAllAsync(owner, name, Number);
-            foreach (var item in pullEvents)
-                _timelineItems.Add(item);
-        }
+			// Get pull request body comment
+			var bodyComment = await pullRequestQueries.GetBodyAsync(owner, name, Number);
+			_timelineItems.Add(bodyComment);
 
-        private async Task LoadPullRequestAsync(string owner, string name)
-        {
-            PullRequestQueries queries = new();
-            PullItem = await queries.GetAsync(owner, name, Number);
+			// Get all pull request event timeline items
+			var pullEvents = await queries.GetAllAsync(owner, name, Number);
+			foreach (var item in pullEvents)
+				_timelineItems.Add(item);
+		}
 
-            PullRequestOverviewViewModel = new()
-            {
-                PullRequest = PullItem,
-                SelectedTag = "conversation",
-            };
-        }
+		private async Task LoadPullRequestAsync(string owner, string name)
+		{
+			PullRequestQueries queries = new();
+			PullItem = await queries.GetAsync(owner, name, Number);
 
-        private async Task LoadRepositoryAsync(string owner, string name)
-        {
-            RepositoryQueries queries = new();
-            Repository = await queries.GetDetailsAsync(owner, name);
+			PullRequestOverviewViewModel = new()
+			{
+				PullRequest = PullItem,
+				SelectedTag = "conversation",
+			};
+		}
 
-            RepositoryOverviewViewModel = new()
-            {
-                Repository = Repository,
-                RepositoryName = Repository.Name,
-                RepositoryOwnerLogin = Repository.Owner.Login,
-                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+		private async Task LoadRepositoryAsync(string owner, string name)
+		{
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(owner, name);
 
-                SelectedTag = "pullrequests",
-            };
-        }
+			RepositoryOverviewViewModel = new()
+			{
+				Repository = Repository,
+				RepositoryName = Repository.Name,
+				RepositoryOwnerLogin = Repository.Owner.Login,
+				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+				SelectedTag = "pullrequests",
+			};
+		}
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = "Discussions";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
-        }
-    }
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = $"Pull request #{PullItem.Number}";
+			currentItem.Description = $"Pull request #{PullItem.Number}";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequest.png"))
+			};
+		}
+	}
 }

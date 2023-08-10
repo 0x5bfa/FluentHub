@@ -12,36 +12,23 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.PullRequests
 {
-    public sealed partial class ConversationPage : LocatablePage
-    {
-        public ConversationViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
+	public sealed partial class ConversationPage : LocatablePage
+	{
+		public ConversationViewModel ViewModel;
 
-        public ConversationPage()
-            : base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
-        {
-            InitializeComponent();
+		public ConversationPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<ConversationViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<ConversationViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-
-            if (param == null)
-            {
-                throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
-            }
-
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
-            ViewModel.Number = param.Number;
-
-            var command = ViewModel.LoadRepositoryPullRequestConversationPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var command = ViewModel.LoadRepositoryPullRequestConversationPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

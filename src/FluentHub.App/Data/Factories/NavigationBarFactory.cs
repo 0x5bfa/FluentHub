@@ -1,8 +1,6 @@
 ﻿// Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Data.Items;
-
 namespace FluentHub.App.Data.Factories
 {
 	public static class NavigationBarFactory
@@ -53,6 +51,20 @@ namespace FluentHub.App.Data.Factories
 					PageItemKey = NavigationPageKey.PullRequests,
 					PageKind = NavigationPageKind.Repository,
 				},
+				new()
+				{
+					Text = "Discussions",
+					PageToNavigate = typeof(Views.Repositories.Discussions.DiscussionsPage),
+					PageItemKey = NavigationPageKey.Discussions,
+					PageKind = NavigationPageKind.Repository,
+				},
+				new()
+				{
+					Text = "Projects",
+					PageToNavigate = typeof(Views.Repositories.Projects.ProjectsPage),
+					PageItemKey = NavigationPageKey.Projects,
+					PageKind = NavigationPageKind.Repository,
+				},
 			};
 		}
 
@@ -79,6 +91,55 @@ namespace FluentHub.App.Data.Factories
 					Text = "Stars",
 					PageToNavigate = typeof(Views.Users.StarsPage),
 					PageItemKey = NavigationPageKey.Stars,
+					PageKind = NavigationPageKind.User,
+				},
+				new()
+				{
+					Text = "Issues",
+					PageToNavigate = typeof(Views.Users.IssuesPage),
+					PageItemKey = NavigationPageKey.Issues,
+					PageKind = NavigationPageKind.User,
+				},
+				new()
+				{
+					Text = "Pull requests",
+					PageToNavigate = typeof(Views.Users.PullRequestsPage),
+					PageItemKey = NavigationPageKey.PullRequests,
+					PageKind = NavigationPageKind.User,
+				},
+				//new()
+				//{
+				//	Text = "Discussions",
+				//	PageToNavigate = typeof(Views.Users.DiscussionsPage),
+				//	PageItemKey = NavigationPageKey.Discussions,
+				//	PageKind = NavigationPageKind.User,
+				//},
+				//new()
+				//{
+				//	Text = "Projects",
+				//	PageToNavigate = typeof(Views.Users.ProjectsPage),
+				//	PageItemKey = NavigationPageKey.Projects,
+				//	PageKind = NavigationPageKind.User,
+				//},
+				new()
+				{
+					Text = "Organizations",
+					PageToNavigate = typeof(Views.Users.OrganizationsPage),
+					PageItemKey = NavigationPageKey.Organizations,
+					PageKind = NavigationPageKind.User,
+				},
+				new()
+				{
+					Text = "Followers",
+					PageToNavigate = typeof(Views.Users.FollowersPage),
+					PageItemKey = NavigationPageKey.Followers,
+					PageKind = NavigationPageKind.User,
+				},
+				new()
+				{
+					Text = "Following",
+					PageToNavigate = typeof(Views.Users.FollowingPage),
+					PageItemKey = NavigationPageKey.Following,
 					PageKind = NavigationPageKind.User,
 				},
 			};

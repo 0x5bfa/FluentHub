@@ -12,15 +12,12 @@ namespace FluentHub.App.Views.Repositories.Discussions
 	{
 		public DiscussionViewModel ViewModel;
 
-		private readonly INavigationService _navigation;
-
 		public DiscussionPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Discussions)
 		{
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<DiscussionViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

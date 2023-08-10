@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -11,122 +14,133 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class OrganizationsViewModel : ObservableObject
-    {
-        public OrganizationsViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class OrganizationsViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _organizations = new();
-            Organizations = new(_organizations);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadUserOrganizationsPageCommand = new AsyncRelayCommand(LoadUserOrganizationsPageAsync);
-        }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		private readonly ObservableCollection<OrgBlockButtonViewModel> _organizations;
+		public ReadOnlyObservableCollection<OrgBlockButtonViewModel> Organizations { get; }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+		public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
 
-        private readonly ObservableCollection<OrgBlockButtonViewModel> _organizations;
-        public ReadOnlyObservableCollection<OrgBlockButtonViewModel> Organizations { get; }
+		public OrganizationsViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-        public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
-        #endregion
+				DisplayTitle = true;
+			}
 
-        private async Task LoadUserOrganizationsPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			_organizations = new();
+			Organizations = new(_organizations);
 
-            string _currentTaskingMethodName = nameof(LoadUserOrganizationsPageAsync);
+			LoadUserOrganizationsPageCommand = new AsyncRelayCommand(LoadUserOrganizationsPageAsync);
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+		private async Task LoadUserOrganizationsPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-                _currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
-                await LoadUserOrganizationsAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			string _currentTaskingMethodName = nameof(LoadUserOrganizationsPageAsync);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-        private async Task LoadUserOrganizationsAsync(string login)
-        {
-            OrganizationQueries queries = new();
-            var items = await queries.GetAllAsync(login);
-            if (items == null) return;
+				_currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
+				await LoadUserOrganizationsAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-            _organizations.Clear();
-            foreach (var item in items)
-            {
-                OrgBlockButtonViewModel viewModel = new()
-                {
-                    OrgItem = item
-                };
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                _organizations.Add(viewModel);
-            }
-        }
+		private async Task LoadUserOrganizationsAsync(string login)
+		{
+			OrganizationQueries queries = new();
+			var items = await queries.GetAllAsync(login);
+			if (items == null) return;
 
-        public async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+			_organizations.Clear();
+			foreach (var item in items)
+			{
+				OrgBlockButtonViewModel viewModel = new()
+				{
+					OrgItem = item
+				};
 
-            User = response ?? new();
+				_organizations.Add(viewModel);
+			}
+		}
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-                SelectedTag = "organizations"
-            };
+		public async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			User = response ?? new();
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+				SelectedTag = "organizations"
+			};
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Organizations";
-            currentItem.Description = $"{User?.Login}'s organizations";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
-            };
-        }
-    }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Organizations";
+			currentItem.Description = $"{User?.Login}'s organizations";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
+			};
+		}
+	}
 }

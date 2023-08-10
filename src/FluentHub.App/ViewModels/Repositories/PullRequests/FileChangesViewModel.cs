@@ -11,158 +11,159 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
-    public class FileChangesViewModel : ObservableObject
-    {
-        public FileChangesViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class FileChangesViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _diffViewModels = new();
-            DiffViewModels = new(_diffViewModels);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadRepositoryPullRequestFileChangesPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestFileChangesPageAsync);
-        }
+		private string _name;
+		public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private int _number;
+		public int Number { get => _number; set => SetProperty(ref _number, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private int _number;
-        public int Number { get => _number; set => SetProperty(ref _number, value); }
+		private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
+		public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+		private PullRequest pullItem;
+		public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+		private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
+		public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
-        private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
-        public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private PullRequest pullItem;
-        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
+		public IAsyncRelayCommand LoadRepositoryPullRequestFileChangesPageCommand { get; }
 
-        private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
-        public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
+		public FileChangesViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			_diffViewModels = new();
+			DiffViewModels = new(_diffViewModels);
 
-        public IAsyncRelayCommand LoadRepositoryPullRequestFileChangesPageCommand { get; }
-        #endregion
+			LoadRepositoryPullRequestFileChangesPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestFileChangesPageAsync);
+		}
 
-        private async Task LoadRepositoryPullRequestFileChangesPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+		private async Task LoadRepositoryPullRequestFileChangesPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
+			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
-                await LoadRepositoryAsync(Login, Name);
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
 
-                _currentTaskingMethodName = nameof(LoadPullRequestAsync);
-                await LoadPullRequestAsync(Login, Name);
+				_currentTaskingMethodName = nameof(LoadPullRequestAsync);
+				await LoadPullRequestAsync(Login, Name);
 
-                _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesAsync);
-                await LoadRepositoryPullRequestFileChangesAsync(Login, Name);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesAsync);
+				await LoadRepositoryPullRequestFileChangesAsync(Login, Name);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-        private async Task LoadRepositoryPullRequestFileChangesAsync(string owner, string name)
-        {
-            DiffQueries queries = new();
-            var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
+		private async Task LoadRepositoryPullRequestFileChangesAsync(string owner, string name)
+		{
+			DiffQueries queries = new();
+			var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
 
-            if (response.Any() is false) return;
+			if (response.Any() is false) return;
 
-            _diffViewModels.Clear();
-            foreach (var item in response)
-            {
-                DiffBlockViewModel viewModel = new()
-                {
-                    ChangedPullRequestFile = item,
-                };
+			_diffViewModels.Clear();
+			foreach (var item in response)
+			{
+				DiffBlockViewModel viewModel = new()
+				{
+					ChangedPullRequestFile = item,
+				};
 
-                _diffViewModels.Add(viewModel);
-            }
-        }
+				_diffViewModels.Add(viewModel);
+			}
+		}
 
-        public async Task LoadPullRequestAsync(string owner, string name)
-        {
-            PullRequestQueries queries = new();
-            PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+		public async Task LoadPullRequestAsync(string owner, string name)
+		{
+			PullRequestQueries queries = new();
+			PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
 
-            PullRequestOverviewViewModel = new()
-            {
-                PullRequest = PullItem,
-                SelectedTag = "filechanges",
-            };
-        }
+			PullRequestOverviewViewModel = new()
+			{
+				PullRequest = PullItem,
+				SelectedTag = "filechanges",
+			};
+		}
 
-        public async Task LoadRepositoryAsync(string owner, string name)
-        {
-            try
-            {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
+		public async Task LoadRepositoryAsync(string owner, string name)
+		{
+			try
+			{
+				RepositoryQueries queries = new();
+				Repository = await queries.GetDetailsAsync(owner, name);
 
-                RepositoryOverviewViewModel = new()
-                {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+				RepositoryOverviewViewModel = new()
+				{
+					Repository = Repository,
+					RepositoryName = Repository.Name,
+					RepositoryOwnerLogin = Repository.Owner.Login,
+					ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "pullrequests",
-                };
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-        }
+					SelectedTag = "pullrequests",
+				};
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadRepositoryAsync), ex);
+				if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
+		}
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = "Discussions";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
-        }
-    }
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "File changes";
+			currentItem.Description = "File changes";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequest.png"))
+			};
+		}
+	}
 }

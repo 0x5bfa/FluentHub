@@ -22,22 +22,9 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryDiscussionsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8" RowSpacing="8">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
-
-					<Grid
-						Grid.Row="1"
-						Padding="32"
-						Background="{ThemeResource LayerFillColorDefaultBrush}"
-						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-						BorderThickness="1"
-						CornerRadius="8">
+			<ScrollViewer>
+				<Grid>
+					<Grid Padding="32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />

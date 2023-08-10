@@ -34,7 +34,7 @@
 		HorizontalAlignment="Left"
 		VerticalAlignment="Top"
 		VerticalScrollBarVisibility="Hidden">
-		<Grid RowSpacing="24">
+		<Grid Margin="32,32,0,32" RowSpacing="8">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -45,7 +45,16 @@
 				<Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
 			</Grid>
 
-			<StackPanel Grid.Row="1" VerticalAlignment="Center">
+			<Grid
+				Grid.Row="1"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
 				<TextBlock
 					VerticalAlignment="Center"
@@ -56,6 +65,7 @@
 					Visibility="{x:Bind ViewModel.User.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
 				<TextBlock
+					Grid.Row="1"
 					VerticalAlignment="Center"
 					FontSize="20"
 					Foreground="{ThemeResource TextFillColorSecondary}"
@@ -66,22 +76,20 @@
 
 				<TextBlock
 					x:Name="UserBioTextBlock"
-					Margin="0,24,0,0"
+					Grid.Row="2"
+					Margin="0,12,0,0"
 					IsTextSelectionEnabled="True"
 					MaxLines="2"
 					Style="{ThemeResource BodyTextBlockStyle}"
 					Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}"
 					TextTrimming="CharacterEllipsis"
-					Visibility="{x:Bind ViewModel.User.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-					<ToolTipService.ToolTip>
-						<ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
-					</ToolTipService.ToolTip>
-				</TextBlock>
+					Visibility="{x:Bind ViewModel.User.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
 				<Grid
 					x:Name="UserStatusBlock"
-					Margin="0,8,0,0"
-					HorizontalAlignment="Left"
+					Grid.Row="3"
+					Margin="0,12,0,0"
+					HorizontalAlignment="Stretch"
 					x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 					<Border
 						x:Name="UserStatusBlockBorder"
@@ -91,10 +99,12 @@
 						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 						BorderThickness="1"
 						CornerRadius="4">
-						<StackPanel
-							Margin="0,0,0,2"
-							VerticalAlignment="Center"
-							Orientation="Horizontal">
+						<Grid Margin="0,0,0,2" VerticalAlignment="Center">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
 							<TextBlock
 								x:Name="UserStatusEmoji"
 								Margin="8,0,0,0"
@@ -106,6 +116,7 @@
 								Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
 							<TextBlock
 								x:Name="UserStatusBlockMessageTextBlock"
+								Grid.Column="1"
 								Margin="4,0,12,0"
 								VerticalAlignment="Center"
 								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -115,7 +126,7 @@
 								Text="{x:Bind ViewModel.User.Status.Message, Mode=OneWay}" />
 							<TextBlock
 								x:Name="UserStatusIndicatesLimitedAvailabilityTextBlock"
-								Grid.Column="1"
+								Grid.Column="2"
 								Margin="-4,0,12,0"
 								VerticalAlignment="Center"
 								x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
@@ -124,37 +135,34 @@
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="&#xe946;">
 								<ToolTipService.ToolTip>
-									<TextBlock
-										Foreground="{ThemeResource PrimerAttentionForeground}"
-										Style="{StaticResource CaptionTextBlockStyle}"
-										Text="This user has limited availability." />
+									<TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="This user has limited availability." />
 								</ToolTipService.ToolTip>
 							</TextBlock>
-						</StackPanel>
+						</Grid>
 
 						<!--<VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualState>
-                                        <VisualState.StateTriggers>
-                                            <toolkittriggers:CompareStateTrigger Comparison="Equal" Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}">
-                                                <toolkittriggers:CompareStateTrigger.To>
-                                                    <x:Boolean>True</x:Boolean>
-                                                </toolkittriggers:CompareStateTrigger.To>
-                                            </toolkittriggers:CompareStateTrigger>
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
-                                            <Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
-                                            <Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
-                                            <Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>-->
+								<VisualStateGroup>
+									<VisualState>
+										<VisualState.StateTriggers>
+											<toolkittriggers:CompareStateTrigger Comparison="Equal" Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}">
+												<toolkittriggers:CompareStateTrigger.To>
+													<x:Boolean>True</x:Boolean>
+												</toolkittriggers:CompareStateTrigger.To>
+											</toolkittriggers:CompareStateTrigger>
+										</VisualState.StateTriggers>
+										<VisualState.Setters>
+											<Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
+											<Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
+											<Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+											<Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+										</VisualState.Setters>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>-->
 					</Border>
 				</Grid>
 
-			</StackPanel>
+			</Grid>
 
 			<toolkit:WrapPanel
 				Grid.Row="2"

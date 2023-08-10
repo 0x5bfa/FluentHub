@@ -8,28 +8,29 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Projects
 {
-    public sealed partial class ProjectsPage : Page
-    {
-        public ProjectsPage()
-        {
-            InitializeComponent();
+	public sealed partial class ProjectsPage : LocatablePage
+	{
+		private readonly INavigationService navigationService;
+		public ProjectsViewModel ViewModel { get; }
 
-            ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
-            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+		public ProjectsPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Projects)
+		{
+			InitializeComponent();
 
-        private readonly INavigationService navigationService;
-        public ProjectsViewModel ViewModel { get; }
+			ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
+			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
 
-            var command = ViewModel.LoadRepositoryProjectsPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadRepositoryProjectsPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

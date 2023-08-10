@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;

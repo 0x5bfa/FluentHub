@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -15,30 +18,6 @@ namespace FluentHub.App.ViewModels.Users
 {
 	public class RepositoriesViewModel : ObservableObject
 	{
-		public RepositoriesViewModel()
-		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			if (parameter.AsViewer)
-			{
-				var currentTabItem = _navigation.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-
-				DisplayTitle = true;
-			}
-
-			_repositories = new();
-			Repositories = new(_repositories);
-
-			LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
-		}
-
-		#region Fields and Properties
 		private readonly IMessenger _messenger;
 		private readonly ILogger _logger;
 		private readonly INavigationService _navigation;
@@ -62,7 +41,29 @@ namespace FluentHub.App.ViewModels.Users
 		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
 		public IAsyncRelayCommand LoadUserRepositoriesPageCommand { get; }
-		#endregion
+
+		public RepositoriesViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+
+				DisplayTitle = true;
+			}
+
+			_repositories = new();
+			Repositories = new(_repositories);
+
+			LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
+		}
 
 		private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
 		{

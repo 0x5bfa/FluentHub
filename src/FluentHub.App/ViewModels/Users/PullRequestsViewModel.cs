@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -11,121 +14,132 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class PullRequestsViewModel : ObservableObject
-    {
-        public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class PullRequestsViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _pullRequests = new();
-            PullItems = new(_pullRequests);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadUserPullRequestsPageCommand = new AsyncRelayCommand(LoadUserPullRequestsPageAsync);
-        }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
+		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+		public IAsyncRelayCommand LoadUserPullRequestsPageCommand { get; }
 
-        private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
-        public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
+		public PullRequestsViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-        public IAsyncRelayCommand LoadUserPullRequestsPageCommand { get; }
-        #endregion
+				DisplayTitle = true;
+			}
 
-        private async Task LoadUserPullRequestsPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			_pullRequests = new();
+			PullItems = new(_pullRequests);
 
-            string _currentTaskingMethodName = nameof(LoadUserPullRequestsPageAsync);
+			LoadUserPullRequestsPageCommand = new AsyncRelayCommand(LoadUserPullRequestsPageAsync);
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+		private async Task LoadUserPullRequestsPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-                _currentTaskingMethodName = nameof(LoadUserPullRequestsAsync);
-                await LoadUserPullRequestsAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			string _currentTaskingMethodName = nameof(LoadUserPullRequestsPageAsync);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-        private async Task LoadUserPullRequestsAsync(string login)
-        {
-            PullRequestQueries queries = new();
-            var items = await queries.GetAllAsync(login);
-            if (items == null) return;
+				_currentTaskingMethodName = nameof(LoadUserPullRequestsAsync);
+				await LoadUserPullRequestsAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-            _pullRequests.Clear();
-            foreach (var item in items)
-            {
-                PullBlockButtonViewModel viewModel = new()
-                {
-                    PullItem = item,
-                };
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                _pullRequests.Add(viewModel);
-            }
-        }
+		private async Task LoadUserPullRequestsAsync(string login)
+		{
+			PullRequestQueries queries = new();
+			var items = await queries.GetAllAsync(login);
+			if (items == null) return;
 
-        public async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+			_pullRequests.Clear();
+			foreach (var item in items)
+			{
+				PullBlockButtonViewModel viewModel = new()
+				{
+					PullItem = item,
+				};
 
-            User = response ?? new();
+				_pullRequests.Add(viewModel);
+			}
+		}
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-            };
+		public async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			User = response ?? new();
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+			};
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Pull Requests";
-            currentItem.Description = $"{User?.Login}'s pull requests";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
-            };
-        }
-    }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Pull Requests";
+			currentItem.Description = $"{User?.Login}'s pull requests";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+			};
+		}
+	}
 }

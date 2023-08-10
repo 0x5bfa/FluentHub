@@ -9,7 +9,6 @@ namespace FluentHub.App.UserControls.BlockButtons
 {
 	public sealed partial class NotificationBlockButton : UserControl
 	{
-		#region propdp
 		public static readonly DependencyProperty ViewModelProperty
 			= DependencyProperty.Register(
 				  nameof(NotificationBlockButtonViewModel),
@@ -23,39 +22,36 @@ namespace FluentHub.App.UserControls.BlockButtons
 			get => (NotificationBlockButtonViewModel)GetValue(ViewModelProperty);
 			set => SetValue(ViewModelProperty, value);
 		}
-		#endregion
 
 		public NotificationBlockButton()
-			=> InitializeComponent();
+		{
+			InitializeComponent();
+		}
 
 		private void OnClick(object sender, RoutedEventArgs e)
 		{
-			var navService = Ioc.Default.GetRequiredService<INavigationService>();
+			var service = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var navBar = service.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = ViewModel.Item.Repository.Owner.Login,
+				SecondaryText = ViewModel.Item.Repository.Name,
+				Number = ViewModel.Item.Subject.Number,
+			};
 
 			switch (ViewModel.Item.Subject.Type)
 			{
 				case NotificationSubjectType.IssueClosedAsCompleted:
 				case NotificationSubjectType.IssueClosedAsNotPlanned:
 				case NotificationSubjectType.IssueOpen:
-					navService.Navigate<Views.Repositories.Issues.IssuePage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = ViewModel.Item.Repository.Owner.Login,
-						SecondaryText = ViewModel.Item.Repository.Name,
-						Number = ViewModel.Item.Subject.Number,
-					});
+					service.Navigate<Views.Repositories.Issues.IssuePage>();
 					break;
 				case NotificationSubjectType.PullRequestOpen:
 				case NotificationSubjectType.PullRequestClosed:
 				case NotificationSubjectType.PullRequestMerged:
 				case NotificationSubjectType.PullRequestDraft:
-					navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = ViewModel.Item.Repository.Owner.Login,
-						SecondaryText = ViewModel.Item.Repository.Name,
-						Number = ViewModel.Item.Subject.Number,
-					});
+					service.Navigate<Views.Repositories.PullRequests.ConversationPage>();
 					break;
 			}
 		}

@@ -13,151 +13,160 @@ using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
-    public class OverviewViewModel : ObservableObject
-    {
-        public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class OverviewViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _pinnedItems = new();
-            PinnedItems = new(_pinnedItems);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            _repositories = new();
-            Repositories = new(_repositories);
+		private Organization _organization;
+		public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
 
-            LoadOrganizationOverviewPageCommand = new AsyncRelayCommand(LoadOrganizationOverviewPageAsync);
-        }
+		private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
+		public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private bool _oauthAppIsRestrictedByOrgSettings;
+		public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedItems;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedItems { get; }
 
-        private Organization _organization;
-        public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-        private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
-        public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _oauthAppIsRestrictedByOrgSettings;
-        public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
+		public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedItems;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedItems { get; }
+		public OverviewViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			}
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			_pinnedItems = new();
+			PinnedItems = new(_pinnedItems);
 
-        public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
-        #endregion
+			_repositories = new();
+			Repositories = new(_repositories);
 
-        private async Task LoadOrganizationOverviewPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			LoadOrganizationOverviewPageCommand = new AsyncRelayCommand(LoadOrganizationOverviewPageAsync);
+		}
 
-            string _currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
+		private async Task LoadOrganizationOverviewPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadOrganizationAsync);
-                await LoadOrganizationAsync(Login);
+			string _currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
 
-                _currentTaskingMethodName = nameof(LoadOrganizationOverviewAsync);
-                await LoadOrganizationOverviewAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadOrganizationAsync);
+				await LoadOrganizationAsync(Login);
 
-                // OAuth restriction exception
-                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
-                {
-                    OAuthAppIsRestrictedByOrgSettings = true;
-                    faulted = false;
-                }
-                else
-                {
-                    _logger?.Error(_currentTaskingMethodName, ex);
-                    throw;
-                }
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_currentTaskingMethodName = nameof(LoadOrganizationOverviewAsync);
+				await LoadOrganizationOverviewAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-        private async Task LoadOrganizationOverviewAsync(string org)
-        {
-            RepositoryQueries repoQueries = new();
-            var repoItems = await repoQueries.GetAllAsync(org);
+				// OAuth restriction exception
+				if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+				{
+					OAuthAppIsRestrictedByOrgSettings = true;
+					faulted = false;
+				}
+				else
+				{
+					_logger?.Error(_currentTaskingMethodName, ex);
+					throw;
+				}
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            _repositories.Clear();
-            foreach (var item in repoItems)
-            {
-                RepoBlockButtonViewModel viewModel = new()
-                {
-                    Repository = item,
-                    DisplayDetails = false,
-                    DisplayStarButton = false,
-                };
+		private async Task LoadOrganizationOverviewAsync(string org)
+		{
+			RepositoryQueries repoQueries = new();
+			var repoItems = await repoQueries.GetAllAsync(org);
 
-                _repositories.Add(viewModel);
-            }
+			_repositories.Clear();
+			foreach (var item in repoItems)
+			{
+				RepoBlockButtonViewModel viewModel = new()
+				{
+					Repository = item,
+					DisplayDetails = false,
+					DisplayStarButton = false,
+				};
 
-            PinnedItemQueries queries = new();
-            var pinnedItems = await queries.GetAllAsync(org);
-            if (pinnedItems == null) return;
+				_repositories.Add(viewModel);
+			}
 
-            _pinnedItems.Clear();
-            foreach (var item in pinnedItems)
-            {
-                RepoBlockButtonViewModel viewModel = new()
-                {
-                    Repository = item,
-                    DisplayDetails = false,
-                    DisplayStarButton = false,
-                };
+			PinnedItemQueries queries = new();
+			var pinnedItems = await queries.GetAllAsync(org);
+			if (pinnedItems == null) return;
 
-                _pinnedItems.Add(viewModel);
-            }
-        }
+			_pinnedItems.Clear();
+			foreach (var item in pinnedItems)
+			{
+				RepoBlockButtonViewModel viewModel = new()
+				{
+					Repository = item,
+					DisplayDetails = false,
+					DisplayStarButton = false,
+				};
 
-        private async Task LoadOrganizationAsync(string org)
-        {
-            OrganizationQueries queries = new();
-            var response = await queries.GetAsync(org);
+				_pinnedItems.Add(viewModel);
+			}
+		}
 
-            Organization = response ?? new();
+		private async Task LoadOrganizationAsync(string org)
+		{
+			OrganizationQueries queries = new();
+			var response = await queries.GetAsync(org);
 
-            // View model
-            OrganizationProfileOverviewViewModel = new()
-            {
-                Organization = Organization,
-                SelectedTag = "overview",
-            };
-        }
+			Organization = response ?? new();
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			// View model
+			OrganizationProfileOverviewViewModel = new()
+			{
+				Organization = Organization,
+				SelectedTag = "overview",
+			};
+		}
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{Login}";
-            currentItem.Description = $"{Login}";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
-            };
-        }
-    }
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = $"{Login}";
+			currentItem.Description = $"{Login}";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
+			};
+		}
+	}
 }

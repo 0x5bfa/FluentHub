@@ -7,38 +7,37 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.UserControls.BlockButtons
 {
-    public sealed partial class OrgBlockButton : UserControl
-    {
-        #region dprops
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(
-                  nameof(Organization),
-                  typeof(IssueBlockButtonViewModel),
-                  typeof(OrgBlockButton),
-                  new PropertyMetadata(null)
-                );
+	public sealed partial class OrgBlockButton : UserControl
+	{
+		public static readonly DependencyProperty ViewModelProperty =
+			DependencyProperty.Register(
+				nameof(Organization),
+				typeof(IssueBlockButtonViewModel),
+				typeof(OrgBlockButton),
+				new PropertyMetadata(null));
 
-        public OrgBlockButtonViewModel ViewModel
-        {
-            get => (OrgBlockButtonViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-            }
-        }
-        #endregion
+		public OrgBlockButtonViewModel ViewModel
+		{
+			get => (OrgBlockButtonViewModel)GetValue(ViewModelProperty);
+			set => SetValue(ViewModelProperty, value);
+		}
 
-        public OrgBlockButton()
-            => InitializeComponent();
+		public OrgBlockButton()
+		{
+			InitializeComponent();
+		}
 
-        private void OrganizationOverviewButton_Click(object sender, RoutedEventArgs e)
-        {
-            var service = Ioc.Default.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Organizations.OverviewPage>(
-                new FrameNavigationParameter()
-                {
-                    PrimaryText = ViewModel.OrgItem.Login,
-                });
-        }
-    }
+		private void OrganizationOverviewButton_Click(object sender, RoutedEventArgs e)
+		{
+			var service = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var navBar = service.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = ViewModel.OrgItem.Login,
+			};
+
+			service.Navigate<Views.Organizations.OverviewPage>();
+		}
+	}
 }

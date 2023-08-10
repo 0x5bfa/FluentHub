@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -11,121 +14,132 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class FollowingViewModel : ObservableObject
-    {
-        public FollowingViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _logger = logger;
-            _messenger = messenger;
+	public class FollowingViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _followingItems = new();
-            FollowingItems = new(_followingItems);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
-        }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-        #region Fields and Properties
-        private readonly ILogger _logger;
-        private readonly IMessenger _messenger;
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		private readonly ObservableCollection<UserBlockButtonViewModel> _followingItems;
+		public ReadOnlyObservableCollection<UserBlockButtonViewModel> FollowingItems { get; }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+		public IAsyncRelayCommand LoadUserFollowingPageCommand { get; }
 
-        private readonly ObservableCollection<UserBlockButtonViewModel> _followingItems;
-        public ReadOnlyObservableCollection<UserBlockButtonViewModel> FollowingItems { get; }
+		public FollowingViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-        public IAsyncRelayCommand LoadUserFollowingPageCommand { get; }
-        #endregion
+				DisplayTitle = true;
+			}
 
-        private async Task LoadUserFollowingPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			_followingItems = new();
+			FollowingItems = new(_followingItems);
 
-            string _currentTaskingMethodName = nameof(LoadUserFollowingPageAsync);
+			LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+		private async Task LoadUserFollowingPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-                _currentTaskingMethodName = nameof(LoadUserFollowingAsync);
-                await LoadUserFollowingAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			string _currentTaskingMethodName = nameof(LoadUserFollowingPageAsync);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-        private async Task LoadUserFollowingAsync(string login)
-        {
-            FollowingQueries queries = new();
-            var response = await queries.GetAllAsync(login);
+				_currentTaskingMethodName = nameof(LoadUserFollowingAsync);
+				await LoadUserFollowingAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-            _followingItems.Clear();
-            foreach (var item in response)
-            {
-                UserBlockButtonViewModel viewModel = new()
-                {
-                    User = item,
-                };
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                _followingItems.Add(viewModel);
-            }
-        }
+		private async Task LoadUserFollowingAsync(string login)
+		{
+			FollowingQueries queries = new();
+			var response = await queries.GetAllAsync(login);
 
-        public async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+			_followingItems.Clear();
+			foreach (var item in response)
+			{
+				UserBlockButtonViewModel viewModel = new()
+				{
+					User = item,
+				};
 
-            User = response ?? new();
+				_followingItems.Add(viewModel);
+			}
+		}
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-                SelectedTag = "following",
-            };
+		public async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			User = response ?? new();
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+				SelectedTag = "following",
+			};
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Following";
-            currentItem.Description = $"People {User?.Login} is following";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
-            };
-        }
-    }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Following";
+			currentItem.Description = $"People {User?.Login} is following";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
+			};
+		}
+	}
 }

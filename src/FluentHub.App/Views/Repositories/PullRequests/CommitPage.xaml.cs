@@ -13,32 +13,32 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.PullRequests
 {
-    public sealed partial class CommitPage : LocatablePage
-    {
-        public CommitViewModel ViewModel { get; }
+	public sealed partial class CommitPage : LocatablePage
+	{
+		public CommitViewModel ViewModel { get; }
 
-        private readonly INavigationService _navigation;
+		private readonly INavigationService _navigation;
 
-        public CommitPage()
-            : base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
-        {
-            InitializeComponent();
+		public CommitPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
-            ViewModel.Number = param.Number;
-            ViewModel.CommitItem = param.Parameters.ElementAtOrDefault(0) as Commit;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
+			ViewModel.Number = param.Number;
+			ViewModel.CommitItem = param.Parameters.ElementAtOrDefault(0) as Commit;
 
-            var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

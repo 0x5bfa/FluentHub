@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -11,122 +14,133 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-    public class PackagesViewModel : ObservableObject
-    {
-        public PackagesViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class PackagesViewModel : ObservableObject
+	{
+		private readonly IMessenger _messenger;
+		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
-            _packages = new();
-            Packages = new(_packages);
+		private string _login;
+		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-            LoadUserPackagesPageCommand = new AsyncRelayCommand(LoadUserPackagesPageAsync);
-        }
+		private User _user;
+		public User User { get => _user; set => SetProperty(ref _user, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
+		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		private bool _displayTitle;
+		public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private User _user;
-        public User User { get => _user; set => SetProperty(ref _user, value); }
+		private readonly ObservableCollection<PackageBlockButtonViewModel> _packages;
+		public ReadOnlyObservableCollection<PackageBlockButtonViewModel> Packages { get; }
 
-        private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-        public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+		public IAsyncRelayCommand LoadUserPackagesPageCommand { get; }
 
-        private readonly ObservableCollection<PackageBlockButtonViewModel> _packages;
-        public ReadOnlyObservableCollection<PackageBlockButtonViewModel> Packages { get; }
+		public PackagesViewModel()
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			if (parameter.AsViewer)
+			{
+				var currentTabItem = _navigation.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
-        public IAsyncRelayCommand LoadUserPackagesPageCommand { get; }
-        #endregion
+				DisplayTitle = true;
+			}
 
-        private async Task LoadUserPackagesPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			_packages = new();
+			Packages = new(_packages);
 
-            string _currentTaskingMethodName = nameof(LoadUserPackagesPageAsync);
+			LoadUserPackagesPageCommand = new AsyncRelayCommand(LoadUserPackagesPageAsync);
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadUserAsync);
-                await LoadUserAsync(Login);
+		private async Task LoadUserPackagesPageAsync()
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-                _currentTaskingMethodName = nameof(LoadUserPackagesAsync);
-                await LoadUserPackagesAsync(Login);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			string _currentTaskingMethodName = nameof(LoadUserPackagesPageAsync);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadUserAsync);
+				await LoadUserAsync(Login);
 
-        private async Task LoadUserPackagesAsync(string login)
-        {
-            PackageQueries queries = new();
-            var items = await queries.GetAllAsync(login);
-            if (items == null) return;
+				_currentTaskingMethodName = nameof(LoadUserPackagesAsync);
+				await LoadUserPackagesAsync(Login);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				faulted = true;
 
-            _packages.Clear();
-            foreach (var item in items)
-            {
-                PackageBlockButtonViewModel viewModel = new()
-                {
-                    Item = item,
-                };
+				_logger?.Error(_currentTaskingMethodName, ex);
+				throw;
+			}
+			finally
+			{
+				SetCurrentTabItem();
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                _packages.Add(viewModel);
-            }
-        }
+		private async Task LoadUserPackagesAsync(string login)
+		{
+			PackageQueries queries = new();
+			var items = await queries.GetAllAsync(login);
+			if (items == null) return;
 
-        private async Task LoadUserAsync(string login)
-        {
-            UserQueries queries = new();
-            var response = await queries.GetAsync(login);
+			_packages.Clear();
+			foreach (var item in items)
+			{
+				PackageBlockButtonViewModel viewModel = new()
+				{
+					Item = item,
+				};
 
-            User = response ?? new();
+				_packages.Add(viewModel);
+			}
+		}
 
-            UserProfileOverviewViewModel = new()
-            {
-                User = User,
-                SelectedTag = "packages",
-            };
+		private async Task LoadUserAsync(string login)
+		{
+			UserQueries queries = new();
+			var response = await queries.GetAsync(login);
 
-            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-            {
-                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-            }
-        }
+			User = response ?? new();
 
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			UserProfileOverviewViewModel = new()
+			{
+				User = User,
+				SelectedTag = "packages",
+			};
 
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = $"{User?.Login}'s discussions";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
-        }
-    }
+			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+			{
+				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Discussions";
+			currentItem.Description = $"{User?.Login}'s discussions";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
+			};
+		}
+	}
 }

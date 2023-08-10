@@ -13,20 +13,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
 	public class ChecksViewModel : ObservableObject
 	{
-		public ChecksViewModel(IMessenger messenger = null, ILogger logger = null)
-		{
-			_messenger = messenger;
-			_logger = logger;
-
-			_items = new();
-			Items = new(_items);
-
-			LoadRepositoryPullRequestChecksPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestChecksPageAsync);
-		}
-
-		#region Fields and Properties
 		private readonly IMessenger _messenger;
 		private readonly ILogger _logger;
+		private readonly INavigationService _navigation;
 
 		private string _login;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
@@ -59,7 +48,19 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		public CheckRun SelectedCheckRun { get => _selectedCheckRun; set => SetProperty(ref _selectedCheckRun, value); }
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestChecksPageCommand { get; }
-		#endregion
+
+		public ChecksViewModel(IMessenger messenger = null, ILogger logger = null)
+		{
+			// Dependency Injection
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			_items = new();
+			Items = new(_items);
+
+			LoadRepositoryPullRequestChecksPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestChecksPageAsync);
+		}
 
 		private async Task LoadRepositoryPullRequestChecksPageAsync()
 		{

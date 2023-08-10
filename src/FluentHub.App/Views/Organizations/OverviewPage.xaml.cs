@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Organizations;
@@ -8,25 +11,23 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Organizations
 {
-    public sealed partial class OverviewPage : Page
-    {
-        public OverviewPage()
-        {
-            InitializeComponent();
+	public sealed partial class OverviewPage : LocatablePage
+	{
+		public OverviewViewModel ViewModel;
 
-            ViewModel = Ioc.Default.GetRequiredService<OverviewViewModel>();
-        }
+		public OverviewPage()
+			: base(NavigationPageKind.Organization, NavigationPageKey.Overview)
+		{
+			InitializeComponent();
 
-        public OverviewViewModel ViewModel { get; }
+			ViewModel = Ioc.Default.GetRequiredService<OverviewViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-
-            var command = ViewModel.LoadOrganizationOverviewPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var command = ViewModel.LoadOrganizationOverviewPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

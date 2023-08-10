@@ -31,5 +31,8 @@ namespace FluentHub.Core.Data.Enums
 		//Projects,
 		//Packages,
 		Stars,
+		Organizations,
+		Followers,
+		Following,
 	}
 }

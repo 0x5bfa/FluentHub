@@ -13,39 +13,39 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.PullRequests
 {
-    public sealed partial class ChecksPage : LocatablePage
-    {
-        public ChecksViewModel ViewModel { get; }
+	public sealed partial class ChecksPage : LocatablePage
+	{
+		public ChecksViewModel ViewModel { get; }
 
-        private readonly INavigationService _navigation;
+		private readonly INavigationService _navigation;
 
-        public ChecksPage()
-            : base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
-        {
-            InitializeComponent();
+		public ChecksPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<ChecksViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<ChecksViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.PrimaryText;
-            ViewModel.Name = param.SecondaryText;
-            ViewModel.Number = param.Number;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.Login = param.PrimaryText;
+			ViewModel.Name = param.SecondaryText;
+			ViewModel.Number = param.Number;
 
-            var command = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
+			var command = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
 
-        private void OnCheckRunItemButtonClick(object sender, RoutedEventArgs e)
-        {
-            var target = sender as Button;
-            var checkRunItem = target.Tag as CheckRun;
+		private void OnCheckRunItemButtonClick(object sender, RoutedEventArgs e)
+		{
+			var target = sender as Button;
+			var checkRunItem = target.Tag as CheckRun;
 
-            ViewModel.SelectedCheckRun = checkRunItem;
-        }
-    }
+			ViewModel.SelectedCheckRun = checkRunItem;
+		}
+	}
 }

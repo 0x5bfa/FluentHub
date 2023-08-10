@@ -8,8 +8,6 @@ namespace FluentHub.App.Views.Users
 {
 	public sealed partial class RepositoriesPage : LocatablePage
 	{
-		private readonly INavigationService _navigationService;
-
 		public RepositoriesViewModel ViewModel { get; }
 
 		public RepositoriesPage()
@@ -17,7 +15,6 @@ namespace FluentHub.App.Views.Users
 		{
 			InitializeComponent();
 
-			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
 		}
 

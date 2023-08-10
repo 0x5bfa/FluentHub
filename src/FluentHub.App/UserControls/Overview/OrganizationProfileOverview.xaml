@@ -24,284 +24,187 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Grid
-		Background="{ThemeResource LayerFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1"
-		CornerRadius="8">
+	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Margin="32,32,32,12">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-
-				<Grid
-					Width="128"
-					Height="128"
-					CornerRadius="8">
-					<Image Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
-				</Grid>
-
-				<StackPanel
-					Grid.Column="1"
-					Margin="24,0,0,0"
-					VerticalAlignment="Center">
-
-					<TextBlock
-						VerticalAlignment="Center"
-						FontWeight="SemiBold"
-						IsTextSelectionEnabled="True"
-						Style="{StaticResource SubtitleTextBlockStyle}"
-						Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
-
-					<TextBlock
-						VerticalAlignment="Center"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						IsTextSelectionEnabled="True"
-						Style="{ThemeResource BodyTextBlockStyle}"
-						Text="{x:Bind ViewModel.Organization.Login, Mode=OneWay}" />
-
-					<TextBlock
-						Margin="0,12,0,0"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						IsTextSelectionEnabled="True"
-						Style="{ThemeResource BodyTextBlockStyle}"
-						Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}" />
-
-				</StackPanel>
-
-				<Grid Grid.Column="2" VerticalAlignment="Top">
-					<Button Width="120">
-
-						<Button.Content>
-							<toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Organization.ViewerIsFollowing, Mode=OneWay}">
-								<toolkit:Case Value="True">
-									<TextBlock Text="Unfollow" />
-								</toolkit:Case>
-								<toolkit:Case Value="False">
-									<TextBlock Text="Follow" />
-								</toolkit:Case>
-							</toolkit:SwitchPresenter>
-						</Button.Content>
-
-					</Button>
-				</Grid>
-
+			<Grid
+				Width="96"
+				Height="96"
+				CornerRadius="8">
+				<Image Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
 			</Grid>
 
-			<toolkit:WrapPanel
-				Grid.Row="1"
-				Margin="0,12,0,0"
-				HorizontalAlignment="Stretch"
-				HorizontalSpacing="6"
-				Orientation="Horizontal">
+			<StackPanel
+				Grid.Column="1"
+				Margin="24,0,0,0"
+				VerticalAlignment="Center">
 
-				<StackPanel
-					x:Name="LocationBlock"
-					Margin="0,0,12,0"
-					HorizontalAlignment="Left"
-					x:Load="{x:Bind ViewModel.Organization.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-					Orientation="Horizontal"
-					Spacing="6">
+				<TextBlock
+					VerticalAlignment="Center"
+					FontWeight="SemiBold"
+					IsTextSelectionEnabled="True"
+					Style="{StaticResource TitleTextBlockStyle}"
+					Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
 
-					<FontIcon
-						VerticalAlignment="Center"
-						FontFamily="{StaticResource Octicons}"
-						FontSize="14"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						Glyph="&#xEA03;" />
+				<TextBlock
+					VerticalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					IsTextSelectionEnabled="True"
+					Style="{ThemeResource BodyTextBlockStyle}"
+					Text="{x:Bind ViewModel.Organization.Login, Mode=OneWay}" />
 
-					<TextBlock
-						x:Name="LocationTextBlock"
-						VerticalAlignment="Center"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						Style="{ThemeResource BodyTextBlockStyle}"
-						Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
+				<TextBlock
+					Margin="0,12,0,0"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					IsTextSelectionEnabled="True"
+					Style="{ThemeResource BodyTextBlockStyle}"
+					Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}" />
 
-				</StackPanel>
+			</StackPanel>
 
-				<StackPanel
-					x:Name="LinkBlock"
-					Margin="0,0,12,0"
-					x:Load="{x:Bind ViewModel.Organization.WebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-					Orientation="Horizontal"
-					Spacing="2">
+			<!--<Grid Grid.Column="2" VerticalAlignment="Top">
+				<Button Width="120">
 
-					<FontIcon
-						VerticalAlignment="Center"
-						FontFamily="{StaticResource Octicons}"
-						FontSize="14"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						Glyph="&#xE9FB;" />
+					<Button.Content>
+						<toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Organization.ViewerIsFollowing, Mode=OneWay}">
+							<toolkit:Case Value="True">
+								<TextBlock Text="Unfollow" />
+							</toolkit:Case>
+							<toolkit:Case Value="False">
+								<TextBlock Text="Follow" />
+							</toolkit:Case>
+						</toolkit:SwitchPresenter>
+					</Button.Content>
 
-					<HyperlinkButton
-						x:Name="LinkHyperlinkButton"
-						Padding="4"
-						Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
-						Foreground="{ThemeResource TextFillColorSecondary}" />
-				</StackPanel>
+				</Button>
+			</Grid>-->
 
-				<StackPanel
-					x:Name="MailBlock"
-					Margin="0,0,12,0"
-					x:Load="{x:Bind ViewModel.Organization.Email, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-					Orientation="Horizontal"
-					Spacing="2">
+		</Grid>
 
-					<FontIcon
-						VerticalAlignment="Center"
-						FontFamily="{StaticResource Octicons}"
-						FontSize="14"
-						Foreground="{ThemeResource TextFillColorSecondary}"
-						Glyph="&#xEA09;" />
+		<toolkit:WrapPanel
+			Grid.Row="1"
+			Margin="0,12,0,0"
+			HorizontalAlignment="Stretch"
+			HorizontalSpacing="6"
+			Orientation="Horizontal">
 
-					<HyperlinkButton
-						x:Name="MailHyperlinkButton"
-						Padding="4"
-						Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
-						Foreground="{ThemeResource TextFillColorSecondary}" />
-				</StackPanel>
+			<StackPanel
+				x:Name="LocationBlock"
+				Margin="0,0,12,0"
+				HorizontalAlignment="Left"
+				x:Load="{x:Bind ViewModel.Organization.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+				Orientation="Horizontal"
+				Spacing="6">
 
-				<StackPanel
-					x:Name="IsVerifiedDomain"
-					Margin="0,0,12,0"
-					x:Load="{x:Bind ViewModel.Organization.IsVerified, Mode=OneWay}"
-					Orientation="Horizontal"
-					Spacing="2">
-					<primer:Label
-						Size="large"
-						Tapped="OnVerifiedLabelTapped"
-						Text="Verified"
-						Variant="success">
-						<FlyoutBase.AttachedFlyout>
-							<Flyout Placement="Bottom">
-								<StackPanel Width="260" Spacing="12">
+				<FontIcon
+					VerticalAlignment="Center"
+					FontFamily="{StaticResource Octicons}"
+					FontSize="14"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					Glyph="&#xEA03;" />
+
+				<TextBlock
+					x:Name="LocationTextBlock"
+					VerticalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					Style="{ThemeResource BodyTextBlockStyle}"
+					Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
+
+			</StackPanel>
+
+			<StackPanel
+				x:Name="LinkBlock"
+				Margin="0,0,12,0"
+				x:Load="{x:Bind ViewModel.Organization.WebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+				Orientation="Horizontal"
+				Spacing="2">
+
+				<FontIcon
+					VerticalAlignment="Center"
+					FontFamily="{StaticResource Octicons}"
+					FontSize="14"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					Glyph="&#xE9FB;" />
+
+				<HyperlinkButton
+					x:Name="LinkHyperlinkButton"
+					Padding="4"
+					Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
+					Foreground="{ThemeResource TextFillColorSecondary}" />
+			</StackPanel>
+
+			<StackPanel
+				x:Name="MailBlock"
+				Margin="0,0,12,0"
+				x:Load="{x:Bind ViewModel.Organization.Email, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+				Orientation="Horizontal"
+				Spacing="2">
+
+				<FontIcon
+					VerticalAlignment="Center"
+					FontFamily="{StaticResource Octicons}"
+					FontSize="14"
+					Foreground="{ThemeResource TextFillColorSecondary}"
+					Glyph="&#xEA09;" />
+
+				<HyperlinkButton
+					x:Name="MailHyperlinkButton"
+					Padding="4"
+					Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
+					Foreground="{ThemeResource TextFillColorSecondary}" />
+			</StackPanel>
+
+			<StackPanel
+				x:Name="IsVerifiedDomain"
+				Margin="0,0,12,0"
+				x:Load="{x:Bind ViewModel.Organization.IsVerified, Mode=OneWay}"
+				Orientation="Horizontal"
+				Spacing="2">
+				<primer:Label
+					Size="large"
+					Tapped="OnVerifiedLabelTapped"
+					Text="Verified"
+					Variant="success">
+					<FlyoutBase.AttachedFlyout>
+						<Flyout Placement="Bottom">
+							<StackPanel Width="260" Spacing="12">
+								<TextBlock
+									Text="GitHub have verified that this organization controls the domain:"
+									TextTrimming="CharacterEllipsis"
+									TextWrapping="Wrap" />
+								<StackPanel Orientation="Horizontal" Spacing="8">
+									<FontIcon
+										FontFamily="{StaticResource Octicons}"
+										FontSize="18"
+										Foreground="#57ab5a"
+										Glyph="&#xEACC;" />
 									<TextBlock
-										Text="GitHub have verified that this organization controls the domain:"
+										Style="{StaticResource BodyStrongTextBlockStyle}"
+										Text="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
 										TextTrimming="CharacterEllipsis"
 										TextWrapping="Wrap" />
-									<StackPanel Orientation="Horizontal" Spacing="8">
-										<FontIcon
-											FontFamily="{StaticResource Octicons}"
-											FontSize="18"
-											Foreground="#57ab5a"
-											Glyph="&#xEACC;" />
-										<TextBlock
-											Style="{StaticResource BodyStrongTextBlockStyle}"
-											Text="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
-											TextTrimming="CharacterEllipsis"
-											TextWrapping="Wrap" />
-									</StackPanel>
-									<TextBlock>
-										<Hyperlink NavigateUri="https://docs.github.com/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization">
-											Learn more about verified organizations
-										</Hyperlink>
-									</TextBlock>
 								</StackPanel>
-							</Flyout>
-						</FlyoutBase.AttachedFlyout>
-					</primer:Label>
-				</StackPanel>
-			</toolkit:WrapPanel>
+								<TextBlock>
+									<Hyperlink NavigateUri="https://docs.github.com/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization">
+										Learn more about verified organizations
+									</Hyperlink>
+								</TextBlock>
+							</StackPanel>
+						</Flyout>
+					</FlyoutBase.AttachedFlyout>
+				</primer:Label>
+			</StackPanel>
+		</toolkit:WrapPanel>
 
-		</Grid>
-
-		<Grid Grid.Row="1">
-			<NavigationView
-				x:Name="OrgNavView"
-				Margin="32,0"
-				IsBackButtonVisible="Collapsed"
-				IsSettingsVisible="False"
-				ItemInvoked="OnOrgNavViewItemInvoked"
-				PaneDisplayMode="Top">
-
-				<NavigationView.MenuItems>
-					<NavigationViewItem Content="Overview" Tag="Overview">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xE922;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem Content="Repositories" Tag="Repositories">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xEA52;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem
-						Content="Discussions"
-						IsEnabled="False"
-						Tag="Discussions">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xE95D;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem
-						Content="Projects"
-						IsEnabled="False"
-						Tag="Projects">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xEA48;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem
-						Content="Packages"
-						IsEnabled="False"
-						Tag="Packages">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xEA29;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem
-						Content="People"
-						IsEnabled="False"
-						Tag="People">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xEA38;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem
-						Content="Settings"
-						IsEnabled="False"
-						Tag="Settings">
-						<NavigationViewItem.Icon>
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="16"
-								Glyph="&#xE9B3;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-				</NavigationView.MenuItems>
-
-			</NavigationView>
-		</Grid>
 	</Grid>
 </UserControl>

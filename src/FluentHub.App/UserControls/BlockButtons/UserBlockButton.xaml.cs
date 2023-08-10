@@ -9,7 +9,6 @@ namespace FluentHub.App.UserControls.BlockButtons
 {
 	public sealed partial class UserBlockButton : UserControl
 	{
-		#region propdp
 		public static readonly DependencyProperty ViewModelProperty =
 			DependencyProperty.Register(
 				nameof(User),
@@ -20,16 +19,13 @@ namespace FluentHub.App.UserControls.BlockButtons
 		public UserBlockButtonViewModel ViewModel
 		{
 			get => (UserBlockButtonViewModel)GetValue(ViewModelProperty);
-			set
-			{
-				SetValue(ViewModelProperty, value);
-				this.DataContext = ViewModel;
-			}
+			set => SetValue(ViewModelProperty, value);
 		}
-		#endregion
 
 		public UserBlockButton()
-			=> InitializeComponent();
+		{
+			InitializeComponent();
+		}
 
 		private void UserBlockButtonButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -44,7 +40,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 			if (ViewModel.User.Id.ToString().StartsWith("O_"))
 			{
 				// Organization
-				service.Navigate<Views.Organizations.OverviewPage>(ViewModel.User.Login);
+				service.Navigate<Views.Organizations.OverviewPage>();
 			}
 			else
 			{

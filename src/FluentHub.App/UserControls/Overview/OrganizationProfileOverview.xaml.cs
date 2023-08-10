@@ -8,74 +8,31 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace FluentHub.App.UserControls.Overview
 {
-    public sealed partial class OrganizationProfileOverview : UserControl
-    {
-        #region propdp
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(
-                nameof(ViewModel),
-                typeof(OrganizationProfileOverviewViewModel),
-                typeof(OrganizationProfileOverviewViewModel),
-                new PropertyMetadata(null));
+	public sealed partial class OrganizationProfileOverview : UserControl
+	{
+		private readonly INavigationService navService;
 
-        public OrganizationProfileOverviewViewModel ViewModel
-        {
-            get => (OrganizationProfileOverviewViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                if (ViewModel is not null)
-                    SelectItemByTag(ViewModel.SelectedTag);
-            }
-        }
-        #endregion
+		public static readonly DependencyProperty ViewModelProperty =
+			DependencyProperty.Register(
+				nameof(ViewModel),
+				typeof(OrganizationProfileOverviewViewModel),
+				typeof(OrganizationProfileOverviewViewModel),
+				new PropertyMetadata(null));
 
-        public OrganizationProfileOverview()
-        {
-            InitializeComponent();
-            navService = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+		public OrganizationProfileOverviewViewModel ViewModel
+		{
+			get => (OrganizationProfileOverviewViewModel)GetValue(ViewModelProperty);
+			set => SetValue(ViewModelProperty, value);
+		}
 
-        private readonly INavigationService navService;
+		public OrganizationProfileOverview()
+		{
+			InitializeComponent();
 
-        private void SelectItemByTag(string tag)
-        {
-            var defaultItem
-                = OrgNavView
-                .MenuItems
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault();
+			navService = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-            OrgNavView.SelectedItem
-                = OrgNavView
-                .MenuItems
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
-                ?? defaultItem;
-        }
-
-        private void OnOrgNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
-            {
-                case "overview":
-                    navService.Navigate<Views.Organizations.OverviewPage>(
-                    new FrameNavigationParameter()
-                    {
-                        PrimaryText = ViewModel.Organization.Login,
-                    });
-                    break;
-                case "repositories":
-                    navService.Navigate<Views.Organizations.RepositoriesPage>(
-                    new FrameNavigationParameter()
-                    {
-                        PrimaryText = ViewModel.Organization.Login,
-                    });
-                    break;
-            }
-        }
-
-        private void OnVerifiedLabelTapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
-            => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-    }
+		private void OnVerifiedLabelTapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+			=> FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+	}
 }

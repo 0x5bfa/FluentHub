@@ -13,34 +13,18 @@ namespace FluentHub.App.Views.Users
 {
 	public sealed partial class FollowersPage : LocatablePage
 	{
-		private readonly INavigationService _navigationService;
-
 		public FollowersViewModel ViewModel { get; }
 
 		public FollowersPage()
-			: base(NavigationPageKind.User, NavigationPageKey.None)
+			: base(NavigationPageKind.User, NavigationPageKey.Followers)
 		{
 			InitializeComponent();
 
-			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			ViewModel = Ioc.Default.GetRequiredService<FollowersViewModel>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var parameter = (FrameNavigationParameter)e.Parameter;
-
-			ViewModel.Login = parameter.PrimaryText
-				?? throw new ArgumentNullException(nameof(parameter.PrimaryText), "Login parameter cannot be null in this context.");
-
-			if (parameter.AsViewer)
-			{
-				ViewModel.DisplayTitle = true;
-
-				var currentTabItem = _navigationService.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = Core.Data.Enums.NavigationPageKind.None;
-			}
-
 			var command = ViewModel.LoadUserFollowersPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);
