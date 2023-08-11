@@ -19,6 +19,7 @@
 	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+			<converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
 		</ResourceDictionary>
 	</views:LocatablePage.Resources>
 
@@ -27,6 +28,7 @@
 			<ScrollViewer>
 				<Grid Padding="32,24" RowSpacing="8">
 					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
@@ -39,22 +41,144 @@
 						</Grid.ColumnDefinitions>
 
 						<StackPanel Orientation="Horizontal" Spacing="8">
-							<!--<primer:Avatar
-								Width="32"
-								Height="32"
+							<primer:Avatar
+								x:Name="RepositoryOwnerAvatar"
+								x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 								IsSquare="True"
-								Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />-->
+								Size="24"
+								Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
 
 							<TextBlock
 								VerticalAlignment="Center"
 								Style="{StaticResource SubtitleTextBlockStyle}"
 								Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 						</StackPanel>
+
+						<StackPanel
+							Grid.Column="2"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Top"
+							Orientation="Horizontal"
+							Spacing="6">
+
+							<!--<DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
+								<DropDownButton.Content>
+
+									<StackPanel Orientation="Horizontal" Spacing="8">
+
+										<toolkit:SwitchPresenter
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											TargetType="x:String"
+											Value="{x:Bind ViewModel.ViewerSubscriptionState, Mode=OneWay}">
+
+											<toolkit:Case Value="Unsubscribed">
+												<StackPanel Orientation="Horizontal" Spacing="8">
+													<FontIcon
+														FontFamily="{StaticResource Octicons}"
+														FontSize="14"
+														Glyph="&#xE98B;" />
+
+													<TextBlock Text="Watch" />
+												</StackPanel>
+											</toolkit:Case>
+
+											<toolkit:Case Value="Subscribed">
+												<StackPanel Orientation="Horizontal" Spacing="8">
+													<FontIcon
+														FontFamily="{StaticResource Octicons}"
+														FontSize="14"
+														Glyph="&#xE98D;" />
+
+													<TextBlock Text="Unwatch" />
+												</StackPanel>
+											</toolkit:Case>
+
+											<toolkit:Case Value="Ignored">
+												<StackPanel Orientation="Horizontal" Spacing="8">
+													<FontIcon
+														FontFamily="{StaticResource Octicons}"
+														FontSize="14"
+														Glyph="&#xE91C;" />
+
+													<TextBlock Text="Stop ignoring" />
+												</StackPanel>
+											</toolkit:Case>
+
+										</toolkit:SwitchPresenter>
+
+										<primer:CounterLabel x:Name="WatchersCounter" Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									</StackPanel>
+								</DropDownButton.Content>
+							</DropDownButton>-->
+
+							<Button IsEnabled="False">
+								<Button.Content>
+									<StackPanel Orientation="Horizontal" Spacing="8">
+
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="14"
+											Glyph="&#xea55;" />
+
+										<TextBlock Text="Fork" />
+
+										<primer:CounterLabel x:Name="ForksCounter" Text="{x:Bind ViewModel.Repository.ForkCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									</StackPanel>
+								</Button.Content>
+							</Button>
+
+							<SplitButton IsEnabled="False">
+								<SplitButton.Content>
+									<StackPanel Orientation="Horizontal" Spacing="8">
+
+										<toolkit:SwitchPresenter
+											Grid.RowSpan="2"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											TargetType="x:Boolean"
+											Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+
+											<toolkit:Case Value="True">
+												<StackPanel Orientation="Horizontal" Spacing="8">
+													<FontIcon
+														FontFamily="{StaticResource Octicons}"
+														FontSize="16"
+														Foreground="#e3b341"
+														Glyph="&#xEA96;" />
+													<TextBlock Text="Unstar" />
+												</StackPanel>
+											</toolkit:Case>
+
+											<toolkit:Case Value="False">
+												<StackPanel Orientation="Horizontal" Spacing="8">
+													<FontIcon
+														FontFamily="{StaticResource Octicons}"
+														FontSize="16"
+														Glyph="&#xEA94;" />
+													<TextBlock Text="Star" />
+												</StackPanel>
+											</toolkit:Case>
+
+										</toolkit:SwitchPresenter>
+
+										<primer:CounterLabel x:Name="StargazersCounter" Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									</StackPanel>
+								</SplitButton.Content>
+							</SplitButton>
+						</StackPanel>
+
 					</Grid>
+
+					<Rectangle
+						Grid.Row="1"
+						Height="1"
+						HorizontalAlignment="Stretch"
+						Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 					<Grid
 						x:Name="RepositoryCodeGrid"
-						Grid.Row="1"
+						Grid.Row="2"
 						x:Load="{x:Bind ViewModel.ContextViewModel.Repository.IsEmpty, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 
 						<Grid.ColumnDefinitions>

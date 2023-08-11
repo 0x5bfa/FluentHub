@@ -24,7 +24,7 @@
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryDiscussionsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer>
 				<Grid>
-					<Grid Padding="32">
+					<Grid Padding="32" RowSpacing="12">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -106,10 +106,10 @@
 						<Grid Grid.Row="1">
 							<ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
 								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
+									<StackLayout Orientation="Vertical" Spacing="4" />
 								</ItemsRepeater.Layout>
 								<DataTemplate x:DataType="bbvm:DiscussionBlockButtonViewModel">
-									<bb:DiscussionBlockButton ViewModel="{x:Bind}" />
+									<bb:DiscussionBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
 								</DataTemplate>
 							</ItemsRepeater>
 

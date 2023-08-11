@@ -14,9 +14,7 @@ namespace FluentHub.App.Views.Repositories.Issues
 {
 	public sealed partial class IssuesPage : LocatablePage
 	{
-		public IssuesViewModel ViewModel { get; }
-
-		private readonly INavigationService _navigation;
+		public IssuesViewModel ViewModel;
 
 		public IssuesPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Issues)
@@ -24,7 +22,6 @@ namespace FluentHub.App.Views.Repositories.Issues
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<IssuesViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

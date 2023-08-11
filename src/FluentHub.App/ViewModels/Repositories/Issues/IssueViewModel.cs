@@ -81,7 +81,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 				faulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
@@ -127,7 +126,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"{IssueItem.Title} · #{IssueItem.Number}";
+			currentItem.Header = $"{IssueItem?.Title} · #{IssueItem?.Number}";
 			currentItem.Description = currentItem.Header;
 			currentItem.Icon = new ImageIconSource
 			{

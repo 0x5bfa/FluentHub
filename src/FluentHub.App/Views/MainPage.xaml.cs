@@ -168,9 +168,12 @@ namespace FluentHub.App.Views
 				case "YourRepositories":
 					NavigationService.Navigate<Users.RepositoriesPage>();
 					break;
-				//case "YourOrganizations":
-				//	NavigationService.Navigate<Views.Users.OrganizationsPage>();
-				//	break;
+				case "YourProjects":
+					NavigationService.Navigate<Views.Users.ProjectsPage>();
+					break;
+				case "YourOrganizations":
+					NavigationService.Navigate<Views.Users.OrganizationsPage>();
+					break;
 				case "YourStars":
 					NavigationService.Navigate<Users.StarsPage>();
 					break;

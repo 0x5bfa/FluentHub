@@ -14,8 +14,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 {
 	public sealed partial class CommitsPage : LocatablePage
 	{
-		public CommitsViewModel ViewModel { get; }
-		private readonly INavigationService _navigation;
+		public CommitsViewModel ViewModel;
 
 		public CommitsPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
@@ -23,7 +22,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<CommitsViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -34,7 +34,7 @@
 					<Grid Grid.Row="1">
 						<ItemsRepeater ItemsSource="{x:Bind ViewModel.DiffViewModels, Mode=OneWay}">
 							<ItemsRepeater.Layout>
-								<StackLayout Orientation="Vertical" Spacing="6" />
+								<StackLayout Orientation="Vertical" Spacing="4" />
 							</ItemsRepeater.Layout>
 							<DataTemplate x:DataType="ucvm:DiffBlockViewModel">
 								<uc:DiffBlock ViewModel="{x:Bind}" />

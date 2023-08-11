@@ -12,7 +12,7 @@
 
             var query = new Query()
                 .Repository(name, owner)
-                .Releases(null, null, 20, null, null)
+                .Releases(20, null, null, null, null)
                 .Nodes
                 .Select(x => new Release
                 {

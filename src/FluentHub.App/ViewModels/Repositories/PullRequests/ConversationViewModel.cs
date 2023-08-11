@@ -148,8 +148,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"Pull request #{PullItem.Number}";
-			currentItem.Description = $"Pull request #{PullItem.Number}";
+			currentItem.Header = $"Pull request #{PullItem?.Number}";
+			currentItem.Description = $"Pull request #{PullItem?.Number}";
 			currentItem.Icon = new ImageIconSource
 			{
 				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequest.png"))

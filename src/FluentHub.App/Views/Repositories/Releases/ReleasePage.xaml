@@ -37,31 +37,31 @@
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<primer:Avatar
+							x:Name="RepositoryOwnerAvatar"
+							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							IsSquare="True"
+							Size="24"
+							Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
 
-						<StackPanel Orientation="Horizontal" Spacing="8">
-							<!--<primer:Avatar
-								Width="32"
-								Height="32"
-								IsSquare="True"
-								Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />-->
+						<TextBlock
+							VerticalAlignment="Center"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 
-							<TextBlock
-								VerticalAlignment="Center"
-								Style="{StaticResource SubtitleTextBlockStyle}"
-								Text="Release on" />
+						<TextBlock
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="/" />
 
-							<TextBlock
-								VerticalAlignment="Center"
-								Style="{StaticResource SubtitleTextBlockStyle}"
-								Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
-						</StackPanel>
-					</Grid>
+						<TextBlock
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="Release" />
+					</StackPanel>
 
 					<Grid
 						Grid.Row="1"

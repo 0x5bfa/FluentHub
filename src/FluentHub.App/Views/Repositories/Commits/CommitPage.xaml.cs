@@ -14,7 +14,6 @@ namespace FluentHub.App.Views.Repositories.Commits
 	public sealed partial class CommitPage : LocatablePage
 	{
 		public CommitViewModel ViewModel { get; }
-		private readonly INavigationService _navigation;
 
 		public CommitPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
@@ -22,7 +21,6 @@ namespace FluentHub.App.Views.Repositories.Commits
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

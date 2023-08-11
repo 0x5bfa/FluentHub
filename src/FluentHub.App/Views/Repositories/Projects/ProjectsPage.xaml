@@ -23,30 +23,93 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8" RowSpacing="8">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
-
-					<Grid
-						Grid.Row="1"
-						Padding="32"
-						Background="{ThemeResource LayerFillColorDefaultBrush}"
-						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-						BorderThickness="1"
-						CornerRadius="8">
+				<Grid>
+					<Grid Padding="32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
+						<Grid Grid.Row="0" RowSpacing="8">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<TextBox IsEnabled="False" PlaceholderText="Search projects" />
+
+							<StackPanel
+								Grid.Row="1"
+								Orientation="Horizontal"
+								Spacing="8">
+
+								<DropDownButton IsEnabled="False">
+									<DropDownButton.Content>
+										<StackPanel Orientation="Horizontal" Spacing="4">
+											<TextBlock
+												Foreground="{ThemeResource TextFillColorSecondary}"
+												Style="{StaticResource BodyTextBlockStyle}"
+												Text="Status:" />
+											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+										</StackPanel>
+									</DropDownButton.Content>
+									<DropDownButton.Flyout>
+										<MenuFlyout Placement="BottomEdgeAlignedLeft">
+											<MenuFlyout.Items>
+												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+											</MenuFlyout.Items>
+										</MenuFlyout>
+									</DropDownButton.Flyout>
+								</DropDownButton>
+
+								<DropDownButton IsEnabled="False">
+									<DropDownButton.Content>
+										<StackPanel Orientation="Horizontal" Spacing="4">
+											<TextBlock
+												Foreground="{ThemeResource TextFillColorSecondary}"
+												Style="{StaticResource BodyTextBlockStyle}"
+												Text="Labels:" />
+											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+										</StackPanel>
+									</DropDownButton.Content>
+									<DropDownButton.Flyout>
+										<MenuFlyout Placement="BottomEdgeAlignedLeft">
+											<MenuFlyout.Items>
+												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+											</MenuFlyout.Items>
+										</MenuFlyout>
+									</DropDownButton.Flyout>
+								</DropDownButton>
+
+								<DropDownButton IsEnabled="False">
+									<DropDownButton.Content>
+										<StackPanel Orientation="Horizontal" Spacing="4">
+											<TextBlock
+												Foreground="{ThemeResource TextFillColorSecondary}"
+												Style="{StaticResource BodyTextBlockStyle}"
+												Text="Sort:" />
+											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+										</StackPanel>
+									</DropDownButton.Content>
+									<DropDownButton.Flyout>
+										<MenuFlyout Placement="BottomEdgeAlignedLeft">
+											<MenuFlyout.Items>
+												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+											</MenuFlyout.Items>
+										</MenuFlyout>
+									</DropDownButton.Flyout>
+								</DropDownButton>
+
+							</StackPanel>
+						</Grid>
+
 						<Grid Grid.Row="1">
 							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
 								<DataTemplate x:DataType="bbvm:ProjectBlockButtonViewModel">
-									<bbuc:ProjectBlockButton ViewModel="{x:Bind}" />
+									<bbuc:ProjectBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
 								</DataTemplate>
 							</ItemsRepeater>
 

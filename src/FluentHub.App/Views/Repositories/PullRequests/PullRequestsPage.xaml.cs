@@ -14,7 +14,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 	public sealed partial class PullRequestsPage : LocatablePage
 	{
 		public PullRequestsViewModel ViewModel { get; }
-		private readonly INavigationService _navigation;
 
 		public PullRequestsPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
@@ -22,7 +21,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<PullRequestsViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

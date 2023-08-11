@@ -1,13 +1,8 @@
 ﻿// Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Services;
 using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Core.Data.Enums;
-using FluentHub.App.Data.Factories;
-using FluentHub.App.Data.Items;
 
 namespace FluentHub.App.Views
 {

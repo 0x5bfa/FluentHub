@@ -9,13 +9,12 @@ namespace FluentHub.App.UserControls.BlockButtons
 {
 	public sealed partial class NotificationBlockButton : UserControl
 	{
-		public static readonly DependencyProperty ViewModelProperty
-			= DependencyProperty.Register(
-				  nameof(NotificationBlockButtonViewModel),
-				  typeof(NotificationBlockButtonViewModel),
-				  typeof(NotificationBlockButton),
-				  new PropertyMetadata(null)
-				);
+		public static readonly DependencyProperty ViewModelProperty =
+			DependencyProperty.Register(
+				nameof(NotificationBlockButtonViewModel),
+				typeof(NotificationBlockButtonViewModel),
+				typeof(NotificationBlockButton),
+				new PropertyMetadata(null));
 
 		public NotificationBlockButtonViewModel ViewModel
 		{

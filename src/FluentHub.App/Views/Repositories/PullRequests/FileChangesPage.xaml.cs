@@ -15,7 +15,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 	public sealed partial class FileChangesPage : LocatablePage
 	{
 		public FileChangesViewModel ViewModel { get; }
-		private readonly INavigationService _navigation;
 
 		public FileChangesPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
@@ -23,7 +22,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<FileChangesViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

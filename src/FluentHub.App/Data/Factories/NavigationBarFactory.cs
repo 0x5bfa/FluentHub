@@ -107,20 +107,20 @@ namespace FluentHub.App.Data.Factories
 					PageItemKey = NavigationPageKey.PullRequests,
 					PageKind = NavigationPageKind.User,
 				},
-				//new()
-				//{
-				//	Text = "Discussions",
-				//	PageToNavigate = typeof(Views.Users.DiscussionsPage),
-				//	PageItemKey = NavigationPageKey.Discussions,
-				//	PageKind = NavigationPageKind.User,
-				//},
-				//new()
-				//{
-				//	Text = "Projects",
-				//	PageToNavigate = typeof(Views.Users.ProjectsPage),
-				//	PageItemKey = NavigationPageKey.Projects,
-				//	PageKind = NavigationPageKind.User,
-				//},
+				new()
+				{
+					Text = "Discussions",
+					PageToNavigate = typeof(Views.Users.DiscussionsPage),
+					PageItemKey = NavigationPageKey.Discussions,
+					PageKind = NavigationPageKind.User,
+				},
+				new()
+				{
+					Text = "Projects",
+					PageToNavigate = typeof(Views.Users.ProjectsPage),
+					PageItemKey = NavigationPageKey.Projects,
+					PageKind = NavigationPageKind.User,
+				},
 				new()
 				{
 					Text = "Organizations",

@@ -15,9 +15,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 {
 	public sealed partial class ChecksPage : LocatablePage
 	{
-		public ChecksViewModel ViewModel { get; }
-
-		private readonly INavigationService _navigation;
+		public ChecksViewModel ViewModel;
 
 		public ChecksPage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
@@ -25,7 +23,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ChecksViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

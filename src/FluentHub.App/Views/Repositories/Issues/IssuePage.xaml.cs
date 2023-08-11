@@ -14,7 +14,7 @@ namespace FluentHub.App.Views.Repositories.Issues
 {
 	public sealed partial class IssuePage : LocatablePage
 	{
-		public IssueViewModel ViewModel { get; }
+		public IssueViewModel ViewModel;
 
 		public IssuePage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Issues)

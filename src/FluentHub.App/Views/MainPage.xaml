@@ -175,28 +175,33 @@
 						</StackPanel>
 
 						<StackPanel Grid.Column="1" Orientation="Horizontal">
-							<TextBlock
-								VerticalAlignment="Center"
-								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}"
-								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
-							<StackPanel
-								Orientation="Horizontal"
-								Spacing="8"
-								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+							<Button
+								Background="Transparent"
+								BorderThickness="0"
+								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 								<TextBlock
 									VerticalAlignment="Center"
-									Style="{StaticResource BodyTextBlockStyle}"
+									Style="{StaticResource BodyStrongTextBlockStyle}"
 									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+							</Button>
+							<StackPanel Orientation="Horizontal" Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+								<Button Background="Transparent" BorderThickness="0">
+									<TextBlock
+										VerticalAlignment="Center"
+										Style="{StaticResource BodyTextBlockStyle}"
+										Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+								</Button>
 								<TextBlock
 									VerticalAlignment="Center"
 									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 									Style="{StaticResource BodyTextBlockStyle}"
 									Text="/" />
-								<TextBlock
-									VerticalAlignment="Center"
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
+								<Button Background="Transparent" BorderThickness="0">
+									<TextBlock
+										VerticalAlignment="Center"
+										Style="{StaticResource BodyStrongTextBlockStyle}"
+										Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
+								</Button>
 							</StackPanel>
 						</StackPanel>
 
@@ -250,8 +255,14 @@
 											Click="LeftSideViewerIconMenuFlyoutItem_Click"
 											Tag="YourRepositories"
 											Text="Your repositories" />
-										<MenuFlyoutItem IsEnabled="false" Text="Your projects" />
-										<MenuFlyoutItem IsEnabled="false" Text="Your codespaces" />
+										<MenuFlyoutItem
+											IsEnabled="false"
+											Tag="YourProjects"
+											Text="Your projects" />
+										<MenuFlyoutItem
+											IsEnabled="false"
+											Tag="YourCodespaces"
+											Text="Your codespaces" />
 										<MenuFlyoutItem
 											Click="LeftSideViewerIconMenuFlyoutItem_Click"
 											Tag="YourOrganizations"
