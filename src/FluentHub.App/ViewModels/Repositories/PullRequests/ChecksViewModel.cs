@@ -11,21 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
-	public class ChecksViewModel : ObservableObject
+	public class ChecksViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
-		private int _number;
-		public int Number { get => _number; set => SetProperty(ref _number, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -41,21 +28,13 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private readonly ObservableCollection<CheckSuite> _items;
 		public ReadOnlyObservableCollection<CheckSuite> Items { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		private CheckRun _selectedCheckRun;
 		public CheckRun SelectedCheckRun { get => _selectedCheckRun; set => SetProperty(ref _selectedCheckRun, value); }
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestChecksPageCommand { get; }
 
-		public ChecksViewModel(IMessenger messenger = null, ILogger logger = null)
+		public ChecksViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			_items = new();
 			Items = new(_items);
 
@@ -64,8 +43,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestChecksPageAsync()
 		{
+			SetTabInformation("Checks", "Checks", "PullRequests");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestChecksPageAsync);
 
@@ -79,19 +60,19 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestChecksAsync);
 				await LoadRepositoryPullRequestChecksAsync(Login, Name);
+
+				SetTabInformation("Checks", "Checks");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -134,19 +115,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "pullrequests",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Checks";
-			currentItem.Description = "Checks";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
 			};
 		}
 	}

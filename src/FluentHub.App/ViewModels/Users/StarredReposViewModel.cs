@@ -15,15 +15,8 @@ using Microsoft.UI.Xaml;
 
 namespace FluentHub.App.ViewModels.Users
 {
-	public class StarredReposViewModel : ObservableObject
+	public class StarredReposViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private User _user;
 		public User User { get => _user; set => SetProperty(ref _user, value); }
 
@@ -36,18 +29,10 @@ namespace FluentHub.App.ViewModels.Users
 		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
 		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadUserStarredRepositoriesPageCommand { get; }
 
-		public StarredReposViewModel()
+		public StarredReposViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 			if (parameter.AsViewer)
@@ -66,8 +51,10 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserStarredRepositoriesPageAsync()
 		{
+			SetTabInformation("Stars", "Stars", "Starred");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserStarredRepositoriesPageAsync);
 
@@ -82,15 +69,15 @@ namespace FluentHub.App.ViewModels.Users
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetTabInformation("Stars", "Stars", "Starred");
+
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -130,19 +117,6 @@ namespace FluentHub.App.ViewModels.Users
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
 			}
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Stars";
-			currentItem.Description = $"{User?.Login}'s stars";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
-			};
 		}
 	}
 }

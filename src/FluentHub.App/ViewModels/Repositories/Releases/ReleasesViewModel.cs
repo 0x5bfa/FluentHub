@@ -11,17 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Releases
 {
-	public class ReleasesViewModel : ObservableObject
+	public class ReleasesViewModel : BaseViewModel
 	{
-		private readonly ILogger _logger;
-		private readonly IMessenger _messenger;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -37,21 +28,10 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		private Release _latestRelease;
 		public Release LatestRelease { get => _latestRelease; set => SetProperty(ref _latestRelease, value); }
 
-		public WebView2 LatestReleaseDescriptionWebView2;
-
-		private bool _failedToLoadWebView2Content;
-		public bool FailedToLoadWebView2Content { get => _failedToLoadWebView2Content; set => SetProperty(ref _failedToLoadWebView2Content, value); }
-
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
 
-		public ReleasesViewModel(IMessenger messenger = null, ILogger logger = null)
+		public ReleasesViewModel() : base()
 		{
-			_messenger = messenger;
-			_logger = logger;
-
 			_items = new();
 			Items = new(_items);
 
@@ -60,8 +40,10 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		private async Task LoadRepositoryReleasesPageAsync()
 		{
+			SetTabInformation("Releases", "Releases", "Repositories");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryReleasesPageAsync);
 
@@ -72,19 +54,19 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 				_currentTaskingMethodName = nameof(LoadRepositoryReleasesAsync);
 				await LoadRepositoryReleasesAsync(Login, Name);
+
+				SetTabInformation("Releases", "Releases");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsFaulted));
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -115,19 +97,6 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "code",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"Releases · {Login}/{Name}";
-			currentItem.Description = $"Releases · {Login}/{Name}";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
 			};
 		}
 	}

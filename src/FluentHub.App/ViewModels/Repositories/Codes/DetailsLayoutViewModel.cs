@@ -7,20 +7,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Codes
 {
-	public class DetailsLayoutViewModel : ObservableObject
+	public class DetailsLayoutViewModel : BaseViewModel
 	{
-		private readonly ILogger _logger;
-
-		private readonly IMessenger _messenger;
-
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -45,17 +33,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
 		public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
 
-		public DetailsLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
+		public DetailsLayoutViewModel() : base()
 		{
-			_messenger = messenger;
-			_logger = logger;
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 			Name = parameter.SecondaryText;
@@ -71,8 +52,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		private async Task LoadDetailsViewPageAsync()
 		{
+			SetTabInformation("Repositories", "Repositories", "Repositories");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadDetailsViewPageAsync);
 
@@ -86,19 +69,19 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 				_currentTaskingMethodName = nameof(LoadRepositoryContentsAsync);
 				await LoadRepositoryContentsAsync(Login, Name, ContextViewModel.BranchName, ContextViewModel.Path);
+
+				SetTabInformationPrimitive();
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsFaulted));
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -226,23 +209,17 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			};
 		}
 
-		private void SetCurrentTabItem()
+		private void SetTabInformationPrimitive()
 		{
 			string header;
 			string description;
-			string url;
-			ImageIconSource icon;
 
 			if (ContextViewModel.IsRootDir)
 			{
 				if (string.IsNullOrEmpty(Repository.Description))
-				{
 					header = $"{Repository.Owner.Login}/{Repository.Name}";
-				}
 				else
-				{
 					header = $"{Repository.Owner.Login}/{Repository.Name}: {Repository.Description}";
-				}
 			}
 			else
 			{
@@ -250,17 +227,8 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			}
 
 			description = header;
-			url = Repository.Url;
 
-			icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new("ms-appx:///Assets/Icons/Repositories.png"))
-			};
-
-			NavigationHistory.SetCurrentItem(header, description, url, icon);
-
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			SetTabInformation(header, description);
 		}
 	}
 }

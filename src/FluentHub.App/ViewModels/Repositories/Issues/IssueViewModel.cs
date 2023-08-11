@@ -41,8 +41,10 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 		private async Task LoadRepositoryIssuePageAsync()
 		{
+			SetTabInformation("Issue", "Issue", "Issues");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryIssuePageAsync);
 
@@ -53,6 +55,8 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 				_currentTaskingMethodName = nameof(LoadRepositoryOneIssueAsync);
 				await LoadRepositoryOneIssueAsync(Login, Name);
+
+				SetTabInformation($"{IssueItem.Title}", $"{IssueItem.Title}");
 			}
 			catch (Exception ex)
 			{
@@ -63,7 +67,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 			}
 			finally
 			{
-				SetCurrentTabItem();
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

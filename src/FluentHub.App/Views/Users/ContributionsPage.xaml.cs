@@ -6,11 +6,11 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Views.Users
 {
-	public sealed partial class ContributionsPage : Page
+	public sealed partial class ContributionsPage : LocatablePage
 	{
-		public ContributionsPage()
+		public ContributionsPage() : base(NavigationPageKind.User, NavigationPageKey.None)
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 	}
 }

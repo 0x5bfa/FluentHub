@@ -14,15 +14,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-	public class ContributionsViewModel : ObservableObject
+	public class ContributionsViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private User _user;
 		public User User { get => _user; set => SetProperty(ref _user, value); }
 
@@ -35,18 +28,10 @@ namespace FluentHub.App.ViewModels.Users
 		private readonly ObservableCollection<DiscussionBlockButtonViewModel> _discussions;
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> DiscussionItems { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadUserDiscussionsPageCommand { get; }
 
-		public ContributionsViewModel()
+		public ContributionsViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			_discussions = new();
 			DiscussionItems = new(_discussions);
 
@@ -55,8 +40,10 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserDiscussionsPageAsync()
 		{
+			SetTabInformation("Contributions", "Contributions", "Contributions");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserDiscussionsPageAsync);
 
@@ -71,15 +58,15 @@ namespace FluentHub.App.ViewModels.Users
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetTabInformation("Contributions", "Contributions", "Contributions");
+
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 

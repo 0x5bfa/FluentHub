@@ -47,6 +47,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestConversationPageAsync()
 		{
+			SetTabInformation("Pull request", "Pull request", "PullRequests");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
@@ -62,6 +64,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestCommentsAsync);
 				await LoadRepositoryPullRequestCommentsAsync(Login, Name);
+
+				SetTabInformation($"{PullItem.Title}", $"{PullItem.Title}");
 			}
 			catch (Exception ex)
 			{
@@ -72,7 +76,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			}
 			finally
 			{
-				SetCurrentTabItem();
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
@@ -118,19 +121,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "pullrequests",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"Pull request #{PullItem?.Number}";
-			currentItem.Description = $"Pull request #{PullItem?.Number}";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequest.png"))
 			};
 		}
 	}

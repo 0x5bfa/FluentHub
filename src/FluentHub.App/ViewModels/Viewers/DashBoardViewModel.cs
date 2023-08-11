@@ -12,14 +12,8 @@ using System.Windows.Input;
 
 namespace FluentHub.App.ViewModels.Viewers
 {
-	public class DashBoardViewModel : ObservableObject
+	public class DashBoardViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-
-		private readonly ILogger _logger;
-
-		private readonly INavigationService _navigation;
-
 		private readonly ObservableCollection<Repository> _TopRepositories;
 		public ReadOnlyObservableCollection<Repository> TopRepositories { get; }
 
@@ -29,13 +23,6 @@ namespace FluentHub.App.ViewModels.Viewers
 		private readonly ObservableCollection<ActivityBlockViewModel> _Feeds;
 		public ReadOnlyObservableCollection<ActivityBlockViewModel> Feeds { get; }
 
-		private Exception _taskException;
-		public Exception TaskException
-		{
-			get => _taskException;
-			set => SetProperty(ref _taskException, value);
-		}
-
 		public ICommand CreateNewRepositoryCommand { get; }
 		public ICommand GoToSidebarRepositoryCommand { get; }
 		public ICommand GoToSidebarActivityCommand { get; }
@@ -43,10 +30,6 @@ namespace FluentHub.App.ViewModels.Viewers
 
 		public DashBoardViewModel()
 		{
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			_TopRepositories = new();
 			TopRepositories = new(_TopRepositories);
 
@@ -62,69 +45,10 @@ namespace FluentHub.App.ViewModels.Viewers
 			LoadUserHomePageCommand = new AsyncRelayCommand(LoadUserHomePageAsync);
 		}
 
-		private async Task CreateNewRepository()
-		{
-			var dialog = new CreateNewRepositoryDialog()
-			{
-				XamlRoot = App.WindowInstance.Content.XamlRoot,
-			};
-
-			var result = await dialog.ShowAsync();
-		}
-
-		private void GoToSidebarRepository(Repository? repo)
-		{
-			if (repo is null)
-				return;
-
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-
-			parameter.PrimaryText = repo.Owner.Login;
-			parameter.SecondaryText = repo.Name;
-
-			if (App.AppSettings.UseDetailsView)
-				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
-			else
-				_navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
-		}
-
-		private void GoToSidebarActivity(Notification? notification)
-		{
-			if (notification is null)
-				return;
-
-			switch (notification.Subject.Type)
-			{
-				case NotificationSubjectType.IssueClosedAsCompleted:
-				case NotificationSubjectType.IssueClosedAsNotPlanned:
-				case NotificationSubjectType.IssueOpen:
-					_navigation.Navigate<Views.Repositories.Issues.IssuePage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = notification.Repository.Owner.Login,
-						SecondaryText = notification.Repository.Name,
-						Number = notification.Subject.Number,
-					});
-					break;
-				case NotificationSubjectType.PullRequestOpen:
-				case NotificationSubjectType.PullRequestClosed:
-				case NotificationSubjectType.PullRequestMerged:
-				case NotificationSubjectType.PullRequestDraft:
-					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = notification.Repository.Owner.Login,
-						SecondaryText = notification.Repository.Name,
-						Number = notification.Subject.Number,
-					});
-					break;
-			}
-		}
-
 		private async Task LoadUserHomePageAsync()
 		{
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserHomePageAsync);
 
@@ -136,15 +60,14 @@ namespace FluentHub.App.ViewModels.Viewers
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
 				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -204,6 +127,65 @@ namespace FluentHub.App.ViewModels.Viewers
 				};
 
 				_Feeds.Add(viewModel);
+			}
+		}
+
+		private async Task CreateNewRepository()
+		{
+			var dialog = new CreateNewRepositoryDialog()
+			{
+				XamlRoot = App.WindowInstance.Content.XamlRoot,
+			};
+
+			var result = await dialog.ShowAsync();
+		}
+
+		private void GoToSidebarRepository(Repository? repo)
+		{
+			if (repo is null)
+				return;
+
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+
+			parameter.PrimaryText = repo.Owner.Login;
+			parameter.SecondaryText = repo.Name;
+
+			if (App.AppSettings.UseDetailsView)
+				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
+			else
+				_navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
+		}
+
+		private void GoToSidebarActivity(Notification? notification)
+		{
+			if (notification is null)
+				return;
+
+			switch (notification.Subject.Type)
+			{
+				case NotificationSubjectType.IssueClosedAsCompleted:
+				case NotificationSubjectType.IssueClosedAsNotPlanned:
+				case NotificationSubjectType.IssueOpen:
+					_navigation.Navigate<Views.Repositories.Issues.IssuePage>(
+					new FrameNavigationParameter()
+					{
+						PrimaryText = notification.Repository.Owner.Login,
+						SecondaryText = notification.Repository.Name,
+						Number = notification.Subject.Number,
+					});
+					break;
+				case NotificationSubjectType.PullRequestOpen:
+				case NotificationSubjectType.PullRequestClosed:
+				case NotificationSubjectType.PullRequestMerged:
+				case NotificationSubjectType.PullRequestDraft:
+					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>(
+					new FrameNavigationParameter()
+					{
+						PrimaryText = notification.Repository.Owner.Login,
+						SecondaryText = notification.Repository.Name,
+						Number = notification.Subject.Number,
+					});
+					break;
 			}
 		}
 

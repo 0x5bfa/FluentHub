@@ -11,18 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
-	public class PullRequestsViewModel : ObservableObject
+	public class PullRequestsViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -32,18 +22,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
 		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadRepositoryPullRequestsPageCommand { get; }
 
-		public PullRequestsViewModel()
+		public PullRequestsViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			_pullRequests = new();
 			PullItems = new(_pullRequests);
 
@@ -52,8 +34,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestsPageAsync()
 		{
+			SetTabInformation("Pull requests", "Pull requests", "PullRequests");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestsPageAsync);
 
@@ -64,19 +48,19 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestsAsync);
 				await LoadRepositoryPullRequestsAsync(Login, Name);
+
+				SetTabInformation($"Pull requests \u2022 {Login}/{Name}", $"Pull requests \u2022 {Login}/{Name}");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -111,19 +95,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "pullrequests",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Pull requests";
-			currentItem.Description = "Pull requests";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequest.png"))
 			};
 		}
 	}

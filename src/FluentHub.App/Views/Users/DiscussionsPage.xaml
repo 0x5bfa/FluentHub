@@ -23,7 +23,7 @@
 
 	<Grid>
 
-		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserDiscussionsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
@@ -189,7 +189,7 @@
 			</Grid>
 		</Grid>
 
-		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadUserDiscussionsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
 			<uc:LoadErrorDisplay
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"

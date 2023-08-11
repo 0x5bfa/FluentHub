@@ -11,118 +11,90 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Discussions
 {
-    public class DiscussionsViewModel : ObservableObject
-    {
-        public DiscussionsViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class DiscussionsViewModel : BaseViewModel
+	{
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-            _items = new();
-            Items = new(_items);
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-            LoadRepositoryDiscussionsPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionsPageAsync);
-        }
+		private readonly ObservableCollection<DiscussionBlockButtonViewModel> _items;
+		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		public IAsyncRelayCommand LoadRepositoryDiscussionsPageCommand { get; }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		public DiscussionsViewModel() : base()
+		{
+			_items = new();
+			Items = new(_items);
 
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+			LoadRepositoryDiscussionsPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionsPageAsync);
+		}
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+		private async Task LoadRepositoryDiscussionsPageAsync()
+		{
+			SetTabInformation("Discussions", "Discussions", "Discussions");
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
 
-        private readonly ObservableCollection<DiscussionBlockButtonViewModel> _items;
-        public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
+			string _currentTaskingMethodName = nameof(LoadRepositoryDiscussionsPageAsync);
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
 
-        public IAsyncRelayCommand LoadRepositoryDiscussionsPageCommand { get; }
-        #endregion
+				_currentTaskingMethodName = nameof(LoadRepositoryDiscussionsAsync);
+				await LoadRepositoryDiscussionsAsync(Login, Name);
 
-        private async Task LoadRepositoryDiscussionsPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+				SetTabInformation($"Discussions \u2022 {Login}/{Name}", $"Discussions \u2022 {Login}/{Name}");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryDiscussionsPageAsync);
+				_logger?.Error(_currentTaskingMethodName, ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
-                await LoadRepositoryAsync(Login, Name);
+		private async Task LoadRepositoryDiscussionsAsync(string owner, string name)
+		{
+			DiscussionQueries queries = new();
+			var items = await queries.GetAllAsync(owner, name);
 
-                _currentTaskingMethodName = nameof(LoadRepositoryDiscussionsAsync);
-                await LoadRepositoryDiscussionsAsync(Login, Name);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			_items.Clear();
+			foreach (var item in items)
+			{
+				DiscussionBlockButtonViewModel viewmodel = new()
+				{
+					Item = item,
+				};
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_items.Add(viewmodel);
+			}
+		}
 
-        private async Task LoadRepositoryDiscussionsAsync(string owner, string name)
-        {
-            DiscussionQueries queries = new();
-            var items = await queries.GetAllAsync(owner, name);
+		private async Task LoadRepositoryAsync(string owner, string name)
+		{
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(owner, name);
 
-            _items.Clear();
-            foreach (var item in items)
-            {
-                DiscussionBlockButtonViewModel viewmodel = new()
-                {
-                    Item = item,
-                };
+			RepositoryOverviewViewModel = new()
+			{
+				Repository = Repository,
+				RepositoryName = Repository.Name,
+				RepositoryOwnerLogin = Repository.Owner.Login,
+				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                _items.Add(viewmodel);
-            }
-        }
-
-        private async Task LoadRepositoryAsync(string owner, string name)
-        {
-            RepositoryQueries queries = new();
-            Repository = await queries.GetDetailsAsync(owner, name);
-
-            RepositoryOverviewViewModel = new()
-            {
-                Repository = Repository,
-                RepositoryName = Repository.Name,
-                RepositoryOwnerLogin = Repository.Owner.Login,
-                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-                SelectedTag = "discussions",
-            };
-        }
-
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = "Discussions";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
-        }
-    }
+				SelectedTag = "discussions",
+			};
+		}
+	}
 }

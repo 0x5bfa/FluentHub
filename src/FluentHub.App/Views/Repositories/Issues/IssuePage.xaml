@@ -1404,12 +1404,6 @@
 	</views:LocatablePage.Resources>
 
 	<Grid>
-		<Button
-			HorizontalAlignment="Left"
-			VerticalAlignment="Top"
-			Canvas.ZIndex="1"
-			Click="Button_Click"
-			Content="Click" />
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">

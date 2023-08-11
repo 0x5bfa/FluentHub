@@ -11,18 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Issues
 {
-	public class IssuesViewModel : ObservableObject
+	public class IssuesViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -35,18 +25,10 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		private readonly ObservableCollection<IssueBlockButtonViewModel> _pinnedItems;
 		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> PinnedItems { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadRepositoryIssuesPageCommand { get; }
 
-		public IssuesViewModel()
+		public IssuesViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			_issueItems = new();
 			IssueItems = new(_issueItems);
 
@@ -58,8 +40,10 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 		private async Task LoadRepositoryIssuesPageAsync()
 		{
+			SetTabInformation("Issues", "Issues", "Issues");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryIssuesPageAsync);
 
@@ -70,19 +54,19 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 				_currentTaskingMethodName = nameof(LoadRepositoryIssuesAsync);
 				await LoadRepositoryIssuesAsync(Login, Name);
+
+				SetTabInformation($"Issues \u2022 {Login}/{Name}", $"Issues \u2022 {Login}/{Name}");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -130,19 +114,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "issues",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Issues";
-			currentItem.Description = "Issues";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
 			};
 		}
 	}

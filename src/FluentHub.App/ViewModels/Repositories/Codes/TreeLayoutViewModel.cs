@@ -6,208 +6,199 @@ using FluentHub.App.ViewModels.UserControls.Overview;
 
 namespace FluentHub.App.ViewModels.Repositories.Codes
 {
-    public class TreeLayoutViewModel : ObservableObject
-    {
-        public TreeLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
+	public class TreeLayoutViewModel : BaseViewModel
+	{
+		private bool _blobSelected;
+		public bool BlobSelected { get => _blobSelected; set => SetProperty(ref _blobSelected, value); }
 
-            _items = new();
-            Items = new(_items);
+		private RepoContextViewModel _contextViewModel;
+		public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
-            LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadRepositoryContentsAsync);
-            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
-        }
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-        #region Fields and Properties
-        private readonly ILogger _logger;
-        private readonly IMessenger _messenger;
-        private readonly INavigationService _navigation;
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private bool _blobSelected;
-        public bool BlobSelected { get => _blobSelected; set => SetProperty(ref _blobSelected, value); }
+		private RepoContextViewModel _selectedContextViewModel;
+		public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
 
-        private RepoContextViewModel _contextViewModel;
-        public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
+		private readonly ObservableCollection<TreeLayoutPageModel> _items;
+		public ReadOnlyObservableCollection<TreeLayoutPageModel> Items { get; }
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+		public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryCommand { get; }
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+		public TreeLayoutViewModel() : base()
+		{
+			_items = new();
+			Items = new(_items);
 
-        private RepoContextViewModel _selectedContextViewModel;
-        public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
+			LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadRepositoryContentsAsync);
+			LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
+		}
 
-        private readonly ObservableCollection<TreeLayoutPageModel> _items;
-        public ReadOnlyObservableCollection<TreeLayoutPageModel> Items { get; }
+		private async Task LoadRepositoryContentsAsync(CancellationToken token)
+		{
+			SetTabInformation("Repositories", "Repositories", "Repositories");
 
-        public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
-        public IAsyncRelayCommand LoadRepositoryCommand { get; }
-        #endregion
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
 
-        private async Task LoadRepositoryContentsAsync(CancellationToken token)
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+			try
+			{
+				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+					return;
 
-            try
-            {
-                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
-                    return;
+				TreeQueries queries = new();
+				var response = await queries.GetAllAsync(
+					ContextViewModel.Repository.Name,
+					ContextViewModel.Repository.Owner.Login,
+					ContextViewModel.BranchName,
+					ContextViewModel.Path);
 
-                TreeQueries queries = new();
-                var response = await queries.GetAllAsync(
-                    ContextViewModel.Repository.Name,
-                    ContextViewModel.Repository.Owner.Login,
-                    ContextViewModel.BranchName,
-                    ContextViewModel.Path);
+				foreach (var item in response)
+				{
+					TreeLayoutPageModel model = new()
+					{
+						Name = item.Name,
+						Path = item.Path,
+						Tag = item.Type,
+						IsBolb = false,
+					};
 
-                foreach (var item in response)
-                {
-                    TreeLayoutPageModel model = new()
-                    {
-                        Name = item.Name,
-                        Path = item.Path,
-                        Tag = item.Type,
-                        IsBolb = false,
-                    };
+					if (item.Type == "tree")
+					{
+						model.Glyph = "\uE9A0";
+					}
+					else
+					{
+						model.Glyph = "\uE996";
+						model.IsBolb = true;
+					}
 
-                    if (item.Type == "tree")
-                    {
-                        model.Glyph = "\uE9A0";
-                    }
-                    else
-                    {
-                        model.Glyph = "\uE996";
-                        model.IsBolb = true;
-                    }
+					_items.Add(model);
+				}
 
-                    _items.Add(model);
-                }
+				var orderedItems =
+					new ObservableCollection<TreeLayoutPageModel>
+					(Items.OrderByDescending(x => x.Glyph));
 
-                var orderedItems =
-                    new ObservableCollection<TreeLayoutPageModel>
-                    (Items.OrderByDescending(x => x.Glyph));
+				_items.Clear();
+				foreach (var item in orderedItems)
+					_items.Add(item);
 
-                _items.Clear();
-                foreach (var item in orderedItems) _items.Add(item);
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryContentsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-            finally
-            {
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				SetTabInformation("Repositories", "Repositories", "Repositories");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
 
-        public async Task<List<TreeLayoutPageModel>> LoadSubItemsAsync(string path)
-        {
-            try
-            {
-                var pathItems = path.Split("/");
-                List<TreeLayoutPageModel> subItems = new();
+				//_logger?.Error(_currentTaskingMethodName, ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
-                    return null;
+		public async Task<List<TreeLayoutPageModel>> LoadSubItemsAsync(string path)
+		{
+			try
+			{
+				var pathItems = path.Split("/");
+				List<TreeLayoutPageModel> subItems = new();
 
-                TreeQueries queries = new();
-                var objects = await queries.GetAllAsync(
-                    ContextViewModel.Repository.Name,
-                    ContextViewModel.Repository.Owner.Login,
-                    ContextViewModel.BranchName,
-                    path);
+				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+					return null;
 
-                foreach (var obj in objects)
-                {
-                    TreeLayoutPageModel model = new()
-                    {
-                        Name = obj.Name,
-                        Path = obj.Path,
-                        Tag = obj.Type,
-                        IsBolb = false,
-                    };
+				TreeQueries queries = new();
+				var objects = await queries.GetAllAsync(
+					ContextViewModel.Repository.Name,
+					ContextViewModel.Repository.Owner.Login,
+					ContextViewModel.BranchName,
+					path);
 
-                    if (obj.Type == "tree")
-                    {
-                        model.Glyph = "\uE9A0";
-                    }
-                    else
-                    {
-                        model.Glyph = "\uE996";
-                        model.IsBolb = true;
-                    }
+				foreach (var obj in objects)
+				{
+					TreeLayoutPageModel model = new()
+					{
+						Name = obj.Name,
+						Path = obj.Path,
+						Tag = obj.Type,
+						IsBolb = false,
+					};
 
-                    subItems.Add(model);
-                }
+					if (obj.Type == "tree")
+					{
+						model.Glyph = "\uE9A0";
+					}
+					else
+					{
+						model.Glyph = "\uE996";
+						model.IsBolb = true;
+					}
 
-                var orderedItems =
-                    new List<TreeLayoutPageModel>
-                    (subItems.OrderByDescending(x => x.Glyph));
+					subItems.Add(model);
+				}
 
-                subItems.Clear();
-                foreach (var item in orderedItems) subItems.Add(item);
+				var orderedItems =
+					new List<TreeLayoutPageModel>
+					(subItems.OrderByDescending(x => x.Glyph));
 
-                return subItems;
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadSubItemsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+				subItems.Clear();
+				foreach (var item in orderedItems) subItems.Add(item);
 
-            return null;
-        }
+				return subItems;
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadSubItemsAsync), ex);
+				if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
 
-        private async Task LoadRepositoryAsync(string url, CancellationToken token)
-        {
-            try
-            {
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
+			return null;
+		}
 
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+		private async Task LoadRepositoryAsync(string url, CancellationToken token)
+		{
+			try
+			{
+				var uri = new Uri(url);
+				var pathSegments = uri.AbsolutePath.Split("/").ToList();
+				pathSegments.RemoveAt(0);
 
-                RepositoryOverviewViewModel = new()
-                {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+				RepositoryQueries queries = new();
+				Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
 
-                    SelectedTag = "code",
-                };
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-        }
-    }
+				RepositoryOverviewViewModel = new()
+				{
+					Repository = Repository,
+					RepositoryName = Repository.Name,
+					RepositoryOwnerLogin = Repository.Owner.Login,
+					ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+					SelectedTag = "code",
+				};
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadRepositoryAsync), ex);
+				if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
+		}
+	}
 }

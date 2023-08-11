@@ -10,109 +10,91 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Projects
 {
-    public class ProjectViewModel : ObservableObject
-    {
-        public ProjectViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class ProjectViewModel : BaseViewModel
+	{
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-            LoadRepositoryProjectPageCommand = new AsyncRelayCommand(LoadRepositoryProjectPageAsync);
-        }
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        #region Fields and Properties
-        private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+		private Project _project;
+		public Project Project { get => _project; set => SetProperty(ref _project, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		public IAsyncRelayCommand LoadRepositoryProjectPageCommand { get; }
 
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+		public ProjectViewModel() : base()
+		{
+			LoadRepositoryProjectPageCommand = new AsyncRelayCommand(LoadRepositoryProjectPageAsync);
+		}
 
-        private int _number;
-        public int Number { get => _number; set => SetProperty(ref _number, value); }
+		private async Task LoadRepositoryProjectPageAsync()
+		{
+			SetTabInformation("Project", "Project", "Projects");
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+			string _currentTaskingMethodName = nameof(LoadRepositoryProjectPageAsync);
 
-        private Project _project;
-        public Project Project { get => _project; set => SetProperty(ref _project, value); }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+				_currentTaskingMethodName = nameof(LoadProjectPageAsync);
+				await LoadProjectPageAsync(Login, Name);
 
-        public IAsyncRelayCommand LoadRepositoryProjectPageCommand { get; }
-        #endregion
+				SetTabInformation($"{Project.Name}", $"{Project.Name}");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
 
-        private async Task LoadRepositoryProjectPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+				_logger?.Error(_currentTaskingMethodName, ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryProjectPageAsync);
+		private async Task LoadProjectPageAsync(string owner, string name)
+		{
+			ProjectQueries queries = new();
+			var response = await queries.GetAsync(owner, name, Number);
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
-                await LoadRepositoryAsync(Login, Name);
+			Project = response;
+		}
 
-                _currentTaskingMethodName = nameof(LoadProjectPageAsync);
-                await LoadProjectPageAsync(Login, Name);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+		private async Task LoadRepositoryAsync(string owner, string name)
+		{
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(owner, name);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+			RepositoryOverviewViewModel = new()
+			{
+				Repository = Repository,
+				RepositoryName = Repository.Name,
+				RepositoryOwnerLogin = Repository.Owner.Login,
+				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-        private async Task LoadProjectPageAsync(string owner, string name)
-        {
-            ProjectQueries queries = new();
-            var response = await queries.GetAsync(owner, name, Number);
+				SelectedTag = "projects",
+			};
+		}
 
-            Project = response;
-        }
+		private void SetCurrentTabItem()
+		{
+			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
-        private async Task LoadRepositoryAsync(string owner, string name)
-        {
-            RepositoryQueries queries = new();
-            Repository = await queries.GetDetailsAsync(owner, name);
-
-            RepositoryOverviewViewModel = new()
-            {
-                Repository = Repository,
-                RepositoryName = Repository.Name,
-                RepositoryOwnerLogin = Repository.Owner.Login,
-                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-                SelectedTag = "projects",
-            };
-        }
-
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Project";
-            currentItem.Description = "Project";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
-            };
-        }
-    }
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Project";
+			currentItem.Description = "Project";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
+			};
+		}
+	}
 }

@@ -13,34 +13,27 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Viewers
 {
-	public class NotificationsViewModel : ObservableObject
+	public class NotificationsViewModel : BaseViewModel
 	{
 		private readonly ToastService _toastService;
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-
-		private int _unreadCount;
-		public int UnreadCount { get => _unreadCount; set => SetProperty(ref _unreadCount, value); }
 
 		private int _loadedItemCount = 0;
 		private int _loadedPageCount = 0;
 		private bool _loadedToTheEnd = false;
 		private const int _itemCountPerPage = 30;
 
+		private int _unreadCount;
+		public int UnreadCount { get => _unreadCount; set => SetProperty(ref _unreadCount, value); }
+
 		private readonly ObservableCollection<NotificationBlockButtonViewModel> _notifications;
 		public ReadOnlyObservableCollection<NotificationBlockButtonViewModel> NotificationItems { get; }
-
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
 		public IAsyncRelayCommand LoadUserNotificationsPageCommand { get; }
 		public IAsyncRelayCommand LoadFurtherUserNotificationsPageCommand { get; }
 
-		public NotificationsViewModel(ToastService toastService, IMessenger messenger = null, ILogger logger = null)
+		public NotificationsViewModel()
 		{
-			_toastService = toastService;
-			_messenger = messenger;
-			_logger = logger;
+			_toastService = Ioc.Default.GetRequiredService<ToastService>();
 
 			_notifications = new();
 			NotificationItems = new(_notifications);
@@ -54,7 +47,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		private async Task LoadUserNotificationsPageAsync()
 		{
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
 
@@ -66,7 +59,7 @@ namespace FluentHub.App.ViewModels.Viewers
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
 				throw;
@@ -82,7 +75,7 @@ namespace FluentHub.App.ViewModels.Viewers
 					_messenger.Send(notification);
 				}
 
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 

@@ -11,17 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Projects
 {
-	public class ProjectsViewModel : ObservableObject
+	public class ProjectsViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
-		private string _name;
-		public string Name { get => _name; set => SetProperty(ref _name, value); }
-
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
@@ -31,16 +22,10 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		private readonly ObservableCollection<ProjectBlockButtonViewModel> _items;
 		public ReadOnlyObservableCollection<ProjectBlockButtonViewModel> Items { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadRepositoryProjectsPageCommand { get; }
 
-		public ProjectsViewModel(IMessenger messenger = null, ILogger logger = null)
+		public ProjectsViewModel() : base()
 		{
-			_messenger = messenger;
-			_logger = logger;
-
 			_items = new();
 			Items = new(_items);
 
@@ -49,8 +34,10 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadRepositoryProjectsPageAsync()
 		{
+			SetTabInformation("Projects", "Projects", "Projects");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadRepositoryProjectsPageAsync);
 
@@ -61,19 +48,19 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 				_currentTaskingMethodName = nameof(LoadProjectsPageAsync);
 				await LoadProjectsPageAsync(Login, Name);
+
+				SetTabInformation($"Projects \u2022 {Login}/{Name}", $"Projects \u2022 {Login}/{Name}");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -107,19 +94,6 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
 				SelectedTag = "projects",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Projects";
-			currentItem.Description = "Projects";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
 			};
 		}
 	}

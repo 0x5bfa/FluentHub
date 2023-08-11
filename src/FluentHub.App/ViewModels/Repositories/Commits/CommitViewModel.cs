@@ -11,156 +11,114 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Commits
 {
-    public class CommitViewModel : ObservableObject
-    {
-        public CommitViewModel(IMessenger messenger = null, ILogger logger = null)
-        {
-            _messenger = messenger;
-            _logger = logger;
+	public class CommitViewModel : BaseViewModel
+	{
+		private Repository _repository;
+		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-            _diffViewModels = new();
-            DiffViewModels = new(_diffViewModels);
+		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-            LoadRepositoryCommitPageCommand = new AsyncRelayCommand(LoadRepositoryCommitPageAsync);
-        }
+		private Commit _commitItem;
+		public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
 
-        #region Fields and Properties
-        private readonly ILogger _logger;
-        private readonly IMessenger _messenger;
+		private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
+		public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+		public IAsyncRelayCommand LoadRepositoryCommitPageCommand { get; }
 
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+		public CommitViewModel() : base()
+		{
+			_diffViewModels = new();
+			DiffViewModels = new(_diffViewModels);
 
-        private Repository _repository;
-        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+			LoadRepositoryCommitPageCommand = new AsyncRelayCommand(LoadRepositoryCommitPageAsync);
+		}
 
-        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+		private async Task LoadRepositoryCommitPageAsync()
+		{
+			SetTabInformation("Commit", "Commit", "Commits");
 
-        private Commit _commitItem;
-        public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
 
-        private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
-        public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
+			string _currentTaskingMethodName = nameof(LoadRepositoryCommitPageAsync);
 
-        private Exception _taskException;
-        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
 
-        public IAsyncRelayCommand LoadRepositoryCommitPageCommand { get; }
-        #endregion
+				_currentTaskingMethodName = nameof(LoadRepositoryOneCommitAsync);
+				await LoadRepositoryOneCommitAsync(Login, Name);
 
-        private async Task LoadRepositoryCommitPageAsync()
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+				SetTabInformation($"{CommitItem.Message}", $"{CommitItem.Message}");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryCommitPageAsync);
+				_logger?.Error(_currentTaskingMethodName, ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            try
-            {
-                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
-                await LoadRepositoryAsync(Login, Name);
+		private async Task LoadRepositoryOneCommitAsync(string owner, string name)
+		{
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			bool faulted = false;
 
-                _currentTaskingMethodName = nameof(LoadRepositoryOneCommitAsync);
-                await LoadRepositoryOneCommitAsync(Login, Name);
-            }
-            catch (Exception ex)
-            {
-                TaskException = ex;
-                faulted = true;
+			try
+			{
+				DiffQueries queries = new();
+				var response = await queries.GetAllAsync(owner, name, CommitItem.Oid);
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
-            }
-            finally
-            {
-                SetCurrentTabItem();
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
+				_diffViewModels.Clear();
+				foreach (var item in response.Files)
+				{
+					DiffBlockViewModel viewModel = new()
+					{
+						ChangedFile = item,
+					};
 
-        private async Task LoadRepositoryOneCommitAsync(string owner, string name)
-        {
-            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-            bool faulted = false;
+					_diffViewModels.Add(viewModel);
+				}
+			}
+			catch (OperationCanceledException) { }
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadRepositoryOneCommitAsync), ex);
+				if (_messenger != null)
+				{
+					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+					_messenger.Send(notification);
+				}
+				throw;
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+			}
+		}
 
-            try
-            {
-                DiffQueries queries = new();
-                var response = await queries.GetAllAsync(owner, name, CommitItem.Oid);
+		private async Task LoadRepositoryAsync(string owner, string name)
+		{
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(owner, name);
 
-                _diffViewModels.Clear();
-                foreach (var item in response.Files)
-                {
-                    DiffBlockViewModel viewModel = new()
-                    {
-                        ChangedFile = item,
-                    };
+			RepositoryOverviewViewModel = new()
+			{
+				Repository = Repository,
+				RepositoryName = Repository.Name,
+				RepositoryOwnerLogin = Repository.Owner.Login,
+				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    _diffViewModels.Add(viewModel);
-                }
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryOneCommitAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-            finally
-            {
-                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
-            }
-        }
-
-        private async Task LoadRepositoryAsync(string owner, string name)
-        {
-            try
-            {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
-
-                RepositoryOverviewViewModel = new()
-                {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-                    SelectedTag = "code",
-                };
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
-        }
-
-        private void SetCurrentTabItem()
-        {
-            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Commit";
-            currentItem.Description = "Commit";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
-            };
-        }
-    }
+				SelectedTag = "code",
+			};
+		}
+	}
 }

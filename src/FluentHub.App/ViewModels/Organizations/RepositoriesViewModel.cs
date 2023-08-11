@@ -14,15 +14,8 @@ using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
-	public class RepositoriesViewModel : ObservableObject
+	public class RepositoriesViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private Organization _organization;
 		public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
 
@@ -35,18 +28,10 @@ namespace FluentHub.App.ViewModels.Organizations
 		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
 		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadOrganizationRepositoriesPageCommand { get; }
 
-		public RepositoriesViewModel()
+		public RepositoriesViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 			if (parameter.AsViewer)
@@ -64,7 +49,7 @@ namespace FluentHub.App.ViewModels.Organizations
 		private async Task LoadOrganizationRepositoriesPageAsync()
 		{
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadOrganizationRepositoriesPageAsync);
 
@@ -79,7 +64,7 @@ namespace FluentHub.App.ViewModels.Organizations
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
 				throw;
@@ -87,7 +72,7 @@ namespace FluentHub.App.ViewModels.Organizations
 			finally
 			{
 				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 

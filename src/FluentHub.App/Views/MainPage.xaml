@@ -295,6 +295,16 @@
 											Tag="YourStars"
 											Text="Your stars" />
 										<MenuFlyoutItem IsEnabled="false" Text="Your sponsors" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="AppSettings"
+											Text="App settings" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="SignOut"
+											Text="Sign out" />
 									</MenuBarItemFlyout>
 								</Button.Flyout>
 							</Button>

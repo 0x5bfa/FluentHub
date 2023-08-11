@@ -13,15 +13,8 @@ using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
-	public class OverviewViewModel : ObservableObject
+	public class OverviewViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private Organization _organization;
 		public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
 
@@ -37,18 +30,10 @@ namespace FluentHub.App.ViewModels.Organizations
 		private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
 		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
 
-		public OverviewViewModel()
+		public OverviewViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 			if (parameter.AsViewer)
@@ -69,7 +54,7 @@ namespace FluentHub.App.ViewModels.Organizations
 		private async Task LoadOrganizationOverviewPageAsync()
 		{
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
 
@@ -84,13 +69,13 @@ namespace FluentHub.App.ViewModels.Organizations
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				// OAuth restriction exception
 				if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
 				{
 					OAuthAppIsRestrictedByOrgSettings = true;
-					faulted = false;
+					IsTaskFaulted = false;
 				}
 				else
 				{
@@ -101,7 +86,7 @@ namespace FluentHub.App.ViewModels.Organizations
 			finally
 			{
 				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 

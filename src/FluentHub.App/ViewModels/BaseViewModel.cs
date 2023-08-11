@@ -34,12 +34,36 @@ namespace FluentHub.App.ViewModels
 		protected bool _IsTaskFaulted;
 		public bool IsTaskFaulted { get => _IsTaskFaulted; set => SetProperty(ref _IsTaskFaulted, value); }
 
-		public BaseViewModel()
+		protected BaseViewModel()
 		{
 			// Dependency Injection
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
+
+		protected void SetTabInformation(
+			string? header = null,
+			string? description = null,
+			string? imageIconSourceSimplified = null)
+		{
+			var currentItem = _navigation.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
+			if (!string.IsNullOrEmpty(header))
+				currentItem.Header = header;
+
+			if (!string.IsNullOrEmpty(header))
+				currentItem.Description = description;
+
+			if (!string.IsNullOrEmpty(header))
+			{
+				currentItem.Icon = new ImageIconSource()
+				{
+					ImageSource = new BitmapImage(new Uri($"ms-appx:///Assets/Icons/{imageIconSourceSimplified}.png"))
+				};
+			}
 		}
 	}
 }

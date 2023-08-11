@@ -22,6 +22,8 @@
 		Padding="32"
 		HorizontalAlignment="Stretch"
 		VerticalAlignment="Stretch">
+
+		<!--  Header/Description & Retry Action  -->
 		<StackPanel
 			x:Name="SenteredRootContent"
 			HorizontalAlignment="Center"
@@ -31,8 +33,10 @@
 				x:Name="LoadErrorDisplayHeader"
 				HorizontalAlignment="Center"
 				FontSize="36"
-				Style="{StaticResource BodyStrongTextBlockStyle}"
-				Text="{helpers:ResourceString Name=LoadErrorDisplayHeader/Text}" />
+				Style="{StaticResource BodyStrongTextBlockStyle}">
+				<Run Text="{helpers:ResourceString Name=LoadErrorDisplayHeader/Text}" />
+				<Run Text="😿" />
+			</TextBlock>
 			<TextBlock
 				HorizontalAlignment="Center"
 				Style="{StaticResource BodyTextBlockStyle}"
@@ -42,6 +46,8 @@
 				x:Load="{x:Bind Action, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 				Content="{x:Bind Action, Mode=OneWay}" />
 		</StackPanel>
+
+		<!--  Footer Actions  -->
 		<StackPanel
 			x:Name="BottomAlignedRootContent"
 			HorizontalAlignment="Center"
@@ -106,5 +112,6 @@
 				</StackPanel>
 			</Button>
 		</StackPanel>
+
 	</Grid>
 </UserControl>

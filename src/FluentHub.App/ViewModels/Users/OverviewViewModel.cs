@@ -12,15 +12,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-	public class OverviewViewModel : ObservableObject
+	public class OverviewViewModel : BaseViewModel
 	{
-		private readonly ILogger _logger;
-		private readonly IMessenger _messenger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private User _user;
 		public User User { get => _user; set => SetProperty(ref _user, value); }
 
@@ -36,19 +29,11 @@ namespace FluentHub.App.ViewModels.Users
 		private RepoContextViewModel _contextViewModel;
 		public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
 
-		public OverviewViewModel()
+		public OverviewViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 
@@ -64,8 +49,10 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserOverviewAsync()
 		{
+			SetTabInformation("Overview", "Overview", "Profile");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserOverviewAsync);
 
@@ -80,15 +67,15 @@ namespace FluentHub.App.ViewModels.Users
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetTabInformation("Overview", "Overview", "Profile");
+
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -150,19 +137,6 @@ namespace FluentHub.App.ViewModels.Users
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
 			}
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"{User?.Login}";
-			currentItem.Description = $"{User?.Login}";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
-			};
 		}
 
 		private async Task ShowPinnedRepositoriesEditorDialogAsync()

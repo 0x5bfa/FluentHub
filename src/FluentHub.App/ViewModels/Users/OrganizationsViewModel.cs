@@ -14,15 +14,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
-	public class OrganizationsViewModel : ObservableObject
+	public class OrganizationsViewModel : BaseViewModel
 	{
-		private readonly IMessenger _messenger;
-		private readonly ILogger _logger;
-		private readonly INavigationService _navigation;
-
-		private string _login;
-		public string Login { get => _login; set => SetProperty(ref _login, value); }
-
 		private User _user;
 		public User User { get => _user; set => SetProperty(ref _user, value); }
 
@@ -40,13 +33,8 @@ namespace FluentHub.App.ViewModels.Users
 
 		public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
 
-		public OrganizationsViewModel()
+		public OrganizationsViewModel() : base()
 		{
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
 			if (parameter.AsViewer)
@@ -65,8 +53,10 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserOrganizationsPageAsync()
 		{
+			SetTabInformation("Organizations", "Organizations", "Organizations");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			IsTaskFaulted = false;
 
 			string _currentTaskingMethodName = nameof(LoadUserOrganizationsPageAsync);
 
@@ -81,15 +71,15 @@ namespace FluentHub.App.ViewModels.Users
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
+				IsTaskFaulted = true;
 
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetTabInformation("Organizations", "Organizations", "Organizations");
+
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 
@@ -128,19 +118,6 @@ namespace FluentHub.App.ViewModels.Users
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
 			}
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Organizations";
-			currentItem.Description = $"{User?.Login}'s organizations";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
-			};
 		}
 	}
 }
