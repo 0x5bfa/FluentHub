@@ -71,19 +71,19 @@
 								Spacing="8">
 
 								<!--<Button Visibility="Collapsed">
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <FontIcon
-                                                FontSize="14"
-                                                Foreground="{ThemeResource TextFillColorSecondary}"
-                                                Glyph="&#xe71c;" />
-                                            <InfoBadge Value="2" />
-                                        </StackPanel>
-                                        <Button.Flyout>
-                                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                                <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
-                                            </MenuFlyout>
-                                        </Button.Flyout>
-                                    </Button>-->
+										<StackPanel Orientation="Horizontal" Spacing="4">
+											<FontIcon
+												FontSize="14"
+												Foreground="{ThemeResource TextFillColorSecondary}"
+												Glyph="&#xe71c;" />
+											<InfoBadge Value="2" />
+										</StackPanel>
+										<Button.Flyout>
+											<MenuFlyout Placement="BottomEdgeAlignedLeft">
+												<MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
+											</MenuFlyout>
+										</Button.Flyout>
+									</Button>-->
 
 								<DropDownButton IsEnabled="False">
 									<DropDownButton.Content>
@@ -161,10 +161,10 @@
 
 							<ItemsRepeater ItemsSource="{x:Bind ViewModel.DiscussionItems, Mode=OneWay}">
 								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
+									<StackLayout Orientation="Vertical" Spacing="4" />
 								</ItemsRepeater.Layout>
 								<DataTemplate x:DataType="bbvm:DiscussionBlockButtonViewModel">
-									<bbuc:DiscussionBlockButton ViewModel="{x:Bind}" />
+									<bbuc:DiscussionBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
 								</DataTemplate>
 							</ItemsRepeater>
 

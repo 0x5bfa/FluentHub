@@ -146,10 +146,10 @@
 
 							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Projects, Mode=OneWay}">
 								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
+									<StackLayout Orientation="Vertical" Spacing="4" />
 								</ItemsRepeater.Layout>
 								<DataTemplate x:DataType="bbvm:ProjectBlockButtonViewModel">
-									<bbuc:ProjectBlockButton ViewModel="{x:Bind}" />
+									<bbuc:ProjectBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
 								</DataTemplate>
 							</ItemsRepeater>
 
