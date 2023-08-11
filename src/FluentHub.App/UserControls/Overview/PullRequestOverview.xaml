@@ -84,7 +84,10 @@
 					</toolkit:Case>
 				</toolkit:SwitchPresenter>
 
-				<StackPanel Orientation="Horizontal" Spacing="8">
+				<StackPanel
+					Orientation="Horizontal"
+					Spacing="8"
+					Visibility="{x:Bind ViewModel.PullRequest.HeadRefName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
 					<Grid Height="24" HorizontalAlignment="Left">
 

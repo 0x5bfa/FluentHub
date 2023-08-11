@@ -74,7 +74,7 @@ namespace FluentHub.App.UserControls
 
         private async void OnReportThisIssueButtonClick(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://github.com/FluentHub/FluentHub/issues/new/choose"));
+            await Launcher.LaunchUriAsync(new Uri("https://github.com/FluentHub/FluentHub/issues/new?assignees=0x5bfa&labels=bug&projects=&template=bug_report.yml"));
         }
 
         private void SetCurrentTabItem()

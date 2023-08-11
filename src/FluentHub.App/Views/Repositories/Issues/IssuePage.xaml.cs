@@ -30,5 +30,9 @@ namespace FluentHub.App.Views.Repositories.Issues
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+		}
 	}
 }

@@ -172,6 +172,29 @@
 									</AnimatedIcon>
 								</Viewbox>
 							</Button>
+
+							<Button
+								x:Name="ContentFrameForewardNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
+								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
+								<Viewbox Width="16">
+									<AnimatedIcon>
+										<AnimatedIcon.Source>
+											<animatedvisuals:AnimatedBackVisualSource />
+										</AnimatedIcon.Source>
+										<AnimatedIcon.FallbackIconSource>
+											<SymbolIconSource Symbol="Back" />
+										</AnimatedIcon.FallbackIconSource>
+										<AnimatedIcon.RenderTransform>
+											<RotateTransform Angle="180" />
+										</AnimatedIcon.RenderTransform>
+									</AnimatedIcon>
+								</Viewbox>
+							</Button>
 						</StackPanel>
 
 						<StackPanel Grid.Column="1" Orientation="Horizontal">

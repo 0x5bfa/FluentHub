@@ -50,8 +50,9 @@
 			Spacing="8">
 			<Button
 				x:Name="ShowExceptionDetailsContentDialogButton"
+				Background="Transparent"
+				BorderThickness="0"
 				Click="OnShowExceptionDetailsContentDialogButtonClick"
-				Style="{StaticResource LinkLikeButtonStyle}"
 				ToolTipService.ToolTip="{helpers:ResourceString Name=LoadErrorDisplayShowExceptionDetailsContentDialogButton/ToolTipService/ToolTip}">
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<FontIcon FontSize="14" Glyph="&#xE71E;" />
@@ -70,8 +71,9 @@
 				Text="•" />
 			<Button
 				x:Name="OpenLogFileLocationButton"
+				Background="Transparent"
+				BorderThickness="0"
 				Click="OnOpenLogFileLocationButtonClick"
-				Style="{StaticResource LinkLikeButtonStyle}"
 				ToolTipService.ToolTip="{helpers:ResourceString Name=LoadErrorDisplayOpenLogFileLocationButton/ToolTipService/ToolTip}">
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<FontIcon FontSize="14" Glyph="&#xED25;" />
@@ -90,8 +92,9 @@
 				Text="•" />
 			<Button
 				x:Name="ReportThisIssueButton"
+				Background="Transparent"
+				BorderThickness="0"
 				Click="OnReportThisIssueButtonClick"
-				Style="{StaticResource LinkLikeButtonStyle}"
 				ToolTipService.ToolTip="{helpers:ResourceString Name=LoadErrorDisplayReportThisIssueButton/ToolTipService/ToolTip}">
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<FontIcon FontSize="14" Glyph="&#xE723;" />

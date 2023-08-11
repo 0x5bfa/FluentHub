@@ -36,7 +36,7 @@
 						<primer:Avatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-							IsSquare="True"
+							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
 							Size="24"
 							Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
 

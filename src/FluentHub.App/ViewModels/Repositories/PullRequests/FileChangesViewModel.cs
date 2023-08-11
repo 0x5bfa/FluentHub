@@ -104,7 +104,18 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				DiffBlockViewModel viewModel = new()
 				{
-					ChangedPullRequestFile = item,
+					ChangedFile = new(
+						item.FileName,
+						item.Additions,
+						item.Deletions,
+						item.Changes,
+						item.Status,
+						item.BlobUrl,
+						item.ContentsUrl,
+						item.RawUrl,
+						item.Sha,
+						item.Patch,
+						item.PreviousFileName),
 				};
 
 				_diffViewModels.Add(viewModel);

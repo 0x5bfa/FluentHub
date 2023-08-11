@@ -1404,8 +1404,14 @@
 	</views:LocatablePage.Resources>
 
 	<Grid>
+		<Button
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Canvas.ZIndex="1"
+			Click="Button_Click"
+			Content="Click" />
 
-		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -1877,7 +1883,7 @@
 			</ScrollViewer>
 		</Grid>
 
-		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
 			<uc:LoadErrorDisplay
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"
