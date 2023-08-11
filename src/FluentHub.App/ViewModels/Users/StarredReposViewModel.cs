@@ -65,6 +65,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserStarredRepositoriesAsync);
 				await LoadUserStarredRepositoriesAsync(Login);
+
+				SetTabInformation("Stars", "Stars", "Starred");
 			}
 			catch (Exception ex)
 			{
@@ -75,8 +77,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Stars", "Stars", "Starred");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

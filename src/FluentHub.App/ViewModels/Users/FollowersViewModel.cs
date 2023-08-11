@@ -64,6 +64,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserFollowersAsync);
 				await LoadUserFollowersAsync(Login);
+
+				SetTabInformation("Followers", "Followers", "Accounts");
 			}
 			catch (Exception ex)
 			{
@@ -74,8 +76,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Followers", "Followers", "Accounts");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

@@ -16,7 +16,7 @@ namespace FluentHub.App.Views.Users
 		public PullRequestsViewModel ViewModel { get; }
 
 		public PullRequestsPage()
-			: base(NavigationPageKind.User, NavigationPageKey.Projects)
+			: base(NavigationPageKind.User, NavigationPageKey.PullRequests)
 		{
 			InitializeComponent();
 

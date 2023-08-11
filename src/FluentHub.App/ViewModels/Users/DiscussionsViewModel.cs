@@ -64,6 +64,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserDiscussionsAsync);
 				await LoadUserDiscussionsAsync(Login);
+
+				SetTabInformation("Discussions", "Discussions", "Discussions");
 			}
 			catch (Exception ex)
 			{
@@ -74,8 +76,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Discussions", "Discussions", "Discussions");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

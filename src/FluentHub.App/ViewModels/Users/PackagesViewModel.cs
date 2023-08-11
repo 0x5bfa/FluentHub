@@ -64,6 +64,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserPackagesAsync);
 				await LoadUserPackagesAsync(Login);
+
+				SetTabInformation("Packages", "Packages", "Packages");
 			}
 			catch (Exception ex)
 			{
@@ -74,8 +76,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Packages", "Packages", "Packages");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

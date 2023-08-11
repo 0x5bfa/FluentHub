@@ -67,6 +67,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
 				await LoadUserOrganizationsAsync(Login);
+
+				SetTabInformation("Organizations", "Organizations", "Organizations");
 			}
 			catch (Exception ex)
 			{
@@ -77,8 +79,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Organizations", "Organizations", "Organizations");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

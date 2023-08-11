@@ -66,6 +66,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
 				await LoadUserRepositoriesAsync(Login);
+
+				SetTabInformation("Repositories", "Repositories", "Repositories");
 			}
 			catch (Exception ex)
 			{
@@ -76,8 +78,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Repositories", "Repositories", "Repositories");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

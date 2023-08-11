@@ -12,7 +12,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-	xmlns:tabsuc="using:FluentHub.App.UserControls.TabViewControl"
+	xmlns:tabsuc="using:FluentHub.App.UserControls.CustomTabView"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	KeyTipPlacementMode="Hidden"
@@ -96,14 +96,14 @@
 				IsIndeterminate="True" />
 
 			<tabsuc:CustomTabView
-				x:Name="CustomTabViewControl"
-				Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+				x:Name="CustomCustomTabView"
+				Title="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
 				Grid.Column="3"
 				Height="40"
 				Margin="0,0,0,0"
 				VerticalAlignment="Bottom"
 				Background="Transparent"
-				Loaded="OnCustomTabViewControlLoaded"
+				Loaded="OnCustomCustomTabViewLoaded"
 				SelectionChanged="OnTabViewSelectionChanged" />
 
 		</Grid>
@@ -158,7 +158,7 @@
 								Width="32"
 								Height="32"
 								Padding="0"
-								x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
+								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
@@ -178,7 +178,7 @@
 								Width="32"
 								Height="32"
 								Padding="0"
-								x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
+								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
@@ -201,18 +201,18 @@
 							<Button
 								Background="Transparent"
 								BorderThickness="0"
-								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+								Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 								<TextBlock
 									VerticalAlignment="Center"
 									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+									Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
 							</Button>
-							<StackPanel Orientation="Horizontal" Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+							<StackPanel Orientation="Horizontal" Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 								<Button Background="Transparent" BorderThickness="0">
 									<TextBlock
 										VerticalAlignment="Center"
 										Style="{StaticResource BodyTextBlockStyle}"
-										Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+										Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
 								</Button>
 								<TextBlock
 									VerticalAlignment="Center"
@@ -223,7 +223,7 @@
 									<TextBlock
 										VerticalAlignment="Center"
 										Style="{StaticResource BodyStrongTextBlockStyle}"
-										Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
+										Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
 								</Button>
 							</StackPanel>
 						</StackPanel>
@@ -316,13 +316,13 @@
 						x:Name="NavigationBarNavigationView"
 						Grid.Row="1"
 						Margin="0,-4,0,-12"
-						x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.IsNavigationBarShown, Mode=OneWay}"
+						x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
-						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
+						MenuItemsSource="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
 						PaneDisplayMode="Top"
-						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
+						SelectedItem="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="6">

@@ -170,11 +170,12 @@ namespace FluentHub.App.Data.Items
 				return;
 			}
 
+			currentTabNavigationBar.Context = CurrentItem.Context ?? new();
+
 			// Generate new navigation bar items
 			if (previousItem.PageKind != CurrentItem.PageKind)
 			{
 				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
-				currentTabNavigationBar.Context = CurrentItem.Context ?? new();
 
 				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
 					currentTabNavigationBar.NavigationBarItems.Clear();

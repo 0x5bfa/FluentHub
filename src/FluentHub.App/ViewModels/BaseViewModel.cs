@@ -54,10 +54,10 @@ namespace FluentHub.App.ViewModels
 			if (!string.IsNullOrEmpty(header))
 				currentItem.Header = header;
 
-			if (!string.IsNullOrEmpty(header))
+			if (!string.IsNullOrEmpty(description))
 				currentItem.Description = description;
 
-			if (!string.IsNullOrEmpty(header))
+			if (!string.IsNullOrEmpty(imageIconSourceSimplified))
 			{
 				currentItem.Icon = new ImageIconSource()
 				{

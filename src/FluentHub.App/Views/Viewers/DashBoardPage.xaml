@@ -61,206 +61,233 @@
 		</ResourceDictionary>
 	</views:LocatablePage.Resources>
 
-	<Grid ColumnSpacing="8">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="332" />
-			<ColumnDefinition Width="*" />
-		</Grid.ColumnDefinitions>
+	<Grid>
 
-		<Grid
-			Margin="8,8,0,8"
-			Background="{ThemeResource LayerFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1"
-			CornerRadius="8">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="332" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-			<TextBlock
-				Margin="20,16,20,12"
-				MaxLines="2"
-				Style="{StaticResource SubtitleTextBlockStyle}"
-				TextTrimming="CharacterEllipsis"
-				TextWrapping="Wrap">
-				<Run Text="Welcome back," />
-				<Run Text="{x:Bind root:App.AppSettings.SignedInUserName, Mode=OneWay}" />
-				<Run Text="👋" />
-			</TextBlock>
+			<!--  Leftside Pane  -->
+			<Grid
+				Margin="8,8,0,8"
+				Background="{ThemeResource LayerFillColorDefaultBrush}"
+				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+				BorderThickness="1"
+				CornerRadius="8">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
 
-			<ScrollViewer Grid.Row="1">
-				<Grid VerticalAlignment="Top">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
+				<TextBlock
+					Margin="20,16,20,12"
+					MaxLines="2"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					TextTrimming="CharacterEllipsis"
+					TextWrapping="Wrap">
+					<Run Text="Welcome back," />
+					<Run Text="{x:Bind root:App.AppSettings.SignedInUserName, Mode=OneWay}" />
+					<Run Text="👋" />
+				</TextBlock>
 
-					<Grid
-						x:Name="DashBoardMainCardTopRepoHeaderContent"
-						Grid.Row="0"
-						Padding="16,8,16,0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
+				<ScrollViewer Grid.Row="1">
+					<Grid VerticalAlignment="Top">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<Grid
+							x:Name="DashBoardMainCardTopRepoHeaderContent"
+							Grid.Row="0"
+							Padding="16,8,16,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<TextBlock
+								Margin="4,8"
+								Style="{StaticResource BodyStrongTextBlockStyle}"
+								Text="Repositories" />
+
+							<Button
+								Grid.Column="1"
+								Command="{x:Bind ViewModel.CreateNewRepositoryCommand, Mode=OneWay}"
+								Content="New"
+								Style="{StaticResource AccentButtonStyle}" />
+						</Grid>
+
+						<ItemsRepeater
+							x:Name="SidebarRepositoryItemsRepeater"
+							Grid.Row="1"
+							Margin="12,8"
+							ItemsSource="{x:Bind ViewModel.TopRepositories, Mode=OneWay}">
+							<ItemsRepeater.Layout>
+								<StackLayout Orientation="Vertical" Spacing="4" />
+							</ItemsRepeater.Layout>
+							<DataTemplate x:DataType="modelsV4:Repository">
+								<Button
+									Height="32"
+									Padding="6,4"
+									HorizontalAlignment="Stretch"
+									HorizontalContentAlignment="Left"
+									Background="Transparent"
+									BorderBrush="Transparent"
+									Command="{Binding ElementName=SidebarRepositoryItemsRepeater, Path=DataContext.GoToSidebarRepositoryCommand, Mode=OneWay}"
+									CommandParameter="{Binding Mode=OneWay}">
+									<StackPanel Orientation="Horizontal">
+										<primer:Avatar
+											Margin="0,0,8,0"
+											IsSquare="{x:Bind IsInOrganization}"
+											Size="16"
+											Source="{x:Bind Owner.AvatarUrl}" />
+										<TextBlock Text="{x:Bind Owner.Login}" />
+										<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="/" />
+										<TextBlock Text="{x:Bind Name}" />
+									</StackPanel>
+								</Button>
+							</DataTemplate>
+						</ItemsRepeater>
 
 						<TextBlock
-							Margin="4,8"
+							Grid.Row="2"
+							Margin="20,16,20,4"
 							Style="{StaticResource BodyStrongTextBlockStyle}"
-							Text="Repositories" />
+							Text="Activities" />
 
-						<Button
-							Grid.Column="1"
-							Command="{x:Bind ViewModel.CreateNewRepositoryCommand, Mode=OneWay}"
-							Content="New"
-							Style="{StaticResource AccentButtonStyle}" />
+						<ItemsRepeater
+							x:Name="SidebarRecentActivityItemsRepeater"
+							Grid.Row="3"
+							Margin="12,8"
+							ItemsSource="{x:Bind ViewModel.RecentActivities, Mode=OneWay}">
+							<ItemsRepeater.Layout>
+								<StackLayout Orientation="Vertical" Spacing="4" />
+							</ItemsRepeater.Layout>
+							<DataTemplate x:DataType="modelsV3:Notification">
+								<Button
+									Padding="6,4"
+									HorizontalAlignment="Stretch"
+									HorizontalContentAlignment="Left"
+									Background="Transparent"
+									BorderBrush="Transparent"
+									Command="{Binding ElementName=SidebarRecentActivityItemsRepeater, Path=DataContext.GoToSidebarActivityCommand, Mode=OneWay}"
+									CommandParameter="{Binding Mode=OneWay}">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+
+										<toolkit:SwitchPresenter
+											Grid.Row="1"
+											Grid.Column="0"
+											Width="16"
+											Margin="0,0,8,0"
+											VerticalAlignment="Top"
+											TargetType="x:String"
+											Value="{x:Bind Subject.TypeHumanized, Mode=OneWay}">
+
+											<toolkit:Case Value="IssueOpen">
+												<FontIcon
+													FontFamily="{StaticResource Octicons}"
+													FontSize="16"
+													Foreground="{StaticResource PrimerOpenForeground}"
+													Glyph="&#xE9EA;" />
+											</toolkit:Case>
+
+											<toolkit:Case Value="PullRequestOpen">
+												<FontIcon
+													FontFamily="{StaticResource Octicons}"
+													FontSize="16"
+													Foreground="{StaticResource PrimerOpenForeground}"
+													Glyph="&#xE9BF;" />
+											</toolkit:Case>
+
+										</toolkit:SwitchPresenter>
+
+										<StackPanel
+											Grid.Row="0"
+											Grid.Column="1"
+											Orientation="Horizontal"
+											Spacing="2">
+											<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource CaptionTextBlockStyle}">
+												<Run Text="{x:Bind Repository.Owner.Login}" />
+												<Run Text="/" />
+												<Run Text="{x:Bind Repository.Name}" />
+											</TextBlock>
+										</StackPanel>
+
+										<TextBlock
+											Grid.Row="1"
+											Grid.Column="1"
+											Text="{x:Bind Subject.Title}"
+											TextTrimming="CharacterEllipsis"
+											TextWrapping="Wrap" />
+
+									</Grid>
+								</Button>
+							</DataTemplate>
+						</ItemsRepeater>
+
 					</Grid>
+				</ScrollViewer>
 
-					<ItemsRepeater
-						x:Name="SidebarRepositoryItemsRepeater"
-						Grid.Row="1"
-						Margin="12,8"
-						ItemsSource="{x:Bind ViewModel.TopRepositories, Mode=OneWay}">
-						<ItemsRepeater.Layout>
-							<StackLayout Orientation="Vertical" Spacing="4" />
-						</ItemsRepeater.Layout>
-						<DataTemplate x:DataType="modelsV4:Repository">
-							<Button
-								Height="32"
-								Padding="6,4"
-								HorizontalAlignment="Stretch"
-								HorizontalContentAlignment="Left"
-								Background="Transparent"
-								BorderBrush="Transparent"
-								Command="{Binding ElementName=SidebarRepositoryItemsRepeater, Path=DataContext.GoToSidebarRepositoryCommand, Mode=OneWay}"
-								CommandParameter="{Binding Mode=OneWay}">
-								<StackPanel Orientation="Horizontal">
-									<primer:Avatar
-										Margin="0,0,8,0"
-										IsSquare="{x:Bind IsInOrganization}"
-										Size="16"
-										Source="{x:Bind Owner.AvatarUrl}" />
-									<TextBlock Text="{x:Bind Owner.Login}" />
-									<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="/" />
-									<TextBlock Text="{x:Bind Name}" />
-								</StackPanel>
-							</Button>
-						</DataTemplate>
-					</ItemsRepeater>
+			</Grid>
 
-					<TextBlock
-						Grid.Row="2"
-						Margin="20,16,20,4"
-						Style="{StaticResource BodyStrongTextBlockStyle}"
-						Text="Activities" />
+			<!--  Main Contents  -->
+			<Grid Grid.Column="1" Margin="0,8,0,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
 
-					<ItemsRepeater
-						x:Name="SidebarRecentActivityItemsRepeater"
-						Grid.Row="3"
-						Margin="12,8"
-						ItemsSource="{x:Bind ViewModel.RecentActivities, Mode=OneWay}">
-						<ItemsRepeater.Layout>
-							<StackLayout Orientation="Vertical" Spacing="4" />
-						</ItemsRepeater.Layout>
-						<DataTemplate x:DataType="modelsV3:Notification">
-							<Button
-								Padding="6,4"
-								HorizontalAlignment="Stretch"
-								HorizontalContentAlignment="Left"
-								Background="Transparent"
-								BorderBrush="Transparent"
-								Command="{Binding ElementName=SidebarRecentActivityItemsRepeater, Path=DataContext.GoToSidebarActivityCommand, Mode=OneWay}"
-								CommandParameter="{Binding Mode=OneWay}">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-									</Grid.RowDefinitions>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
+				<TextBlock
+					Margin="16,24,20,8"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="Dashboard" />
 
-									<toolkit:SwitchPresenter
-										Grid.Row="1"
-										Grid.Column="0"
-										Width="16"
-										Margin="0,0,8,0"
-										VerticalAlignment="Top"
-										TargetType="x:String"
-										Value="{x:Bind Subject.TypeHumanized, Mode=OneWay}">
+				<ScrollViewer Grid.Row="1">
+					<Grid Margin="12,0,24,24">
+						<ItemsRepeater ItemsSource="{x:Bind ViewModel.Feeds, Mode=OneWay}">
+							<DataTemplate x:DataType="fbvm:ActivityBlockViewModel">
+								<fbuc:ActivityBlock ViewModel="{x:Bind}" />
+							</DataTemplate>
+						</ItemsRepeater>
+					</Grid>
+				</ScrollViewer>
 
-										<toolkit:Case Value="IssueOpen">
-											<FontIcon
-												FontFamily="{StaticResource Octicons}"
-												FontSize="16"
-												Foreground="{StaticResource PrimerOpenForeground}"
-												Glyph="&#xE9EA;" />
-										</toolkit:Case>
-
-										<toolkit:Case Value="PullRequestOpen">
-											<FontIcon
-												FontFamily="{StaticResource Octicons}"
-												FontSize="16"
-												Foreground="{StaticResource PrimerOpenForeground}"
-												Glyph="&#xE9BF;" />
-										</toolkit:Case>
-
-									</toolkit:SwitchPresenter>
-
-									<StackPanel
-										Grid.Row="0"
-										Grid.Column="1"
-										Orientation="Horizontal"
-										Spacing="2">
-										<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Style="{StaticResource CaptionTextBlockStyle}">
-											<Run Text="{x:Bind Repository.Owner.Login}" />
-											<Run Text="/" />
-											<Run Text="{x:Bind Repository.Name}" />
-										</TextBlock>
-									</StackPanel>
-
-									<TextBlock
-										Grid.Row="1"
-										Grid.Column="1"
-										Text="{x:Bind Subject.Title}"
-										TextTrimming="CharacterEllipsis"
-										TextWrapping="Wrap" />
-
-								</Grid>
-							</Button>
-						</DataTemplate>
-					</ItemsRepeater>
-
-				</Grid>
-			</ScrollViewer>
+			</Grid>
 
 		</Grid>
 
-		<Grid Grid.Column="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-
-			<TextBlock
-				Margin="16,24,20,8"
-				Style="{StaticResource SubtitleTextBlockStyle}"
-				Text="Dashboard" />
-
-			<ScrollViewer Grid.Row="1">
-				<Grid Margin="12,0,24,24">
-					<ItemsRepeater ItemsSource="{x:Bind ViewModel.Feeds, Mode=OneWay}">
-						<DataTemplate x:DataType="fbvm:ActivityBlockViewModel">
-							<fbuc:ActivityBlock ViewModel="{x:Bind}" />
-						</DataTemplate>
-					</ItemsRepeater>
-				</Grid>
-			</ScrollViewer>
-
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
+			<uc:LoadErrorDisplay
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+				<uc:LoadErrorDisplay.Action>
+					<Grid>
+						<Button
+							Margin="0,24,0,0"
+							HorizontalAlignment="Center"
+							Command="{x:Bind ViewModel.LoadUserHomePageCommand}">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<FontIcon FontSize="16" Glyph="&#xE149;" />
+								<TextBlock Text="Try Again" />
+							</StackPanel>
+						</Button>
+					</Grid>
+				</uc:LoadErrorDisplay.Action>
+			</uc:LoadErrorDisplay>
 		</Grid>
 
 	</Grid>

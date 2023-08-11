@@ -59,8 +59,8 @@ namespace FluentHub.App.Views
 
 			SubscribeEvents();
 
-			CustomTabViewControl.NewTabPage = typeof(Viewers.DashBoardPage);
-			NavigationService.Configure(CustomTabViewControl);
+			CustomCustomTabView.NewTabPage = typeof(Viewers.DashBoardPage);
+			NavigationService.Configure(CustomCustomTabView);
 			NavigationService.Navigate<Viewers.DashBoardPage>();
 
 			var command = ViewModel.LoadSignedInUserCommand;
@@ -77,7 +77,7 @@ namespace FluentHub.App.Views
 			NavigationService.Disconnect();
 		}
 
-		private void OnCustomTabViewControlLoaded(object sender, RoutedEventArgs e)
+		private void OnCustomCustomTabViewLoaded(object sender, RoutedEventArgs e)
 		{
 			// https://learn.microsoft.com/en-us/windows/apps/develop/title-bar?tabs=winui3#interactive-content
 			// It is no longer recognized by the title bar element and its child elements. The rectangular area occupied by the title bar element acts
@@ -88,13 +88,13 @@ namespace FluentHub.App.Views
 			// SetDragRectangles() does not work on windows 10 with winappsdk "1.2.220902.1-preview1"
 			if (System.Environment.OSVersion.Version.Build >= 22000)
 			{
-				CustomTabViewControl.DragArea.SizeChanged += (_, _) => SetRectDragRegion();
+				CustomCustomTabView.DragArea.SizeChanged += (_, _) => SetRectDragRegion();
 			}
 			else
 			{
 				App.WindowInstance.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
 				App.WindowInstance.ExtendsContentIntoTitleBar = true;
-				App.WindowInstance.SetTitleBar(CustomTabViewControl.DragArea);
+				App.WindowInstance.SetTitleBar(CustomCustomTabView.DragArea);
 			}
 		}
 
@@ -110,15 +110,15 @@ namespace FluentHub.App.Views
 				return;
 
 			var scaleAdjustment = XamlRoot.RasterizationScale;
-			var dragArea = CustomTabViewControl.DragArea;
+			var dragArea = CustomCustomTabView.DragArea;
 
-			var offset = CustomTabViewControl.ActualOffset;
+			var offset = CustomCustomTabView.ActualOffset;
 
-			var x = (int)((offset.X + CustomTabViewControl.ActualWidth - dragArea.ActualWidth) * scaleAdjustment);
+			var x = (int)((offset.X + CustomCustomTabView.ActualWidth - dragArea.ActualWidth) * scaleAdjustment);
 			var y = 0;
 
 			var width = (int)(dragArea.ActualWidth * scaleAdjustment);
-			var height = (int)(CustomTabViewControl.TitlebarArea.ActualHeight * scaleAdjustment);
+			var height = (int)(CustomCustomTabView.TitlebarArea.ActualHeight * scaleAdjustment);
 
 			var dragRect = new RectInt32(x, y, width, height);
 

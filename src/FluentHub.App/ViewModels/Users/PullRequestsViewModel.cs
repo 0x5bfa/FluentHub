@@ -64,6 +64,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserPullRequestsAsync);
 				await LoadUserPullRequestsAsync(Login);
+
+				SetTabInformation("Pull Requests", "Pull Requests", "PullRequests");
 			}
 			catch (Exception ex)
 			{
@@ -74,8 +76,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Pull Requests", "Pull Requests", "PullRequests");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

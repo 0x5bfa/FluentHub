@@ -47,6 +47,8 @@ namespace FluentHub.App.ViewModels.Viewers
 
 		private async Task LoadUserHomePageAsync()
 		{
+			SetTabInformation("Dashboard", "Dashboard", "Home");
+
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
@@ -56,6 +58,8 @@ namespace FluentHub.App.ViewModels.Viewers
 			{
 				_currentTaskingMethodName = nameof(LoadHomeContentsAsync);
 				await LoadHomeContentsAsync();
+
+				SetTabInformation("Dashboard", "Dashboard");
 			}
 			catch (Exception ex)
 			{
@@ -66,7 +70,6 @@ namespace FluentHub.App.ViewModels.Viewers
 			}
 			finally
 			{
-				SetCurrentTabItem();
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
@@ -187,19 +190,6 @@ namespace FluentHub.App.ViewModels.Viewers
 					});
 					break;
 			}
-		}
-
-		private static void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem!;
-			currentItem.Header = "Dashboard";
-			currentItem.Description = "Dashboard";
-			currentItem.Icon = new ImageIconSource()
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
-			};
 		}
 	}
 }
