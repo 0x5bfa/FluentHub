@@ -1,29 +1,29 @@
 ﻿namespace FluentHub.Octokit.Models.v3
 {
-    public enum NotificationSubjectType
-    {
-        Issue,
+	public enum NotificationSubjectType
+	{
+		Issue,
 
-        IssueOpen,
+		IssueOpen,
 
-        IssueClosedAsCompleted,
+		IssueClosedAsCompleted,
 
-        IssueClosedAsNotPlanned,
+		IssueClosedAsNotPlanned,
 
-        PullRequest,
+		PullRequest,
 
-        PullRequestOpen,
+		PullRequestOpen,
 
-        PullRequestClosed,
+		PullRequestClosed,
 
-        PullRequestMerged,
+		PullRequestMerged,
 
-        PullRequestDraft,
+		PullRequestDraft,
 
-        Discussion,
+		Discussion,
 
-        Commit,
+		Commit,
 
-        Release,
-    }
+		Release,
+	}
 }

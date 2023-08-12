@@ -4,42 +4,42 @@ using System.Text;
 
 namespace FluentHub.Octokit.Models.v3
 {
-    public enum ActivityPayloadType
-    {
-        CheckRunEvent,
+	public enum ActivityPayloadType
+	{
+		CheckRunEvent,
 
-        CheckSuiteEvent,
+		CheckSuiteEvent,
 
-        CommitComment,
+		CommitComment,
 
-        CreateEvent,
+		CreateEvent,
 
-        DeleteEvent,
+		DeleteEvent,
 
-        ForkEvent,
+		ForkEvent,
 
-        IssueCommentEvent,
+		IssueCommentEvent,
 
-        IssueEvent,
+		IssueEvent,
 
-        PullRequestComment,
+		PullRequestComment,
 
-        PullRequestEvent,
+		PullRequestEvent,
 
-        PullRequestReviewEvent,
+		PullRequestReviewEvent,
 
-        PushEvent,
+		PushEvent,
 
-        PushWebhookCommit,
+		PushWebhookCommit,
 
-        PushWebhookCommitter,
+		PushWebhookCommitter,
 
-        PushWebhook,
+		PushWebhook,
 
-        ReleaseEvent,
+		ReleaseEvent,
 
-        WatchEvent,
+		WatchEvent,
 
-        StatusEvent,
-    }
+		StatusEvent,
+	}
 }

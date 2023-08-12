@@ -9,55 +9,55 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.AppSettings.Accounts
 {
-    public sealed partial class AccountPage : Page
-    {
-        public AccountPage()
-        {
-            InitializeComponent();
+	public sealed partial class AccountPage : Page
+	{
+		public AccountPage()
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<AccountViewModel>();
-            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<AccountViewModel>();
+			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        private readonly INavigationService navigationService;
-        public AccountViewModel ViewModel { get; }
+		private readonly INavigationService navigationService;
+		public AccountViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Account";
-            currentItem.Description = "Account Settings";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
-            };
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Account";
+			currentItem.Description = "Account Settings";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
+			};
 
-            var command = ViewModel.LoadSignedInLoginsCommand;
-            if (command.CanExecute(null))
-                command.Execute(null) ;
-        }
+			var command = ViewModel.LoadSignedInLoginsCommand;
+			if (command.CanExecute(null))
+				command.Execute(null) ;
+		}
 
-        private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = (Frame)App.WindowInstance.Content;
-            rootFrame.Navigate(typeof(SignIn.IntroPage));
-        }
+		private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
+		{
+			Frame rootFrame = (Frame)App.WindowInstance.Content;
+			rootFrame.Navigate(typeof(SignIn.IntroPage));
+		}
 
-        private void OnYourGitHubAccountClick(object sender, RoutedEventArgs e)
-        {
-        }
+		private void OnYourGitHubAccountClick(object sender, RoutedEventArgs e)
+		{
+		}
 
-        private void OnYourInfoClick(object sender, RoutedEventArgs e)
-        {
-        }
+		private void OnYourInfoClick(object sender, RoutedEventArgs e)
+		{
+		}
 
-        private void OnSecurityClick(object sender, RoutedEventArgs e)
-        {
-        }
+		private void OnSecurityClick(object sender, RoutedEventArgs e)
+		{
+		}
 
-        private void OnOtherUsersClick(object sender, RoutedEventArgs e)
-        {
-            //navigationService.Navigate<AppSettings.MainSettingsPage>($"fluenthub://settings/account/otherusers", new SuppressNavigationTransitionInfo());
-        }
-    }
+		private void OnOtherUsersClick(object sender, RoutedEventArgs e)
+		{
+			//navigationService.Navigate<AppSettings.MainSettingsPage>($"fluenthub://settings/account/otherusers", new SuppressNavigationTransitionInfo());
+		}
+	}
 }

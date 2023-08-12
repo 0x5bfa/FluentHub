@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 

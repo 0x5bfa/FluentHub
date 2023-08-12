@@ -6,12 +6,12 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Dialogs
 {
-    public sealed partial class AccountSwitching : ContentDialog
-    {
-        public AccountSwitching()
-            => InitializeComponent();
+	public sealed partial class AccountSwitching : ContentDialog
+	{
+		public AccountSwitching()
+			=> InitializeComponent();
 
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
-            => Hide();
-    }
+		private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+			=> Hide();
+	}
 }

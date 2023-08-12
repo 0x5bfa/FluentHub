@@ -31,16 +31,16 @@
 				<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Edit Profile" />
 
 				<!--<TextBlock
-                    Grid.Row="1"
-                    Margin="0,12,0,0"
-                    Foreground="{ThemeResource SystemFillColorCaution}"
-                    IsTextSelectionEnabled="True"
-                    Style="{StaticResource BodyTextBlockStyle}">
-                    <Run Text="Editing user profile is currently in beta." />
-                    <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub/issues/new/choose">
-                        <Run Text="Share feedback and report bugs." />
-                    </Hyperlink>
-                </TextBlock>-->
+					Grid.Row="1"
+					Margin="0,12,0,0"
+					Foreground="{ThemeResource SystemFillColorCaution}"
+					IsTextSelectionEnabled="True"
+					Style="{StaticResource BodyTextBlockStyle}">
+					<Run Text="Editing user profile is currently in beta." />
+					<Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub/issues/new/choose">
+						<Run Text="Share feedback and report bugs." />
+					</Hyperlink>
+				</TextBlock>-->
 
 				<TextBlock
 					Grid.Row="1"

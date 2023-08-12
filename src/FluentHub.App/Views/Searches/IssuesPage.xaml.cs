@@ -8,25 +8,25 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Searches
 {
-    public sealed partial class IssuesPage : Page
-    {
-        public IssuesPage()
-        {
-            InitializeComponent();
+	public sealed partial class IssuesPage : Page
+	{
+		public IssuesPage()
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<IssuesViewModel>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<IssuesViewModel>();
+		}
 
-        public IssuesViewModel ViewModel { get; }
+		public IssuesViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
 
-            var command = ViewModel.LoadSearchIssuesPageCommand;
-            if (command.CanExecute(null))
-                command.ExecuteAsync(null);
-        }
-    }
+			var command = ViewModel.LoadSearchIssuesPageCommand;
+			if (command.CanExecute(null))
+				command.ExecuteAsync(null);
+		}
+	}
 }

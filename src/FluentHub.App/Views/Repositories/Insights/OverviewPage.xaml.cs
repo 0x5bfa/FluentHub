@@ -9,11 +9,11 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Insights
 {
-    public sealed partial class OverviewPage : Page
-    {
-        public OverviewPage()
-        {
-            InitializeComponent();
-        }
-    }
+	public sealed partial class OverviewPage : Page
+	{
+		public OverviewPage()
+		{
+			InitializeComponent();
+		}
+	}
 }

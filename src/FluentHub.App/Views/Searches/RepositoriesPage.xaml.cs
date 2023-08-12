@@ -8,25 +8,25 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Searches
 {
-    public sealed partial class RepositoriesPage : Page
-    {
-        public RepositoriesPage()
-        {
-            InitializeComponent();
+	public sealed partial class RepositoriesPage : Page
+	{
+		public RepositoriesPage()
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
+		}
 
-        public RepositoriesViewModel ViewModel { get; }
+		public RepositoriesViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
 
-            var command = ViewModel.LoadSearchRepositoriesPageCommand;
-            if (command.CanExecute(null))
-                command.ExecuteAsync(null);
-        }
-    }
+			var command = ViewModel.LoadSearchRepositoriesPageCommand;
+			if (command.CanExecute(null))
+				command.ExecuteAsync(null);
+		}
+	}
 }

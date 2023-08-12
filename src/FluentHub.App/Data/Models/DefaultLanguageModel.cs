@@ -3,29 +3,29 @@ using System.Globalization;
 
 namespace FluentHub.App.Models
 {
-    public class DefaultLanguageModel
-    {
-        public string ID { get; set; }
+	public class DefaultLanguageModel
+	{
+		public string ID { get; set; }
 
-        public string Name { get; set; }
+		public string Name { get; set; }
 
-        public DefaultLanguageModel(string id)
-        {
-            if (!string.IsNullOrEmpty(id))
-            {
-                var info = new CultureInfo(id);
+		public DefaultLanguageModel(string id)
+		{
+			if (!string.IsNullOrEmpty(id))
+			{
+				var info = new CultureInfo(id);
 
-                ID = info.Name;
-                Name = info.NativeName;
-            }
-            else
-            {
-                ID = string.Empty;
-                var systemDefaultLanguageOptionStr = "WndowsDefault".GetLocalizedResource();
-                Name = string.IsNullOrEmpty(systemDefaultLanguageOptionStr) ? "Windows Default" : systemDefaultLanguageOptionStr;
-            }
-        }
+				ID = info.Name;
+				Name = info.NativeName;
+			}
+			else
+			{
+				ID = string.Empty;
+				var systemDefaultLanguageOptionStr = "WndowsDefault".GetLocalizedResource();
+				Name = string.IsNullOrEmpty(systemDefaultLanguageOptionStr) ? "Windows Default" : systemDefaultLanguageOptionStr;
+			}
+		}
 
-        public override string ToString() => Name;
-    }
+		public override string ToString() => Name;
+	}
 }

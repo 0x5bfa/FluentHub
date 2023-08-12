@@ -25,13 +25,13 @@
 
 					//Progress = x.Progress.Select(y => new ProjectProgress
 					//{
-					//    DoneCount = y.DoneCount,
-					//    DonePercentage = y.DonePercentage,
-					//    Enabled = y.Enabled,
-					//    InProgressCount = y.InProgressCount,
-					//    InProgressPercentage = y.InProgressPercentage,
-					//    TodoCount = y.TodoCount,
-					//    TodoPercentage = y.TodoPercentage,
+					//	DoneCount = y.DoneCount,
+					//	DonePercentage = y.DonePercentage,
+					//	Enabled = y.Enabled,
+					//	InProgressCount = y.InProgressCount,
+					//	InProgressPercentage = y.InProgressPercentage,
+					//	TodoCount = y.TodoCount,
+					//	TodoPercentage = y.TodoPercentage,
 					//})
 					//.Single(),
 				})
@@ -64,13 +64,13 @@
 
 					//Progress = x.Progress.Select(y => new ProjectProgress
 					//{
-					//    DoneCount = y.DoneCount,
-					//    DonePercentage = y.DonePercentage,
-					//    Enabled = y.Enabled,
-					//    InProgressCount = y.InProgressCount,
-					//    InProgressPercentage = y.InProgressPercentage,
-					//    TodoCount = y.TodoCount,
-					//    TodoPercentage = y.TodoPercentage,
+					//	DoneCount = y.DoneCount,
+					//	DonePercentage = y.DonePercentage,
+					//	Enabled = y.Enabled,
+					//	InProgressCount = y.InProgressCount,
+					//	InProgressPercentage = y.InProgressPercentage,
+					//	TodoCount = y.TodoCount,
+					//	TodoPercentage = y.TodoPercentage,
 					//})
 					//.Single(),
 				})

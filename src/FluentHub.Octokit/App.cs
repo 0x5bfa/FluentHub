@@ -1,4 +1,7 @@
-﻿using GraphQL.Client.Http;
+﻿// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
 
 namespace FluentHub.Octokit

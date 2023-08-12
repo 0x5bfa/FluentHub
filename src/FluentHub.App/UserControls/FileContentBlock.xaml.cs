@@ -8,43 +8,43 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.UserControls
 {
-    public sealed partial class FileContentBlock : UserControl
-    {
-        #region propdp
-        public static readonly DependencyProperty ContextViewModelProperty =
-            DependencyProperty.Register(
-                nameof(ContextViewModel),
-                typeof(RepoContextViewModel),
-                typeof(FileContentBlock),
-                new PropertyMetadata(null));
+	public sealed partial class FileContentBlock : UserControl
+	{
+		#region propdp
+		public static readonly DependencyProperty ContextViewModelProperty =
+			DependencyProperty.Register(
+				nameof(ContextViewModel),
+				typeof(RepoContextViewModel),
+				typeof(FileContentBlock),
+				new PropertyMetadata(null));
 
-        public RepoContextViewModel ContextViewModel
-        {
-            get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-            set
-            {
-                SetValue(ContextViewModelProperty, value);
+		public RepoContextViewModel ContextViewModel
+		{
+			get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
+			set
+			{
+				SetValue(ContextViewModelProperty, value);
 
-                if (ContextViewModel != null)
-                {
-                    ViewModel.ContextViewModel = ContextViewModel;
-                    ViewModel.LoadRepositoryOneContentAsync(ColorCodeBlock);
-                }
-            }
-        }
-        #endregion
+				if (ContextViewModel != null)
+				{
+					ViewModel.ContextViewModel = ContextViewModel;
+					ViewModel.LoadRepositoryOneContentAsync(ColorCodeBlock);
+				}
+			}
+		}
+		#endregion
 
-        public FileContentBlock()
-        {
-            InitializeComponent();
+		public FileContentBlock()
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<FileContentBlockViewModel>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<FileContentBlockViewModel>();
+		}
 
-        public FileContentBlockViewModel ViewModel { get; }
+		public FileContentBlockViewModel ViewModel { get; }
 
-        private void OnFileContentBlockLoaded(object sender, RoutedEventArgs e)
-        {
-        }
-    }
+		private void OnFileContentBlockLoaded(object sender, RoutedEventArgs e)
+		{
+		}
+	}
 }

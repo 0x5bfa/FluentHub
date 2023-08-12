@@ -7,26 +7,26 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.Views.AppSettings
 {
-    public sealed partial class RepositoryPage : Page
-    {
-        public RepositoryPage()
-        {
-            InitializeComponent();
+	public sealed partial class RepositoryPage : Page
+	{
+		public RepositoryPage()
+		{
+			InitializeComponent();
 
-            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        private readonly INavigationService navigationService;
+		private readonly INavigationService navigationService;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Repositories settings";
-            currentItem.Description = "Repositories settings";
-            currentItem.Icon = new ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
-        }
-    }
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			currentItem.Header = "Repositories settings";
+			currentItem.Description = "Repositories settings";
+			currentItem.Icon = new ImageIconSource
+			{
+				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+			};
+		}
+	}
 }

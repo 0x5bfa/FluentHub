@@ -8,25 +8,25 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Searches
 {
-    public sealed partial class CodePage : Page
-    {
-        public CodePage()
-        {
-            InitializeComponent();
+	public sealed partial class CodePage : Page
+	{
+		public CodePage()
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<CodeViewModel>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<CodeViewModel>();
+		}
 
-        public CodeViewModel ViewModel { get; }
+		public CodeViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var param = e.Parameter as FrameNavigationParameter;
+			ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
 
-            var command = ViewModel.LoadSearchCodePageCommand;
-            if (command.CanExecute(null))
-                command.ExecuteAsync(null);
-        }
-    }
+			var command = ViewModel.LoadSearchCodePageCommand;
+			if (command.CanExecute(null))
+				command.ExecuteAsync(null);
+		}
+	}
 }

@@ -7,11 +7,11 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Insights
 {
-    public sealed partial class TrafficPage : Page
-    {
-        public TrafficPage()
-        {
-            InitializeComponent();
-        }
-    }
+	public sealed partial class TrafficPage : Page
+	{
+		public TrafficPage()
+		{
+			InitializeComponent();
+		}
+	}
 }

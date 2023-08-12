@@ -8,9 +8,9 @@ using Microsoft.UI.Xaml.Markup;
 
 namespace FluentHub.App.UserControls
 {
-    public sealed partial class TitleBar : UserControl
-    {
-        public TitleBar()
-            => InitializeComponent();
-    }
+	public sealed partial class TitleBar : UserControl
+	{
+		public TitleBar()
+			=> InitializeComponent();
+	}
 }

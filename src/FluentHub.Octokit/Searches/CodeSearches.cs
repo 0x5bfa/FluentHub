@@ -1,35 +1,38 @@
-﻿namespace FluentHub.Octokit.Searches
+﻿// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+namespace FluentHub.Octokit.Searches
 {
-    public class CodeSearches
-    {
-        public async Task<List<Models.v3.Searches.SearchCode>> GetAllAsync(string term)
-        {
-            var request = new OctokitV3.SearchCodeRequest(term);
-            var response = await App.Client.Search.SearchCode(request);
+	public class CodeSearches
+	{
+		public async Task<List<Models.v3.Searches.SearchCode>> GetAllAsync(string term)
+		{
+			var request = new OctokitV3.SearchCodeRequest(term);
+			var response = await App.Client.Search.SearchCode(request);
 
-            List<Models.v3.Searches.SearchCode> result = new();
+			List<Models.v3.Searches.SearchCode> result = new();
 
-            foreach (var item in response.Items)
-            {
-                result.Add(new()
-                {
-                    Name = item.Name,
-                    Path = item.Path,
+			foreach (var item in response.Items)
+			{
+				result.Add(new()
+				{
+					Name = item.Name,
+					Path = item.Path,
 
-                    Repository = new()
-                    {
-                        Name = item.Repository.Name,
+					Repository = new()
+					{
+						Name = item.Repository.Name,
 
-                        Owner = new RepositoryOwner()
-                        {
-                            AvatarUrl = item.Repository.Owner.AvatarUrl,
-                            Login = item.Repository.Owner.Login,
-                        }
-                    },
-                });
-            }
+						Owner = new RepositoryOwner()
+						{
+							AvatarUrl = item.Repository.Owner.AvatarUrl,
+							Login = item.Repository.Owner.Login,
+						}
+					},
+				});
+			}
 
-            return result;
-        }
-    }
+			return result;
+		}
+	}
 }

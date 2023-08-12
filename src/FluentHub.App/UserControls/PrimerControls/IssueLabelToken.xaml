@@ -59,11 +59,11 @@
 		</toolkit:SwitchPresenter>
 
 		<!--<Grid x:Name="RemoverButtonGrid" x:Load="{x:Bind IsRemovable, Mode=OneWay}">
-            <Button
-                Width="{x:Bind Context.TokenHeight, Mode=OneWay}"
-                Height="{x:Bind Context.TokenHeight, Mode=OneWay}"
-                BorderThickness="0"
-                CornerRadius="32" />
-        </Grid>-->
+			<Button
+				Width="{x:Bind Context.TokenHeight, Mode=OneWay}"
+				Height="{x:Bind Context.TokenHeight, Mode=OneWay}"
+				BorderThickness="0"
+				CornerRadius="32" />
+		</Grid>-->
 	</Grid>
 </UserControl>

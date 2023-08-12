@@ -665,38 +665,38 @@
 			</DataTemplate>
 
 			<!--<DataTemplate x:Key="MentionedEventDataTemplate" x:DataType="modelsV4:MentionedEvent">
-                <primer:Timeline>
-                    <primer:Timeline.Badge>
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            FontSize="14"
-                            Glyph="&#xE95B;" />
-                    </primer:Timeline.Badge>
-                    <primer:Timeline.Body>
-                        <Grid ColumnSpacing="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <primer:Avatar
-                                VerticalAlignment="Top"
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="mentioned" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Foreground="{ThemeResource TextFillColorSecondary}"
-                                Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind CreatedAtHumanized}" />
-                        </Grid>
-                    </primer:Timeline.Body>
-                </primer:Timeline>
-            </DataTemplate>-->
+				<primer:Timeline>
+					<primer:Timeline.Badge>
+						<FontIcon
+							FontFamily="{StaticResource Octicons}"
+							FontSize="14"
+							Glyph="&#xE95B;" />
+					</primer:Timeline.Badge>
+					<primer:Timeline.Body>
+						<Grid ColumnSpacing="4">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<primer:Avatar
+								VerticalAlignment="Top"
+								Label="{x:Bind Actor.Login}"
+								Size="20"
+								Source="{x:Bind Actor.AvatarUrl}" />
+							<TextBlock
+								Grid.Column="1"
+								VerticalAlignment="Center"
+								Style="{StaticResource BodyTextBlockStyle}"
+								Text="mentioned" />
+							<TextBlock
+								Grid.Column="2"
+								Foreground="{ThemeResource TextFillColorSecondary}"
+								Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind CreatedAtHumanized}" />
+						</Grid>
+					</primer:Timeline.Body>
+				</primer:Timeline>
+			</DataTemplate>-->
 
 			<DataTemplate x:Key="MilestonedEventDataTemplate" x:DataType="modelsV4:MilestonedEvent">
 				<primer:Timeline>
@@ -970,38 +970,38 @@
 			</DataTemplate>
 
 			<!--<DataTemplate x:Key="SubscribedEventDataTemplate" x:DataType="modelsV4:SubscribedEvent">
-                <primer:Timeline>
-                    <primer:Timeline.Badge>
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            FontSize="14"
-                            Glyph="&#xE924;" />
-                    </primer:Timeline.Badge>
-                    <primer:Timeline.Body>
-                        <Grid ColumnSpacing="4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <primer:Avatar
-                                VerticalAlignment="Top"
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="subscribed" />
-                            <TextBlock
-                                Grid.Column="2"
-                                Foreground="{ThemeResource TextFillColorSecondary}"
-                                Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind CreatedAtHumanized}" />
-                        </Grid>
-                    </primer:Timeline.Body>
-                </primer:Timeline>
-            </DataTemplate>-->
+				<primer:Timeline>
+					<primer:Timeline.Badge>
+						<FontIcon
+							FontFamily="{StaticResource Octicons}"
+							FontSize="14"
+							Glyph="&#xE924;" />
+					</primer:Timeline.Badge>
+					<primer:Timeline.Body>
+						<Grid ColumnSpacing="4">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<primer:Avatar
+								VerticalAlignment="Top"
+								Label="{x:Bind Actor.Login}"
+								Size="20"
+								Source="{x:Bind Actor.AvatarUrl}" />
+							<TextBlock
+								Grid.Column="1"
+								VerticalAlignment="Center"
+								Style="{StaticResource BodyTextBlockStyle}"
+								Text="subscribed" />
+							<TextBlock
+								Grid.Column="2"
+								Foreground="{ThemeResource TextFillColorSecondary}"
+								Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind CreatedAtHumanized}" />
+						</Grid>
+					</primer:Timeline.Body>
+				</primer:Timeline>
+			</DataTemplate>-->
 
 			<DataTemplate x:Key="TransferredEventDataTemplate" x:DataType="modelsV4:TransferredEvent">
 				<primer:Timeline>

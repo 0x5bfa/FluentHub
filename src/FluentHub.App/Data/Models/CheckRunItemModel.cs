@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FluentHub.App.Models
 {
-    public class CheckRunItemModel
-    {
-        public string Name { get; set; }
-    }
+	public class CheckRunItemModel
+	{
+		public string Name { get; set; }
+	}
 }

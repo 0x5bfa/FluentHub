@@ -137,9 +137,6 @@ namespace FluentHub.App.ViewModels.Users
 
 			try
 			{
-				if (_loadedToTheEnd)
-					return;
-
 				StarredRepoQueries queries = new();
 
 				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);

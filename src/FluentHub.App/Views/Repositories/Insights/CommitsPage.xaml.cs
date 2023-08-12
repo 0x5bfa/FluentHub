@@ -7,11 +7,11 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Insights
 {
-    public sealed partial class CommitsPage : Page
-    {
-        public CommitsPage()
-        {
-            InitializeComponent();
-        }
-    }
+	public sealed partial class CommitsPage : Page
+	{
+		public CommitsPage()
+		{
+			InitializeComponent();
+		}
+	}
 }
