@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.ViewModels.Users;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
@@ -26,6 +27,17 @@ namespace FluentHub.App.Views.Users
 			var command = ViewModel.LoadUserStarredRepositoriesPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);
+		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadFurtherUserStarredRepositoriesPageCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
 		}
 	}
 }

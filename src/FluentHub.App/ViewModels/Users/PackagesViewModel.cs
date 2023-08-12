@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<PackageBlockButtonViewModel> Packages { get; }
 
 		public IAsyncRelayCommand LoadUserPackagesPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserPackagesPageCommand { get; }
 
 		public PackagesViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			Packages = new(_packages);
 
 			LoadUserPackagesPageCommand = new AsyncRelayCommand(LoadUserPackagesPageAsync);
+			LoadFurtherUserPackagesPageCommand = new AsyncRelayCommand(LoadFurtherUserPackagesPageAsync);
 		}
 
 		private async Task LoadUserPackagesPageAsync()
@@ -83,8 +85,13 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserPackagesAsync(string login)
 		{
 			PackageQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Package>)result.Response;
 
 			_packages.Clear();
 			foreach (var item in items)
@@ -114,6 +121,51 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserPackagesPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				if (_loadedToTheEnd)
+					return;
+
+				PackageQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Package>)result.Response;
+
+				foreach (var item in items)
+				{
+					PackageBlockButtonViewModel viewModel = new()
+					{
+						Item = item,
+					};
+
+					_packages.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserPackagesPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

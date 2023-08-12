@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> DiscussionItems { get; }
 
 		public IAsyncRelayCommand LoadUserDiscussionsPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserDiscussionsPageCommand { get; }
 
 		public DiscussionsViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			DiscussionItems = new(_discussions);
 
 			LoadUserDiscussionsPageCommand = new AsyncRelayCommand(LoadUserDiscussionsPageAsync);
+			LoadFurtherUserDiscussionsPageCommand = new AsyncRelayCommand(LoadFurtherUserDiscussionsPageAsync);
 		}
 
 		private async Task LoadUserDiscussionsPageAsync()
@@ -83,8 +85,13 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserDiscussionsAsync(string login)
 		{
 			DiscussionQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Discussion>)result.Response;
 
 			_discussions.Clear();
 			foreach (var item in items)
@@ -114,6 +121,51 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserDiscussionsPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				if (_loadedToTheEnd)
+					return;
+
+				DiscussionQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Discussion>)result.Response;
+
+				foreach (var item in items)
+				{
+					DiscussionBlockButtonViewModel viewmodel = new()
+					{
+						Item = item,
+					};
+
+					_discussions.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserDiscussionsPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

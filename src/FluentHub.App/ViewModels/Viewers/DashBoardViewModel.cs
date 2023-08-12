@@ -77,16 +77,21 @@ namespace FluentHub.App.ViewModels.Viewers
 		private async Task LoadHomeContentsAsync()
 		{
 			RepositoryQueries repositoryQueries = new();
-			var repositoryResponse = await repositoryQueries.GetAllAsync(App.AppSettings.SignedInUserName);
 
-			if (repositoryResponse.Count < 6)
+			var repositoryResult = await repositoryQueries.GetAllAsync(App.AppSettings.SignedInUserName, 20);
+			if (repositoryResult.Response is null || repositoryResult.PageInfo is null)
+				return;
+
+			var items = (List<Repository>)repositoryResult.Response;
+
+			if (items.Count < 6)
 			{
-				foreach (var item in repositoryResponse)
+				foreach (var item in items)
 					_TopRepositories.Add(item);
 			}
 			else
 			{
-				foreach (var item in repositoryResponse.GetRange(0, 6))
+				foreach (var item in items.GetRange(0, 6))
 					_TopRepositories.Add(item);
 			}
 

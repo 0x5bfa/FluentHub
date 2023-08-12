@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
 		public IAsyncRelayCommand LoadUserPullRequestsPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserPullRequestsPageCommand { get; }
 
 		public PullRequestsViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			PullItems = new(_pullRequests);
 
 			LoadUserPullRequestsPageCommand = new AsyncRelayCommand(LoadUserPullRequestsPageAsync);
+			LoadFurtherUserPullRequestsPageCommand = new AsyncRelayCommand(LoadFurtherUserPullRequestsPageAsync);
 		}
 
 		private async Task LoadUserPullRequestsPageAsync()
@@ -83,8 +85,13 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserPullRequestsAsync(string login)
 		{
 			PullRequestQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<PullRequest>)result.Response;
 
 			_pullRequests.Clear();
 			foreach (var item in items)
@@ -98,7 +105,7 @@ namespace FluentHub.App.ViewModels.Users
 			}
 		}
 
-		public async Task LoadUserAsync(string login)
+		private async Task LoadUserAsync(string login)
 		{
 			UserQueries queries = new();
 			var response = await queries.GetAsync(login);
@@ -113,6 +120,51 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserPullRequestsPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				if (_loadedToTheEnd)
+					return;
+
+				PullRequestQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<PullRequest>)result.Response;
+
+				foreach (var item in items)
+				{
+					PullBlockButtonViewModel viewModel = new()
+					{
+						PullItem = item,
+					};
+
+					_pullRequests.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserPullRequestsPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

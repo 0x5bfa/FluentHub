@@ -2,25 +2,14 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Viewers
 {
 	public class NotificationsViewModel : BaseViewModel
 	{
 		private readonly ToastService _toastService;
-
-		private int _loadedItemCount = 0;
-		private int _loadedPageCount = 0;
-		private bool _loadedToTheEnd = false;
-		private const int _itemCountPerPage = 30;
 
 		private int _unreadCount;
 		public int UnreadCount { get => _unreadCount; set => SetProperty(ref _unreadCount, value); }

@@ -35,7 +35,7 @@
 					MaxWidth="300"
 					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-				<ScrollViewer Grid.Column="1">
+				<ScrollViewer Grid.Column="1" ViewChanged="OnScrollViewerViewChanged">
 					<Grid Padding="32,32,32,32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />

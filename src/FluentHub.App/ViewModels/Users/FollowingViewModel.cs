@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<UserBlockButtonViewModel> FollowingItems { get; }
 
 		public IAsyncRelayCommand LoadUserFollowingPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserFollowingPageCommand { get; }
 
 		public FollowingViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			FollowingItems = new(_followingItems);
 
 			LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
+			LoadFurtherUserFollowingPageCommand= new AsyncRelayCommand(LoadFurtherUserFollowingPageAsync);
 		}
 
 		private async Task LoadUserFollowingPageAsync()
@@ -83,10 +85,16 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserFollowingAsync(string login)
 		{
 			FollowingQueries queries = new();
-			var response = await queries.GetAllAsync(login);
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<User>)result.Response;
 
 			_followingItems.Clear();
-			foreach (var item in response)
+			foreach (var item in items)
 			{
 				UserBlockButtonViewModel viewModel = new()
 				{
@@ -97,7 +105,7 @@ namespace FluentHub.App.ViewModels.Users
 			}
 		}
 
-		public async Task LoadUserAsync(string login)
+		private async Task LoadUserAsync(string login)
 		{
 			UserQueries queries = new();
 			var response = await queries.GetAsync(login);
@@ -113,6 +121,51 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserFollowingPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				if (_loadedToTheEnd)
+					return;
+
+				FollowingQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<User>)result.Response;
+
+				foreach (var item in items)
+				{
+					UserBlockButtonViewModel viewmodel = new()
+					{
+						User = item,
+					};
+
+					_followingItems.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserFollowingPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

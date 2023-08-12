@@ -30,5 +30,16 @@ namespace FluentHub.App.Views.Users
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadFurtherUserOrganizationsPageCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
+		}
 	}
 }

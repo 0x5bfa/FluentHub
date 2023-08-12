@@ -183,12 +183,12 @@ namespace FluentHub.App.ViewModels
 
 			try
 			{
-				Octokit.Queries.Users.UserQueries queries = new();
+				UserQueries queries = new();
 				var user = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
 				SignedInUser = user ?? new();
 
-				Octokit.Queries.Users.NotificationQueries notificationQueries = new();
+				NotificationQueries notificationQueries = new();
 				var count = await notificationQueries.GetUnreadCount();
 
 				UnreadCount = count;
@@ -211,10 +211,15 @@ namespace FluentHub.App.ViewModels
 		private async Task LoadUserRepositoriesAsync()
 		{
 			RepositoryQueries queries = new();
-			var response = await queries.GetAllAsync(App.AppSettings.SignedInUserName);
+
+			var result = await queries.GetAllAsync(App.AppSettings.SignedInUserName, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			var items = (List<Repository>)result.Response;
 
 			_repositories.Clear();
-			foreach (var item in response)
+			foreach (var item in items)
 				_repositories.Add(item);
 		}
 		#endregion

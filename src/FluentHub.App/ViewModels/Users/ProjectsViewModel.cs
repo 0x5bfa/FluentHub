@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<ProjectBlockButtonViewModel> Projects { get; }
 
 		public IAsyncRelayCommand LoadUserProjectsPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserProjectsPageCommand { get; }
 
 		public ProjectsViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			Projects = new(_projects);
 
 			LoadUserProjectsPageCommand = new AsyncRelayCommand(LoadUserProjectsPageAsync);
+			LoadFurtherUserProjectsPageCommand = new AsyncRelayCommand(LoadFurtherUserProjectsPageAsync);
 		}
 
 		private async Task LoadUserProjectsPageAsync()
@@ -83,8 +85,13 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserProjectsAsync(string login)
 		{
 			ProjectQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Project>)result.Response;
 
 			_projects.Clear();
 			foreach (var item in items)
@@ -114,6 +121,51 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserProjectsPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				if (_loadedToTheEnd)
+					return;
+
+				ProjectQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Project>)result.Response;
+
+				foreach (var item in items)
+				{
+					ProjectBlockButtonViewModel viewmodel = new()
+					{
+						Item = item,
+					};
+
+					_projects.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserProjectsPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}
