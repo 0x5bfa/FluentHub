@@ -17,6 +17,60 @@ namespace FluentHub.App.ViewModels
 {
 	public class MainPageViewModel : ObservableObject
 	{
+		private readonly Microsoft.UI.Dispatching.DispatcherQueue _dispatcher;
+		private readonly INavigationService _navigationService;
+		private readonly IMessenger _messenger;
+		private readonly ToastService _toastService;
+		private readonly ILogger _logger;
+
+		private UserNotificationMessage _lastNotification;
+		public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
+
+		private Octokit.Models.v4.User _signedInUser;
+		public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+
+		private bool _taskIsInProgress;
+		public bool TaskIsInProgress { get => _taskIsInProgress; private set => SetProperty(ref _taskIsInProgress, value); }
+
+		private bool _taskIsCompletedSuccessfully;
+		public bool TaskIsCompletedSuccessfully { get => _taskIsCompletedSuccessfully; private set => SetProperty(ref _taskIsCompletedSuccessfully, value); }
+
+		private int _unreadCount;
+		public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
+
+		private string _searchTerm;
+		public string SearchTerm { get => _searchTerm; set => SetProperty(ref _searchTerm, value); }
+
+		public bool FailedToLoadUserAvatar { get; private set; }
+
+		private readonly ObservableCollection<SearchQueryModel> _autoSuggestionItems;
+		public ReadOnlyObservableCollection<SearchQueryModel> AutoSuggestionItems;
+
+		private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewItems;
+		public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewItems;
+
+		private readonly ObservableCollection<Repository> _repositories;
+		public ReadOnlyObservableCollection<Repository> Repositories { get; }
+
+		public ICommand AddNewTabAcceleratorCommand { get; private set; }
+		public ICommand CloseTabAcceleratorCommand { get; private set; }
+		public ICommand GoToNextTabAcceleratorCommand { get; private set; }
+		public ICommand GoToPreviousTabAcceleratorCommand { get; private set; }
+		public ICommand AddNewTabWithMouseAcceleratorCommand { get; private set; }
+		public ICommand CloseTabWithMouseAcceleratorCommand { get; private set; }
+
+		public ICommand GoBackCommand { get; private set; }
+		public ICommand GoForwardCommand { get; private set; }
+
+		public ICommand GoHomeCommand { get; private set; }
+		public ICommand GoNotificationsCommand { get; private set; }
+		public ICommand GoActivitiesCommand { get; private set; }
+		public ICommand GoExplorerCommand { get; private set; }
+		public ICommand GoMarketplaceCommand { get; private set; }
+		public ICommand GoProfileCommand { get; private set; }
+
+		public IAsyncRelayCommand LoadSignedInUserCommand { get; }
+
 		public MainPageViewModel(INavigationService navigationService, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
 		{
 			// To Access the UI thread later.
@@ -51,62 +105,6 @@ namespace FluentHub.App.ViewModels
 
 			LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
 		}
-
-		#region Fields and Properties
-		private readonly Microsoft.UI.Dispatching.DispatcherQueue _dispatcher;
-		private readonly INavigationService _navigationService;
-		private readonly IMessenger _messenger;
-		private readonly ToastService _toastService;
-		private readonly ILogger _logger;
-
-		private UserNotificationMessage _lastNotification;
-		public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
-
-		private Octokit.Models.v4.User _signedInUser;
-		public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
-
-		private bool _taskIsInProgress;
-		public bool TaskIsInProgress { get => _taskIsInProgress; private set => SetProperty(ref _taskIsInProgress, value); }
-
-		private bool _taskIsCompletedSuccessfully;
-		public bool TaskIsCompletedSuccessfully { get => _taskIsCompletedSuccessfully; private set => SetProperty(ref _taskIsCompletedSuccessfully, value); }
-
-		private int _unreadCount;
-		public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
-
-		private string _searchTerm;
-		public string SearchTerm { get => _searchTerm; set => SetProperty(ref _searchTerm, value); }
-
-		private readonly ObservableCollection<SearchQueryModel> _autoSuggestionItems;
-		public ReadOnlyObservableCollection<SearchQueryModel> AutoSuggestionItems;
-
-		private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewItems;
-		public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewItems;
-
-		private readonly ObservableCollection<Repository> _repositories;
-		public ReadOnlyObservableCollection<Repository> Repositories { get; }
-		#endregion
-
-		#region Commands
-		public ICommand AddNewTabAcceleratorCommand { get; private set; }
-		public ICommand CloseTabAcceleratorCommand { get; private set; }
-		public ICommand GoToNextTabAcceleratorCommand { get; private set; }
-		public ICommand GoToPreviousTabAcceleratorCommand { get; private set; }
-		public ICommand AddNewTabWithMouseAcceleratorCommand { get; private set; }
-		public ICommand CloseTabWithMouseAcceleratorCommand { get; private set; }
-
-		public ICommand GoBackCommand { get; private set; }
-		public ICommand GoForwardCommand { get; private set; }
-
-		public ICommand GoHomeCommand { get; private set; }
-		public ICommand GoNotificationsCommand { get; private set; }
-		public ICommand GoActivitiesCommand { get; private set; }
-		public ICommand GoExplorerCommand { get; private set; }
-		public ICommand GoMarketplaceCommand { get; private set; }
-		public ICommand GoProfileCommand { get; private set; }
-
-		public IAsyncRelayCommand LoadSignedInUserCommand { get; }
-		#endregion
 
 		#region Command methods
 		private void AddNewTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
@@ -173,12 +171,6 @@ namespace FluentHub.App.ViewModels
 
 		private async Task LoadSignedInUserAsync()
 		{
-			// This task should not be notified whether task fault,
-			// as it is not user-triggered task.
-
-			//_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			//bool faulted = false;
-
 			string _currentTaskingMethodName = nameof(LoadSignedInUserAsync);
 
 			try
@@ -193,18 +185,16 @@ namespace FluentHub.App.ViewModels
 
 				UnreadCount = count;
 				_toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
+
+				FailedToLoadUserAvatar = false;
 			}
 			catch (Exception ex)
 			{
-				//TaskException = ex;
-				//faulted = true;
-
 				_logger?.Error(_currentTaskingMethodName, ex);
-				throw;
+				FailedToLoadUserAvatar = true;
 			}
 			finally
 			{
-				//_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 

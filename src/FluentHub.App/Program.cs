@@ -58,7 +58,7 @@ namespace FluentHub.App
 				SynchronizationContext.SetSynchronizationContext(context);
 
 				// Initialize FluentHub.App.App class
-				new App();
+				_ = new App();
 			});
 		}
 

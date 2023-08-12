@@ -1,0 +1,388 @@
+﻿<views:LocatablePage
+	x:Class="FluentHub.App.Views.AppSettings.GeneralPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
+	mc:Ignorable="d">
+
+	<views:LocatablePage.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary>
+					<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</views:LocatablePage.Resources>
+
+	<ScrollViewer>
+		<StackPanel Padding="32,24,32,32">
+
+			<TextBlock
+				x:Name="AppearancePageHeader"
+				Margin="0,0,0,8"
+				Style="{StaticResource TitleTextBlockStyle}"
+				Text="Settings" />
+
+			<StackPanel Grid.Row="1">
+
+				<TextBlock
+					x:Name="AppearancePageGeneralHeader"
+					Margin="4,16,4,8"
+					Style="{StaticResource BodyStrongTextBlockStyle}"
+					Text="{helpers:ResourceString Name=AppearancePageGeneralHeader/Text}" />
+
+				<StackPanel Spacing="4">
+
+					<uc:SettingsBlockControl
+						x:Name="AppearancePageColorBlock"
+						Title="{helpers:ResourceString Name=AppearancePageColorBlock/Title}"
+						IsClickable="False">
+						<uc:SettingsBlockControl.Icon>
+							<FontIcon Glyph="&#xE790;" />
+						</uc:SettingsBlockControl.Icon>
+
+						<ComboBox ItemsSource="{x:Bind ViewModel.Themes}" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" />
+					</uc:SettingsBlockControl>
+
+					<uc:SettingsBlockControl
+						x:Name="AppearancePageThemeBlock"
+						Title="{helpers:ResourceString Name=AppearancePageThemeBlock/Title}"
+						IsClickable="False">
+						<uc:SettingsBlockControl.Icon>
+							<FontIcon Glyph="&#xE771;" />
+						</uc:SettingsBlockControl.Icon>
+
+						<uc:SettingsBlockControl.ExpandableContent>
+							<Grid Margin="16">
+								<TextBlock x:Name="AppearancePageThemeBlockBody" Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
+							</Grid>
+						</uc:SettingsBlockControl.ExpandableContent>
+					</uc:SettingsBlockControl>
+
+				</StackPanel>
+
+				<TextBlock
+					x:Name="AppearancePageLocaleHeader"
+					Margin="4,16,4,8"
+					Style="{StaticResource BodyStrongTextBlockStyle}"
+					Text="{helpers:ResourceString Name=AppearancePageLocaleHeader/Text}" />
+
+				<StackPanel Spacing="4">
+					<uc:SettingsBlockControl
+						x:Name="AppearancePageLocaleBlock"
+						Title="{helpers:ResourceString Name=AppearancePageLocaleBlock/Title}"
+						IsClickable="False">
+						<uc:SettingsBlockControl.Icon>
+							<FontIcon Glyph="&#xF2B7;" />
+						</uc:SettingsBlockControl.Icon>
+						<ComboBox ItemsSource="{x:Bind ViewModel.DefaultLanguages}" SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" />
+					</uc:SettingsBlockControl>
+
+				</StackPanel>
+
+			</StackPanel>
+
+			<StackPanel Grid.Row="1">
+
+				<TextBlock
+					Margin="4,16,4,8"
+					Style="{StaticResource BodyStrongTextBlockStyle}"
+					Text="About app" />
+
+				<StackPanel Spacing="4">
+
+					<uc:SettingsBlockControl
+						Title="FluentHub DEV"
+						Description="{x:Bind ViewModel.Version}"
+						IsClickable="False">
+
+						<uc:SettingsBlockControl.Icon>
+							<ImageIcon
+								Height="36"
+								Margin="-8,0"
+								Source="/Assets/AppTiles/Dev/StoreLogo.png" />
+						</uc:SettingsBlockControl.Icon>
+
+						<Button
+							Height="32"
+							Command="{x:Bind ViewModel.CopyVersionCommand}"
+							ToolTipService.ToolTip="Copy">
+
+							<StackPanel Orientation="Horizontal" Spacing="6">
+								<FontIcon FontSize="16" Glyph="&#xE8C8;" />
+								<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy" />
+							</StackPanel>
+
+						</Button>
+
+					</uc:SettingsBlockControl>
+
+					<uc:SettingsBlockControl Title="Useful links">
+						<uc:SettingsBlockControl.Icon>
+							<FontIcon Glyph="&#xE71B;" />
+						</uc:SettingsBlockControl.Icon>
+
+						<uc:SettingsBlockControl.ExpandableContent>
+							<Grid Margin="0,12,0,12" HorizontalAlignment="Center">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<HyperlinkButton
+									Grid.Column="0"
+									Content="Source code"
+									NavigateUri="https://github.com/FluentHub/FluentHub" />
+								<HyperlinkButton
+									Grid.Column="1"
+									Content="Website"
+									NavigateUri="https://hub.codrex.dev" />
+								<HyperlinkButton
+									Grid.Column="2"
+									Content="License"
+									NavigateUri="https://github.com/FluentHub/FluentHub/blob/main/LICENSE" />
+								<!--<HyperlinkButton Grid.Column="3" Content="Privacy policy" />
+						<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
+
+							</Grid>
+						</uc:SettingsBlockControl.ExpandableContent>
+					</uc:SettingsBlockControl>
+
+					<uc:SettingsBlockControl Title="Logs" IsClickable="False">
+
+						<uc:SettingsBlockControl.Icon>
+							<FontIcon Glyph="&#xe838;" />
+						</uc:SettingsBlockControl.Icon>
+
+						<Button
+							Height="32"
+							Command="{x:Bind ViewModel.OpenLogsCommand}"
+							ToolTipService.ToolTip="Open log location">
+
+							<StackPanel Orientation="Horizontal" Spacing="6">
+								<FontIcon FontSize="16" Glyph="&#xE838;" />
+								<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Open" />
+							</StackPanel>
+
+						</Button>
+					</uc:SettingsBlockControl>
+
+				</StackPanel>
+
+				<TextBlock
+					Margin="4,16,4,8"
+					Style="{StaticResource BodyStrongTextBlockStyle}"
+					Text="About us" />
+
+				<StackPanel Spacing="4">
+					<Grid
+						Padding="12"
+						Background="{ThemeResource LayerFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+						BorderThickness="1"
+						ColumnSpacing="5"
+						CornerRadius="4">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<Border
+							Width="32"
+							Height="32"
+							HorizontalAlignment="Left"
+							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+							CornerRadius="16">
+							<Image Source="https://avatars.githubusercontent.com/u/62196528" />
+						</Border>
+
+						<TextBlock
+							Grid.Column="1"
+							Margin="6,0,0,0"
+							VerticalAlignment="Center"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="U+5BFA" />
+
+						<TextBlock
+							Grid.Column="2"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="onein528" />
+					</Grid>
+
+					<Grid
+						Padding="12"
+						Background="{ThemeResource LayerFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+						BorderThickness="1"
+						ColumnSpacing="5"
+						CornerRadius="4">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<Border
+							Width="32"
+							Height="32"
+							HorizontalAlignment="Left"
+							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+							CornerRadius="16">
+							<Image Source="https://avatars.githubusercontent.com/u/71598437" />
+						</Border>
+
+						<TextBlock
+							Grid.Column="1"
+							Margin="6,0,0,0"
+							VerticalAlignment="Center"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="Lamparter" />
+
+						<TextBlock
+							Grid.Column="2"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="Lamparter" />
+
+						<TextBlock
+							Grid.Column="4"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="Former member" />
+					</Grid>
+
+					<Grid
+						Padding="12"
+						Background="{ThemeResource LayerFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+						BorderThickness="1"
+						ColumnSpacing="5"
+						CornerRadius="4">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<Border
+							Width="32"
+							Height="32"
+							HorizontalAlignment="Left"
+							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+							CornerRadius="16">
+							<Image Source="https://avatars.githubusercontent.com/u/30560453" />
+						</Border>
+
+						<TextBlock
+							Grid.Column="1"
+							Margin="6,0,0,0"
+							VerticalAlignment="Center"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="Luandersonn Airton" />
+
+						<TextBlock
+							Grid.Column="2"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="luandersonn" />
+
+						<TextBlock
+							Grid.Column="4"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="Former member" />
+					</Grid>
+
+					<Grid
+						Padding="12"
+						Background="{ThemeResource LayerFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+						BorderThickness="1"
+						ColumnSpacing="5"
+						CornerRadius="4">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<Border
+							Width="32"
+							Height="32"
+							HorizontalAlignment="Left"
+							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+							CornerRadius="16">
+							<Image Source="https://avatars.githubusercontent.com/u/60316747" />
+						</Border>
+
+						<TextBlock
+							Grid.Column="1"
+							Margin="6,0,0,0"
+							VerticalAlignment="Center"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="Gabriel Fontán" />
+
+						<TextBlock
+							Grid.Column="2"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="BobbyESP" />
+
+						<TextBlock
+							Grid.Column="4"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="Former member" />
+					</Grid>
+				</StackPanel>
+
+			</StackPanel>
+
+			<StackPanel
+				x:Name="ThisWillBeUserControl"
+				Grid.Row="2"
+				Margin="0,32,0,0"
+				Spacing="4">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<FontIcon FontSize="14" Glyph="&#xE9CE;" />
+					<TextBlock x:Name="AppearancePageGetHelpButton">
+						<Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub">
+							<Run Text="{helpers:ResourceString Name=SettingsGetHelpButton/Content}" />
+						</Hyperlink>
+					</TextBlock>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<FontIcon FontSize="14" Glyph="&#xED15;" />
+					<TextBlock x:Name="AppearancePageFeedbackButton">
+						<Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">
+							<Run Text="{helpers:ResourceString Name=SettingsFeedbackButton/Content}" />
+						</Hyperlink>
+					</TextBlock>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+</views:LocatablePage>

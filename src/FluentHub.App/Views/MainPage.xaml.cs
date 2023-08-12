@@ -156,7 +156,7 @@ namespace FluentHub.App.Views
 			var navBar = NavigationService.TabView.SelectedItem.NavigationBar;
 			navBar.Context = new()
 			{
-				PrimaryText = ViewModel.SignedInUser.Login,
+				PrimaryText = App.AppSettings.SignedInUserName,
 				AsViewer = false,
 			};
 
@@ -169,15 +169,32 @@ namespace FluentHub.App.Views
 					NavigationService.Navigate<Users.RepositoriesPage>();
 					break;
 				case "YourProjects":
-					NavigationService.Navigate<Views.Users.ProjectsPage>();
+					NavigationService.Navigate<Users.ProjectsPage>();
 					break;
 				case "YourOrganizations":
-					NavigationService.Navigate<Views.Users.OrganizationsPage>();
+					NavigationService.Navigate<Users.OrganizationsPage>();
 					break;
 				case "YourStars":
 					NavigationService.Navigate<Users.StarsPage>();
 					break;
+				case "AppSettings":
+					NavigationService.Navigate<AppSettings.GeneralPage>();
+					break;
+				case "AppSignOut":
+					// Sign out here
+					NavigationService.Navigate<SignIn.IntroPage>();
+					break;
 			}
+		}
+
+		private void LeftSideViewerIconMenuFlyout_Opening(object sender, object e)
+		{
+			if (!ViewModel.FailedToLoadUserAvatar)
+				return;
+
+			var command = ViewModel.LoadSignedInUserCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
 		}
 	}
 }

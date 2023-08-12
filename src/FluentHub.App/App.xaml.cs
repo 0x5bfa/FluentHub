@@ -42,97 +42,18 @@ namespace FluentHub.App
 			UnhandledException += OnUnhandledException;
 			TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
-			var _host = ConfigureServices();
+			var _host = AppLifecycleHelper.ConfigureServices();
 			Ioc.Default.ConfigureServices(_host.Services);
-		}
 
-		private static IHost ConfigureServices()
-		{
-			return Host.CreateDefaultBuilder()
-				.ConfigureServices(services => services
-					.AddSingleton<INavigationService, NavigationService>()
-					.AddSingleton<ILogger>(new SerilogWrapperLogger(Serilog.Log.Logger))
-					.AddSingleton<ToastService>()
-					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
-					// ViewModels
-					.AddSingleton<MainPageViewModel>()
-					.AddSingleton<ViewModels.SignIn.IntroViewModel>()
-					.AddTransient<ViewModels.AppSettings.AboutViewModel>()
-					.AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
-					.AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
-					.AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
-					.AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
-					.AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
-					.AddTransient<ViewModels.Dialogs.EditUserProfileViewModel>()
-					.AddTransient<ViewModels.Viewers.DashBoardViewModel>()
-					.AddTransient<ViewModels.Viewers.NotificationsViewModel>()
-					.AddTransient<ViewModels.Organizations.OverviewViewModel>()
-					.AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
-					.AddTransient<DetailsLayoutViewModel>()
-					.AddTransient<TreeLayoutViewModel>()
-					.AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
-					.AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
-					.AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
-					.AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
-					.AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
-					.AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
-					.AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
-					.AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.ChecksViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
-					.AddTransient<ViewModels.Repositories.Releases.ReleasesViewModel>()
-					.AddTransient<ViewModels.Repositories.Releases.ReleaseViewModel>()
-					.AddTransient<ViewModels.Searches.CodeViewModel>()
-					.AddTransient<ViewModels.Searches.IssuesViewModel>()
-					.AddTransient<ViewModels.Searches.RepositoriesViewModel>()
-					.AddTransient<ViewModels.Searches.UsersViewModel>()
-					.AddTransient<ViewModels.UserControls.FileContentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
-					.AddTransient<ViewModels.Users.ContributionsViewModel>()
-					.AddTransient<ViewModels.Users.DiscussionsViewModel>()
-					.AddTransient<ViewModels.Users.FollowersViewModel>()
-					.AddTransient<ViewModels.Users.FollowingViewModel>()
-					.AddTransient<ViewModels.Users.IssuesViewModel>()
-					.AddTransient<ViewModels.Users.OrganizationsViewModel>()
-					.AddTransient<ViewModels.Users.OverviewViewModel>()
-					.AddTransient<ViewModels.Users.PackagesViewModel>()
-					.AddTransient<ViewModels.Users.ProjectsViewModel>()
-					.AddTransient<ViewModels.Users.PullRequestsViewModel>()
-					.AddTransient<ViewModels.Users.RepositoriesViewModel>()
-					.AddTransient<ViewModels.Users.StarredReposViewModel>()
-				).Build();
-		}
-
-		private static void EnsureSettingsAndConfigurationAreBootstrapped()
-		{
 			AppSettings ??= new SettingsViewModel();
 		}
 
-		private void EnsureWindowIsInitialized()
-		{
-			WindowInstance = new MainWindow();
-			WindowInstance.Activated += Window_Activated;
-			//Window.Closed += Window_Closed;
-			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(WindowInstance);
-		}
-
-		#region Event Methods
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
 
 			// Initialize MainWindow here
 			EnsureWindowIsInitialized();
-
-			// Initialize static services
-			EnsureSettingsAndConfigurationAreBootstrapped();
 
 			// Initialize Window
 			WindowInstance.InitializeApplication(activatedEventArgs.Data);
@@ -144,6 +65,14 @@ namespace FluentHub.App
 
 			// Initialize Window
 			WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
+		}
+
+		private void EnsureWindowIsInitialized()
+		{
+			WindowInstance = new MainWindow();
+			WindowInstance.Activated += Window_Activated;
+			//Window.Closed += Window_Closed;
+			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(WindowInstance);
 		}
 
 		private void Window_Activated(object sender, WindowActivatedEventArgs args)
@@ -189,18 +118,6 @@ namespace FluentHub.App
 			{
 				Ioc.Default.GetService<ILogger>()?.Error("Failed to display unhandled exception", ex2);
 			}
-		}
-		#endregion
-
-		public static void CloseApp()
-			=> WindowInstance.Close();
-
-		public static AppWindow GetAppWindow(Window w)
-		{
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(w);
-			WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
-
-			return AppWindow.GetFromWindowId(windowId);
 		}
 	}
 }

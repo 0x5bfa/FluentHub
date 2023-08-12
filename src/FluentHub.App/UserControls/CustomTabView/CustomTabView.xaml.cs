@@ -105,7 +105,7 @@ namespace FluentHub.App.UserControls.CustomTabView
 				_TabItems.RemoveAt(index);
 
 				if (_TabItems.Count == 0)
-					App.CloseApp();
+					AppLifecycleHelper.CloseApp();
 
 				if (newSelectedItemIndex >= 0)
 					SelectedIndex = newSelectedItemIndex;
@@ -125,7 +125,7 @@ namespace FluentHub.App.UserControls.CustomTabView
 
 		private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			Microsoft.UI.Windowing.AppWindow view = App.GetAppWindow(App.WindowInstance);
+			Microsoft.UI.Windowing.AppWindow view = AppLifecycleHelper.GetAppWindow(App.WindowInstance);
 			view.Title = e.NewValue?.ToString() ?? "";
 		}
 

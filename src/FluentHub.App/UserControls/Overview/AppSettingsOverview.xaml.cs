@@ -65,16 +65,7 @@ namespace FluentHub.App.UserControls.Overview
 			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
 			{
 				case "appearance":
-					_navigation.Navigate<Views.AppSettings.AppearancePage>();
-					break;
-				case "repository":
-					_navigation.Navigate<Views.AppSettings.RepositoryPage>();
-					break;
-				case "notifications":
-					_navigation.Navigate<Views.AppSettings.NotificationsPage>();
-					break;
-				case "about":
-					_navigation.Navigate<Views.AppSettings.AboutPage>();
+					_navigation.Navigate<Views.AppSettings.GeneralPage>();
 					break;
 			}
 		}

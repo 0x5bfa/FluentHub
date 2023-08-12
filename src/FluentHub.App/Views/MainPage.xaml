@@ -87,6 +87,7 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
+		<!--  TabView & Window Draggable Area  -->
 		<Grid x:Name="TitleBarContentGrid">
 
 			<ProgressBar
@@ -108,6 +109,7 @@
 
 		</Grid>
 
+		<!--  Content Area  -->
 		<Grid Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -259,9 +261,19 @@
 								Padding="0"
 								Background="Transparent"
 								CornerRadius="18">
-								<Image Margin="-1" Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+								<Grid
+									Width="36"
+									Height="36"
+									Margin="-1"
+									Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+									<FontIcon
+										FontSize="14"
+										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+										Glyph="&#xE77B;" />
+									<Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+								</Grid>
 								<Button.Flyout>
-									<MenuBarItemFlyout x:Name="LeftSideViewerIconMenuFlyout" Placement="BottomEdgeAlignedRight">
+									<MenuBarItemFlyout Opening="LeftSideViewerIconMenuFlyout_Opening" x:Name="LeftSideViewerIconMenuFlyout" Placement="BottomEdgeAlignedRight">
 										<MenuBarItemFlyout.MenuFlyoutPresenterStyle>
 											<Style TargetType="MenuFlyoutPresenter">
 												<Setter Property="Width" Value="96" />
@@ -303,7 +315,7 @@
 										<MenuFlyoutSeparator />
 										<MenuFlyoutItem
 											Click="LeftSideViewerIconMenuFlyoutItem_Click"
-											Tag="SignOut"
+											Tag="AppSignOut"
 											Text="Sign out" />
 									</MenuBarItemFlyout>
 								</Button.Flyout>
