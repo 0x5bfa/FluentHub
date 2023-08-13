@@ -81,7 +81,7 @@ namespace FluentHub.Octicons.Generator
 
 			var value = xamlTemplateBegining.ToString();
 
-			File.WriteAllText(Path.Combine(output, "PathIcons.xaml"), value);
+			File.WriteAllText(Path.Combine(output, "OcticonIcons.xaml"), value);
 		}
 
 		private static void GenerateCSharpEnumEntities(string path, string output)
@@ -101,12 +101,12 @@ namespace FluentHub.Octicons.Generator
 			stringBuilder.AppendLine(@$"");
 			stringBuilder.AppendLine(@$"namespace FluentHub.Core.Data.Enums");
 			stringBuilder.AppendLine(@$"{{");
-			stringBuilder.AppendLine(@$"	public enum PathIconKind");
+			stringBuilder.AppendLine(@$"	public enum OcticonKind");
 			stringBuilder.AppendLine(@$"	{{");
 
 			foreach (var csFile in Directory.EnumerateFiles(path + "Assets", "*.svg"))
 			{
-				stringBuilder.AppendLine(@$"		ColorIcon{NormalizeFileName(csFile)},");
+				stringBuilder.AppendLine(@$"		Octicon{NormalizeFileName(csFile)},");
 			}
 
 			stringBuilder.AppendLine(@$"	}}");
@@ -114,7 +114,7 @@ namespace FluentHub.Octicons.Generator
 
 			var value = stringBuilder.ToString();
 
-			File.WriteAllText(Path.Combine(output, "PathIconKind.cs"), value);
+			File.WriteAllText(Path.Combine(output, "OcticonKind.cs"), value);
 		}
 
 		private static string ConvertSvgEntity(string path)
@@ -130,14 +130,20 @@ namespace FluentHub.Octicons.Generator
 			StringBuilder svgXamlTemplate = new();
 
 			svgXamlTemplate.AppendLine(@$"");
-			svgXamlTemplate.AppendLine(@$"			<Style x:Key=""ColorIcon{normalizedFileName}"" TargetType=""primer:Icon"">");
+			svgXamlTemplate.AppendLine(@$"			<Style x:Key=""Octicon{normalizedFileName}"" TargetType=""primer:Octicon"">");
 			svgXamlTemplate.AppendLine(@$"				<Setter Property=""Template"">");
 			svgXamlTemplate.AppendLine(@$"					<Setter.Value>");
 			svgXamlTemplate.AppendLine(@$"						<ControlTemplate>");
-			svgXamlTemplate.AppendLine(@$"							<Viewbox Stretch=""Fill"">");
-			svgXamlTemplate.AppendLine(@$"								<Grid Width=""{iconSize}"" Height=""{iconSize}"">");
-			svgXamlTemplate.AppendLine(@$"									<Path Data=""{svgRaw}"" Fill=""{{ThemeResource SystemColorButtonTextColor}}"" />");
-			svgXamlTemplate.AppendLine(@$"								</Grid>");
+			svgXamlTemplate.AppendLine(@$"							<Viewbox");
+			svgXamlTemplate.AppendLine(@$"								Width=""{iconSize}""");
+			svgXamlTemplate.AppendLine(@$"								Height=""{iconSize}""");
+			svgXamlTemplate.AppendLine(@$"								Stretch=""Uniform"">");
+			svgXamlTemplate.AppendLine(@$"								<Canvas Width=""{iconSize}"" Height=""{iconSize}"">");
+			svgXamlTemplate.AppendLine(@$"									<Path");
+			svgXamlTemplate.AppendLine(@$"										x:Name=""Path1""");
+			svgXamlTemplate.AppendLine(@$"										Data=""{svgRaw}""");
+			svgXamlTemplate.AppendLine(@$"										Fill=""{{TemplateBinding Foreground}}"" />");
+			svgXamlTemplate.AppendLine(@$"								</Canvas>");
 			svgXamlTemplate.AppendLine(@$"							</Viewbox>");
 			svgXamlTemplate.AppendLine(@$"						</ControlTemplate>");
 			svgXamlTemplate.AppendLine(@$"					</Setter.Value>");

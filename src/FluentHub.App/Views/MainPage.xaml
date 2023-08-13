@@ -12,6 +12,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:tabsuc="using:FluentHub.App.UserControls.CustomTabView"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
@@ -273,7 +274,10 @@
 									<Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
 								</Grid>
 								<Button.Flyout>
-									<MenuBarItemFlyout Opening="LeftSideViewerIconMenuFlyout_Opening" x:Name="LeftSideViewerIconMenuFlyout" Placement="BottomEdgeAlignedRight">
+									<MenuBarItemFlyout
+										x:Name="LeftSideViewerIconMenuFlyout"
+										Opening="LeftSideViewerIconMenuFlyout_Opening"
+										Placement="BottomEdgeAlignedRight">
 										<MenuBarItemFlyout.MenuFlyoutPresenterStyle>
 											<Style TargetType="MenuFlyoutPresenter">
 												<Setter Property="Width" Value="96" />
@@ -337,11 +341,7 @@
 						SelectedItem="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
-								<StackPanel Orientation="Horizontal" Spacing="6">
-									<FontIcon
-										x:Name="NavigationbarItemGlyph"
-										x:Load="{x:Bind Glyph, Converter={StaticResource ObjectToBoolConverter}}"
-										Glyph="{x:Bind Glyph}" />
+								<StackPanel Orientation="Horizontal" Spacing="8">
 									<TextBlock Text="{x:Bind Text}" />
 								</StackPanel>
 							</DataTemplate>
