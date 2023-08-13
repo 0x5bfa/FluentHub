@@ -28,7 +28,7 @@ namespace FluentHub.App.Views.Repositories.Commits
 			var param = e.Parameter as FrameNavigationParameter;
 			ViewModel.Login = param.PrimaryText;
 			ViewModel.Name = param.SecondaryText;
-			ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
+			ViewModel.CommitItem = param.Parameters as Commit;
 
 			var command = ViewModel.LoadRepositoryCommitPageCommand;
 			if (command.CanExecute(null))

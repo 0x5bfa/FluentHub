@@ -15,26 +15,16 @@ namespace FluentHub.App.Views.Repositories.Releases
 	{
 		public ReleaseViewModel ViewModel;
 
-		private readonly INavigationService _navigation;
-
 		public ReleasePage()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
 		{
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			_ = param ?? throw new ArgumentNullException("param");
-
-			ViewModel.Login = param.PrimaryText;
-			ViewModel.Name = param.SecondaryText;
-			ViewModel.TagName = param.Parameters.ElementAtOrDefault(0) as string;
-
 			var command = ViewModel.LoadRepositoryReleasePageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);

@@ -13,6 +13,7 @@
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	xmlns:views="using:FluentHub.App.Views"
+	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 
 	<views:LocatablePage.Resources>
@@ -175,8 +176,10 @@
 							Style="{StaticResource BodyStrongTextBlockStyle}"
 							Text="All Releases" />
 
-						<ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
-
+						<ItemsRepeater
+							x:Name="ReleaseItemsRepeater"
+							Grid.Row="2"
+							ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
 							<ItemsRepeater.Layout>
 								<StackLayout Orientation="Vertical" Spacing="6" />
 							</ItemsRepeater.Layout>
@@ -184,9 +187,9 @@
 								<Button
 									x:Name="ReleaseBlockButton"
 									Padding="16,12"
-									Click="OnReleaseBlockButtonClick"
-									Style="{StaticResource ContentBlockButtonStyle}"
-									Tag="{x:Bind TagName}">
+									Command="{Binding ElementName=ReleaseItemsRepeater, Path=DataContext.GoToReleasePageCommand}"
+									CommandParameter="{x:Bind TagName}"
+									Style="{StaticResource ContentBlockButtonStyle}">
 
 									<StackPanel Spacing="4">
 

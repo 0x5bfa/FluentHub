@@ -28,6 +28,9 @@ namespace FluentHub.App.ViewModels
 		// Provided for v4 API response
 		protected PageInfo _lastPageInfo;
 
+		protected ITabViewItem SelectedTabViewItem
+			=> _navigation.TabView.SelectedItem;
+
 		protected string _login;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
 

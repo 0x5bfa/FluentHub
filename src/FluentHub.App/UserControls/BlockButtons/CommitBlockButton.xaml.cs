@@ -36,7 +36,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 			{
 				PrimaryText = ViewModel.CommitItem.Repository.Owner.Login,
 				SecondaryText = ViewModel.CommitItem.Repository.Name,
-				Parameters = new() { ViewModel.CommitItem },
+				Parameters = ViewModel.CommitItem,
 			};
 
 			if (ViewModel.PullRequest == null)

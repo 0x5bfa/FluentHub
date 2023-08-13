@@ -60,7 +60,7 @@ namespace FluentHub.App.UserControls
 				{
 					PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
 					SecondaryText = ViewModel.ContextViewModel.Repository.Name,
-					Parameters = new() { ViewModel.ContextViewModel },
+					Parameters = ViewModel.ContextViewModel,
 				});
 		}
 	}

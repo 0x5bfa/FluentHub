@@ -22,7 +22,7 @@ namespace FluentHub.App.Views.Searches
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
+			ViewModel.SearchTerm = param.Parameters as string;
 
 			var command = ViewModel.LoadSearchRepositoriesPageCommand;
 			if (command.CanExecute(null))

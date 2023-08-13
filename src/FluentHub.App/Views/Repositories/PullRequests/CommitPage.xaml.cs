@@ -31,7 +31,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			ViewModel.Login = param.PrimaryText;
 			ViewModel.Name = param.SecondaryText;
 			ViewModel.Number = param.Number;
-			ViewModel.CommitItem = param.Parameters.ElementAtOrDefault(0) as Commit;
+			ViewModel.CommitItem = param.Parameters as Commit;
 
 			var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
 			if (command.CanExecute(null))

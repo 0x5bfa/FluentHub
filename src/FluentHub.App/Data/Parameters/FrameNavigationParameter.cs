@@ -13,6 +13,6 @@ namespace FluentHub.App.Data.Parameters
 
 		public bool AsViewer { get; set; }
 
-		public List<object>? Parameters { get; set; }
+		public object Parameters { get; set; }
 	}
 }

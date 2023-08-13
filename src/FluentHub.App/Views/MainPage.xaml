@@ -342,6 +342,7 @@
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="8">
+									<!--<primer:Octicon x:Name="NavigationbarItemGlyph" Icon="OcticonRepo16" />-->
 									<TextBlock Text="{x:Bind Text}" />
 								</StackPanel>
 							</DataTemplate>

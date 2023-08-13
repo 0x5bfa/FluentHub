@@ -54,7 +54,7 @@ namespace FluentHub.App.UserControls
 			var page = typeof(Views.Searches.RepositoriesPage);
 			FrameNavigationParameter param = new()
 			{
-				Parameters = new() { SearchTerm }
+				Parameters = SearchTerm
 			};
 
 			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
