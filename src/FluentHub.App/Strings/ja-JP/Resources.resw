@@ -226,7 +226,7 @@
     <value>Issue</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>問題が発生しました😿</value>
+    <value>Something went wrong</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>ローカルディスクにアプリのエラーの詳細が保存されているログフォルダを開く。</value>
@@ -265,7 +265,7 @@
     <value>通知</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 割り当て済み</value>
+    <value>Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>完了</value>
@@ -277,16 +277,16 @@
     <value>受信トレイ</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ メンション済み</value>
+    <value>Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧メンションされたチーム</value>
+    <value>Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝 参加中</value>
+    <value>Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 リクエストされたレビュー</value>
+    <value>Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>保存済み</value>

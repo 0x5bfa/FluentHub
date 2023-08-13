@@ -226,7 +226,7 @@
     <value>Problèmes</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Quelque chose s'est mal passée 😿</value>
+    <value>Something went wrong</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Ouvrez le dossier des logs où les détails des erreurs de l'application sont stockés sur le disque local.</value>
@@ -265,7 +265,7 @@
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 Assigné</value>
+    <value>Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>Fait</value>
@@ -277,16 +277,16 @@
     <value>Boîte de réception</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Mentionné</value>
+    <value>Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Mentionné (Équipe)</value>
+    <value>Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ Participants</value>
+    <value>Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Demande de révision</value>
+    <value>Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Sauvegardé</value>

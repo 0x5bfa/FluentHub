@@ -139,7 +139,7 @@
     <value>Ngôn ngữ</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Tùy chỉnh chủ đề</value>
+    <value>Chủ đề tùy chỉnh</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Quay lại</value>
@@ -206,7 +206,6 @@
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
     <value>Không có mục yêu thích khả dụng.</value>
-    <value>Không có mục yêu thích nào.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
     <value>Công việc</value>
@@ -227,7 +226,7 @@
     <value>Vấn đề</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Đã xảy ra lỗi...😿</value>
+    <value>Something went wrong</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Mở thư mục log nơi xảy ra chi tiết lỗi đã được lưu trữ trên ổ đĩa của bạn.</value>
@@ -239,7 +238,7 @@
     <value>Mở trang Github của chúng tôi để tạo vấn đề. Lưu ý: Trong tương lai, FluentHub sẽ tự động gửi nội dung lỗi, chi tiết, log tới nhóm FluentHub qua Github khi bạn nhấn vào nút này.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Báo cáo sự cố</value>
+    <value>Báo cáo sự cố này</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Hiển thị kết quả theo dõi trong hộp thoại.</value>
@@ -266,7 +265,7 @@
     <value>Thông báo</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 Giao</value>
+    <value>Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>Xong</value>
@@ -278,16 +277,16 @@
     <value>Hộp thư đến</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Đề cập</value>
+    <value>Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Nhóm đã đề cập</value>
+    <value>Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ Đang tham gia</value>
+    <value>Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Xem lại yêu cầu</value>
+    <value>Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Đã lưu</value>
