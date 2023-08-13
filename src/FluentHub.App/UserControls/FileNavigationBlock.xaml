@@ -29,6 +29,7 @@
 				x:Name="BranchNameSelector"
 				MinWidth="110"
 				MaxWidth="168"
+				IsEnabled="False"
 				ItemsSource="{x:Bind ViewModel.BranchNames, Mode=OneWay}"
 				SelectionChanged="OnBranchSelectorSelectionChanged">
 				<ComboBox.ItemTemplate>
