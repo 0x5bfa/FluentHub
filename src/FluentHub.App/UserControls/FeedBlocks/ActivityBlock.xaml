@@ -65,7 +65,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="left a comment on commit" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -81,7 +84,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="created a branch in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -97,7 +103,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="deleted a branch in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -113,7 +122,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="forked" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -124,7 +136,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="from" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -140,7 +155,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="updated a wiki in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -156,7 +174,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="left a comment on issue" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -172,7 +193,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="created an issue event in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -205,8 +229,11 @@
 							<TextBlock
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
-								Text="created a pull request event" />
-							<Button Padding="4,2">
+								Text="opened a pull request" />
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -222,7 +249,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="reviewed a pull request" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -238,7 +268,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="commented on a review in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -254,7 +287,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="created a pull request review thread" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -270,7 +306,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="pushed a commit to" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -286,7 +325,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="created a release in" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -311,7 +353,10 @@
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="starred" />
-							<Button Padding="4,2">
+							<Button
+								Padding="4,2"
+								Click="OnActivityRepositoryButtonClick"
+								Tag="{x:Bind ViewModel.Payload.Repository, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
@@ -360,6 +405,14 @@
 				x:Name="UserBlockButton"
 				x:Load="{x:Bind ViewModel.UserBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 				ViewModel="{x:Bind ViewModel.UserBlockViewModel, Mode=OneWay}" />
+			<bb:IssueBlockButton
+				x:Name="IssueBlockButton"
+				x:Load="{x:Bind ViewModel.IssueBlockButtonViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+				ViewModel="{x:Bind ViewModel.IssueBlockButtonViewModel, Mode=OneWay}" />
+			<bb:PullBlockButton
+				x:Name="PullBlockButton"
+				x:Load="{x:Bind ViewModel.PullBlockButtonViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+				ViewModel="{x:Bind ViewModel.PullBlockButtonViewModel, Mode=OneWay}" />
 		</Grid>
 
 		<MenuFlyoutSeparator Grid.Row="2" Margin="0,8,0,0" />

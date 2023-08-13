@@ -6,10 +6,6 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 {
 	public class ActivityBlockViewModel : ObservableObject
 	{
-		public ActivityBlockViewModel()
-		{
-		}
-
 		private Activity _payload;
 		public Activity Payload { get => _payload; set => SetProperty(ref _payload, value); }
 
@@ -18,6 +14,12 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 
 		private UserBlockButtonViewModel _userBlockViewModel;
 		public UserBlockButtonViewModel UserBlockViewModel { get => _userBlockViewModel; set => SetProperty(ref _userBlockViewModel, value); }
+
+		private IssueBlockButtonViewModel _issueBlockButtonViewModel;
+		public IssueBlockButtonViewModel IssueBlockButtonViewModel { get => _issueBlockButtonViewModel; set => SetProperty(ref _issueBlockButtonViewModel, value); }
+
+		private PullBlockButtonViewModel _pullBlockButtonViewModel;
+		public PullBlockButtonViewModel PullBlockButtonViewModel { get => _pullBlockButtonViewModel; set => SetProperty(ref _pullBlockButtonViewModel, value); }
 
 		private SingleCommentBlockViewModel _singleCommentBlockViewModel;
 		public SingleCommentBlockViewModel SingleCommentBlockViewModel { get => _singleCommentBlockViewModel; set => SetProperty(ref _singleCommentBlockViewModel, value); }
@@ -28,8 +30,10 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 		private SingleReleaseBlockViewModel _singleReleaseBlockViewModel;
 		public SingleReleaseBlockViewModel SingleReleaseBlockViewModel { get => _singleReleaseBlockViewModel; set => SetProperty(ref _singleReleaseBlockViewModel, value); }
 
-		//private CommitActivityBlockViewModel commitBlockViewModel;
-		//public CommitActivityBlockViewModel CommitBlockViewModel { get => commitBlockViewModel; set => SetProperty(ref commitBlockViewModel, value); }
+
+		public ActivityBlockViewModel()
+		{
+		}
 
 		public async Task LoadContentsAsync()
 		{
@@ -38,21 +42,21 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 
 			switch (Payload.Type.ToString())
 			{
-				case "WatchEvent":
+				case "CheckRunEvent":
 					{
-						var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
-
-						RepoBlockViewModel = new()
-						{
-							DisplayDetails = true,
-							DisplayStarButton = true,
-							Repository = response,
-						};
-						break;
 					}
-				case "ForkEvent":
+					break;
+				case "CheckSuiteEvent":
+					{
+					}
+					break;
+				case "CommitComment":
+					{
+					}
 					break;
 				case "CreateEvent":
+					{
+					}
 					break;
 				case "DeleteEvent":
 					{
@@ -66,11 +70,49 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 						};
 						break;
 					}
-				case "IssueCommentEvent":
-					SingleCommentBlockViewModel = new()
+				case "ForkEvent":
 					{
-						IssueCommentPayload = Payload.PayloadSets.IssueCommentPayload,
-					};
+						var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
+
+						RepoBlockViewModel = new()
+						{
+							DisplayDetails = true,
+							DisplayStarButton = true,
+							Repository = response,
+						};
+						break;
+					}
+				case "IssueCommentEvent":
+					{
+						SingleCommentBlockViewModel = new()
+						{
+							IssueCommentPayload = Payload.PayloadSets.IssueCommentPayload,
+						};
+					}
+					break;
+				case "IssueEvent":
+					{
+						IssueBlockButtonViewModel = new()
+						{
+							IssueItem = Payload.PayloadSets.IssueCommentPayload.Issue,
+						};
+					}
+					break;
+				case "PullRequestComment":
+					{
+					}
+					break;
+				case "PullRequestEvent":
+					{
+						PullBlockButtonViewModel = new()
+						{
+							PullItem = Payload.PayloadSets.PullRequestEventPayload.PullRequest,
+						};
+					}
+					break;
+				case "PullRequestReviewEvent":
+					{
+					}
 					break;
 				case "PushEvent":
 					SingleCommitBlockViewModel = new()
@@ -78,11 +120,39 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 						PushEventPayload = Payload.PayloadSets.PushEventPayload,
 					};
 					break;
+				case "PushWebhookCommit":
+					{
+					}
+					break;
+				case "PushWebhookCommitter":
+					{
+					}
+					break;
+				case "PushWebhook":
+					{
+					}
+					break;
 				case "ReleaseEvent":
 					SingleReleaseBlockViewModel = new()
 					{
 						ReleaseEventPayload = Payload.PayloadSets.ReleaseEventPayload,
 					};
+					break;
+				case "WatchEvent":
+					{
+						var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
+
+						RepoBlockViewModel = new()
+						{
+							DisplayDetails = true,
+							DisplayStarButton = true,
+							Repository = response,
+						};
+						break;
+					}
+				case "StatusEvent":
+					{
+					}
 					break;
 			}
 		}

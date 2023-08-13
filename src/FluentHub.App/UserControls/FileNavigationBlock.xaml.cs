@@ -121,16 +121,16 @@ namespace FluentHub.App.UserControls
 			var objType = ViewModel.ContextViewModel.IsFile ? "blob" : "tree";
 			var path = string.IsNullOrEmpty(ViewModel.ContextViewModel.Path) ? $"{ViewModel.ContextViewModel.Path}" : $"/{ViewModel.ContextViewModel.Path}";
 
-			List<object> param = new();
-			param.Add($"{objType}/{ViewModel.ContextViewModel.BranchName}{path}");
+			var param = $"{objType}/{ViewModel.ContextViewModel.BranchName}{path}";
 
-			navService.Navigate<Views.Repositories.Code.DetailsLayoutView>(
-				new FrameNavigationParameter()
-				{
-					PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
-					SecondaryText = ViewModel.ContextViewModel.Repository.Name,
-					Parameters = param,
-				});
+			navService.TabView.SelectedItem.NavigationBar.Context = new()
+			{
+				PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
+				SecondaryText = ViewModel.ContextViewModel.Repository.Name,
+				Parameters = param
+			};
+
+			navService.Navigate<Views.Repositories.Code.DetailsLayoutView>();
 		}
 	}
 }

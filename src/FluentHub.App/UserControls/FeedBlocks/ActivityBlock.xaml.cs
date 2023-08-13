@@ -9,7 +9,6 @@ namespace FluentHub.App.UserControls.FeedBlocks
 {
 	public sealed partial class ActivityBlock : UserControl
 	{
-		#region propdp
 		public static readonly DependencyProperty ViewModelProperty =
 			DependencyProperty.Register(
 			   nameof(ViewModel),
@@ -26,9 +25,29 @@ namespace FluentHub.App.UserControls.FeedBlocks
 				ViewModel?.LoadContentsAsync();
 			}
 		}
-		#endregion
 
 		public ActivityBlock()
-			=> InitializeComponent();
+		{
+			InitializeComponent();
+		}
+
+		private void OnActivityRepositoryButtonClick(object sender, RoutedEventArgs e)
+		{
+			Repository repo = ((Button)sender).Tag as Repository;
+
+			var service = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var navBar = service.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = repo.Owner.Login,
+				SecondaryText = repo.Name,
+			};
+
+			if (App.AppSettings.UseDetailsView)
+				service.Navigate<Views.Repositories.Code.DetailsLayoutView>();
+			else
+				service.Navigate<Views.Repositories.Code.TreeLayoutView>();
+		}
 	}
 }

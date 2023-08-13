@@ -12,14 +12,12 @@ namespace FluentHub.App.UserControls.PrimerControls
 	/// </summary>
 	public sealed partial class Avatar : UserControl
 	{
-		#region propdp
 		public static readonly DependencyProperty SourceProperty =
 			DependencyProperty.Register(
 				nameof(Source),
 				typeof(string),
 				typeof(Avatar),
-				new PropertyMetadata("https://github.com/identicons/FluentHub.png")
-				);
+				new PropertyMetadata("https://github.com/identicons/FluentHub.png"));
 
 		public string Source
 		{
@@ -32,8 +30,7 @@ namespace FluentHub.App.UserControls.PrimerControls
 				nameof(Label),
 				typeof(string),
 				typeof(Avatar),
-				new PropertyMetadata(null)
-				);
+				new PropertyMetadata(null));
 
 		public string Label
 		{
@@ -46,8 +43,7 @@ namespace FluentHub.App.UserControls.PrimerControls
 				nameof(Size),
 				typeof(double),
 				typeof(Avatar),
-				new PropertyMetadata(20D)
-				);
+				new PropertyMetadata(20D));
 
 		public double Size
 		{
@@ -60,8 +56,7 @@ namespace FluentHub.App.UserControls.PrimerControls
 				nameof(IsSquare),
 				typeof(bool),
 				typeof(Avatar),
-				new PropertyMetadata(false)
-				);
+				new PropertyMetadata(false));
 
 		public bool IsSquare
 		{
@@ -74,15 +69,13 @@ namespace FluentHub.App.UserControls.PrimerControls
 				nameof(IsClickable),
 				typeof(bool),
 				typeof(Avatar),
-				new PropertyMetadata(false)
-				);
+				new PropertyMetadata(false));
 
 		public bool IsClickable
 		{
 			get => (bool)GetValue(IsClickableProperty);
 			set => SetValue(IsClickableProperty, value);
 		}
-		#endregion
 
 		public Avatar()
 			=> InitializeComponent();

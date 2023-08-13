@@ -4,7 +4,6 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.App.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
 	xmlns:local="using:FluentHub.App.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -15,6 +14,7 @@
 	<Grid Padding="16,12">
 		<TextBlock
 			IsTextSelectionEnabled="True"
+			MaxLines="6"
 			Style="{StaticResource BodyTextBlockStyle}"
 			Text="{x:Bind ViewModel.IssueCommentPayload.Comment.Body, Mode=OneWay}" />
 	</Grid>

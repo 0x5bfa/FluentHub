@@ -5,14 +5,34 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.App.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
 
-	<Grid Height="64">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<!--<Grid Padding="16,8">
+			<primer:Avatar
+				Width="32"
+				Height="32"
+				HorizontalAlignment="Left"
+				Label="{x:Bind ViewModel.ReleaseEventPayload.Sender.Login}"
+				Source="{x:Bind ViewModel.ReleaseEventPayload.Sender.AvatarUrl}" />
+		</Grid>
+		<Rectangle
+			Grid.Row="1"
+			Height="1"
+			Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />-->
 		<TextBlock
-			HorizontalAlignment="Center"
-			VerticalAlignment="Center"
-			Text="SingleReleaseBlock" />
+			Grid.Row="2"
+			Margin="16,16"
+			IsTextSelectionEnabled="True"
+			MaxLines="6"
+			Text="{x:Bind ViewModel.ReleaseEventPayload.Release.Description, Mode=OneWay}" />
 	</Grid>
 </UserControl>

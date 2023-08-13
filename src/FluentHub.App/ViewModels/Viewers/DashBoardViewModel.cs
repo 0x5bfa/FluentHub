@@ -127,7 +127,27 @@ namespace FluentHub.App.ViewModels.Viewers
 			if (activityResponse == null)
 				return;
 
-			foreach (var item in activityResponse)
+			
+
+			foreach (var item in activityResponse.Where(x =>
+				//x.Type == ActivityPayloadType.CheckRunEvent ||
+				//x.Type == ActivityPayloadType.CheckSuiteEvent ||
+				//x.Type == ActivityPayloadType.CommitComment ||
+				//x.Type == ActivityPayloadType.CreateEvent ||
+				//x.Type == ActivityPayloadType.DeleteEvent ||
+				x.Type == ActivityPayloadType.ForkEvent ||
+				x.Type == ActivityPayloadType.IssueCommentEvent ||
+				x.Type == ActivityPayloadType.IssueEvent ||
+				x.Type == ActivityPayloadType.PullRequestComment ||
+				x.Type == ActivityPayloadType.PullRequestEvent||
+				//x.Type == ActivityPayloadType.PullRequestReviewEvent||
+				//x.Type == ActivityPayloadType.PushEvent||
+				//x.Type == ActivityPayloadType.PushWebhookCommit||
+				//x.Type == ActivityPayloadType.PushWebhookCommitter||
+				//x.Type == ActivityPayloadType.PushWebhook ||
+				x.Type == ActivityPayloadType.ReleaseEvent ||
+				x.Type == ActivityPayloadType.WatchEvent /*||
+				x.Type == ActivityPayloadType.StatusEvent*/).ToList())
 			{
 				ActivityBlockViewModel viewModel = new()
 				{
