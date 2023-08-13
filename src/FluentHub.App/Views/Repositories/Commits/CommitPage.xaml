@@ -119,27 +119,27 @@
 									Orientation="Horizontal"
 									Spacing="8">
 									<!--<StackPanel Orientation="Horizontal" Spacing="4">
-                                        <TextBlock
-                                            Foreground="{ThemeResource TextFillColorSecondary}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="parent" />
-                                        <TextBlock
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}"
-                                            ToolTipService.Placement="Bottom"
-                                            ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                        <TextBlock
-                                            Foreground="{ThemeResource TextFillColorSecondary}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="commit" />
-                                        <TextBlock
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
-                                            ToolTipService.Placement="Bottom"
-                                            ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
-                                    </StackPanel>-->
+										<TextBlock
+											Foreground="{ThemeResource TextFillColorSecondary}"
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="parent" />
+										<TextBlock
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}"
+											ToolTipService.Placement="Bottom"
+											ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}" />
+									</StackPanel>
+									<StackPanel Orientation="Horizontal" Spacing="4">
+										<TextBlock
+											Foreground="{ThemeResource TextFillColorSecondary}"
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="commit" />
+										<TextBlock
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
+											ToolTipService.Placement="Bottom"
+											ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
+									</StackPanel>-->
 								</StackPanel>
 							</Grid>
 						</Grid>

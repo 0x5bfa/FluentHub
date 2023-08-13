@@ -8,13 +8,16 @@ namespace FluentHub.App.Views
 {
 	public abstract class LocatablePage : Page
 	{
-		private readonly INavigationService _navigationService;
+		protected readonly INavigationService _navigationService;
 
 		private readonly ILogger _logger;
 
 		private readonly NavigationPageKind _currentPageKind;
 
 		private readonly NavigationPageKey _currentPageItemKey;
+
+		protected ITabViewItem SelectedTabViewItem
+			=> _navigationService.TabView.SelectedItem;
 
 		public LocatablePage(NavigationPageKind pageKind, NavigationPageKey itemKey)
 		{

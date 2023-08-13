@@ -35,15 +35,15 @@
 			<TextBlock Style="{ThemeResource SubheaderTextBlockStyle}">5</TextBlock>
 			<TextBlock>Active Issues</TextBlock>
 			<!--<CommandBar>
-                <AppBarButton>
-                    <AppBarButton.Content>
-                        <TextBlock>0 issues closed</TextBlock>
-                    </AppBarButton.Content>
-                </AppBarButton>
-                <CommandBar.SecondaryCommands>
-                    <AppBarButton Icon="Setting" Label="See in-depth"/>
-                </CommandBar.SecondaryCommands>
-            </CommandBar>-->
+				<AppBarButton>
+					<AppBarButton.Content>
+						<TextBlock>0 issues closed</TextBlock>
+					</AppBarButton.Content>
+				</AppBarButton>
+				<CommandBar.SecondaryCommands>
+					<AppBarButton Icon="Setting" Label="See in-depth"/>
+				</CommandBar.SecondaryCommands>
+			</CommandBar>-->
 		</StackPanel>
 	</Grid>
 </Page>

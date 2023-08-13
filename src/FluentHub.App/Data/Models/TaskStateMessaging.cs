@@ -1,12 +1,12 @@
 namespace FluentHub.App.Models
 {
-    public class TaskStateMessaging
-    {
-        public TaskStateMessaging(TaskStatusType statusType = TaskStatusType.Unknown)
-        {
-            StatusType = statusType;
-        }
+	public class TaskStateMessaging
+	{
+		public TaskStateMessaging(TaskStatusType statusType = TaskStatusType.Unknown)
+		{
+			StatusType = statusType;
+		}
 
-        public TaskStatusType StatusType { get; }
-    }
+		public TaskStatusType StatusType { get; }
+	}
 }

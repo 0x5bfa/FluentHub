@@ -25,7 +25,7 @@
 
 	<Grid>
 
-		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserNotificationsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer ViewChanged="OnScrollViewerViewChanged">
 				<Grid Padding="32" RowSpacing="8">
 					<Grid.RowDefinitions>
@@ -81,7 +81,7 @@
 			</ScrollViewer>
 		</Grid>
 
-		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadUserNotificationsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
 			<uc:LoadErrorDisplay
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"

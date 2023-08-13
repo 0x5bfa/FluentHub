@@ -135,11 +135,11 @@
 						x:Load="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 						Text="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Mode=OneWay}">
 						<!--<primer:Label.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="12"
-                                Glyph="&#xE95D;" />
-                        </primer:Label.Icon>-->
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="12"
+								Glyph="&#xE95D;" />
+						</primer:Label.Icon>-->
 					</primer:Label>
 
 				</StackPanel>

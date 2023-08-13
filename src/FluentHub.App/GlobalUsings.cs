@@ -25,6 +25,7 @@ global using global::FluentHub.App.Data.Factories;
 global using global::FluentHub.App.Data.Items;
 //global using global::FluentHub.App.Data.Models;
 global using global::FluentHub.App.Data.Parameters;
+global using global::FluentHub.App.Helpers;
 global using global::FluentHub.App.Services;
 global using global::FluentHub.Core.Data.Enums;
 global using global::FluentHub.Octokit.Models.v3;

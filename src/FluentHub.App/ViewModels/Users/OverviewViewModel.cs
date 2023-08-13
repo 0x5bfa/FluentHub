@@ -63,6 +63,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserPinnableAndPinnedRepositoriesAsync);
 				await LoadUserPinnableAndPinnedRepositoriesAsync(Login);
+
+				SetTabInformation("Overview", "Overview", "Profile");
 			}
 			catch (Exception ex)
 			{
@@ -73,8 +75,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Overview", "Overview", "Profile");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}

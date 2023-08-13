@@ -63,50 +63,50 @@
 			</StackPanel>
 
 			<!--<StackPanel
-                Grid.Column="2"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
+				Grid.Column="2"
+				HorizontalAlignment="Right"
+				Orientation="Horizontal">
 
-                <Button
-                    Width="32"
-                    Height="32"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    IsEnabled="False"
-                    Style="{StaticResource ClearButtonStyle}">
-                    <FontIcon
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondary}"
-                        Glyph="&#xe8c8;" />
-                </Button>
+				<Button
+					Width="32"
+					Height="32"
+					VerticalAlignment="Center"
+					Background="Transparent"
+					IsEnabled="False"
+					Style="{StaticResource ClearButtonStyle}">
+					<FontIcon
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondary}"
+						Glyph="&#xe8c8;" />
+				</Button>
 
-                <Button
-                    Width="32"
-                    Height="32"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    IsEnabled="False"
-                    Style="{StaticResource ClearButtonStyle}">
-                    <FontIcon
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondary}"
-                        Glyph="&#xe70f;" />
-                </Button>
+				<Button
+					Width="32"
+					Height="32"
+					VerticalAlignment="Center"
+					Background="Transparent"
+					IsEnabled="False"
+					Style="{StaticResource ClearButtonStyle}">
+					<FontIcon
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondary}"
+						Glyph="&#xe70f;" />
+				</Button>
 
-                <Button
-                    Width="32"
-                    Height="32"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    IsEnabled="False"
-                    Style="{StaticResource ClearButtonStyle}">
-                    <FontIcon
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondary}"
-                        Glyph="&#xe74d;" />
-                </Button>
+				<Button
+					Width="32"
+					Height="32"
+					VerticalAlignment="Center"
+					Background="Transparent"
+					IsEnabled="False"
+					Style="{StaticResource ClearButtonStyle}">
+					<FontIcon
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondary}"
+						Glyph="&#xe74d;" />
+				</Button>
 
-            </StackPanel>-->
+			</StackPanel>-->
 		</Grid>
 
 		<MenuFlyoutSeparator Grid.Row="1" />

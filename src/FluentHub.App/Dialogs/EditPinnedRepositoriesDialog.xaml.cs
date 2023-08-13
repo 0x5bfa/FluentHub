@@ -6,27 +6,27 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Dialogs
 {
-    public sealed partial class EditPinnedRepositoriesDialog : ContentDialog
-    {
-        public EditPinnedRepositoriesDialog(string login = null)
-        {
-            InitializeComponent();
+	public sealed partial class EditPinnedRepositoriesDialog : ContentDialog
+	{
+		public EditPinnedRepositoriesDialog(string login = null)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<EditPinnedRepositoriesDialogViewModel>();
+			ViewModel = Ioc.Default.GetRequiredService<EditPinnedRepositoriesDialogViewModel>();
 
-            ViewModel.Login = login;
-        }
+			ViewModel.Login = login;
+		}
 
-        private readonly INavigationService navigationService;
-        public EditPinnedRepositoriesDialogViewModel ViewModel { get; }
+		private readonly INavigationService navigationService;
+		public EditPinnedRepositoriesDialogViewModel ViewModel { get; }
 
-        private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
+		private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+		{
+		}
 
-        private async void OnEditPinnedRepositoriesDialogLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            await ViewModel.LoadPinnableAndPinnedRepositories();
-        }
-    }
+		private async void OnEditPinnedRepositoriesDialogLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+		{
+			await ViewModel.LoadPinnableAndPinnedRepositories();
+		}
+	}
 }

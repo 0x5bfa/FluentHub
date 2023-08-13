@@ -1,26 +1,24 @@
-using System;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.Octokit.Models.v4
 {
-    /// <summary>
-    /// Identifier formats available for advisories.
-    /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum SecurityAdvisoryIdentifierType
-    {
-        /// <summary>
-        /// Common Vulnerabilities and Exposures Identifier.
-        /// </summary>
-        [EnumMember(Value = "CVE")]
-        Cve,
+	/// <summary>
+	/// Identifier formats available for advisories.
+	/// </summary>
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum SecurityAdvisoryIdentifierType
+	{
+		/// <summary>
+		/// Common Vulnerabilities and Exposures Identifier.
+		/// </summary>
+		[EnumMember(Value = "CVE")]
+		Cve,
 
-        /// <summary>
-        /// GitHub Security Advisory ID.
-        /// </summary>
-        [EnumMember(Value = "GHSA")]
-        Ghsa,
-    }
+		/// <summary>
+		/// GitHub Security Advisory ID.
+		/// </summary>
+		[EnumMember(Value = "GHSA")]
+		Ghsa,
+	}
 }

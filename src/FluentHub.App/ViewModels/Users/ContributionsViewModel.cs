@@ -72,20 +72,20 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserDiscussionsAsync(string login)
 		{
-			DiscussionQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+			//DiscussionQueries queries = new();
+			//var items = await queries.GetAllAsync(login);
+			//if (items == null) return;
 
-			_discussions.Clear();
-			foreach (var item in items)
-			{
-				DiscussionBlockButtonViewModel viewModel = new()
-				{
-					Item = item,
-				};
+			//_discussions.Clear();
+			//foreach (var item in items)
+			//{
+			//	DiscussionBlockButtonViewModel viewModel = new()
+			//	{
+			//		Item = item,
+			//	};
 
-				_discussions.Add(viewModel);
-			}
+			//	_discussions.Add(viewModel);
+			//}
 		}
 
 		private async Task LoadUserAsync(string login)

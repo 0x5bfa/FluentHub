@@ -42,7 +42,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			Name = parameter.SecondaryText;
 
 			if (parameter.Parameters is not null)
-				CurrentPath = parameter.Parameters.ElementAtOrDefault(0) as string;
+				CurrentPath = parameter.Parameters as string;
 
 			_items = new();
 			Items = new(_items);
@@ -223,7 +223,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			}
 			else
 			{
-				header = $"{Repository.Name}/{ContextViewModel.Path} at {ContextViewModel.BranchName} · {Repository.Owner.Login}/{Repository.Name}";
+				header = $"{Repository.Name}/{ContextViewModel.Path} at {ContextViewModel.BranchName} \u2022 {Repository.Owner.Login}/{Repository.Name}";
 			}
 
 			description = header;

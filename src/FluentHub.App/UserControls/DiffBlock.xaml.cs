@@ -7,33 +7,33 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.UserControls
 {
-    public sealed partial class DiffBlock : UserControl
-    {
-        #region propdp
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(
-                nameof(ViewModel),
-                typeof(DiffBlockViewModel),
-                typeof(DiffBlock),
-                new PropertyMetadata(null));
+	public sealed partial class DiffBlock : UserControl
+	{
+		#region propdp
+		public static readonly DependencyProperty ViewModelProperty =
+			DependencyProperty.Register(
+				nameof(ViewModel),
+				typeof(DiffBlockViewModel),
+				typeof(DiffBlock),
+				new PropertyMetadata(null));
 
-        public DiffBlockViewModel ViewModel
-        {
-            get => (DiffBlockViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                ViewModel?.ParseDiffPatch();
-            }
-        }
-        #endregion
+		public DiffBlockViewModel ViewModel
+		{
+			get => (DiffBlockViewModel)GetValue(ViewModelProperty);
+			set
+			{
+				SetValue(ViewModelProperty, value);
+				ViewModel?.ParseDiffPatch();
+			}
+		}
+		#endregion
 
-        public DiffBlock()
-            => InitializeComponent();
+		public DiffBlock()
+			=> InitializeComponent();
 
-        private void OnToggleExpandCollapseButton(object sender, RoutedEventArgs e)
-        {
-            ViewModel.BlockIsExpanded = ViewModel.BlockIsExpanded ? false : true;
-        }
-    }
+		private void OnToggleExpandCollapseButton(object sender, RoutedEventArgs e)
+		{
+			ViewModel.BlockIsExpanded = ViewModel.BlockIsExpanded ? false : true;
+		}
+	}
 }

@@ -28,10 +28,8 @@ namespace FluentHub.App.ViewModels.Users
 		private readonly ObservableCollection<OrgBlockButtonViewModel> _organizations;
 		public ReadOnlyObservableCollection<OrgBlockButtonViewModel> Organizations { get; }
 
-		private Exception _taskException;
-		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-
 		public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserOrganizationsPageCommand { get; }
 
 		public OrganizationsViewModel() : base()
 		{
@@ -49,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			Organizations = new(_organizations);
 
 			LoadUserOrganizationsPageCommand = new AsyncRelayCommand(LoadUserOrganizationsPageAsync);
+			LoadFurtherUserOrganizationsPageCommand = new AsyncRelayCommand(LoadFurtherUserOrganizationsPageAsync);
 		}
 
 		private async Task LoadUserOrganizationsPageAsync()
@@ -67,6 +66,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
 				await LoadUserOrganizationsAsync(Login);
+
+				SetTabInformation("Organizations", "Organizations", "Organizations");
 			}
 			catch (Exception ex)
 			{
@@ -77,8 +78,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Organizations", "Organizations", "Organizations");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
@@ -86,8 +85,13 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserOrganizationsAsync(string login)
 		{
 			OrganizationQueries queries = new();
-			var items = await queries.GetAllAsync(login);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Organization>)result.Response;
 
 			_organizations.Clear();
 			foreach (var item in items)
@@ -101,7 +105,7 @@ namespace FluentHub.App.ViewModels.Users
 			}
 		}
 
-		public async Task LoadUserAsync(string login)
+		private async Task LoadUserAsync(string login)
 		{
 			UserQueries queries = new();
 			var response = await queries.GetAsync(login);
@@ -117,6 +121,48 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserOrganizationsPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				DiscussionQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Organization>)result.Response;
+
+				foreach (var item in items)
+				{
+					OrgBlockButtonViewModel viewmodel = new()
+					{
+						OrgItem = item
+					};
+
+					_organizations.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserOrganizationsPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

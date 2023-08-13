@@ -8,9 +8,9 @@ using Microsoft.UI.Xaml.Media;
 
 namespace FluentHub.App.UserControls.PrimerControls
 {
-    public sealed partial class StyledOcticon : UserControl
-    {
-        public StyledOcticon()
-            => InitializeComponent();
-    }
+	public sealed partial class StyledOcticon : UserControl
+	{
+		public StyledOcticon()
+			=> InitializeComponent();
+	}
 }

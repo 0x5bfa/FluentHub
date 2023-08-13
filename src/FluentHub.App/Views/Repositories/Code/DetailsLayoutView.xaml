@@ -14,6 +14,7 @@
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	xmlns:views="using:FluentHub.App.Views"
+	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 
 	<views:LocatablePage.Resources>

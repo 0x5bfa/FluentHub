@@ -1,26 +1,24 @@
-using System;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.Octokit.Models.v4
 {
-    /// <summary>
-    /// The privacy of a sponsorship
-    /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum SponsorshipPrivacy
-    {
-        /// <summary>
-        /// Public
-        /// </summary>
-        [EnumMember(Value = "PUBLIC")]
-        Public,
+	/// <summary>
+	/// The privacy of a sponsorship
+	/// </summary>
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum SponsorshipPrivacy
+	{
+		/// <summary>
+		/// Public
+		/// </summary>
+		[EnumMember(Value = "PUBLIC")]
+		Public,
 
-        /// <summary>
-        /// Private
-        /// </summary>
-        [EnumMember(Value = "PRIVATE")]
-        Private,
-    }
+		/// <summary>
+		/// Private
+		/// </summary>
+		[EnumMember(Value = "PRIVATE")]
+		Private,
+	}
 }

@@ -16,12 +16,6 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepoContextViewModel contextViewModel;
-		public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
-
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private string _tagName;
 		public string TagName{ get => _tagName; set => SetProperty(ref _tagName, value); }
 
@@ -32,6 +26,11 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		public ReleaseViewModel()
 		{
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			Name = parameter.SecondaryText;
+			TagName = parameter.Parameters as string;
+
 			LoadRepositoryReleasePageCommand = new AsyncRelayCommand(LoadRepositoryReleasePageAsync);
 		}
 
@@ -79,16 +78,6 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "code",
-			};
 		}
 	}
 }

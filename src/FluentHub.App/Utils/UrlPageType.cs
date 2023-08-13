@@ -1,117 +1,117 @@
 namespace FluentHub.App.Utils
 {
-    public enum UrlPageType
-    {
-        UserProfile,
+	public enum UrlPageType
+	{
+		UserProfile,
 
-        UserOverview,
+		UserOverview,
 
-        UserRepositories,
+		UserRepositories,
 
-        UserStarredRepositories,
+		UserStarredRepositories,
 
-        UserProjects,
+		UserProjects,
 
-        UserPackages,
+		UserPackages,
 
-        UserFollowers,
+		UserFollowers,
 
-        UserFollowing,
+		UserFollowing,
 
-        UserNotifications,
+		UserNotifications,
 
-        UserFeeds,
+		UserFeeds,
 
-        UserHome,
+		UserHome,
 
-        UserSettingsGeneral,
+		UserSettingsGeneral,
 
-        RepositoryCode,
+		RepositoryCode,
 
-        RepositoryReleases,
+		RepositoryReleases,
 
-        RepositoryOneRelease,
+		RepositoryOneRelease,
 
-        RepositoryCommits,
+		RepositoryCommits,
 
-        RepositoryOneCommit,
+		RepositoryOneCommit,
 
-        RepositoryCodeEdit,
+		RepositoryCodeEdit,
 
-        RepositoryIssues,
+		RepositoryIssues,
 
-        RepositoryOneIssue,
+		RepositoryOneIssue,
 
-        RepositoryPullRequests,
+		RepositoryPullRequests,
 
-        RepositoryOnePullRequest,
+		RepositoryOnePullRequest,
 
-        RepositoryPullRequestConversation,
+		RepositoryPullRequestConversation,
 
-        RepositoryPullRequestCommits,
+		RepositoryPullRequestCommits,
 
-        RepositoryPullRequestOneCommit,
+		RepositoryPullRequestOneCommit,
 
-        RepositoryPullRequestChecks,
+		RepositoryPullRequestChecks,
 
-        RepositoryPullRequestOneCheck,
+		RepositoryPullRequestOneCheck,
 
-        RepositoryPullRequestFileChanges,
+		RepositoryPullRequestFileChanges,
 
-        RepositoryActions,
+		RepositoryActions,
 
-        RepositoryOneAction,
+		RepositoryOneAction,
 
-        RepositoryDiscussions,
+		RepositoryDiscussions,
 
-        RepositoryOneDiscussion,
+		RepositoryOneDiscussion,
 
-        RepositoryProjects,
+		RepositoryProjects,
 
-        RepositoryOneProject,
+		RepositoryOneProject,
 
-        RepositoryInsightPulse,
+		RepositoryInsightPulse,
 
-        RepositoryInsightContributors,
+		RepositoryInsightContributors,
 
-        RepositoryInsightForks,
+		RepositoryInsightForks,
 
-        RepositoryInsightWatches,
+		RepositoryInsightWatches,
 
-        RepositoryInsightStars,
+		RepositoryInsightStars,
 
-        RepositoryInsightTraffic,
+		RepositoryInsightTraffic,
 
-        RepositoryInsightCodeFrequency,
+		RepositoryInsightCodeFrequency,
 
-        RepositorySettingsGeneral,
+		RepositorySettingsGeneral,
 
-        RepositorySettingsBranches,
+		RepositorySettingsBranches,
 
-        RepositoryInvitation,
+		RepositoryInvitation,
 
-        RepositoryBranches,
+		RepositoryBranches,
 
-        RepositoryTags,
+		RepositoryTags,
 
-        OrganizationProfile,
+		OrganizationProfile,
 
-        OrganizationOverview,
+		OrganizationOverview,
 
-        OrganizationRepositories,
+		OrganizationRepositories,
 
-        OrganizationProjects,
+		OrganizationProjects,
 
-        OrganizationPackages,
+		OrganizationPackages,
 
-        OrganizationTeams,
+		OrganizationTeams,
 
-        OrganizationPeople,
+		OrganizationPeople,
 
-        OrganizationSettingsGeneral,
+		OrganizationSettingsGeneral,
 
-        OrganizationSettingsMemberPrivileges,
+		OrganizationSettingsMemberPrivileges,
 
-        Unknown,
-    }
+		Unknown,
+	}
 }

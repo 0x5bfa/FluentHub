@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<Platforms>x86;x64;arm64</Platforms>
+		<RuntimeIdentifiers>win10-arm64;win10-x86;win10-x64</RuntimeIdentifiers>
+		<Configurations>Debug;Release;Sideload</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="GraphQL.Client" Version="6.0.0" />
+		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.0.0" />
+		<PackageReference Include="Humanizer" Version="2.8.25" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Octokit" Version="7.1.0" />
+		<PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
+	</ItemGroup>
+
+</Project>

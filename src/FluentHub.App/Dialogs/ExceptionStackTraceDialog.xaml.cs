@@ -6,29 +6,29 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Dialogs
 {
-    public sealed partial class ExceptionStackTraceDialog : ContentDialog
-    {
-        private ObservableContext Context { get; }
+	public sealed partial class ExceptionStackTraceDialog : ContentDialog
+	{
+		private ObservableContext Context { get; }
 
-        public ExceptionStackTraceDialog(Exception ex)
-        {
-            Context = new() { TaskException = ex };
+		public ExceptionStackTraceDialog(Exception ex)
+		{
+			Context = new() { TaskException = ex };
 
-            InitializeComponent();
-        }
+			InitializeComponent();
+		}
 
-        private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-            => Hide();
+		private void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+			=> Hide();
 
-        private class ObservableContext : ObservableObject
-        {
-            public ObservableContext()
-            {
-                TaskException = new();
-            }
+		private class ObservableContext : ObservableObject
+		{
+			public ObservableContext()
+			{
+				TaskException = new();
+			}
 
-            private Exception _taskException;
-            public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
-        }
-    }
+			private Exception _taskException;
+			public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+		}
+	}
 }

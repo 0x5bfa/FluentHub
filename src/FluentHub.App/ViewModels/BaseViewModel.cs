@@ -19,6 +19,18 @@ namespace FluentHub.App.ViewModels
 		protected readonly ILogger _logger;
 		protected readonly INavigationService _navigation;
 
+		// Provided for v3 API response
+		protected int _loadedItemCount = 0;
+		protected int _loadedPageCount = 0;
+		protected bool _loadedToTheEnd = false;
+		protected const int _itemCountPerPage = 30;
+
+		// Provided for v4 API response
+		protected PageInfo _lastPageInfo;
+
+		protected ITabViewItem SelectedTabViewItem
+			=> _navigation.TabView.SelectedItem;
+
 		protected string _login;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
@@ -54,10 +66,10 @@ namespace FluentHub.App.ViewModels
 			if (!string.IsNullOrEmpty(header))
 				currentItem.Header = header;
 
-			if (!string.IsNullOrEmpty(header))
+			if (!string.IsNullOrEmpty(description))
 				currentItem.Description = description;
 
-			if (!string.IsNullOrEmpty(header))
+			if (!string.IsNullOrEmpty(imageIconSourceSimplified))
 			{
 				currentItem.Icon = new ImageIconSource()
 				{

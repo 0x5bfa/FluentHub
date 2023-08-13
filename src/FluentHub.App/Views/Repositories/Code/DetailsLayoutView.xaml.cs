@@ -40,32 +40,25 @@ namespace FluentHub.App.Views.Repositories.Code
 			string path = ViewModel.ContextViewModel.Path;
 
 			if (string.IsNullOrEmpty(path) is false)
-			{
 				path += "/";
-			}
 
 			path += item.Name;
-			List<object> param = new();
-			param.Add(objType + "/" + ViewModel.ContextViewModel.BranchName + "/" + path);
 
-			_navigation.Navigate<DetailsLayoutView>(
-				new FrameNavigationParameter()
-				{
-					PrimaryText = ViewModel.Repository.Owner.Login,
-					SecondaryText = ViewModel.Repository.Name,
-					Parameters = param,
-				});
+			string param = $"{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
+
+			SelectedTabViewItem.NavigationBar.Context = new()
+			{
+				PrimaryText = ViewModel.Login,
+				SecondaryText = ViewModel.Name,
+				Parameters = param
+			};
+
+			_navigation.Navigate<DetailsLayoutView>();
 		}
 
 		private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
 		{
-			_navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
-				new FrameNavigationParameter()
-				{
-					PrimaryText = ViewModel.Repository.Owner.Login,
-					SecondaryText = ViewModel.Repository.Name,
-					Parameters = new() { ViewModel.ContextViewModel },
-				});
+			_navigation.Navigate<Releases.ReleasesPage>();
 		}
 	}
 }

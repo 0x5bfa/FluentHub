@@ -1,44 +1,42 @@
-using System;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.Octokit.Models.v4
 {
-    /// <summary>
-    /// The billing plans available for organizations.
-    /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrgCreateAuditEntryBillingPlan
-    {
-        /// <summary>
-        /// Free Plan
-        /// </summary>
-        [EnumMember(Value = "FREE")]
-        Free,
+	/// <summary>
+	/// The billing plans available for organizations.
+	/// </summary>
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum OrgCreateAuditEntryBillingPlan
+	{
+		/// <summary>
+		/// Free Plan
+		/// </summary>
+		[EnumMember(Value = "FREE")]
+		Free,
 
-        /// <summary>
-        /// Team Plan
-        /// </summary>
-        [EnumMember(Value = "BUSINESS")]
-        Business,
+		/// <summary>
+		/// Team Plan
+		/// </summary>
+		[EnumMember(Value = "BUSINESS")]
+		Business,
 
-        /// <summary>
-        /// Enterprise Cloud Plan
-        /// </summary>
-        [EnumMember(Value = "BUSINESS_PLUS")]
-        BusinessPlus,
+		/// <summary>
+		/// Enterprise Cloud Plan
+		/// </summary>
+		[EnumMember(Value = "BUSINESS_PLUS")]
+		BusinessPlus,
 
-        /// <summary>
-        /// Legacy Unlimited Plan
-        /// </summary>
-        [EnumMember(Value = "UNLIMITED")]
-        Unlimited,
+		/// <summary>
+		/// Legacy Unlimited Plan
+		/// </summary>
+		[EnumMember(Value = "UNLIMITED")]
+		Unlimited,
 
-        /// <summary>
-        /// Tiered Per Seat Plan
-        /// </summary>
-        [EnumMember(Value = "TIERED_PER_SEAT")]
-        TieredPerSeat,
-    }
+		/// <summary>
+		/// Tiered Per Seat Plan
+		/// </summary>
+		[EnumMember(Value = "TIERED_PER_SEAT")]
+		TieredPerSeat,
+	}
 }

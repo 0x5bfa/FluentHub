@@ -1,17 +1,17 @@
 namespace FluentHub.App.Models
 {
-    public enum TaskStatusType
-    {
-        IsStarted,
+	public enum TaskStatusType
+	{
+		IsStarted,
 
-        IsInProgress,
+		IsInProgress,
 
-        IsFaulted,
+		IsFaulted,
 
-        IsCompleted,
+		IsCompleted,
 
-        IsCompletedSuccessfully,
+		IsCompletedSuccessfully,
 
-        Unknown,
-    }
+		Unknown,
+	}
 }

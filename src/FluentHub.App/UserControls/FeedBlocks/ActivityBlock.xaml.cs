@@ -7,28 +7,28 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.UserControls.FeedBlocks
 {
-    public sealed partial class ActivityBlock : UserControl
-    {
-        #region propdp
-        public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(
-               nameof(ViewModel),
-               typeof(ActivityBlockViewModel),
-               typeof(ActivityBlock),
-               new PropertyMetadata(null));
+	public sealed partial class ActivityBlock : UserControl
+	{
+		#region propdp
+		public static readonly DependencyProperty ViewModelProperty =
+			DependencyProperty.Register(
+			   nameof(ViewModel),
+			   typeof(ActivityBlockViewModel),
+			   typeof(ActivityBlock),
+			   new PropertyMetadata(null));
 
-        public ActivityBlockViewModel ViewModel
-        {
-            get => (ActivityBlockViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                ViewModel?.LoadContentsAsync();
-            }
-        }
-        #endregion
+		public ActivityBlockViewModel ViewModel
+		{
+			get => (ActivityBlockViewModel)GetValue(ViewModelProperty);
+			set
+			{
+				SetValue(ViewModelProperty, value);
+				ViewModel?.LoadContentsAsync();
+			}
+		}
+		#endregion
 
-        public ActivityBlock()
-            => InitializeComponent();
-    }
+		public ActivityBlock()
+			=> InitializeComponent();
+	}
 }

@@ -55,31 +55,31 @@
 
 				<StackPanel Orientation="Horizontal">
 					<!--<TextBlock
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
 
-                        <TextBlock
-                            Margin="4,0"
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="/" />
+						<TextBlock
+							Margin="4,0"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="/" />
 
-                        <TextBlock
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
+						<TextBlock
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
 
-                        <TextBlock
-                            Margin="4,0,0,0"
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="#" />
+						<TextBlock
+							Margin="4,0,0,0"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="#" />
 
-                        <TextBlock
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />-->
+						<TextBlock
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />-->
 				</StackPanel>
 
 				<TextBlock

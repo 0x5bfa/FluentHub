@@ -16,7 +16,7 @@ namespace FluentHub.App.Views.Users
 		public PullRequestsViewModel ViewModel { get; }
 
 		public PullRequestsPage()
-			: base(NavigationPageKind.User, NavigationPageKey.Projects)
+			: base(NavigationPageKind.User, NavigationPageKey.PullRequests)
 		{
 			InitializeComponent();
 
@@ -28,6 +28,17 @@ namespace FluentHub.App.Views.Users
 			var command = ViewModel.LoadUserPullRequestsPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);
+		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadFurtherUserPullRequestsPageCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
 		}
 	}
 }

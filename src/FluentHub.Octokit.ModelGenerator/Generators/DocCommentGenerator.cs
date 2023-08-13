@@ -1,37 +1,40 @@
-﻿using System;
+﻿// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using System;
 using System.Text;
 using System.Xml;
 
 namespace FluentHub.Octokit.ModelGenerator.Generators
 {
-    internal static class DocCommentGenerator
-    {
-        public static void GenerateSummary(string summary, int indentation, StringBuilder builder)
-        {
-            if (!string.IsNullOrWhiteSpace(summary))
-            {
-                var indent = new string(' ', indentation);
-                builder.Append(indent);
-                builder.AppendLine("/// <summary>");
-                GenerateCommentBlock(summary, indent, builder);
-                builder.Append(indent);
-                builder.AppendLine(@"/// </summary>");
-            }
-        }
+	internal static class DocCommentGenerator
+	{
+		public static void GenerateSummary(string summary, int indentation, StringBuilder builder)
+		{
+			if (!string.IsNullOrWhiteSpace(summary))
+			{
+				var indent = new string('	', indentation / 4);
+				builder.Append(indent);
+				builder.AppendLine("/// <summary>");
+				GenerateCommentBlock(summary, indent, builder);
+				builder.Append(indent);
+				builder.AppendLine(@"/// </summary>");
+			}
+		}
 
-        private static void GenerateCommentBlock(string text, string indent, StringBuilder builder)
-        {
-            text = text.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
+		private static void GenerateCommentBlock(string text, string indent, StringBuilder builder)
+		{
+			text = text.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
 
-            foreach (var line in text.Split('\r', '\n'))
-            {
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    builder.Append(indent);
-                    builder.Append("/// ");
-                    builder.AppendLine(line);
-                }
-            }
-        }
-    }
+			foreach (var line in text.Split('\r', '\n'))
+			{
+				if (!string.IsNullOrWhiteSpace(line))
+				{
+					builder.Append(indent);
+					builder.Append("/// ");
+					builder.AppendLine(line);
+				}
+			}
+		}
+	}
 }

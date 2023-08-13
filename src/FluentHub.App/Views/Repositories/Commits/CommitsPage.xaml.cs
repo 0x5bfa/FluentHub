@@ -30,7 +30,7 @@ namespace FluentHub.App.Views.Repositories.Commits
 			var param = e.Parameter as FrameNavigationParameter;
 			ViewModel.Login = param.PrimaryText;
 			ViewModel.Name = param.SecondaryText;
-			ViewModel.ContextViewModel = param.Parameters.ElementAt(0) as RepoContextViewModel;
+			ViewModel.ContextViewModel = param.Parameters as RepoContextViewModel;
 
 			var command = ViewModel.LoadRepositoryCommitsPageCommand;
 			if (command.CanExecute(null))

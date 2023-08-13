@@ -29,6 +29,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<UserBlockButtonViewModel> FollowersItems { get; }
 
 		public IAsyncRelayCommand LoadUserFollowersPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserFollowersPageCommand { get; }
 
 		public FollowersViewModel() : base()
 		{
@@ -46,6 +47,7 @@ namespace FluentHub.App.ViewModels.Users
 			FollowersItems = new(_followersItems);
 
 			LoadUserFollowersPageCommand = new AsyncRelayCommand(LoadUserFollowersPageAsync);
+			LoadFurtherUserFollowersPageCommand = new AsyncRelayCommand(LoadFurtherUserFollowersPageAsync);
 		}
 
 		private async Task LoadUserFollowersPageAsync()
@@ -64,6 +66,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserFollowersAsync);
 				await LoadUserFollowersAsync(Login);
+
+				SetTabInformation("Followers", "Followers", "Accounts");
 			}
 			catch (Exception ex)
 			{
@@ -74,8 +78,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Followers", "Followers", "Accounts");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
@@ -83,10 +85,16 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserFollowersAsync(string login)
 		{
 			FollowersQueries queries = new();
-			var response = await queries.GetAllAsync(login);
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<User>)result.Response;
 
 			_followersItems.Clear();
-			foreach (var item in response)
+			foreach (var item in items)
 			{
 				UserBlockButtonViewModel viewModel = new()
 				{
@@ -97,7 +105,7 @@ namespace FluentHub.App.ViewModels.Users
 			}
 		}
 
-		public async Task LoadUserAsync(string login)
+		private async Task LoadUserAsync(string login)
 		{
 			UserQueries queries = new();
 			var response = await queries.GetAsync(login);
@@ -113,6 +121,48 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserFollowersPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				FollowersQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<User>)result.Response;
+
+				foreach (var item in items)
+				{
+					UserBlockButtonViewModel viewmodel = new()
+					{
+						User = item,
+					};
+
+					_followersItems.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserFollowersPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

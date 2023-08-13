@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0-windows10.0.22000.0</TargetFramework>
@@ -76,7 +76,6 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Content>
-        <None Remove="Dialogs\CreateNewRepositoryDialog.xaml" />
         <Content Include="AppCredentials.config">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -104,12 +103,6 @@
     <ItemGroup>
         <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
         <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Page Update="Dialogs\CreateNewRepositoryDialog.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
     </ItemGroup>
 
 </Project>

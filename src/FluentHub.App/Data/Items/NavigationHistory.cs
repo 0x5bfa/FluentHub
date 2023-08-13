@@ -139,18 +139,6 @@ namespace FluentHub.App.Data.Items
 			CanGoForward = CurrentItemIndex < _Items.Count - 1;
 		}
 
-		public static void SetCurrentItem(string header, string description, string url, IconSource icon)
-		{
-			INavigationService navigationService;
-			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-
-			currentItem.Header = header;
-			currentItem.Description = description;
-			currentItem.Icon = icon;
-		}
-
 		private void UpdateNavigationBar(bool isBackNavigation = false)
 		{
 			var previousItem = isBackNavigation ? Items[CurrentItemIndex + 1] : Items[CurrentItemIndex - 1];
@@ -170,11 +158,12 @@ namespace FluentHub.App.Data.Items
 				return;
 			}
 
+			currentTabNavigationBar.Context = CurrentItem.Context ?? new();
+
 			// Generate new navigation bar items
 			if (previousItem.PageKind != CurrentItem.PageKind)
 			{
 				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
-				currentTabNavigationBar.Context = CurrentItem.Context ?? new();
 
 				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
 					currentTabNavigationBar.NavigationBarItems.Clear();

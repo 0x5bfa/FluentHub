@@ -31,6 +31,7 @@ namespace FluentHub.App.ViewModels.Users
 		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
 		public IAsyncRelayCommand LoadUserRepositoriesPageCommand { get; }
+		public IAsyncRelayCommand LoadFurtherUserRepositoriesPageCommand { get; }
 
 		public RepositoriesViewModel() : base()
 		{
@@ -48,6 +49,7 @@ namespace FluentHub.App.ViewModels.Users
 			Repositories = new(_repositories);
 
 			LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
+			LoadFurtherUserRepositoriesPageCommand = new AsyncRelayCommand(LoadFurtherUserRepositoriesPageAsync);
 		}
 
 		private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
@@ -66,6 +68,8 @@ namespace FluentHub.App.ViewModels.Users
 
 				_currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
 				await LoadUserRepositoriesAsync(Login);
+
+				SetTabInformation("Repositories", "Repositories", "Repositories");
 			}
 			catch (Exception ex)
 			{
@@ -76,8 +80,6 @@ namespace FluentHub.App.ViewModels.Users
 			}
 			finally
 			{
-				SetTabInformation("Repositories", "Repositories", "Repositories");
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
@@ -85,10 +87,16 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserRepositoriesAsync(string login)
 		{
 			RepositoryQueries queries = new();
-			var response = await queries.GetAllAsync(login);
+
+			var result = await queries.GetAllAsync(login, 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Repository>)result.Response;
 
 			_repositories.Clear();
-			foreach (var item in response)
+			foreach (var item in items)
 			{
 				RepoBlockButtonViewModel viewModel = new()
 				{
@@ -117,6 +125,50 @@ namespace FluentHub.App.ViewModels.Users
 			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
 			{
 				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+			}
+		}
+
+		private async Task LoadFurtherUserRepositoriesPageAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			IsTaskFaulted = false;
+
+			try
+			{
+				RepositoryQueries queries = new();
+
+				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Repository>)result.Response;
+
+				foreach (var item in items)
+				{
+					RepoBlockButtonViewModel viewModel = new()
+					{
+						Repository = item,
+						DisplayDetails = true,
+						DisplayStarButton = true,
+					};
+
+					_repositories.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(nameof(LoadFurtherUserRepositoriesPageAsync), ex);
+			}
+			finally
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 			}
 		}
 	}

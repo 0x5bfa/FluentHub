@@ -1,26 +1,24 @@
-using System;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+// Copyright (c) 2023 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.Octokit.Models.v4
 {
-    /// <summary>
-    /// The possible roles within an organization for its members.
-    /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrganizationMemberRole
-    {
-        /// <summary>
-        /// The user is a member of the organization.
-        /// </summary>
-        [EnumMember(Value = "MEMBER")]
-        Member,
+	/// <summary>
+	/// The possible roles within an organization for its members.
+	/// </summary>
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum OrganizationMemberRole
+	{
+		/// <summary>
+		/// The user is a member of the organization.
+		/// </summary>
+		[EnumMember(Value = "MEMBER")]
+		Member,
 
-        /// <summary>
-        /// The user is an administrator of the organization.
-        /// </summary>
-        [EnumMember(Value = "ADMIN")]
-        Admin,
-    }
+		/// <summary>
+		/// The user is an administrator of the organization.
+		/// </summary>
+		[EnumMember(Value = "ADMIN")]
+		Admin,
+	}
 }

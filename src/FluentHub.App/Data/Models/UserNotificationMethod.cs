@@ -1,15 +1,15 @@
 namespace FluentHub.App.Models
 {
-    [Serializable]
-    [Flags]
-    public enum UserNotificationMethod : uint
-    {
-        None = 0,
+	[Serializable]
+	[Flags]
+	public enum UserNotificationMethod : uint
+	{
+		None = 0,
 
-        InApp = 1,
+		InApp = 1,
 
-        Toast = 2,
+		Toast = 2,
 
-        All = InApp | Toast
-    }
+		All = InApp | Toast
+	}
 }

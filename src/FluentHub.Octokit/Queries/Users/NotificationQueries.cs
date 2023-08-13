@@ -129,7 +129,7 @@ namespace FluentHub.Octokit.Queries.Users
 					//case NotificationSubjectType.Discussion:
 					//case NotificationSubjectType.Commit:
 					//case NotificationSubjectType.Release:
-					//    break;
+					//	break;
 					case NotificationSubjectType.Issue:
 						{
 							var issueFragment = @$"
@@ -262,7 +262,7 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 					//case NotificationSubjectType.Discussion:
 					//case NotificationSubjectType.Commit:
 					//case NotificationSubjectType.Release:
-					//    break;
+					//	break;
 					case NotificationSubjectType.Issue:
 						{
 							if (item.Repository.Issue != null)
