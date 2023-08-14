@@ -1,5 +1,5 @@
-name: Files Package Version Bump Up
-run-name: Bump up Files to ${{ inputs.files_new_version }}
+name: Release new version of FluentHub
+run-name: Bump up FluentHub to ${{ inputs.files_new_version }}
 on:
     workflow_dispatch:
         inputs:
