@@ -45,6 +45,15 @@ namespace FluentHub.App.ViewModels.SignIn
 			{
 				var secrets = await OctokitSecretsService.LoadOctokitSecretsAsync();
 
+				if (secrets is null)
+				{
+					// Show error
+					Exception = new NullReferenceException($"Please set values in AppCredentials.config\r\nFor more information, visit our GitHub link below.");
+					App.AppSettings.SetupProgress = false;
+					_logger?.Error(nameof(AuthorizeWithBrowserAsync), Exception);
+					return;
+				}
+
 				AuthorizationService request = new();
 				var url = request.RequestGitHubIdentityAsync(secrets);
 				await Launcher.LaunchUriAsync(new Uri(url));
@@ -57,7 +66,6 @@ namespace FluentHub.App.ViewModels.SignIn
 				App.AppSettings.SetupProgress = false;
 
 				_logger?.Error(nameof(AuthorizeWithBrowserAsync), ex);
-				throw;
 			}
 		}
 

@@ -70,9 +70,9 @@
 							Padding="12"
 							x:Load="{x:Bind ViewModel.Exception, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							Background="{ThemeResource InfoBarErrorSeverityBackgroundBrush}"
-							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderBrush="{ThemeResource InfoBarErrorBorderBrush}"
 							BorderThickness="1"
-							CornerRadius="4">
+							CornerRadius="8">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
