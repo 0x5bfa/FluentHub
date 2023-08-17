@@ -63,6 +63,7 @@ jobs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
       TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.App'
+      overWrite: true
 
   - task: DownloadSecureFile@1
     name: caCertificate

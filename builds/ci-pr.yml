@@ -68,6 +68,7 @@ jobs:
     displayName: 'Download CA certificate'
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
+      overWrite: true
 
   - task: UseDotNet@2
     inputs:
