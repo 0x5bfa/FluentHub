@@ -16,9 +16,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
 		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
@@ -35,11 +32,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private async Task LoadRepositoryPullRequestsPageAsync()
 		{
 			SetTabInformation("Pull requests", "Pull requests", "PullRequests");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestsPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestsPageAsync);
 
 			try
 			{
@@ -55,12 +50,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -86,16 +79,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "pullrequests",
-			};
 		}
 	}
 }

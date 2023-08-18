@@ -15,9 +15,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private Discussion _discussion;
 		public Discussion Discussion { get => _discussion; set => SetProperty(ref _discussion, value); }
 
@@ -31,11 +28,9 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		private async Task LoadRepositoryDiscussionPageAsync()
 		{
 			SetTabInformation("Discussion", "Discussion", "Discussions");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryDiscussionPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryDiscussionPageAsync);
 
 			try
 			{
@@ -56,7 +51,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -65,7 +60,8 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 			DiscussionQueries queries = new();
 			var response = await queries.GetAsync(owner, name, Number);
 
-			if (response == null) return;
+			if (response == null)
+				return;
 
 			Discussion = response;
 		}
@@ -74,16 +70,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "discussions",
-			};
 		}
 	}
 }

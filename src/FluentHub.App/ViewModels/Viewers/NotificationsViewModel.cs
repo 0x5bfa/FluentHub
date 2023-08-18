@@ -40,7 +40,7 @@ namespace FluentHub.App.ViewModels.Viewers
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
+			_currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
 
 			try
 			{

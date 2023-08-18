@@ -42,7 +42,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadRepositoryCommitsPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryCommitsPageAsync);
 
 			try
 			{

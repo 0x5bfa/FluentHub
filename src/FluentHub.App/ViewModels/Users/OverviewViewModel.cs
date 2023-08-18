@@ -54,7 +54,7 @@ namespace FluentHub.App.ViewModels.Users
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadUserOverviewAsync);
+			_currentTaskingMethodName = nameof(LoadUserOverviewAsync);
 
 			try
 			{

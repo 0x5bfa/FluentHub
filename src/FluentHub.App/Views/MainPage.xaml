@@ -341,8 +341,14 @@
 						SelectedItem="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
-								<StackPanel Orientation="Horizontal" Spacing="8">
-									<!--<primer:Octicon x:Name="NavigationbarItemGlyph" Icon="OcticonRepo16" />-->
+								<StackPanel
+									Margin="-8,0"
+									Orientation="Horizontal"
+									Spacing="8">
+									<FontIcon
+										FontFamily="{StaticResource Octicons}"
+										FontSize="14"
+										Glyph="{x:Bind Glyph, Mode=OneWay}" />
 									<TextBlock Text="{x:Bind Text}" />
 								</StackPanel>
 							</DataTemplate>

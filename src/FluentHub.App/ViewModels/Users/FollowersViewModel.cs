@@ -57,7 +57,7 @@ namespace FluentHub.App.ViewModels.Users
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadUserFollowersPageAsync);
+			_currentTaskingMethodName = nameof(LoadUserFollowersPageAsync);
 
 			try
 			{

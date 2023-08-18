@@ -47,7 +47,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadRepositoryReleasesPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryReleasesPageAsync);
 
 			try
 			{

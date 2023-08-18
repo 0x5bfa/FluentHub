@@ -31,11 +31,9 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		private async Task LoadRepositoryProjectPageAsync()
 		{
 			SetTabInformation("Project", "Project", "Projects");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryProjectPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryProjectPageAsync);
 
 			try
 			{
@@ -51,12 +49,10 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

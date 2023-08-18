@@ -52,12 +52,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		private async Task LoadDetailsViewPageAsync()
 		{
-			SetTabInformation("Repositories", "Repositories", "Repositories");
+			SetTabInformation("Repository", "Repository", "Repositories");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadDetailsViewPageAsync);
+			_currentTaskingMethodName = nameof(LoadDetailsViewPageAsync);
 
 			try
 			{
@@ -76,12 +74,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

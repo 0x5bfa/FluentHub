@@ -41,11 +41,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private async Task LoadRepositoryPullRequestFileChangesPageAsync()
 		{
 			SetTabInformation("File changes", "File changes", "PullRequests");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
 
 			try
 			{
@@ -64,12 +62,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

@@ -28,6 +28,8 @@ namespace FluentHub.App.ViewModels
 		// Provided for v4 API response
 		protected PageInfo _lastPageInfo;
 
+		protected string _currentTaskingMethodName;
+
 		protected ITabViewItem SelectedTabViewItem
 			=> _navigation.TabView.SelectedItem;
 
@@ -52,6 +54,11 @@ namespace FluentHub.App.ViewModels
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+
+			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			Login = parameter.PrimaryText;
+			Name = parameter.SecondaryText;
+			Number = parameter.Number;
 		}
 
 		protected void SetTabInformation(
@@ -75,6 +82,24 @@ namespace FluentHub.App.ViewModels
 				{
 					ImageSource = new BitmapImage(new Uri($"ms-appx:///Assets/Icons/{imageIconSourceSimplified}.png"))
 				};
+			}
+		}
+
+		protected void SetLoadingProgress(bool isStarted)
+		{
+			if (isStarted)
+			{
+				IsTaskFaulted = false;
+				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+			}
+			else
+			{
+				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+
+				if (IsTaskFaulted)
+				{
+					_logger?.Error(_currentTaskingMethodName, TaskException);
+				}
 			}
 		}
 	}

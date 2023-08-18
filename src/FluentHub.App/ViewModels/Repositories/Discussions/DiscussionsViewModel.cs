@@ -16,9 +16,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private readonly ObservableCollection<DiscussionBlockButtonViewModel> _items;
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
 
@@ -35,11 +32,9 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		private async Task LoadRepositoryDiscussionsPageAsync()
 		{
 			SetTabInformation("Discussions", "Discussions", "Discussions");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryDiscussionsPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryDiscussionsPageAsync);
 
 			try
 			{
@@ -55,12 +50,10 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -85,16 +78,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "discussions",
-			};
 		}
 	}
 }

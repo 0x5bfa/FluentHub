@@ -15,9 +15,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private Issue _issueItem;
 		public Issue IssueItem { get => _issueItem; private set => SetProperty(ref _issueItem, value); }
 
@@ -28,11 +25,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 		public IssueViewModel() : base()
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			Name = parameter.SecondaryText;
-			Number = parameter.Number;
-
 			_timelineItems = new();
 			TimelineItems = new(_timelineItems);
 
@@ -42,11 +34,9 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		private async Task LoadRepositoryIssuePageAsync()
 		{
 			SetTabInformation("Issue", "Issue", "Issues");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryIssuePageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryIssuePageAsync);
 
 			try
 			{
@@ -62,12 +52,10 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -91,29 +79,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "issues",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"{IssueItem?.Title} · #{IssueItem?.Number}";
-			currentItem.Description = currentItem.Header;
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
-			};
 		}
 	}
 }

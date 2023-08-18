@@ -52,7 +52,7 @@ namespace FluentHub.App.ViewModels.Viewers
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadUserHomePageAsync);
+			_currentTaskingMethodName = nameof(LoadUserHomePageAsync);
 
 			try
 			{

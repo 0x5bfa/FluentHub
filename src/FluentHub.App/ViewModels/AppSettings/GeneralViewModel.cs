@@ -99,7 +99,7 @@ namespace FluentHub.App.ViewModels.AppSettings
 			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
 			IsTaskFaulted = false;
 
-			string _currentTaskingMethodName = nameof(LoadGeneralPageAsync);
+			_currentTaskingMethodName = nameof(LoadGeneralPageAsync);
 
 			try
 			{

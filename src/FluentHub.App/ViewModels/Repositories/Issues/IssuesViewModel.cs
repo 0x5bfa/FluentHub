@@ -16,14 +16,11 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		private Repository _repository;
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+		private readonly ObservableCollection<IssueBlockButtonViewModel> _pinnedItems;
+		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> PinnedItems { get; }
 
 		private readonly ObservableCollection<IssueBlockButtonViewModel> _issueItems;
 		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> IssueItems { get; }
-
-		private readonly ObservableCollection<IssueBlockButtonViewModel> _pinnedItems;
-		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> PinnedItems { get; }
 
 		public IAsyncRelayCommand LoadRepositoryIssuesPageCommand { get; }
 
@@ -41,11 +38,9 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		private async Task LoadRepositoryIssuesPageAsync()
 		{
 			SetTabInformation("Issues", "Issues", "Issues");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryIssuesPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryIssuesPageAsync);
 
 			try
 			{
@@ -61,12 +56,10 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -105,16 +98,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "issues",
-			};
 		}
 	}
 }

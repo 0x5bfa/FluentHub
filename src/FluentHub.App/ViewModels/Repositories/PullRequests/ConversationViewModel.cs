@@ -48,11 +48,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private async Task LoadRepositoryPullRequestConversationPageAsync()
 		{
 			SetTabInformation("Pull request", "Pull request", "PullRequests");
+			SetLoadingProgress(true);
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
-
-			string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestConversationPageAsync);
+			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestConversationPageAsync);
 
 			try
 			{
@@ -71,12 +69,10 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

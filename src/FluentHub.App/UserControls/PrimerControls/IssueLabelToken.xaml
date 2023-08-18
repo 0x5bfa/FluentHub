@@ -25,15 +25,20 @@
 			Value="{x:Bind Context.IsLightMode, Mode=OneWay}">
 			<toolkit:Case Value="True">
 				<Grid x:Name="LightThemeGrid" Height="{x:Bind Context.TokenHeight, Mode=OneWay}">
+					<Border
+						BorderBrush="{x:Bind FillColor, Mode=OneWay}"
+						BorderThickness="1"
+						CornerRadius="{x:Bind Context.CornerRadius, Mode=OneWay}" />
 					<Grid
 						x:Name="LightThemeFillGrid"
 						VerticalAlignment="Stretch"
-						BorderBrush="{x:Bind FillColor, Mode=OneWay}"
-						CornerRadius="{x:Bind Context.CornerRadius, Mode=OneWay}" />
+						Background="{x:Bind FillColor, Mode=OneWay}"
+						CornerRadius="{x:Bind Context.CornerRadius, Mode=OneWay}"
+						Opacity="0.3" />
 					<TextBlock
 						Margin="{x:Bind Context.Margin, Mode=OneWay}"
 						VerticalAlignment="Center"
-						Style="{StaticResource BodyStrongTextBlockStyle}"
+						Style="{StaticResource CaptionTextBlockStyle}"
 						Text="{x:Bind Text, Mode=OneWay}" />
 				</Grid>
 			</toolkit:Case>
