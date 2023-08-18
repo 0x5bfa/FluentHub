@@ -57,8 +57,9 @@ See the [build section](#-building-the-code).
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/71598437/196044933-fea4c40a-6bd6-4d13-94ce-664da891588e.png)
-![image](https://user-images.githubusercontent.com/71598437/196045421-a37bf241-6a0a-4d9f-9fb2-be4681506c49.png)
+![image](https://github.com/FluentHub/FluentHub/assets/62196528/dd765c87-0ef5-4a85-be41-ef686983ea33)
+![image](https://github.com/FluentHub/FluentHub/assets/62196528/27fd539b-eb35-4273-9aca-ab78be14ea96)
+![image](https://github.com/FluentHub/FluentHub/assets/62196528/1c54d686-59c5-4ac0-824c-d9f228009b0f)
 
 ## Contributing
 
