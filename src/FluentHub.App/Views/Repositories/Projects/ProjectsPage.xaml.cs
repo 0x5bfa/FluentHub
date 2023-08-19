@@ -10,7 +10,6 @@ namespace FluentHub.App.Views.Repositories.Projects
 {
 	public sealed partial class ProjectsPage : LocatablePage
 	{
-		private readonly INavigationService navigationService;
 		public ProjectsViewModel ViewModel { get; }
 
 		public ProjectsPage()
@@ -19,15 +18,10 @@ namespace FluentHub.App.Views.Repositories.Projects
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
-			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.Login = param.PrimaryText;
-			ViewModel.Name = param.SecondaryText;
-
 			var command = ViewModel.LoadRepositoryProjectsPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);

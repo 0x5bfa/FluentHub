@@ -45,6 +45,9 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 				await LoadProjectsPageAsync(Login, Name);
 
 				SetTabInformation($"Projects \u2022 {Login}/{Name}", $"Projects \u2022 {Login}/{Name}");
+
+				if (Items.Count == 0)
+					IsEmpty = true;
 			}
 			catch (Exception ex)
 			{

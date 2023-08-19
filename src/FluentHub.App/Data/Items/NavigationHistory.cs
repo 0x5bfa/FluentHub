@@ -31,6 +31,13 @@ namespace FluentHub.App.Data.Items
 			private set => SetProperty(ref _CanGoForward, value);
 		}
 
+		//private bool _CanReload;
+		//public bool CanReload
+		//{
+		//	get => _CanReload;
+		//	private set => SetProperty(ref _CanReload, value);
+		//}
+
 		private NavigationHistoryItem? _CurrentItem;
 		public NavigationHistoryItem? CurrentItem
 		{
@@ -137,6 +144,7 @@ namespace FluentHub.App.Data.Items
 		{
 			CanGoBack = CurrentItemIndex > 0;
 			CanGoForward = CurrentItemIndex < _Items.Count - 1;
+
 		}
 
 		private void UpdateNavigationBar(bool isBackNavigation = false)

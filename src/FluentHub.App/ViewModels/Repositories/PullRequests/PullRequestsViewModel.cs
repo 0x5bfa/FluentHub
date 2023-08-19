@@ -47,6 +47,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
+
+				if (PullItems.Count == 0)
+					IsEmpty = true;
 			}
 			finally
 			{

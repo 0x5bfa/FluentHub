@@ -26,11 +26,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.Login = param.PrimaryText;
-			ViewModel.Name = param.SecondaryText;
-			ViewModel.Number = param.Number;
-
 			var command = ViewModel.LoadRepositoryPullRequestCommitsPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);

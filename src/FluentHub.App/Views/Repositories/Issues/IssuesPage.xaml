@@ -25,8 +25,15 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer>
-				<Grid Padding="32,24,32,32" RowSpacing="16">
+				<Grid Padding="32,24,32,32">
+					<Grid.Transitions>
+						<TransitionCollection>
+							<EntranceThemeTransition />
+						</TransitionCollection>
+					</Grid.Transitions>
+
 					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
@@ -34,6 +41,7 @@
 					<Grid
 						x:Name="PinnedIssuesBlock"
 						Grid.Row="0"
+						Margin="0,0,0,16"
 						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 						RowSpacing="12">
 						<Grid.RowDefinitions>
@@ -68,50 +76,81 @@
 
 					</Grid>
 
-					<Grid Grid.Row="1" RowSpacing="12">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="*" />
-						</Grid.RowDefinitions>
+					<TextBox
+						Grid.Row="1"
+						Margin="0,8,0,16"
+						IsEnabled="False"
+						PlaceholderText="Search issues" />
 
-						<TextBox IsEnabled="False" PlaceholderText="Search issues" />
+					<Grid Grid.Row="2">
 
-						<Grid Grid.Row="1">
-							<ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
-								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="4" />
-								</ItemsRepeater.Layout>
+						<ListView ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}" SelectionMode="None">
+							<ListView.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel Orientation="Vertical" Spacing="4" />
+								</ItemsPanelTemplate>
+							</ListView.ItemsPanel>
+							<ListView.ItemContainerStyle>
+								<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+									<Setter Property="Margin" Value="0" />
+									<Setter Property="Padding" Value="0" />
+									<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+								</Style>
+							</ListView.ItemContainerStyle>
+							<ListView.Transitions>
+								<TransitionCollection>
+									<AddDeleteThemeTransition />
+									<ContentThemeTransition />
+									<EntranceThemeTransition FromVerticalOffset="50" />
+									<RepositionThemeTransition IsStaggeringEnabled="False" />
+								</TransitionCollection>
+							</ListView.Transitions>
+							<ListView.ItemTemplate>
 								<DataTemplate x:DataType="bbvm:IssueBlockButtonViewModel">
 									<bbuc:IssueBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
 								</DataTemplate>
-							</ItemsRepeater>
+							</ListView.ItemTemplate>
+						</ListView>
 
-							<toolkit:SwitchPresenter
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								TargetType="x:Int32"
-								Value="{x:Bind ViewModel.IssueItems.Count, Mode=OneWay}">
-								<toolkit:Case Value="0">
-									<StackPanel Spacing="12">
-										<Viewbox Width="144" Height="144">
-											<Grid>
-												<Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
-												<Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
-												<Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
-												<Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
-												<Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
-												<Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
-												<Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
-											</Grid>
-										</Viewbox>
-										<TextBlock
-											Style="{StaticResource SubtitleTextBlockStyle}"
-											Text="There aren't no issues."
-											TextAlignment="Center" />
-									</StackPanel>
-								</toolkit:Case>
-							</toolkit:SwitchPresenter>
-						</Grid>
+						<StackPanel
+							x:Name="PageLoadingPanel"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
+							Spacing="12">
+							<ProgressRing
+								Width="32"
+								Height="32"
+								IsIndeterminate="True" />
+							<TextBlock
+								Style="{StaticResource BodyStrongTextBlockStyle}"
+								Text="Loading..."
+								TextAlignment="Center" />
+						</StackPanel>
+
+						<StackPanel
+							x:Name="NoItemsPanel"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
+							Spacing="12">
+							<Viewbox Width="144" Height="144">
+								<Grid>
+									<Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+									<Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+									<Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
+									<Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+									<Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+									<Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+									<Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+								</Grid>
+							</Viewbox>
+							<TextBlock
+								Style="{StaticResource SubtitleTextBlockStyle}"
+								Text="There aren't no Issues."
+								TextAlignment="Center" />
+						</StackPanel>
+
 					</Grid>
 
 				</Grid>

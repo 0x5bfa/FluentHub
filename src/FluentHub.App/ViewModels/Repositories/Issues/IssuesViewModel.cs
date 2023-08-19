@@ -48,6 +48,9 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 				await LoadRepositoryIssuesAsync(Login, Name);
 
 				SetTabInformation($"Issues \u2022 {Login}/{Name}", $"Issues \u2022 {Login}/{Name}");
+
+				if (IssueItems.Count == 0)
+					IsEmpty = true;
 			}
 			catch (Exception ex)
 			{

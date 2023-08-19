@@ -42,6 +42,9 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 				await LoadRepositoryDiscussionsAsync(Login, Name);
 
 				SetTabInformation($"Discussions \u2022 {Login}/{Name}", $"Discussions \u2022 {Login}/{Name}");
+
+				if (Items.Count == 0)
+					IsEmpty = true;
 			}
 			catch (Exception ex)
 			{
