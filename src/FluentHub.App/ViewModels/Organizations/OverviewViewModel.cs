@@ -1,26 +1,14 @@
-using CommunityToolkit.WinUI.UI;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Organizations;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
-using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
 	public class OverviewViewModel : BaseViewModel
 	{
-		private Organization _organization;
-		public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
-
-		private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
-		public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
-
 		private bool _oauthAppIsRestrictedByOrgSettings;
 		public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
@@ -34,14 +22,6 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		public OverviewViewModel() : base()
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			if (parameter.AsViewer)
-			{
-				var currentTabItem = _navigation.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-			}
-
 			_pinnedItems = new();
 			PinnedItems = new(_pinnedItems);
 
@@ -53,10 +33,10 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		private async Task LoadOrganizationOverviewPageAsync()
 		{
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetTabInformation("Overview", "Overview", "Overview");
+			SetLoadingProgress(true);
 
-			string _currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
+			_currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
 
 			try
 			{
@@ -65,6 +45,8 @@ namespace FluentHub.App.ViewModels.Organizations
 
 				_currentTaskingMethodName = nameof(LoadOrganizationOverviewAsync);
 				await LoadOrganizationOverviewAsync(Login);
+
+				SetTabInformation("Overview", "Overview", "Overview");
 			}
 			catch (Exception ex)
 			{
@@ -77,16 +59,10 @@ namespace FluentHub.App.ViewModels.Organizations
 					OAuthAppIsRestrictedByOrgSettings = true;
 					IsTaskFaulted = false;
 				}
-				else
-				{
-					_logger?.Error(_currentTaskingMethodName, ex);
-					throw;
-				}
 			}
 			finally
 			{
-				SetCurrentTabItem();
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -137,20 +113,6 @@ namespace FluentHub.App.ViewModels.Organizations
 			OrganizationProfileOverviewViewModel = new()
 			{
 				Organization = Organization,
-				SelectedTag = "overview",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = $"{Login}";
-			currentItem.Description = $"{Login}";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
 			};
 		}
 	}

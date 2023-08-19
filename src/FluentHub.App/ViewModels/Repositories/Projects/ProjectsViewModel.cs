@@ -13,9 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 {
 	public class ProjectsViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
 		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 

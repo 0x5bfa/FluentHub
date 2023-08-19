@@ -37,9 +37,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		private async Task LoadRepositoryReleasePageAsync()
 		{
 			SetTabInformation("Release", "Release", "Repositories");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			_currentTaskingMethodName = nameof(LoadRepositoryReleasePageAsync);
 
@@ -57,12 +55,10 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

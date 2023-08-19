@@ -22,7 +22,7 @@ namespace FluentHub.App.ViewModels.Searches
 			ResultItems = new(_resultItems);
 
 			LoadSearchRepositoriesPageCommand = new AsyncRelayCommand(LoadSearchRepositoriesPageAsync);
-			LoadFurtherSearchResultsPageCommand = new AsyncRelayCommand(LoadFurtherSearchResultsAsync);
+			LoadSearchResultsFurtherCommand = new AsyncRelayCommand(LoadFurtherSearchResultsAsync);
 		}
 
 		#region Fields and Properties
@@ -44,7 +44,7 @@ namespace FluentHub.App.ViewModels.Searches
 		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
 		public IAsyncRelayCommand LoadSearchRepositoriesPageCommand { get; }
-		public IAsyncRelayCommand LoadFurtherSearchResultsPageCommand { get; }
+		public IAsyncRelayCommand LoadSearchResultsFurtherCommand { get; }
 		#endregion
 
 		private async Task LoadSearchRepositoriesPageAsync()

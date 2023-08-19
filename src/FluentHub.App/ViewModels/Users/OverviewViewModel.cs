@@ -2,24 +2,13 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Models;
 using FluentHub.App.ViewModels.Repositories;
-using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
-using FluentHub.App.Utils;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Users
 {
 	public class OverviewViewModel : BaseViewModel
 	{
-		private User _user;
-		public User User { get => _user; set => SetProperty(ref _user, value); }
-
-		private UserProfileOverviewViewModel _userProfileOverviewViewModel;
-		public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
-
 		private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedRepositories;
 		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedRepositories { get; }
 
@@ -34,9 +23,6 @@ namespace FluentHub.App.ViewModels.Users
 
 		public OverviewViewModel() : base()
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-
 			_pinnedRepositories = new();
 			PinnedRepositories = new(_pinnedRepositories);
 
@@ -50,9 +36,7 @@ namespace FluentHub.App.ViewModels.Users
 		private async Task LoadUserOverviewAsync()
 		{
 			SetTabInformation("Overview", "Overview", "Profile");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			_currentTaskingMethodName = nameof(LoadUserOverviewAsync);
 
@@ -64,18 +48,16 @@ namespace FluentHub.App.ViewModels.Users
 				_currentTaskingMethodName = nameof(LoadUserPinnableAndPinnedRepositoriesAsync);
 				await LoadUserPinnableAndPinnedRepositoriesAsync(Login);
 
-				SetTabInformation("Overview", "Overview", "Profile");
+				SetTabInformation("Overview", "Overview");
 			}
 			catch (Exception ex)
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -118,24 +100,6 @@ namespace FluentHub.App.ViewModels.Users
 
 					_pinnedRepositories.Add(viewModel);
 				}
-			}
-		}
-
-		private async Task LoadUserAsync(string login)
-		{
-			UserQueries queries = new();
-			var response = await queries.GetAsync(login);
-
-			User = response ?? new();
-
-			UserProfileOverviewViewModel = new()
-			{
-				User = User,
-			};
-
-			if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-			{
-				UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
 			}
 		}
 

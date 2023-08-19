@@ -1,6 +1,8 @@
 ﻿// Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using Microsoft.UI.Xaml.Media.Animation;
+
 namespace FluentHub.App.Data.Items
 {
 	public class NavigationBarModel : ObservableObject
@@ -32,7 +34,8 @@ namespace FluentHub.App.Data.Items
 							{
 								PrimaryText = Context.PrimaryText,
 								SecondaryText = Context.SecondaryText,
-							});
+							},
+							new SuppressNavigationTransitionInfo());
 					}
 				}
 			}
@@ -44,7 +47,7 @@ namespace FluentHub.App.Data.Items
 			get => _PageKind;
 			set
 			{
-				_PageKind = value;
+				SetProperty(ref _PageKind, value);
 				OnPropertyChanged(nameof(IsNavigationBarShown));
 			}
 		}

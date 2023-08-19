@@ -12,9 +12,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 {
 	public class IssueViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private Issue _issueItem;
 		public Issue IssueItem { get => _issueItem; private set => SetProperty(ref _issueItem, value); }
 

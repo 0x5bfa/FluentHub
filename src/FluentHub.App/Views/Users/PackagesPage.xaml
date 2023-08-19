@@ -32,143 +32,100 @@
 
 				<ov:UserProfileOverview
 					x:Name="UserProfileOverview"
-					MaxWidth="300"
+					Width="300"
 					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
 				<ScrollViewer Grid.Column="1" ViewChanged="OnScrollViewerViewChanged">
 					<Grid Padding="32,32,32,32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
-							<TextBlock
-								x:Name="UserPackagesHeader"
-								Margin="12,12,12,8"
-								Style="{StaticResource TitleTextBlockStyle}"
-								Text="{helpers:ResourceString Name=YourPackages}" />
-						</Grid>
+						<Grid.Transitions>
+							<TransitionCollection>
+								<EntranceThemeTransition />
+							</TransitionCollection>
+						</Grid.Transitions>
 
-						<Grid
-							Grid.Row="1"
+						<TextBox
+							x:Name="SearchPackagesTextBox"
+							Grid.Row="0"
 							Margin="0,8,0,16"
-							RowSpacing="8">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+							IsEnabled="False"
+							PlaceholderText="{helpers:ResourceString Name=SearchPackagesTextBox/PlaceholderText}" />
 
-							<TextBox
-								x:Name="SearchPackagesTextBox"
-								IsEnabled="False"
-								PlaceholderText="{helpers:ResourceString Name=SearchPackagesTextBox/PlaceholderText}" />
+						<Grid Grid.Row="1">
+
+							<ListView ItemsSource="{x:Bind ViewModel.Packages, Mode=OneWay}" SelectionMode="None">
+								<ListView.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel Orientation="Vertical" Spacing="4" />
+									</ItemsPanelTemplate>
+								</ListView.ItemsPanel>
+								<ListView.ItemContainerStyle>
+									<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+										<Setter Property="Margin" Value="0" />
+										<Setter Property="Padding" Value="0" />
+										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+									</Style>
+								</ListView.ItemContainerStyle>
+								<ListView.Transitions>
+									<TransitionCollection>
+										<AddDeleteThemeTransition />
+										<ContentThemeTransition />
+										<EntranceThemeTransition FromVerticalOffset="50" />
+										<RepositionThemeTransition IsStaggeringEnabled="False" />
+									</TransitionCollection>
+								</ListView.Transitions>
+								<ListView.ItemTemplate>
+									<DataTemplate x:DataType="bbvm:PackageBlockButtonViewModel">
+										<bbuc:PackageBlockButton ViewModel="{x:Bind}" />
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
 
 							<StackPanel
-								Grid.Row="1"
-								Orientation="Horizontal"
-								Spacing="8">
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Type by:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem Text="Repository1" />
-												<ToggleMenuFlyoutItem Text="Repository2" />
-												<ToggleMenuFlyoutItem Text="Repository3" />
-												<ToggleMenuFlyoutItem Text="Repository4" />
-												<ToggleMenuFlyoutItem Text="Repository5" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Language by:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem Text="Repository1" />
-												<ToggleMenuFlyoutItem Text="Repository2" />
-												<ToggleMenuFlyoutItem Text="Repository3" />
-												<ToggleMenuFlyoutItem Text="Repository4" />
-												<ToggleMenuFlyoutItem Text="Repository5" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Sort by:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem Text="Repository1" />
-												<ToggleMenuFlyoutItem Text="Repository2" />
-												<ToggleMenuFlyoutItem Text="Repository3" />
-												<ToggleMenuFlyoutItem Text="Repository4" />
-												<ToggleMenuFlyoutItem Text="Repository5" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-							</StackPanel>
-						</Grid>
-
-						<Grid Grid.Row="2">
-
-							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Packages, Mode=OneWay}">
-								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
-								</ItemsRepeater.Layout>
-								<DataTemplate x:DataType="bbvm:PackageBlockButtonViewModel">
-									<bbuc:PackageBlockButton ViewModel="{x:Bind}" />
-								</DataTemplate>
-							</ItemsRepeater>
-
-							<toolkit:SwitchPresenter
-								x:Name="NoDiscussionsSwitchPresenter"
+								x:Name="PageLoadingPanel"
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
-								TargetType="x:Int32"
-								Value="{x:Bind ViewModel.Packages.Count, Mode=OneWay}">
-								<toolkit:Case Value="0">
-									<TextBlock
-										x:Name="NoDiscussionsTextBlock"
-										FontSize="18"
-										Style="{StaticResource BodyStrongTextBlockStyle}"
-										Text="{helpers:ResourceString Name=NoUserPackages}"
-										TextAlignment="Center" />
-								</toolkit:Case>
-							</toolkit:SwitchPresenter>
+								x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
+								Spacing="12">
+								<ProgressRing
+									Width="32"
+									Height="32"
+									IsIndeterminate="True" />
+								<TextBlock
+									Style="{StaticResource BodyStrongTextBlockStyle}"
+									Text="Loading..."
+									TextAlignment="Center" />
+							</StackPanel>
+
+							<StackPanel
+								x:Name="NoItemsPanel"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
+								Spacing="12">
+								<Viewbox Width="144" Height="144">
+									<Grid>
+										<Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+										<Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+										<Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
+										<Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+										<Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+										<Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+										<Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+									</Grid>
+								</Viewbox>
+								<TextBlock
+									Style="{StaticResource SubtitleTextBlockStyle}"
+									Text="There aren't no Packages."
+									TextAlignment="Center" />
+							</StackPanel>
+
 						</Grid>
+
 					</Grid>
 				</ScrollViewer>
 			</Grid>

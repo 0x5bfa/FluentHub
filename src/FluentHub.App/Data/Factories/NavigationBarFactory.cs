@@ -38,7 +38,7 @@ namespace FluentHub.App.Data.Factories
 					PageToNavigate = typeof(Views.Repositories.Code.DetailsLayoutView),
 					PageItemKey = NavigationPageKey.Code,
 					PageKind = NavigationPageKind.Repository,
-					Glyph = "\uE922",
+					Glyph = "\uE94B",
 				},
 				new()
 				{

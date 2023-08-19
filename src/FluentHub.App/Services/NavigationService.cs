@@ -16,7 +16,7 @@ namespace FluentHub.App.Services
 
 		private readonly ILogger _logger;
 
-		private static readonly EntranceNavigationTransitionInfo _navigationMode = new();
+		private static readonly SuppressNavigationTransitionInfo _navigationMode = new();
 
 		public Type CurrentPage { get; set; }
 

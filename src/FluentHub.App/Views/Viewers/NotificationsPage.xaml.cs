@@ -40,7 +40,7 @@ namespace FluentHub.App.Views.Viewers
 			var scrollViewer = (ScrollViewer)sender;
 			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
 			{
-				var command = ViewModel.LoadFurtherUserNotificationsPageCommand;
+				var command = ViewModel.LoadUserNotificationsFurtherCommand;
 				if (command.CanExecute(null))
 					command.Execute(null);
 			}

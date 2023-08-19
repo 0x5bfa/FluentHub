@@ -13,9 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 {
 	public class DiscussionsViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private readonly ObservableCollection<DiscussionBlockButtonViewModel> _items;
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
 

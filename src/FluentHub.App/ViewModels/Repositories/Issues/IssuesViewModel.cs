@@ -13,9 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 {
 	public class IssuesViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private readonly ObservableCollection<IssueBlockButtonViewModel> _pinnedItems;
 		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> PinnedItems { get; }
 

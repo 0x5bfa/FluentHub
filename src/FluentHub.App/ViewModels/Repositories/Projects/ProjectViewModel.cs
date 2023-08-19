@@ -12,9 +12,6 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 {
 	public class ProjectViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
 		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
@@ -68,29 +65,6 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "projects",
-			};
-		}
-
-		private void SetCurrentTabItem()
-		{
-			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			currentItem.Header = "Project";
-			currentItem.Description = "Project";
-			currentItem.Icon = new ImageIconSource
-			{
-				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
-			};
 		}
 	}
 }

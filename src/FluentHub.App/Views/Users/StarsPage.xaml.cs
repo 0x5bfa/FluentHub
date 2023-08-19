@@ -9,8 +9,6 @@ namespace FluentHub.App.Views.Users
 {
 	public sealed partial class StarsPage : LocatablePage
 	{
-		private readonly INavigationService _navigationService;
-
 		public StarredReposViewModel ViewModel { get; }
 
 		public StarsPage()
@@ -18,7 +16,6 @@ namespace FluentHub.App.Views.Users
 		{
 			InitializeComponent();
 
-			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			ViewModel = Ioc.Default.GetRequiredService<StarredReposViewModel>();
 		}
 
@@ -34,7 +31,7 @@ namespace FluentHub.App.Views.Users
 			var scrollViewer = (ScrollViewer)sender;
 			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
 			{
-				var command = ViewModel.LoadFurtherUserStarredRepositoriesPageCommand;
+				var command = ViewModel.LoadUserStarredRepositoriesFurtherCommand;
 				if (command.CanExecute(null))
 					command.Execute(null);
 			}

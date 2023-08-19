@@ -18,7 +18,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		public ReadOnlyObservableCollection<NotificationBlockButtonViewModel> NotificationItems { get; }
 
 		public IAsyncRelayCommand LoadUserNotificationsPageCommand { get; }
-		public IAsyncRelayCommand LoadFurtherUserNotificationsPageCommand { get; }
+		public IAsyncRelayCommand LoadUserNotificationsFurtherCommand { get; }
 
 		public NotificationsViewModel()
 		{
@@ -30,7 +30,7 @@ namespace FluentHub.App.ViewModels.Viewers
 			_unreadCount = 0;
 
 			LoadUserNotificationsPageCommand = new AsyncRelayCommand(LoadUserNotificationsPageAsync);
-			LoadFurtherUserNotificationsPageCommand = new AsyncRelayCommand(LoadFurtherNotificationsAsync);
+			LoadUserNotificationsFurtherCommand = new AsyncRelayCommand(LoadFurtherNotificationsAsync);
 		}
 
 		private async Task LoadUserNotificationsPageAsync()

@@ -41,7 +41,21 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
-			<Grid MaxWidth="260" CornerRadius="300">
+			<Grid
+				Width="260"
+				Height="260"
+				CornerRadius="300">
+				<Grid
+					x:Name="AvatarPlaceholder"
+					Width="260"
+					Height="260"
+					Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+					CornerRadius="300">
+					<FontIcon
+						FontSize="84"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xE77B;" />
+				</Grid>
 				<Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
 			</Grid>
 
@@ -133,32 +147,28 @@
 								FontFamily="Segoe Fluent Icons"
 								Foreground="{ThemeResource PrimerAttentionForeground}"
 								Style="{StaticResource BodyTextBlockStyle}"
-								Text="&#xe946;">
+								Text="&#xE946;">
 								<ToolTipService.ToolTip>
 									<TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="This user has limited availability." />
 								</ToolTipService.ToolTip>
 							</TextBlock>
 						</Grid>
 
-						<!--<VisualStateManager.VisualStateGroups>
-								<VisualStateGroup>
-									<VisualState>
-										<VisualState.StateTriggers>
-											<toolkittriggers:CompareStateTrigger Comparison="Equal" Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}">
-												<toolkittriggers:CompareStateTrigger.To>
-													<x:Boolean>True</x:Boolean>
-												</toolkittriggers:CompareStateTrigger.To>
-											</toolkittriggers:CompareStateTrigger>
-										</VisualState.StateTriggers>
-										<VisualState.Setters>
-											<Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
-											<Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
-											<Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
-											<Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
-										</VisualState.Setters>
-									</VisualState>
-								</VisualStateGroup>
-							</VisualStateManager.VisualStateGroups>-->
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup>
+								<VisualState>
+									<VisualState.StateTriggers>
+										<toolkittriggers:IsEqualStateTrigger Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}" To="True" />
+									</VisualState.StateTriggers>
+									<VisualState.Setters>
+										<Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
+										<Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
+										<Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+										<Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+									</VisualState.Setters>
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
 					</Border>
 				</Grid>
 

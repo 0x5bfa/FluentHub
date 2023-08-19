@@ -13,9 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
 	public class ChecksViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
 		public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 

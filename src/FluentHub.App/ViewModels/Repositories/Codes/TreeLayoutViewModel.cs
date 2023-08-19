@@ -14,12 +14,6 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		private RepoContextViewModel _contextViewModel;
 		public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private RepoContextViewModel _selectedContextViewModel;
 		public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
 
@@ -41,9 +35,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		private async Task LoadRepositoryContentsAsync(CancellationToken token)
 		{
 			SetTabInformation("Repositories", "Repositories", "Repositories");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			try
 			{
@@ -94,12 +86,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				//_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -169,36 +159,12 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		private async Task LoadRepositoryAsync(string url, CancellationToken token)
 		{
-			try
-			{
-				var uri = new Uri(url);
-				var pathSegments = uri.AbsolutePath.Split("/").ToList();
-				pathSegments.RemoveAt(0);
+			var uri = new Uri(url);
+			var pathSegments = uri.AbsolutePath.Split("/").ToList();
+			pathSegments.RemoveAt(0);
 
-				RepositoryQueries queries = new();
-				Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
-
-				RepositoryOverviewViewModel = new()
-				{
-					Repository = Repository,
-					RepositoryName = Repository.Name,
-					RepositoryOwnerLogin = Repository.Owner.Login,
-					ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-					SelectedTag = "code",
-				};
-			}
-			catch (OperationCanceledException) { }
-			catch (Exception ex)
-			{
-				_logger?.Error(nameof(LoadRepositoryAsync), ex);
-				if (_messenger != null)
-				{
-					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-					_messenger.Send(notification);
-				}
-				throw;
-			}
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
 		}
 	}
 }

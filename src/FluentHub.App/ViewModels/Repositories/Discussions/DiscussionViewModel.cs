@@ -12,9 +12,6 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 {
 	public class DiscussionViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private Discussion _discussion;
 		public Discussion Discussion { get => _discussion; set => SetProperty(ref _discussion, value); }
 

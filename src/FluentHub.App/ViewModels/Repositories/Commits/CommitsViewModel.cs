@@ -13,12 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 {
 	public class CommitsViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private RepoContextViewModel contextViewModel;
 		public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
@@ -38,9 +32,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		private async Task LoadRepositoryCommitsPageAsync()
 		{
 			SetTabInformation("Commits", "Commits", "Commits");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			_currentTaskingMethodName = nameof(LoadRepositoryCommitsPageAsync);
 
@@ -58,12 +50,10 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -88,16 +78,6 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "code",
-			};
 		}
 	}
 }

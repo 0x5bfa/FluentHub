@@ -33,11 +33,16 @@
 
 				<ov:UserProfileOverview
 					x:Name="UserProfileOverview"
-					MaxWidth="300"
+					Width="300"
 					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
 				<ScrollViewer Grid.Column="1">
 					<StackPanel Padding="32" Spacing="8">
+						<StackPanel.Transitions>
+							<TransitionCollection>
+								<EntranceThemeTransition />
+							</TransitionCollection>
+						</StackPanel.Transitions>
 
 						<Grid
 							x:Name="PinnedRepositoriesGrid"

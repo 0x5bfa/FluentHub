@@ -13,12 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
 	public class CommitViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
-
 		private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
 		public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 
@@ -105,16 +99,6 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		{
 			RepositoryQueries queries = new();
 			Repository = await queries.GetDetailsAsync(owner, name);
-
-			RepositoryOverviewViewModel = new()
-			{
-				Repository = Repository,
-				RepositoryName = Repository.Name,
-				RepositoryOwnerLogin = Repository.Owner.Login,
-				ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-				SelectedTag = "pullrequests",
-			};
 		}
 	}
 }

@@ -9,14 +9,8 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 {
 	public class DetailsLayoutViewModel : BaseViewModel
 	{
-		private Repository _repository;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private RepoContextViewModel contextViewModel;
 		public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
-
-		private RepositoryOverviewViewModel _repositoryOverviewViewModel;
-		public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
 		private string _currentPath;
 		public string CurrentPath { get => _currentPath; set => SetProperty(ref _currentPath, value); }
@@ -127,31 +121,8 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryOverviewViewModel = new()
-			{
-				SelectedTag = "code",
-			};
-
-			if (RepositoryOverviewViewModel.StoredRepository is null
-				|| BranchesTotalCount == 0)
-			{
-				RepositoryQueries queries = new();
-				var response = await queries.GetCustomDetailsAsync(owner, name);
-
-				Repository = response.Repository;
-				RepositoryOverviewViewModel.Repository = Repository;
-
-				BranchesTotalCount = response.BranchesTotalCount;
-				TagsTotalCount = response.TagsTotalCount;
-			}
-			else
-			{
-				RepositoryOverviewViewModel.Repository = RepositoryOverviewViewModel.StoredRepository;
-			}
-
-			RepositoryOverviewViewModel.RepositoryName = RepositoryOverviewViewModel.Repository.Name;
-			RepositoryOverviewViewModel.RepositoryOwnerLogin = RepositoryOverviewViewModel.Repository.Owner.Login;
-			RepositoryOverviewViewModel.ViewerSubscriptionState = RepositoryOverviewViewModel.Repository.ViewerSubscription?.Humanize();
+			RepositoryQueries queries = new();
+			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 
 		private void InitializeRepositoryContext(string owner, string name, string path)

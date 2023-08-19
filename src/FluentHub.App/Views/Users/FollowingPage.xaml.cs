@@ -35,7 +35,7 @@ namespace FluentHub.App.Views.Users
 			var scrollViewer = (ScrollViewer)sender;
 			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
 			{
-				var command = ViewModel.LoadFurtherUserFollowingPageCommand;
+				var command = ViewModel.LoadUserFollowingFurtherCommand;
 				if (command.CanExecute(null))
 					command.Execute(null);
 			}

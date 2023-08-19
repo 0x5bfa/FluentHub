@@ -93,13 +93,7 @@
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 
-			<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
-
-			<Grid
-				Background="{ThemeResource LayerFillColorDefaultBrush}"
-				BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-				BorderThickness="1"
-				CornerRadius="8">
+			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" MinWidth="256" />
 					<ColumnDefinition Width="2" />
