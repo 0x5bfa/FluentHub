@@ -5,7 +5,6 @@ using CommunityToolkit.WinUI.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace FluentHub.App.UserControls.CustomTabView
 {
@@ -75,7 +74,7 @@ namespace FluentHub.App.UserControls.CustomTabView
 
 			page ??= NewTabPage;
 			if (page != null)
-				tab.Frame.Navigate(page, parameter, new EntranceNavigationTransitionInfo());
+				tab.Frame.Navigate(page, parameter, new SuppressNavigationTransitionInfo());
 
 			return tab;
 		}
@@ -131,7 +130,7 @@ namespace FluentHub.App.UserControls.CustomTabView
 
 		private void OnSelectionChanged(ITabViewItem newItem, ITabViewItem oldItem)
 		{
-			EntranceNavigationTransitionInfo transitionInfo = new();
+			SuppressNavigationTransitionInfo transitionInfo = new();
 			TabViewSelectionChangedEventArgs args = new(newItem, oldItem, transitionInfo);
 
 			SelectionChanged?.Invoke(this, args);

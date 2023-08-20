@@ -21,6 +21,7 @@ namespace FluentHub.App.Views.Users
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
+			_pageLoadCommand = ViewModel.LoadUserDiscussionsPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

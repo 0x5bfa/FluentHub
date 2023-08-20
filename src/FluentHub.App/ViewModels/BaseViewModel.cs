@@ -114,11 +114,13 @@ namespace FluentHub.App.ViewModels
 				IsTaskFaulted = false;
 				IsTaskLoading = true;
 				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+				_navigation.TabView.SelectedItem.NavigationHistory.CanReload = false;
 			}
 			else
 			{
 				IsTaskLoading = false;
-				
+				_navigation.TabView.SelectedItem.NavigationHistory.CanReload = true;
+
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 
 				if (IsTaskFaulted)

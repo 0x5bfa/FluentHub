@@ -21,6 +21,7 @@ namespace FluentHub.App.Views.Users
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<FollowersViewModel>();
+			_pageLoadCommand = ViewModel.LoadUserFollowersPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

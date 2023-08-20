@@ -22,6 +22,7 @@ namespace FluentHub.App.Views.Users
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<OrganizationsViewModel>();
+			_pageLoadCommand = ViewModel.LoadUserOrganizationsPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

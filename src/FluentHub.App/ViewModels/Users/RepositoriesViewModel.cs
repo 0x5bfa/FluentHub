@@ -97,8 +97,7 @@ namespace FluentHub.App.ViewModels.Users
 			if (!_lastPageInfo.HasNextPage)
 				return;
 
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			try
 			{
@@ -127,12 +126,10 @@ namespace FluentHub.App.ViewModels.Users
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(nameof(LoadUserRepositoriesFurtherAsync), ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 	}

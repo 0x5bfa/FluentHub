@@ -48,9 +48,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		private async Task LoadUserHomePageAsync()
 		{
 			SetTabInformation("Dashboard", "Dashboard", "Home");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			_currentTaskingMethodName = nameof(LoadUserHomePageAsync);
 
@@ -65,12 +63,10 @@ namespace FluentHub.App.ViewModels.Viewers
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 

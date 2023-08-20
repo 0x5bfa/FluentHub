@@ -23,6 +23,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ChecksViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

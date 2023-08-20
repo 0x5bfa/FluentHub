@@ -36,9 +36,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		private async Task LoadUserNotificationsPageAsync()
 		{
 			SetTabInformation("Notifications", "Notifications", "Notifications");
-
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			IsTaskFaulted = false;
+			SetLoadingProgress(true);
 
 			_currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
 
@@ -53,8 +51,6 @@ namespace FluentHub.App.ViewModels.Viewers
 			{
 				TaskException = ex;
 				IsTaskFaulted = true;
-
-				_logger?.Error(_currentTaskingMethodName, ex);
 			}
 			finally
 			{
@@ -65,7 +61,7 @@ namespace FluentHub.App.ViewModels.Viewers
 					_messenger.Send(notification);
 				}
 
-				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 
@@ -103,8 +99,7 @@ namespace FluentHub.App.ViewModels.Viewers
 
 		public async Task LoadFurtherNotificationsAsync()
 		{
-			_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-			bool faulted = false;
+			SetLoadingProgress(true);
 
 			try
 			{
@@ -132,7 +127,9 @@ namespace FluentHub.App.ViewModels.Viewers
 						Item = item,
 					};
 
-					if (item.Unread) UnreadCount++;
+					if (item.Unread)
+						UnreadCount++;
+
 					_notifications.Add(viewmodel);
 				}
 			}
@@ -140,14 +137,11 @@ namespace FluentHub.App.ViewModels.Viewers
 			catch (Exception ex)
 			{
 				TaskException = ex;
-				faulted = true;
-
-				_logger?.Error(nameof(LoadFurtherNotificationsAsync), ex);
-				throw;
+				IsTaskFaulted = true;
 			}
 			finally
 			{
-				_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+				SetLoadingProgress(false);
 			}
 		}
 	}

@@ -161,8 +161,8 @@
 								Width="32"
 								Height="32"
 								Padding="0"
-								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
+								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -181,8 +181,8 @@
 								Width="32"
 								Height="32"
 								Padding="0"
-								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -197,6 +197,17 @@
 										</AnimatedIcon.RenderTransform>
 									</AnimatedIcon>
 								</Viewbox>
+							</Button>
+
+							<Button
+								x:Name="ContentFrameReloadNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
+								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
+								ToolTipService.ToolTip="Refresh">
+								<FontIcon FontSize="14" Glyph="&#xE72C;" />
 							</Button>
 						</StackPanel>
 

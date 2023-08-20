@@ -21,6 +21,7 @@ namespace FluentHub.App.Views.Repositories.Releases
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryReleasePageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

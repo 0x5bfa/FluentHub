@@ -34,14 +34,6 @@ namespace FluentHub.App.Services
 
 		void GoForward();
 
-		bool CanGoBack();
-
-		bool CanGoForward();
-
-		NavigationHistoryItem GetCurrentTabItem();
-
-		void SetCurrentTabItem(NavigationHistoryItem newEntry);
-
-		public void SaveContextToCurrentTabItem(FrameNavigationParameter context);
+		void Reload();
 	}
 }

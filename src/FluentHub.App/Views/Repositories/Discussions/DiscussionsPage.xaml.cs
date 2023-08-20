@@ -18,6 +18,7 @@ namespace FluentHub.App.Views.Repositories.Discussions
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryDiscussionsFurtherCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

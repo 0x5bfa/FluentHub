@@ -17,6 +17,7 @@ namespace FluentHub.App.Views.Users
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<StarredReposViewModel>();
+			_pageLoadCommand = ViewModel.LoadUserStarredRepositoriesPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

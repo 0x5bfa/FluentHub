@@ -23,6 +23,7 @@ namespace FluentHub.App.Views.Repositories.Commits
 
 			ViewModel = Ioc.Default.GetRequiredService<CommitsViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			_pageLoadCommand = ViewModel.LoadRepositoryCommitsPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

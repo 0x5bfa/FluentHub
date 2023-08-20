@@ -3,6 +3,7 @@
 
 using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Controls;
+using System.Windows.Input;
 
 namespace FluentHub.App.Views
 {
@@ -18,6 +19,8 @@ namespace FluentHub.App.Views
 
 		protected ITabViewItem SelectedTabViewItem
 			=> _navigationService.TabView.SelectedItem;
+
+		protected ICommand _pageLoadCommand;
 
 		public LocatablePage(NavigationPageKind pageKind, NavigationPageKey itemKey)
 		{
@@ -87,6 +90,16 @@ namespace FluentHub.App.Views
 
 			if (!selectedCorrectOne)
 				currentTabNavigationBar.SelectedNavigationBarItem = null;
+		}
+
+		public void ReloadPage()
+		{
+			if (_pageLoadCommand is null)
+				return;
+
+			var command = _pageLoadCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
 		}
 	}
 }

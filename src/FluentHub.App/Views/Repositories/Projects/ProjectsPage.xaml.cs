@@ -18,6 +18,7 @@ namespace FluentHub.App.Views.Repositories.Projects
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryProjectsPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

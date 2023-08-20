@@ -23,6 +23,7 @@ namespace FluentHub.App.Views.Repositories.Code
 
 			ViewModel = Ioc.Default.GetRequiredService<DetailsLayoutViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			_pageLoadCommand = ViewModel.LoadDetailsViewPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

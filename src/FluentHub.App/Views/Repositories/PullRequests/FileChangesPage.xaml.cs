@@ -22,6 +22,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<FileChangesViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestFileChangesPageCommand;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

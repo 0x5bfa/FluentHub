@@ -1,22 +1,10 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using Microsoft.UI.Xaml.Controls;
-
 namespace FluentHub.App.Data.Items
 {
 	public class NavigationHistory : ObservableObject
 	{
-		public NavigationHistory()
-		{
-			_Items = new();
-			Items = new(_Items);
-
-			_CanGoBack = _CanGoForward = false;
-			_CurrentItem = default;
-			_CurrentItemIndex = -1;
-		}
-
 		private bool _CanGoBack;
 		public bool CanGoBack
 		{
@@ -31,12 +19,12 @@ namespace FluentHub.App.Data.Items
 			private set => SetProperty(ref _CanGoForward, value);
 		}
 
-		//private bool _CanReload;
-		//public bool CanReload
-		//{
-		//	get => _CanReload;
-		//	private set => SetProperty(ref _CanReload, value);
-		//}
+		private bool _CanReload;
+		public bool CanReload
+		{
+			get => _CanReload;
+			set => SetProperty(ref _CanReload, value);
+		}
 
 		private NavigationHistoryItem? _CurrentItem;
 		public NavigationHistoryItem? CurrentItem
@@ -68,6 +56,19 @@ namespace FluentHub.App.Data.Items
 
 		public NavigationHistoryItem this[int index]
 			=> Items[index];
+
+		public NavigationHistory()
+		{
+			_Items = new();
+			Items = new(_Items);
+
+			_CanGoBack = false;
+			_CanGoForward = false;
+			_CanReload = false;
+
+			_CurrentItem = default;
+			_CurrentItemIndex = -1;
+		}
 
 		public bool GoBack()
 		{
@@ -144,7 +145,6 @@ namespace FluentHub.App.Data.Items
 		{
 			CanGoBack = CurrentItemIndex > 0;
 			CanGoForward = CurrentItemIndex < _Items.Count - 1;
-
 		}
 
 		private void UpdateNavigationBar(bool isBackNavigation = false)

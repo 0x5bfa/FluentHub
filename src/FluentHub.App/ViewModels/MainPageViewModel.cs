@@ -61,6 +61,7 @@ namespace FluentHub.App.ViewModels
 
 		public ICommand GoBackCommand { get; private set; }
 		public ICommand GoForwardCommand { get; private set; }
+		public ICommand ReloadCommand { get; private set; }
 
 		public ICommand GoHomeCommand { get; private set; }
 		public ICommand GoNotificationsCommand { get; private set; }
@@ -102,6 +103,7 @@ namespace FluentHub.App.ViewModels
 
 			GoBackCommand = new RelayCommand(GoBack);
 			GoForwardCommand = new RelayCommand(GoForward);
+			ReloadCommand = new RelayCommand(Reload);
 
 			LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
 		}
@@ -167,6 +169,11 @@ namespace FluentHub.App.ViewModels
 		private void GoForward()
 		{
 			_navigationService.GoForward();
+		}
+
+		private void Reload()
+		{
+			_navigationService.Reload();
 		}
 
 		private async Task LoadSignedInUserAsync()

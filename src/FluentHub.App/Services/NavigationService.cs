@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Utils;
+using FluentHub.App.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
@@ -46,30 +47,35 @@ namespace FluentHub.App.Services
 		}
 
 		public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page
-			=> Navigate(typeof(T), parameter, transitionInfo ?? _navigationMode);
+		{
+			Navigate(typeof(T), parameter, transitionInfo ?? _navigationMode);
+		}
 
 		public Guid OpenTab(Type page, object parameter)
 		{
 			EnsureConfigured();
 
 			var item = TabView.OpenTab(page, parameter, true);
+
 			return item.Guid;
 		}
 
 		public Guid OpenTab<T>(object parameter = null) where T : Page
-			=> OpenTab(typeof(T), parameter);
+		{
+			return OpenTab(typeof(T), parameter);
+		}
 
 		public void GoToTab(Guid tabId)
 		{
 			var tab = TabView.TabItems.FirstOrDefault(x => x.Guid == tabId);
 			if (tab != null)
-			{
 				TabView.SelectedItem = tab;
-			}
 		}
 
 		public void CloseTab(Guid tabId)
-			=> TabView.CloseTab(tabId);
+		{
+			TabView.CloseTab(tabId);
+		}
 
 		public void GoBack()
 		{
@@ -89,39 +95,16 @@ namespace FluentHub.App.Services
 			tab.Frame.GoForward();
 		}
 
-		public bool CanGoBack()
+		public void Reload()
 		{
 			EnsureConfigured();
 
-			return TabView.SelectedItem?.Frame?.CanGoBack == true;
-		}
+			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
 
-		public bool CanGoForward()
-		{
-			EnsureConfigured();
-
-			return TabView.SelectedItem?.Frame?.CanGoForward == true;
-		}
-
-		public NavigationHistoryItem GetCurrentTabItem()
-		{
-			return TabView.SelectedItem.NavigationHistory.CurrentItem;
-		}
-
-		public void SetCurrentTabItem(NavigationHistoryItem newEntry)
-		{
-			var currentItem = TabView.SelectedItem.NavigationHistory.CurrentItem;
-
-			currentItem.Header = newEntry.Header ?? string.Empty;
-			currentItem.Description = newEntry.Description ?? string.Empty;
-
-			if (newEntry.Icon is not null)
-				currentItem.Icon = newEntry.Icon;
-		}
-
-		public void SaveContextToCurrentTabItem(FrameNavigationParameter context)
-		{
-			TabView.SelectedItem.NavigationHistory.CurrentItem.Context = context;
+			if (tab.Frame.Content is LocatablePage locatablePage)
+				locatablePage.ReloadPage();
+			else
+				throw new InvalidOperationException("Current page is not reloadable page");
 		}
 
 		private void EnsureConfigured()
