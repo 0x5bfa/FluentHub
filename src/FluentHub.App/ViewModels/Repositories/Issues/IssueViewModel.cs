@@ -32,6 +32,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		{
 			SetTabInformation("Issue", "Issue", "Issues");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryIssuePageAsync);
 

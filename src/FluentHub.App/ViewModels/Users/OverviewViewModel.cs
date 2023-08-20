@@ -37,6 +37,7 @@ namespace FluentHub.App.ViewModels.Users
 		{
 			SetTabInformation("Overview", "Overview", "Profile");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserOverviewAsync);
 

@@ -33,6 +33,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		{
 			SetTabInformation("Commit", "Commit", "Commits");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryCommitPageAsync);
 

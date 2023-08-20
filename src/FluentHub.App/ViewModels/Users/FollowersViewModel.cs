@@ -40,6 +40,7 @@ namespace FluentHub.App.ViewModels.Users
 		{
 			SetTabInformation("Followers", "Followers", "Accounts");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserFollowersPageAsync);
 

@@ -40,6 +40,7 @@ namespace FluentHub.App.ViewModels.Users
 		{
 			SetTabInformation("Packages", "Packages", "Packages");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserPackagesPageAsync);
 

@@ -26,6 +26,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		{
 			SetTabInformation("Discussion", "Discussion", "Discussions");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryDiscussionPageAsync);
 

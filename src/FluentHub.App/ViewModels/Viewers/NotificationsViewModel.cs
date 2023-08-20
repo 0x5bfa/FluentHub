@@ -37,6 +37,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		{
 			SetTabInformation("Notifications", "Notifications", "Notifications");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
 

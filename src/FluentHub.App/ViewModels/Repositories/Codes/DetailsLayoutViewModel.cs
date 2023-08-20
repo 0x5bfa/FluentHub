@@ -48,6 +48,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		{
 			SetTabInformation("Repository", "Repository", "Repositories");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadDetailsViewPageAsync);
 

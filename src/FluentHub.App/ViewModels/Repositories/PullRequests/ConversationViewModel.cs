@@ -43,6 +43,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		{
 			SetTabInformation("Pull request", "Pull request", "PullRequests");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestConversationPageAsync);
 

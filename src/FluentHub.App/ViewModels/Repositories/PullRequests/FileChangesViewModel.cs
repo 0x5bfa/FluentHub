@@ -36,6 +36,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		{
 			SetTabInformation("File changes", "File changes", "PullRequests");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
 

@@ -40,6 +40,7 @@ namespace FluentHub.App.ViewModels.Users
 		{
 			SetTabInformation("Pull Requests", "Pull Requests", "PullRequests");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserPullRequestsPageAsync);
 

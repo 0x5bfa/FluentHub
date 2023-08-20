@@ -40,6 +40,7 @@ namespace FluentHub.App.ViewModels.Users
 		{
 			SetTabInformation("Discussions", "Discussions", "Discussions");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserDiscussionsPageAsync);
 

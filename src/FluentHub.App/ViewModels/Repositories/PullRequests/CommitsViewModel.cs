@@ -36,6 +36,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		{
 			SetTabInformation("Commits", "Commits", "PullRequests");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryPullRequestCommitsPageAsync);
 

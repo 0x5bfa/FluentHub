@@ -150,5 +150,13 @@ namespace FluentHub.App.ViewModels
 
 			UserProfileOverviewViewModel = userProfileOverviewViewModel;
 		}
+
+		protected void InitializeNodePagingInfo()
+		{
+			_loadedItemCount = 0;
+			_loadedPageCount = 0;
+			_loadedToTheEnd = false;
+			_lastPageInfo = null;
+		}
 	}
 }

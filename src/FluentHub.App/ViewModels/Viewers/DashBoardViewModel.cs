@@ -49,6 +49,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		{
 			SetTabInformation("Dashboard", "Dashboard", "Home");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadUserHomePageAsync);
 

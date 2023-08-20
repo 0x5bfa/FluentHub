@@ -38,6 +38,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		{
 			SetTabInformation("Release", "Release", "Repositories");
 			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryReleasePageAsync);
 
