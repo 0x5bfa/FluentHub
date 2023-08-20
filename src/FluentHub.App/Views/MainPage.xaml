@@ -129,7 +129,7 @@
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
-					<Grid Margin="8,0" ColumnSpacing="12">
+					<Grid Margin="8,0" ColumnSpacing="8">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="*" />

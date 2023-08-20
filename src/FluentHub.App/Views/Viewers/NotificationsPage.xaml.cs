@@ -20,6 +20,7 @@ namespace FluentHub.App.Views.Viewers
 
 			ViewModel = Ioc.Default.GetRequiredService<NotificationsViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			_pageLoadCommand = ViewModel.LoadUserNotificationsPageCommand;
 
 			_navigation.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
 				_navigation.TabView.SelectedItem.NavigationBar.Context = new()

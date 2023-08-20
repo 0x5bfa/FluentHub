@@ -22,6 +22,7 @@ namespace FluentHub.App.Views.Viewers
 			// Dependency injection
 			ViewModel = Ioc.Default.GetRequiredService<DashBoardViewModel>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			_pageLoadCommand = ViewModel.LoadUserHomePageCommand;
 
 			_navigation.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
 				_navigation.TabView.SelectedItem.NavigationBar.Context = new()

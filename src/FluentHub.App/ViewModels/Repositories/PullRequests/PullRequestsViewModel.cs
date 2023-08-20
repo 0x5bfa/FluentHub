@@ -44,6 +44,9 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 				await LoadRepositoryPullRequestsAsync(Login, Name);
 
 				SetTabInformation($"Pull requests \u2022 {Login}/{Name}", $"Pull requests \u2022 {Login}/{Name}");
+
+				if (PullItems.Count == 0)
+					IsEmpty = true;
 			}
 			catch (Exception ex)
 			{

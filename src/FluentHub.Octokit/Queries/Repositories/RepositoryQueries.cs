@@ -257,7 +257,7 @@
 						})
 						.Single(),
 
-						LatestRelease = x.Releases(1, null, null, null, null).Nodes.Select(release => new Release
+						LatestRelease = x.LatestRelease.Select(release => new Release
 						{
 							DescriptionHTML = release.DescriptionHTML,
 							IsDraft = release.IsDraft,
@@ -266,15 +266,7 @@
 							Name = release.Name,
 							PublishedAt = release.PublishedAt,
 							PublishedAtHumanized = release.PublishedAt.Humanize(null, null),
-
-							Author = release.Author.Select(author => new User
-							{
-								Login = author.Login,
-								AvatarUrl = author.AvatarUrl(500),
-							})
-							.Single(),
-						})
-						.ToList().FirstOrDefault(),
+						}).Single(),
 
 						Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
 						{
@@ -282,12 +274,9 @@
 							{
 								Color = lang.Color,
 								Name = lang.Name,
-							})
-							.ToList(),
-						})
-					.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
+							}).ToList(),
+						}).SingleOrDefault(),
+					}).SingleOrDefault(),
 
 					second = root.Repository(name, owner, null).Select(y => new
 					{
