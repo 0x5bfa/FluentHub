@@ -46,7 +46,7 @@ namespace FluentHub.App.ViewModels.Organizations
 				_currentTaskingMethodName = nameof(LoadOrganizationOverviewAsync);
 				await LoadOrganizationOverviewAsync(Login);
 
-				SetTabInformation("Overview", "Overview", "Overview");
+				SetTabInformation("Overview", "Overview");
 			}
 			catch (Exception ex)
 			{
@@ -86,7 +86,8 @@ namespace FluentHub.App.ViewModels.Organizations
 
 			PinnedItemQueries queries = new();
 			var pinnedItems = await queries.GetAllAsync(org);
-			if (pinnedItems == null) return;
+			if (pinnedItems == null)
+				return;
 
 			_pinnedItems.Clear();
 			foreach (var item in pinnedItems)

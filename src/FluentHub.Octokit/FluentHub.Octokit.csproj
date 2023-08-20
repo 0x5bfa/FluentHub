@@ -19,8 +19,4 @@
         <PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="NewFolder\" />
-    </ItemGroup>
-
 </Project>
