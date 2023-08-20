@@ -28,13 +28,22 @@ namespace FluentHub.App.Views.Repositories.Commits
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.Login = param.PrimaryText;
-			ViewModel.Name = param.SecondaryText;
 			ViewModel.ContextViewModel = param.Parameters as RepoContextViewModel;
 
 			var command = ViewModel.LoadRepositoryCommitsPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);
+		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadRepositoryCommitsFurtherCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
 		}
 	}
 }

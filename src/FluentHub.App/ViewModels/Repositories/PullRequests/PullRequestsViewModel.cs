@@ -17,6 +17,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestsPageCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryPullRequestsFurtherCommand { get; }
 
 		public PullRequestsViewModel() : base()
 		{
@@ -24,6 +25,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			PullItems = new(_pullRequests);
 
 			LoadRepositoryPullRequestsPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestsPageAsync);
+			LoadRepositoryPullRequestsFurtherCommand = new AsyncRelayCommand(LoadRepositoryPullRequestsFurtherAsync);
 		}
 
 		private async Task LoadRepositoryPullRequestsPageAsync()
@@ -60,8 +62,16 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		private async Task LoadRepositoryPullRequestsAsync(string owner, string name)
 		{
 			PullRequestQueries queries = new();
-			var items = await queries.GetAllAsync(name, owner);
-			if (items == null) return;
+
+			var result = await queries.GetAllAsync(
+				owner: owner,
+				name: name,
+				first: 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<PullRequest>)result.Response;
 
 			_pullRequests.Clear();
 			foreach (var item in items)
@@ -72,6 +82,49 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 				};
 
 				_pullRequests.Add(viewModel);
+			}
+		}
+
+		private async Task LoadRepositoryPullRequestsFurtherAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				PullRequestQueries queries = new();
+
+				var result = await queries.GetAllAsync(
+					owner: Login,
+					name: Name,
+					first: 20,
+					after: _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<PullRequest>)result.Response;
+
+				foreach (var item in items)
+				{
+					PullBlockButtonViewModel viewModel = new()
+					{
+						PullItem = item,
+					};
+
+					_pullRequests.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
 			}
 		}
 

@@ -29,5 +29,16 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadRepositoryPullRequestsFurtherCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
+		}
 	}
 }

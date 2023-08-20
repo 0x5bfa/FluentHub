@@ -2,7 +2,18 @@
 {
 	public class CommitQueries
 	{
-		public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
+		public async Task<OctokitQueryResult> GetAllAsync(
+			string name,
+			string owner,
+			string refs,
+			int? first = null,
+			string? after = null,
+			int? last = null,
+			string? before = null,
+			OctokitGraphQLModel.CommitAuthor? author = null,
+			string? path = null,
+			string? since = null,
+			string? until = null)
 		{
 			if (string.IsNullOrEmpty(path))
 				path = ".";
@@ -12,66 +23,87 @@
 				.Ref(refs)
 				.Target
 				.Cast<OctokitGraphQLModel.Commit>()
-				.History(first: 30, path: path)
-				.Nodes
-				.Select(x => new Commit
+				.History(
+					first,
+					after,
+					last,
+					before,
+					author,
+					path,
+					since,
+					until)
+				.Select(root => new CommitHistoryConnection
 				{
-					AbbreviatedOid = x.AbbreviatedOid,
-					Additions = x.Additions,
-					ChangedFiles = x.ChangedFiles,
-					CommittedDate = x.CommittedDate,
-					CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
-					Deletions = x.Deletions,
-					Message = x.Message,
-					MessageHeadline = x.MessageHeadline,
-					Oid = x.Oid,
-
-					Author = x.Author.Select(author => new GitActor
+					Edges = root.Edges.Select(x => new CommitEdge
 					{
-						AvatarUrl = author.AvatarUrl(500),
-
-						User = author.User.Select(user => new User
+						Node = x.Node.Select(x => new Commit
 						{
-							Login = user.Login,
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
+							AbbreviatedOid = x.AbbreviatedOid,
+							Additions = x.Additions,
+							ChangedFiles = x.ChangedFiles,
+							CommittedDate = x.CommittedDate,
+							CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
+							Deletions = x.Deletions,
+							Message = x.Message,
+							MessageHeadline = x.MessageHeadline,
+							Oid = x.Oid,
 
-					Repository = x.Repository.Select(repo => new Repository
+							Author = x.Author.Select(author => new GitActor
+							{
+								AvatarUrl = author.AvatarUrl(500),
+
+								User = author.User.Select(user => new User
+								{
+									Login = user.Login,
+								}).SingleOrDefault(),
+							}).SingleOrDefault(),
+
+							Repository = x.Repository.Select(repo => new Repository
+							{
+								Name = repo.Name,
+
+								Owner = repo.Owner.Select(owner => new RepositoryOwner
+								{
+									Login = owner.Login,
+								}).SingleOrDefault(),
+							}).SingleOrDefault(),
+
+							Signature = x.Signature.Select(signature => new GitSignature
+							{
+								IsValid = signature.IsValid,
+								Payload = signature.Payload,
+								Signature = signature.Payload,
+								State = (GitSignatureState)signature.State,
+								WasSignedByGitHub = signature.WasSignedByGitHub,
+
+								Signer = signature.Signer.Select(user => new User
+								{
+									AvatarUrl = user.AvatarUrl(500),
+									Login = user.Login
+								}).SingleOrDefault(),
+							}).SingleOrDefault(),
+						}).Single(),
+					}).ToList(),
+
+					PageInfo = new()
 					{
-						Name = repo.Name,
-
-						Owner = repo.Owner.Select(owner => new RepositoryOwner
-						{
-							Login = owner.Login,
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
-
-					Signature = x.Signature.Select(signature => new GitSignature
-					{
-						IsValid = signature.IsValid,
-						Payload = signature.Payload,
-						Signature = signature.Payload,
-						State = (GitSignatureState)signature.State,
-						WasSignedByGitHub = signature.WasSignedByGitHub,
-
-						Signer = signature.Signer.Select(user => new User
-						{
-							AvatarUrl = user.AvatarUrl(500),
-							Login = user.Login
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
+						EndCursor = root.PageInfo.EndCursor,
+						HasNextPage = root.PageInfo.HasNextPage,
+						HasPreviousPage = root.PageInfo.HasPreviousPage,
+						StartCursor = root.PageInfo.StartCursor,
+					},
 				})
 				.Compile();
 
 			var response = await App.Connection.Run(query);
 
-			return response.ToList();
+			var result = new OctokitQueryResult()
+			{
+				PageInfo = response.PageInfo,
+				Response = response.Edges.Select(x => x.Node).ToList(),
+			};
+
+			return result;
 		}
 
 		public async Task<Commit> GetLatestAsync(string name, string owner, string refs, string path)

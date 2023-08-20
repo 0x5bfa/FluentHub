@@ -20,6 +20,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		public ReadOnlyObservableCollection<CommitBlockButtonViewModel> Items { get; }
 
 		public IAsyncRelayCommand LoadRepositoryCommitsPageCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryCommitsFurtherCommand { get; }
 
 		public CommitsViewModel() : base()
 		{
@@ -27,6 +28,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 			Items = new(_items);
 
 			LoadRepositoryCommitsPageCommand = new AsyncRelayCommand(LoadRepositoryCommitsPageAsync);
+			LoadRepositoryCommitsFurtherCommand = new AsyncRelayCommand(LoadRepositoryCommitsFurtherAsync);
 		}
 
 		private async Task LoadRepositoryCommitsPageAsync()
@@ -60,10 +62,21 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		private async Task LoadRepositoryCommitsAsync(string owner, string name)
 		{
 			CommitQueries queries = new();
-			var response = await queries.GetAllAsync(name, owner, ContextViewModel.BranchName, ContextViewModel.Path);
+
+			var result = await queries.GetAllAsync(
+				owner: owner,
+				name: name,
+				first: 20,
+				refs: ContextViewModel.BranchName,
+				path: ContextViewModel.Path);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Commit>)result.Response;
 
 			_items.Clear();
-			foreach (var item in response)
+			foreach (var item in items)
 			{
 				CommitBlockButtonViewModel viewModel = new()
 				{
@@ -71,6 +84,51 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 				};
 
 				_items.Add(viewModel);
+			}
+		}
+
+		private async Task LoadRepositoryCommitsFurtherAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				CommitQueries queries = new();
+
+				var result = await queries.GetAllAsync(
+					owner: Login,
+					name: Name,
+					refs: ContextViewModel.BranchName,
+					first: 20,
+					after: _lastPageInfo.EndCursor,
+					path: ContextViewModel.Path);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Commit>)result.Response;
+
+				foreach (var item in items)
+				{
+					CommitBlockButtonViewModel viewModel = new()
+					{
+						CommitItem = item,
+					};
+
+					_items.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
 			}
 		}
 

@@ -2,53 +2,83 @@
 {
 	public class DiscussionQueries
 	{
-		public async Task<List<Discussion>> GetAllAsync(string owner, string name)
+		public async Task<OctokitQueryResult> GetAllAsync(
+			string owner,
+			string name,
+			int? first = null,
+			string? after = null,
+			int? last = null,
+			string? before = null,
+			ID? categoryId = null,
+			OctokitGraphQLModel.DiscussionOrder? orderBy = null)
 		{
 			var query = new Query()
 				.Repository(owner: owner, name: name)
-				.Discussions(first: 30)
-				.Nodes
-				.Select(x => new Discussion
+				.Discussions(
+					first,
+					after,
+					last,
+					before,
+					categoryId,
+					orderBy)
+				.Select(root => new DiscussionConnection
 				{
-					AnswerChosenAt = x.AnswerChosenAt,
-					Id = x.Id,
-					Locked = x.Locked,
-					Number = x.Number,
-					Title = x.Title,
-					UpdatedAt = x.UpdatedAt,
-					UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
-					UpvoteCount = x.UpvoteCount,
-					Url = x.Url,
-					ViewerCanDelete = x.ViewerCanDelete,
-					ViewerDidAuthor = x.ViewerDidAuthor,
-					ViewerHasUpvoted = x.ViewerHasUpvoted,
-
-					Category = x.Category.Select(category => new DiscussionCategory
+					Edges = root.Edges.Select(x => new DiscussionEdge
 					{
-						Emoji = category.Emoji,
-						Id = category.Id,
-					})
-					.Single(),
-
-					Repository = x.Repository.Select(repo => new Repository
-					{
-						Name = repo.Name,
-
-						Owner = repo.Owner.Select(owner => new RepositoryOwner
+						Node = x.Node.Select(x => new Discussion
 						{
-							AvatarUrl = owner.AvatarUrl(500),
-							Id = owner.Id,
-							Login = owner.Login,
-						})
-						.Single(),
-					})
-					.Single(),
+							AnswerChosenAt = x.AnswerChosenAt,
+							Id = x.Id,
+							Locked = x.Locked,
+							Number = x.Number,
+							Title = x.Title,
+							UpdatedAt = x.UpdatedAt,
+							UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+							UpvoteCount = x.UpvoteCount,
+							Url = x.Url,
+							ViewerCanDelete = x.ViewerCanDelete,
+							ViewerDidAuthor = x.ViewerDidAuthor,
+							ViewerHasUpvoted = x.ViewerHasUpvoted,
+
+							Category = x.Category.Select(category => new DiscussionCategory
+							{
+								Emoji = category.Emoji,
+								Id = category.Id,
+							}).Single(),
+
+							Repository = x.Repository.Select(repo => new Repository
+							{
+								Name = repo.Name,
+
+								Owner = repo.Owner.Select(owner => new RepositoryOwner
+								{
+									AvatarUrl = owner.AvatarUrl(500),
+									Id = owner.Id,
+									Login = owner.Login,
+								}).Single(),
+							}).Single(),
+						}).Single(),
+					}).ToList(),
+
+					PageInfo = new()
+					{
+						EndCursor = root.PageInfo.EndCursor,
+						HasNextPage = root.PageInfo.HasNextPage,
+						HasPreviousPage = root.PageInfo.HasPreviousPage,
+						StartCursor = root.PageInfo.StartCursor,
+					},
 				})
 				.Compile();
 
 			var response = await App.Connection.Run(query);
 
-			return response.ToList();
+			var result = new OctokitQueryResult()
+			{
+				PageInfo = response.PageInfo,
+				Response = response.Edges.Select(x => x.Node).ToList(),
+			};
+
+			return result;
 		}
 
 		public async Task<Discussion> GetAsync(string owner, string name, int number)

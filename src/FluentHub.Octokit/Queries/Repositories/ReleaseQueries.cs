@@ -2,41 +2,65 @@
 {
 	public class ReleaseQueries
 	{
-		public async Task<List<Release>> GetAllAsync(string owner, string name)
+		public async Task<OctokitQueryResult> GetAllAsync(
+			string owner,
+			string name,
+			int? first = null,
+			string? after = null,
+			int? last = null,
+			string? before = null,
+			OctokitGraphQLModel.ReleaseOrder? orderBy = null)
 		{
-			OctokitGraphQLCore.Arg<OctokitGraphQLModel.ReleaseOrder> releaseOrder =
-				new(new OctokitGraphQLModel.ReleaseOrder
-				{
-					Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				});
+			orderBy ??= new()
+			{
+				Direction = OctokitGraphQLModel.OrderDirection.Desc,
+			};
 
 			var query = new Query()
 				.Repository(name, owner)
-				.Releases(20, null, null, null, null)
-				.Nodes
-				.Select(x => new Release
+				.Releases(first, after, last, before, orderBy)
+				.Select(root => new ReleaseConnection
 				{
-					Author = x.Author.Select(author => new User
+					Edges = root.Edges.Select(x => new ReleaseEdge
 					{
-						Login = author.Login,
-						AvatarUrl = author.AvatarUrl(500),
-					})
-					.Single(),
+						Node = x.Node.Select(x => new Release
+						{
+							Author = x.Author.Select(author => new User
+							{
+								Login = author.Login,
+								AvatarUrl = author.AvatarUrl(500),
+							}).Single(),
 
-					DescriptionHTML = x.DescriptionHTML,
-					IsDraft = x.IsDraft,
-					IsLatest = x.IsLatest,
-					IsPrerelease = x.IsPrerelease,
-					Name = x.Name,
-					PublishedAt = x.PublishedAt,
-					PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
-					TagName = x.TagName,
+							DescriptionHTML = x.DescriptionHTML,
+							IsDraft = x.IsDraft,
+							IsLatest = x.IsLatest,
+							IsPrerelease = x.IsPrerelease,
+							Name = x.Name,
+							PublishedAt = x.PublishedAt,
+							PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
+							TagName = x.TagName,
+						}).Single(),
+					}).ToList(),
+
+					PageInfo = new()
+					{
+						EndCursor = root.PageInfo.EndCursor,
+						HasNextPage = root.PageInfo.HasNextPage,
+						HasPreviousPage = root.PageInfo.HasPreviousPage,
+						StartCursor = root.PageInfo.StartCursor,
+					},
 				})
 				.Compile();
 
 			var response = await App.Connection.Run(query);
 
-			return response.ToList();
+			var result = new OctokitQueryResult()
+			{
+				PageInfo = response.PageInfo,
+				Response = response.Edges.Select(x => x.Node).ToList(),
+			};
+
+			return result;
 		}
 
 		public async Task<Release> GetAsync(string owner, string name, string tagName)

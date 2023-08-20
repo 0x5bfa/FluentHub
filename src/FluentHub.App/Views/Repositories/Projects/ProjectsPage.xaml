@@ -22,7 +22,7 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<ScrollViewer ViewChanged="OnScrollViewerViewChanged">
 				<Grid Padding="32,32,32,32">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />

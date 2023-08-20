@@ -26,6 +26,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		public ICommand GoToReleasePageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryReleasesFurtherCommand { get; }
 
 		public ReleasesViewModel() : base()
 		{
@@ -38,6 +39,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 			GoToReleasePageCommand = new RelayCommand<string>(ExecuteGoToReleasePageCommand);
 			LoadRepositoryReleasesPageCommand = new AsyncRelayCommand(LoadRepositoryReleasesPageAsync);
+			LoadRepositoryReleasesFurtherCommand = new AsyncRelayCommand(LoadRepositoryReleasesFurtherAsync);
 		}
 
 		private async Task LoadRepositoryReleasesPageAsync()
@@ -75,7 +77,16 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		private async Task LoadRepositoryReleasesAsync(string login, string name)
 		{
 			ReleaseQueries queries = new();
-			var items = await queries.GetAllAsync(login, name);
+
+			var result = await queries.GetAllAsync(
+				owner: login,
+				name: name,
+				first: 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Release>)result.Response;
 
 			if (items.Any())
 			{
@@ -83,7 +94,44 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 			}
 
 			_items.Clear();
-			foreach (var item in items) _items.Add(item);
+			foreach (var item in items)
+				_items.Add(item);
+		}
+
+		private async Task LoadRepositoryReleasesFurtherAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				ReleaseQueries queries = new();
+
+				var result = await queries.GetAllAsync(
+					owner: Login,
+					name: Name,
+					first: 20,
+					after: _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Release>)result.Response;
+
+				foreach (var item in items)
+					_items.Add(item);
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
 		}
 
 		public async Task LoadRepositoryAsync(string owner, string name)

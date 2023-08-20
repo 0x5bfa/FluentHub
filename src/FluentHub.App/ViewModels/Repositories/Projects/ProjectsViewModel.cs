@@ -8,6 +8,7 @@ using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
+using System.Xml.Linq;
 
 namespace FluentHub.App.ViewModels.Repositories.Projects
 {
@@ -20,6 +21,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		public ReadOnlyObservableCollection<ProjectBlockButtonViewModel> Items { get; }
 
 		public IAsyncRelayCommand LoadRepositoryProjectsPageCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryProjectsFurtherCommand { get; }
 
 		public ProjectsViewModel() : base()
 		{
@@ -27,6 +29,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 			Items = new(_items);
 
 			LoadRepositoryProjectsPageCommand = new AsyncRelayCommand(LoadRepositoryProjectsPageAsync);
+			LoadRepositoryProjectsFurtherCommand = new AsyncRelayCommand(LoadRepositoryProjectsFurtherAsync);
 		}
 
 		private async Task LoadRepositoryProjectsPageAsync()
@@ -63,7 +66,16 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		private async Task LoadProjectsPageAsync(string owner, string name)
 		{
 			ProjectQueries queries = new();
-			var items = await queries.GetAllAsync(owner, name);
+
+			var result = await queries.GetAllAsync(
+				owner: owner,
+				name: name,
+				first: 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Project>)result.Response;
 
 			_items.Clear();
 			foreach (var item in items)
@@ -74,6 +86,49 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 				};
 
 				_items.Add(viewmodel);
+			}
+		}
+
+		private async Task LoadRepositoryProjectsFurtherAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				ProjectQueries queries = new();
+
+				var result = await queries.GetAllAsync(
+					owner: Login,
+					name: Name,
+					first: 20,
+					after: _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Project>)result.Response;
+
+				foreach (var item in items)
+				{
+					ProjectBlockButtonViewModel viewmodel = new()
+					{
+						Item = item,
+					};
+
+					_items.Add(viewmodel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
 			}
 		}
 

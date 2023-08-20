@@ -26,5 +26,16 @@ namespace FluentHub.App.Views.Repositories.Discussions
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
+
+		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+		{
+			var scrollViewer = (ScrollViewer)sender;
+			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			{
+				var command = ViewModel.LoadRepositoryDiscussionsFurtherCommand;
+				if (command.CanExecute(null))
+					command.Execute(null);
+			}
+		}
 	}
 }

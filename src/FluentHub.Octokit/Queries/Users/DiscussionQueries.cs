@@ -14,7 +14,14 @@
 		{
 			var query = new Query()
 				.User(login)
-				.RepositoryDiscussions(first, after, last, before, answered, orderBy, repositoryId)
+				.RepositoryDiscussions(
+					first,
+					after,
+					last,
+					before,
+					answered,
+					orderBy,
+					repositoryId)
 				.Select(root => new DiscussionConnection
 				{
 					Edges = root.Edges.Select(x => new DiscussionEdge

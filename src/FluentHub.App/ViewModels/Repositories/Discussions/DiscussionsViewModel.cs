@@ -17,6 +17,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
 
 		public IAsyncRelayCommand LoadRepositoryDiscussionsPageCommand { get; }
+		public IAsyncRelayCommand LoadRepositoryDiscussionsFurtherCommand { get; }
 
 		public DiscussionsViewModel() : base()
 		{
@@ -24,6 +25,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 			Items = new(_items);
 
 			LoadRepositoryDiscussionsPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionsPageAsync);
+			LoadRepositoryDiscussionsFurtherCommand = new AsyncRelayCommand(LoadRepositoryDiscussionsFurtherAsync);
 		}
 
 		private async Task LoadRepositoryDiscussionsPageAsync()
@@ -60,17 +62,69 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 		private async Task LoadRepositoryDiscussionsAsync(string owner, string name)
 		{
 			DiscussionQueries queries = new();
-			var items = await queries.GetAllAsync(owner, name);
+
+			var result = await queries.GetAllAsync(
+				owner: owner,
+				name: name,
+				first: 20);
+			if (result.Response is null || result.PageInfo is null)
+				return;
+
+			_lastPageInfo = result.PageInfo;
+			var items = (List<Discussion>)result.Response;
 
 			_items.Clear();
 			foreach (var item in items)
 			{
-				DiscussionBlockButtonViewModel viewmodel = new()
+				DiscussionBlockButtonViewModel viewModel = new()
 				{
 					Item = item,
 				};
 
-				_items.Add(viewmodel);
+				_items.Add(viewModel);
+			}
+		}
+
+		private async Task LoadRepositoryDiscussionsFurtherAsync()
+		{
+			if (!_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				DiscussionQueries queries = new();
+
+				var result = await queries.GetAllAsync(
+					owner: Login,
+					name: Name,
+					first: 20,
+					after: _lastPageInfo.EndCursor);
+				if (result.Response is null || result.PageInfo is null)
+					return;
+
+				_lastPageInfo = result.PageInfo;
+				var items = (List<Discussion>)result.Response;
+
+				foreach (var item in items)
+				{
+					DiscussionBlockButtonViewModel viewModel = new()
+					{
+						Item = item,
+					};
+
+					_items.Add(viewModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
 			}
 		}
 
