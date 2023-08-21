@@ -76,6 +76,9 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Content>
+        <Content Include="AppCredentials.config">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
