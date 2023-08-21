@@ -6,7 +6,6 @@ using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using FluentHub.App.Views.Repositories.Releases;
 using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Windows.Input;

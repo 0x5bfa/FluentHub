@@ -1,4 +1,5 @@
-﻿<views:LocatablePage
+﻿<!--  Copyright (c) 2023 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<views:LocatablePage
 	x:Class="FluentHub.App.Views.Viewers.NotificationsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

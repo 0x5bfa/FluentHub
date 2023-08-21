@@ -4,7 +4,6 @@
 using FluentHub.App.Utils;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
@@ -15,6 +14,7 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
 using FluentHub.App.ViewModels.Repositories.Codes;
+using Serilog;
 
 namespace FluentHub.App
 {
@@ -42,6 +42,7 @@ namespace FluentHub.App
 			UnhandledException += OnUnhandledException;
 			TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
+			Log.Logger = GetSerilogLogger();
 			var _host = AppLifecycleHelper.ConfigureServices();
 			Ioc.Default.ConfigureServices(_host.Services);
 
@@ -65,6 +66,24 @@ namespace FluentHub.App
 
 			// Initialize Window
 			WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
+		}
+
+		private static Serilog.ILogger GetSerilogLogger()
+		{
+			string logFilePath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
+
+			var logger = new LoggerConfiguration()
+				.MinimumLevel
+#if DEBUG
+				.Verbose()
+#else
+				.Error()
+#endif
+				.WriteTo
+				.File(logFilePath, rollingInterval: RollingInterval.Day)
+				.CreateLogger();
+
+			return logger;
 		}
 
 		private void EnsureWindowIsInitialized()
@@ -102,7 +121,7 @@ namespace FluentHub.App
 
 		private async Task AppUnhandledException(Exception ex)
 		{
-			Ioc.Default.GetService<ILogger>()?.Fatal("Unhandled exception", ex);
+			Ioc.Default.GetService<Utils.ILogger>()?.Fatal("Unhandled exception", ex);
 
 			try
 			{
@@ -116,7 +135,7 @@ namespace FluentHub.App
 			}
 			catch (Exception ex2)
 			{
-				Ioc.Default.GetService<ILogger>()?.Error("Failed to display unhandled exception", ex2);
+				Ioc.Default.GetService<Utils.ILogger>()?.Error("Failed to display unhandled exception", ex2);
 			}
 		}
 	}

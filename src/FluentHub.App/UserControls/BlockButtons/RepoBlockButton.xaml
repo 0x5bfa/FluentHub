@@ -225,7 +225,7 @@
 				Width="96"
 				x:Load="{x:Bind ViewModel.DisplayStarButton, Mode=OneWay}">
 
-				<Button HorizontalAlignment="Stretch" IsEnabled="False">
+				<Button HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.AddStarToRepositoryCommand, Mode=OneWay}">
 
 					<toolkit:SwitchPresenter
 						Grid.RowSpan="2"

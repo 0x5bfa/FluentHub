@@ -3,7 +3,6 @@
 
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;

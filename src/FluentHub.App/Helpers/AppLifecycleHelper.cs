@@ -4,7 +4,6 @@
 using FluentHub.App.Utils;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
@@ -13,8 +12,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
 using Windows.Storage;
-using CommunityToolkit.WinUI;
-using FluentHub.App.ViewModels.Repositories.Codes;
+using Serilog;
 
 namespace FluentHub.App.Helpers
 {
@@ -38,7 +36,7 @@ namespace FluentHub.App.Helpers
 			return Host.CreateDefaultBuilder()
 				.ConfigureServices(services => services
 					.AddSingleton<INavigationService, NavigationService>()
-					.AddSingleton<ILogger>(new SerilogWrapperLogger(Serilog.Log.Logger))
+					.AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Log.Logger))
 					.AddSingleton<ToastService>()
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
 					// ViewModels

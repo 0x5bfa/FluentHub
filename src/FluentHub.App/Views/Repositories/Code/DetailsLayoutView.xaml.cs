@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;

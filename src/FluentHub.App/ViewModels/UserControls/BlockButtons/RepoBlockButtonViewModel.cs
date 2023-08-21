@@ -17,10 +17,12 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 		public bool DisplayStarButton { get => _displayStarButton; set => SetProperty(ref _displayStarButton, value); }
 
 		public ICommand GoRepositoryCommand { get; private set; }
+		public ICommand AddStarToRepositoryCommand { get; private set; }
 
 		public RepoBlockButtonViewModel()
 		{
 			GoRepositoryCommand = new RelayCommand(GoRepository);
+			AddStarToRepositoryCommand = new RelayCommand(AddStarToRepository);
 		}
 
 		private void GoRepository()
@@ -38,6 +40,11 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
 			else
 				_navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
+		}
+
+		private void AddStarToRepository()
+		{
+			// Add mutation
 		}
 	}
 }

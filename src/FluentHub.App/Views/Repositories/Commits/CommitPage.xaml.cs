@@ -1,7 +1,6 @@
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.Repositories.Commits;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;

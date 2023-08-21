@@ -1,15 +1,8 @@
-using CommunityToolkit.WinUI.UI;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Extensions;
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.IO;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;

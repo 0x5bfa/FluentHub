@@ -5,41 +5,78 @@ using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using FluentHub.Octokit.Authorization;
+using System.Windows.Input;
 using Windows.System;
 
 namespace FluentHub.App.ViewModels.SignIn
 {
 	public class IntroViewModel : ObservableObject
 	{
-		public IntroViewModel(ILogger logger = null, IMessenger messenger = null)
-		{
-			_logger = logger;
-			_messenger = messenger;
-
-			_messenger?.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
-
-			AuthorizeOAuthCommand = new AsyncRelayCommand<string>(AuthorizeOAuthAsync);
-			AuthorizeWithBrowserCommand = new AsyncRelayCommand<string>(AuthorizeWithBrowserAsync);
-		}
-
-		#region Fields and Properties
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
 
-		private Exception _exception;
-		public Exception Exception { get => _exception; set => SetProperty(ref _exception, value); }
-
 		private bool _authorizedSuccessfully;
-		public bool AuthorizedSuccessfully { get => _authorizedSuccessfully; set => SetProperty(ref _authorizedSuccessfully, value); }
+		public bool AuthorizedSuccessfully
+		{
+			get => _authorizedSuccessfully;
+			set => SetProperty(ref _authorizedSuccessfully, value);
+		}
 
-		private bool _authorizing;
-		public bool Authorizing { get => _authorizing; set => SetProperty(ref _authorizing, value); }
+		private bool _UrlWasLaunched;
+		public bool UrlWasLaunched
+		{
+			get => _UrlWasLaunched;
+			set => SetProperty(ref _UrlWasLaunched, value);
+		}
 
-		public IAsyncRelayCommand AuthorizeOAuthCommand { get; set; }
-		public IAsyncRelayCommand AuthorizeWithBrowserCommand { get; set; }
-		#endregion
+		private Exception _taskException;
+		public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-		private async Task AuthorizeWithBrowserAsync(string login, CancellationToken token)
+		protected bool _IsTaskFaulted;
+		public bool IsTaskFaulted { get => _IsTaskFaulted; set => SetProperty(ref _IsTaskFaulted, value); }
+
+		protected bool _IsTaskLoading;
+		public bool IsTaskLoading { get => _IsTaskLoading; set => SetProperty(ref _IsTaskLoading, value); }
+
+		public string ReceivedUserIdentity
+		{
+			set
+			{
+				var command = AuthorizeOAuthCommand;
+				if (command.CanExecute(value))
+					command.Execute(value);
+			}
+		}
+
+		public string Version
+		{
+			get
+			{
+				string architecture = Windows.ApplicationModel.Package.Current.Id.Architecture.ToString();
+
+#if DEBUG
+				string buildConfiguration = "DEBUG";
+#else
+				string buildConfiguration = "RELEASE";
+#endif
+
+				return $"{App.AppVersion} | {architecture} | {buildConfiguration}";
+			}
+		}
+
+		public ICommand AuthorizeOAuthCommand { get; set; }
+		public ICommand AuthorizeWithBrowserCommand { get; set; }
+
+		public IntroViewModel()
+		{
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
+			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+
+			AuthorizeWithBrowserCommand = new AsyncRelayCommand(AuthorizeWithBrowserAsync);
+			AuthorizeOAuthCommand = new AsyncRelayCommand<string>(AuthorizeOAuthAsync);
+		}
+
+		private async Task AuthorizeWithBrowserAsync()
 		{
 			try
 			{
@@ -48,32 +85,44 @@ namespace FluentHub.App.ViewModels.SignIn
 				if (secrets is null)
 				{
 					// Show error
-					Exception = new NullReferenceException($"Please set values in AppCredentials.config\r\nFor more information, visit our GitHub link below.");
+					TaskException = new NullReferenceException(
+						$"Please set values in AppCredentials.config\r\n" +
+						$"For more information, visit our GitHub link below.");
+
 					App.AppSettings.SetupProgress = false;
-					_logger?.Error(nameof(AuthorizeWithBrowserAsync), Exception);
+					_logger?.Error(nameof(AuthorizeWithBrowserAsync), TaskException);
 					return;
 				}
 
+				// Get authorization URL
 				AuthorizationService request = new();
 				var url = request.RequestGitHubIdentityAsync(secrets);
+
+				// Load the URL in user's browser
 				await Launcher.LaunchUriAsync(new Uri(url));
 
 				App.AppSettings.SetupProgress = true;
+				UrlWasLaunched = true;
 			}
 			catch (Exception ex)
 			{
-				Exception = ex;
+				TaskException = ex;
+				IsTaskFaulted = true;
 				App.AppSettings.SetupProgress = false;
 
 				_logger?.Error(nameof(AuthorizeWithBrowserAsync), ex);
 			}
+			finally
+			{
+
+			}
 		}
 
-		private async Task AuthorizeOAuthAsync(string code, CancellationToken token)
+		private async Task AuthorizeOAuthAsync(string? code)
 		{
 			try
 			{
-				Authorizing = true;
+				IsTaskLoading = true;
 
 				var secrets = await OctokitSecretsService.LoadOctokitSecretsAsync();
 
@@ -93,14 +142,15 @@ namespace FluentHub.App.ViewModels.SignIn
 			}
 			catch (Exception ex)
 			{
-				Exception = ex;
+				TaskException = ex;
 				_logger?.Info("FluentHub authorization failed.");
 
 				AuthorizedSuccessfully = false;
+				IsTaskFaulted = true;
 			}
 			finally
 			{
-				Authorizing = false;
+				IsTaskLoading = false;
 			}
 		}
 
@@ -118,23 +168,11 @@ namespace FluentHub.App.ViewModels.SignIn
 			}
 			catch (Exception ex)
 			{
-				Exception = ex;
+				TaskException = ex;
 				_logger?.Info("FluentHub authorization failed in getting authorized account info.");
 
 				AuthorizedSuccessfully = false;
 			}
-		}
-
-		private void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
-		{
-			if (message.Title != "Received GitHub User ID")
-				return;
-
-			var code = message.Message;
-
-			var command = AuthorizeOAuthCommand;
-			if (command.CanExecute(code))
-				command.Execute(code);
 		}
 	}
 }

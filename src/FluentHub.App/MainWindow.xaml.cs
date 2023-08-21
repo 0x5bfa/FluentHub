@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Models;
-using Microsoft.Extensions.DependencyInjection;
+using FluentHub.App.ViewModels.SignIn;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
@@ -88,10 +88,9 @@ namespace FluentHub.App
 									// Get GitHub User ID
 									var code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
 
-									// Do not add authorize phase to here because this method will be called by non-async method.
-									// Even if an authorizing exception occurred, it will not be caught by Try-Catch.
-									UserNotificationMessage notification = new("Received GitHub User ID", code);
-									messenger?.Send(notification);
+									var introViewModel = Ioc.Default.GetService<IntroViewModel>();
+
+									introViewModel.ReceivedUserIdentity = code;
 
 									break;
 								}

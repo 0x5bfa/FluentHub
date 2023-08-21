@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

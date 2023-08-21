@@ -1,4 +1,5 @@
-﻿<ContentDialog
+﻿<!--  Copyright (c) 2023 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<ContentDialog
 	x:Class="FluentHub.App.Dialogs.EditPinnedRepositoriesDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

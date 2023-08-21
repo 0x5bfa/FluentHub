@@ -1,7 +1,6 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
 namespace FluentHub.App.ViewModels.UserControls.Overview

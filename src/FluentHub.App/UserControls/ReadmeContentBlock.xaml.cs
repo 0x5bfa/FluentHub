@@ -3,7 +3,6 @@ using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;

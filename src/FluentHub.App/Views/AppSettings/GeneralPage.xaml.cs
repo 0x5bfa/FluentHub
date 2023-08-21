@@ -1,6 +1,5 @@
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.AppSettings;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
