@@ -9,9 +9,6 @@
 </p>
 
 <p align="center">
-  <a title="Azure Pipeline" target="_blank" href="https://dev.azure.com/fluenthub/FluentHub">
-    <img src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main">
-  </a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
     <img src="https://badges.crowdin.net/fluenthub/localized.svg">
   </a>
@@ -27,7 +24,19 @@
 </p>
 
 ---
-## Installation
+
+## Build status
+
+Architecture|Debug|Sideload|Store
+---|---|---|---
+x64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
+ARM64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
+
+## Installation and running FluentHub
+
+### Requirements
+
+- Windows 10 or Windows 11 (Build 10.0.19041.0 or newer)
 
 ### Via Microsoft Store
 
@@ -51,9 +60,35 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 
-### Building from source
+## Building the Code
 
-See the [build section](#-building-the-code).
+### Requirements
+
+- Windows 10 (Build 10.0.19041.0) or newer with Developer Mode enabled in the Windows Settings
+- [Git](https://git-scm.com/)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/):
+  - Windows App SDK (version 10.0.22621.0)
+  - .NET 7 SDK (check the box named .NET Desktop Development)
+  - Windows App SDK
+
+### 1. Clone the repository
+
+```git
+git clone https://github.com/FluentHub/FluentHub
+```
+
+### 2. Prepare OAuth credentials
+
+See [the documentation](docs/credentials.md).
+
+> **Warning**  
+> If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
+
+### 3. Build the project
+
+- Open `FluentHub.sln`.
+- Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
+- Build with `Debug`, `x64`, `FluentHub.Package`.
 
 ## Screenshots
 
@@ -78,56 +113,12 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
 
-### Codebase Structure
-
-```
-.
-└──src                               // The source code.
-   ├──FluentHub.App                  // Code for most front-end elements of the app.
-   ├──FluentHub.Core                 // Core elements of the app.
-   ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
-   └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator.
-```
-
 ## Feedback
 
 - [Request a new feature](https://github.com/FluentHub/FluentHub/pulls)
 - Upvote popular feature requests
 - [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
 - Join [our Discord](https://discord.gg/8KtRkjq2Q4) and let us know what you think
-
-## Building the Code
-
-### 1. Prerequisites
-
-Ensure you have installed the following tools:
-
-- Windows 10 2004 (10.0.19041.0) or later with Developer Mode on in the Windows Settings
-- [Git](https://git-scm.com/)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) with following individual components:
-  - Windows 11 (10.0.22000.0) SDK
-  - Windows App SDK
-  - .NET 7 SDK
-
-### 2. Git
-
-Clone the repository:
-
-```git
-git clone https://github.com/FluentHub/FluentHub
-```
-
-### 3. Prepare OAuth credentials
-
-See [the documentation](docs/credentials.md).
-
-**Warning:** If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
-
-### 4. Build the project
-
-- Open `FluentHub.sln`.
-- Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
-- Build with `DEBUG`, `x64`, `FluentHub.Package`.
 
 ## Credit
 
