@@ -24,11 +24,11 @@ namespace FluentHub.Octokit.Queries.Users
 			var query = new Query()
 				.User(login)
 				.Issues(first, after, last, before, filterBy, labels is null ? null : new Arg<IEnumerable<string>>(labels), orderBy, states is null ? null : new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
-				.Select(root => new IssueConnection
+				.Select(connection => new IssueConnection
 				{
-					Edges = root.Edges.Select(x => new IssueEdge
+					Edges = connection.Edges.Select(edge => new IssueEdge
 					{
-						Node = x.Node.Select(x => new Issue
+						Node = edge.Node.Select(x => new Issue
 						{
 							Closed = x.Closed,
 							Number = x.Number,
@@ -72,10 +72,10 @@ namespace FluentHub.Octokit.Queries.Users
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

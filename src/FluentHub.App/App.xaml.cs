@@ -65,7 +65,7 @@ namespace FluentHub.App
 			// Called from Program class
 
 			// Initialize Window
-			WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
+			_ = WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
 		}
 
 		private static Serilog.ILogger GetSerilogLogger()

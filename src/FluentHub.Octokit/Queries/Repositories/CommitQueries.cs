@@ -32,11 +32,11 @@
 					path,
 					since,
 					until)
-				.Select(root => new CommitHistoryConnection
+				.Select(connection => new CommitHistoryConnection
 				{
-					Edges = root.Edges.Select(x => new CommitEdge
+					Edges = connection.Edges.Select(edge => new CommitEdge
 					{
-						Node = x.Node.Select(x => new Commit
+						Node = edge.Node.Select(x => new Commit
 						{
 							AbbreviatedOid = x.AbbreviatedOid,
 							Additions = x.Additions,
@@ -87,10 +87,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

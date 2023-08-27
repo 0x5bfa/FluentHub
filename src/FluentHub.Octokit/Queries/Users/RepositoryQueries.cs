@@ -1,6 +1,4 @@
-﻿using Octokit.GraphQL.Core;
-
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
 	public class RepositoryQueries
 	{
@@ -36,22 +34,23 @@ namespace FluentHub.Octokit.Queries.Users
 					after,
 					last,
 					before,
-					affiliations is null ? null : new Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
+					affiliations is null ? null : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
 					isFork,
 					isLocked,
 					orderBy,
-					ownerAffiliations is null ? null : new Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(ownerAffiliations),
+					ownerAffiliations is null ? null : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(ownerAffiliations),
 					privacy)
-				.Select(root => new RepositoryConnection
+				.Select(connection => new RepositoryConnection
 				{
-					Edges = root.Edges.Select(x => new RepositoryEdge
+					Edges = connection.Edges.Select(edge => new RepositoryEdge
 					{
-						Node = x.Node.Select(x => new Repository
+						Node = edge.Node.Select(x => new Repository
 						{
 							Name = x.Name,
 							Description = x.Description,
 							StargazerCount = x.StargazerCount,
 							ForkCount = x.ForkCount,
+							Id = x.Id,
 							IsFork = x.IsFork,
 							IsPrivate = x.IsPrivate,
 							IsInOrganization = x.IsInOrganization,
@@ -94,12 +93,12 @@ namespace FluentHub.Octokit.Queries.Users
 						}).Single()
 					}).ToList(),
 
-					PageInfo = new()
+					PageInfo = new PageInfo()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

@@ -24,11 +24,11 @@ namespace FluentHub.Octokit.Queries.Users
 					orderBy is null ? null : new Arg<OctokitGraphQLModel.ProjectOrder>(orderBy),
 					search,
 					states is null ? null : new Arg<IEnumerable<OctokitGraphQLModel.ProjectState>>(states))
-				.Select(root => new ProjectConnection
+				.Select(connection => new ProjectConnection
 				{
-					Edges = root.Edges.Select(x => new ProjectEdge
+					Edges = connection.Edges.Select(edge => new ProjectEdge
 					{
-						Node = x.Node.Select(x => new Project
+						Node = edge.Node.Select(x => new Project
 						{
 							Body = x.Body,
 							Closed = x.Closed,
@@ -59,10 +59,10 @@ namespace FluentHub.Octokit.Queries.Users
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

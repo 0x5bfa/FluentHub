@@ -22,11 +22,11 @@
 					answered,
 					orderBy,
 					repositoryId)
-				.Select(root => new DiscussionConnection
+				.Select(connection => new DiscussionConnection
 				{
-					Edges = root.Edges.Select(x => new DiscussionEdge
+					Edges = connection.Edges.Select(edge => new DiscussionEdge
 					{
-						Node = x.Node.Select(x => new Discussion
+						Node = edge.Node.Select(x => new Discussion
 						{
 							Category = x.Category.Select(category => new DiscussionCategory
 							{
@@ -65,10 +65,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

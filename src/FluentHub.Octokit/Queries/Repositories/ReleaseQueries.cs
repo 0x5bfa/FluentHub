@@ -19,11 +19,11 @@
 			var query = new Query()
 				.Repository(name, owner)
 				.Releases(first, after, last, before, orderBy)
-				.Select(root => new ReleaseConnection
+				.Select(connection => new ReleaseConnection
 				{
-					Edges = root.Edges.Select(x => new ReleaseEdge
+					Edges = connection.Edges.Select(edge => new ReleaseEdge
 					{
-						Node = x.Node.Select(x => new Release
+						Node = edge.Node.Select(x => new Release
 						{
 							Author = x.Author.Select(author => new User
 							{
@@ -44,10 +44,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

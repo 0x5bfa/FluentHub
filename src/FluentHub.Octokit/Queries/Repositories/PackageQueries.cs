@@ -25,11 +25,11 @@
 					orderBy,
 					packageType,
 					repositoryId)
-				.Select(root => new PackageConnection
+				.Select(connection => new PackageConnection
 				{
-					Edges = root.Edges.Select(x => new PackageEdge
+					Edges = connection.Edges.Select(edge => new PackageEdge
 					{
-						Node = x.Node.Select(x => new Package
+						Node = edge.Node.Select(x => new Package
 						{
 							Id = x.Id,
 							Name = x.Name,
@@ -59,10 +59,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

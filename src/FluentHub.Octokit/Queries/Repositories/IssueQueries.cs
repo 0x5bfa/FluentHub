@@ -31,11 +31,11 @@
 					labels is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(labels) : null,
 					orderBy,
 					states is not null ? new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states) : null)
-				.Select(root => new IssueConnection
+				.Select(connection => new IssueConnection
 				{
-					Edges = root.Edges.Select(x => new IssueEdge
+					Edges = connection.Edges.Select(edge => new IssueEdge
 					{
-						Node = x.Node.Select(x => new Issue
+						Node = edge.Node.Select(x => new Issue
 						{
 							Closed = x.Closed,
 							Number = x.Number,
@@ -74,10 +74,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

@@ -12,11 +12,11 @@
 			var query = new Query()
 				.User(login)
 				.Organizations(first, after, last, before)
-				.Select(root => new OrganizationConnection
+				.Select(connection => new OrganizationConnection
 				{
-					Edges = root.Edges.Select(x => new OrganizationEdge
+					Edges = connection.Edges.Select(edge => new OrganizationEdge
 					{
-						Node = x.Node.Select(x => new Organization
+						Node = edge.Node.Select(x => new Organization
 						{
 							AvatarUrl = x.AvatarUrl(500),
 							Description = x.Description,
@@ -27,10 +27,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();

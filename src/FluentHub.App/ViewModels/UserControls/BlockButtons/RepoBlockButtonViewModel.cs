@@ -1,6 +1,7 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Octokit.Mutations;
 using System.Windows.Input;
 
 namespace FluentHub.App.ViewModels.UserControls.BlockButtons
@@ -22,7 +23,7 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 		public RepoBlockButtonViewModel()
 		{
 			GoRepositoryCommand = new RelayCommand(GoRepository);
-			AddStarToRepositoryCommand = new RelayCommand(AddStarToRepository);
+			AddStarToRepositoryCommand = new AsyncRelayCommand(AddStarToRepositoryAsync);
 		}
 
 		private void GoRepository()
@@ -42,9 +43,31 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 				_navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
 		}
 
-		private void AddStarToRepository()
+		private async Task AddStarToRepositoryAsync()
 		{
-			// Add mutation
+			try
+			{
+				if (Repository.ViewerHasStarred)
+				{
+					// Remove star
+					var removeStarMutation = new RemoveStarMutation();
+
+					await removeStarMutation.Execute(Repository.Id);
+				}
+				else
+				{
+					// Add star
+					var addStarMutation = new AddStarMutation();
+
+					await addStarMutation.Execute(Repository.Id);
+				}
+
+				Repository.ViewerHasStarred = !Repository.ViewerHasStarred;
+			}
+			catch (Exception ex)
+			{
+
+			}
 		}
 	}
 }

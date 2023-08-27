@@ -32,16 +32,17 @@
 					before,
 					orderBy,
 					ownedByViewer)
-				.Select(root => new RepositoryConnection
+				.Select(connection => new RepositoryConnection
 				{
-					Edges = root.Edges.Select(x => new RepositoryEdge
+					Edges = connection.Edges.Select(edge => new RepositoryEdge
 					{
-						Node = x.Node.Select(x => new Repository
+						Node = edge.Node.Select(x => new Repository
 						{
 							Name = x.Name,
 							Description = x.Description,
 							StargazerCount = x.StargazerCount,
 							ForkCount = x.ForkCount,
+							Id = x.Id,
 							IsFork = x.IsFork,
 							IsInOrganization = x.IsInOrganization,
 							ViewerHasStarred = x.ViewerHasStarred,
@@ -85,10 +86,10 @@
 
 					PageInfo = new()
 					{
-						EndCursor = root.PageInfo.EndCursor,
-						HasNextPage = root.PageInfo.HasNextPage,
-						HasPreviousPage = root.PageInfo.HasPreviousPage,
-						StartCursor = root.PageInfo.StartCursor,
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
 					},
 				})
 				.Compile();
