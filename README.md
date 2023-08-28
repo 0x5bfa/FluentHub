@@ -81,7 +81,7 @@ git clone https://github.com/FluentHub/FluentHub
 
 See [the documentation](docs/credentials.md).
 
-> **Important**  
+> [!IMPORTANT]  
 > If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
 
 ### 3. Build the project
