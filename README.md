@@ -35,7 +35,7 @@ Project|Status
 FluentHub.App|[![Localization Status](https://badges.crowdin.net/fluenthub/localized.svg)](https://crowdin.com/project/fluenthub)
 
 <a href="https://crowdin.com/project/fluenthub" rel="nofollow">
-  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/light/crowdin-on-dark.png" />
+  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" />
 </a>
 
 ## Installation and running FluentHub
