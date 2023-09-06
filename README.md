@@ -28,7 +28,7 @@ ARM64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/sta
 
 ## Localization status
 
-Localization can be done with Crowdin.
+Contributing to translations is of great benefit to the project.
 
 Project|Status
 ---|---
