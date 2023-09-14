@@ -265,10 +265,5 @@ namespace FluentHub.App.Helpers
 			IntPtr WindowHandle { get; }
 			bool MessageHandled { get; }
 		}
-
-		public static IntPtr CoreWindowHandle => App.WindowHandle;
-
-		//public static Task<string> GetFileAssociationAsync(string filePath)
-		//	=> Win32API.GetFileAssociationAsync(filePath, true);
 	}
 }

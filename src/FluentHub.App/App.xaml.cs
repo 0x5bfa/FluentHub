@@ -20,10 +20,6 @@ namespace FluentHub.App
 {
 	public partial class App : Application
 	{
-		public static MainWindow WindowInstance { get; private set; } = null!;
-
-		public static IntPtr WindowHandle { get; private set; }
-
 		public new static App Current
 			=> (App)Application.Current;
 
@@ -57,7 +53,7 @@ namespace FluentHub.App
 			EnsureWindowIsInitialized();
 
 			// Initialize Window
-			WindowInstance.InitializeApplication(activatedEventArgs.Data);
+			MainWindow.Instance.InitializeApplication(activatedEventArgs.Data);
 		}
 
 		public void OnActivated(AppActivationArguments activatedEventArgs)
@@ -65,7 +61,7 @@ namespace FluentHub.App
 			// Called from Program class
 
 			// Initialize Window
-			_ = WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
+			_ = MainWindow.Instance.DispatcherQueue.EnqueueAsync(() => MainWindow.Instance.InitializeApplication(activatedEventArgs.Data));
 		}
 
 		private static Serilog.ILogger GetSerilogLogger()
@@ -88,10 +84,8 @@ namespace FluentHub.App
 
 		private void EnsureWindowIsInitialized()
 		{
-			WindowInstance = new MainWindow();
-			WindowInstance.Activated += Window_Activated;
+			MainWindow.Instance.Activated += Window_Activated;
 			//Window.Closed += Window_Closed;
-			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(WindowInstance);
 		}
 
 		private void Window_Activated(object sender, WindowActivatedEventArgs args)

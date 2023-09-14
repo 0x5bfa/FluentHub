@@ -20,7 +20,7 @@ namespace FluentHub.App.Helpers
 	{
 		internal static void CloseApp()
 		{
-			App.WindowInstance.Close();
+			MainWindow.Instance.Close();
 		}
 
 		internal static AppWindow GetAppWindow(Window w)

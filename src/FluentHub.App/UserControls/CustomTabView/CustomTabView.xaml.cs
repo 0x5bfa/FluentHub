@@ -124,7 +124,7 @@ namespace FluentHub.App.UserControls.CustomTabView
 
 		private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			Microsoft.UI.Windowing.AppWindow view = AppLifecycleHelper.GetAppWindow(App.WindowInstance);
+			Microsoft.UI.Windowing.AppWindow view = AppLifecycleHelper.GetAppWindow(MainWindow.Instance);
 			view.Title = e.NewValue?.ToString() ?? "";
 		}
 

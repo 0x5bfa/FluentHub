@@ -21,7 +21,7 @@ namespace FluentHub.App.Views.SignIn
 		public IntroViewModel ViewModel { get; }
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
-			=> App.WindowInstance.SetTitleBar(AppTitleBar);
+			=> MainWindow.Instance.SetTitleBar(AppTitleBar);
 
 		private void OnGoToMainPageButtonWhenAuthorizedClick(object sender, RoutedEventArgs e)
 		{

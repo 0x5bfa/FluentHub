@@ -159,7 +159,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		{
 			var dialog = new CreateNewRepositoryDialog()
 			{
-				XamlRoot = App.WindowInstance.Content.XamlRoot,
+				XamlRoot = MainWindow.Instance.Content.XamlRoot,
 			};
 
 			var result = await dialog.ShowAsync();

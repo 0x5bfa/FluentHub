@@ -17,8 +17,15 @@ namespace FluentHub.App
 {
 	public sealed partial class MainWindow : WindowEx
 	{
+		private static MainWindow? _Instance;
+		public static MainWindow Instance => _Instance ??= new();
+
+		public IntPtr WindowHandle { get; }
+
 		public MainWindow()
 		{
+			WindowHandle = this.GetWindowHandle();
+
 			InitializeComponent();
 
 			EnsureEarlyWindow();
@@ -35,6 +42,10 @@ namespace FluentHub.App
 			PersistenceId = "FluentHubMainWindow";
 			MinHeight = 516;
 			MinWidth = 516;
+
+			// Workaround for full screen window messing up the taskbar
+			// https://github.com/microsoft/microsoft-ui-xaml/issues/8431
+			//InteropHelpers.SetPropW(WindowHandle, "NonRudeHWND", new IntPtr(1));
 		}
 
 		public void InitializeApplication(object activatedEventArgs)
@@ -120,14 +131,14 @@ namespace FluentHub.App
 		{
 			// Do not repeat app initialization when the Window already has content,
 			// just ensure that the window is active
-			if (App.WindowInstance.Content is not Frame rootFrame)
+			if (MainWindow.Instance.Content is not Frame rootFrame)
 			{
 				// Create a Frame to act as the navigation context and navigate to the first page
 				rootFrame = new() { CacheSize = 1 };
 				rootFrame.NavigationFailed += OnNavigationFailed;
 
 				// Place the frame in the current Window
-				App.WindowInstance.Content = rootFrame;
+				MainWindow.Instance.Content = rootFrame;
 			}
 
 			return rootFrame;
