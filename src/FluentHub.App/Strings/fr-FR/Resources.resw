@@ -226,7 +226,7 @@
     <value>Problèmes</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Quelque chose s'est mal passée</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Ouvrez le dossier des logs où les détails des erreurs de l'application sont stockés sur le disque local.</value>
@@ -259,13 +259,13 @@
     <value>Nouvelle organisation</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Nouveau répertoire</value>
+    <value>Nouveau dépôt</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Assigned</value>
+    <value>Assigné</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>Fait</value>
@@ -277,43 +277,43 @@
     <value>Boîte de réception</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>Mentionné</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team Mentioned</value>
+    <value>Équipe mentionnée</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>Participants</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Review Requested</value>
+    <value>Révision demandée</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Sauvegardé</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Grouper par :</value>
+    <value>Regrouper par :</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>Aucun</value>
+    <value>Aucune</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
     <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Répertoire</value>
+    <value>Dépôt</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Pas de notifications récentes.</value>
+    <value>Aucune notification récente.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Chercher des notifications</value>
+    <value>Rechercher une notification</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Non-lus</value>
+    <value>Non lu(s)</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
     <value>Aucune discussion</value>
@@ -328,10 +328,10 @@
     <value>Aucun problème</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Aucunes organisations</value>
+    <value>Aucune organisation</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Aucun répertoire populaire</value>
+    <value>Aucun dépôt populaire</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
     <value>Aucune demande d'extraction</value>
@@ -361,10 +361,10 @@
     <value>Projets</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Demande d'extractions</value>
+    <value>Demandes de fusion</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Actualiser</value>
+    <value>Rafraîchir</value>
   </data>
   <data name="Repositories" xml:space="preserve">
     <value>Répertoires</value>
@@ -373,16 +373,16 @@
     <value>Répertoires</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Chercher</value>
+    <value>Rechercher</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Chercher</value>
+    <value>Rechercher</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher des discussions</value>
+    <value>Rechercher une discussion</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher des abonnés</value>
+    <value>Rechercher dans les abonnés</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
     <value>Rechercher les abonnements</value>
@@ -394,16 +394,16 @@
     <value>Chercher des organisations</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher les demandes d'extractions</value>
+    <value>Rechercher les demandes de fusion</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher un répertoire</value>
+    <value>Rechercher un dépôt</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher les favoris</value>
+    <value>Rechercher dans les favoris</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Si vous gérez une ou plusieurs organisations, veuillez accorder l'accès à FluentHub pour celles-ci;</value>
+    <value>Si vous administrez une ou plusieurs organisations, veuillez accorder l'accès à FluentHub pour celles-ci;</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
@@ -457,10 +457,10 @@
     <value>Votre profil</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Vos demandes d'extraction</value>
+    <value>Vos demandes de fusion</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Vos répertoires</value>
+    <value>Vos dépôts</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
     <value>Vos favoris</value>
@@ -481,10 +481,10 @@
     <value>Vos organisations</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Vos demandes d'extraction</value>
+    <value>Vos demandes de fusion</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Vos répertoires</value>
+    <value>Vos dépôts</value>
   </data>
   <data name="YourStars" xml:space="preserve">
     <value>Vos favoris</value>
