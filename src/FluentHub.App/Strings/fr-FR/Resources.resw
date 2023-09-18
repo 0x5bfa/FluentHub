@@ -352,10 +352,10 @@
     <value>Paquets</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Répertoires épinglés</value>
+    <value>Dépôts épinglés</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Répertoires populaires</value>
+    <value>Dépôts populaires</value>
   </data>
   <data name="Projects" xml:space="preserve">
     <value>Projets</value>
@@ -367,10 +367,10 @@
     <value>Rafraîchir</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Répertoires</value>
+    <value>Dépôts</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Répertoires</value>
+    <value>Dépôts</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
     <value>Rechercher</value>
