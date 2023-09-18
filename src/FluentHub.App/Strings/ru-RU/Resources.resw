@@ -418,7 +418,7 @@
     <value>Помощь</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Выйти</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Избранное</value>
