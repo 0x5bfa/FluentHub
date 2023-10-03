@@ -133,21 +133,22 @@
 							</ItemsRepeater.Layout>
 							<DataTemplate x:DataType="modelsV4:Repository">
 								<Button
+									x:Name="SidebarRepositoryItemButton"
 									Height="32"
 									Padding="6,4"
 									HorizontalAlignment="Stretch"
 									HorizontalContentAlignment="Left"
 									Background="Transparent"
 									BorderBrush="Transparent"
-									Command="{Binding ElementName=SidebarRepositoryItemsRepeater, Path=DataContext.GoToSidebarRepositoryCommand, Mode=OneWay}"
-									CommandParameter="{Binding Mode=OneWay}">
+									Click="SidebarRepositoryItemButton_Click"
+									DataContext="{x:Bind Mode=OneWay}">
 									<StackPanel Orientation="Horizontal">
 										<primer:Avatar
 											Margin="0,0,8,0"
 											IsSquare="{x:Bind IsInOrganization}"
 											Size="16"
 											Source="{x:Bind Owner.AvatarUrl}" />
-										<TextBlock Text="{x:Bind Owner.Login}" />
+										<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind Owner.Login}" />
 										<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="/" />
 										<TextBlock Text="{x:Bind Name}" />
 									</StackPanel>
@@ -171,13 +172,14 @@
 							</ItemsRepeater.Layout>
 							<DataTemplate x:DataType="modelsV3:Notification">
 								<Button
+									x:Name="SidebarRecentActivityItemButton"
 									Padding="6,4"
 									HorizontalAlignment="Stretch"
 									HorizontalContentAlignment="Left"
 									Background="Transparent"
 									BorderBrush="Transparent"
-									Command="{Binding ElementName=SidebarRecentActivityItemsRepeater, Path=DataContext.GoToSidebarActivityCommand, Mode=OneWay}"
-									CommandParameter="{Binding Mode=OneWay}">
+									Click="SidebarRecentActivityItemButton_Click"
+									DataContext="{x:Bind Mode=OneWay}">
 									<Grid>
 										<Grid.RowDefinitions>
 											<RowDefinition Height="Auto" />

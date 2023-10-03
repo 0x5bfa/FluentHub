@@ -67,7 +67,7 @@ namespace FluentHub.App.Views
 			if (command.CanExecute(null))
 				command.Execute(null);
 
-			// Configure Jumplist
+			// Configure Jump list
 			await JumpListHelpers.ConfigureDefaultJumpListAsync();
 		}
 

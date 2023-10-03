@@ -1,13 +1,9 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Models;
 using FluentHub.App.Dialogs;
 using FluentHub.App.ViewModels.UserControls.FeedBlocks;
-using FluentHub.App.Utils;
 using FluentHub.Octokit.Queries.Users;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.Windows.Input;
 
 namespace FluentHub.App.ViewModels.Viewers
@@ -102,7 +98,7 @@ namespace FluentHub.App.ViewModels.Viewers
 					StartPage = 1,
 				});
 
-			// Filder the notifications; remove clsed Issue & Pull Requests
+			// Filter the notifications; remove closed Issue & Pull Requests
 			notificationResponse.RemoveAll(x =>
 				x.Subject.Type != NotificationSubjectType.IssueOpen &&
 				x.Subject.Type != NotificationSubjectType.PullRequestOpen);
@@ -123,8 +119,6 @@ namespace FluentHub.App.ViewModels.Viewers
 			var activityResponse = await activityQueries.GetAllAsync(App.AppSettings.SignedInUserName);
 			if (activityResponse == null)
 				return;
-
-			
 
 			foreach (var item in activityResponse.Where(x =>
 				//x.Type == ActivityPayloadType.CheckRunEvent ||
@@ -170,10 +164,12 @@ namespace FluentHub.App.ViewModels.Viewers
 			if (repo is null)
 				return;
 
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-
-			parameter.PrimaryText = repo.Owner.Login;
-			parameter.SecondaryText = repo.Name;
+			var navBar = _navigation.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = repo.Owner.Login,
+				SecondaryText = repo.Name,
+			};
 
 			if (App.AppSettings.UseDetailsView)
 				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
@@ -186,30 +182,26 @@ namespace FluentHub.App.ViewModels.Viewers
 			if (notification is null)
 				return;
 
+			var navBar = _navigation.TabView.SelectedItem.NavigationBar;
+			navBar.Context = new()
+			{
+				PrimaryText = notification.Repository.Owner.Login,
+				SecondaryText = notification.Repository.Name,
+				Number = notification.Subject.Number,
+			};
+
 			switch (notification.Subject.Type)
 			{
 				case NotificationSubjectType.IssueClosedAsCompleted:
 				case NotificationSubjectType.IssueClosedAsNotPlanned:
 				case NotificationSubjectType.IssueOpen:
-					_navigation.Navigate<Views.Repositories.Issues.IssuePage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = notification.Repository.Owner.Login,
-						SecondaryText = notification.Repository.Name,
-						Number = notification.Subject.Number,
-					});
+					_navigation.Navigate<Views.Repositories.Issues.IssuePage>();
 					break;
 				case NotificationSubjectType.PullRequestOpen:
 				case NotificationSubjectType.PullRequestClosed:
 				case NotificationSubjectType.PullRequestMerged:
 				case NotificationSubjectType.PullRequestDraft:
-					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>(
-					new FrameNavigationParameter()
-					{
-						PrimaryText = notification.Repository.Owner.Login,
-						SecondaryText = notification.Repository.Name,
-						Number = notification.Subject.Number,
-					});
+					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>();
 					break;
 			}
 		}

@@ -37,5 +37,25 @@ namespace FluentHub.App.Views.Viewers
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
+
+		private void SidebarRepositoryItemButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is not Button button || button.DataContext is not Repository repo)
+				return;
+
+			var command = ViewModel.GoToSidebarRepositoryCommand;
+			if (command.CanExecute(repo))
+				command.Execute(repo);
+		}
+
+		private void SidebarRecentActivityItemButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is not Button button || button.DataContext is not Notification notification)
+				return;
+
+			var command = ViewModel.GoToSidebarActivityCommand;
+			if (command.CanExecute(notification))
+				command.Execute(notification);
+		}
 	}
 }
