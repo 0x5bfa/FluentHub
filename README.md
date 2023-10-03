@@ -73,7 +73,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 - Windows 10 (Build 10.0.19041.0) or newer with Developer Mode enabled in the Windows Settings
 - [Git](https://git-scm.com/)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/):
-  - Windows App SDK (version 10.0.22621.0)
+  - [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
   - .NET 7 SDK (check the box named .NET Desktop Development)
   - Windows App SDK
 
