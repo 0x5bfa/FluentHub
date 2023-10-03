@@ -4,7 +4,7 @@ To help translate, follow these instructions.
 
 ## Add localization resources
 
- 1. Ensure you have Visual Studio 2022 for windows and the [Multilingual App Toolkit extension](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308).
+ 1. Ensure you have Visual Studio 2022 for windows and the [Multilingual App Toolkit extension](https://marketplace.visualstudio.com/items?itemName=dts-publisher.mat2022).
  2. Fork and clone this repository.
  3. Open in Visual Studio 2022.
  4. Select Multilingual App Toolkit > Add translation language.
