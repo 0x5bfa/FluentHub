@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Accountinstellingen</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Activiteiten</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Kies uw kleur</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Algemeen</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Uiterlijk</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Taal</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Taal</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Custom themes</value>
+    <value>Aangepaste thema's</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Terug</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
     <value>Customize your pins</value>
@@ -151,19 +151,19 @@
     <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>Discussies</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>Profiel bewerken</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Not available yet.</value>
+    <value>Nog niet beschikbaar.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Activity</value>
+    <value>Activiteit</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>Geen recente activiteiten.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
     <value>Graag vandaan FluentHub openen.</value>
@@ -172,46 +172,46 @@
     <value>Klik op "Login met GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>Volgen</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>Volgers</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>followers</value>
+    <value>volgers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Following</value>
+    <value>Aan het volgen</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>aan het volgen</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
     <value>Klik op "FluentHub DEV openen";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Vooruit</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Back</value>
+    <value>Terug</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Vooruit</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Thuis</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Favorieten</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>Geen favorieten beschikbaar.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Werk</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Thuis</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
     <value>Recent</value>
@@ -223,10 +223,10 @@
     <value>FluentHub Autoriseren</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problemen</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Er ging iets mis</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Opens the log folder where app error details are stored on the local disk.</value>
@@ -250,40 +250,40 @@
     <value>Inloggen met GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>Nieuw</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Nieuw</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>New organization</value>
+    <value>Nieuwe organisatie</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>New repository</value>
+    <value>Nieuwe opslagplaats</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Meldingen</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Assigned</value>
+    <value>Toegewezen</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Done</value>
+    <value>Klaar</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filter by:</value>
+    <value>Filteren op:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Inbox</value>
+    <value>Postvak IN</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>Genoemd</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
     <value>Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>Deelnemen</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
     <value>Review Requested</value>
