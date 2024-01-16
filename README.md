@@ -98,9 +98,7 @@ See [the documentation](docs/credentials.md).
 
 ## Screenshots
 
-![image](https://github.com/FluentHub/FluentHub/assets/62196528/dd765c87-0ef5-4a85-be41-ef686983ea33)
-![image](https://github.com/FluentHub/FluentHub/assets/62196528/27fd539b-eb35-4273-9aca-ab78be14ea96)
-![image](https://github.com/FluentHub/FluentHub/assets/62196528/1c54d686-59c5-4ac0-824c-d9f228009b0f)
+_Coming soon_
 
 ## Contributing
 
