@@ -10,11 +10,11 @@
 
 <p align="center">
   <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
-  </a>
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" /></a>
   <a title="Platform" target="_blank">
-    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
-  </a>
+    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" /></a>
+  <a title="Platform" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
+    <img src="https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat" alt="Platform" /></a>
 </p>
 
 ---
@@ -66,6 +66,17 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 
+## Screenshots
+
+**Home page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)
+
+**PR page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)
+
+**User profile page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+
 ## Building the Code
 
 ### Requirements
@@ -95,10 +106,6 @@ See [the documentation](docs/credentials.md).
 - Open `FluentHub.sln`.
 - Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
 - Build with `Debug`, `x64`, `FluentHub.Package`.
-
-## Screenshots
-
-_Coming soon_
 
 ## Contributing
 
