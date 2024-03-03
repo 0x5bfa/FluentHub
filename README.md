@@ -13,8 +13,6 @@
     <img src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&amp;jobName=Build%20Debug%20x64" alt="Release" /></a>
   <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
     <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" /></a>
-  <a title="Platform" target="_blank">
-    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" /></a>
   <a title="Discord" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
     <img src="https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat" alt="Platform" /></a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
