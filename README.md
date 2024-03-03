@@ -9,34 +9,17 @@
 </p>
 
 <p align="center">
+  <a title="Pipeline" target="_blank" href="https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&amp;branchName=main">
+    <img src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&amp;jobName=Build%20Debug%20x64" alt="Release" /></a>
   <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
     <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" /></a>
   <a title="Platform" target="_blank">
     <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" /></a>
-  <a title="Platform" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
+  <a title="Discord" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
     <img src="https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat" alt="Platform" /></a>
+  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
+    <img src="https://badges.crowdin.net/fluenthub/localized.svg" alt="Platform" /></a>
 </p>
-
----
-
-## Build status
-
-Architecture|Debug|Sideload|Store
----|---|---|---
-x64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
-ARM64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
-
-## Localization status
-
-Contributing to translations is of great benefit to the project.
-
-Project|Status
----|---
-FluentHub.App|[![Localization Status](https://badges.crowdin.net/fluenthub/localized.svg)](https://crowdin.com/project/fluenthub)
-
-<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
-  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" />
-</a>
 
 ## Installation and running FluentHub
 
@@ -123,6 +106,9 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Submitting pull requests](https://github.com/FluentHub/FluentHub/pulls)
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
+
+<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
+  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" /></a>
 
 ## Feedback
 
