@@ -56,9 +56,9 @@
 
 				</ResourceDictionary>
 
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/CommonStyles.xaml" />
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/TextBlockStyles.xaml" />
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/OcticonIcons.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/CommonStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/TextBlockStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/OcticonIcons.xaml" />
 				<ResourceDictionary Source="ms-appx:///Themes/GitHub Default.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
