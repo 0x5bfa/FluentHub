@@ -9,8 +9,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-	d:DesignHeight="300"
-	d:DesignWidth="400"
+	xmlns:uc="using:FluentHub.App.UserControls"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -43,6 +42,8 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
+
+			<!--<uc:Shimmer Width="43" Height="21" />-->
 
 			<TextBlock
 				x:Name="PullRequestTitleTextBlock"
