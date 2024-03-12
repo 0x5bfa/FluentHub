@@ -1,12 +1,9 @@
+// Copyright (c) 2024 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls;
 using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {
@@ -60,6 +57,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			finally
 			{
 				SetLoadingProgress(false);
+				PullRequestOverviewViewModel.Loaded = true;
 			}
 		}
 

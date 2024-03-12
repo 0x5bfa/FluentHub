@@ -6,8 +6,6 @@
 
 	<Style TargetType="uc:Shimmer">
 		<Setter Property="CornerRadius" Value="4" />
-		<Setter Property="MinWidth" Value="8" />
-		<Setter Property="MinHeight" Value="8" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="uc:Shimmer">

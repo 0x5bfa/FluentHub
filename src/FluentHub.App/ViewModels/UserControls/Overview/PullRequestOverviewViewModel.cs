@@ -10,5 +10,8 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
 
 		private string _selectedTag;
 		public string SelectedTag { get => _selectedTag; set => SetProperty(ref _selectedTag, value); }
+
+		private bool _Loaded;
+		public bool Loaded { get => _Loaded; set => SetProperty(ref _Loaded, value); }
 	}
 }
