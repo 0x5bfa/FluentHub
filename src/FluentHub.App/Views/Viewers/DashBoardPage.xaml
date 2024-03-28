@@ -25,7 +25,7 @@
 		<ResourceDictionary>
 
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/DefaultGridSplitterStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />

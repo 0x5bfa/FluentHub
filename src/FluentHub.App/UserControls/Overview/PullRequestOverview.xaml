@@ -4,13 +4,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.App.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:helpers="using:FluentHub.App.Helpers"
-	xmlns:local="using:FluentHub.App.UserControls.Overview"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-	d:DesignHeight="300"
-	d:DesignWidth="400"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:wctconverters="using:CommunityToolkit.WinUI.UI.Converters"
+	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -25,6 +24,7 @@
 			<converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
 			<converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+			<wctconverters:BoolNegationConverter x:Key="BoolNegationConverter" />
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -44,8 +44,16 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
+			<uc:Shimmer
+				x:Name="TitleBoxShimmer"
+				MinHeight="40"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				x:Load="{x:Bind ViewModel.Loaded, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}" />
+
 			<TextBlock
 				x:Name="PullRequestTitleTextBlock"
+				x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
 				IsTextSelectionEnabled="True"
 				Style="{StaticResource TitleTextBlockStyle}"
 				ToolTipService.ToolTip="{x:Bind ViewModel.PullRequest.Title, Mode=OneWay}">
@@ -56,12 +64,27 @@
 					Text="{x:Bind ViewModel.PullRequest.Number, Converter={StaticResource DecimalToSubjectNumberConverter}, Mode=OneWay}" />
 			</TextBlock>
 
-			<StackPanel
-				Grid.Row="1"
-				Orientation="Horizontal"
-				Spacing="16">
+			<Grid Grid.Row="1" ColumnSpacing="16">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 
-				<toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullRequest.Closed, Mode=OneWay}">
+				<uc:Shimmer
+					x:Name="PullRequestStateBoxShimmer"
+					Grid.Column="0"
+					MinWidth="64"
+					MinHeight="32"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Center"
+					x:Load="{x:Bind ViewModel.Loaded, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}" />
+
+				<toolkit:SwitchPresenter
+					x:Name="PullRequestStateBox"
+					Grid.Column="0"
+					x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
+					TargetType="x:Boolean"
+					Value="{x:Bind ViewModel.PullRequest.Closed, Mode=OneWay}">
 					<toolkit:Case Value="True">
 						<toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullRequest.Merged, Mode=OneWay}">
 							<toolkit:Case Value="True">
@@ -84,12 +107,33 @@
 					</toolkit:Case>
 				</toolkit:SwitchPresenter>
 
-				<StackPanel
-					Orientation="Horizontal"
-					Spacing="8"
+				<Grid
+					Grid.Column="1"
+					ColumnSpacing="8"
 					Visibility="{x:Bind ViewModel.PullRequest.HeadRefName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-					<Grid Height="24" HorizontalAlignment="Left">
+					<uc:Shimmer
+						x:Name="HeadRefBranchBoxShimmer"
+						Grid.Column="0"
+						MinWidth="64"
+						MinHeight="24"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Center"
+						x:Load="{x:Bind ViewModel.Loaded, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}" />
+
+					<Grid
+						x:Name="HeadRefBranchBox"
+						Height="24"
+						HorizontalAlignment="Left"
+						x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
+						BorderBrush="{ThemeResource PrimerAccentEmphasis}"
+						BorderThickness="1"
+						CornerRadius="8">
 
 						<Grid
 							HorizontalAlignment="Stretch"
@@ -98,36 +142,52 @@
 							CornerRadius="8"
 							Opacity="0.2" />
 
-						<Grid
-							HorizontalAlignment="Stretch"
-							VerticalAlignment="Stretch"
-							BorderBrush="{ThemeResource PrimerAccentEmphasis}"
-							BorderThickness="1"
-							CornerRadius="8" />
-
-						<StackPanel
-							Padding="8,0"
-							Orientation="Horizontal"
-							Spacing="4">
-
-							<TextBlock
-								VerticalAlignment="Center"
-								FontFamily="Cascadia Code"
-								FontWeight="Light"
-								Foreground="{ThemeResource PrimerAccentForeground}"
-								Style="{StaticResource CaptionTextBlockStyle}"
-								Text="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
-
-						</StackPanel>
+						<TextBlock
+							Margin="8,0"
+							VerticalAlignment="Center"
+							FontFamily="Cascadia Code"
+							FontWeight="Light"
+							Foreground="{ThemeResource PrimerAccentForeground}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
 
 					</Grid>
+
+					<uc:Shimmer
+						x:Name="BranchMergeDirectionIndicatorFontIconShimmer"
+						Grid.Column="1"
+						MinWidth="24"
+						MinHeight="24"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Center"
+						x:Load="{x:Bind ViewModel.Loaded, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}" />
 
 					<FontIcon
+						x:Name="BranchMergeDirectionIndicatorFontIcon"
+						Grid.Column="1"
+						x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
 						FontSize="12"
-						Foreground="{ThemeResource TextFillColorSecondary}"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Glyph="&#xE72A;" />
 
-					<Grid Height="24" HorizontalAlignment="Left">
+					<uc:Shimmer
+						x:Name="BaseRefBranchBoxShimmer"
+						Grid.Column="2"
+						MinWidth="64"
+						MinHeight="24"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Center"
+						x:Load="{x:Bind ViewModel.Loaded, Converter={StaticResource BoolNegationConverter}, Mode=OneWay}" />
+
+					<Grid
+						x:Name="baseRefBranchBox"
+						Grid.Column="2"
+						Height="24"
+						HorizontalAlignment="Left"
+						x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
+						BorderBrush="{ThemeResource PrimerAccentEmphasis}"
+						BorderThickness="1"
+						CornerRadius="8">
 
 						<Grid
 							HorizontalAlignment="Stretch"
@@ -136,45 +196,29 @@
 							CornerRadius="8"
 							Opacity="0.2" />
 
-						<Grid
-							HorizontalAlignment="Stretch"
-							VerticalAlignment="Stretch"
-							BorderBrush="{ThemeResource PrimerAccentEmphasis}"
-							BorderThickness="1"
-							CornerRadius="8" />
-
-						<StackPanel
-							Padding="8,0"
-							Orientation="Horizontal"
-							Spacing="4">
-
-							<TextBlock
-								VerticalAlignment="Center"
-								FontFamily="Cascadia Code"
-								FontWeight="Light"
-								Foreground="{ThemeResource PrimerAccentForeground}"
-								Style="{StaticResource CaptionTextBlockStyle}"
-								Text="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
-
-						</StackPanel>
+						<TextBlock
+							Margin="8,0"
+							VerticalAlignment="Center"
+							FontFamily="Cascadia Code"
+							FontWeight="Light"
+							Foreground="{ThemeResource PrimerAccentForeground}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
 
 					</Grid>
 
-				</StackPanel>
+				</Grid>
 
-			</StackPanel>
+			</Grid>
 
-			<Grid
-				Grid.RowSpan="2"
-				Grid.Column="1"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top">
+			<Grid Grid.Column="1">
 				<Button
 					Width="36"
 					Height="32"
 					Margin="0,12,0,0"
 					Padding="0"
-					VerticalAlignment="Center"
+					VerticalAlignment="Top"
+					IsEnabled="False"
 					ToolTipService.ToolTip="More option">
 					<FontIcon FontSize="16" Glyph="&#xE10C;" />
 					<Button.Flyout>

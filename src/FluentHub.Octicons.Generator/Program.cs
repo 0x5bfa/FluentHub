@@ -16,7 +16,7 @@ namespace FluentHub.Octicons.Generator
 		{
 			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Octicons.Generator\\").ToArray();
 
-			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.App\\ResourceDictionaries\\").ToArray();
+			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.App\\Styles\\").ToArray();
 
 			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Core\\Data\\Enums\\").ToArray();
 
