@@ -10,7 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="GraphQL.Client" Version="6.0.5" />
+        <PackageReference Include="GraphQL.Client" Version="6.1.0" />
         <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.0.5" />
         <PackageReference Include="Humanizer" Version="2.8.25" />
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
