@@ -5,33 +5,24 @@
   FluentHub
 </h1>
 <p align="center">
-  The stylish yet powerful GitHub client for Windows.
+  <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
+  <img width="220" align="center" src="https://get.microsoft.com/images/en-us%20dark.svg" /></a>
 </p>
 
-<p align="center">
-  <a title="Pipeline" target="_blank" href="https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&amp;branchName=main">
-    <img src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&amp;jobName=Build%20Debug%20x64" alt="Release" /></a>
-  <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" /></a>
-  <a title="Discord" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
-    <img src="https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat" alt="Platform" /></a>
-  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
-    <img src="https://badges.crowdin.net/fluenthub/localized.svg" alt="Platform" /></a>
-</p>
+FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
 
-## Installation and running FluentHub
+- **Modern UI:** designed with Fluent Design and built on WinAppSdk/WinUI
+- **Multitasking:** let's do multitasking with tabs, you can switch tabs without losing data
+- **Powerful page navigation:** navigation can be performed like browsers without losing navigation history
+- **Mutation:** perform any kind of modification on GitHub, the app supports as far as GitHub API supports
 
-### Requirements
+## 🎁 Getting started with FluentHub
 
-- Windows 10 or Windows 11 (Build 10.0.19041.0 or newer)
+Your Windows must be Windows 10 or 11 to run FluentHub
 
 ### Via Microsoft Store
 
 This is the preferred installation method. It allows you to always be on the latest version when we release new builds via automatic updates.
-
-<a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="128" align="center" src="https://get.microsoft.com/images/en-us%20dark.svg" />
-</a>
 
 ### Via GitHub
 
