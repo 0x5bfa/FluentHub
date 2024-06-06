@@ -107,7 +107,7 @@ jobs:
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS)
         [IO.File]::WriteAllBytes($filename, $bytes)
       env:
-        GH_CREDENTIALS: '${{ secret.GH_CREDENTIALS_JSON_BASE64 }}'
+        GH_CREDENTIALS: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
     - name: Restore NuGet
       shell: pwsh
