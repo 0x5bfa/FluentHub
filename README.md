@@ -5,52 +5,24 @@
   FluentHub
 </h1>
 <p align="center">
-  The stylish yet powerful GitHub client for Windows.
+  <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
+  <img width="220" align="center" src="https://get.microsoft.com/images/en-us%20dark.svg" /></a>
 </p>
 
-<p align="center">
-  <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
-  </a>
-  <a title="Platform" target="_blank">
-    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
-  </a>
-</p>
+FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
 
----
+- **Modern UI:** designed with Fluent Design and built on WinAppSdk/WinUI
+- **Multitasking:** let's do multitasking with tabs, you can switch tabs without losing data
+- **Powerful page navigation:** navigation can be performed like browsers without losing navigation history
+- **Mutation:** perform any kind of modification on GitHub, the app supports as far as GitHub API supports
 
-## Build status
+## 🎁 Getting started with FluentHub
 
-Architecture|Debug|Sideload|Store
----|---|---|---
-x64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
-ARM64|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Debug%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20Sideload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)|[![Build Status](https://dev.azure.com/fluenthub/FluentHub/_apis/build/status%2FFluentHub%20CI?branchName=main&jobName=Build%20StoreUpload%20x64)](https://dev.azure.com/fluenthub/FluentHub/_build/latest?definitionId=10&branchName=main)
-
-## Localization status
-
-Contributing to translations is of great benefit to the project.
-
-Project|Status
----|---
-FluentHub.App|[![Localization Status](https://badges.crowdin.net/fluenthub/localized.svg)](https://crowdin.com/project/fluenthub)
-
-<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
-  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" />
-</a>
-
-## Installation and running FluentHub
-
-### Requirements
-
-- Windows 10 or Windows 11 (Build 10.0.19041.0 or newer)
+Your Windows must be Windows 10 or 11 to run FluentHub
 
 ### Via Microsoft Store
 
 This is the preferred installation method. It allows you to always be on the latest version when we release new builds via automatic updates.
-
-<a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="128" align="center" src="https://get.microsoft.com/images/en-us%20dark.svg" />
-</a>
 
 ### Via GitHub
 
@@ -65,6 +37,17 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
+
+## Screenshots
+
+**Home page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)
+
+**PR page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)
+
+**User profile page**
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
 
 ## Building the Code
 
@@ -96,10 +79,6 @@ See [the documentation](docs/credentials.md).
 - Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
 - Build with `Debug`, `x64`, `FluentHub.Package`.
 
-## Screenshots
-
-_Coming soon_
-
 ## Contributing
 
 There are multiple ways to participate in the community:
@@ -116,6 +95,9 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Submitting pull requests](https://github.com/FluentHub/FluentHub/pulls)
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
+
+<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
+  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" /></a>
 
 ## Feedback
 
