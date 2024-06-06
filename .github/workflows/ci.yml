@@ -100,6 +100,12 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: Save base64 credentials into a file
+      run: | 
+        echo $PRIVATE_KEY > $GH_CREDENTIALS_JSON_BASE64/main/src/FluentHub.App/AppCredentials.config
+      env:
+        PRIVATE_KEY: ${{ secrets.GH_CONFIG_BASE64 }}
+
     - name: Restore NuGet
       shell: pwsh
       run: 'nuget restore $env:SOLUTION_PATH'
