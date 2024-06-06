@@ -22,7 +22,7 @@ on:
 run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' || 'FluentHub CI Validation' }}
 
 env:
-  WORKING_DIR: ${{ github.workspace }} # Default: 'D:\a\FluentHub\FluentHub'
+  WORKING_DIR: '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
   SOLUTION_PATH: '${{ github.workspace }}\FluentHub.sln'
   PACKAGE_PROJECT_DIR: '${{ github.workspace }}\src\FluentHub.Package'
   PACKAGE_PROJECT_PATH: '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
@@ -30,6 +30,7 @@ env:
   AUTOMATED_TESTS_CONFIGURATION: 'Release'
   ARTIFACTS_STAGING_DIR:  '${{ github.workspace }}\artifacts'
   APPX_PACKAGE_DIR: '${{ github.workspace }}\artifacts\AppxPackages'
+  APP_CREDENTIALS_PATH: '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
 
 jobs:
 
@@ -88,13 +89,10 @@ jobs:
 
     - name: Checkout the repository
       uses: actions/checkout@v3
-
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1
-
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.1.1
-
     - name: Setup .NET 8
       uses: actions/setup-dotnet@v3
       with:
@@ -103,11 +101,10 @@ jobs:
     - name: Save base64 credentials into a file
       shell: pwsh
       run: |
-        $filename = '$env:GH_CREDENTIALS/src/FluentHub.App/AppCredentials.config'
-        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS)
-        [IO.File]::WriteAllBytes($filename, $bytes)
+        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
+        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
       env:
-        GH_CREDENTIALS: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
+        GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
     - name: Restore NuGet
       shell: pwsh
