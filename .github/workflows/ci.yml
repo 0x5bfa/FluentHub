@@ -101,10 +101,13 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Save base64 credentials into a file
-      run: | 
-        echo $PRIVATE_KEY > $GH_CREDENTIALS_JSON_BASE64/main/src/FluentHub.App/AppCredentials.config
+      shell: pwsh
+      run: |
+        $filename = '$env:GH_CREDENTIALS/src/FluentHub.App/AppCredentials.config'
+        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS)
+        [IO.File]::WriteAllBytes($filename, $bytes)
       env:
-        PRIVATE_KEY: ${{ secrets.GH_CONFIG_BASE64 }}
+        GH_CREDENTIALS: '${{ secret.GH_CREDENTIALS_JSON_BASE64 }}'
 
     - name: Restore NuGet
       shell: pwsh
