@@ -9,6 +9,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public interface IStarrable
 	{
+		/// <summary>
+		/// The Node ID of the Starrable object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

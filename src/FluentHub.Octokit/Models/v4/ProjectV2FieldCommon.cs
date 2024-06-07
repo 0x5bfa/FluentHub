@@ -29,6 +29,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProjectV2FieldCommon object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

@@ -23,6 +23,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string CommitUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Tag object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

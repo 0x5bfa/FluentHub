@@ -42,12 +42,6 @@
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<Grid.Transitions>
-							<TransitionCollection>
-								<EntranceThemeTransition />
-							</TransitionCollection>
-						</Grid.Transitions>
-
 						<TextBox
 							x:Name="SearchStarsTextBox"
 							Grid.Row="0"
@@ -70,14 +64,6 @@
 										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 									</Style>
 								</ListView.ItemContainerStyle>
-								<ListView.Transitions>
-									<TransitionCollection>
-										<AddDeleteThemeTransition />
-										<ContentThemeTransition />
-										<EntranceThemeTransition FromVerticalOffset="50" />
-										<RepositionThemeTransition IsStaggeringEnabled="False" />
-									</TransitionCollection>
-								</ListView.Transitions>
 								<ListView.ItemTemplate>
 									<DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
 										<bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />

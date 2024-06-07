@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class MergeBranchInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the Repository containing the base branch that will be modified.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The email address to associate with this commit.
 		/// </summary>
 		public string AuthorEmail { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

@@ -27,6 +27,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		public EnvironmentConnection Environments { get; set; }
 
+		/// <summary>
+		/// The Node ID of the DeploymentReview object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

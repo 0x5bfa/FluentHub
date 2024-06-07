@@ -48,6 +48,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public ProjectV2FieldConfiguration Field { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProjectV2ItemFieldSingleSelectValue object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

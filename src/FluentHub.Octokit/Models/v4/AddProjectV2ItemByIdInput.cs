@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddProjectV2ItemByIdInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the Project to add the item to.
 		/// </summary>
 		public ID ProjectId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The id of the Issue or Pull Request to add.
 		/// </summary>
 		public ID ContentId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

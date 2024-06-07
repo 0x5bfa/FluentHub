@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateProjectInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The owner ID to create the project under.
 		/// </summary>
 		public ID OwnerId { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// A list of repository IDs to create as linked repositories for the project
 		/// </summary>
 		public List<ID> RepositoryIds { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

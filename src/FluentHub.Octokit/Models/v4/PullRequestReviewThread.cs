@@ -23,6 +23,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public DiffSide DiffSide { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PullRequestReviewThread object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

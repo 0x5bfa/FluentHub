@@ -14,6 +14,16 @@ namespace FluentHub.Octokit.Models.v4
 		public string Announcement { get; set; }
 
 		/// <summary>
+		/// The date the announcement was created
+		/// </summary>
+		public DateTimeOffset? AnnouncementCreatedAt { get; set; }
+
+		/// <summary>
+		/// Humanized string of "The date the announcement was created"
+		/// <summary>
+		public string AnnouncementCreatedAtHumanized { get; set; }
+
+		/// <summary>
 		/// The expiration date of the announcement, if any
 		/// </summary>
 		public DateTimeOffset? AnnouncementExpiresAt { get; set; }
@@ -33,6 +43,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		/// <param name="type">Filter to only a particular kind of pinnable item.</param>
 		public bool AnyPinnableItems { get; set; }
+
+		/// <summary>
+		/// Identifies the date and time when the organization was archived.
+		/// </summary>
+		public DateTimeOffset? ArchivedAt { get; set; }
+
+		/// <summary>
+		/// Humanized string of "Identifies the date and time when the organization was archived."
+		/// <summary>
+		public string ArchivedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Audit log entries of the organization
@@ -115,6 +135,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public bool HasSponsorsListing { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Organization object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -162,6 +185,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// Showcases a selection of repositories and gists that the profile owner has either curated or that have been selected automatically based on popularity.
 		/// </summary>
 		public ProfileItemShowcase ItemShowcase { get; set; }
+
+		/// <summary>
+		/// Calculate how much each sponsor has ever paid total to this maintainer via GitHub Sponsors. Does not include sponsorships paid via Patreon.
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="orderBy">Ordering options for results returned from the connection.</param>
+		public SponsorAndLifetimeValueConnection LifetimeReceivedSponsorshipValues { get; set; }
 
 		/// <summary>
 		/// The organization's public profile location.
@@ -353,7 +386,8 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isLocked">If non-null, filters repositories according to whether they have been locked</param>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
 		/// <param name="ownerAffiliations">Array of owner's affiliation options for repositories returned from the connection. For example, OWNER will include only repositories that the organization or user being viewed owns.</param>
-		/// <param name="privacy">If non-null, filters repositories according to privacy</param>
+		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
+		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
 		public RepositoryConnection Repositories { get; set; }
 
 		/// <summary>

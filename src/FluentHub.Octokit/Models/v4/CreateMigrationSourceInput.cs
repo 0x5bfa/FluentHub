@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateMigrationSourceInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The migration source name.
 		/// </summary>
 		public string Name { get; set; }
@@ -37,10 +42,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The GitHub personal access token of the user importing to the target repository.
 		/// </summary>
 		public string GithubPat { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

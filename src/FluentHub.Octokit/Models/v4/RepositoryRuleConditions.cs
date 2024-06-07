@@ -22,5 +22,10 @@ namespace FluentHub.Octokit.Models.v4
 		/// Configuration for the repository_name condition
 		/// </summary>
 		public RepositoryNameConditionTarget RepositoryName { get; set; }
+
+		/// <summary>
+		/// Configuration for the repository_property condition
+		/// </summary>
+		public RepositoryPropertyConditionTarget RepositoryProperty { get; set; }
 	}
 }

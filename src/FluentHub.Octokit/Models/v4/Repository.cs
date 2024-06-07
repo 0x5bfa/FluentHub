@@ -85,6 +85,11 @@ namespace FluentHub.Octokit.Models.v4
 		public List<RepositoryContactLink> ContactLinks { get; set; }
 
 		/// <summary>
+		/// Returns the contributing guidelines for this repository.
+		/// </summary>
+		public ContributingGuidelines ContributingGuidelines { get; set; }
+
+		/// <summary>
 		/// Identifies the date and time when the object was created.
 		/// </summary>
 		public DateTimeOffset CreatedAt { get; set; }
@@ -108,6 +113,18 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether or not branches are automatically deleted when merged in this repository.
 		/// </summary>
 		public bool DeleteBranchOnMerge { get; set; }
+
+		/// <summary>
+		/// A list of dependency manifests contained in the repository
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="dependenciesAfter">Cursor to paginate dependencies</param>
+		/// <param name="dependenciesFirst">Number of dependencies to fetch</param>
+		/// <param name="withDependencies">Flag to scope to only manifests with dependencies</param>
+		public DependencyGraphManifestConnection DependencyGraphManifests { get; set; }
 
 		/// <summary>
 		/// A list of deploy keys that are on this repository.
@@ -168,6 +185,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="answered">Only show answered or unanswered discussions</param>
 		/// <param name="categoryId">Only include discussions that belong to the category with this ID.</param>
 		/// <param name="orderBy">Ordering options for discussions returned from the connection.</param>
 		/// <param name="states">A list of states to filter the discussions by.</param>
@@ -191,7 +209,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="names">The names of the environments to be returned.</param>
 		/// <param name="orderBy">Ordering options for the environments</param>
+		/// <param name="pinnedEnvironmentFilter">Filter to control pinned environments return</param>
 		public EnvironmentConnection Environments { get; set; }
 
 		/// <summary>
@@ -216,7 +236,8 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isLocked">If non-null, filters repositories according to whether they have been locked</param>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
 		/// <param name="ownerAffiliations">Array of owner's affiliation options for repositories returned from the connection. For example, OWNER will include only repositories that the organization or user being viewed owns.</param>
-		/// <param name="privacy">If non-null, filters repositories according to privacy</param>
+		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
+		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
 		public RepositoryConnection Forks { get; set; }
 
 		/// <summary>
@@ -240,6 +261,11 @@ namespace FluentHub.Octokit.Models.v4
 		public bool HasProjectsEnabled { get; set; }
 
 		/// <summary>
+		/// Indicates if the repository displays a Sponsor button for financial contributions.
+		/// </summary>
+		public bool HasSponsorshipsEnabled { get; set; }
+
+		/// <summary>
 		/// Whether vulnerability alerts are enabled for the repository.
 		/// </summary>
 		public bool HasVulnerabilityAlertsEnabled { get; set; }
@@ -254,6 +280,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string HomepageUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Repository object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -502,6 +531,16 @@ namespace FluentHub.Octokit.Models.v4
 		public PinnedDiscussionConnection PinnedDiscussions { get; set; }
 
 		/// <summary>
+		/// A list of pinned environments for this repository.
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="orderBy">Ordering options for the environments</param>
+		public PinnedEnvironmentConnection PinnedEnvironments { get; set; }
+
+		/// <summary>
 		/// A list of pinned issues for this repository.
 		/// </summary>
 		/// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -509,6 +548,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		public PinnedIssueConnection PinnedIssues { get; set; }
+
+		/// <summary>
+		/// Returns information about the availability of certain features and limits based on the repository's billing plan.
+		/// </summary>
+		public RepositoryPlanFeatures PlanFeatures { get; set; }
 
 		/// <summary>
 		/// The primary language of the repository's code.

@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
 		public string ClientMutationId { get; set; }
 
 		/// <summary>
+		/// The issue that was linked to.
+		/// </summary>
+		public Issue Issue { get; set; }
+
+		/// <summary>
 		/// The new branch issue reference.
 		/// </summary>
 		public LinkedBranch LinkedBranch { get; set; }

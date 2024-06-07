@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for User.
+	/// A list of users who belong to the organization.
 	/// </summary>
 	public class OrganizationMemberConnection
 	{

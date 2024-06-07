@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateEnterpriseProfileInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Enterprise ID to update.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The location of the enterprise.
 		/// </summary>
 		public string Location { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

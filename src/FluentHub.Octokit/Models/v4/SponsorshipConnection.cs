@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for Sponsorship.
+	/// A list of sponsorships either from the subject or received by the subject.
 	/// </summary>
 	public class SponsorshipConnection
 	{

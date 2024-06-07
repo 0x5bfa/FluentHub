@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeleteDeploymentInput
 	{
 		/// <summary>
-		/// The Node ID of the deployment to be deleted.
-		/// </summary>
-		public ID Id { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the deployment to be deleted.
+		/// </summary>
+		public ID Id { get; set; }
 	}
 }

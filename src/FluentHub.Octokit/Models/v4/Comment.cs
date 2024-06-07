@@ -54,6 +54,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		IActor Editor { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Comment object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

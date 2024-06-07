@@ -70,6 +70,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the primary key from the database.
 		/// </summary>
+		[Obsolete(@"`databaseId` will be removed because it does not support 64-bit signed integer identifiers. Use `fullDatabaseId` instead. Removal on 2024-07-01 UTC.")]
 		public int? DatabaseId { get; set; }
 
 		/// <summary>
@@ -77,12 +78,25 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IActor Editor { get; set; }
 
+		/// <summary>
+		/// Identifies the primary key from the database as a BigInt.
+		/// </summary>
+		public string FullDatabaseId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the PullRequestReview object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
 		/// Check if this comment was edited and includes an edit with the creation data
 		/// </summary>
 		public bool IncludesCreatedEdit { get; set; }
+
+		/// <summary>
+		/// Returns whether or not a comment has been minimized.
+		/// </summary>
+		public bool IsMinimized { get; set; }
 
 		/// <summary>
 		/// The moment the editor made the last edit
@@ -93,6 +107,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// Humanized string of "The moment the editor made the last edit"
 		/// <summary>
 		public string LastEditedAtHumanized { get; set; }
+
+		/// <summary>
+		/// Returns why the comment was minimized. One of `abuse`, `off-topic`, `outdated`, `resolved`, `duplicate` and `spam`. Note that the case and formatting of these values differs from the inputs to the `MinimizeComment` mutation.
+		/// </summary>
+		public string MinimizedReason { get; set; }
 
 		/// <summary>
 		/// A list of teams that this review was made on behalf of.
@@ -187,6 +206,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// Check if the current viewer can delete this object.
 		/// </summary>
 		public bool ViewerCanDelete { get; set; }
+
+		/// <summary>
+		/// Check if the current viewer can minimize this object.
+		/// </summary>
+		public bool ViewerCanMinimize { get; set; }
 
 		/// <summary>
 		/// Can user react to this subject

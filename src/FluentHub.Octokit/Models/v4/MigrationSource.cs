@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class MigrationSource
 	{
+		/// <summary>
+		/// The Node ID of the MigrationSource object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

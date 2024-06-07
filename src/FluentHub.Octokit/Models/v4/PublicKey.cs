@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string Fingerprint { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PublicKey object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

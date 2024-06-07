@@ -28,6 +28,24 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ConvertedNoteToIssueEvent object
+		/// </summary>
 		public ID Id { get; set; }
+
+		/// <summary>
+		/// Project referenced by event.
+		/// </summary>
+		public Project Project { get; set; }
+
+		/// <summary>
+		/// Project card referenced by this project event.
+		/// </summary>
+		public ProjectCard ProjectCard { get; set; }
+
+		/// <summary>
+		/// Column name referenced by this project event.
+		/// </summary>
+		public string ProjectColumnName { get; set; }
 	}
 }

@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class ClearLabelsFromLabelableInput
 	{
 		/// <summary>
-		/// The id of the labelable object to clear the labels from.
-		/// </summary>
-		public ID LabelableId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The id of the labelable object to clear the labels from.
+		/// </summary>
+		public ID LabelableId { get; set; }
 	}
 }

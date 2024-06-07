@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class LinkProjectV2ToRepositoryInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the project to link to the repository.
 		/// </summary>
 		public ID ProjectId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The ID of the repository to link to the project.
 		/// </summary>
 		public ID RepositoryId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

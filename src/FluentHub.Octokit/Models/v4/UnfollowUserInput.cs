@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class UnfollowUserInput
 	{
 		/// <summary>
-		/// ID of the user to unfollow.
-		/// </summary>
-		public ID UserId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// ID of the user to unfollow.
+		/// </summary>
+		public ID UserId { get; set; }
 	}
 }

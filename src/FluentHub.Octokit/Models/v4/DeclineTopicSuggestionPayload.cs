@@ -16,6 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The declined topic.
 		/// </summary>
+		[Obsolete(@"Suggested topics are no longer supported Removal on 2024-04-01 UTC.")]
 		public Topic Topic { get; set; }
 	}
 }

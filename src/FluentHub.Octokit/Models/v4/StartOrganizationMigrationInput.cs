@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class StartOrganizationMigrationInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The URL of the organization to migrate.
 		/// </summary>
 		public string SourceOrgUrl { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The migration source access token.
 		/// </summary>
 		public string SourceAccessToken { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

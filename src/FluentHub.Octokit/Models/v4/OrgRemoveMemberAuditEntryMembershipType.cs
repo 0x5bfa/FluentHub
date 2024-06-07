@@ -22,7 +22,7 @@ namespace FluentHub.Octokit.Models.v4
 		DirectMember,
 
 		/// <summary>
-		/// Organization administrators have full access and can change several settings, including the names of repositories that belong to the Organization and Owners team membership. In addition, organization admins can delete the organization and all of its repositories.
+		/// Organization owners have full access and can change several settings, including the names of repositories that belong to the Organization and Owners team membership. In addition, organization owners can delete the organization and all of its repositories.
 		/// </summary>
 		[EnumMember(Value = "ADMIN")]
 		Admin,

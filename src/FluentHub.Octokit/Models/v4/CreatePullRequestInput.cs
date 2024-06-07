@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreatePullRequestInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the repository.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -50,10 +55,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Indicates whether this pull request should be a draft.
 		/// </summary>
 		public bool? Draft { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

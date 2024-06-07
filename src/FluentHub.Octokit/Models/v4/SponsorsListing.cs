@@ -69,6 +69,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string FullDescriptionHTML { get; set; }
 
+		/// <summary>
+		/// The Node ID of the SponsorsListing object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

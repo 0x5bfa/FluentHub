@@ -118,6 +118,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="includeNotificationContexts">Whether or not to include notification contexts</param>
 		public Hovercard Hovercard { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Issue object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

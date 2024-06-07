@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateTeamDiscussionCommentInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the discussion to which the comment belongs. This field is required.
 		/// **Upcoming Change on 2024-07-01 UTC**
 		/// **Description:** `discussionId` will be removed. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement.
@@ -23,10 +28,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Reason:** The Team Discussions feature is deprecated in favor of Organization Discussions.
 		/// </summary>
 		public string Body { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

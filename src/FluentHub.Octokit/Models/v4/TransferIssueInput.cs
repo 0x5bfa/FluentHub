@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class TransferIssueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the issue to be transferred
 		/// </summary>
 		public ID IssueId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether to create labels if they don't exist in the target repository (matched by name)
 		/// </summary>
 		public bool? CreateLabelsIfMissing { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

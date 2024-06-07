@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public List<string> GradientStopColors { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PinnedDiscussion object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

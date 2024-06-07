@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class ClearProjectV2ItemFieldValueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the Project.
 		/// </summary>
 		public ID ProjectId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The ID of the field to be cleared.
 		/// </summary>
 		public ID FieldId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

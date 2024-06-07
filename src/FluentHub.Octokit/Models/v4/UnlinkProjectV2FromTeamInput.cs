@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UnlinkProjectV2FromTeamInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the project to unlink from the team.
 		/// </summary>
 		public ID ProjectId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The ID of the team to unlink from the project.
 		/// </summary>
 		public ID TeamId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

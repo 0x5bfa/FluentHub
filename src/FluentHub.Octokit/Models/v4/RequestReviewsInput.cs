@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class RequestReviewsInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the pull request to modify.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Add users to the set rather than replace.
 		/// </summary>
 		public bool? Union { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

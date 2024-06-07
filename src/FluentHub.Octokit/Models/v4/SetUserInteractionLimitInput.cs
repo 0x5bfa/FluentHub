@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class SetUserInteractionLimitInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the user to set a limit for.
 		/// </summary>
 		public ID UserId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// When this limit should expire.
 		/// </summary>
 		public RepositoryInteractionLimitExpiry? Expiry { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

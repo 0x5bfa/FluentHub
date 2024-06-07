@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IActor DeletedCommentAuthor { get; set; }
 
+		/// <summary>
+		/// The Node ID of the CommentDeletedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 	}
 }

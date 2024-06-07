@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public User Enqueuer { get; set; }
 
+		/// <summary>
+		/// The Node ID of the RemovedFromMergeQueueEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

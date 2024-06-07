@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CloneTemplateRepositoryInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the template repository.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -37,10 +42,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether to copy all branches from the template to the new repository. Defaults to copying only the default branch of the template.
 		/// </summary>
 		public bool? IncludeAllBranches { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

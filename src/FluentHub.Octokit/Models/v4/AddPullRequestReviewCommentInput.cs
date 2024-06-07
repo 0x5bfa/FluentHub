@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddPullRequestReviewCommentInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The node ID of the pull request reviewing
 		/// **Upcoming Change on 2023-10-01 UTC**
 		/// **Description:** `pullRequestId` will be removed. use addPullRequestReviewThread or addPullRequestReviewThreadReply instead
@@ -63,10 +68,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Reason:** We are deprecating the addPullRequestReviewComment mutation
 		/// </summary>
 		public ID? InReplyTo { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

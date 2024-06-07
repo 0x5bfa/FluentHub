@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class SetEnterpriseIdentityProviderInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise on which to set an identity provider.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -37,10 +42,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The digest algorithm used to sign SAML requests for the identity provider.
 		/// </summary>
 		public SamlDigestAlgorithm DigestMethod { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

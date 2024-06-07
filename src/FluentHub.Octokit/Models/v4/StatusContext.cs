@@ -44,6 +44,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string Description { get; set; }
 
+		/// <summary>
+		/// The Node ID of the StatusContext object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -9,6 +9,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public interface IPackageOwner
 	{
+		/// <summary>
+		/// The Node ID of the PackageOwner object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

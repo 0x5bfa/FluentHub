@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeleteProjectColumnInput
 	{
 		/// <summary>
-		/// The id of the column to delete.
-		/// </summary>
-		public ID ColumnId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The id of the column to delete.
+		/// </summary>
+		public ID ColumnId { get; set; }
 	}
 }

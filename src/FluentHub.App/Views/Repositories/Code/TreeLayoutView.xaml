@@ -81,7 +81,7 @@
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/DefaultGridSplitterStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</views:LocatablePage.Resources>

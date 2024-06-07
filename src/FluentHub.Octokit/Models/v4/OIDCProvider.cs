@@ -25,6 +25,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="userName">Filter to external identities with the users userName/NameID attribute</param>
 		public ExternalIdentityConnection ExternalIdentities { get; set; }
 
+		/// <summary>
+		/// The Node ID of the OIDCProvider object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

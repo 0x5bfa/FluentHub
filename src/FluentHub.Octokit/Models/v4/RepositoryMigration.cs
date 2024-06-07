@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string FailureReason { get; set; }
 
+		/// <summary>
+		/// The Node ID of the RepositoryMigration object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -61,7 +64,7 @@ namespace FluentHub.Octokit.Models.v4
 		public MigrationState State { get; set; }
 
 		/// <summary>
-		/// The number of warnings encountered for this migration. To review the warnings, check the [Migration Log](https://docs.github.com/en/migrations/using-github-enterprise-importer/completing-your-migration-with-github-enterprise-importer/accessing-your-migration-logs-for-github-enterprise-importer).
+		/// The number of warnings encountered for this migration. To review the warnings, check the [Migration Log](https://docs.github.com/migrations/using-github-enterprise-importer/completing-your-migration-with-github-enterprise-importer/accessing-your-migration-logs-for-github-enterprise-importer).
 		/// </summary>
 		public int WarningsCount { get; set; }
 	}

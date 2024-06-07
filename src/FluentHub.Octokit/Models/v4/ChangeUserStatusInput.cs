@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class ChangeUserStatusInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The emoji to represent your status. Can either be a native Unicode emoji or an emoji name with colons, e.g., :grinning:.
 		/// </summary>
 		public string Emoji { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// If set, the user status will not be shown after this date.
 		/// </summary>
 		public DateTimeOffset? ExpiresAt { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

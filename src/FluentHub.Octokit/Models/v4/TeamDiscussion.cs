@@ -88,6 +88,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IActor Editor { get; set; }
 
+		/// <summary>
+		/// The Node ID of the TeamDiscussion object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -102,7 +105,7 @@ namespace FluentHub.Octokit.Models.v4
 		public bool IsPinned { get; set; }
 
 		/// <summary>
-		/// Whether or not the discussion is only visible to team members and org admins.
+		/// Whether or not the discussion is only visible to team members and organization owners.
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
 		public bool IsPrivate { get; set; }

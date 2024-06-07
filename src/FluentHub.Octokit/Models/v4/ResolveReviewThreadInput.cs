@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class ResolveReviewThreadInput
 	{
 		/// <summary>
-		/// The ID of the thread to resolve
-		/// </summary>
-		public ID ThreadId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the thread to resolve
+		/// </summary>
+		public ID ThreadId { get; set; }
 	}
 }

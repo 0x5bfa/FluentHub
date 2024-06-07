@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Enterprise Enterprise { get; set; }
 
+		/// <summary>
+		/// The Node ID of the EnterpriseAdministratorInvitation object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

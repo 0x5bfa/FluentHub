@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public User Enabler { get; set; }
 
+		/// <summary>
+		/// The Node ID of the AutoRebaseEnabledEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

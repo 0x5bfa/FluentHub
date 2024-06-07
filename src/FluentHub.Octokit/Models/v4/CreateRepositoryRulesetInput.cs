@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateRepositoryRulesetInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The global relay id of the source in which a new ruleset should be created in.
 		/// </summary>
 		public ID SourceId { get; set; }
@@ -42,10 +47,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// A list of actors that are allowed to bypass rules in this ruleset.
 		/// </summary>
 		public List<RepositoryRulesetBypassActorInput> BypassActors { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

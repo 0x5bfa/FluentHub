@@ -20,6 +20,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		string Email { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProfileOwner object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

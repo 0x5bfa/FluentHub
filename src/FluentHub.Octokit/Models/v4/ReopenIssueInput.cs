@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class ReopenIssueInput
 	{
 		/// <summary>
-		/// ID of the issue to be opened.
-		/// </summary>
-		public ID IssueId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// ID of the issue to be opened.
+		/// </summary>
+		public ID IssueId { get; set; }
 	}
 }

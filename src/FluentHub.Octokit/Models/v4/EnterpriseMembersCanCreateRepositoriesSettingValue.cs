@@ -10,7 +10,7 @@ namespace FluentHub.Octokit.Models.v4
 	public enum EnterpriseMembersCanCreateRepositoriesSettingValue
 	{
 		/// <summary>
-		/// Organization administrators choose whether to allow members to create repositories.
+		/// Organization owners choose whether to allow members to create repositories.
 		/// </summary>
 		[EnumMember(Value = "NO_POLICY")]
 		NoPolicy,

@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public DeploymentStatus DeploymentStatus { get; set; }
 
+		/// <summary>
+		/// The Node ID of the DeploymentEnvironmentChangedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

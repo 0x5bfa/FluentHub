@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class RegenerateEnterpriseIdentityProviderRecoveryCodesInput
 	{
 		/// <summary>
-		/// The ID of the enterprise on which to set an identity provider.
-		/// </summary>
-		public ID EnterpriseId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the enterprise on which to set an identity provider.
+		/// </summary>
+		public ID EnterpriseId { get; set; }
 	}
 }

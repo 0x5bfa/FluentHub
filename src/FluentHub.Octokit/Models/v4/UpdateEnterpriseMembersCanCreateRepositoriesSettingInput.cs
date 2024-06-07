@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateEnterpriseMembersCanCreateRepositoriesSettingInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise on which to set the members can create repositories setting.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -37,10 +42,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Allow members to create internal repositories. Defaults to current value.
 		/// </summary>
 		public bool? MembersCanCreateInternalRepositories { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

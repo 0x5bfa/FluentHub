@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateSponsorshipPreferencesInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the user or organization who is acting as the sponsor, paying for the sponsorship. Required if sponsorLogin is not given.
 		/// </summary>
 		public ID? SponsorId { get; set; }
@@ -37,10 +42,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Specify whether others should be able to see that the sponsor is sponsoring the sponsorable. Public visibility still does not reveal which tier is used.
 		/// </summary>
 		public SponsorshipPrivacy? PrivacyLevel { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

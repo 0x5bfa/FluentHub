@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Repository FromRepository { get; set; }
 
+		/// <summary>
+		/// The Node ID of the TransferredEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

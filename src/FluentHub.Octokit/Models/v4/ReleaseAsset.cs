@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string DownloadUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ReleaseAsset object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -53,6 +53,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string DigestMethodUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the OrgEnableSamlAuditEntry object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for User.
+	/// A list of users.
 	/// </summary>
 	public class UserConnection
 	{

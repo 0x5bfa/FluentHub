@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class UnmarkDiscussionCommentAsAnswerInput
 	{
 		/// <summary>
-		/// The Node ID of the discussion comment to unmark as an answer.
-		/// </summary>
-		public ID Id { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the discussion comment to unmark as an answer.
+		/// </summary>
+		public ID Id { get; set; }
 	}
 }

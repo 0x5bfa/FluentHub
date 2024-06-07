@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class UnminimizeCommentInput
 	{
 		/// <summary>
-		/// The Node ID of the subject to modify.
-		/// </summary>
-		public ID SubjectId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the subject to modify.
+		/// </summary>
+		public ID SubjectId { get; set; }
 	}
 }

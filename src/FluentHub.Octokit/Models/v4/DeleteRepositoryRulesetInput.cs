@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeleteRepositoryRulesetInput
 	{
 		/// <summary>
-		/// The global relay id of the repository ruleset to be deleted.
-		/// </summary>
-		public ID RepositoryRulesetId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The global relay id of the repository ruleset to be deleted.
+		/// </summary>
+		public ID RepositoryRulesetId { get; set; }
 	}
 }

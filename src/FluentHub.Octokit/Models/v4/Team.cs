@@ -97,6 +97,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string EditTeamUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Team object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -219,6 +222,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// The HTTP path for this team
 		/// </summary>
 		public string ResourcePath { get; set; }
+
+		/// <summary>
+		/// What algorithm is used for review assignment for this team
+		/// </summary>
+		public TeamReviewAssignmentAlgorithm? ReviewRequestDelegationAlgorithm { get; set; }
+
+		/// <summary>
+		/// True if review assignment is enabled for this team
+		/// </summary>
+		public bool ReviewRequestDelegationEnabled { get; set; }
+
+		/// <summary>
+		/// How many team members are required for review assignment for this team
+		/// </summary>
+		public int? ReviewRequestDelegationMemberCount { get; set; }
+
+		/// <summary>
+		/// When assigning team members via delegation, whether the entire team should be notified as well.
+		/// </summary>
+		public bool ReviewRequestDelegationNotifyTeam { get; set; }
 
 		/// <summary>
 		/// The slug corresponding to the team.

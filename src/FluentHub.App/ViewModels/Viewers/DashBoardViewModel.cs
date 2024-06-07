@@ -77,6 +77,8 @@ namespace FluentHub.App.ViewModels.Viewers
 
 			var items = (List<Repository>)repositoryResult.Response;
 
+			_TopRepositories.Clear();
+
 			if (items.Count < 6)
 			{
 				foreach (var item in items)
@@ -102,6 +104,8 @@ namespace FluentHub.App.ViewModels.Viewers
 			notificationResponse.RemoveAll(x =>
 				x.Subject.Type != NotificationSubjectType.IssueOpen &&
 				x.Subject.Type != NotificationSubjectType.PullRequestOpen);
+
+			_RecentActivities.Clear();
 
 			if (notificationResponse.Count < 8)
 			{

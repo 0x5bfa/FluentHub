@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateLinkedBranchInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// ID of the issue to link to.
 		/// </summary>
 		public ID IssueId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// ID of the repository to create the branch in. Defaults to the issue repository.
 		/// </summary>
 		public ID? RepositoryId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

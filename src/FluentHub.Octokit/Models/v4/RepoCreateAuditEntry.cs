@@ -58,6 +58,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string ForkSourceName { get; set; }
 
+		/// <summary>
+		/// The Node ID of the RepoCreateAuditEntry object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

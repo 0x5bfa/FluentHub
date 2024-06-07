@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class EnterpriseRepositoryInfo
 	{
+		/// <summary>
+		/// The Node ID of the EnterpriseRepositoryInfo object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

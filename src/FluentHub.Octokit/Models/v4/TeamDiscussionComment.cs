@@ -71,6 +71,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IActor Editor { get; set; }
 
+		/// <summary>
+		/// The Node ID of the TeamDiscussionComment object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

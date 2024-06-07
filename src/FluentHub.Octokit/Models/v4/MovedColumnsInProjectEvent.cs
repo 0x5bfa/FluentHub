@@ -28,6 +28,29 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the MovedColumnsInProjectEvent object
+		/// </summary>
 		public ID Id { get; set; }
+
+		/// <summary>
+		/// Column name the issue or pull request was moved from.
+		/// </summary>
+		public string PreviousProjectColumnName { get; set; }
+
+		/// <summary>
+		/// Project referenced by event.
+		/// </summary>
+		public Project Project { get; set; }
+
+		/// <summary>
+		/// Project card referenced by this project event.
+		/// </summary>
+		public ProjectCard ProjectCard { get; set; }
+
+		/// <summary>
+		/// Column name the issue or pull request was moved to.
+		/// </summary>
+		public string ProjectColumnName { get; set; }
 	}
 }

@@ -29,7 +29,7 @@ namespace FluentHub.Octokit.Models.v4
 		public int TotalCount { get; set; }
 
 		/// <summary>
-		/// The total size in kilobytes of all repositories in the connection.
+		/// The total size in kilobytes of all repositories in the connection. Value will never be larger than max 32-bit signed integer.
 		/// </summary>
 		public int TotalDiskUsage { get; set; }
 	}

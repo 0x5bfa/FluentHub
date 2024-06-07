@@ -78,6 +78,11 @@ namespace FluentHub.Octokit.Models.v4
 		public string BodyText { get; set; }
 
 		/// <summary>
+		/// Whether or not the pull request is rebaseable.
+		/// </summary>
+		public bool CanBeRebased { get; set; }
+
+		/// <summary>
 		/// The number of changed files in this pull request.
 		/// </summary>
 		public int ChangedFiles { get; set; }
@@ -155,6 +160,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the primary key from the database.
 		/// </summary>
+		[Obsolete(@"`databaseId` will be removed because it does not support 64-bit signed integer identifiers. Use `fullDatabaseId` instead. Removal on 2024-07-01 UTC.")]
 		public int? DatabaseId { get; set; }
 
 		/// <summary>
@@ -175,6 +181,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		public PullRequestChangedFileConnection Files { get; set; }
+
+		/// <summary>
+		/// Identifies the primary key from the database as a BigInt.
+		/// </summary>
+		public string FullDatabaseId { get; set; }
 
 		/// <summary>
 		/// Identifies the head Ref associated with the pull request.
@@ -207,6 +218,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="includeNotificationContexts">Whether or not to include notification contexts</param>
 		public Hovercard Hovercard { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PullRequest object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -223,6 +237,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// Identifies if the pull request is a draft.
 		/// </summary>
 		public bool IsDraft { get; set; }
+
+		/// <summary>
+		/// Indicates whether the pull request is in a merge queue
+		/// </summary>
+		public bool IsInMergeQueue { get; set; }
+
+		/// <summary>
+		/// Indicates whether the pull request's base ref has a merge queue enabled.
+		/// </summary>
+		public bool IsMergeQueueEnabled { get; set; }
 
 		/// <summary>
 		/// Is this pull request read by the viewer
@@ -284,9 +308,19 @@ namespace FluentHub.Octokit.Models.v4
 		public Commit MergeCommit { get; set; }
 
 		/// <summary>
+		/// The merge queue for the pull request's base branch
+		/// </summary>
+		public MergeQueue MergeQueue { get; set; }
+
+		/// <summary>
 		/// The merge queue entry of the pull request in the base branch's merge queue
 		/// </summary>
 		public MergeQueueEntry MergeQueueEntry { get; set; }
+
+		/// <summary>
+		/// Detailed information about the current pull request merge state status.
+		/// </summary>
+		public MergeStateStatus MergeStateStatus { get; set; }
 
 		/// <summary>
 		/// Whether or not the pull request can be merged based on the existence of merge conflicts.
@@ -463,6 +497,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// Identifies the state of the pull request.
 		/// </summary>
 		public PullRequestState State { get; set; }
+
+		/// <summary>
+		/// Check and Status rollup information for the PR's head ref.
+		/// </summary>
+		public StatusCheckRollup StatusCheckRollup { get; set; }
 
 		/// <summary>
 		/// A list of reviewer suggestions based on commit history and past review comments.
