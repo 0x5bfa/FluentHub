@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeleteIssueInput
 	{
 		/// <summary>
-		/// The ID of the issue to delete.
-		/// </summary>
-		public ID IssueId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the issue to delete.
+		/// </summary>
+		public ID IssueId { get; set; }
 	}
 }

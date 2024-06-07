@@ -14,6 +14,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Reactable object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

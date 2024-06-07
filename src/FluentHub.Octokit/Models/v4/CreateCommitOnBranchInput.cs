@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateCommitOnBranchInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Ref to be updated.  Must be a branch.
 		/// </summary>
 		public CommittableBranch Branch { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The git commit oid expected at the head of the branch prior to the commit
 		/// </summary>
 		public string ExpectedHeadOid { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class RemoveEnterpriseMemberInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise from which the user should be removed.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The ID of the user to remove from the enterprise.
 		/// </summary>
 		public ID UserId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

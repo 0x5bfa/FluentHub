@@ -68,5 +68,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		[EnumMember(Value = "YOUTUBE")]
 		Youtube,
+
+		/// <summary>
+		/// JavaScript package registry.
+		/// </summary>
+		[EnumMember(Value = "NPM")]
+		Npm,
 	}
 }

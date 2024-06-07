@@ -9,6 +9,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public interface ISubscribable
 	{
+		/// <summary>
+		/// The Node ID of the Subscribable object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

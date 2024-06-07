@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateTeamDiscussionCommentInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the comment to modify.
 		/// </summary>
 		public ID Id { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The current version of the body content.
 		/// </summary>
 		public string BodyVersion { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

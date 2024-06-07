@@ -41,6 +41,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProjectCard object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

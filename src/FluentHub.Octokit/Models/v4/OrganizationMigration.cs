@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string FailureReason { get; set; }
 
+		/// <summary>
+		/// The Node ID of the OrganizationMigration object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

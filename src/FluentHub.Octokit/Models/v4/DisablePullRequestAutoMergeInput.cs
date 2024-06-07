@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DisablePullRequestAutoMergeInput
 	{
 		/// <summary>
-		/// ID of the pull request to disable auto merge on.
-		/// </summary>
-		public ID PullRequestId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// ID of the pull request to disable auto merge on.
+		/// </summary>
+		public ID PullRequestId { get; set; }
 	}
 }

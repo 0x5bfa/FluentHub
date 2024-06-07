@@ -5,10 +5,13 @@ namespace FluentHub.Octokit.Models.v4
 {
 
 	/// <summary>
-	/// Represents an owner of a project (beta).
+	/// Represents an owner of a project.
 	/// </summary>
 	public interface IProjectV2Owner
 	{
+		/// <summary>
+		/// The Node ID of the ProjectV2Owner object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

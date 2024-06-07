@@ -19,6 +19,11 @@ namespace FluentHub.Octokit.Models.v4
 		public DefaultRepositoryPermissionField Permission { get; set; }
 
 		/// <summary>
+		/// The name of the role this source has granted to the user.
+		/// </summary>
+		public string RoleName { get; set; }
+
+		/// <summary>
 		/// The source of this permission.
 		/// </summary>
 		public PermissionGranter Source { get; set; }

@@ -49,6 +49,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for gists returned from the connection</param>
 		public GistConnection Forks { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Gist object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

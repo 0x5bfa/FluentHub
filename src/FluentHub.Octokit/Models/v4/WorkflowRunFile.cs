@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class WorkflowRunFile
 	{
+		/// <summary>
+		/// The Node ID of the WorkflowRunFile object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

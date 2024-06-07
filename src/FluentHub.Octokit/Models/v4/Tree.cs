@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public List<TreeEntry> Entries { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Tree object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

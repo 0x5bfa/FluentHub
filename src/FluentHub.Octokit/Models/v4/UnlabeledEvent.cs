@@ -23,6 +23,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		public string CreatedAtHumanized { get; set; }
 
+		/// <summary>
+		/// The Node ID of the UnlabeledEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

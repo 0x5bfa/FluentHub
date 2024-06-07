@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddPullRequestReviewInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the pull request to modify.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -40,10 +45,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The review line comment threads.
 		/// </summary>
 		public List<DraftPullRequestReviewThread> Threads { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

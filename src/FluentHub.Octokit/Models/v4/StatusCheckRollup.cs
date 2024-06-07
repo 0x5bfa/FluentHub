@@ -22,6 +22,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		public StatusCheckRollupContextConnection Contexts { get; set; }
 
+		/// <summary>
+		/// The Node ID of the StatusCheckRollup object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

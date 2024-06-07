@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class SubmitPullRequestReviewInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Pull Request ID to submit any pending reviews.
 		/// </summary>
 		public ID? PullRequestId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The text field to set on the Pull Request Review.
 		/// </summary>
 		public string Body { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

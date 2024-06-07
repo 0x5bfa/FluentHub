@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class RetireSponsorsTierInput
 	{
 		/// <summary>
-		/// The ID of the published tier to retire.
-		/// </summary>
-		public ID TierId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the published tier to retire.
+		/// </summary>
+		public ID TierId { get; set; }
 	}
 }

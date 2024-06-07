@@ -48,6 +48,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string Environment { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Deployment object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

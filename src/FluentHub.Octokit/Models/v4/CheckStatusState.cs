@@ -10,6 +10,12 @@ namespace FluentHub.Octokit.Models.v4
 	public enum CheckStatusState
 	{
 		/// <summary>
+		/// The check suite or run has been requested.
+		/// </summary>
+		[EnumMember(Value = "REQUESTED")]
+		Requested,
+
+		/// <summary>
 		/// The check suite or run has been queued.
 		/// </summary>
 		[EnumMember(Value = "QUEUED")]
@@ -38,11 +44,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		[EnumMember(Value = "PENDING")]
 		Pending,
-
-		/// <summary>
-		/// The check suite or run has been requested.
-		/// </summary>
-		[EnumMember(Value = "REQUESTED")]
-		Requested,
 	}
 }

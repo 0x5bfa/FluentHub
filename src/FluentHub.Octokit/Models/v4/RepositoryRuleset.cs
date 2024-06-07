@@ -42,6 +42,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public RuleEnforcement Enforcement { get; set; }
 
+		/// <summary>
+		/// The Node ID of the RepositoryRuleset object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

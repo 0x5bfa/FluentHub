@@ -64,6 +64,11 @@ namespace FluentHub.Octokit.Models.v4
 		public ContributionsCollection ContributionsCollection { get; set; }
 
 		/// <summary>
+		/// The user's Copilot endpoint information
+		/// </summary>
+		public CopilotEndpoints CopilotEndpoints { get; set; }
+
+		/// <summary>
 		/// Identifies the date and time when the object was created.
 		/// </summary>
 		public DateTimeOffset CreatedAt { get; set; }
@@ -82,6 +87,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// The user's publicly visible profile email.
 		/// </summary>
 		public string Email { get; set; }
+
+		/// <summary>
+		/// A list of enterprises that the user belongs to.
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="membershipType">Filter enterprises returned based on the user's membership type.</param>
+		/// <param name="orderBy">Ordering options for the User's enterprises.</param>
+		public EnterpriseConnection Enterprises { get; set; }
 
 		/// <summary>
 		/// The estimated next GitHub Sponsors payout for this user/organization in cents (USD).
@@ -143,6 +159,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="primarySubjectId">The ID of the subject to get the hovercard in the context of</param>
 		public Hovercard Hovercard { get; set; }
 
+		/// <summary>
+		/// The Node ID of the User object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -233,6 +252,25 @@ namespace FluentHub.Octokit.Models.v4
 		/// Showcases a selection of repositories and gists that the profile owner has either curated or that have been selected automatically based on popularity.
 		/// </summary>
 		public ProfileItemShowcase ItemShowcase { get; set; }
+
+		/// <summary>
+		/// Calculate how much each sponsor has ever paid total to this maintainer via GitHub Sponsors. Does not include sponsorships paid via Patreon.
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		/// <param name="orderBy">Ordering options for results returned from the connection.</param>
+		public SponsorAndLifetimeValueConnection LifetimeReceivedSponsorshipValues { get; set; }
+
+		/// <summary>
+		/// A user-curated list of repositories
+		/// </summary>
+		/// <param name="first">Returns the first _n_ elements from the list.</param>
+		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+		/// <param name="last">Returns the last _n_ elements from the list.</param>
+		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+		public UserListConnection Lists { get; set; }
 
 		/// <summary>
 		/// The user's public profile location.
@@ -410,7 +448,8 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isLocked">If non-null, filters repositories according to whether they have been locked</param>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
 		/// <param name="ownerAffiliations">Array of owner's affiliation options for repositories returned from the connection. For example, OWNER will include only repositories that the organization or user being viewed owns.</param>
-		/// <param name="privacy">If non-null, filters repositories according to privacy</param>
+		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
+		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
 		public RepositoryConnection Repositories { get; set; }
 
 		/// <summary>
@@ -588,6 +627,11 @@ namespace FluentHub.Octokit.Models.v4
 		public UserStatus Status { get; set; }
 
 		/// <summary>
+		/// Suggested names for user lists
+		/// </summary>
+		public List<UserListSuggestion> SuggestedListNames { get; set; }
+
+		/// <summary>
 		/// Repositories the user has contributed to, ordered by contribution rank, plus repositories the user has created
 		/// </summary>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
@@ -668,7 +712,8 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isLocked">If non-null, filters repositories according to whether they have been locked</param>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
 		/// <param name="ownerAffiliations">Array of owner's affiliation options for repositories returned from the connection. For example, OWNER will include only repositories that the organization or user being viewed owns.</param>
-		/// <param name="privacy">If non-null, filters repositories according to privacy</param>
+		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
+		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
 		public RepositoryConnection Watching { get; set; }
 
 		/// <summary>

@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class CancelEnterpriseAdminInvitationInput
 	{
 		/// <summary>
-		/// The Node ID of the pending enterprise administrator invitation.
-		/// </summary>
-		public ID InvitationId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the pending enterprise administrator invitation.
+		/// </summary>
+		public ID InvitationId { get; set; }
 	}
 }

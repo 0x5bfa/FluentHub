@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateEnterpriseAllowPrivateRepositoryForkingSettingInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise on which to set the allow private repository forking setting.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The value for the allow private repository forking policy on the enterprise.
 		/// </summary>
 		public EnterpriseAllowPrivateRepositoryForkingPolicyValue? PolicyValue { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

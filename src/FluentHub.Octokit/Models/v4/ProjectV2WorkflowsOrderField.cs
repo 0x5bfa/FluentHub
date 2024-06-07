@@ -10,25 +10,25 @@ namespace FluentHub.Octokit.Models.v4
 	public enum ProjectV2WorkflowsOrderField
 	{
 		/// <summary>
-		/// The workflows' name
+		/// The name of the workflow
 		/// </summary>
 		[EnumMember(Value = "NAME")]
 		Name,
 
 		/// <summary>
-		/// The workflows' number
+		/// The number of the workflow
 		/// </summary>
 		[EnumMember(Value = "NUMBER")]
 		Number,
 
 		/// <summary>
-		/// The workflows' date and time of update
+		/// The date and time of the workflow update
 		/// </summary>
 		[EnumMember(Value = "UPDATED_AT")]
 		UpdatedAt,
 
 		/// <summary>
-		/// The workflows' date and time of creation
+		/// The date and time of the workflow creation
 		/// </summary>
 		[EnumMember(Value = "CREATED_AT")]
 		CreatedAt,

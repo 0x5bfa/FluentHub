@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddDiscussionPollVoteInput
 	{
 		/// <summary>
-		/// The Node ID of the discussion poll option to vote for.
-		/// </summary>
-		public ID PollOptionId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the discussion poll option to vote for.
+		/// </summary>
+		public ID PollOptionId { get; set; }
 	}
 }

@@ -63,6 +63,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string FullDatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the IssueComment object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

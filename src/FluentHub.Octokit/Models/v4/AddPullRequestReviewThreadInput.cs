@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddPullRequestReviewThreadInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// Path to the file being commented on.
 		/// </summary>
 		public string Path { get; set; }
@@ -52,10 +57,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The level at which the comments in the corresponding thread are targeted, can be a diff line or a file
 		/// </summary>
 		public PullRequestReviewThreadSubjectType? SubjectType { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

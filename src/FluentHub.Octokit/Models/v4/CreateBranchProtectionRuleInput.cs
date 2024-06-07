@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateBranchProtectionRuleInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The global relay id of the repository in which a new branch protection rule should be created in.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -54,7 +59,7 @@ namespace FluentHub.Octokit.Models.v4
 		public bool? AllowsDeletions { get; set; }
 
 		/// <summary>
-		/// Can admins overwrite branch protection.
+		/// Can admins override branch protection.
 		/// </summary>
 		public bool? IsAdminEnforced { get; set; }
 
@@ -147,10 +152,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether users can pull changes from upstream when the branch is locked. Set to `true` to allow fork syncing. Set to `false` to prevent fork syncing.
 		/// </summary>
 		public bool? LockAllowsFetchAndMerge { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class ArchiveRepositoryInput
 	{
 		/// <summary>
-		/// The ID of the repository to mark as archived.
-		/// </summary>
-		public ID RepositoryId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the repository to mark as archived.
+		/// </summary>
+		public ID RepositoryId { get; set; }
 	}
 }

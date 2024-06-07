@@ -38,6 +38,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string DescriptionHTML { get; set; }
 
+		/// <summary>
+		/// The Node ID of the SponsorsTier object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for Sponsor.
+	/// A list of users and organizations sponsoring someone via GitHub Sponsors.
 	/// </summary>
 	public class SponsorConnection
 	{

@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IssueOrPullRequest Duplicate { get; set; }
 
+		/// <summary>
+		/// The Node ID of the UnmarkedAsDuplicateEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

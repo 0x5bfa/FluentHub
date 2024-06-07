@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateIssueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the Issue to modify.
 		/// </summary>
 		public ID Id { get; set; }
@@ -47,10 +52,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// An array of Node IDs for projects associated with this issue.
 		/// </summary>
 		public List<ID> ProjectIds { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

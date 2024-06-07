@@ -38,6 +38,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string DescriptionHTML { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Release object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -102,7 +105,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		/// <param name="name">A list of names to filter the assets by.</param>
+		/// <param name="name">A name to filter the assets by.</param>
 		public ReleaseAssetConnection ReleaseAssets { get; set; }
 
 		/// <summary>

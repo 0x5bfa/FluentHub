@@ -9,23 +9,32 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeclineTopicSuggestionInput
 	{
 		/// <summary>
-		/// The Node ID of the repository.
+		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public ID RepositoryId { get; set; }
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the repository.
+		/// **Upcoming Change on 2024-04-01 UTC**
+		/// **Description:** `repositoryId` will be removed.
+		/// **Reason:** Suggested topics are no longer supported
+		/// </summary>
+		public ID? RepositoryId { get; set; }
 
 		/// <summary>
 		/// The name of the suggested topic.
+		/// **Upcoming Change on 2024-04-01 UTC**
+		/// **Description:** `name` will be removed.
+		/// **Reason:** Suggested topics are no longer supported
 		/// </summary>
 		public string Name { get; set; }
 
 		/// <summary>
 		/// The reason why the suggested topic is declined.
+		/// **Upcoming Change on 2024-04-01 UTC**
+		/// **Description:** `reason` will be removed.
+		/// **Reason:** Suggested topics are no longer supported
 		/// </summary>
-		public TopicSuggestionDeclineReason Reason { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
+		public TopicSuggestionDeclineReason? Reason { get; set; }
 	}
 }

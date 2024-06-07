@@ -65,10 +65,13 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public bool DismissesStaleReviews { get; set; }
 
+		/// <summary>
+		/// The Node ID of the BranchProtectionRule object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
-		/// Can admins overwrite branch protection.
+		/// Can admins override branch protection.
 		/// </summary>
 		public bool IsAdminEnforced { get; set; }
 

@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		public string CreatedAtHumanized { get; set; }
 
+		/// <summary>
+		/// The Node ID of the AssignedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

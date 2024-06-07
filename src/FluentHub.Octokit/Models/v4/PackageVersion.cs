@@ -18,6 +18,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering of the returned package files.</param>
 		public PackageFileConnection Files { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PackageVersion object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -38,6 +38,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string DismissalMessageHTML { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ReviewDismissedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

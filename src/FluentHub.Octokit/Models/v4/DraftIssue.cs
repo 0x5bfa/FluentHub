@@ -47,6 +47,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IActor Creator { get; set; }
 
+		/// <summary>
+		/// The Node ID of the DraftIssue object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

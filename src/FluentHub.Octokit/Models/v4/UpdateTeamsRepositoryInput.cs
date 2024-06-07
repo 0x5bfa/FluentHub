@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateTeamsRepositoryInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// Repository ID being granted access to.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Permission that should be granted to the teams.
 		/// </summary>
 		public RepositoryPermission Permission { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

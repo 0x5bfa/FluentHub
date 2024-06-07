@@ -38,6 +38,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Commit HeadCommit { get; set; }
 
+		/// <summary>
+		/// The Node ID of the MergeQueueEntry object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

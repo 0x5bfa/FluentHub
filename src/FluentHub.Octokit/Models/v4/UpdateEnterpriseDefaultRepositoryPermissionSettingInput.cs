@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateEnterpriseDefaultRepositoryPermissionSettingInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise on which to set the base repository permission setting.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The value for the base repository permission setting on the enterprise.
 		/// </summary>
 		public EnterpriseDefaultRepositoryPermissionSettingValue SettingValue { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

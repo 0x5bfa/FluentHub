@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdatePullRequestReviewCommentInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the comment to modify.
 		/// </summary>
 		public ID PullRequestReviewCommentId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The text of the comment.
 		/// </summary>
 		public string Body { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

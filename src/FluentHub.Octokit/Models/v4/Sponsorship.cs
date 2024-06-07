@@ -18,6 +18,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		public string CreatedAtHumanized { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Sponsorship object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -40,6 +43,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		[Obsolete(@"`Sponsorship.maintainer` will be removed. Use `Sponsorship.sponsorable` instead. Removal on 2020-04-01 UTC.")]
 		public User Maintainer { get; set; }
+
+		/// <summary>
+		/// The platform that was most recently used to pay for the sponsorship.
+		/// </summary>
+		public SponsorshipPaymentSource? PaymentSource { get; set; }
 
 		/// <summary>
 		/// The privacy level for this sponsorship.

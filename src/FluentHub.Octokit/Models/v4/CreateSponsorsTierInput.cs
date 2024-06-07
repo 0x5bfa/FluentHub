@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateSponsorsTierInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the user or organization who owns the GitHub Sponsors profile. Defaults to the current user if omitted and sponsorableLogin is not given.
 		/// </summary>
 		public ID? SponsorableId { get; set; }
@@ -57,10 +62,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether to make the tier available immediately for sponsors to choose. Defaults to creating a draft tier that will not be publicly visible.
 		/// </summary>
 		public bool? Publish { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

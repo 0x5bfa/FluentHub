@@ -57,6 +57,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string ExternalId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the CheckRun object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class AcceptEnterpriseAdministratorInvitationInput
 	{
 		/// <summary>
-		/// The id of the invitation being accepted
-		/// </summary>
-		public ID InvitationId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The id of the invitation being accepted
+		/// </summary>
+		public ID InvitationId { get; set; }
 	}
 }

@@ -1348,7 +1348,7 @@ namespace FluentHub.Octokit.Models.v4
 		Tn,
 
 		/// <summary>
-		/// Turkey
+		/// Türkiye
 		/// </summary>
 		[EnumMember(Value = "TR")]
 		Tr,

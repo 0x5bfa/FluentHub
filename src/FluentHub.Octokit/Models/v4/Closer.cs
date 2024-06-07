@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
 		public Commit Commit { get; set; }
 
 		/// <summary>
+		/// New projects that manage issues, pull requests and drafts using tables and boards.
+		/// </summary>
+		public ProjectV2 ProjectV2 { get; set; }
+
+		/// <summary>
 		/// A repository pull request.
 		/// </summary>
 		public PullRequest PullRequest { get; set; }

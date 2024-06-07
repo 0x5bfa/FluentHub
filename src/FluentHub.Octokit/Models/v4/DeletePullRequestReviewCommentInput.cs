@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class DeletePullRequestReviewCommentInput
 	{
 		/// <summary>
-		/// The ID of the comment to delete.
-		/// </summary>
-		public ID Id { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the comment to delete.
+		/// </summary>
+		public ID Id { get; set; }
 	}
 }

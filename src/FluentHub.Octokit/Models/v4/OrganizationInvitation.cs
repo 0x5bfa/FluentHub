@@ -23,6 +23,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string Email { get; set; }
 
+		/// <summary>
+		/// The Node ID of the OrganizationInvitation object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
@@ -43,7 +46,13 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The user who created the invitation.
 		/// </summary>
+		[Obsolete(@"`inviter` will be removed. `inviter` will be replaced by `inviterActor`. Removal on 2024-07-01 UTC.")]
 		public User Inviter { get; set; }
+
+		/// <summary>
+		/// The user who created the invitation.
+		/// </summary>
+		public User InviterActor { get; set; }
 
 		/// <summary>
 		/// The organization the invite is for

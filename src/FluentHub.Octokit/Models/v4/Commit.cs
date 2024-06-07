@@ -159,6 +159,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="until">Allows specifying an ending time or date for fetching commits.</param>
 		public CommitHistoryConnection History { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Commit object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

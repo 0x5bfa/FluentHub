@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateProjectV2DraftIssueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the draft issue to update.
 		/// </summary>
 		public ID DraftIssueId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The IDs of the assignees of the draft issue.
 		/// </summary>
 		public List<ID> AssigneeIds { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

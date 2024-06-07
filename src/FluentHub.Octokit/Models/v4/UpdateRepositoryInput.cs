@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateRepositoryInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the repository to update.
 		/// </summary>
 		public ID RepositoryId { get; set; }
@@ -54,8 +59,8 @@ namespace FluentHub.Octokit.Models.v4
 		public bool? HasDiscussionsEnabled { get; set; }
 
 		/// <summary>
-		/// A unique identifier for the client performing the mutation.
+		/// Indicates if the repository displays a Sponsor button for financial contributions.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public bool? HasSponsorshipsEnabled { get; set; }
 	}
 }

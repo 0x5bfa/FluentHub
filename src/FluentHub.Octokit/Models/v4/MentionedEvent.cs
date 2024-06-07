@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public int? DatabaseId { get; set; }
 
+		/// <summary>
+		/// The Node ID of the MentionedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 	}
 }

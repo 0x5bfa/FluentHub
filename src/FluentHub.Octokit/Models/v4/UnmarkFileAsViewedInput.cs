@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UnmarkFileAsViewedInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the pull request.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The path of the file to mark as unviewed
 		/// </summary>
 		public string Path { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class MarkProjectV2AsTemplateInput
 	{
 		/// <summary>
-		/// The ID of the Project to mark as a template.
-		/// </summary>
-		public ID ProjectId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the Project to mark as a template.
+		/// </summary>
+		public ID ProjectId { get; set; }
 	}
 }

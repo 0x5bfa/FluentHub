@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class Package
 	{
+		/// <summary>
+		/// The Node ID of the Package object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

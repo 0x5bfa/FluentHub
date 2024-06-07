@@ -58,6 +58,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for the project v2 fields returned from the connection.</param>
 		public ProjectV2FieldConfigurationConnection GroupByFields { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProjectV2View object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

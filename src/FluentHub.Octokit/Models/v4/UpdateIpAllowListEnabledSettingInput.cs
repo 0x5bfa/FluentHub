@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateIpAllowListEnabledSettingInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the owner on which to set the IP allow list enabled setting.
 		/// </summary>
 		public ID OwnerId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The value for the IP allow list enabled setting.
 		/// </summary>
 		public IpAllowListEnabledSettingValue SettingValue { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

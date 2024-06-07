@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdateProjectInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Project ID to update.
 		/// </summary>
 		public ID ProjectId { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Whether the project is public or not.
 		/// </summary>
 		public bool? Public { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

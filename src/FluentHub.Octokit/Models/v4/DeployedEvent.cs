@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Deployment Deployment { get; set; }
 
+		/// <summary>
+		/// The Node ID of the DeployedEvent object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

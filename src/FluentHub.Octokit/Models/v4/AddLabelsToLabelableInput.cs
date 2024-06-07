@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddLabelsToLabelableInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The id of the labelable object to add labels to.
 		/// </summary>
 		public ID LabelableId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The ids of the labels to add.
 		/// </summary>
 		public List<ID> LabelIds { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

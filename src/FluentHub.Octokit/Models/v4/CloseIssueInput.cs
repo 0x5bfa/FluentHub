@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CloseIssueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// ID of the issue to be closed.
 		/// </summary>
 		public ID IssueId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The reason the issue is to be closed.
 		/// </summary>
 		public IssueClosedStateReason? StateReason { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

@@ -18,10 +18,18 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public RepositoryRulesetBypassActorBypassMode? BypassMode { get; set; }
 
+		/// <summary>
+		/// This actor represents the ability for a deploy key to bypass
+		/// </summary>
+		public bool DeployKey { get; set; }
+
+		/// <summary>
+		/// The Node ID of the RepositoryRulesetBypassActor object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>
-		/// This actor represents the ability for an organization admin to bypass
+		/// This actor represents the ability for an organization owner to bypass
 		/// </summary>
 		public bool OrganizationAdmin { get; set; }
 

@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class ConvertProjectCardNoteToIssueInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ProjectCard ID to convert.
 		/// </summary>
 		public ID ProjectCardId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The body of the newly created issue.
 		/// </summary>
 		public string Body { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

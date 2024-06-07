@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddVerifiableDomainInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the owner to add the domain to
 		/// </summary>
 		public ID OwnerId { get; set; }
@@ -17,10 +22,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The URL of the domain
 		/// </summary>
 		public string Domain { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

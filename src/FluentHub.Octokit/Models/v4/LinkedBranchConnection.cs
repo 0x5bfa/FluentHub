@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for LinkedBranch.
+	/// A list of branches linked to an issue.
 	/// </summary>
 	public class LinkedBranchConnection
 	{

@@ -53,6 +53,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		public string DueOnHumanized { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Milestone object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

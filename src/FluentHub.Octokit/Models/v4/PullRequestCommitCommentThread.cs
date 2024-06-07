@@ -22,6 +22,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Commit Commit { get; set; }
 
+		/// <summary>
+		/// The Node ID of the PullRequestCommitCommentThread object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

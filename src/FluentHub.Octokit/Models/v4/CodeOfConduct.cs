@@ -13,6 +13,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string Body { get; set; }
 
+		/// <summary>
+		/// The Node ID of the CodeOfConduct object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

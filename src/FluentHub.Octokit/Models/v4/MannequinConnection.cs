@@ -4,7 +4,7 @@
 namespace FluentHub.Octokit.Models.v4
 {
 	/// <summary>
-	/// The connection type for Mannequin.
+	/// A list of mannequins.
 	/// </summary>
 	public class MannequinConnection
 	{

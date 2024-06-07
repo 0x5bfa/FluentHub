@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateAttributionInvitationInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the owner scoping the reattributable data.
 		/// </summary>
 		public ID OwnerId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The Node ID of the account which may claim the data.
 		/// </summary>
 		public ID TargetId { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

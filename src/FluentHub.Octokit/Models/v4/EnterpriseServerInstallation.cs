@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string HostName { get; set; }
 
+		/// <summary>
+		/// The Node ID of the EnterpriseServerInstallation object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

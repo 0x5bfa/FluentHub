@@ -41,6 +41,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="role">The role of the user in the installation.</param>
 		public EnterpriseServerInstallationMembershipConnection EnterpriseInstallations { get; set; }
 
+		/// <summary>
+		/// The Node ID of the EnterpriseUserAccount object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

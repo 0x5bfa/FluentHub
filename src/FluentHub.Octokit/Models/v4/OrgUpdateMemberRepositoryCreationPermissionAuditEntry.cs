@@ -53,6 +53,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public string CreatedAt { get; set; }
 
+		/// <summary>
+		/// The Node ID of the OrgUpdateMemberRepositoryCreationPermissionAuditEntry object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

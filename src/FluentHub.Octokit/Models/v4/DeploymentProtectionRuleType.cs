@@ -20,5 +20,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		[EnumMember(Value = "WAIT_TIMER")]
 		WaitTimer,
+
+		/// <summary>
+		/// Branch policy
+		/// </summary>
+		[EnumMember(Value = "BRANCH_POLICY")]
+		BranchPolicy,
 	}
 }

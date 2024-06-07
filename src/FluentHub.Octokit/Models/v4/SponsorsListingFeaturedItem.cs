@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public SponsorsListingFeatureableItem Featureable { get; set; }
 
+		/// <summary>
+		/// The Node ID of the SponsorsListingFeaturedItem object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

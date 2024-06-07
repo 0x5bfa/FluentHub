@@ -60,6 +60,11 @@ namespace FluentHub.Octokit.Models.v4
 		bool HasProjectsEnabled { get; set; }
 
 		/// <summary>
+		/// Indicates if the repository displays a Sponsor button for financial contributions.
+		/// </summary>
+		bool HasSponsorshipsEnabled { get; set; }
+
+		/// <summary>
 		/// Indicates if the repository has wiki feature enabled.
 		/// </summary>
 		bool HasWikiEnabled { get; set; }
@@ -210,6 +215,8 @@ namespace FluentHub.Octokit.Models.v4
 		public bool HasIssuesEnabled { get; set; }
 
 		public bool HasProjectsEnabled { get; set; }
+
+		public bool HasSponsorshipsEnabled { get; set; }
 
 		public bool HasWikiEnabled { get; set; }
 

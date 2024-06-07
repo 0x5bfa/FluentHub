@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class Push
 	{
+		/// <summary>
+		/// The Node ID of the Push object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

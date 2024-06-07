@@ -37,6 +37,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public IGitObject HeadTarget { get; set; }
 
+		/// <summary>
+		/// The Node ID of the Comparison object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

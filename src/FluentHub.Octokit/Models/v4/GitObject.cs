@@ -24,6 +24,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		string CommitUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the GitObject object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>

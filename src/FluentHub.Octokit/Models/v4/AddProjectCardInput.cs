@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class AddProjectCardInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the ProjectColumn.
 		/// </summary>
 		public ID ProjectColumnId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The note on the card.
 		/// </summary>
 		public string Note { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

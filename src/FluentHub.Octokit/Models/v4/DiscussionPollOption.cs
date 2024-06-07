@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class DiscussionPollOption
 	{
+		/// <summary>
+		/// The Node ID of the DiscussionPollOption object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

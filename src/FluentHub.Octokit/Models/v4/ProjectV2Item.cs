@@ -49,6 +49,14 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for project v2 item field values returned from the connection</param>
 		public ProjectV2ItemFieldValueConnection FieldValues { get; set; }
 
+		/// <summary>
+		/// Identifies the primary key from the database as a BigInt.
+		/// </summary>
+		public string FullDatabaseId { get; set; }
+
+		/// <summary>
+		/// The Node ID of the ProjectV2Item object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

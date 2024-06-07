@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
 		public string ClientMutationId { get; set; }
 
 		/// <summary>
+		/// The id of the pinned issue that was unpinned
+		/// </summary>
+		public ID? Id { get; set; }
+
+		/// <summary>
 		/// The issue that was unpinned
 		/// </summary>
 		public Issue Issue { get; set; }

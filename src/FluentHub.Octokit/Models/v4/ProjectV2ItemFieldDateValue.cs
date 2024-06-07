@@ -38,6 +38,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public ProjectV2FieldConfiguration Field { get; set; }
 
+		/// <summary>
+		/// The Node ID of the ProjectV2ItemFieldDateValue object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

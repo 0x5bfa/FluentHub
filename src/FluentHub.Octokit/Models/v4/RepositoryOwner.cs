@@ -15,6 +15,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="size">The size of the resulting square image.</param>
 		string AvatarUrl { get; set; }
 
+		/// <summary>
+		/// The Node ID of the RepositoryOwner object
+		/// </summary>
 		ID Id { get; set; }
 
 		/// <summary>
@@ -36,7 +39,8 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isLocked">If non-null, filters repositories according to whether they have been locked</param>
 		/// <param name="orderBy">Ordering options for repositories returned from the connection</param>
 		/// <param name="ownerAffiliations">Array of owner's affiliation options for repositories returned from the connection. For example, OWNER will include only repositories that the organization or user being viewed owns.</param>
-		/// <param name="privacy">If non-null, filters repositories according to privacy</param>
+		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
+		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
 		RepositoryConnection Repositories { get; set; }
 
 		/// <summary>

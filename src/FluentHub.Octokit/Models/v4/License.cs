@@ -33,6 +33,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public bool Hidden { get; set; }
 
+		/// <summary>
+		/// The Node ID of the License object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

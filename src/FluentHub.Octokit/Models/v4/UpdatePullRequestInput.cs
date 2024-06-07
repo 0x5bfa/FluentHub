@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class UpdatePullRequestInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The Node ID of the pull request.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -58,10 +63,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// An array of Node IDs for projects associated with this pull request.
 		/// </summary>
 		public List<ID> ProjectIds { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

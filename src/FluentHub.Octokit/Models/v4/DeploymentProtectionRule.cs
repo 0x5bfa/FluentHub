@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
 		public int? DatabaseId { get; set; }
 
 		/// <summary>
+		/// Whether deployments to this environment can be approved by the user who created the deployment.
+		/// </summary>
+		public bool? PreventSelfReview { get; set; }
+
+		/// <summary>
 		/// The teams or users that can review the deployment
 		/// </summary>
 		/// <param name="first">Returns the first _n_ elements from the list.</param>

@@ -8,6 +8,9 @@ namespace FluentHub.Octokit.Models.v4
 	/// </summary>
 	public class LinkedBranch
 	{
+		/// <summary>
+		/// The Node ID of the LinkedBranch object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

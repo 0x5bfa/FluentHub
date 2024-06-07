@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
 	public class PinIssueInput
 	{
 		/// <summary>
-		/// The ID of the issue to be pinned
-		/// </summary>
-		public ID IssueId { get; set; }
-
-		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
 		public string ClientMutationId { get; set; }
+
+		/// <summary>
+		/// The ID of the issue to be pinned
+		/// </summary>
+		public ID IssueId { get; set; }
 	}
 }

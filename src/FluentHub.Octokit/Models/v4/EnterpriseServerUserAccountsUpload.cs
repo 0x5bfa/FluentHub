@@ -28,6 +28,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public EnterpriseServerInstallation EnterpriseServerInstallation { get; set; }
 
+		/// <summary>
+		/// The Node ID of the EnterpriseServerUserAccountsUpload object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class RevertPullRequestInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the pull request to revert.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -27,10 +32,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// Indicates whether the revert pull request should be a draft.
 		/// </summary>
 		public bool? Draft { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

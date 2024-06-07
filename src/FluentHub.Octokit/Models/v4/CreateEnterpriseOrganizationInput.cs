@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class CreateEnterpriseOrganizationInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the enterprise owning the new organization.
 		/// </summary>
 		public ID EnterpriseId { get; set; }
@@ -32,10 +37,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The logins for the administrators of the new organization.
 		/// </summary>
 		public List<string> AdminLogins { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }

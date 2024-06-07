@@ -63,6 +63,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// </summary>
 		public Gist Gist { get; set; }
 
+		/// <summary>
+		/// The Node ID of the GistComment object
+		/// </summary>
 		public ID Id { get; set; }
 
 		/// <summary>

@@ -9,6 +9,11 @@ namespace FluentHub.Octokit.Models.v4
 	public class EnqueuePullRequestInput
 	{
 		/// <summary>
+		/// A unique identifier for the client performing the mutation.
+		/// </summary>
+		public string ClientMutationId { get; set; }
+
+		/// <summary>
 		/// The ID of the pull request to enqueue.
 		/// </summary>
 		public ID PullRequestId { get; set; }
@@ -22,10 +27,5 @@ namespace FluentHub.Octokit.Models.v4
 		/// The expected head OID of the pull request.
 		/// </summary>
 		public string ExpectedHeadOid { get; set; }
-
-		/// <summary>
-		/// A unique identifier for the client performing the mutation.
-		/// </summary>
-		public string ClientMutationId { get; set; }
 	}
 }
