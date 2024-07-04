@@ -112,5 +112,3 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 - Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
-
-![Alt](https://repobeats.axiom.co/api/embed/15ef16427b681d911523e65d60d88a838c9d4fc3.svg "Repobeats analytics image")
