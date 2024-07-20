@@ -92,7 +92,7 @@
 							</Viewbox>
 							<TextBlock
 								Style="{StaticResource SubtitleTextBlockStyle}"
-								Text="There aren't no Projects."
+								Text="There are no projects."
 								TextAlignment="Center" />
 						</StackPanel>
 
