@@ -3,11 +3,6 @@ description: Request a new feature to make things better!
 labels: [feature request]
 title: "Feature: "
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ##### ⏱️ Before you start...
-        - Have you checked whether or not a similar feature request has already been reported?
   - type: textarea
     attributes:
       label: 📄 Description
