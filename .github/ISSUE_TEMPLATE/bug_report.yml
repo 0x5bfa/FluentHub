@@ -23,6 +23,9 @@ body:
   - type: textarea
     attributes:
       label: 🔢 What version of FluentHub are you on?
+      description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: 📄 Description
