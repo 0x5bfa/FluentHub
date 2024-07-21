@@ -1,47 +1,40 @@
-name: Bug Report
-description: Create a bug report to help improve FluentHub
+name: 🐛 Bug Report
+description: Create a bug report to help us improve FluentHub!
 labels: [bug]
-assignees: [onein528]
+assignees: [0x5bfa]
+title: "Bug: "
 body:
-  - type: checkboxes
-    attributes:
-      label: Before you start
-      options:
-        - label: Have you updated FluentHub? You might be using an old version.
-          required: true
-        - label: Have you checked if a similar issue has already been reported?
-          required: true
   - type: dropdown
     id: windows
     attributes:
-      label: What version of Windows is this issue present?
+      label: 🪟 What version of Windows is this issue present?
       multiple: true
       options:
-        - Windows 10
-        - Windows 10 Release Preview
-        - Windows 10 Beta
-        - Windows 10 Dev
-        - Windows 11
-        - Windows 11 Release Preview
-        - Windows 11 Beta
-        - Windows 11 Dev
+        - 🪟 Windows 10
+        - 🪟 Windows 10 Release Preview
+        - 🪟 Windows 10 Beta
+        - 🪟 Windows 10 Dev
+        - 🪟 Windows 11
+        - 🪟 Windows 11 Release Preview
+        - 🪟 Windows 11 Beta
+        - 🪟 Windows 11 Dev
     validations:
       required: true
   - type: textarea
     attributes:
-      label: What version/architecture of FluentHub are you on?
+      label: 🔢 What version of FluentHub are you on?
       description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
     validations:
       required: true
   - type: textarea
     attributes:
-      label: Description
+      label: 📄 Description
       description: A clear and concise description of what the bug is.
     validations:
       required: true
   - type: textarea
     attributes:
-      label: Steps To Reproduce
+      label: 🪜 Steps To Reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
         1. Go to '....'
@@ -52,13 +45,16 @@ body:
       required: false
   - type: textarea
     attributes:
-      label: Expected behavior
+      label: 🤔 Expected behavior
       description: A clear and concise description of what you expected to happen.
-    validations:
-      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: ⚒️ Did you find any workaround?
+      description: Did you find any workaround for this issue? This can unblock other people while waiting for this issue to be resolved or even give us a hint on how to fix this.
   - type: textarea
     attributes:
-      label: Stack Trace
+      label: 📑 Stack Trace
       description: Copy and paste the stack trace from FluentHub's error page.
       value: |
         <details><summary>Stack trace details</summary><div>
@@ -72,6 +68,6 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: Assets
+      label: 📸 Assets
       description: |
-        A list of assets (errors, screenshots, logs) relevant to the bug.
+        A list of assets (errors, screenshots) relevant to the bug.
