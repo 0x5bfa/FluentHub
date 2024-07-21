@@ -2,7 +2,7 @@ name: 🐛 Bug Report
 description: Create a bug report to help us improve FluentHub!
 labels: [bug]
 assignees: [0x5bfa]
-title: "🐛 "
+title: "Bug: "
 body:
   - type: markdown
     attributes:
