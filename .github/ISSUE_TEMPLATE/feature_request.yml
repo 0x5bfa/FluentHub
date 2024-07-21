@@ -23,8 +23,8 @@ body:
   - type: textarea
     id: api-changes
     attributes:
-      label: ⚡ API Changes
-      description: Include a list of all API changes, additions, subtractions as would be required by your proposal. These APIs should be considered placeholders, so the naming is not as important as getting the concepts correct. If possible you should include some example (pseudo-)code of usage of your new API.
+      label: ⚡ Required changes
+      description: Include a list of all API changes in the code, i.e. additions, subtractions as would be required by your proposal. These APIs should be considered placeholders, so the naming is not as important as getting the concepts correct. If possible you should include some example (pseudo-)code of usage of your new API.
       placeholder: |
         ```csharp
         var button = new Button ();
