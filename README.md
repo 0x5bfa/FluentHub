@@ -47,7 +47,7 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 
-### 🔨 Building from source
+### Building from source
 
 ### Prerequistes
 
