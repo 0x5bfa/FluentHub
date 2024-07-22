@@ -16,18 +16,10 @@ Have you checked whether or not a similar pull request has already been reported
 <!--Give an overview of all the specific things you would like to be changed or implemented.
 If an issue already exists with this, you can add the issue link or number-->
 
-```[tasklist]
-### High priority
+#### 📋 High priority
 - [ ] Something
 - [ ] Another thing
 - [ ] https://github.com/link/to/an/issue
-```
-```[tasklist]
-### Nice to have
-- [ ] Something
-- [ ] Another thing
-- [ ] https://github.com/link/to/an/issue
-```
 
 #### ☑️ PR checklist
 
