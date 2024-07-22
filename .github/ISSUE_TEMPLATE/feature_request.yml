@@ -42,7 +42,7 @@ body:
       label: ✅ Tasks
       description: Give an overview of all the specific things you would like to be changed or implemented.
       value: |
-        #### High Priority
+        #### 📋 High Priority
         - [ ] Something
         - [ ] Another thing
         - [ ] https://github.com/link/to/an/issue
