@@ -1,6 +1,3 @@
-<!--⏱️ Before you start...
-Have you checked whether or not a similar pull request has already been reported?-->
-
 ### 📄 Description
 <!--A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.-->
 
