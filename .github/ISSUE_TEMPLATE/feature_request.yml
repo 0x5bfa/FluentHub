@@ -42,18 +42,10 @@ body:
       label: ✅ Tasks
       description: Give an overview of all the specific things you would like to be changed or implemented.
       value: |
-        ```[tasklist]
-        ### High Priority
+        #### 📋 High Priority
         - [ ] Something
         - [ ] Another thing
         - [ ] https://github.com/link/to/an/issue
-        ```
-        ```[tasklist]
-        ### Nice to have
-        - [ ] Something
-        - [ ] Another thing
-        - [ ] https://github.com/link/to/an/issue
-        ```
     validations:
       required: false
   - type: textarea
