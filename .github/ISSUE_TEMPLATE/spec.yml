@@ -68,6 +68,17 @@ body:
         Unsupported platforms?
     validations:
       required: false
+  - type: textarea
+    attributes:
+      label: ✅ Tasks
+      description: Give an overview of all the specific things that need to change in the code for this to be implemented (you can use a tasklist if you like!)
+      value: |
+        #### High Priority
+        - [ ] Something
+        - [ ] Another thing
+        - [ ] https://github.com/link/to/an/issue
+    validations:
+      required: false
   - type: dropdown
     id: difficulty
     attributes:
