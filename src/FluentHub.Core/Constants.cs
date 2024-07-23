@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2023 0x5BFA
+// Copyright (c) 2023 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.Core
@@ -14,10 +14,10 @@ namespace FluentHub.Core
 
 		public static class GitHub
 		{
-			public const string DocumentationUrl = @"https://github.com/FluentHub/FluentHub/docs";
-			public const string ContributorUrl = @"https://github.com/FluentHub/FluentHub/graphs/contributors";
-			public const string FeedbackUrl = @"https://github.com/FluentHub/FluentHub/issues/new/choose";
-			public const string PrivacyPolicyUrl = @"https://github.com/FluentHub/FluentHub/blob/HEAD/docs/Privacy.md";
+			public const string DocumentationUrl = @"https://github.com/0x5bfa/FluentHub/tree/main/docs";
+			public const string ContributorUrl = @"https://github.com/0x5BFA/FluentHub/graphs/contributors";
+			public const string FeedbackUrl = @"https://github.com/0x5BFA/FluentHub/issues/new/choose";
+			public const string ReleaseNotesUrl = @"https://github.com/0x5BFA/FluentHub/releases";
 			public const string ReleaseNotesUrl = @"https://github.com/FluentHub/FluentHub/releases";
 			public const string SupportUsUrl = @"https://github.com/FluentHub/FluentHub/sponsors";
 		}
