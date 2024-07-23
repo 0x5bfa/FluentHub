@@ -18,8 +18,6 @@ namespace FluentHub.Core
 			public const string ContributorUrl = @"https://github.com/0x5BFA/FluentHub/graphs/contributors";
 			public const string FeedbackUrl = @"https://github.com/0x5BFA/FluentHub/issues/new/choose";
 			public const string ReleaseNotesUrl = @"https://github.com/0x5BFA/FluentHub/releases";
-			public const string ReleaseNotesUrl = @"https://github.com/FluentHub/FluentHub/releases";
-			public const string SupportUsUrl = @"https://github.com/FluentHub/FluentHub/sponsors";
 		}
 
 		public static class ResourcePaths
