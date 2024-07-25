@@ -71,6 +71,7 @@ jobs:
         msbuild "$env:PACKAGE_PROJECT_PATH" `
         -t:Build `
         -t:_GenerateAppxPackage `
+        -clp:ErrorsOnly `
         -p:Platform=$env:PLATFORM `
         -p:Configuration=$env:CONFIGURATION `
         -p:AppxBundlePlatforms=$env:APPX_BUNDLE_PLATFORMS `
