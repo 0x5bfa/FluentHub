@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="assets/fluenthub.png" />
+  <img width="128" align="center" src="../assets/fluenthub.png" />
 </p>
 <h1 align="center">
   FluentHub
@@ -93,7 +93,7 @@ See [the documentation](docs/credentials.md).
 There are multiple ways to participate in the community:
 
 - [Submit bugs and feature requests](https://github.com/0x5BFA/FluentHub/issues/new/choose).
-- Review [the documentation](docs/code-style.md) and make pull requests for anything from typos to additional and new idea
+- Review [the documentation](https://github.com/0x5BFA/FluentHub/blob/main/docs/code-style.md) and make pull requests for anything from typos to additional and new idea
 - Review source code changes
 
 If you are interested in fixing issues and contributing directly to the code base, please refer to the [documentation](docs/), which covers the following:
