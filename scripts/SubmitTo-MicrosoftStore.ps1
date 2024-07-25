@@ -17,10 +17,10 @@ Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 Install-Module -Name StoreBroker
 
 # Authenticate StoreBroker
-$username = $PartnerCenterClientId
-$password = ConvertTo-SecureString $PartnerCenterClientSecret -AsPlainText -Force
-$cred = New-Object System.Management.Automation.PSCredential ($username, $password)
-Set-StoreBrokerAuthentication -TenantId $PartnerCenterTenantId -Credential $cred
+$UserName = $PartnerCenterClientId
+$Password = ConvertTo-SecureString $PartnerCenterClientSecret -AsPlainText -Force
+$Credential = New-Object System.Management.Automation.PSCredential ($UserName, $Password)
+Set-StoreBrokerAuthentication -TenantId $PartnerCenterTenantId -Credential $Credential
 
 # Prepare the submission package
 New-SubmissionPackage -ConfigPath $StoreBrokerConfigPath -AppxPath $AppxPackagePath -OutPath $SubmissionDirPath -OutName 'submission'
