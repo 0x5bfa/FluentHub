@@ -11,14 +11,14 @@ param(
     [string]$PartnerCenterTenantId = ""
 )
 
-# Setup environment
+# Setup
 Set-ExecutionPolicy RemoteSigned -Force
 Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 Install-Module -Name StoreBroker
 
 # Authenticate StoreBroker
 $UserName = $PartnerCenterClientId
-$Password = ConvertTo-SecureString $PartnerCenterClientSecret -AsPlainText -Force
+$Password = ConvertTo-SecureString $PartnerCenterClientSecret
 $Credential = New-Object System.Management.Automation.PSCredential ($UserName, $Password)
 Set-StoreBrokerAuthentication -TenantId $PartnerCenterTenantId -Credential $Credential
 
