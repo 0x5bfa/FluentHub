@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022-2024 0x5BFA
+﻿// Copyright (c) 2023 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
 using System;
@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.ModelGenerator.Generators
 		{
 			var enumName = TypeUtilities.GetClassName(type);
 
-			var licenseNotice = @"// Copyright (c) 2022-2024 0x5BFAx5BFA
+			var licenseNotice = @"// Copyright (c) 2023 0x5BFA
 // Licensed under the MIT License. See the LICENSE.";
 
 			return $@"{licenseNotice}
