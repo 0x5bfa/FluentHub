@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        configuration: [Store]
+        configuration: [Release] # Consider to use Store
         platform: [x64]
     env:
       APPX_BUNDLE_PLATFORMS:      'x64|arm64'
