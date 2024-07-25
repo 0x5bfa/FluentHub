@@ -1,0 +1,85 @@
+# Copyright (c) 2024 0x5BFA
+# Licensed under the MIT License. See the LICENSE.
+
+name: FluentHub CD (Store)
+
+on:
+  workflow_dispatch:
+
+run-name: 'FluentHub CD (Store)'
+
+jobs:
+
+  build:
+
+    if: github.repository_owner == '0x5bfa'
+
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Store]
+        platform: [x64]
+    env:
+      APPX_BUNDLE_PLATFORMS:      'x64|arm64'
+      CONFIGURATION:              '${{ matrix.configuration }}'
+      ARCHITECTURE:               '${{ matrix.platform }}'
+      WORKING_DIR:                '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
+      SOLUTION_PATH:              '${{ github.workspace }}\FluentHub.sln'
+      PACKAGE_PROJECT_DIR:        '${{ github.workspace }}\src\FluentHub.Package'
+      PACKAGE_PROJECT_PATH:       '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
+      APP_CREDENTIALS_PATH:       '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+      ARTIFACTS_STAGING_DIR:      '${{ github.workspace }}\artifacts'
+      APPX_PACKAGE_DIR:           '${{ github.workspace }}\artifacts\AppxPackages'
+
+    steps:
+
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Save base64 credentials into a file
+      shell: pwsh
+      run: |
+        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
+        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
+      env:
+        GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
+
+    - name: Restore NuGet
+      shell: pwsh
+      run: 'nuget restore $env:SOLUTION_PATH'
+
+    - name: Restore FluentHub
+      shell: pwsh
+      run: |
+        msbuild $env:SOLUTION_PATH `
+          -t:Restore `
+          -p:Platform=$env:ARCHITECTURE `
+          -p:Configuration=$env:CONFIGURATION `
+          -p:PublishReadyToRun=true
+
+    - name: Build & package FluentHub
+      run: |
+        msbuild "$env:PACKAGE_PROJECT_PATH" `
+        -t:Build `
+        -t:_GenerateAppxPackage `
+        -p:Platform=$env:PLATFORM `
+        -p:Configuration=$env:CONFIGURATION `
+        -p:AppxBundlePlatforms=$env:APPX_BUNDLE_PLATFORMS `
+        -p:AppxPackageDir="$env:APPX_PACKAGE_DIR" `
+        -p:AppxBundle=Always `
+        -p:UapAppxPackageBuildMode=StoreUpload
+
+    - name: Upload the packages to the Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})'
+        path: ${{ env.ARTIFACTS_STAGING_DIR }}
