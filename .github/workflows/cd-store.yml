@@ -6,7 +6,7 @@ name: FluentHub CD (Store)
 on:
   workflow_dispatch:
 
-run-name: 'FluentHub CI (Store)'
+run-name: 'FluentHub CD (Store)'
 
 jobs:
 
