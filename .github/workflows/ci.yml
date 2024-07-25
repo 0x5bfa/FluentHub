@@ -22,15 +22,13 @@ on:
 run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' || 'FluentHub CI Validation' }}
 
 env:
-  WORKING_DIR: '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  SOLUTION_PATH: '${{ github.workspace }}\FluentHub.sln'
-  PACKAGE_PROJECT_DIR: '${{ github.workspace }}\src\FluentHub.Package'
-  PACKAGE_PROJECT_PATH: '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
-  AUTOMATED_TESTS_ARCHITECTURE: 'x64'
-  AUTOMATED_TESTS_CONFIGURATION: 'Release'
-  ARTIFACTS_STAGING_DIR:  '${{ github.workspace }}\artifacts'
-  APPX_PACKAGE_DIR: '${{ github.workspace }}\artifacts\AppxPackages'
-  APP_CREDENTIALS_PATH: '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+  WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
+  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.sln'
+  PACKAGE_PROJECT_DIR:           '${{ github.workspace }}\src\FluentHub.Package'
+  PACKAGE_PROJECT_PATH:          '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
+  APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+  ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
+  APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
 
 jobs:
 
@@ -88,13 +86,13 @@ jobs:
     steps:
 
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
+      uses: microsoft/setup-msbuild@v2
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.1.1
+      uses: NuGet/setup-nuget@v2
     - name: Setup .NET 8
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
@@ -130,7 +128,7 @@ jobs:
           -p:AppxBundle=Never
 
     - name: Upload the packages to the Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
