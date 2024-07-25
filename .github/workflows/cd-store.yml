@@ -23,7 +23,7 @@ jobs:
     env:
       APPX_BUNDLE_PLATFORMS:      'x64|arm64'
       CONFIGURATION:              '${{ matrix.configuration }}'
-      ARCHITECTURE:               '${{ matrix.platform }}'
+      PLATFORM:                   '${{ matrix.platform }}'
       WORKING_DIR:                '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
       SOLUTION_PATH:              '${{ github.workspace }}\FluentHub.sln'
       PACKAGE_PROJECT_DIR:        '${{ github.workspace }}\src\FluentHub.Package'
@@ -61,10 +61,10 @@ jobs:
       shell: pwsh
       run: |
         msbuild $env:SOLUTION_PATH `
-          -t:Restore `
-          -p:Platform=$env:ARCHITECTURE `
-          -p:Configuration=$env:CONFIGURATION `
-          -p:PublishReadyToRun=true
+        -t:Restore `
+        -p:Platform=$env:PLATFORM `
+        -p:Configuration=$env:CONFIGURATION `
+        -p:PublishReadyToRun=true
 
     - name: Build & package FluentHub
       run: |
@@ -81,5 +81,5 @@ jobs:
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})'
+        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
