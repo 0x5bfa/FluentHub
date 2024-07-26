@@ -14,7 +14,6 @@ namespace FluentHub.Octokit
 		public static OctokitV3.GitHubClient Client { get; set; }
 			= new OctokitV3.GitHubClient(new OctokitV3.ProductHeaderValue("FluentHub"));
 
-
 		public static GraphQLHttpClient GraphQLHttpClient { get; set; }
 			= new("https://api.github.com/graphql", new NewtonsoftJsonSerializer());
 
