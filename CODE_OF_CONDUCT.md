@@ -57,7 +57,7 @@ If a community member engages in unacceptable behavior, the community organizers
 
 ## 7. Reporting Guidelines
 
-If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. Please notify [@0x5BFA](https://github.com/0x5BFA) in case you want to report a violation of a security guideline..
+If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. Please notify [@0x5BFA](https://github.com/0x5BFA) in case you want to report a violation of a security guideline.
 
 [Reporting guidelines](https://discord.gg/8KtRkjq2Q4)
 
