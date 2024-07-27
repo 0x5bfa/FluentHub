@@ -149,6 +149,10 @@
 									Grid.Column="2"
 									Content="License"
 									NavigateUri="https://github.com/FluentHub/FluentHub/blob/main/LICENSE" />
+								<HyperlinkButton
+									Grid.Column="3"
+									Content="Code of conduct"
+									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
 							</Grid>
 						</uc:SettingsBlockControl.ExpandableContent>
 					</uc:SettingsBlockControl>
