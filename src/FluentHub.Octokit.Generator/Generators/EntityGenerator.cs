@@ -29,7 +29,7 @@ namespace FluentHub.Octokit.ModelGenerator.Generators
 			
 			if (!isStub)
 			{
-				licenseNotice = @"// Copyright (c) 2022-2024 0x5BFAx5BFA
+				licenseNotice = @"// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
 ";
@@ -51,7 +51,7 @@ namespace FluentHub.Octokit.ModelGenerator.Generators
 			var includeEntities = rootNamespace == entityNamespace ? string.Empty : $@"
 	using {entityNamespace};";
 
-			var licenseNotice = @"// Copyright (c) 2022-2024 0x5BFAx5BFA
+			var licenseNotice = @"// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.";
 
 			return $@"{licenseNotice}
