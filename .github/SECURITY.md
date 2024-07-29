@@ -1,7 +1,11 @@
-# 🔐 Security Policy
+<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
 
-#### This is our policy for reporting security vulnerabilities and overall guidelines on what you should do upon discovering one!
-###### 📝 This document also outlines the measures we have put in to prevent security vulnerabilities in the first place.
+# Security Policy
+
+This is our policy for reporting security vulnerabilities and overall guidelines on what you should do upon discovering one.
+
+> [!NOTE]
+> This document also outlines the measures we have put in to prevent security vulnerabilities in the first place.
 
 ---
 
@@ -29,7 +33,7 @@ reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
 -->
 
-#### Please use the GitHub Security Advisory "Report a Vulnerability" tab!
+**Please report security advistiry from "New draft security advisory" in the Security tab**
 
 In order to report a security vulnerability, you can use [GitHub's built-in tool](https://github.com/0x5bfa/FluentHub/security/advisories/new) which easily allows you to calculate an _attack vector/CVSS string_ or attribute to an existing [`CVE`](https://cve.org) code. This allows the FluentHub Team to accurately calculate the severity and/or importance of preventing it.
 
@@ -44,7 +48,8 @@ FluentHub relies heavily on the GitHub `GraphQL` and legacy `REST` API. If you b
 > All bounty submissions are rated by GitHub using a purposefully simple scale.
 
 ## Our Measures
-##### What have we done to keep FluentHub safe?
+
+What have we done to keep FluentHub safe?
 
 ### Dependabot
 
