@@ -8,7 +8,7 @@ param(
     [string]$PartnerCenterClientId = "",
     [string]$PartnerCenterClientSecret = "",
     [string]$PartnerCenterStoreId = "",
-    [string]$PartnerCenterTenantId = "",
+    [string]$PartnerCenterTenantId = ""
 )
 
 # Setup
