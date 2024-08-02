@@ -31,8 +31,8 @@ jobs:
       APP_CREDENTIALS_PATH:         '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
       ARTIFACTS_STAGING_DIR:        '${{ github.workspace }}\artifacts'
       APPX_PACKAGE_DIR:             '${{ github.workspace }}\artifacts\AppxPackages'
-      STORE_BROKER_STAGING_DIR:     '${{ github.workspace }}\.configurations\MicrosoftStore\submission'
-      STORE_BROKER_CONFI_FILE_PATH: '${{ github.workspace }}\.configurations\MicrosoftStore\sbconfig.json'
+      STORE_BROKER_STAGING_DIR:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\submission'
+      STORE_BROKER_CONFI_FILE_PATH: '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
 
     steps:
 
