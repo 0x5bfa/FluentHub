@@ -21,16 +21,18 @@ jobs:
         configuration: [Release] # Consider to use Store
         platform: [x64]
     env:
-      APPX_BUNDLE_PLATFORMS:      'x64|arm64'
-      CONFIGURATION:              '${{ matrix.configuration }}'
-      PLATFORM:                   '${{ matrix.platform }}'
-      WORKING_DIR:                '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-      SOLUTION_PATH:              '${{ github.workspace }}\FluentHub.sln'
-      PACKAGE_PROJECT_DIR:        '${{ github.workspace }}\src\FluentHub.Package'
-      PACKAGE_PROJECT_PATH:       '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
-      APP_CREDENTIALS_PATH:       '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-      ARTIFACTS_STAGING_DIR:      '${{ github.workspace }}\artifacts'
-      APPX_PACKAGE_DIR:           '${{ github.workspace }}\artifacts\AppxPackages'
+      APPX_BUNDLE_PLATFORMS:        'x64|arm64'
+      CONFIGURATION:                '${{ matrix.configuration }}'
+      PLATFORM:                     '${{ matrix.platform }}'
+      WORKING_DIR:                  '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
+      SOLUTION_PATH:                '${{ github.workspace }}\FluentHub.sln'
+      PACKAGE_PROJECT_DIR:          '${{ github.workspace }}\src\FluentHub.Package'
+      PACKAGE_PROJECT_PATH:         '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
+      APP_CREDENTIALS_PATH:         '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+      ARTIFACTS_STAGING_DIR:        '${{ github.workspace }}\artifacts'
+      APPX_PACKAGE_DIR:             '${{ github.workspace }}\artifacts\AppxPackages'
+      STORE_BROKER_STAGING_DIR:     '${{ github.workspace }}\.configurations\MicrosoftStore\submission'
+      STORE_BROKER_CONFI_FILE_PATH: '${{ github.workspace }}\.configurations\MicrosoftStore\sbconfig.json'
 
     steps:
 
@@ -84,3 +86,19 @@ jobs:
       with:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
+
+    - name: Publish to Microsoft Store
+      shell: pwsh
+      run: |
+        . './scripts/SubmitTo-MicrosoftStore.ps1' `
+          -SubmissionDirPath=$env:STORE_BROKER_STAGING_DIR `
+          -BrokerConfigPath=$env:STORE_BROKER_CONFI_FILE_PATH `
+          -AppxPackagePath=$env:ARTIFACTS_STAGING_DIR `
+          -PartnerCenterClientId=$env:PARTNER_CENTER_CLIENT_ID `
+          -PartnerCenterClientSecret=$env:PARTNER_CENTER_CLIENT_SECRET `
+          -PartnerCenterStoreId=9NKB9HX8RJZ3 `
+          -PartnerCenterTenantId=$env:PARTNER_CENTER_TENANT_ID
+      env:
+        PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
+        PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
+        PARTNER_CENTER_TENANT_ID: ${{ secrets.PARTNER_CENTER_TENANT_ID }}
