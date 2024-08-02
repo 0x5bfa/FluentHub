@@ -5,10 +5,10 @@ param(
     [string]$SubmissionDirPath = "",
     [string]$StoreBrokerConfigPath = "",
     [string]$AppxPackagePath = "",
-    [string]$PartnerCenterClientId = ""
-    [string]$PartnerCenterClientSecret = ""
-    [string]$PartnerCenterStoreId = ""
-    [string]$PartnerCenterTenantId = ""
+    [string]$PartnerCenterClientId = "",
+    [string]$PartnerCenterClientSecret = "",
+    [string]$PartnerCenterStoreId = "",
+    [string]$PartnerCenterTenantId = "",
 )
 
 # Setup
