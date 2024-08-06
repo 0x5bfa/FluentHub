@@ -32,7 +32,7 @@ jobs:
       ARTIFACTS_STAGING_DIR:        '${{ github.workspace }}\artifacts'
       APPX_PACKAGE_DIR:             '${{ github.workspace }}\artifacts\AppxPackages'
       STORE_BROKER_STAGING_DIR:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\submission'
-      STORE_BROKER_CONFI_FILE_PATH: '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
+      STORE_BROKER_CONFIG_PATH:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
 
     steps:
 
@@ -92,7 +92,7 @@ jobs:
       run: |
         . './scripts/SubmitTo-MicrosoftStore.ps1' `
           -SubmissionDirPath=$env:STORE_BROKER_STAGING_DIR `
-          -BrokerConfigPath=$env:STORE_BROKER_CONFI_FILE_PATH `
+          -BrokerConfigPath=$env:STORE_BROKER_CONFIG_PATH `
           -AppxPackagePath=$env:ARTIFACTS_STAGING_DIR `
           -PartnerCenterClientId=$env:PARTNER_CENTER_CLIENT_ID `
           -PartnerCenterClientSecret=$env:PARTNER_CENTER_CLIENT_SECRET `
