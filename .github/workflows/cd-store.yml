@@ -87,18 +87,18 @@ jobs:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
 
-    - name: Publish to Microsoft Store
-      shell: pwsh
-      run: |
-        . './scripts/SubmitTo-MicrosoftStore.ps1' `
-          -SubmissionDirPath=$env:STORE_BROKER_STAGING_DIR `
-          -BrokerConfigPath=$env:STORE_BROKER_CONFIG_PATH `
-          -AppxPackagePath=$env:ARTIFACTS_STAGING_DIR `
-          -PartnerCenterClientId=$env:PARTNER_CENTER_CLIENT_ID `
-          -PartnerCenterClientSecret=$env:PARTNER_CENTER_CLIENT_SECRET `
-          -PartnerCenterStoreId=9NKB9HX8RJZ3 `
-          -PartnerCenterTenantId=$env:PARTNER_CENTER_TENANT_ID
-      env:
-        PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
-        PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
-        PARTNER_CENTER_TENANT_ID: ${{ secrets.PARTNER_CENTER_TENANT_ID }}
+    #- name: Publish to Microsoft Store
+    #  shell: pwsh
+    #  run: |
+    #    . './scripts/SubmitTo-MicrosoftStore.ps1' `
+    #      -SubmissionDirPath=$env:STORE_BROKER_STAGING_DIR `
+    #      -BrokerConfigPath=$env:STORE_BROKER_CONFIG_PATH `
+    #      -AppxPackagePath=$env:ARTIFACTS_STAGING_DIR `
+    #      -PartnerCenterClientId=$env:PARTNER_CENTER_CLIENT_ID `
+    #      -PartnerCenterClientSecret=$env:PARTNER_CENTER_CLIENT_SECRET `
+    #      -PartnerCenterStoreId=9NKB9HX8RJZ3 `
+    #      -PartnerCenterTenantId=$env:PARTNER_CENTER_TENANT_ID
+    #  env:
+    #    PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
+    #    PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
+    #    PARTNER_CENTER_TENANT_ID: ${{ secrets.PARTNER_CENTER_TENANT_ID }}
