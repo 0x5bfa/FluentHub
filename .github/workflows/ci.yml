@@ -162,6 +162,7 @@ jobs:
 
     - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
       name: Get artifact size
+      id: get_artifact_size
       uses: actions/github-script@v6
       with:
         script: |
@@ -182,4 +183,6 @@ jobs:
             console.log('Artifact not found.');
           }
 
-# echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."
+    - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+      name: Display artifact size
+      run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
