@@ -23,10 +23,10 @@
 
 FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
 
-- **Modern UI:** designed with Fluent Design and built on WinAppSdk/WinUI
+- **Modern UI:** designed with Fluent Design and built on WinAppSdk/WinUI3
 - **Multitasking:** let's do multitasking with tabs, you can switch tabs without losing data
 - **Powerful page navigation:** navigation can be performed like browsers without losing navigation history
-- **Mutation:** perform any kind of modification on GitHub, the app supports as far as GitHub API supports
+- **Querying/Mutation:** perform any kind of fetch and modification on GitHub, the app supports as far as GitHub API supports using Octokit.NET and Octokit.GraphQL.NET.
 
 ## Contributing to FluentHub
 
