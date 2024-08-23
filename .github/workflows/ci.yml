@@ -172,10 +172,13 @@ jobs:
 
           const artifact = artifacts.artifacts.find(a => a.name === 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})');
           
-          if (artifact) {
-            console.log(`Artifact Size: ${artifact.size_in_bytes} bytes`);
+          if (artifact)
+          {
+            console.log('Artifact Size: ${artifact.size_in_bytes} bytes');
             core.setOutput("artifact-size", artifact.size_in_bytes);
-          } else {
+          }
+          else
+          {
             console.log('Artifact not found.');
           }
 
