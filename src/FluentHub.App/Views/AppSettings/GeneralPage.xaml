@@ -149,7 +149,11 @@
 									Grid.Column="3"
 									Content="Code of conduct"
 									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
-					  <!--<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
+					      <!--<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
+								<HyperlinkButton
+									Grid.Column="4"
+									Content="Security guidelines"
+									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/SECURITY.md" />
 							</Grid>
 						</uc:SettingsBlockControl.ExpandableContent>
 					</uc:SettingsBlockControl>

@@ -5,9 +5,11 @@
   FluentHub
 </h1>
 <p align="center">
-  <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-    <img width="220" align="center" src="https://get.microsoft.com/images/en-us%20dark.svg" />
-  </a>
+  <a style="text-decoration:none" href="https://apps.microsoft.com/detail/9NGHP3DX8HDX?launch=true&mode=full">
+    <picture>
+      <source media="(prefers-color-scheme: light)" srcset="https://get.microsoft.com/images/en-us%20dark.svg" width="200" />
+      <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200" />
+    </picture></a>
 </p>
 
 **A stylish yet powerful GitHub client for Windows**, which empowers development experience and follows the Microsoft Design Language.
@@ -47,7 +49,13 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 
-### Building from source
+## Screenshots
+
+Home page|PR page|User profile page
+---|---|---
+![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+
+## Building from source
 
 ### Prerequistes
 

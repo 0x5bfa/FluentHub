@@ -23,12 +23,15 @@ run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' |
 
 env:
   WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.sln'
+  APPX_SELFSIGNED_CERT_PATH:     '${{ github.workspace }}\.github\workflows\FluentHub_SelfSigned.pfx'
+  ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
+  APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
   PACKAGE_PROJECT_DIR:           '${{ github.workspace }}\src\FluentHub.Package'
   PACKAGE_PROJECT_PATH:          '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
   APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-  ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
-  APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
+  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.sln'
+  AUTOMATED_TESTS_ARCHITECTURE:  'x64'
+  AUTOMATED_TESTS_CONFIGURATION: 'Release'
 
 jobs:
 
@@ -117,7 +120,8 @@ jobs:
           -p:Configuration=$env:CONFIGURATION `
           -p:PublishReadyToRun=true
 
-    - name: Build FluentHub
+    - if: env.CONFIGURATION != env.AUTOMATED_TESTS_CONFIGURATION || env.ARCHITECTURE != env.AUTOMATED_TESTS_ARCHITECTURE 
+      name: Build FluentHub
       run: |
         msbuild `
           $env:PACKAGE_PROJECT_PATH `
@@ -127,8 +131,68 @@ jobs:
           -p:Platform=$env:ARCHITECTURE `
           -p:AppxBundle=Never
 
+    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE
+      name: Create self signed cert as a pfx file
+      run: ./scripts/Generate-SelfCertPfx.ps1 -Destination "$env:APPX_SELFSIGNED_CERT_PATH"
+
+    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE
+      name: Build & package Files
+      run: |
+        msbuild `
+          $env:PACKAGE_PROJECT_PATH `
+          -t:Build `
+          -t:_GenerateAppxPackage `
+          -clp:ErrorsOnly `
+          -p:Configuration=$env:CONFIGURATION `
+          -p:Platform=$env:ARCHITECTURE `
+          -p:AppxBundlePlatforms=$env:AUTOMATED_TESTS_ARCHITECTURE `
+          -p:AppxBundle=Always `
+          -p:UapAppxPackageBuildMode=SideloadOnly `
+          -p:AppxPackageDir=$env:APPX_PACKAGE_DIR `
+          -p:AppxPackageSigningEnabled=true `
+          -p:PackageCertificateKeyFile=$env:APPX_SELFSIGNED_CERT_PATH `
+          -p:PackageCertificatePassword="" `
+          -p:PackageCertificateThumbprint=""
+
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
+
+    - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+      name: Get artifact size
+      id: get_artifact_size
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+          });
+
+          const artifact = artifacts.artifacts.find(a => a.name === 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})');
+          
+          if (artifact)
+          {
+            console.log('Artifact Size: ${artifact.size_in_bytes} bytes');
+            core.setOutput("artifact-size", artifact.size_in_bytes);
+            return "${artifact.size_in_bytes}"
+          }
+          else
+          {
+            console.log('Artifact not found.');
+            return "0"
+          }
+
+    - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+      name: Display artifact size
+      run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
+
+    - if: github.event_name == 'pull_request' && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+      uses: marocchino/sticky-pull-request-comment@v1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: ci-comment
+        message: 'Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes.'
