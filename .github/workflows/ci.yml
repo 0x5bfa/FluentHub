@@ -182,4 +182,4 @@ jobs:
             console.log('Artifact not found.');
           }
 
-          echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."
+# echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."
