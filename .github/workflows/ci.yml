@@ -23,7 +23,7 @@ run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' |
 
 env:
   WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  APPX_SELFSIGNED_CERT_PATH:     '${{ github.workspace }}\.github\workflows\FilesApp_SelfSigned.pfx'
+  APPX_SELFSIGNED_CERT_PATH:     '${{ github.workspace }}\.github\workflows\FluentHub_SelfSigned.pfx'
   ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
   APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
   PACKAGE_PROJECT_DIR:           '${{ github.workspace }}\src\FluentHub.Package'
