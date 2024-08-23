@@ -165,6 +165,7 @@ jobs:
       id: get_artifact_size
       uses: actions/github-script@v6
       with:
+        result-encoding: string
         script: |
           const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
             owner: context.repo.owner,
@@ -177,12 +178,21 @@ jobs:
           {
             console.log('Artifact Size: ${artifact.size_in_bytes} bytes');
             core.setOutput("artifact-size", artifact.size_in_bytes);
+            return "${artifact.size_in_bytes}"
           }
           else
           {
             console.log('Artifact not found.');
+            return "0"
           }
 
     - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
       name: Display artifact size
       run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
+
+    - if: github.event_name == 'pull_request' && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+      uses: marocchino/sticky-pull-request-comment@v1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: ci-comment
+        message: 'Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes.'
