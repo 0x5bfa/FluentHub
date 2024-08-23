@@ -5,8 +5,15 @@
   FluentHub
 </h1>
 <p align="center">
+  <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
+    <img src="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <a style="text-decoration:none" href="https://crowdin.com/project/fluenthub">
+    <img src="https://badges.crowdin.net/fluenthub/localized.svg" alt="Localization Status" /></a>
+  <a style="text-decoration:none" href="https://dsc.gg/fluenthub">
+    <img src="https://img.shields.io/discord/935562861701390336?label=Discord&color=7289da" alt="Discord" /></a>
+</p>
+<p align="center">
   <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-
   <a style="text-decoration:none" href="https://apps.microsoft.com/detail/9NGHP3DX8HDX?launch=true&mode=full">
     <picture>
       <source media="(prefers-color-scheme: light)" srcset="https://get.microsoft.com/images/en-us%20dark.svg" width="200" />
@@ -21,27 +28,13 @@ FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers 
 - **Powerful page navigation:** navigation can be performed like browsers without losing navigation history
 - **Mutation:** perform any kind of modification on GitHub, the app supports as far as GitHub API supports
 
-## 🎁 Getting started with FluentHub
+## Contributing to FluentHub
 
-Your Windows must be Windows 10 or 11 to run FluentHub
-
-### Via Microsoft Store
-
-This is the preferred installation method. It allows you to always be on the latest version when we release new builds via automatic updates.
-
-### Via GitHub
-
-Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases).
-
-Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order to install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command with a PowerShell prompt:
-
-```powershell
-# NOTE: If you are using PowerShell 7+, please run
-#   Import-Module Appx -UseWindowsPowerShell
-# before using Add-AppxPackage.
-
-Add-AppxPackage FluentHub_<versionNumber>.msixbundle
-```
+- [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
+- [Submit your change](https://github.com/FluentHub/FluentHub/pulls)
+- Upvote popular feature requests
+- Join [our Discord](https://dsc.gg/fluenthub) and let us know what you think
+- [Trabslate on Crowdin](https://crowdin.com/project/fluenthub)
 
 ## Screenshots
 
@@ -57,7 +50,7 @@ Home page|PR page|User profile page
 - [Git](https://git-scm.com/)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/):
   - [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
-  - .NET 7 SDK (check the box named .NET Desktop Development)
+  - .NET 8 SDK (.NET Desktop Development workload)
   - Windows App SDK
 
 ### 1. Clone the repository
@@ -78,35 +71,6 @@ See [the documentation](docs/credentials.md).
 - Open `FluentHub.sln`.
 - Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
 - Build with `Debug`, `x64`, `FluentHub.Package`.
-
-## Contributing
-
-There are multiple ways to participate in the community:
-
-- [Submit bugs and feature requests](https://github.com/FluentHub/FluentHub/issues/new/choose).
-- Review [the documentation](docs/code-style.md) and make pull requests for anything from typos to additional and new idea
-- Review source code changes
-
-If you are interested in fixing issues and contributing directly to the code base, please refer to the [documentation](docs/), which covers the following:
-
-- [How to build and run from source](docs/)
-- The development workflow, including debugging and running tests
-- Coding guidelines
-- [Submitting pull requests](https://github.com/FluentHub/FluentHub/pulls)
-- [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
-- [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
-
-<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
-  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" /></a>
-
-## Feedback
-
-- [Request a new feature](https://github.com/FluentHub/FluentHub/pulls)
-- Upvote popular feature requests
-- [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
-- Join [our Discord](https://discord.gg/8KtRkjq2Q4) and let us know what you think
-
-[![](https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat)](https://discord.gg/8KtRkjq2Q4)
 
 ## Credit
 
