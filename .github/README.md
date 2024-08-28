@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> FluentHub v0.9 is not yet shipped to Microsoft Store due to an error during the submission.
+> <br/>
+> we're still investigating and we'll ship as soon as possible.
+
 <p align="center">
   <img width="128" align="center" src="../assets/fluenthub.png" />
 </p>
@@ -5,6 +10,15 @@
   FluentHub
 </h1>
 <p align="center">
+  <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
+    <img src="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <a style="text-decoration:none" href="https://crowdin.com/project/fluenthub">
+    <img src="https://badges.crowdin.net/fluenthub/localized.svg" alt="Localization Status" /></a>
+  <a style="text-decoration:none" href="https://dsc.gg/fluenthub">
+    <img src="https://img.shields.io/discord/935562861701390336?label=Discord&color=7289da" alt="Discord" /></a>
+</p>
+<p align="center">
+  <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
   <a style="text-decoration:none" href="https://apps.microsoft.com/detail/9NGHP3DX8HDX?launch=true&mode=full">
     <picture>
       <source media="(prefers-color-scheme: light)" srcset="https://get.microsoft.com/images/en-us%20dark.svg" width="200" />
@@ -19,17 +33,9 @@
 #### **Page navigation** - easily navigate through pages without losing history or progress
 #### **Just like GitHub** - perform all of your everyday tasks on GitHub such as creating issues and pull requests with built-in API mutation
 
-## 🎁 Getting started with FluentHub
+<!--## 🎁 Getting started with FluentHub
 
 You need Windows 10 or 11 to run FluentHub.
-
-### Microsoft Store (⭐ Recommended ⭐)
-
-<a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="175" src="https://get.microsoft.com/images/en-us%20dark.svg" />
-</a>
-
-This is the preferred installation method. It allows you to always be on the latest version when we release new builds via automatic updates.
 
 ### GitHub
 
@@ -47,13 +53,20 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 # before using Add-AppxPackage.
 
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
-```
+```-->
+
+## Contributing to FluentHub
+- [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
+- [Submit your change](https://github.com/FluentHub/FluentHub/pulls)
+- Upvote popular feature requests
+- Join [our Discord](https://dsc.gg/fluenthub) and let us know what you think
+- [Trabslate on Crowdin](https://crowdin.com/project/fluenthub)
 
 ## Screenshots
 
 Home page|PR page|User profile page
 ---|---|---
-![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+![Home page screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![PR page screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![User profile page](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
 
 ## Building from source
 
@@ -63,7 +76,7 @@ Home page|PR page|User profile page
 - [Git](https://git-scm.com/)
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/):
   - [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
-  - .NET 7 SDK (check the box named .NET Desktop Development in Visual Studio Installer)
+  - .NET 8 SDK (check the box named .NET Desktop Development in Visual Studio Installer)
   - Windows App SDK
 
 ### 1. Close the repo
@@ -85,47 +98,8 @@ See [the documentation](docs/credentials.md).
 - Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
 - Build with `Debug`, `x64`, `FluentHub.Package`.
 
-## 📸 Screenshots
-
-**Home page**
-![Homepage screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)
-
-**PR page**
-![Pull request page screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)
-
-**User profile page**
-![Profile screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
-
-## 🙋 Contributing & Feedback
-
-There are multiple ways to participate in the community:
-
-- [Submit bugs and feature requests](https://github.com/0x5BFA/FluentHub/issues/new/choose).
-- Review [the documentation](https://github.com/0x5BFA/FluentHub/blob/main/docs/code-style.md) and make pull requests for anything from typos to additional and new idea
-- Review source code changes
-
-If you are interested in fixing issues and contributing directly to the code base, please refer to the [documentation](docs/), which covers the following:
-
-- [How to build and run from source](docs/)
-- The development workflow, including debugging and running tests
-- Coding guidelines
-- [Submitting pull requests](https://github.com/0x5BFA/FluentHub/pulls)
-- [Finding an issue to work on](https://github.com/0x5BFA/FluentHub/issues/)
-- [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
-
-<a href="https://crowdin.com/project/fluenthub" rel="nofollow">
-  <img style="width:140;height:40" src="https://badges.crowdin.net/badge/dark/crowdin-on-light.png" /></a>
-
-### 🦜 Feedback
-
-- [Request a new feature](https://github.com/0x5BFA/FluentHub/pulls)
-- Upvote popular feature requests
-- [File an issue](https://github.com/0x5BFA/FluentHub/issues/new/choose)
-- Join [our Discord](https://discord.gg/8KtRkjq2Q4) and let us know what you think
-
-[![](https://dcbadge.vercel.app/api/server/8KtRkjq2Q4?style=flat)](https://discord.gg/8KtRkjq2Q4)
-
-### 📄 Credit
+## Credit
 
 - This app is subject to the [Riverside Valley Global Disclaimer](https://github.com/RiversideValley/.github/blob/main/DISCLAIMER.md).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
+  
