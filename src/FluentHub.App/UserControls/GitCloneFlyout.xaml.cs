@@ -80,6 +80,32 @@ namespace FluentHub.App.UserControls
 			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
 		}
 
+		private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
+		{
+			var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+			dp.SetText("git clone" + " " + CloneUriTextBox.Text);
+			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+		}
+
+		private async void OpenGitHubDesktopButton_Click(object sender, RoutedEventArgs e)
+		{
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openGitHubDesktopUrl = "x-github-client://openRepo/" + encodedUrl;
+
+			var uri = new Uri(openGitHubDesktopUrl);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop with the repository");
+			}
+			else
+			{
+				Log.Error("Error opening GitHub Desktop");
+			}
+		}
+
 		private async void OpenVSButton_Click(object sender, RoutedEventArgs e)
 		{
 			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
@@ -152,32 +178,6 @@ namespace FluentHub.App.UserControls
 			{
 				Log.Error(downloadZipUrl, "Something went wrong downloading the repository in archive form. The URL was not found or it doesn't work");
 			}
-		}
-
-		private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
-		{
-			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
-			string openGitHubDesktopUrl = "x-github-client://openRepo/" + encodedUrl;
-
-			var uri = new Uri(openGitHubDesktopUrl);
-
-			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
-
-			if (success)
-			{
-				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop with the repository");
-			}
-			else
-			{
-				Log.Error("Error opening GitHub Desktop");
-			}
-		}
-
-		private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
-		{
-			var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
-			dp.SetText("git clone" + " " + CloneUriTextBox.Text);
-			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
 		}
 	}
 }
