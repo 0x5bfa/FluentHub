@@ -121,7 +121,7 @@ namespace FluentHub.App.UserControls
 
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{
-			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
+			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; // Just made it with the main branch
 
 			var uri = new Uri(downloadZipUrl);
 
