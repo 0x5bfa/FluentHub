@@ -150,6 +150,10 @@ namespace FluentHub.App.UserControls
 			{
 				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop with the repository");
 			}
+			else
+			{
+				Log.Error($"Cannot open GitHub Desktop with uri \"" + openGitHubDesktopUrl + "\"");
+			}
 		}
 
 		private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
