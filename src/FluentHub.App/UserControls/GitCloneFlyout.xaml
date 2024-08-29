@@ -128,7 +128,6 @@
 					MinHeight="20"
 					Padding="4,2"
 					HorizontalAlignment="Stretch"
-					Background="Transparent"
 					Click="OpenVSButton_Click"
 					FontSize="14"
 					IsEnabled="True">
@@ -141,7 +140,6 @@
 					MinHeight="20"
 					Padding="4,2"
 					HorizontalAlignment="Stretch"
-					Background="Transparent"
 					Click="OpenVSCodeButton_Click"
 					FontSize="14"
 					IsEnabled="True">
