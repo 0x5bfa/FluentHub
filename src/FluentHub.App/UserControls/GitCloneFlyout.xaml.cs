@@ -140,7 +140,7 @@ namespace FluentHub.App.UserControls
 		private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
 		{
 			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
-			string openGitHubDesktopUrl = "x-github-client://openRepo " + encodedUrl;
+			string openGitHubDesktopUrl = "x-github-client://openRepo/" + encodedUrl;
 
 			var uri = new Uri(openGitHubDesktopUrl);
 
@@ -152,7 +152,7 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error($"Cannot open GitHub Desktop with uri \"" + openGitHubDesktopUrl + "\"");
+				Log.Error("Error opening GitHub Desktop");
 			}
 		}
 
