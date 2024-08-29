@@ -93,11 +93,11 @@ namespace FluentHub.App.UserControls
 
 			if (success)
 			{
-				Console.WriteLine("Add to LOG it successed");
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Visual Studio");
 			}
 			else
 			{
-				Console.WriteLine("Add to LOG it failed");
+				Log.Error(openStudioUrl, "Something went wrong. Visual Studio is not installed or there was another unspecified error.");
 			}
 		}
 		private async void OpenVSCodeButton_Click(object sender, RoutedEventArgs e)
