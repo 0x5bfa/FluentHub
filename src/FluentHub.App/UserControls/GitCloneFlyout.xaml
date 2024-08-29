@@ -125,8 +125,12 @@
 				</Button>
 
 				<Button
+					MinHeight="20"
+					Padding="4,2"
 					HorizontalAlignment="Stretch"
+					Background="Transparent"
 					Click="OpenVSButton_Click"
+					FontSize="14"
 					IsEnabled="True">
 					<StackPanel Orientation="Horizontal" Spacing="8">
 						<TextBlock Text="Open with Visual Studio" />
@@ -134,8 +138,12 @@
 				</Button>
 
 				<Button
+					MinHeight="20"
+					Padding="4,2"
 					HorizontalAlignment="Stretch"
+					Background="Transparent"
 					Click="OpenVSCodeButton_Click"
+					FontSize="14"
 					IsEnabled="True">
 					<StackPanel Orientation="Horizontal" Spacing="8">
 						<TextBlock Text="Edit with Visual Studio Code" />
