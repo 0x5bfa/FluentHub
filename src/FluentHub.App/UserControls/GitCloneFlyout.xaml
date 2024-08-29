@@ -152,6 +152,19 @@
 
 				<Button
 					HorizontalAlignment="Stretch"
+					Click="OpenCodespaceButton_Click"
+					IsEnabled="True">
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<FontIcon
+							FontFamily="{StaticResource Octicons}"
+							FontSize="14"
+							Glyph="&#xE954;" />
+						<TextBlock Text="Open in Codespaces" />
+					</StackPanel>
+				</Button>
+
+				<Button
+					HorizontalAlignment="Stretch"
 					Click="DownloadZipButton_Click"
 					IsEnabled="True"
 					Style="{ThemeResource AccentButtonStyle}">
