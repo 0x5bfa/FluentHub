@@ -116,7 +116,23 @@ namespace FluentHub.App.UserControls
 				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error.");
 			}
 		}
+		private async void OpenCodespaceButton_Click(object sender, RoutedEventArgs e)
+		{
+			string openCodespaceUrl = $"https://github.com/codespaces/new?hide_repo_select=true&repo={ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
+			var uri = new Uri(openCodespaceUrl);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Codespaces in the user's local browser.");
+			}
+			else
+			{
+				Log.Error(openCodespaceUrl, "Something went wrong opening GitHub Codespaces in the user's browser.");
+			}
+		}
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{
 			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; // Just made it with the main branch
