@@ -35,6 +35,7 @@
 				FontSize="36"
 				Style="{StaticResource BodyStrongTextBlockStyle}">
 				<Run Text="{helpers:ResourceString Name=LoadErrorDisplayHeader/Text}" />
+				<Run Text="😿" />
 			</TextBlock>
 			<TextBlock
 				HorizontalAlignment="Center"
