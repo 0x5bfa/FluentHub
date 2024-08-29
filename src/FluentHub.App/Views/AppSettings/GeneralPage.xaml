@@ -144,16 +144,16 @@
 								<HyperlinkButton
 									Grid.Column="1"
 									Content="License"
-									NavigateUri="https://github.com/FluentHub/FluentHub/blob/main/LICENSE" />
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/LICENSE" />
+								<HyperlinkButton
+									Grid.Column="2"
+									Content="Code of conduct"
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
+								<!--<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
 								<HyperlinkButton
 									Grid.Column="3"
-									Content="Code of conduct"
-									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
-					      <!--<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
-								<HyperlinkButton
-									Grid.Column="4"
 									Content="Security guidelines"
-									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/SECURITY.md" />
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/.github/SECURITY.md" />
 							</Grid>
 						</uc:SettingsBlockControl.ExpandableContent>
 					</uc:SettingsBlockControl>
