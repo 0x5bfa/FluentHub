@@ -82,10 +82,10 @@ namespace FluentHub.App.UserControls
 
 		private async void OpenVSButton_Click(object sender, RoutedEventArgs e)
 		{
-			string encodedURL = Uri.EscapeDataString(_repoGitUrl);
-			string openVS_URL = "git-client://clone?repo=" + encodedURL;
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openStudioUrl = "git-client://clone?repo=" + encodedUrl;
 
-			var uri = new Uri(openVS_URL);
+			var uri = new Uri(openStudioUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
@@ -100,10 +100,10 @@ namespace FluentHub.App.UserControls
 		}
 		private async void OpenVSCodeButton_Click(object sender, RoutedEventArgs e)
 		{
-			string encodedURL = Uri.EscapeDataString(_repoGitUrl);
-			string openVS_URL = "vscode://vscode.git/clone?url=" + encodedURL; // There should be an API to detect Code Insiders and open that instead of the stable version
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openCodeUrl = "vscode://vscode.git/clone?url=" + encodedUrl; // There should be an API to detect Code Insiders and open that instead of the stable version
 
-			var uri = new Uri(openVS_URL);
+			var uri = new Uri(openCodeUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
@@ -113,15 +113,15 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(openVS_URL, "Something went wrong. Code is not installed or there was another unspecified error.");
+				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error.");
 			}
 		}
 
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{
-			string downloadZip = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
+			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
 
-			var uri = new Uri(downloadZip);
+			var uri = new Uri(downloadZipUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
@@ -131,21 +131,22 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(downloadZip, "Something went wrong. The URL was not found or it doesn't work");
+				Log.Error(downloadZipUrl, "Something went wrong. The URL was not found or it doesn't work");
 			}
 		}
 
 		private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
 		{
-			string gitHubDeskUrl = "x-github-client://openRepo " + _repoUrl;
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openGitHubDesktopUrl = "x-github-client://openRepo " + encodedUrl;
 
-			var uri = new Uri(gitHubDeskUrl);
+			var uri = new Uri(openGitHubDesktopUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
-			if (!success)
+			if (success)
 			{
-				Log.Warning($"Cannot open GitHub Desktop with uri \"" + gitHubDeskUrl + "\"");
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop with the repository");
 			}
 		}
 
