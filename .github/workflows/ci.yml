@@ -190,9 +190,9 @@ jobs:
       name: Display artifact size
       run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
 
-    - if: github.event_name == 'pull_request' && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
-      uses: marocchino/sticky-pull-request-comment@v1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        header: ci-comment
-        message: 'Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes.'
+    #- if: github.event_name == 'pull_request' && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+    #  uses: marocchino/sticky-pull-request-comment@v1
+    #  with:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #    header: ci-comment
+    #    message: 'Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes.'
