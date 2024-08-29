@@ -133,6 +133,12 @@
 					</StackPanel>
 				</Button>
 
+				<Button HorizontalAlignment="Stretch" IsEnabled="True">
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<TextBlock Text="Edit with Visual Studio Code" />
+					</StackPanel>
+				</Button>
+
 				<Button
 					HorizontalAlignment="Stretch"
 					Click="DownloadZipButton_Click"
