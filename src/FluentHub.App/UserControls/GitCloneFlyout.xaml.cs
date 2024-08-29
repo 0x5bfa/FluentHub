@@ -100,6 +100,7 @@ namespace FluentHub.App.UserControls
 				Log.Error(openStudioUrl, "Something went wrong. Visual Studio is not installed or there was another unspecified error.");
 			}
 		}
+
 		private async void OpenVSCodeButton_Click(object sender, RoutedEventArgs e)
 		{
 			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
@@ -118,6 +119,7 @@ namespace FluentHub.App.UserControls
 				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error.");
 			}
 		}
+
 		private async void OpenCodespaceButton_Click(object sender, RoutedEventArgs e)
 		{
 			string openCodespaceUrl = $"https://github.com/codespaces/new?hide_repo_select=true&repo={ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
@@ -135,6 +137,7 @@ namespace FluentHub.App.UserControls
 				Log.Error(openCodespaceUrl, "Something went wrong opening GitHub Codespaces in the user's browser.");
 			}
 		}
+
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{
 			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; // Just made it with the main branch
