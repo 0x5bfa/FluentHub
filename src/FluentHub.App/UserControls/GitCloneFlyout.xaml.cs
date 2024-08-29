@@ -100,6 +100,24 @@ namespace FluentHub.App.UserControls
 				Console.WriteLine("Add to LOG it failed");
 			}
 		}
+		private async void OpenVSCodeButton_Click(object sender, RoutedEventArgs e)
+		{
+			string encodedURL = Uri.EscapeDataString(_repoGitUrl);
+			string openVS_URL = "vscode://vscode.git/clone?url=" + encodedURL; // There should be an API to detect Code Insiders and open that instead of the stable version
+
+			var uri = new Uri(openVS_URL);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Visual Studio Code");
+			}
+			else
+			{
+				Log.Error(openVS_URL, "Something went wrong. Code is not installed or there was another unspecified error.");
+			}
+		}
 
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{

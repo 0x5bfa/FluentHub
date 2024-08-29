@@ -133,7 +133,10 @@
 					</StackPanel>
 				</Button>
 
-				<Button HorizontalAlignment="Stretch" IsEnabled="True">
+				<Button
+					HorizontalAlignment="Stretch"
+					Click="OpenVSCodeButton_Click"
+					IsEnabled="True">
 					<StackPanel Orientation="Horizontal" Spacing="8">
 						<TextBlock Text="Edit with Visual Studio Code" />
 					</StackPanel>
