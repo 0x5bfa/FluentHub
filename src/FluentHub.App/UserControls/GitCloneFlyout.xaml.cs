@@ -133,7 +133,7 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(downloadZipUrl, "Something went wrong. The URL was not found or it doesn't work");
+				Log.Error(downloadZipUrl, "Something went wrong downloading the repository in archive form. The URL was not found or it doesn't work");
 			}
 		}
 
