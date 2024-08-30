@@ -104,7 +104,30 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error("Error opening GitHub Desktop");
+				Log.Error("Error opening GitHub Desktop; opening GitKraken instead");
+				// Try GitKraken
+				string openGitKrakenUrl = $"gitkraken://repolink/-?url=https%3A%2F%2Fgithub.com%2F{ViewModel.Repository.Owner.Login}%2F{ViewModel.Repository.Name}.git";
+				var gitKrakenUri = new Uri(openGitKrakenUrl);
+				var secondSuccess = await Windows.System.Launcher.LaunchUriAsync(gitKrakenUri);
+				if (secondSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitKraken with the repository");
+				}
+				else
+				{
+					Log.Error("Error opening GitKraken; opening GitHub Desktop download page instead.");
+					// Open GitHub Desktop download page
+					var downloadUri = new Uri("https://desktop.github.com/");
+					var thirdSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+					if (thirdSuccess)
+					{
+						Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop download page");
+					}
+					else
+					{
+						Log.Error("Error opening GitHub Desktop download page; cancelling operation");
+					}
+				}
 			}
 		}
 
