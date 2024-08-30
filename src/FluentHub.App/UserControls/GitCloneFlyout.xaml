@@ -120,7 +120,7 @@
 							FontFamily="{StaticResource Octicons}"
 							FontSize="14"
 							Glyph="&#xE970;" />
-						<TextBlock Text="Open with GitHub Desktop" />
+						<TextBlock Text="Open in your local Git client" />
 					</StackPanel>
 				</Button>
 
