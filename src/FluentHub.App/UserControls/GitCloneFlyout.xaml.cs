@@ -146,7 +146,18 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(openStudioUrl, "Something went wrong. Visual Studio is not installed or there was another unspecified error.");
+				Log.Error(openStudioUrl, "Something went wrong. Visual Studio is not installed or there was another unspecified error; opening appropriate download page instead");
+				// Open visual studio download page
+				var downloadUri = new Uri("https://visualstudio.microsoft.com/");
+				var downloadSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+				if (downloadSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened Visual Studio download page");
+				}
+				else
+				{
+					Log.Error("Unknown error opening VS download page.");
+				}
 			}
 		}
 
@@ -165,7 +176,18 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error.");
+				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error; opening the download page instead.");
+				// Open vscode download page
+				var downloadUri = new Uri("https://code.visualstudio.com/");
+				var downloadSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+				if (downloadSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened Visual Studio Code download page");
+				}
+				else
+				{
+					Log.Error("Unknown error opening VSCode download page.");
+				}
 			}
 		}
 
