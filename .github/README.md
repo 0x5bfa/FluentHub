@@ -60,7 +60,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 - [Submit your change](https://github.com/FluentHub/FluentHub/pulls)
 - Upvote popular feature requests
 - Join [our Discord](https://dsc.gg/fluenthub) and let us know what you think
-- [Trabslate on Crowdin](https://crowdin.com/project/fluenthub)
+- [Translate on Crowdin](https://crowdin.com/project/fluenthub)
 
 ## Screenshots
 
