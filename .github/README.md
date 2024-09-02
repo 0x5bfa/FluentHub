@@ -3,12 +3,8 @@
 > <br/>
 > we're still investigating and we'll ship as soon as possible.
 
-<p align="center">
-  <img width="128" align="center" src="../assets/fluenthub.png" />
-</p>
-<h1 align="center">
-  FluentHub
-</h1>
+![FluentHub banner](https://github.com/user-attachments/assets/154250ea-07c2-40cc-b474-0debd3d4ddfe)
+
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
     <img src="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
@@ -24,6 +20,9 @@
       <source media="(prefers-color-scheme: light)" srcset="https://get.microsoft.com/images/en-us%20dark.svg" width="200" />
       <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200" />
     </picture></a>
+  <a title="GitHub" href="https://github.com/0x5BFA/FluentHub/releases/latest">
+    <img src="https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png" width="157" alt="Get it from GitHub" />
+  </a>
 </p>
 
 FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
