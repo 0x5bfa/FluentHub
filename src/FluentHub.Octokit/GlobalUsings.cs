@@ -1,8 +1,6 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-// Default usings
-// Custom usings
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
 global using global::FluentHub.Octokit.Models.v4Custom;
