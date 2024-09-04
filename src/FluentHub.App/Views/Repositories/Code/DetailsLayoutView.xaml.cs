@@ -2,10 +2,10 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Models;
+using FluentHub.App.ViewModels.Repositories.Codes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
-using FluentHub.App.ViewModels.Repositories.Codes;
 
 namespace FluentHub.App.Views.Repositories.Code
 {

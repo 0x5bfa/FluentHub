@@ -1,5 +1,3 @@
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -29,7 +27,7 @@ namespace FluentHub.App.UserControls.Overview
 		#endregion
 
 		public RepositoryOverview() => InitializeComponent();
-		
+
 		private void OnRepoPageNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 		{
 			var service = Ioc.Default.GetRequiredService<INavigationService>();

@@ -1,13 +1,5 @@
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.App.Extensions;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
 using FluentHub.App.Views.Repositories.Releases;
-using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.Octokit.Queries.Repositories;
 using System.Windows.Input;
 
 namespace FluentHub.App.ViewModels.Repositories.Releases

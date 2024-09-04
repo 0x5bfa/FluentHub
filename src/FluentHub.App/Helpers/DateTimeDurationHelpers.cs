@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.App.Helpers
+﻿namespace FluentHub.App.Helpers
 {
 	public static class DateTimeDurationHelpers
 	{

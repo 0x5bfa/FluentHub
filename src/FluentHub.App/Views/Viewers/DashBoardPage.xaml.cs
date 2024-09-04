@@ -26,9 +26,9 @@ namespace FluentHub.App.Views.Viewers
 
 			_navigation.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
 				_navigation.TabView.SelectedItem.NavigationBar.Context = new()
-			{
-				PrimaryText = "Dashboard"
-			};
+				{
+					PrimaryText = "Dashboard"
+				};
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

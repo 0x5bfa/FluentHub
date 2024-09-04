@@ -2,16 +2,11 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Utils;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Windowing;
-using Microsoft.Windows.AppLifecycle;
-using Windows.ApplicationModel;
-using Windows.Storage;
+using Microsoft.UI.Xaml;
 using Serilog;
 
 namespace FluentHub.App.Helpers

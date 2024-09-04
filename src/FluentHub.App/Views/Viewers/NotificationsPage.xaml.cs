@@ -14,7 +14,7 @@ namespace FluentHub.App.Views.Viewers
 		private readonly INavigationService _navigation;
 
 		public NotificationsPage()
-			:	base(NavigationPageKind.None, NavigationPageKey.None)
+			: base(NavigationPageKind.None, NavigationPageKey.None)
 		{
 			InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace FluentHub.App.Views.Viewers
 				_navigation.TabView.SelectedItem.NavigationBar.Context = new()
 				{
 					PrimaryText = "Notifications"
-			};
+				};
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

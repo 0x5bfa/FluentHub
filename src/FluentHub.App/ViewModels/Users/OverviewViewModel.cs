@@ -1,9 +1,9 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
+using FluentHub.Octokit.Queries.Users;
 
 namespace FluentHub.App.ViewModels.Users
 {

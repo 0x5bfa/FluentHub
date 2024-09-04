@@ -2,23 +2,11 @@
 // Licensed under the MIT License. See the LICENSE.
 
 // Default
-global using global::System;
-global using global::System.Collections.Generic;
-global using global::System.Collections.ObjectModel;
-global using global::System.Linq;
-global using global::System.Text;
-global using global::System.Threading;
-global using global::System.Threading.Tasks;
-
-// Generic
-global using global::Microsoft.Extensions.DependencyInjection;
-
 // Windows Community Toolkit
 global using global::CommunityToolkit.Mvvm.ComponentModel;
 global using global::CommunityToolkit.Mvvm.DependencyInjection;
 global using global::CommunityToolkit.Mvvm.Input;
 global using global::CommunityToolkit.Mvvm.Messaging;
-
 // FluentHub
 global using global::FluentHub.App.Data.EventArgs;
 global using global::FluentHub.App.Data.Factories;
@@ -30,8 +18,16 @@ global using global::FluentHub.App.Services;
 global using global::FluentHub.Core.Data.Enums;
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
-
+global using global::Humanizer;
+// Generic
+global using global::Microsoft.Extensions.DependencyInjection;
 // Third-party
 global using global::Octokit.GraphQL;
+global using global::System;
+global using global::System.Collections.Generic;
+global using global::System.Collections.ObjectModel;
+global using global::System.Linq;
+global using global::System.Text;
+global using global::System.Threading;
+global using global::System.Threading.Tasks;
 global using OctokitOriginal = global::Octokit;
-global using global::Humanizer;

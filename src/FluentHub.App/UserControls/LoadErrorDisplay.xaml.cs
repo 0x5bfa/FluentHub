@@ -1,11 +1,9 @@
 using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.ViewModels.UserControls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.IO;
-using Windows.System;
 using Windows.Storage;
+using Windows.System;
 
 namespace FluentHub.App.UserControls
 {
@@ -85,7 +83,7 @@ namespace FluentHub.App.UserControls
 			currentItem.Description = "Something went wrong";
 		}
 
-		private void  NotifyErrorContent()
+		private void NotifyErrorContent()
 		{
 			var messenger = Ioc.Default.GetRequiredService<IMessenger>();
 

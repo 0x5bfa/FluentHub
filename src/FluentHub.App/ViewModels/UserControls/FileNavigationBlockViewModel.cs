@@ -1,8 +1,7 @@
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
 using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.Repositories;
+using FluentHub.Octokit.Queries.Repositories;
 
 namespace FluentHub.App.ViewModels.UserControls
 {

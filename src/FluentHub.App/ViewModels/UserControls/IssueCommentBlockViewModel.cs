@@ -1,8 +1,4 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.Utils;
-using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.UserControls
 {
