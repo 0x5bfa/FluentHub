@@ -3,11 +3,10 @@
 
 using FluentHub.App.Models;
 using FluentHub.App.ViewModels.Repositories;
+using FluentHub.App.ViewModels.Repositories.Codes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.App.ViewModels.Repositories.Codes;
 
 namespace FluentHub.App.Views.Repositories.Code
 {

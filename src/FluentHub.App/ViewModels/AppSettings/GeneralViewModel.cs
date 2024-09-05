@@ -1,7 +1,7 @@
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Extensions;
 using FluentHub.App.Models;
 using FluentHub.App.ViewModels.UserControls.Overview;
+using FluentHub.Octokit.Queries.Users;
 using Microsoft.UI.Xaml;
 using System.IO;
 using System.Windows.Input;

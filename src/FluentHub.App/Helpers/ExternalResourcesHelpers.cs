@@ -1,9 +1,3 @@
-using FluentHub.App.Models;
-using System.Diagnostics;
-using Windows.Storage;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Markup;
-
 namespace FluentHub.App.Helpers
 {
 	// TODO: Not supported helpers

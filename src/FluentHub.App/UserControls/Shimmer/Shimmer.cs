@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.WinUI.UI;
-using CommunityToolkit.WinUI;
 using CommunityToolkit.WinUI.UI.Animations;
 using CommunityToolkit.WinUI.UI.Animations.Expressions;
 using Microsoft.UI.Composition;

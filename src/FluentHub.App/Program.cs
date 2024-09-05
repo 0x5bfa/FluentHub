@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Extensions;
-using FluentHub.App.Helpers;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
