@@ -1,10 +1,9 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.ViewModels;
 using FluentHub.App.Utils;
+using FluentHub.App.ViewModels;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;

@@ -1,12 +1,4 @@
 using FluentHub.Octokit.Searches;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
-using FluentHub.App.ViewModels.UserControls.BlockButtons;
-using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Searches
 {

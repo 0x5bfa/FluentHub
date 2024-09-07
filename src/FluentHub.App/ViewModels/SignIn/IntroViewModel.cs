@@ -1,8 +1,6 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using FluentHub.Octokit.Authorization;
 using System.Windows.Input;

@@ -1,13 +1,12 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FluentHub.Octokit.ModelGenerator.Models;
 using FluentHub.Octokit.ModelGenerator.Utilities;
 using Octokit.GraphQL.Core.Introspection;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace FluentHub.Octokit.ModelGenerator.Generators
 {
@@ -26,7 +25,7 @@ namespace FluentHub.Octokit.ModelGenerator.Generators
 			var pagingConnectionNodeType = GetPagingConnectionNodeType(type);
 
 			string licenseNotice = string.Empty;
-			
+
 			if (!isStub)
 			{
 				licenseNotice = @"// Copyright (c) 2022-2024 0x5BFA

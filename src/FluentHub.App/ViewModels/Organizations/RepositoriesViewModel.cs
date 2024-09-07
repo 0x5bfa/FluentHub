@@ -1,8 +1,8 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
+using FluentHub.Octokit.Queries.Organizations;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.App.ViewModels.Organizations

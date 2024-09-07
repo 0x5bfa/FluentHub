@@ -5,7 +5,7 @@ namespace FluentHub.App.Data.Items
 {
 	public class NavigationBarItem
 	{
-		public string? Text{ get; set; }
+		public string? Text { get; set; }
 
 		public string? Glyph { get; set; }
 

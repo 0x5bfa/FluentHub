@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using System;
 using FluentHub.Octokit.ModelGenerator.Models;
 using Octokit.GraphQL.Core.Introspection;
 using Octokit.GraphQL.Core.Utilities;
+using System;
 
 namespace FluentHub.Octokit.ModelGenerator.Utilities
 {
@@ -69,7 +69,7 @@ namespace FluentHub.Octokit.ModelGenerator.Utilities
 
 		public static bool IsCSharpPrimitive(TypeModel type)
 		{
-			return type.Kind == TypeKind.Scalar || 
+			return type.Kind == TypeKind.Scalar ||
 				type.Kind == TypeKind.Enum ||
 				(type.Kind == TypeKind.NonNull && IsCSharpPrimitive(type.OfType));
 		}
@@ -156,8 +156,8 @@ namespace FluentHub.Octokit.ModelGenerator.Utilities
 			return type.Kind == TypeKind.Enum ||
 				(type.Kind == TypeKind.Scalar &&
 					(type.Name == "Int" ||
-					type.Name == "Float" || 
-					type.Name == "Boolean" || 
+					type.Name == "Float" ||
+					type.Name == "Boolean" ||
 					type.Name == "DateTime" ||
 					type.Name == "ID"));
 		}

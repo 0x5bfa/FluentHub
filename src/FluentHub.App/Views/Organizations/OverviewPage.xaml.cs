@@ -1,11 +1,7 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Data.Parameters;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Organizations;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Organizations

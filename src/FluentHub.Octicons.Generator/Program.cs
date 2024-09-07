@@ -1,10 +1,9 @@
-﻿using System.Text;
+﻿using Humanizer;
 using System;
 using System.IO;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Linq;
-using Humanizer;
+using System.Text;
+using System.Xml;
 
 namespace FluentHub.Octicons.Generator
 {

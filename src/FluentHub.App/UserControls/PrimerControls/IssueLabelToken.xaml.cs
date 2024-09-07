@@ -1,7 +1,4 @@
 using CommunityToolkit.WinUI.UI.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
@@ -71,7 +68,7 @@ namespace FluentHub.App.UserControls.PrimerControls
 					_ => 20D, // same as medium
 				};
 
-				Context.CornerRadius = new(Context.TokenHeight/2);
+				Context.CornerRadius = new(Context.TokenHeight / 2);
 
 				Context.Margin = value switch
 				{

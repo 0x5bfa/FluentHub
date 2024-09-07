@@ -1,5 +1,5 @@
-using FluentHub.App.Utils;
 using FluentHub.App.Models;
+using FluentHub.App.Utils;
 
 namespace FluentHub.App.ViewModels.Dialogs
 {

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Octokit.ModelGenerator.Models;
+using Octokit.GraphQL.Core.Introspection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentHub.Octokit.ModelGenerator.Models;
-using Octokit.GraphQL.Core.Introspection;
 
 namespace FluentHub.Octokit.ModelGenerator.Utilities
 {

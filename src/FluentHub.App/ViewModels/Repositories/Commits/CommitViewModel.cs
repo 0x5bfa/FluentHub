@@ -1,12 +1,5 @@
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls;
-using FluentHub.App.ViewModels.UserControls.Overview;
-using FluentHub.App.Utils;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.Octokit.Queries.Repositories;
 
 namespace FluentHub.App.ViewModels.Repositories.Commits
 {

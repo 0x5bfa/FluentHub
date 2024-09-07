@@ -134,7 +134,7 @@ namespace FluentHub.App.ViewModels.Viewers
 				x.Type == ActivityPayloadType.IssueCommentEvent ||
 				x.Type == ActivityPayloadType.IssueEvent ||
 				x.Type == ActivityPayloadType.PullRequestComment ||
-				x.Type == ActivityPayloadType.PullRequestEvent||
+				x.Type == ActivityPayloadType.PullRequestEvent ||
 				//x.Type == ActivityPayloadType.PullRequestReviewEvent||
 				//x.Type == ActivityPayloadType.PushEvent||
 				//x.Type == ActivityPayloadType.PushWebhookCommit||
