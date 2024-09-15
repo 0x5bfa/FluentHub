@@ -11,11 +11,6 @@
 >
 > May the best app win! 🌠
 
-> [!WARNING]
-> FluentHub v0.9 is not yet shipped to Microsoft Store due to an error during the submission.
-> <br/>
-> we're still investigating and we'll ship as soon as possible.
-
 <p align="center">
   <img width="128" align="center" src="../assets/fluenthub.png" />
 </p>
