@@ -1,4 +1,17 @@
 > [!IMPORTANT]
+> Microsoft Store Award 2024 is open until September 15, 2024.
+> <br/>
+> Please nominate FluentHub [in this form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_lzdMcHC_tMqWeRwoTd7TRUMlZZWk5ZUk1JU0Q4RU03S1BKU0xHRExNVi4u) if you think this app deserves. For more info, visit [this announcement](https://blogs.windows.com/windowsdeveloper/2024/08/06/nominations-for-the-2024-microsoft-store-app-awards-are-now-open/).
+> 
+> **App or Game Name:** `FluentHub`
+> <br/>
+> **Store URL of app/game you are nominating:** `https://apps.microsoft.com/detail/9nkb9hx8rjz3`
+> <br/>
+> **URL to product page on their web site:** `https://github.com/0x5bfa/FluentHub/blob/HEAD/.github/README.md`
+>
+> May the best app win! 🌠
+
+> [!WARNING]
 > FluentHub v0.9 is not yet shipped to Microsoft Store due to an error during the submission.
 > <br/>
 > we're still investigating and we'll ship as soon as possible.
