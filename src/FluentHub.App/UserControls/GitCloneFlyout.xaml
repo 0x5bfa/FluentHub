@@ -51,7 +51,7 @@
 					ToolTipService.ToolTip="Copy git clone command">
 					<StackPanel Orientation="Horizontal" Spacing="6">
 						<FontIcon FontSize="16" Glyph="&#xE756;" />
-						<TextBlock Text="Git" />
+						<TextBlock Text="Copy" />
 					</StackPanel>
 				</Button>
 			</NavigationView.PaneFooter>
