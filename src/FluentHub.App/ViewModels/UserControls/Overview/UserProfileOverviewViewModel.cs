@@ -14,5 +14,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
 		private string _selectedTag;
 		public string SelectedTag { get => _selectedTag; set => SetProperty(ref _selectedTag, value); }
 		#endregion
+
+		public string UserLocationUrl => $"https://www.bing.com/maps?q={User.Location}";
 	}
 }
