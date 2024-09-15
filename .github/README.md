@@ -1,9 +1,6 @@
-> [!IMPORTANT]
-> FluentHub v0.9 is not yet shipped to Microsoft Store due to an error during the submission.
-> <br/>
-> we're still investigating and we'll ship as soon as possible.
-
-![FluentHub banner](https://github.com/user-attachments/assets/154250ea-07c2-40cc-b474-0debd3d4ddfe)
+<p align="center">
+  <img alt="FluentHub hero image" src="/assets/header.png" />
+</p>
 
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
