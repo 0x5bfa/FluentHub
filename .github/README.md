@@ -1,27 +1,7 @@
-> [!IMPORTANT]
-> Microsoft Store Award 2024 is open until September 15, 2024.
-> <br/>
-> Please nominate FluentHub [in this form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR_lzdMcHC_tMqWeRwoTd7TRUMlZZWk5ZUk1JU0Q4RU03S1BKU0xHRExNVi4u) if you think this app deserves. For more info, visit [this announcement](https://blogs.windows.com/windowsdeveloper/2024/08/06/nominations-for-the-2024-microsoft-store-app-awards-are-now-open/).
-> 
-> **App or Game Name:** `FluentHub`
-> <br/>
-> **Store URL of app/game you are nominating:** `https://apps.microsoft.com/detail/9nkb9hx8rjz3`
-> <br/>
-> **URL to product page on their web site:** `https://github.com/0x5bfa/FluentHub/blob/HEAD/.github/README.md`
->
-> May the best app win! 🌠
-
-> [!WARNING]
-> FluentHub v0.9 is not yet shipped to Microsoft Store due to an error during the submission.
-> <br/>
-> we're still investigating and we'll ship as soon as possible.
-
 <p align="center">
-  <img width="128" align="center" src="../assets/fluenthub.png" />
+  <img alt="FluentHub hero image" src="/assets/header.png" />
 </p>
-<h1 align="center">
-  FluentHub
-</h1>
+
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
     <img src="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
@@ -77,9 +57,14 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 
 ## Screenshots
 
-Home page|PR page|User profile page
+![Screenshot 2024-09-15 104438](https://github.com/user-attachments/assets/1728729b-0c8f-4cdb-aaf4-fbc7643b0bdf)
+
+Your dashboard|Your repos|User profile page
 ---|---|---
-![Home page screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![PR page screenshot](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![User profile page](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+![Screenshot 2024-09-15 104352](https://github.com/user-attachments/assets/c6e556c8-9fcb-4bfc-822d-08fde80eec2e)|![Screenshot 2024-09-15 104425](https://github.com/user-attachments/assets/3427a168-5bcc-4ac4-a7f2-761698c28eac)|![Screenshot 2024-09-15 104700](https://github.com/user-attachments/assets/d4ee0f1f-7e7b-4751-abf3-1df65ad16a99)
+
+
+
 
 ## Building from source
 
