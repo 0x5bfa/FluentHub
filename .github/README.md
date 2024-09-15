@@ -30,9 +30,6 @@
       <source media="(prefers-color-scheme: light)" srcset="https://get.microsoft.com/images/en-us%20dark.svg" width="200" />
       <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200" />
     </picture></a>
-  <a title="GitHub" href="https://github.com/0x5BFA/FluentHub/releases/latest">
-    <img src="https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png" width="157" alt="Get it from GitHub" />
-  </a>
 </p>
 
 FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
@@ -52,9 +49,14 @@ FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers 
 
 ## Screenshots
 
-Home page|PR page|User profile page
+![Screenshot 2024-09-15 104438](https://github.com/user-attachments/assets/1728729b-0c8f-4cdb-aaf4-fbc7643b0bdf)
+
+Your dashboard|Your repos|User profile page
 ---|---|---
-![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+![Screenshot 2024-09-15 104352](https://github.com/user-attachments/assets/c6e556c8-9fcb-4bfc-822d-08fde80eec2e)|![Screenshot 2024-09-15 104425](https://github.com/user-attachments/assets/3427a168-5bcc-4ac4-a7f2-761698c28eac)|![Screenshot 2024-09-15 104700](https://github.com/user-attachments/assets/d4ee0f1f-7e7b-4751-abf3-1df65ad16a99)
+
+
+
 
 ## Building the Code
 
