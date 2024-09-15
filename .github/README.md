@@ -12,11 +12,9 @@
 > May the best app win! 🌠
 
 <p align="center">
-  <img width="128" align="center" src="../assets/fluenthub.png" />
+  <img alt="FluentHub hero image" src="/assets/header.png" />
 </p>
-<h1 align="center">
-  FluentHub
-</h1>
+
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml">
     <img src="https://github.com/0x5bfa/FluentHub/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
@@ -51,9 +49,14 @@ FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers 
 
 ## Screenshots
 
-Home page|PR page|User profile page
+![Screenshot 2024-09-15 104438](https://github.com/user-attachments/assets/1728729b-0c8f-4cdb-aaf4-fbc7643b0bdf)
+
+Your dashboard|Your repos|User profile page
 ---|---|---
-![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a31bdace-8700-4a6a-83e9-1cdc52955c4f)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/a29c4ef8-1fe5-47c3-be03-6afebe02c55b)|![image](https://github.com/0x5bfa/FluentHub/assets/62196528/35ffbe36-00d3-4d04-9019-67307febfc95)
+![Screenshot 2024-09-15 104352](https://github.com/user-attachments/assets/c6e556c8-9fcb-4bfc-822d-08fde80eec2e)|![Screenshot 2024-09-15 104425](https://github.com/user-attachments/assets/3427a168-5bcc-4ac4-a7f2-761698c28eac)|![Screenshot 2024-09-15 104700](https://github.com/user-attachments/assets/d4ee0f1f-7e7b-4751-abf3-1df65ad16a99)
+
+
+
 
 ## Building the Code
 
@@ -76,7 +79,7 @@ git clone https://github.com/FluentHub/FluentHub
 
 See [the documentation](docs/credentials.md).
 
-> [!IMPORTANT]  
+> [!WARNING]  
 > If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
 
 ### 3. Build the project
