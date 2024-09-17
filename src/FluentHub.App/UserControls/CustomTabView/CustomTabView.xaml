@@ -34,6 +34,23 @@
 			SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
 			TabCloseRequested="OnMainTabViewTabCloseRequested"
 			TabItemsSource="{x:Bind TabItems, Mode=OneWay}">
+			<TabView.TabStripHeader>
+				<Button
+					Grid.Column="1"
+					Width="30"
+					Height="30"
+					Margin="4,0,-2,0"
+					Padding="5"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Background="Transparent"
+					BorderThickness="0"
+					ToolTipService.ToolTip="Home">
+					<Button.Content>
+						<FontIcon FontSize="16" Glyph="&#xE80F;" />
+					</Button.Content>
+				</Button>
+			</TabView.TabStripHeader>
 
 			<TabView.TabItemTemplate>
 				<DataTemplate x:DataType="dataitems:TabViewItem">
