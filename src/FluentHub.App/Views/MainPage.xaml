@@ -150,26 +150,6 @@
 
 						<StackPanel Orientation="Horizontal" Spacing="8">
 
-							<!--  Root Navigation Pane  -->
-							<!--<Button
-								x:Name="LeftSideNavigationViewOpenerButton"
-								Width="32"
-								Height="32"
-								Padding="0"
-								Click="LeftSideNavigationViewOpenerButton_Click"
-								IsEnabled="False">
-								<Viewbox Width="16">
-									<AnimatedIcon>
-										<AnimatedIcon.Source>
-											<animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-										</AnimatedIcon.Source>
-										<AnimatedIcon.FallbackIconSource>
-											<SymbolIconSource Symbol="GlobalNavigationButton" />
-										</AnimatedIcon.FallbackIconSource>
-									</AnimatedIcon>
-								</Viewbox>
-							</Button>-->
-
 							<!--  Backward  -->
 							<Button
 								x:Name="ContentFrameBackwardNavigationButton"
@@ -231,6 +211,18 @@
 								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="Refresh">
 								<FontIcon FontSize="14" Glyph="&#xE72C;" />
+							</Button>
+
+							<!--  Home  -->
+							<Button
+								x:Name="ContentFrameHomeNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="Home">
+								<FontIcon FontSize="14" Glyph="&#xE80F;" />
 							</Button>
 						</StackPanel>
 
