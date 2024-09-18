@@ -289,7 +289,35 @@
 								<FontIcon FontSize="16" Glyph="&#xE710;" />
 							</DropDownButton>
 
-							<!--  User Icon  -->
+							<!--  Issues Feed  -->
+							<Button
+								x:Name="UserIssuesFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9EA;" />
+							</Button>
+
+							<!--  Pulls Feed  -->
+							<Button
+								x:Name="UserPullsFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9BF;" />
+							</Button>
+
+							<!--  Notifications Inbox  -->
 							<Button
 								x:Name="UserNotificationInBoxButton"
 								Width="32"
