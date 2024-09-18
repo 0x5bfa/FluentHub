@@ -76,7 +76,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 			_lastPageInfo = result.PageInfo;
 			var items = (List<Release>)result.Response;
 
-			if (items.Any())
+			if (items.Count != 0)
 			{
 				LatestRelease = items.FirstOrDefault();
 			}
