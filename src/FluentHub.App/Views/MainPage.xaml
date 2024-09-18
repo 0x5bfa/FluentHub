@@ -176,6 +176,7 @@
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
 								Style="{StaticResource AddressToolbarButtonStyle}"
@@ -199,6 +200,7 @@
 								Height="32"
 								Padding="0"
 								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
 								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
@@ -223,6 +225,7 @@
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
 								Style="{StaticResource AddressToolbarButtonStyle}"
@@ -292,6 +295,7 @@
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Click="UserNotificationInBoxButton_Click">
 								<FontIcon FontSize="16" Glyph="&#xEA8F;" />
 							</Button>
