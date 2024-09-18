@@ -269,20 +269,22 @@
 							Spacing="8">
 
 							<!--  Search GitHub  -->
-							<!--<TextBox
+							<TextBox
 								Width="256"
 								Height="32"
+								Background="Transparent"
 								IsEnabled="False"
-								PlaceholderText="Search GitHub" />-->
+								PlaceholderText="Search GitHub" />
 
 							<!--  Add New  -->
-							<!--<DropDownButton
+							<DropDownButton
 								x:Name="AddNewItemButton"
 								Width="64"
 								Height="32"
+								Background="Transparent"
 								IsEnabled="False">
 								<FontIcon FontSize="16" Glyph="&#xE710;" />
-							</DropDownButton>-->
+							</DropDownButton>
 
 							<!--  User Icon  -->
 							<Button
