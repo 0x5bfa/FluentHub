@@ -195,7 +195,7 @@
 
 							<!--  Forward  -->
 							<Button
-								x:Name="ContentFrameForewardNavigationButton"
+								x:Name="ContentFrameForwardNavigationButton"
 								Width="32"
 								Height="32"
 								Padding="0"
