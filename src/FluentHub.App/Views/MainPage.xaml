@@ -1,4 +1,4 @@
-﻿<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
 <Page
 	x:Class="FluentHub.App.Views.MainPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -75,6 +75,17 @@
 					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
 					<Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
 					<CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+					<!--  Definitely not copied directly from Files....  -->
+					<Style
+						x:Key="AddressToolbarButtonStyle"
+						BasedOn="{StaticResource DefaultButtonStyle}"
+						TargetType="Button">
+						<Setter Property="Padding" Value="0" />
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="Width" Value="36" />
+						<Setter Property="Height" Value="32" />
+					</Style>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 
@@ -167,6 +178,7 @@
 								Padding="0"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -188,6 +200,7 @@
 								Padding="0"
 								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -212,6 +225,7 @@
 								Padding="0"
 								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="Refresh">
 								<FontIcon FontSize="14" Glyph="&#xE72C;" />
 							</Button>
