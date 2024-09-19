@@ -124,7 +124,7 @@
     <value>Activiteiten</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Kies uw kleur</value>
+    <value>Kies je kleur</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
     <value>Algemeen</value>
@@ -145,10 +145,10 @@
     <value>Terug</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Pas uw pins aan</value>
+    <value>Pas je pins aan</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Ontwikkelaars Programma Lid</value>
+    <value>Ontwikkelaarsprogramma lid</value>
   </data>
   <data name="Discussions" xml:space="preserve">
     <value>Discussies</value>
@@ -166,7 +166,7 @@
     <value>Geen recente activiteiten.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Graag vandaan FluentHub openen.</value>
+    <value>Ga verder naar de FluentHub applicatie.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
     <value>Klik op "Login met GitHub";</value>
@@ -181,7 +181,7 @@
     <value>volgers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Aan het volgen</value>
+    <value>Volgend</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
     <value>aan het volgen</value>
@@ -220,7 +220,7 @@
     <value>Documentatie</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>FluentHub Autoriseren</value>
+    <value>FluentHub autoriseren</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Problemen</value>
@@ -235,16 +235,16 @@
     <value>Open logboek locatie</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opent onze GitHubpagina om een probleem aan te maken. Opmerking: FluentHub zal in de toekomst de fout inhoud automatisch plakken, gedetailleerde logboeken en stuur ze naar het FluentHub team via GitHub wanneer je op deze knop klikt.</value>
+    <value>Opent onze GitHub pagina om een issue aan te maken. Opmerking: FluentHub zal in de toekomst de foutinhoud, details, logboeken automatisch plakken en stuurt ze naar het FluentHub team via GitHub wanneer je op deze knop klikt.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Dit probleem melden</value>
+    <value>Deze issue melden</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Geeft de trace stapel resultaten weer in een dialoogvenster.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Bekijk trace stapel</value>
+    <value>Stack trace bekijken</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>Inloggen met GitHub</value>
@@ -259,7 +259,7 @@
     <value>Nieuwe organisatie</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Nieuwe opslagplaats</value>
+    <value>Nieuwe repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Meldingen</value>
@@ -280,13 +280,13 @@
     <value>Genoemd</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team vernoemd</value>
+    <value>Team genoemd</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
     <value>Deelnemen</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Controle aangevraagd</value>
+    <value>Review aangevraagd</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Opgeslagen</value>
@@ -301,7 +301,7 @@
     <value>Datum</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Opslagplaats</value>
+    <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
     <value>Meldingen</value>
@@ -325,19 +325,19 @@
     <value>Niemand aan het volgen</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Geen problemen</value>
+    <value>Geen issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
     <value>Geen organisaties</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Geen populaire opslagplaatsen</value>
+    <value>Geen populaire repositories</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Geen pull-aanvragen</value>
+    <value>Geen pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Geen opslagplaatsen</value>
+    <value>Geen repositories</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
     <value>Geen sterren</value>
@@ -352,7 +352,7 @@
     <value>Pakketten</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Vastgemaakte opslagplaatsen</value>
+    <value>Vastgemaakte repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
     <value>Populaire opslagplaatsen</value>
@@ -361,13 +361,13 @@
     <value>Projecten</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull-aanvragen</value>
+    <value>Pull requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Opslagplaatsen</value>
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
     <value>Opslagplaatsen</value>
@@ -385,7 +385,7 @@
     <value>Volgers zoeken</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Zoek wie u aan het volgen bent</value>
+    <value>Volgend zoeken</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
     <value>Problemen zoeken</value>
@@ -394,10 +394,10 @@
     <value>Organisaties zoeken</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Pull-aanvragen zoeken</value>
+    <value>Pull requests zoeken</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Opslagplaatsen zoeken</value>
+    <value>Repositories zoeken</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
     <value>Sterren zoeken</value>
@@ -436,7 +436,7 @@
     <value>Licht</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "FluentHub Autoriseren";</value>
+    <value>Klik op "FluentHub autoriseren";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
     <value>Probeer opnieuw</value>
@@ -445,48 +445,48 @@
     <value>Ontvolgen</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Uw discussies</value>
+    <value>Jouw discussies</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Uw problemen</value>
+    <value>Jouw issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Uw organisaties</value>
+    <value>Jouw organisaties</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Uw profiel</value>
+    <value>Jouw profiel</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Uw pull-aanvragen</value>
+    <value>Jouw pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Uw opslagplaatsen</value>
+    <value>Jouw repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Uw sterren</value>
+    <value>Jouw sterren</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Uw discussies</value>
+    <value>Jouw discussies</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Uw volgers</value>
+    <value>Jouw volgers</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Wie u aan het volgen bent</value>
+    <value>Jouw volgende</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Uw problemen</value>
+    <value>Jouw issues</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Uw organisaties</value>
+    <value>Jouw organisaties</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Uw pull-aanvragen</value>
+    <value>Jouw pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Uw opslagplaatsen</value>
+    <value>Jouw repositories</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Uw sterren</value>
+    <value>Jouw sterren</value>
   </data>
 </root>
