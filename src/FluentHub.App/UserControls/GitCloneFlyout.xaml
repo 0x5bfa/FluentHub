@@ -39,7 +39,7 @@
 					IsSelected="True"
 					Tag="Https" />
 				<NavigationViewItem Content="SSH" Tag="Ssh" />
-				<NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
+				<NavigationViewItem Content="CLI" Tag="GitHubCli" />
 			</NavigationView.MenuItems>
 
 			<NavigationView.PaneFooter>
