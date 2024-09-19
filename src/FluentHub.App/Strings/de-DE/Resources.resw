@@ -226,7 +226,7 @@
     <value>Probleme</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Etwas ist schief gelaufen</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Öffnet den Log-Ordner, in dem die App-Fehlerdetails auf der lokalen Festplatte gespeichert werden.</value>
@@ -265,7 +265,7 @@
     <value>Benachrichtigungen</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Assigned</value>
+    <value>Zugeteilt</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>Erledigt</value>
@@ -277,16 +277,16 @@
     <value>Posteingang</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>Erwähnt</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team Mentioned</value>
+    <value>Team erwähnt</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>Beteiligt</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Review Requested</value>
+    <value>Prüfung angefordert</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Gespeichert</value>
@@ -361,7 +361,7 @@
     <value>Projekte</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>Pull-Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>Aktualisieren</value>
@@ -421,7 +421,7 @@
     <value>Abmelden</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Stars</value>
+    <value>Sterne</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
     <value>Konto wechseln</value>
