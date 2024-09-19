@@ -42,7 +42,8 @@ namespace FluentHub.App.UserControls.FeedBlocks
 			};
 
 			if (App.AppSettings.UseDetailsView)
-				service.Navigate<Views.Repositories.Code.DetailsLayoutView>();
+				service.Navigate<Views.Repositories.
+					.DetailsLayoutView>();
 			else
 				service.Navigate<Views.Repositories.Code.TreeLayoutView>();
 		}
