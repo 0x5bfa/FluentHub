@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountSettingsButton.Text" xml:space="preserve">
+    <value>Fiók beállítások</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Tevékenységek</value>
+  </data>
+  <data name="AppearancePageColorBlock.Title" xml:space="preserve">
+    <value>Válassz színt</value>
+  </data>
+  <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
+    <value>Általános</value>
+  </data>
+  <data name="AppearancePageHeader.Text" xml:space="preserve">
+    <value>Megjelenés</value>
+  </data>
+  <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
+    <value>Egyedi témák</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Vissza</value>
+  </data>
+  <data name="CustomizeYourPins" xml:space="preserve">
+    <value>Kitűzések testreszabása</value>
+  </data>
+  <data name="DeveloperProgramMember" xml:space="preserve">
+    <value>Fejlesztői program tag</value>
+  </data>
+  <data name="Discussions" xml:space="preserve">
+    <value>Megbeszélések</value>
+  </data>
+  <data name="EditUserProfile" xml:space="preserve">
+    <value>Felhasználói profil szerkesztése</value>
+  </data>
+  <data name="FeatureNotAvailable.Text" xml:space="preserve">
+    <value>Még nem elérhető.</value>
+  </data>
+  <data name="FeedsPageHeader.Text" xml:space="preserve">
+    <value>Tevékenység</value>
+  </data>
+  <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
+    <value>Nincs újabb tevékenység.</value>
+  </data>
+  <data name="FifthStepToAuthorize.Text" xml:space="preserve">
+    <value>Tovább a FluentHub alkalmazáshoz.</value>
+  </data>
+  <data name="FirstStepToAuthorize.Text" xml:space="preserve">
+    <value>Kattints a "Bejelentkezés a GitHub segítségével" gombra;</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Követés</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Követők</value>
+  </data>
+  <data name="FollowersWithoutCaps" xml:space="preserve">
+    <value>követők</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Követve</value>
+  </data>
+  <data name="FollowingWithoutCaps" xml:space="preserve">
+    <value>követés</value>
+  </data>
+  <data name="ForthStepToAuthorize.Text" xml:space="preserve">
+    <value>Kattints a "FluentHub DEV megnyitása" gombra;</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Tovább</value>
+  </data>
+  <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Vissza</value>
+  </data>
+  <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Tovább</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Kezdőlap</value>
+  </data>
+  <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
+    <value>Kedvencek</value>
+  </data>
+  <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
+    <value>Nincs elérhető kedvenc elem.</value>
+  </data>
+  <data name="HomePageGeneralHeader.Text" xml:space="preserve">
+    <value>Munka</value>
+  </data>
+  <data name="HomePageHeader.Text" xml:space="preserve">
+    <value>Otthon</value>
+  </data>
+  <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
+    <value>Legújabb</value>
+  </data>
+  <data name="IntroDocumentationLink.Content" xml:space="preserve">
+    <value>Dokumentáció</value>
+  </data>
+  <data name="IntroHeader.Text" xml:space="preserve">
+    <value>FluentHub engedélyezése</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>Problémák</value>
+  </data>
+  <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
+    <value>Valami hiba történt</value>
+  </data>
+  <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Megnyitja a naplómappát, ahol az alkalmazás hibáinak részleteit tárolja a helyi lemezen.</value>
+  </data>
+  <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
+    <value>Naplózás helyének megnyitása</value>
+  </data>
+  <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Megnyitja a GitHub oldalunkat egy probléma létrehozásához. Megjegyzés: A jövőben a FluentHub automatikusan beilleszti a hiba tartalmát, részleteit, naplókat, és elküldi a FluentHub csapatának a GitHubon keresztül, amikor erre a gombra kattint.</value>
+  </data>
+  <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
+    <value>Hiba jelentése</value>
+  </data>
+  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Megjeleníti a stack trace eredményeit egy párbeszédpanelen.</value>
+  </data>
+  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
+    <value>See stack trace</value>
+  </data>
+  <data name="LoginWithGitHub.Content" xml:space="preserve">
+    <value>Belépés GitHub-fiókkal</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Új</value>
+  </data>
+  <data name="NewMutation.Text" xml:space="preserve">
+    <value>Új</value>
+  </data>
+  <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
+    <value>Új szervezet</value>
+  </data>
+  <data name="NewMutationRepoButton.Text" xml:space="preserve">
+    <value>Új tároló</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Értesítések</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
+    <value>Hozzárendelt</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
+    <value>Szűrés:</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
+    <value>Bejövő</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
+    <value>Megemlítve</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
+    <value>Említett csapat</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
+    <value>Résztvevő</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
+    <value>Ellenőrzés szükséges</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
+    <value>Mentve</value>
+  </data>
+  <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
+    <value>Csoport:</value>
+  </data>
+  <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
+    <value>Nincs</value>
+  </data>
+  <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
+    <value>Tároló</value>
+  </data>
+  <data name="NotificationsPageHeader.Text" xml:space="preserve">
+    <value>Értesítések</value>
+  </data>
+  <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
+    <value>Nincs újabb értesítés.</value>
+  </data>
+  <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
+    <value>Értesítések keresése</value>
+  </data>
+  <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
+    <value>Olvasatlan</value>
+  </data>
+  <data name="NoUserDiscussions" xml:space="preserve">
+    <value>Nincsenek beszélgetések</value>
+  </data>
+  <data name="NoUserFollowers" xml:space="preserve">
+    <value>Nincsenek követők</value>
+  </data>
+  <data name="NoUserFollowing" xml:space="preserve">
+    <value>Nincsenek követések</value>
+  </data>
+  <data name="NoUserIssues" xml:space="preserve">
+    <value>Nincsenek problémák</value>
+  </data>
+  <data name="NoUserOrganizations" xml:space="preserve">
+    <value>Nincs szervezetek</value>
+  </data>
+  <data name="NoUserPopularRepositories" xml:space="preserve">
+    <value>Nincsenek népszerű tárolók</value>
+  </data>
+  <data name="NoUserPullRequests" xml:space="preserve">
+    <value>Nincsenek beolvasztási kérések</value>
+  </data>
+  <data name="NoUserRepositories" xml:space="preserve">
+    <value>Nincseken tárolók</value>
+  </data>
+  <data name="NoUserStars" xml:space="preserve">
+    <value>Nincsenek csillagok</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Szervezetek</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Áttekintés</value>
+  </data>
+  <data name="Packages" xml:space="preserve">
+    <value>Csomagok</value>
+  </data>
+  <data name="PinnedRepositories" xml:space="preserve">
+    <value>Kitűzött tárolók</value>
+  </data>
+  <data name="PopularRepositories" xml:space="preserve">
+    <value>Felkapott tárolók</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projektek</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>Beolvasztási kérések</value>
+  </data>
+  <data name="RefreshBody.Text" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>Tárolók</value>
+  </data>
+  <data name="RepositoriesListHeader.Text" xml:space="preserve">
+    <value>Tárolók</value>
+  </data>
+  <data name="SearchBar.PlaceholderText" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Beszélgetések keresése</value>
+  </data>
+  <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
+    <value>Követők keresése</value>
+  </data>
+  <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
+    <value>Követettek keresése</value>
+  </data>
+  <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Problémák keresése</value>
+  </data>
+  <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Szervezetek keresése</value>
+  </data>
+  <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Beolvasztási kérések keresése</value>
+  </data>
+  <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Tárolók keresése</value>
+  </data>
+  <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Csillagok keresése</value>
+  </data>
+  <data name="SecondStepToAuthorize.Text" xml:space="preserve">
+    <value>Ha Ön egy vagy több szervezet adminisztrátora, kérjük, adjon hozzáférést a FluentHubhoz;</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SettingsFeedbackButton.Content" xml:space="preserve">
+    <value>Visszajelzés</value>
+  </data>
+  <data name="SettingsGetHelpButton.Content" xml:space="preserve">
+    <value>Segítség kérése</value>
+  </data>
+  <data name="SignOutButton.Text" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>Csillagok</value>
+  </data>
+  <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
+    <value>Fiók váltása</value>
+  </data>
+  <data name="ThemeAuto" xml:space="preserve">
+    <value>Rendszerbeállítások használata</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Sötét</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Világos</value>
+  </data>
+  <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
+    <value>FluentHub engedélyezése";</value>
+  </data>
+  <data name="TryAgainWithCap" xml:space="preserve">
+    <value>Próbálja újra</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Kikövetés</value>
+  </data>
+  <data name="UserDiscussionsButton.Text" xml:space="preserve">
+    <value>Beszélgetéseid</value>
+  </data>
+  <data name="UserIssuesButton.Text" xml:space="preserve">
+    <value>Problémáid</value>
+  </data>
+  <data name="UserOrganizationsButton.Text" xml:space="preserve">
+    <value>Szervezeteid</value>
+  </data>
+  <data name="UserProfileButton.Text" xml:space="preserve">
+    <value>Profilod</value>
+  </data>
+  <data name="UserPullRequestsButton.Text" xml:space="preserve">
+    <value>Beolvasztási kéréseid</value>
+  </data>
+  <data name="UserRepositoriesButton.Text" xml:space="preserve">
+    <value>Tárolóid</value>
+  </data>
+  <data name="UserStarsButton.Text" xml:space="preserve">
+    <value>Csillagaid</value>
+  </data>
+  <data name="YourDiscussions" xml:space="preserve">
+    <value>Beszélgetéseid</value>
+  </data>
+  <data name="YourFollowers" xml:space="preserve">
+    <value>Követőid</value>
+  </data>
+  <data name="YourFollowing" xml:space="preserve">
+    <value>Követéseid</value>
+  </data>
+  <data name="YourIssues" xml:space="preserve">
+    <value>Problémáid</value>
+  </data>
+  <data name="YourOrganizations" xml:space="preserve">
+    <value>Szervezeteid</value>
+  </data>
+  <data name="YourPullRequests" xml:space="preserve">
+    <value>Beolvasztási kéréseid</value>
+  </data>
+  <data name="YourRepositories" xml:space="preserve">
+    <value>Tárolóid</value>
+  </data>
+  <data name="YourStars" xml:space="preserve">
+    <value>Csillagaid</value>
+  </data>
+</root>

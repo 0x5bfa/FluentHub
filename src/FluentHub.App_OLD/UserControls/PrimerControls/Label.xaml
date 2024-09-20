@@ -1,0 +1,386 @@
+﻿<UserControl
+	x:Class="FluentHub.App.UserControls.PrimerControls.Label"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:FluentHub.App.UserControls.PrimerControls"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	d:DesignHeight="64"
+	d:DesignWidth="128"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+	</UserControl.Resources>
+
+	<Grid x:Name="PreGrid">
+		<toolkit:SwitchPresenter
+			x:Name="SmallOrLargeSwitchPresenter"
+			x:Load="{x:Bind Size, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+			TargetType="x:String"
+			Value="{x:Bind Size, Mode=OneWay}">
+			<toolkit:Case Value="small">
+				<Grid>
+					<toolkit:SwitchPresenter
+						x:Name="SmallScaleVariantSwitchPresenter"
+						x:Load="{x:Bind Variant, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+						TargetType="x:String"
+						Value="{x:Bind Variant, Mode=OneWay}">
+						<toolkit:Case Value="default">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGray5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGray3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="primary">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGray5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGray3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="secondary">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGreen5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGreen3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="accent">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleBlue5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleBlue3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="success">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGreen5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGreen3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="attention">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleYellow5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleYellow3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="severe">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleOrange5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleOrange3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="danger">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleRed5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleRed3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="done">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScalePurple5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScalePurple3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="sponsors">
+							<Grid Height="20">
+								<Border
+									BorderBrush="{StaticResource PrimerScalePink5}"
+									BorderThickness="1"
+									CornerRadius="10" />
+								<Grid>
+									<TextBlock
+										Margin="7,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScalePink3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+					</toolkit:SwitchPresenter>
+				</Grid>
+			</toolkit:Case>
+			<toolkit:Case Value="large">
+				<Grid>
+					<toolkit:SwitchPresenter
+						x:Name="LargeScaleVariantSwitchPresenter"
+						x:Load="{x:Bind Variant, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+						TargetType="x:String"
+						Value="{x:Bind Variant, Mode=OneWay}">
+						<toolkit:Case Value="default">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGray5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGray3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="primary">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGray5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGray3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="secondary">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGray5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGray3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="accent">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleBlue5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleBlue3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="success">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleGreen5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleGreen3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="attention">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleYellow5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleYellow3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="severe">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleOrange5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleOrange3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="danger">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScaleRed5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScaleRed3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="done">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScalePurple5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScalePurple3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+						<toolkit:Case Value="sponsors">
+							<Grid Height="24">
+								<Border
+									BorderBrush="{StaticResource PrimerScalePink5}"
+									BorderThickness="1"
+									CornerRadius="12" />
+								<Grid>
+									<TextBlock
+										Margin="10,0"
+										VerticalAlignment="Center"
+										FontWeight="SemiBold"
+										Foreground="{StaticResource PrimerScalePink3}"
+										Style="{StaticResource CaptionTextBlockStyle}"
+										Text="{x:Bind Text, Mode=OneWay}" />
+								</Grid>
+							</Grid>
+						</toolkit:Case>
+					</toolkit:SwitchPresenter>
+				</Grid>
+			</toolkit:Case>
+		</toolkit:SwitchPresenter>
+	</Grid>
+</UserControl>

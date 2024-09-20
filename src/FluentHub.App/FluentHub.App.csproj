@@ -1,45 +1,81 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Uno.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
-		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
-		<OutputType>WinExe</OutputType>
-		<AssemblyName>FluentHub</AssemblyName>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<UseWinUI>true</UseWinUI>
-		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<Platforms>x86;x64;arm64</Platforms>
-		<Configurations>Debug;Release;Sideload</Configurations>
-		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<!-- <TargetFrameworks>net8.0-windows10.0.22621.0</TargetFrameworks> -->
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.22621.0;net8.0-browserwasm;net8.0-desktop</TargetFrameworks>
+
+		<OutputType>Exe</OutputType>
+		<UnoSingleProject>true</UnoSingleProject>
+
+    	<!-- Display name -->
+    	<ApplicationTitle>FluentHub</ApplicationTitle>
+    	<!-- App Identifier -->
+    	<ApplicationId>FluentHub</ApplicationId>
+    	<!-- Versions -->
+    	<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    	<ApplicationVersion>1</ApplicationVersion>
+    	<!-- Package Publisher -->
+    	<ApplicationPublisher>0x5BFA</ApplicationPublisher>
+    	<!-- Package Description -->
+    	<Description>FluentHub powered by Uno Platform.</Description>
+    	<!--
+    	  If you encounter this error message:
+
+	        error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
+	        Please update to a newer .NET SDK in order to reference this assembly.
+
+	      This means that the two packages below must be aligned with the "build" version number of
+ 	      the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
+	      must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
+	    -->
+	    <!-- <WindowsSdkPackageVersion>10.0.22621.28</WindowsSdkPackageVersion> -->
+
+	    <!--
+	      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
+	      https://aka.platform.uno/singleproject-features
+	    -->
+		<!-- From: [FluentHub.App_OLD/FluentHub.App_OLD.csproj]
 		<DefineConstants Condition="'$(Configuration)' == 'Debug'">TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 		<DefineConstants Condition="'$(Configuration)' != 'Debug'">TRACE;RELEASE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 		<Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
+		-->
+		<UnoFeatures>
+			Lottie;
+			Hosting;
+			Toolkit;
+			Logging;
+			LoggingSerilog;
+			Mvvm;
+			Configuration;
+			Http;
+			Serialization;
+			Localization;
+			Navigation;
+		</UnoFeatures>
 	</PropertyGroup>
 
-	<ItemGroup>
+  	<ItemGroup>
 		<Content CopyToOutputDirectory="PreserveNewest" Include="Assets\**" />
 		<Content CopyToOutputDirectory="PreserveNewest" Include="AppCredentials.config" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="CommunityToolkit.WinUI" Version="7.1.2" />
-		<PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
-		<PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
-		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-		<PackageReference Include="Humanizer" Version="2.14.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
-		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
-		<PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
-		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
-		<PackageReference Include="WinUIEx" Version="2.3.4" />
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="CommunityToolkit.WinUI" />
+		<PackageReference Include="CommunityToolkit.WinUI.Notifications" />
+		<PackageReference Include="CommunityToolkit.WinUI.UI.Animations" />
+		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
+		<PackageReference Include="Humanizer" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" />
+		<PackageReference Include="Microsoft.Extensions.Logging" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" />
+		<PackageReference Include="Octokit.GraphQL" />
+		<PackageReference Include="Serilog.Sinks.File" />
+		<PackageReference Include="WinUIEx" />
 	</ItemGroup>
 
 	<ItemGroup>

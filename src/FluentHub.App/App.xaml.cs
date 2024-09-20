@@ -1,11 +1,17 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using AndroidX.ConstraintLayout.Core.Motion.Utils;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.WinUI;
 using FluentHub.App.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.Windows.AppLifecycle;
+using Serilog;
+using Windows.ApplicationModel;
+using Windows.Storage;
+using CommunityToolkit.WinUI;
 using Serilog;
 using Windows.ApplicationModel;
 using Windows.Storage;
@@ -97,7 +103,7 @@ namespace FluentHub.App
 		private void OnSuspending(object sender, SuspendingEventArgs e)
 		{
 			var deferral = e.SuspendingOperation.GetDeferral();
-			//TODO: Save application state and stop any background activity
+			// TODO: Save application state and stop any background activity
 			deferral.Complete();
 		}
 

@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountSettingsButton.Text" xml:space="preserve">
+    <value>Impostazioni account</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Attività</value>
+  </data>
+  <data name="AppearancePageColorBlock.Title" xml:space="preserve">
+    <value>Scegli il tuo colore</value>
+  </data>
+  <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
+    <value>Generale</value>
+  </data>
+  <data name="AppearancePageHeader.Text" xml:space="preserve">
+    <value>Aspetto</value>
+  </data>
+  <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
+    <value>Temi personalizzati</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="CustomizeYourPins" xml:space="preserve">
+    <value>Personalizza i tuoi pin</value>
+  </data>
+  <data name="DeveloperProgramMember" xml:space="preserve">
+    <value>Membro del programma sviluppatore</value>
+  </data>
+  <data name="Discussions" xml:space="preserve">
+    <value>Discussioni</value>
+  </data>
+  <data name="EditUserProfile" xml:space="preserve">
+    <value>Modifica profilo utente</value>
+  </data>
+  <data name="FeatureNotAvailable.Text" xml:space="preserve">
+    <value>Non ancora disponibile.</value>
+  </data>
+  <data name="FeedsPageHeader.Text" xml:space="preserve">
+    <value>Attività</value>
+  </data>
+  <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
+    <value>Nessuna attività recente.</value>
+  </data>
+  <data name="FifthStepToAuthorize.Text" xml:space="preserve">
+    <value>Procedi all'applicazione FluentHub.</value>
+  </data>
+  <data name="FirstStepToAuthorize.Text" xml:space="preserve">
+    <value>Clicca "Accedi con GitHub";</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Segui</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Follower</value>
+  </data>
+  <data name="FollowersWithoutCaps" xml:space="preserve">
+    <value>follower</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Seguiti</value>
+  </data>
+  <data name="FollowingWithoutCaps" xml:space="preserve">
+    <value>seguiti</value>
+  </data>
+  <data name="ForthStepToAuthorize.Text" xml:space="preserve">
+    <value>Fare clic su "Apri FluentHub DEV";</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Pagina iniziale</value>
+  </data>
+  <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
+    <value>Preferiti</value>
+  </data>
+  <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
+    <value>Nessun elemento preferito disponibile.</value>
+  </data>
+  <data name="HomePageGeneralHeader.Text" xml:space="preserve">
+    <value>Lavoro</value>
+  </data>
+  <data name="HomePageHeader.Text" xml:space="preserve">
+    <value>Pagina iniziale</value>
+  </data>
+  <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
+    <value>Recenti</value>
+  </data>
+  <data name="IntroDocumentationLink.Content" xml:space="preserve">
+    <value>Documentazione</value>
+  </data>
+  <data name="IntroHeader.Text" xml:space="preserve">
+    <value>Autorizza FluentHub</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>Problemi</value>
+  </data>
+  <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Apre la cartella dei registri in cui vengono memorizzati i dettagli degli errori dell'app sul disco locale.</value>
+  </data>
+  <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
+    <value>Apri posizione dei registri</value>
+  </data>
+  <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Apre la nostra pagina GitHub per creare un problema. Nota: In futuro, FluentHub incollerà automaticamente il contenuto dell'errore, i dettagli, registra e inviali al team FluentHub tramite GitHub quando fai clic su questo pulsante.</value>
+  </data>
+  <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
+    <value>Segnala questo problema</value>
+  </data>
+  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Visualizza i risultati della traccia dello stack in una finestra di dialogo.</value>
+  </data>
+  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
+    <value>Vedi traccia dello stack</value>
+  </data>
+  <data name="LoginWithGitHub.Content" xml:space="preserve">
+    <value>Accedi con GitHub</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Nuovo</value>
+  </data>
+  <data name="NewMutation.Text" xml:space="preserve">
+    <value>Nuovo</value>
+  </data>
+  <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
+    <value>Nuova organizzazione</value>
+  </data>
+  <data name="NewMutationRepoButton.Text" xml:space="preserve">
+    <value>Nuovo repository</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifiche</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
+    <value>Fatto</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
+    <value>Filtra per:</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
+    <value>Posta in arrivo</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
+    <value>Mentioned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
+    <value>Team Mentioned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
+    <value>Participating</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
+    <value>Review Requested</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
+    <value>Salvato</value>
+  </data>
+  <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
+    <value>Raggruppa per:</value>
+  </data>
+  <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
+    <value>Nessuna</value>
+  </data>
+  <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="NotificationsPageHeader.Text" xml:space="preserve">
+    <value>Notifiche</value>
+  </data>
+  <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
+    <value>Nessuna notifica recente.</value>
+  </data>
+  <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
+    <value>Cerca notifiche</value>
+  </data>
+  <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
+    <value>Non lette</value>
+  </data>
+  <data name="NoUserDiscussions" xml:space="preserve">
+    <value>Nessuna discussione</value>
+  </data>
+  <data name="NoUserFollowers" xml:space="preserve">
+    <value>Nessun follower</value>
+  </data>
+  <data name="NoUserFollowing" xml:space="preserve">
+    <value>Nessuno seguito</value>
+  </data>
+  <data name="NoUserIssues" xml:space="preserve">
+    <value>Nessun problema</value>
+  </data>
+  <data name="NoUserOrganizations" xml:space="preserve">
+    <value>Nessuna organizzazione</value>
+  </data>
+  <data name="NoUserPopularRepositories" xml:space="preserve">
+    <value>Nessun repository popolare</value>
+  </data>
+  <data name="NoUserPullRequests" xml:space="preserve">
+    <value>Nessuna pull request</value>
+  </data>
+  <data name="NoUserRepositories" xml:space="preserve">
+    <value>Nessun repository</value>
+  </data>
+  <data name="NoUserStars" xml:space="preserve">
+    <value>Nessuna stella</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizzazioni</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Panoramica</value>
+  </data>
+  <data name="Packages" xml:space="preserve">
+    <value>Pacchetti</value>
+  </data>
+  <data name="PinnedRepositories" xml:space="preserve">
+    <value>Repository fissati</value>
+  </data>
+  <data name="PopularRepositories" xml:space="preserve">
+    <value>Repository popolari</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Progetti</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>Pull Request</value>
+  </data>
+  <data name="RefreshBody.Text" xml:space="preserve">
+    <value>Aggiorna</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="RepositoriesListHeader.Text" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="SearchBar.PlaceholderText" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca discussioni</value>
+  </data>
+  <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca tra i tuoi followers</value>
+  </data>
+  <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca tra chi segui</value>
+  </data>
+  <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca tra le issue</value>
+  </data>
+  <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca organizzazioni</value>
+  </data>
+  <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca pull request</value>
+  </data>
+  <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca repository</value>
+  </data>
+  <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Cerca tra le stelle</value>
+  </data>
+  <data name="SecondStepToAuthorize.Text" xml:space="preserve">
+    <value>Se sei amministratore di una o più organizzazioni, sei pregato di autorizzare FluentHub ad accedervi;</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="SettingsFeedbackButton.Content" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="SettingsGetHelpButton.Content" xml:space="preserve">
+    <value>Ottieni assistenza</value>
+  </data>
+  <data name="SignOutButton.Text" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>Stelle</value>
+  </data>
+  <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
+    <value>Cambia account</value>
+  </data>
+  <data name="ThemeAuto" xml:space="preserve">
+    <value>Sincronizza con le impostazioni di sistema</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Scuro</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Chiaro</value>
+  </data>
+  <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
+    <value>Clicca "Autorizza FluentHub";</value>
+  </data>
+  <data name="TryAgainWithCap" xml:space="preserve">
+    <value>Riprova</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Smetti di seguire</value>
+  </data>
+  <data name="UserDiscussionsButton.Text" xml:space="preserve">
+    <value>Le tue discussioni</value>
+  </data>
+  <data name="UserIssuesButton.Text" xml:space="preserve">
+    <value>Le tue Issue</value>
+  </data>
+  <data name="UserOrganizationsButton.Text" xml:space="preserve">
+    <value>Le tue organizzazioni</value>
+  </data>
+  <data name="UserProfileButton.Text" xml:space="preserve">
+    <value>Il tuo profilo</value>
+  </data>
+  <data name="UserPullRequestsButton.Text" xml:space="preserve">
+    <value>Le tue pull request</value>
+  </data>
+  <data name="UserRepositoriesButton.Text" xml:space="preserve">
+    <value>Le tue repository</value>
+  </data>
+  <data name="UserStarsButton.Text" xml:space="preserve">
+    <value>Le tue stelle</value>
+  </data>
+  <data name="YourDiscussions" xml:space="preserve">
+    <value>Le tue discussioni</value>
+  </data>
+  <data name="YourFollowers" xml:space="preserve">
+    <value>I tuoi follower</value>
+  </data>
+  <data name="YourFollowing" xml:space="preserve">
+    <value>I tuoi seguiti</value>
+  </data>
+  <data name="YourIssues" xml:space="preserve">
+    <value>Le tue issue</value>
+  </data>
+  <data name="YourOrganizations" xml:space="preserve">
+    <value>Le tue organizzazioni</value>
+  </data>
+  <data name="YourPullRequests" xml:space="preserve">
+    <value>Le tue pull request</value>
+  </data>
+  <data name="YourRepositories" xml:space="preserve">
+    <value>Le tue repository</value>
+  </data>
+  <data name="YourStars" xml:space="preserve">
+    <value>Le tue stelle</value>
+  </data>
+</root>

@@ -1,0 +1,104 @@
+﻿<views:LocatablePage
+	x:Class="FluentHub.App.Views.Repositories.Commits.CommitsPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:bb="using:FluentHub.App.UserControls.BlockButtons"
+	xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.Views.Repositories.Commits"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ov="using:FluentHub.App.UserControls.Overview"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
+	mc:Ignorable="d">
+
+	<views:LocatablePage.Resources>
+		<ResourceDictionary>
+			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+		</ResourceDictionary>
+	</views:LocatablePage.Resources>
+
+	<Grid>
+
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+			<ScrollViewer ViewChanged="OnScrollViewerViewChanged">
+				<Grid Padding="32,24,32,32" RowSpacing="12">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<primer:Avatar
+							x:Name="RepositoryOwnerAvatar"
+							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
+							Size="24"
+							Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
+
+						<TextBlock
+							VerticalAlignment="Center"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+
+						<TextBlock
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="/" />
+
+						<TextBlock
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="Commits" />
+					</StackPanel>
+
+					<Grid Grid.Row="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<ScrollViewer Grid.Row="2">
+							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
+								<DataTemplate x:DataType="bbvm:CommitBlockButtonViewModel">
+									<bb:CommitBlockButton ViewModel="{x:Bind}" />
+								</DataTemplate>
+							</ItemsRepeater>
+						</ScrollViewer>
+					</Grid>
+				</Grid>
+			</ScrollViewer>
+		</Grid>
+
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
+			<uc:LoadErrorDisplay
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+				<uc:LoadErrorDisplay.Action>
+					<Grid>
+						<Button
+							Margin="0,24,0,0"
+							HorizontalAlignment="Center"
+							Command="{x:Bind ViewModel.LoadRepositoryCommitsPageCommand}">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<FontIcon FontSize="16" Glyph="&#xE149;" />
+								<TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+							</StackPanel>
+						</Button>
+					</Grid>
+				</uc:LoadErrorDisplay.Action>
+			</uc:LoadErrorDisplay>
+		</Grid>
+
+	</Grid>
+</views:LocatablePage>

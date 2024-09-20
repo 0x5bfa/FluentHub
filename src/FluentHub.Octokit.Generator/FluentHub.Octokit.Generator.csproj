@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
+		<PackageReference Include="Octokit.GraphQL" />
 	</ItemGroup>
 
 </Project>

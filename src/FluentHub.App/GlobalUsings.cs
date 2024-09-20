@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
 // First party
@@ -10,6 +10,21 @@ global using global::System.Text;
 global using global::System.Threading;
 global using global::System.Threading.Tasks;
 global using global::Microsoft.Extensions.DependencyInjection;
+
+// Uno Platform
+
+global using System.Collections.Immutable;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Localization;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Options;
+global using FluentHub.Models;
+global using FluentHub.Presentation;
+global using FluentHub.DataContracts;
+global using FluentHub.DataContracts.Serialization;
+global using FluentHub.Services.Caching;
+global using FluentHub.Services.Endpoints;
+global using ApplicationExecutionState = Windows.ApplicationModel.Activation.ApplicationExecutionState;
 
 // Windows Community Toolkit
 global using global::CommunityToolkit.Mvvm.ComponentModel;

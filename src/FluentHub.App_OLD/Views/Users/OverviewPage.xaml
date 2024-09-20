@@ -1,0 +1,225 @@
+﻿<views:LocatablePage
+	x:Class="FluentHub.App.Views.Users.OverviewPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+	xmlns:bbuc="using:FluentHub.App.UserControls.BlockButtons"
+	xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.Views.Users"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ov="using:FluentHub.App.UserControls.Overview"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
+	mc:Ignorable="d">
+
+	<views:LocatablePage.Resources>
+		<ResourceDictionary>
+			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+		</ResourceDictionary>
+	</views:LocatablePage.Resources>
+
+	<Grid>
+
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<ov:UserProfileOverview
+					x:Name="UserProfileOverview"
+					Width="300"
+					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
+
+				<ScrollViewer Grid.Column="1">
+					<StackPanel Padding="32" Spacing="8">
+
+						<Grid
+							x:Name="PinnedRepositoriesGrid"
+							x:Load="{x:Bind ViewModel.PinnedRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							Background="{ThemeResource LayerFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="8">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<Grid Height="44" Padding="16,8,16,4">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<StackPanel Orientation="Horizontal" Spacing="4">
+									<TextBlock
+										VerticalAlignment="Center"
+										FontSize="14"
+										Style="{StaticResource BodyStrongTextBlockStyle}"
+										Text="{helpers:ResourceString Name=PinnedRepositories}" />
+								</StackPanel>
+
+								<Button
+									Grid.Column="1"
+									Height="32"
+									Margin="12,0,0,0"
+									Padding="8,0"
+									HorizontalAlignment="Right"
+									Background="Transparent"
+									BorderThickness="0"
+									Command="{x:Bind ViewModel.ShowPinnedRepositoriesEditorDialogCommand}"
+									Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<AnimatedIcon Height="16">
+											<AnimatedIcon.Source>
+												<animatedvisuals:AnimatedSettingsVisualSource />
+											</AnimatedIcon.Source>
+											<AnimatedIcon.FallbackIconSource>
+												<SymbolIconSource Symbol="Setting" />
+											</AnimatedIcon.FallbackIconSource>
+										</AnimatedIcon>
+										<TextBlock
+											Foreground="{ThemeResource TextFillColorSecondary}"
+											Style="{StaticResource BodyTextBlockStyle}"
+											Text="{helpers:ResourceString Name=CustomizeYourPins}" />
+									</StackPanel>
+								</Button>
+							</Grid>
+
+							<MenuFlyoutSeparator Grid.Row="1" />
+
+							<Grid Grid.Row="2">
+
+								<ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnedRepositories, Mode=OneWay}">
+									<ItemsRepeater.Layout>
+										<UniformGridLayout
+											ItemsStretch="Fill"
+											MaximumRowsOrColumns="6"
+											MinColumnSpacing="8"
+											MinItemHeight="102"
+											MinItemWidth="250"
+											MinRowSpacing="8"
+											Orientation="Horizontal" />
+									</ItemsRepeater.Layout>
+									<DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
+										<bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+									</DataTemplate>
+								</ItemsRepeater>
+
+							</Grid>
+						</Grid>
+
+						<Grid
+							x:Name="PinnableRepositoriesGrid"
+							Grid.Row="1"
+							x:Load="{x:Bind ViewModel.PinnableRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							Background="{ThemeResource LayerFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="8">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<Grid Height="44" Padding="16,8,16,4">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<StackPanel Orientation="Horizontal" Spacing="4">
+									<TextBlock
+										VerticalAlignment="Center"
+										FontSize="14"
+										Style="{StaticResource BodyStrongTextBlockStyle}"
+										Text="{helpers:ResourceString Name=PopularRepositories}" />
+								</StackPanel>
+
+								<Button
+									Grid.Column="1"
+									Height="32"
+									Margin="12,0,0,0"
+									Padding="8,0"
+									HorizontalAlignment="Right"
+									Background="Transparent"
+									BorderThickness="0"
+									Command="{x:Bind ViewModel.ShowPinnedRepositoriesEditorDialogCommand}"
+									Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<AnimatedIcon Height="16">
+											<AnimatedIcon.Source>
+												<animatedvisuals:AnimatedSettingsVisualSource />
+											</AnimatedIcon.Source>
+											<AnimatedIcon.FallbackIconSource>
+												<SymbolIconSource Symbol="Setting" />
+											</AnimatedIcon.FallbackIconSource>
+										</AnimatedIcon>
+										<TextBlock
+											Foreground="{ThemeResource TextFillColorSecondary}"
+											Style="{StaticResource BodyTextBlockStyle}"
+											Text="{helpers:ResourceString Name=CustomizeYourPins}" />
+									</StackPanel>
+								</Button>
+							</Grid>
+
+							<MenuFlyoutSeparator Grid.Row="1" />
+
+							<Grid Grid.Row="2">
+
+								<ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnableRepositories, Mode=OneWay}">
+									<ItemsRepeater.Layout>
+										<UniformGridLayout
+											ItemsStretch="Fill"
+											MaximumRowsOrColumns="6"
+											MinColumnSpacing="8"
+											MinItemHeight="92"
+											MinItemWidth="250"
+											MinRowSpacing="8"
+											Orientation="Horizontal" />
+									</ItemsRepeater.Layout>
+									<DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
+										<bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+									</DataTemplate>
+								</ItemsRepeater>
+
+							</Grid>
+						</Grid>
+
+					</StackPanel>
+				</ScrollViewer>
+
+			</Grid>
+		</Grid>
+
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.IsTaskFaulted, Mode=OneWay}">
+			<uc:LoadErrorDisplay
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+				<uc:LoadErrorDisplay.Action>
+					<Grid>
+						<Button
+							Margin="0,24,0,0"
+							HorizontalAlignment="Center"
+							Command="{x:Bind ViewModel.LoadUserOverviewCommand}">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<FontIcon FontSize="16" Glyph="&#xE149;" />
+								<TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+							</StackPanel>
+						</Button>
+					</Grid>
+				</uc:LoadErrorDisplay.Action>
+			</uc:LoadErrorDisplay>
+		</Grid>
+
+	</Grid>
+</views:LocatablePage>

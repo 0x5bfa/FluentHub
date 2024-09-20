@@ -1,0 +1,477 @@
+<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<Page
+	x:Class="FluentHub.App.Views.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:dataitems="using:FluentHub.App.Data.Items"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="using:FluentHub.App.Models"
+	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+	xmlns:tabsuc="using:FluentHub.App.UserControls.CustomTabView"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	KeyTipPlacementMode="Hidden"
+	KeyboardAcceleratorPlacementMode="Hidden"
+	mc:Ignorable="d">
+
+	<Page.KeyboardAccelerators>
+		<KeyboardAccelerator Key="T" Modifiers="Control">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.AddNewTabAcceleratorCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+		<KeyboardAccelerator Key="W" Modifiers="Control">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabAcceleratorCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+		<KeyboardAccelerator Key="Tab" Modifiers="Control">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+		<KeyboardAccelerator Key="Tab" Modifiers="Control,Shift">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+		<KeyboardAccelerator Key="Left" Modifiers="Menu">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoBackCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+		<KeyboardAccelerator Key="Right" Modifiers="Menu">
+			<i:Interaction.Behaviors>
+				<icore:EventTriggerBehavior EventName="Invoked">
+					<icore:InvokeCommandAction Command="{x:Bind ViewModel.GoForwardCommand}" />
+				</icore:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+		</KeyboardAccelerator>
+	</Page.KeyboardAccelerators>
+
+	<Page.Resources>
+		<ResourceDictionary>
+
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary>
+					<SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+					<Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
+					<CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+					<!--  Definitely not copied directly from Files....  -->
+					<Style
+						x:Key="AddressToolbarButtonStyle"
+						BasedOn="{StaticResource DefaultButtonStyle}"
+						TargetType="Button">
+						<Setter Property="Padding" Value="0" />
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="Width" Value="36" />
+						<Setter Property="Height" Value="32" />
+					</Style>
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+
+			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--  TabView & Window Draggable Area  -->
+		<Grid x:Name="TitleBarContentGrid">
+
+			<ProgressBar
+				x:Name="PageLoadingProgreeBar"
+				VerticalAlignment="Top"
+				x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
+				IsIndeterminate="True" />
+
+			<tabsuc:CustomTabView
+				x:Name="CustomCustomTabView"
+				Title="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+				Grid.Column="3"
+				Height="40"
+				Margin="0,0,0,0"
+				VerticalAlignment="Bottom"
+				Background="Transparent"
+				Loaded="OnCustomCustomTabViewLoaded"
+				SelectionChanged="OnTabViewSelectionChanged" />
+
+		</Grid>
+
+		<!--  Content Area  -->
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Grid
+				Grid.Row="0"
+				Padding="16,12,16,12"
+				Background="{ThemeResource AppThemeGlobalNavigationBarBackgroundBrush}"
+				RowSpacing="12">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Grid Margin="8,0" ColumnSpacing="8">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<StackPanel Orientation="Horizontal" Spacing="8">
+
+							<!--  Backward  -->
+							<Button
+								x:Name="ContentFrameBackwardNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
+								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
+								<Viewbox Width="16">
+									<AnimatedIcon>
+										<AnimatedIcon.Source>
+											<animatedvisuals:AnimatedBackVisualSource />
+										</AnimatedIcon.Source>
+										<AnimatedIcon.FallbackIconSource>
+											<SymbolIconSource Symbol="Back" />
+										</AnimatedIcon.FallbackIconSource>
+									</AnimatedIcon>
+								</Viewbox>
+							</Button>
+
+							<!--  Forward  -->
+							<Button
+								x:Name="ContentFrameForwardNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
+								Background="Transparent"
+								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
+								<Viewbox Width="16">
+									<AnimatedIcon>
+										<AnimatedIcon.Source>
+											<animatedvisuals:AnimatedBackVisualSource />
+										</AnimatedIcon.Source>
+										<AnimatedIcon.FallbackIconSource>
+											<SymbolIconSource Symbol="Back" />
+										</AnimatedIcon.FallbackIconSource>
+										<AnimatedIcon.RenderTransform>
+											<RotateTransform Angle="180" />
+										</AnimatedIcon.RenderTransform>
+									</AnimatedIcon>
+								</Viewbox>
+							</Button>
+
+							<!--  Refresh  -->
+							<Button
+								x:Name="ContentFrameReloadNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
+								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="Refresh">
+								<FontIcon FontSize="14" Glyph="&#xE72C;" />
+							</Button>
+
+							<!--  Home  -->
+							<Button
+								x:Name="ContentFrameHomeNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="Home">
+								<FontIcon FontSize="14" Glyph="&#xE80F;" />
+							</Button>
+						</StackPanel>
+
+						<StackPanel Grid.Column="1" Orientation="Horizontal">
+							<Button
+								Background="Transparent"
+								BorderThickness="0"
+								Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+								<TextBlock
+									VerticalAlignment="Center"
+									Style="{StaticResource BodyStrongTextBlockStyle}"
+									Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+							</Button>
+							<StackPanel Orientation="Horizontal" Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+								<Button Background="Transparent" BorderThickness="0">
+									<TextBlock
+										VerticalAlignment="Center"
+										Style="{StaticResource BodyTextBlockStyle}"
+										Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.PrimaryText, Mode=OneWay}" />
+								</Button>
+								<TextBlock
+									VerticalAlignment="Center"
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="/" />
+								<Button Background="Transparent" BorderThickness="0">
+									<TextBlock
+										VerticalAlignment="Center"
+										Style="{StaticResource BodyStrongTextBlockStyle}"
+										Text="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Mode=OneWay}" />
+								</Button>
+							</StackPanel>
+						</StackPanel>
+
+						<StackPanel
+							x:Name="NavigationBarTopRightSideContentStackPanel"
+							Grid.Column="2"
+							Orientation="Horizontal"
+							Spacing="8">
+
+							<!--  Search GitHub  -->
+							<TextBox
+								Width="256"
+								Height="32"
+								Background="Transparent"
+								IsEnabled="False"
+								PlaceholderText="Search GitHub" />
+
+							<!--  Add New  -->
+							<DropDownButton
+								x:Name="AddNewItemButton"
+								Width="64"
+								Height="32"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon FontSize="16" Glyph="&#xE710;" />
+							</DropDownButton>
+
+							<!--  Issues Feed  -->
+							<Button
+								x:Name="UserIssuesFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9EA;" />
+							</Button>
+
+							<!--  Pulls Feed  -->
+							<Button
+								x:Name="UserPullsFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9BF;" />
+							</Button>
+
+							<!--  Notifications Inbox  -->
+							<Button
+								x:Name="UserNotificationInBoxButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Click="UserNotificationInBoxButton_Click">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9E0;" />
+							</Button>
+
+							<!--  User Icon  -->
+							<Button
+								Width="36"
+								Height="36"
+								Padding="0"
+								Background="Transparent"
+								CornerRadius="18">
+								<Grid
+									Width="36"
+									Height="36"
+									Margin="-1"
+									Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
+									<FontIcon
+										FontSize="14"
+										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+										Glyph="&#xE77B;" />
+									<Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+								</Grid>
+								<Button.Flyout>
+									<MenuBarItemFlyout
+										x:Name="LeftSideViewerIconMenuFlyout"
+										Opening="LeftSideViewerIconMenuFlyout_Opening"
+										Placement="BottomEdgeAlignedRight">
+										<MenuBarItemFlyout.MenuFlyoutPresenterStyle>
+											<Style TargetType="MenuFlyoutPresenter">
+												<Setter Property="Width" Value="96" />
+											</Style>
+										</MenuBarItemFlyout.MenuFlyoutPresenterStyle>
+										<MenuFlyoutItem IsEnabled="false" Text="Set status" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourProfile"
+											Text="Your profile" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourRepositories"
+											Text="Your repositories" />
+										<MenuFlyoutItem
+											IsEnabled="false"
+											Tag="YourProjects"
+											Text="Your projects" />
+										<MenuFlyoutItem
+											IsEnabled="false"
+											Tag="YourCodespaces"
+											Text="Your codespaces" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourOrganizations"
+											Text="Your organizations" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourStars"
+											Text="Your stars" />
+										<MenuFlyoutItem IsEnabled="false" Text="Your sponsors" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="AppSettings"
+											Text="App settings" />
+										<MenuFlyoutSeparator />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="AppSignOut"
+											Text="Sign out" />
+									</MenuBarItemFlyout>
+								</Button.Flyout>
+							</Button>
+						</StackPanel>
+
+					</Grid>
+
+					<NavigationView
+						x:Name="NavigationBarNavigationView"
+						Grid.Row="1"
+						Margin="0,-4,0,-12"
+						x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.IsNavigationBarShown, Mode=OneWay}"
+						IsBackButtonVisible="Collapsed"
+						IsPaneToggleButtonVisible="False"
+						IsSettingsVisible="False"
+						MenuItemsSource="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
+						PaneDisplayMode="Top"
+						SelectedItem="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
+						<NavigationView.MenuItemTemplate>
+							<DataTemplate x:DataType="dataitems:NavigationBarItem">
+								<StackPanel
+									Margin="-8,0"
+									Orientation="Horizontal"
+									Spacing="8">
+									<FontIcon
+										FontFamily="{StaticResource Octicons}"
+										FontSize="14"
+										Glyph="{x:Bind Glyph, Mode=OneWay}" />
+									<TextBlock Text="{x:Bind Text}" />
+								</StackPanel>
+							</DataTemplate>
+						</NavigationView.MenuItemTemplate>
+					</NavigationView>
+				</Grid>
+
+			</Grid>
+
+			<Rectangle
+				Grid.Row="1"
+				Height="1"
+				Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+			<Grid
+				Grid.Row="2"
+				Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+				Opacity="0.5" />
+
+			<ContentPresenter x:Name="RootFrameBorder" Grid.Row="2" />
+
+			<Grid Grid.RowSpan="3">
+				<NavigationView
+					x:Name="LeftSideNavigationView"
+					IsBackButtonVisible="Collapsed"
+					IsPaneOpen="True"
+					IsPaneToggleButtonVisible="False"
+					PaneClosed="LeftSideNavigationView_PaneClosed"
+					PaneDisplayMode="LeftMinimal"
+					Visibility="Collapsed" />
+			</Grid>
+
+		</Grid>
+
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="SmallAdaptiveTriggerVisualState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainNavView.PaneDisplayMode" Value="LeftCompact" />
+						<Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="True" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="LargeAdaptiveTriggerVisualState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="1024" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainNavView.PaneDisplayMode" Value="Left" />
+						<Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="False" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+	</Grid>
+</Page>

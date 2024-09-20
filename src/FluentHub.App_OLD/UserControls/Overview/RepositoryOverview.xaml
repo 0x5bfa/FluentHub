@@ -1,0 +1,327 @@
+﻿<UserControl
+	x:Class="FluentHub.App.UserControls.Overview.RepositoryOverview"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.UserControls.Overview"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	d:DesignHeight="300"
+	d:DesignWidth="400"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary>
+					<StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+					<Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+			<converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid
+			x:Name="ArchiveMessage"
+			Height="40"
+			x:Load="{x:Bind ViewModel.Repository.IsArchived, Mode=OneWay}">
+
+			<Border Background="#ae7c14" Opacity="0.3" />
+
+			<TextBlock
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Style="{StaticResource BodyStrongTextBlockStyle}"
+				Text="This repository has been archived by the owner. It is now read-only." />
+		</Grid>
+
+		<Grid
+			Grid.Row="1"
+			Margin="32,24,32,8"
+			ColumnSpacing="6">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Spacing="12">
+
+				<Button
+					x:Name="RepositoryOwnerButton"
+					HorizontalAlignment="Left"
+					Background="Transparent"
+					Command="{x:Bind ViewModel.GoOwnerProfileCommand, Mode=OneWay}"
+					FontWeight="Normal"
+					Style="{StaticResource LinkLikeButtonStyle}">
+					<StackPanel Orientation="Horizontal" Spacing="8">
+
+						<Grid>
+							<primer:Avatar IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}" Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
+						</Grid>
+
+						<TextBlock
+							x:Name="RepoOwnerName"
+							VerticalAlignment="Center"
+							FontWeight="Normal"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource BodyTextBlockStyle}"
+							Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}" />
+
+					</StackPanel>
+				</Button>
+
+				<StackPanel
+					VerticalAlignment="Center"
+					Orientation="Horizontal"
+					Spacing="6">
+
+					<TextBlock
+						x:Name="RepositoryNameTextBlock"
+						VerticalAlignment="Center"
+						Style="{StaticResource SubtitleTextBlockStyle}"
+						Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+
+					<!--<labels:LabelControl ViewModel="{x:Bind ViewModel.RepositoryVisibilityLabel, Mode=OneWay}" />-->
+
+				</StackPanel>
+			</StackPanel>
+
+			<StackPanel
+				Grid.Column="2"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Top"
+				Orientation="Horizontal"
+				Spacing="6">
+				<DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
+					<DropDownButton.Content>
+
+						<StackPanel Orientation="Horizontal" Spacing="8">
+
+							<toolkit:SwitchPresenter
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								TargetType="x:String"
+								Value="{x:Bind ViewModel.ViewerSubscriptionState, Mode=OneWay}">
+
+								<toolkit:Case Value="Unsubscribed">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="14"
+											Glyph="&#xE98B;" />
+
+										<TextBlock Text="Watch" />
+									</StackPanel>
+								</toolkit:Case>
+
+								<toolkit:Case Value="Subscribed">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="14"
+											Glyph="&#xE98D;" />
+
+										<TextBlock Text="Unwatch" />
+									</StackPanel>
+								</toolkit:Case>
+
+								<toolkit:Case Value="Ignored">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="14"
+											Glyph="&#xE91C;" />
+
+										<TextBlock Text="Stop ignoring" />
+									</StackPanel>
+								</toolkit:Case>
+
+							</toolkit:SwitchPresenter>
+
+							<primer:CounterLabel x:Name="WatchersCounter" Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+						</StackPanel>
+					</DropDownButton.Content>
+				</DropDownButton>
+
+				<Button IsEnabled="False">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal" Spacing="8">
+
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="14"
+								Glyph="&#xea55;" />
+
+							<TextBlock Text="Fork" />
+
+							<primer:CounterLabel x:Name="ForksCounter" Text="{x:Bind ViewModel.Repository.ForkCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+						</StackPanel>
+					</Button.Content>
+				</Button>
+
+				<SplitButton IsEnabled="False">
+					<SplitButton.Content>
+						<StackPanel Orientation="Horizontal" Spacing="8">
+
+							<toolkit:SwitchPresenter
+								Grid.RowSpan="2"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								TargetType="x:Boolean"
+								Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+
+								<toolkit:Case Value="True">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="16"
+											Foreground="#e3b341"
+											Glyph="&#xEA96;" />
+										<TextBlock Text="Unstar" />
+									</StackPanel>
+								</toolkit:Case>
+
+								<toolkit:Case Value="False">
+									<StackPanel Orientation="Horizontal" Spacing="8">
+										<FontIcon
+											FontFamily="{StaticResource Octicons}"
+											FontSize="16"
+											Glyph="&#xEA94;" />
+										<TextBlock Text="Star" />
+									</StackPanel>
+								</toolkit:Case>
+
+							</toolkit:SwitchPresenter>
+
+							<primer:CounterLabel x:Name="StargazersCounter" Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+						</StackPanel>
+					</SplitButton.Content>
+				</SplitButton>
+			</StackPanel>
+
+		</Grid>
+
+		<Grid Grid.Row="2">
+			<NavigationView
+				x:Name="RepoPageNavView"
+				Margin="32,0"
+				IsBackButtonVisible="Collapsed"
+				IsSettingsVisible="False"
+				ItemInvoked="OnRepoPageNavViewItemInvoked"
+				PaneDisplayMode="Top">
+
+				<NavigationView.MenuItems>
+
+					<NavigationViewItem Content="Code" Tag="code">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE94b;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+
+					<NavigationViewItem Tag="issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+						<NavigationViewItem.Content>
+							<StackPanel Orientation="Horizontal" Spacing="8">
+
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9EA;" />
+
+								<TextBlock Text="Issues" />
+
+								<primer:CounterLabel
+									x:Name="IssuesCounter"
+									x:Load="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+									Text="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+							</StackPanel>
+						</NavigationViewItem.Content>
+					</NavigationViewItem>
+
+					<NavigationViewItem Tag="pullrequests">
+						<NavigationViewItem.Content>
+							<StackPanel Orientation="Horizontal" Spacing="8">
+
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9BF;" />
+
+								<TextBlock Text="Pull Requests" />
+
+								<primer:CounterLabel
+									x:Name="PullRequestsCounter"
+									x:Load="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+									Text="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+							</StackPanel>
+						</NavigationViewItem.Content>
+					</NavigationViewItem>
+
+					<NavigationViewItem Content="Discussions" Tag="discussions">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE95D;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+
+					<NavigationViewItem Content="Projects" Tag="projects">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA48;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+
+					<NavigationViewItem
+						Content="Insights"
+						IsEnabled="False"
+						Tag="insights">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE9C9;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+
+					<NavigationViewItem
+						Content="Settings"
+						IsEnabled="False"
+						Tag="settings">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE9B3;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+
+				</NavigationView.MenuItems>
+
+			</NavigationView>
+		</Grid>
+
+	</Grid>
+</UserControl>

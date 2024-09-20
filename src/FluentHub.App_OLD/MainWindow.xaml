@@ -1,0 +1,16 @@
+﻿<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<winuiex:WindowEx
+	x:Class="FluentHub.App.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:media="using:Microsoft.UI.Xaml.Media"
+	xmlns:winuiex="using:WinUIEx"
+	mc:Ignorable="d">
+
+	<winuiex:WindowEx.SystemBackdrop>
+		<media:MicaBackdrop Kind="BaseAlt" />
+	</winuiex:WindowEx.SystemBackdrop>
+
+</winuiex:WindowEx>

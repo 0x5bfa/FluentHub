@@ -21,7 +21,6 @@
     <AppxDefaultResourceQualifiers>Language=en-US;ja-JP</AppxDefaultResourceQualifiers>
     <UapAppxPackageBuildMode>StoreUpload</UapAppxPackageBuildMode>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <EntryPointProjectUniqueName>..\FluentHub.App\FluentHub.App.csproj</EntryPointProjectUniqueName>
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
@@ -65,6 +64,7 @@
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
     <PathToXAMLWinRTImplementations>FluentHub.App\</PathToXAMLWinRTImplementations>
+    <EntryPointProjectUniqueName>..\FluentHub.App\FluentHub.App_OLD.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <ItemGroup>
@@ -74,7 +74,7 @@
     <Content Include="Assets\AppTiles\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.App\FluentHub.App.csproj">
+    <ProjectReference Include="..\FluentHub.App\FluentHub.App_OLD.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile>Properties\PublishProfiles\win-$(Platform).pubxml</PublishProfile>
       <TrustLevel>Partial</TrustLevel>

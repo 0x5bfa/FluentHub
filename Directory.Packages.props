@@ -1,0 +1,40 @@
+<Project ToolsVersion="15.0">
+  <!--
+    To update the version of Uno, you should instead update the Sdk version in the global.json file.
+
+    See https://aka.platform.uno/using-uno-sdk for more information.
+    See https://aka.platform.uno/using-uno-sdk#implicit-packages for more information regarding the Implicit Packages.
+  -->
+  <ItemGroup>
+	  <!-- FluentHub.Octicons.Generator -->
+	  <PackageVersion Include="Humanizer" Version="2.14.1" />
+	  <!-- FluentHub.Octokit.Generator -->
+	  <PackageVersion Include="Octokit.GraphQL" Version="0.2.0-beta" />
+	  <!-- FluentHub.App -->
+	  <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  <PackageVersion Include="CommunityToolkit.WinUI" Version="7.1.2" />
+	  <PackageVersion Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
+	  <PackageVersion Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+	  <PackageVersion Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+	  <PackageVersion Include="Humanizer" Version="2.14.1" />
+	  <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+	  <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+	  <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+	  <PackageVersion Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
+	  <PackageVersion Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
+	  <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
+	  <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+	  <PackageVersion Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+	  <PackageVersion Include="Octokit.GraphQL" Version="0.2.0-beta" />
+	  <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
+	  <PackageVersion Include="WinUIEx" Version="2.3.4" />
+	  <!-- FluentHub.Octokit -->
+	  <PackageVersion Include="GraphQL.Client" Version="6.1.0" />
+	  <PackageVersion Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
+	  <PackageVersion Include="Humanizer" Version="2.14.1" />
+	  <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
+	  <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageVersion Include="Octokit" Version="13.0.1" />
+	  <PackageVersion Include="Octokit.GraphQL" Version="0.2.0-beta" />
+  </ItemGroup>
+</Project>

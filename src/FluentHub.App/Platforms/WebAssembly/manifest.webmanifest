@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "FluentHub",
+  "display": "standalone",
+  "name": "FluentHub",
+  "short_name": "FluentHub",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

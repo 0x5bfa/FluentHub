@@ -1,0 +1,69 @@
+﻿<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<Application
+	x:Class="FluentHub.App.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Application.Resources>
+		<ResourceDictionary>
+
+			<FontFamily x:Key="Octicons">/Assets/Glyphs/Octicons.ttf#Octions</FontFamily>
+
+			<ResourceDictionary.MergedDictionaries>
+
+				<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
+				<ResourceDictionary Source="ms-appx:///Styles/ShimmerStyles.xaml" />
+
+				<ResourceDictionary>
+					<ResourceDictionary.ThemeDictionaries>
+						<ResourceDictionary x:Key="Light">
+							<SolidColorBrush x:Key="AppThemeBackgroundBrush" Color="Transparent" />
+							<SolidColorBrush x:Key="AppThemeGlobalNavigationBarBackgroundBrush" Color="{StaticResource LayerOnMicaBaseAltFillColorDefault}" />
+
+							<SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SubtleFillColorTransparent}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerOnMicaBaseAltFillColorDefault}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SubtleFillColorTertiary}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SubtleFillColorSecondary}" />
+						</ResourceDictionary>
+						<ResourceDictionary x:Key="Dark">
+							<SolidColorBrush x:Key="AppThemeBackgroundBrush" Color="Transparent" />
+							<SolidColorBrush x:Key="AppThemeGlobalNavigationBarBackgroundBrush" Color="{StaticResource LayerOnMicaBaseAltFillColorDefault}" />
+
+							<SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SubtleFillColorTransparent}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerOnMicaBaseAltFillColorDefault}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SubtleFillColorTertiary}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SubtleFillColorSecondary}" />
+						</ResourceDictionary>
+						<ResourceDictionary x:Key="HighContrast">
+							<SolidColorBrush x:Key="AppThemeBackgroundBrush" Color="Transparent" />
+							<SolidColorBrush x:Key="AppThemeGlobalNavigationBarBackgroundBrush" Color="Transparent" />
+
+							<SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SystemColorWindowColor}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerFillColorDefault}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SystemColorHighlightColor}" />
+							<SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SystemColorHighlightColor}" />
+						</ResourceDictionary>
+					</ResourceDictionary.ThemeDictionaries>
+
+					<LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
+						<LinearGradientBrush.RelativeTransform>
+							<ScaleTransform CenterY="0.5" ScaleY="-1" />
+						</LinearGradientBrush.RelativeTransform>
+						<LinearGradientBrush.GradientStops>
+							<GradientStop Offset="0" Color="{ThemeResource ControlStrokeColorSecondary}" />
+							<GradientStop Offset="1.0" Color="{ThemeResource ControlStrokeColorDefault}" />
+						</LinearGradientBrush.GradientStops>
+					</LinearGradientBrush>
+
+				</ResourceDictionary>
+
+				<ResourceDictionary Source="ms-appx:///Styles/CommonStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/TextBlockStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/OcticonIcons.xaml" />
+				<ResourceDictionary Source="ms-appx:///Themes/GitHub Default.xaml" />
+
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>
