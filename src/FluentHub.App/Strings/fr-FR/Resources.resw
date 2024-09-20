@@ -133,10 +133,10 @@
     <value>Apparence</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Langage</value>
+    <value>Langue</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Langage</value>
+    <value>Langue</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
     <value>Thèmes personnalisés</value>
