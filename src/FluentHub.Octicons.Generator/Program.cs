@@ -13,11 +13,11 @@ namespace FluentHub.Octicons.Generator
 	{
 		static void Main(string[] args)
 		{
-			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Octicons.Generator\\").ToArray();
+			args = args.Append("..\\..\\..\\..\\FluentHub.Octicons.Generator\\").ToArray();
 
-			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.App\\Styles\\").ToArray();
+			args = args.Append("..\\..\\..\\..\\FluentHub.App\\Styles\\").ToArray();
 
-			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Core\\Data\\Enums\\").ToArray();
+			args = args.Append("..\\..\\..\\..\\FluentHub.Core\\Data\\Enums\\").ToArray();
 
 			if (args.Length != 3)
 			{
