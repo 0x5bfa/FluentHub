@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
@@ -16,6 +16,8 @@
 		<DefineConstants Condition="'$(Configuration)' == 'Debug'">TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 		<DefineConstants Condition="'$(Configuration)' != 'Debug'">TRACE;RELEASE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 		<Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
+
+		<WindowsSdkPackageVersion>10.0.22621.38</WindowsSdkPackageVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,7 +38,7 @@
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
 		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240829007" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 		<PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
