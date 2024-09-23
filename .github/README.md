@@ -33,11 +33,11 @@ Looking for a place to start? Check out [the task board](https://github.com/user
 
 ## Screenshots
 
-![PR page screenshot](/assets/screenshots/page-pr.png)
+![PR page screenshot](./assets/screenshots/page-pr.png)
 
 Your dashboard|Your repos|User profile page
 ---|---|---
-![Dashboard page screenshot](/assets/screenshots/page-dashboard.png)|![Repo page screenshot](/assets/screenshots/page-repo.png)|![User page screenshot](/assets/screenshots/page-user.png)
+![Dashboard page screenshot](./assets/screenshots/page-dashboard.png)|![Repo page screenshot](./assets/screenshots/page-repo.png)|![User page screenshot](./assets/screenshots/page-user.png)
 
 ## Building the Code
 
