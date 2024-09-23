@@ -33,11 +33,11 @@ Looking for a place to start? Check out [the task board](https://github.com/user
 
 ## Screenshots
 
-![Screenshot 2024-09-15 104438](https://github.com/user-attachments/assets/1728729b-0c8f-4cdb-aaf4-fbc7643b0bdf)
+![PR page screenshot](/assets/screenshots/page-pr.png)
 
 Your dashboard|Your repos|User profile page
 ---|---|---
-![Screenshot 2024-09-15 104352](https://github.com/user-attachments/assets/c6e556c8-9fcb-4bfc-822d-08fde80eec2e)|![Screenshot 2024-09-15 104425](https://github.com/user-attachments/assets/3427a168-5bcc-4ac4-a7f2-761698c28eac)|![Screenshot 2024-09-15 104700](https://github.com/user-attachments/assets/d4ee0f1f-7e7b-4751-abf3-1df65ad16a99)
+![Dashboard page screenshot](/assets/screenshots/page-dashboard.png)|![Repo page screenshot](/assets/screenshots/page-repo.png)|![User page screenshot](/assets/screenshots/page-user.png)
 
 ## Building the Code
 
