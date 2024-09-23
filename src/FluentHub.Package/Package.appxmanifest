@@ -13,10 +13,6 @@
         Publisher="CN=0x5BFA"
         Version="0.9.0.0" />
 
-    <mp:PhoneIdentity
-        PhoneProductId="5f7cfd3f-4669-49d1-9a7a-42493c9aaefb"
-        PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
     <Properties>
         <DisplayName>FluentHub Dev</DisplayName>
         <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
