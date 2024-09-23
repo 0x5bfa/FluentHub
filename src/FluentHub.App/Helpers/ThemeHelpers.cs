@@ -83,8 +83,8 @@ namespace FluentHub.App.Helpers
 
 			if (titleBar != null)
 			{
-				titleBar.ButtonBackgroundColor = Colors.Transparent;
-				titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+				titleBar.ButtonBackgroundColor = Microsoft.UI.Colors.Transparent;
+				titleBar.ButtonInactiveBackgroundColor = Microsoft.UI.Colors.Transparent;
 
 				switch (rootTheme)
 				{
@@ -95,12 +95,12 @@ namespace FluentHub.App.Helpers
 
 					case ElementTheme.Light:
 						titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 0, 0, 0);
-						titleBar.ButtonForegroundColor = Colors.Black;
+						titleBar.ButtonForegroundColor = Microsoft.UI.Colors.Black;
 						break;
 
 					case ElementTheme.Dark:
 						titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 255, 255, 255);
-						titleBar.ButtonForegroundColor = Colors.White;
+						titleBar.ButtonForegroundColor = Microsoft.UI.Colors.White;
 						break;
 				}
 			}
