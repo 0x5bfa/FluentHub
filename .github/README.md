@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="FluentHub hero image" src="/assets/header.png" />
+  <img alt="FluentHub hero image" src="./assets/header.png" />
 </p>
 
 <p align="center">
@@ -52,7 +52,7 @@ git clone https://github.com/FluentHub/FluentHub
 
 ### 2. Prepare OAuth credentials
 
-See [the documentation](docs/credentials.md).
+See [the documentation](../docs/credentials.md).
 
 > [!WARNING]  
 > If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
