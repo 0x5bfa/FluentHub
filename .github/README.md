@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="FluentHub hero image" src="/assets/header.png" />
+  <img alt="FluentHub hero image" src="./assets/header.png" />
 </p>
 
 <p align="center">
@@ -37,54 +37,32 @@ You need Windows 10 or 11 to run FluentHub.
 
 Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases).
 
-Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order to install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command with a PowerShell prompt:
+We welcome community contributions. You can [file an issue](https://github.com/FluentHub/FluentHub/issues/new/choos), propose [your changes](https://github.com/FluentHub/FluentHub/pulls), join [our Discord channel](https://dsc.gg/fluenthub) to connect with us. We especially appreciate help with translating the app [on Crowdin](https://crowdin.com/project/fluenthub)—your contributions make a big difference in reaching a wider audience!
 
-```powershell
-# NOTE: If you are using PowerShell 7+, please run
-#   Import-Module Appx -UseWindowsPowerShell
-# before using Add-AppxPackage.
-
-Add-AppxPackage FluentHub_<versionNumber>.msixbundle
-```-->
-
-## Contributing to FluentHub
-- [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
-- [Submit your change](https://github.com/FluentHub/FluentHub/pulls)
-- Upvote popular feature requests
-- Join [our Discord](https://dsc.gg/fluenthub) and let us know what you think
-- [Translate on Crowdin](https://crowdin.com/project/fluenthub)
+Looking for a place to start? Check out [the task board](https://github.com/users/0x5bfa/projects/7/views/2), where you can sort tasks by size and priority.
 
 ## Screenshots
 
-![Screenshot 2024-09-15 104438](https://github.com/user-attachments/assets/1728729b-0c8f-4cdb-aaf4-fbc7643b0bdf)
+![PR page screenshot](./assets/screenshots/page-pr.png)
 
 Your dashboard|Your repos|User profile page
 ---|---|---
-![Screenshot 2024-09-15 104352](https://github.com/user-attachments/assets/c6e556c8-9fcb-4bfc-822d-08fde80eec2e)|![Screenshot 2024-09-15 104425](https://github.com/user-attachments/assets/3427a168-5bcc-4ac4-a7f2-761698c28eac)|![Screenshot 2024-09-15 104700](https://github.com/user-attachments/assets/d4ee0f1f-7e7b-4751-abf3-1df65ad16a99)
-
-
-
+![Dashboard page screenshot](./assets/screenshots/page-dashboard.png)|![Repo page screenshot](./assets/screenshots/page-repo.png)|![User page screenshot](./assets/screenshots/page-user.png)
 
 ## Building from source
 
-### Prerequistes
+### 1. Prerequisites
 
 - Windows 10 (Build 10.0.19041.0) or newer with Developer Mode enabled in the Windows Settings
-- [Git](https://git-scm.com/)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/):
-  - [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
-  - .NET 8 SDK (check the box named .NET Desktop Development in Visual Studio Installer)
-  - Windows App SDK
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) with [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and .NET 8 SDK (.NET Desktop Development workload)
 
-### 1. Close the repo
-
-```git
-git clone https://github.com/0x5BFA/FluentHub
+```
+git clone https://github.com/FluentHub/FluentHub
 ```
 
 ### 2. Prepare credentials
 
-See [the documentation](docs/credentials.md).
+See [the documentation](../docs/credentials.md).
 
 > [!WARNING]  
 > If you skip this step, Visual Studio will fail to build reporting that the `AppCredentials.config` file does not exist.
