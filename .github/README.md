@@ -35,7 +35,9 @@ You need Windows 10 or 11 to run FluentHub.
   <img width='175' src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png' alt='Get it from GitHub' />
 </a>
 
-Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases).
+Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases). -->
+
+## Contributing to FluentHub
 
 We welcome community contributions. You can [file an issue](https://github.com/FluentHub/FluentHub/issues/new/choos), propose [your changes](https://github.com/FluentHub/FluentHub/pulls), join [our Discord channel](https://dsc.gg/fluenthub) to connect with us. We especially appreciate help with translating the app [on Crowdin](https://crowdin.com/project/fluenthub)—your contributions make a big difference in reaching a wider audience!
 
