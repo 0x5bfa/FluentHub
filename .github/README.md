@@ -65,5 +65,4 @@ See [the documentation](../docs/credentials.md).
 
 ## Credit
 
-- Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
