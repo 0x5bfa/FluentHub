@@ -20,22 +20,10 @@
 
 **A stylish yet powerful GitHub client for Windows**, which empowers development experience and follows the Microsoft Design Language.
 
-#### **FluentUI** - designed with FluentUI and built on WinAppSdk/WinUI3
-#### **Multitasking** - with FluentHub you can multi-task with ease with tab support built-in to the app
-#### **Page navigation** - easily navigate through pages without losing history or progress
-#### **Just like GitHub** - perform all of your everyday tasks on GitHub such as creating issues and pull requests with built-in API mutation
-
-<!--## 🎁 Getting started with FluentHub
-
-You need Windows 10 or 11 to run FluentHub.
-
-### GitHub
-
-<a title="GitHub" href='https://github.com/0x5BFA/FluentHub/releases/latest'>
-  <img width='175' src='https://user-images.githubusercontent.com/74561130/160255105-5e32f911-574f-4cc4-b90b-8769099086e4.png' alt='Get it from GitHub' />
-</a>
-
-Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases). -->
+- **FluentHub UI:** designed with FluentUI and built on WinAppSdk/WinUI3
+- **Multitasking:** with FluentHub you can multi-task with ease with tab support built-in to the app
+- **Powerful page navigation:** easily navigate through pages without losing history or progress
+- **Just like GitHub:** perform all of your everyday tasks on GitHub such as creating issues and pull requests with built-in API mutation
 
 ## Contributing to FluentHub
 
@@ -77,6 +65,5 @@ See [the documentation](../docs/credentials.md).
 
 ## Credit
 
-- This app is subject to the [Riverside Valley Global Disclaimer](https://github.com/RiversideValley/.github/blob/main/DISCLAIMER.md).
+- Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
-  
