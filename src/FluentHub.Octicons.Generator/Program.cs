@@ -1,4 +1,4 @@
-﻿using Humanizer;
+using Humanizer;
 using System;
 using System.IO;
 using System.Linq;
@@ -140,7 +140,7 @@ namespace FluentHub.Octicons.Generator
 			svgXamlTemplate.AppendLine(@$"								Height=""{iconSize}""");
 			svgXamlTemplate.AppendLine(@$"								Stretch=""Uniform"">");
 			svgXamlTemplate.AppendLine(@$"								<Canvas Width=""{iconSize}"" Height=""{iconSize}"">");
-			svgXamlTemplate.Append(pathDataBuilder.ToString());
+			svgXamlTemplate.Append(pathDataBuilder);
 			svgXamlTemplate.AppendLine(@$"								</Canvas>");
 			svgXamlTemplate.AppendLine(@$"							</Viewbox>");
 			svgXamlTemplate.AppendLine(@$"						</ControlTemplate>");
