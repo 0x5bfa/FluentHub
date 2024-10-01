@@ -1,6 +1,4 @@
 using FluentHub.App.Extensions;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls;
 using Microsoft.UI.Xaml;

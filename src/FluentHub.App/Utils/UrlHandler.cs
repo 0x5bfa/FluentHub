@@ -1,5 +1,3 @@
-using FluentHub.App.Models;
-
 namespace FluentHub.App.Utils
 {
 	// TODO: Not supported class

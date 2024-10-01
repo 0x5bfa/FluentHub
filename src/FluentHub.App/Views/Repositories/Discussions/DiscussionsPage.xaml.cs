@@ -1,8 +1,5 @@
-using FluentHub.App.Data.Parameters;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.Discussions;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Discussions

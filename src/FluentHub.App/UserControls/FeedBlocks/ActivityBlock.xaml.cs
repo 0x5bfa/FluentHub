@@ -1,5 +1,3 @@
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.FeedBlocks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

@@ -9,34 +9,34 @@
 			int? last = null,
 			string? before = null)
 		{
-				var query = new Query()
-				.User(login)
-				.Following(first, after, last, before)
-				.Select(connection => new FollowingConnection
+			var query = new Query()
+			.User(login)
+			.Following(first, after, last, before)
+			.Select(connection => new FollowingConnection
+			{
+				Edges = connection.Edges.Select(edge => new UserEdge
 				{
-					Edges = connection.Edges.Select(edge => new UserEdge
+					Node = edge.Node.Select(x => new User
 					{
-						Node = edge.Node.Select(x => new User
-						{
-							AvatarUrl = x.AvatarUrl(500),
-							Name = x.Name,
-							Bio = x.Bio,
-							Login = x.Login,
-							Id = x.Id,
-						})
-						.Single()
+						AvatarUrl = x.AvatarUrl(500),
+						Name = x.Name,
+						Bio = x.Bio,
+						Login = x.Login,
+						Id = x.Id,
 					})
-					.ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
+					.Single()
 				})
-				.Compile();
+				.ToList(),
+
+				PageInfo = new()
+				{
+					EndCursor = connection.PageInfo.EndCursor,
+					HasNextPage = connection.PageInfo.HasNextPage,
+					HasPreviousPage = connection.PageInfo.HasPreviousPage,
+					StartCursor = connection.PageInfo.StartCursor,
+				},
+			})
+			.Compile();
 
 			var response = await App.Connection.Run(query);
 

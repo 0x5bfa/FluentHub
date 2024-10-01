@@ -1,9 +1,8 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Models;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
+using FluentHub.Octokit.Queries.Users;
 
 namespace FluentHub.App.ViewModels.Users
 {
@@ -33,7 +32,7 @@ namespace FluentHub.App.ViewModels.Users
 			FollowingItems = new(_followingItems);
 
 			LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
-			LoadUserFollowingFurtherCommand= new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
+			LoadUserFollowingFurtherCommand = new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
 		}
 
 		private async Task LoadUserFollowingPageAsync()

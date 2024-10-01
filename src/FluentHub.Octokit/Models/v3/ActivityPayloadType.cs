@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FluentHub.Octokit.Models.v3
+﻿namespace FluentHub.Octokit.Models.v3
 {
 	public enum ActivityPayloadType
 	{
