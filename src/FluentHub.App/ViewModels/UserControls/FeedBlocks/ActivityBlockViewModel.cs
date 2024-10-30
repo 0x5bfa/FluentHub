@@ -1,5 +1,3 @@
-using FluentHub.App.Utils;
-using FluentHub.App.Models;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 
 namespace FluentHub.App.ViewModels.UserControls.FeedBlocks

@@ -211,7 +211,7 @@
 						Padding="4"
 						Content="{x:Bind ViewModel.User.Location, Mode=OneWay}"
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						NavigateUri="https://bing.com/maps" />
+						NavigateUri="{x:Bind ViewModel.UserLocationUrl, Mode=OneWay}" />
 				</StackPanel>
 
 				<StackPanel

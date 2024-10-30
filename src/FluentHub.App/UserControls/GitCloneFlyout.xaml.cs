@@ -1,5 +1,3 @@
-using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

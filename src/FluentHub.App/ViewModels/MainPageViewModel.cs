@@ -1,17 +1,8 @@
-using CommunityToolkit.WinUI.UI;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Helpers;
-using FluentHub.App.ViewModels.Repositories;
-using FluentHub.App.ViewModels.UserControls.Overview;
-using FluentHub.App.ViewModels.UserControls.BlockButtons;
-using FluentHub.App.Services;
 using FluentHub.App.Models;
 using FluentHub.App.Utils;
+using FluentHub.Octokit.Queries.Users;
 using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
-using Windows.System;
-using FluentHub.App.Data.Items;
 
 namespace FluentHub.App.ViewModels
 {

@@ -138,7 +138,7 @@
 					})
 					.ToList(),
 				})
-				
+
 				.Compile();
 
 			var response = await App.Connection.Run(query);

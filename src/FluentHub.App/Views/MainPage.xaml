@@ -1,4 +1,4 @@
-﻿<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
 <Page
 	x:Class="FluentHub.App.Views.MainPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -75,6 +75,17 @@
 					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
 					<Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
 					<CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+					<!--  Definitely not copied directly from Files....  -->
+					<Style
+						x:Key="AddressToolbarButtonStyle"
+						BasedOn="{StaticResource DefaultButtonStyle}"
+						TargetType="Button">
+						<Setter Property="Padding" Value="0" />
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+						<Setter Property="Width" Value="36" />
+						<Setter Property="Height" Value="32" />
+					</Style>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 
@@ -139,34 +150,16 @@
 
 						<StackPanel Orientation="Horizontal" Spacing="8">
 
-							<!--  Root Navigation Pane  -->
-							<!--<Button
-								x:Name="LeftSideNavigationViewOpenerButton"
-								Width="32"
-								Height="32"
-								Padding="0"
-								Click="LeftSideNavigationViewOpenerButton_Click"
-								IsEnabled="False">
-								<Viewbox Width="16">
-									<AnimatedIcon>
-										<AnimatedIcon.Source>
-											<animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-										</AnimatedIcon.Source>
-										<AnimatedIcon.FallbackIconSource>
-											<SymbolIconSource Symbol="GlobalNavigationButton" />
-										</AnimatedIcon.FallbackIconSource>
-									</AnimatedIcon>
-								</Viewbox>
-							</Button>-->
-
 							<!--  Backward  -->
 							<Button
 								x:Name="ContentFrameBackwardNavigationButton"
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -182,12 +175,14 @@
 
 							<!--  Forward  -->
 							<Button
-								x:Name="ContentFrameForewardNavigationButton"
+								x:Name="ContentFrameForwardNavigationButton"
 								Width="32"
 								Height="32"
 								Padding="0"
 								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -210,10 +205,24 @@
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
 								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
+								Style="{StaticResource AddressToolbarButtonStyle}"
 								ToolTipService.ToolTip="Refresh">
 								<FontIcon FontSize="14" Glyph="&#xE72C;" />
+							</Button>
+
+							<!--  Home  -->
+							<Button
+								x:Name="ContentFrameHomeNavigationButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								Style="{StaticResource AddressToolbarButtonStyle}"
+								ToolTipService.ToolTip="Home">
+								<FontIcon FontSize="14" Glyph="&#xE80F;" />
 							</Button>
 						</StackPanel>
 
@@ -255,29 +264,63 @@
 							Spacing="8">
 
 							<!--  Search GitHub  -->
-							<!--<TextBox
+							<TextBox
 								Width="256"
 								Height="32"
+								Background="Transparent"
 								IsEnabled="False"
-								PlaceholderText="Search GitHub" />-->
+								PlaceholderText="Search GitHub" />
 
 							<!--  Add New  -->
-							<!--<DropDownButton
+							<DropDownButton
 								x:Name="AddNewItemButton"
 								Width="64"
 								Height="32"
+								Background="Transparent"
 								IsEnabled="False">
 								<FontIcon FontSize="16" Glyph="&#xE710;" />
-							</DropDownButton>-->
+							</DropDownButton>
 
-							<!--  User Icon  -->
+							<!--  Issues Feed  -->
+							<Button
+								x:Name="UserIssuesFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9EA;" />
+							</Button>
+
+							<!--  Pulls Feed  -->
+							<Button
+								x:Name="UserPullsFeedButton"
+								Width="32"
+								Height="32"
+								Padding="0"
+								Background="Transparent"
+								IsEnabled="False">
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9BF;" />
+							</Button>
+
+							<!--  Notifications Inbox  -->
 							<Button
 								x:Name="UserNotificationInBoxButton"
 								Width="32"
 								Height="32"
 								Padding="0"
+								Background="Transparent"
 								Click="UserNotificationInBoxButton_Click">
-								<FontIcon FontSize="16" Glyph="&#xEA8F;" />
+								<FontIcon
+									FontFamily="{StaticResource Octicons}"
+									FontSize="16"
+									Glyph="&#xE9E0;" />
 							</Button>
 
 							<!--  User Icon  -->

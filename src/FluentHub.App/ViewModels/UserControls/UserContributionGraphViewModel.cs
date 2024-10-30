@@ -1,7 +1,5 @@
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.Utils;
+using FluentHub.Octokit.Queries.Users;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 
@@ -78,10 +76,10 @@ namespace FluentHub.App.ViewModels.UserControls
 			{
 				return level switch
 				{
-					ContributionLevel.None =>		   "#EBEDF0",
-					ContributionLevel.FirstQuartile =>  "#9BE9A8",
+					ContributionLevel.None => "#EBEDF0",
+					ContributionLevel.FirstQuartile => "#9BE9A8",
 					ContributionLevel.SecondQuartile => "#40C463",
-					ContributionLevel.ThirdQuartile =>  "#30A14E",
+					ContributionLevel.ThirdQuartile => "#30A14E",
 					ContributionLevel.FourthQuartile => "#216E39",
 					_ => "#EBEDF0",
 				};
@@ -91,9 +89,9 @@ namespace FluentHub.App.ViewModels.UserControls
 				return level switch
 				{
 					ContributionLevel.None => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
-					ContributionLevel.FirstQuartile =>  "#0E4429",
+					ContributionLevel.FirstQuartile => "#0E4429",
 					ContributionLevel.SecondQuartile => "#006D32",
-					ContributionLevel.ThirdQuartile =>  "#26A641",
+					ContributionLevel.ThirdQuartile => "#26A641",
 					ContributionLevel.FourthQuartile => "#39D353",
 					_ => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
 				};

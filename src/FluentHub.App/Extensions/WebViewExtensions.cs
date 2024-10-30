@@ -2,7 +2,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Extensions
 {
-	public static class WebViewExtentions
+	public static class WebViewExtensions
 	{
 		public static async Task HandleResize(this WebView2 webView2)
 		{

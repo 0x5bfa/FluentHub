@@ -1,12 +1,4 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.App.Extensions;
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
-using FluentHub.App.ViewModels.UserControls.Overview;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Releases
 {
@@ -16,7 +8,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
 		private string _tagName;
-		public string TagName{ get => _tagName; set => SetProperty(ref _tagName, value); }
+		public string TagName { get => _tagName; set => SetProperty(ref _tagName, value); }
 
 		private Release _singleRelease;
 		public Release SingleRelease { get => _singleRelease; set => SetProperty(ref _singleRelease, value); }
@@ -64,10 +56,10 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		private async Task LoadRepositorySingleReleaseAsync(string login, string name, string tagName)
 		{
-			 var queries = new ReleaseQueries();
-			 var response = await queries.GetAsync(login, name, tagName);
+			var queries = new ReleaseQueries();
+			var response = await queries.GetAsync(login, name, tagName);
 
-			 SingleRelease = response;
+			SingleRelease = response;
 		}
 
 		private async Task LoadRepositoryAsync(string owner, string name)

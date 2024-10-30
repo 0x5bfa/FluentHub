@@ -1,8 +1,3 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
-
 namespace FluentHub.App.ViewModels.UserControls.Overview
 {
 	public class AppSettingsOverviewViewModel : ObservableObject

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using CommunityToolkit.WinUI.UI;
+using FluentHub.App.Views;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -10,6 +11,13 @@ namespace FluentHub.App.UserControls.CustomTabView
 {
 	public sealed partial class CustomTabView : UserControl, ITabView
 	{
+		private MainPage _mainPage;
+
+		public MainPage MainPageInstance
+		{
+			get => _mainPage;
+			set => _mainPage = value;
+		}
 		public ITabViewItem SelectedItem
 		{
 			get => (ITabViewItem)GetValue(SelectedItemProperty);
@@ -160,6 +168,11 @@ namespace FluentHub.App.UserControls.CustomTabView
 					}
 				});
 			}
+		}
+
+		private void GlobalNavigationButton_Click(object sender, RoutedEventArgs e)
+		{
+			_mainPage.LeftSideNavigationViewOpenerButton_Click(sender, e);
 		}
 	}
 }

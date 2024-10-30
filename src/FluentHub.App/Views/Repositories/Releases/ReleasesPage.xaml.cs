@@ -1,9 +1,5 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.Releases;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Releases
@@ -18,10 +14,10 @@ namespace FluentHub.App.Views.Repositories.Releases
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ReleasesViewModel>();
-            _pageLoadCommand = ViewModel.LoadRepositoryReleasesFurtherCommand;
-        }
+			_pageLoadCommand = ViewModel.LoadRepositoryReleasesFurtherCommand;
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var command = ViewModel.LoadRepositoryReleasesPageCommand;
 			if (command.CanExecute(null))

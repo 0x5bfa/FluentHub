@@ -1,5 +1,3 @@
-using FluentHub.App.Data.Parameters;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
