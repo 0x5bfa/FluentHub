@@ -66,3 +66,4 @@ See [the documentation](../docs/credentials.md).
 ## Credit
 
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
+- Join [Developer Sanctuary](https://dsc.gg/devsanx) to learn more about our project!
