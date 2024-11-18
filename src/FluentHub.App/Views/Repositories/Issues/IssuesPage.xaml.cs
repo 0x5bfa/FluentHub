@@ -1,13 +1,9 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.Issues;
-using System;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
-using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Issues
 {

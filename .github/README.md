@@ -18,7 +18,7 @@
     </picture></a>
 </p>
 
-FluentHub is the stylish yet powerful GitHub client for Windows, which enpowers development experience and follows Microsoft Design Language.
+**A stylish yet powerful GitHub client for Windows**, which empowers development experience and follows the Microsoft Design Language.
 
 - **FluentHub UI:** designed with FluentUI and built on WinAppSdk/WinUI3
 - **Multitasking:** with FluentHub you can multi-task with ease with tab support built-in to the app
@@ -39,7 +39,7 @@ Your dashboard|Your repos|User profile page
 ---|---|---
 ![Dashboard page screenshot](./assets/screenshots/page-dashboard.png)|![Repo page screenshot](./assets/screenshots/page-repo.png)|![User page screenshot](./assets/screenshots/page-user.png)
 
-## Building the Code
+## Building from source
 
 ### 1. Prerequisites
 
@@ -50,12 +50,12 @@ Your dashboard|Your repos|User profile page
 git clone https://github.com/FluentHub/FluentHub
 ```
 
-### 2. Prepare OAuth credentials
+### 2. Prepare credentials
 
 See [the documentation](../docs/credentials.md).
 
 > [!WARNING]  
-> If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
+> If you skip this step, Visual Studio will fail to build reporting that the `AppCredentials.config` file does not exist.
 
 ### 3. Build the project
 
@@ -65,6 +65,5 @@ See [the documentation](../docs/credentials.md).
 
 ## Credit
 
-- Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 - Join [Developer Sanctuary](https://dsc.gg/devsanx) to learn more about our project!

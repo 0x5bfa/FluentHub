@@ -1,13 +1,11 @@
 using CommunityToolkit.WinUI;
 using FluentHub.App.Extensions;
-using System;
-using Windows.UI;
-using Microsoft.UI.Dispatching;
+using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.ViewManagement;
-using Microsoft.UI;
 
 namespace FluentHub.App.Helpers
 {

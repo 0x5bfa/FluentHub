@@ -140,23 +140,20 @@
 								<HyperlinkButton
 									Grid.Column="0"
 									Content="Source code"
-									NavigateUri="https://github.com/FluentHub/FluentHub" />
+									NavigateUri="https://github.com/0x5BFA/FluentHub" />
 								<HyperlinkButton
 									Grid.Column="1"
-									Content="Website"
-									NavigateUri="https://hub.codrex.dev" />
+									Content="License"
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/LICENSE" />
 								<HyperlinkButton
 									Grid.Column="2"
-									Content="License"
-									NavigateUri="https://github.com/FluentHub/FluentHub/blob/main/LICENSE" />
+									Content="Code of conduct"
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
+								<!--<HyperlinkButton Grid.Column="4" Content="Third party notices" />-->
 								<HyperlinkButton
 									Grid.Column="3"
-									Content="Code of conduct"
-									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/CODE_OF_CONDUCT.md" />
-								<HyperlinkButton
-									Grid.Column="4"
 									Content="Security guidelines"
-									NavigateUri="https://github.com/0x5BFa/FluentHub/blob/main/.github/SECURITY.md" />
+									NavigateUri="https://github.com/0x5BFA/FluentHub/blob/main/.github/SECURITY.md" />
 							</Grid>
 						</uc:SettingsBlockControl.ExpandableContent>
 					</uc:SettingsBlockControl>
@@ -170,7 +167,7 @@
 						<Button
 							Height="32"
 							Command="{x:Bind ViewModel.OpenLogsCommand}"
-							ToolTipService.ToolTip="Open log location">
+							ToolTipService.ToolTip="View logs">
 
 							<StackPanel Orientation="Horizontal" Spacing="6">
 								<FontIcon FontSize="16" Glyph="&#xE838;" />
@@ -199,6 +196,8 @@
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 
 						<Border
@@ -215,14 +214,21 @@
 							Margin="6,0,0,0"
 							VerticalAlignment="Center"
 							Style="{StaticResource BodyStrongTextBlockStyle}"
-							Text="U+5BFA" />
+							Text="0x5BFA" />
 
 						<TextBlock
 							Grid.Column="2"
 							VerticalAlignment="Center"
 							Foreground="{ThemeResource TextFillColorSecondary}"
 							Style="{StaticResource CaptionTextBlockStyle}"
-							Text="onein528" />
+							Text="0x5bfa" />
+
+						<TextBlock
+							Grid.Column="4"
+							VerticalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource CaptionTextBlockStyle}"
+							Text="Lead developer" />
 					</Grid>
 
 					<Grid
@@ -268,7 +274,7 @@
 							VerticalAlignment="Center"
 							Foreground="{ThemeResource TextFillColorSecondary}"
 							Style="{StaticResource CaptionTextBlockStyle}"
-							Text="Former member" />
+							Text="Developer" />
 					</Grid>
 
 					<Grid
@@ -374,7 +380,7 @@
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<FontIcon FontSize="14" Glyph="&#xE9CE;" />
 					<TextBlock x:Name="AppearancePageGetHelpButton">
-						<Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub">
+						<Hyperlink NavigateUri="https://github.com/0x5BFA/FluentHub">
 							<Run Text="{helpers:ResourceString Name=SettingsGetHelpButton/Content}" />
 						</Hyperlink>
 					</TextBlock>
@@ -382,7 +388,7 @@
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<FontIcon FontSize="14" Glyph="&#xED15;" />
 					<TextBlock x:Name="AppearancePageFeedbackButton">
-						<Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">
+						<Hyperlink NavigateUri="https://github.com/0x5bfa/FluentHub/tree/main?tab=readme-ov-file#-contributing--feedback">
 							<Run Text="{helpers:ResourceString Name=SettingsFeedbackButton/Content}" />
 						</Hyperlink>
 					</TextBlock>

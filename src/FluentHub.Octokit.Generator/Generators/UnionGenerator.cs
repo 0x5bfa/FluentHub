@@ -1,10 +1,9 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using System;
-using System.Text;
 using FluentHub.Octokit.ModelGenerator.Models;
 using FluentHub.Octokit.ModelGenerator.Utilities;
+using System.Text;
 
 namespace FluentHub.Octokit.ModelGenerator.Generators
 {

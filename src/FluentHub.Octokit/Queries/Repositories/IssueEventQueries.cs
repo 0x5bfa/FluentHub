@@ -568,7 +568,7 @@
 					})
 					.SingleOrDefault(),
 				})
-				.MentionedEvent(y => new  MentionedEvent
+				.MentionedEvent(y => new MentionedEvent
 				{
 					CreatedAt = y.CreatedAt,
 					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),

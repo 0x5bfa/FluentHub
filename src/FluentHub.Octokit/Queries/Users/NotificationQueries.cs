@@ -272,27 +272,27 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 								switch (item.Repository.Issue.State)
 								{
 									case IssueState.Open:
-									{
-										item.Notification.Subject.Type = NotificationSubjectType.IssueOpen;
-										break;
-									}
-									case IssueState.Closed:
-									{
-										switch (item.Repository.Issue.StateReason)
 										{
-											case IssueStateReason.Completed:
-												item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
-												break;
-											case IssueStateReason.Reopened:
-											case IssueStateReason.NotPlanned:
-												item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
-												break;
+											item.Notification.Subject.Type = NotificationSubjectType.IssueOpen;
+											break;
 										}
-										break;
-									}
+									case IssueState.Closed:
+										{
+											switch (item.Repository.Issue.StateReason)
+											{
+												case IssueStateReason.Completed:
+													item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
+													break;
+												case IssueStateReason.Reopened:
+												case IssueStateReason.NotPlanned:
+													item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
+													break;
+											}
+											break;
+										}
 								}
 							}
-							
+
 							break;
 						}
 					case NotificationSubjectType.PullRequest:

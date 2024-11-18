@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace FluentHub.Octokit.Models.v3
+﻿namespace FluentHub.Octokit.Models.v3
 {
 	public class IssueCommentPayload : ActivityPayload
 	{

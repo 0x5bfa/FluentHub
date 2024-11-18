@@ -1,6 +1,3 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Media;
 
 namespace FluentHub.App.ViewModels.UserControls

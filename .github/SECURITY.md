@@ -33,7 +33,7 @@ reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
 -->
 
-**Please report security advistiry from "New draft security advisory" in the Security tab**
+**Please use the GitHub Security Advisory "Report a Vulnerability" button to draft a new security vulnerability!**
 
 In order to report a security vulnerability, you can use [GitHub's built-in tool](https://github.com/0x5bfa/FluentHub/security/advisories/new) which easily allows you to calculate an _attack vector/CVSS string_ or attribute to an existing [`CVE`](https://cve.org) code. This allows the FluentHub Team to accurately calculate the severity and/or importance of preventing it.
 

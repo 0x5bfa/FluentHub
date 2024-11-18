@@ -1,12 +1,12 @@
 ﻿// Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Octokit.ModelGenerator.Generators;
 using Octokit.GraphQL;
 using System;
-using System.Threading.Tasks;
 using System.IO;
-using FluentHub.Octokit.ModelGenerator.Generators;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.ModelGenerator
 {
