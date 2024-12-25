@@ -125,14 +125,8 @@
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
-
-						<FontIcon
-							Margin="0,0,4,0"
-							FontSize="16"
-							Glyph="&#xE943;" />
 
 						<TextBlock
 							Grid.Column="2"
