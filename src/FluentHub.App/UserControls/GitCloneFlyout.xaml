@@ -124,8 +124,11 @@
 					</StackPanel>
 				</Button>
 
-				<SplitButton x:Name="OpenWithButton" HorizontalAlignment="Stretch">
-					<TextBlock Text="Open with..." />
+				<SplitButton
+					x:Name="OpenWithButton"
+					HorizontalAlignment="Stretch"
+					Click="OpenWithButton_Click">
+					<TextBlock Text="Open with Codespaces" />
 					<SplitButton.Flyout>
 						<MenuFlyout Placement="BottomEdgeAlignedRight">
 							<MenuFlyoutItem Click="OpenVSCodeButton_Click" Text="Visual Studio Code" />

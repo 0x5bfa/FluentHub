@@ -224,5 +224,8 @@ namespace FluentHub.App.UserControls
 				Log.Error(downloadZipUrl, "Something went wrong downloading the repository in archive form. The URL was not found or it doesn't work");
 			}
 		}
+
+        private void OpenWithButton_Click(SplitButton sender, SplitButtonClickEventArgs e)
+			=> OpenCodespaceButton_Click(sender, new RoutedEventArgs());
 	}
 }
