@@ -42,7 +42,7 @@ namespace FluentHub.App.UserControls
 			_gitUrl = $"gh repo clone {ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
 			CloneUriTextBox.Text = _cloneUrl;
-			CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
+			CloneDescriptionTextBlock.Text = "Clone using the web URL.";
 
 			_repoGitUrl = _cloneUrl;
 
@@ -60,7 +60,7 @@ namespace FluentHub.App.UserControls
 			{
 				case "Https":
 					CloneUriTextBox.Text = _cloneUrl;
-					CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
+					CloneDescriptionTextBlock.Text = "Clone using the web URL.";
 					break;
 				case "Ssh":
 					CloneUriTextBox.Text = _sshUrl;
