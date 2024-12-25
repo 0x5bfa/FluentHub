@@ -42,7 +42,7 @@ namespace FluentHub.App.UserControls
 			_gitUrl = $"gh repo clone {ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
 			CloneUriTextBox.Text = _cloneUrl;
-			CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
+			CloneDescriptionTextBlock.Text = "Clone using the web URL.";
 
 			_repoGitUrl = _cloneUrl;
 
@@ -60,7 +60,7 @@ namespace FluentHub.App.UserControls
 			{
 				case "Https":
 					CloneUriTextBox.Text = _cloneUrl;
-					CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
+					CloneDescriptionTextBlock.Text = "Clone using the web URL.";
 					break;
 				case "Ssh":
 					CloneUriTextBox.Text = _sshUrl;
@@ -80,30 +80,138 @@ namespace FluentHub.App.UserControls
 			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
 		}
 
-		private async void OpenVSButton_Click(object sender, RoutedEventArgs e)
+		private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
 		{
-			string encodedURL = Uri.EscapeDataString(_repoGitUrl);
-			string openVS_URL = "git-client://clone?repo=" + encodedURL;
+			var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+			dp.SetText("git clone" + " " + CloneUriTextBox.Text);
+			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+		}
 
-			var uri = new Uri(openVS_URL);
+		private async void OpenGitHubDesktopButton_Click(object sender, RoutedEventArgs e)
+		{
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openGitHubDesktopUrl = "x-github-client://openRepo/" + encodedUrl;
+
+			var uri = new Uri(openGitHubDesktopUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
 			if (success)
 			{
-				Console.WriteLine("Add to LOG it successed");
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop with the repository");
 			}
 			else
 			{
-				Console.WriteLine("Add to LOG it failed");
+				Log.Error("Error opening GitHub Desktop; opening GitKraken instead");
+				// Try GitKraken
+				string openGitKrakenUrl = $"gitkraken://repolink/-?url=https%3A%2F%2Fgithub.com%2F{ViewModel.Repository.Owner.Login}%2F{ViewModel.Repository.Name}.git";
+				var gitKrakenUri = new Uri(openGitKrakenUrl);
+				var secondSuccess = await Windows.System.Launcher.LaunchUriAsync(gitKrakenUri);
+				if (secondSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitKraken with the repository");
+				}
+				else
+				{
+					Log.Error("Error opening GitKraken; opening GitHub Desktop download page instead.");
+					// Open GitHub Desktop download page
+					var downloadUri = new Uri("https://desktop.github.com/");
+					var thirdSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+					if (thirdSuccess)
+					{
+						Log.Write(Serilog.Events.LogEventLevel.Information, "Opened GitHub Desktop download page");
+					}
+					else
+					{
+						Log.Error("Error opening GitHub Desktop download page; cancelling operation");
+					}
+				}
+			}
+		}
+
+		private async void OpenVSButton_Click(object sender, RoutedEventArgs e)
+		{
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openStudioUrl = "git-client://clone?repo=" + encodedUrl;
+
+			var uri = new Uri(openStudioUrl);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Visual Studio");
+			}
+			else
+			{
+				Log.Error(openStudioUrl, "Something went wrong. Visual Studio is not installed or there was another unspecified error; opening appropriate download page instead");
+				// Open visual studio download page
+				var downloadUri = new Uri("https://visualstudio.microsoft.com/");
+				var downloadSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+				if (downloadSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened Visual Studio download page");
+				}
+				else
+				{
+					Log.Error("Unknown error opening VS download page.");
+				}
+			}
+		}
+
+		private async void OpenVSCodeButton_Click(object sender, RoutedEventArgs e)
+		{
+			string encodedUrl = Uri.EscapeDataString(_repoGitUrl);
+			string openCodeUrl = "vscode://vscode.git/clone?url=" + encodedUrl; // There should be an API to detect Code Insiders and open that instead of the stable version
+
+			var uri = new Uri(openCodeUrl);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Visual Studio Code");
+			}
+			else
+			{
+				Log.Error(openCodeUrl, "Something went wrong. Code is not installed or there was another unspecified error; opening the download page instead.");
+				// Open vscode download page
+				var downloadUri = new Uri("https://code.visualstudio.com/");
+				var downloadSuccess = await Windows.System.Launcher.LaunchUriAsync(downloadUri);
+				if (downloadSuccess)
+				{
+					Log.Write(Serilog.Events.LogEventLevel.Information, "Opened Visual Studio Code download page");
+				}
+				else
+				{
+					Log.Error("Unknown error opening VSCode download page.");
+				}
+			}
+		}
+
+		private async void OpenCodespaceButton_Click(object sender, RoutedEventArgs e)
+		{
+			string openCodespaceUrl = $"https://github.com/codespaces/new?hide_repo_select=true&repo={ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+
+			var uri = new Uri(openCodespaceUrl);
+
+			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+			if (success)
+			{
+				Log.Write(Serilog.Events.LogEventLevel.Information, "Opened the repository in Codespaces in the user's local browser.");
+			}
+			else
+			{
+				Log.Error(openCodespaceUrl, "Something went wrong opening GitHub Codespaces in the user's browser.");
 			}
 		}
 
 		private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
 		{
-			string downloadZip = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
+			string downloadZipUrl = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; // Just made it with the main branch
 
-			var uri = new Uri(downloadZip);
+			var uri = new Uri(downloadZipUrl);
 
 			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
@@ -113,29 +221,11 @@ namespace FluentHub.App.UserControls
 			}
 			else
 			{
-				Log.Error(downloadZip, "Something went wrong. The URL was not found or it doesn't work");
+				Log.Error(downloadZipUrl, "Something went wrong downloading the repository in archive form. The URL was not found or it doesn't work");
 			}
 		}
 
-		private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
-		{
-			string gitHubDeskUrl = "x-github-client://openRepo " + _repoUrl;
-
-			var uri = new Uri(gitHubDeskUrl);
-
-			var success = await Windows.System.Launcher.LaunchUriAsync(uri);
-
-			if (!success)
-			{
-				Log.Warning($"Cannot open GitHub Desktop with uri \"" + gitHubDeskUrl + "\"");
-			}
-		}
-
-		private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
-		{
-			var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
-			dp.SetText("git clone" + " " + CloneUriTextBox.Text);
-			Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
-		}
+        private void OpenWithButton_Click(SplitButton sender, SplitButtonClickEventArgs e)
+			=> OpenCodespaceButton_Click(sender, new RoutedEventArgs());
 	}
 }

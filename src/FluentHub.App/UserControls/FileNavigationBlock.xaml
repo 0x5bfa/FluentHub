@@ -123,14 +123,19 @@
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Text="Clone" />
+						<TextBlock
+							Grid.Column="2"
+							Margin="4,0,0,0"
+							Text="Code" />
 
 						<AnimatedIcon
 							x:Name="ChevronIcon"
-							Grid.Column="1"
+							Grid.Column="4"
 							Width="12"
 							Height="12"
 							Margin="8,0,0,0"

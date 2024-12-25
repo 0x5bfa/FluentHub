@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
 	x:Class="FluentHub.App.UserControls.GitCloneFlyout"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -39,7 +39,7 @@
 					IsSelected="True"
 					Tag="Https" />
 				<NavigationViewItem Content="SSH" Tag="Ssh" />
-				<NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
+				<NavigationViewItem Content="CLI" Tag="GitHubCli" />
 			</NavigationView.MenuItems>
 
 			<NavigationView.PaneFooter>
@@ -51,7 +51,7 @@
 					ToolTipService.ToolTip="Copy git clone command">
 					<StackPanel Orientation="Horizontal" Spacing="6">
 						<FontIcon FontSize="16" Glyph="&#xE756;" />
-						<TextBlock Text="Git" />
+						<TextBlock Text="Copy" />
 					</StackPanel>
 				</Button>
 			</NavigationView.PaneFooter>
@@ -113,25 +113,31 @@
 
 				<Button
 					HorizontalAlignment="Stretch"
-					Click="GitHubDeskButton_Click"
+					Click="OpenGitHubDesktopButton_Click"
 					IsEnabled="True">
 					<StackPanel Orientation="Horizontal" Spacing="8">
 						<FontIcon
 							FontFamily="{StaticResource Octicons}"
 							FontSize="14"
 							Glyph="&#xE970;" />
-						<TextBlock Text="Open with GitHub Desktop" />
+						<TextBlock Text="Open in your local Git client" />
 					</StackPanel>
 				</Button>
 
-				<Button
+				<SplitButton
+					x:Name="OpenWithButton"
 					HorizontalAlignment="Stretch"
-					Click="OpenVSButton_Click"
-					IsEnabled="True">
-					<StackPanel Orientation="Horizontal" Spacing="8">
-						<TextBlock Text="Open with Visual Studio" />
-					</StackPanel>
-				</Button>
+					Click="OpenWithButton_Click">
+					<TextBlock Text="Open with Codespaces" />
+					<SplitButton.Flyout>
+						<MenuFlyout Placement="BottomEdgeAlignedRight">
+							<MenuFlyoutItem Click="OpenVSCodeButton_Click" Text="Visual Studio Code" />
+							<MenuFlyoutItem Click="OpenVSButton_Click" Text="Visual Studio" />
+							<MenuFlyoutSeparator />
+							<MenuFlyoutItem Click="OpenCodespaceButton_Click" Text="GitHub Codespaces" />
+						</MenuFlyout>
+					</SplitButton.Flyout>
+				</SplitButton>
 
 				<Button
 					HorizontalAlignment="Stretch"
