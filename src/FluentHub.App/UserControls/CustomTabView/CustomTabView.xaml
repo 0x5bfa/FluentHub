@@ -46,6 +46,7 @@
 					VerticalAlignment="Bottom"
 					Background="Transparent"
 					BorderThickness="0"
+					Click="GlobalNavigationButton_Click"
 					ToolTipService.ToolTip="Home">
 					<Viewbox Width="16">
 						<AnimatedIcon>

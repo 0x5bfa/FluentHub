@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Graphics;
+using FluentHub.App.UserControls.CustomTabView;
 
 namespace FluentHub.App.Views
 {
@@ -28,6 +29,8 @@ namespace FluentHub.App.Views
 			ViewModel = Ioc.Default.GetRequiredService<MainPageViewModel>();
 			NavigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
+
+			CustomCustomTabView.MainPageInstance = this;
 		}
 
 		private void SubscribeEvents()
@@ -130,7 +133,7 @@ namespace FluentHub.App.Views
 			RootFrameBorder.Content = e.NewSelectedItem?.Frame;
 		}
 
-		private void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
+		public void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
 		{
 			LeftSideNavigationView.IsPaneOpen = true;
 			LeftSideNavigationView.Visibility = Visibility.Visible;

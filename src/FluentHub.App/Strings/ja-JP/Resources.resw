@@ -151,7 +151,7 @@
     <value>開発者プログラムメンバー</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>ディスカッション</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
     <value>プロファイルを編集</value>
@@ -226,7 +226,7 @@
     <value>Issue</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>エラーが発生しました</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>ローカルディスクにアプリのエラーの詳細が保存されているログフォルダを開く。</value>
@@ -265,7 +265,7 @@
     <value>通知</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Assigned</value>
+    <value>アサイン済み</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>完了</value>
@@ -277,16 +277,16 @@
     <value>受信トレイ</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>メンション済み</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team Mentioned</value>
+    <value>チームをメンション</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>参加中</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Review Requested</value>
+    <value>レビューの要求</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>保存済み</value>
@@ -316,58 +316,58 @@
     <value>未読</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>No discussions</value>
+    <value>ディスカッションはありません</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>No followers</value>
+    <value>フォロワーはいません</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>No following</value>
+    <value>フォローしている人はいません</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>No issues</value>
+    <value>Issueはありません</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>No organizations</value>
+    <value>Organizationはありません</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>No popular repositories</value>
+    <value>人気のあるリポジトリはありません</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No pull requests</value>
+    <value>プルリクエストはありません</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>No repositories</value>
+    <value>リポジトリはありません</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>No stars</value>
+    <value>星はありません</value>
   </data>
   <data name="Organizations" xml:space="preserve">
     <value>Organizations</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>概要</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Packages</value>
+    <value>パッケージ</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Pinned repositories</value>
+    <value>ピン止め済みリポジトリ</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Popular repositories</value>
+    <value>人気のあるリポジトリ</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projects</value>
+    <value>プロジェクト</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>プルリクエスト</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>再読み込み</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositories</value>
+    <value>リポジトリ</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
     <value>リポジトリ</value>
@@ -379,34 +379,34 @@
     <value>検索</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search discussions</value>
+    <value>ディスカッションを検索</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search followers</value>
+    <value>フォロワーを検索</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search following</value>
+    <value>フォローしている人を検索</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search issues</value>
+    <value>Issueを検索</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search organizations</value>
+    <value>Organizationを検索</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search pull requests</value>
+    <value>Pull Requestを検索</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search repositories</value>
+    <value>リポジトリを検索</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search stars</value>
+    <value>星を検索</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
     <value>1 つ以上の組織を管理している場合は、FluentHub からアクセスできるようにしてください。</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
     <value>設定</value>
@@ -421,28 +421,28 @@
     <value>サイン アウト</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Stars</value>
+    <value>星</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
     <value>アカウントの切り替え</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Sync with system setting</value>
+    <value>システム設定と同期</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dark</value>
+    <value>ダーク</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Light</value>
+    <value>ライト</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>"Authorize FluentHub" をクリックしてください。</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Try Again</value>
+    <value>再試行</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>フォロー解除</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
     <value>ディスカッション</value>
@@ -457,36 +457,36 @@
     <value>プロフィール</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>プルリクエスト</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>リポジトリ</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Your stars</value>
+    <value>星</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>ディスカッション</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Your followers</value>
+    <value>フォロワー</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Your following</value>
+    <value>フォロー中</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Issue</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Organization</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>プルリクエスト</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>リポジトリ</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Your stars</value>
+    <value>星</value>
   </data>
 </root>
