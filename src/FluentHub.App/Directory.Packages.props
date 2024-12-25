@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageVersion Include="CommunityToolkit.WinUI" Version="7.1.2" />
+    <PackageVersion Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
+    <PackageVersion Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+    <PackageVersion Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageVersion Include="Humanizer" Version="2.14.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
+    <PackageVersion Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
+    <PackageVersion Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageVersion Include="Octokit.GraphQL" Version="0.2.0-beta" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageVersion Include="WinUIEx" Version="2.3.4" />
+  </ItemGroup>
+</Project>
