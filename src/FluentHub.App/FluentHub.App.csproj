@@ -15,6 +15,7 @@
     <DefineConstants Condition="'$(Configuration)' == 'Debug'">TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
     <DefineConstants Condition="'$(Configuration)' != 'Debug'">TRACE;RELEASE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
     <Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
+    <Nullable>Enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Content CopyToOutputDirectory="PreserveNewest" Include="Assets\**" />
