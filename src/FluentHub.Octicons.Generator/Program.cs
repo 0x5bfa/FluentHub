@@ -1,9 +1,10 @@
-using Humanizer;
+using System.Text;
 using System;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
+using System.Linq;
+using Humanizer;
 
 namespace FluentHub.Octicons.Generator
 {
@@ -13,19 +14,39 @@ namespace FluentHub.Octicons.Generator
 	{
 		static void Main(string[] args)
 		{
-			string basePath = AppDomain.CurrentDomain.BaseDirectory;
-			string assetsPath = Path.Combine(basePath, "..\\..\\..\\..\\FluentHub.Octicons.Generator\\Assets\\");
-			string stylesOutputPath = Path.Combine(basePath, "..\\..\\..\\..\\FluentHub.App\\Styles\\");
-			string enumsOutputPath = Path.Combine(basePath, "..\\..\\..\\..\\FluentHub.Core\\Data\\Enums\\");
+			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Octicons.Generator\\").ToArray();
 
-			if (!Directory.Exists(assetsPath))
+			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.App\\Styles\\").ToArray();
+
+			args = args.Append("C:\\Users\\0x5bfa\\source\\repos\\FluentHub\\src\\FluentHub.Core\\Data\\Enums\\").ToArray();
+
+			if (args.Length != 3)
 			{
-				Console.WriteLine($"Assets directory not found. ({assetsPath})");
+				StringBuilder message = new(1024);
+
+				message.AppendLine();
+				message.AppendLine("Copyright (c) 2022-2024 0x5BFA");
+				message.AppendLine("Licensed under the MIT License. See the LICENSE.");
+				message.AppendLine();
+				message.AppendLine("FluentHub Octicons Generator");
+				message.AppendLine("--------------------------------------------------");
+				message.AppendLine();
+				message.AppendLine("An error occurred in parsing command line arguments.");
+				message.AppendLine();
+				message.AppendLine("Syntax:");
+				message.AppendLine("	filename.exe [project folder path]");
+				message.AppendLine();
+
+				Console.Write(message.ToString());
+
+				message.Clear();
+
 				return;
 			}
 
-			GenerateCSharpEnumEntities(assetsPath, enumsOutputPath);
-			GenerateXamlEntities(assetsPath, stylesOutputPath);
+			GenerateCSharpEnumEntities(args[0], args[2]);
+
+			GenerateXamlEntities(args[0], args[1]);
 		}
 
 		private static void GenerateXamlEntities(string path, string output)
@@ -43,11 +64,12 @@ namespace FluentHub.Octicons.Generator
 			xamlTemplateBegining.AppendLine(@$"	<ResourceDictionary.MergedDictionaries>");
 			xamlTemplateBegining.AppendLine(@$"		<ResourceDictionary>");
 
-			foreach (var svgFile in Directory.EnumerateFiles(path, "*.svg"))
+			// Delete all existing C# source files
+			foreach (var csFile in Directory.EnumerateFiles(path + "Assets", "*.svg"))
 			{
-				Console.WriteLine($"Converting {Path.GetFileNameWithoutExtension(svgFile)} into ColorIcon{NormalizeFileName(svgFile)}");
+				Console.WriteLine($"Converting {csFile.Split('\\').Last()[..^4]} into ColorIcon{NormalizeFileName(csFile)}");
 
-				var convertedStr = ConvertSvgEntity(svgFile);
+				var convertedStr = ConvertSvgEntity(csFile);
 
 				xamlTemplateBegining.Append(convertedStr);
 			}
@@ -59,14 +81,13 @@ namespace FluentHub.Octicons.Generator
 
 			var value = xamlTemplateBegining.ToString();
 
-			Directory.CreateDirectory(output);
 			File.WriteAllText(Path.Combine(output, "OcticonIcons.xaml"), value);
 		}
 
 		private static void GenerateCSharpEnumEntities(string path, string output)
 		{
 			StringBuilder stringBuilder = new();
-			stringBuilder.AppendLine(@$"// Copyright (c) 0x5BFA");
+			stringBuilder.AppendLine(@$"﻿// Copyright (c) 0x5BFA");
 			stringBuilder.AppendLine(@$"// Licensed under the MIT License. See the LICENSE.");
 			stringBuilder.AppendLine(@$"");
 			stringBuilder.AppendLine(@$"//------------------------------------------------------------------------------");
@@ -83,9 +104,9 @@ namespace FluentHub.Octicons.Generator
 			stringBuilder.AppendLine(@$"	public enum OcticonKind");
 			stringBuilder.AppendLine(@$"	{{");
 
-			foreach (var svgFile in Directory.EnumerateFiles(path, "*.svg"))
+			foreach (var csFile in Directory.EnumerateFiles(path + "Assets", "*.svg"))
 			{
-				stringBuilder.AppendLine(@$"		Octicon{NormalizeFileName(svgFile)},");
+				stringBuilder.AppendLine(@$"		Octicon{NormalizeFileName(csFile)},");
 			}
 
 			stringBuilder.AppendLine(@$"	}}");
@@ -93,7 +114,6 @@ namespace FluentHub.Octicons.Generator
 
 			var value = stringBuilder.ToString();
 
-			Directory.CreateDirectory(output);
 			File.WriteAllText(Path.Combine(output, "OcticonKind.cs"), value);
 		}
 
@@ -102,28 +122,7 @@ namespace FluentHub.Octicons.Generator
 			XmlDocument doc = new();
 			doc.Load(path);
 
-			var svgElement = doc.DocumentElement;
-			if (svgElement == null)
-			{
-				throw new InvalidOperationException($"Invalid SVG file: {path}");
-			}
-
-			var pathElements = svgElement.GetElementsByTagName("path");
-			if (pathElements.Count == 0)
-			{
-				throw new InvalidOperationException($"No path elements found in SVG file: {path}");
-			}
-
-			StringBuilder pathDataBuilder = new();
-			foreach (XmlNode pathElement in pathElements)
-			{
-				var dAttribute = pathElement.Attributes["d"];
-				if (dAttribute == null)
-				{
-					throw new InvalidOperationException($"No 'd' attribute found in path element of SVG file: {path}");
-				}
-				pathDataBuilder.AppendLine(@$"									<Path Data=""{dAttribute.Value}"" Fill=""{{TemplateBinding Foreground}}"" />");
-			}
+			var svgRaw = doc.FirstChild.FirstChild.Attributes.Item(0).InnerText;
 
 			var normalizedFileName = NormalizeFileName(path);
 			var iconSize = GetIconSize(normalizedFileName);
@@ -140,7 +139,10 @@ namespace FluentHub.Octicons.Generator
 			svgXamlTemplate.AppendLine(@$"								Height=""{iconSize}""");
 			svgXamlTemplate.AppendLine(@$"								Stretch=""Uniform"">");
 			svgXamlTemplate.AppendLine(@$"								<Canvas Width=""{iconSize}"" Height=""{iconSize}"">");
-			svgXamlTemplate.Append(pathDataBuilder);
+			svgXamlTemplate.AppendLine(@$"									<Path");
+			svgXamlTemplate.AppendLine(@$"										x:Name=""Path1""");
+			svgXamlTemplate.AppendLine(@$"										Data=""{svgRaw}""");
+			svgXamlTemplate.AppendLine(@$"										Fill=""{{TemplateBinding Foreground}}"" />");
 			svgXamlTemplate.AppendLine(@$"								</Canvas>");
 			svgXamlTemplate.AppendLine(@$"							</Viewbox>");
 			svgXamlTemplate.AppendLine(@$"						</ControlTemplate>");
@@ -153,19 +155,16 @@ namespace FluentHub.Octicons.Generator
 
 		private static string NormalizeFileName(string path)
 		{
-			string fileName = Path.GetFileNameWithoutExtension(path);
-			string str = fileName.Replace('-', '_');
+			string fileName = path.Split('\\').Last();
+
+			string str = fileName[..^4].Replace('-', '_');
+
 			return str.Pascalize();
 		}
 
 		private static int GetIconSize(string fileName)
 		{
-			var parts = fileName.Split('-');
-			if (parts.Length > 1 && int.TryParse(parts.Last(), out int size))
-			{
-				return size;
-			}
-			return 16; // Default size if not specified
+			return Convert.ToInt32(fileName.Substring(fileName.Length - 2));
 		}
 	}
 }
