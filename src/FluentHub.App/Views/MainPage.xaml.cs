@@ -153,8 +153,6 @@ namespace FluentHub.App.Views
 		{
 			var mfi = (MenuFlyoutItem)sender;
 
-			var parameter = NavigationService.TabView.SelectedItem.NavigationBar.Context;
-
 			var navBar = NavigationService.TabView.SelectedItem.NavigationBar;
 			navBar.Context = new()
 			{
