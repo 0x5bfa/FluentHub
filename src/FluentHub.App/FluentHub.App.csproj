@@ -1,47 +1,52 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
-    <OutputType>WinExe</OutputType>
-    <AssemblyName>FluentHub</AssemblyName>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <UseWinUI>true</UseWinUI>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Platforms>x86;x64;arm64</Platforms>
-    <Configurations>Debug;Release;Sideload</Configurations>
-    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-    <DefineConstants Condition="'$(Configuration)' == 'Debug'">TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
-    <DefineConstants Condition="'$(Configuration)' != 'Debug'">TRACE;RELEASE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
-    <Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
-    <Nullable>Enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <Content CopyToOutputDirectory="PreserveNewest" Include="Assets\**" />
-    <Content CopyToOutputDirectory="PreserveNewest" Include="AppCredentials.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" />
-    <PackageReference Include="CommunityToolkit.WinUI" />
-    <PackageReference Include="CommunityToolkit.WinUI.Notifications" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
-    <PackageReference Include="Humanizer" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" />
-    <PackageReference Include="Microsoft.Extensions.Logging" />
-    <PackageReference Include="Microsoft.Graphics.Win2D" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" />
-    <PackageReference Include="Octokit.GraphQL" />
-    <PackageReference Include="Serilog.Sinks.File" />
-    <PackageReference Include="WinUIEx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
-    <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
-  </ItemGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+        <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+        <OutputType>WinExe</OutputType>
+        <AssemblyName>FluentHub</AssemblyName>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <UseWinUI>true</UseWinUI>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Platforms>x86;x64;arm64</Platforms>
+        <Configurations>Debug;Release;Sideload</Configurations>
+        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+        <DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+        <DefineConstants Condition="'$(Configuration)' != 'Debug'">$(DefineConstants);RELEASE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+        <Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
+        <Nullable>Enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Manifest Include="$(ApplicationManifest)" />
+        <Content CopyToOutputDirectory="PreserveNewest" Include="Assets\**" />
+        <Content CopyToOutputDirectory="PreserveNewest" Include="AppCredentials.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
+        <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="CommunityToolkit.WinUI" />
+        <PackageReference Include="CommunityToolkit.WinUI.Notifications" />
+        <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" />
+        <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
+        <PackageReference Include="Humanizer" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Logging" />
+        <PackageReference Include="Microsoft.Graphics.Win2D" />
+        <PackageReference Include="Microsoft.Windows.CsWinRT" />
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" />
+        <PackageReference Include="Octokit.GraphQL" />
+        <PackageReference Include="Serilog.Sinks.File" />
+        <PackageReference Include="WinUIEx" />
+    </ItemGroup>
+
 </Project>
