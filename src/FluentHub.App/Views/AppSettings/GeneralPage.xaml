@@ -50,7 +50,7 @@
 						<ComboBox ItemsSource="{x:Bind ViewModel.Themes}" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" />
 					</uc:SettingsBlockControl>
 
-					<uc:SettingsBlockControl
+					<!--<uc:SettingsBlockControl
 						x:Name="AppearancePageThemeBlock"
 						Title="{helpers:ResourceString Name=AppearancePageThemeBlock/Title}"
 						IsClickable="False">
@@ -63,7 +63,7 @@
 								<TextBlock x:Name="AppearancePageThemeBlockBody" Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
 							</Grid>
 						</uc:SettingsBlockControl.ExpandableContent>
-					</uc:SettingsBlockControl>
+					</uc:SettingsBlockControl>-->
 
 				</StackPanel>
 
