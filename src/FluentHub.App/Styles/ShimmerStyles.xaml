@@ -2,13 +2,13 @@
 <ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:fhctl="using:FluentHub.App.Controls">
+	xmlns:uc="using:FluentHub.App.UserControls">
 
-	<Style TargetType="fhctl:Shimmer">
+	<Style TargetType="uc:Shimmer">
 		<Setter Property="CornerRadius" Value="4" />
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="fhctl:Shimmer">
+				<ControlTemplate TargetType="uc:Shimmer">
 					<Border
 						x:Name="Shape"
 						Background="{TemplateBinding Background}"

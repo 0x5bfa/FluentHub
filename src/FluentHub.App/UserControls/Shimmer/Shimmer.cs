@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Shapes;
 using System.Numerics;
 using Windows.UI;
 
-namespace FluentHub.App.Controls
+namespace FluentHub.App.UserControls
 {
 	/// <summary>
 	/// A generic shimmer control that can be used to construct a beautiful loading effect.

@@ -7,7 +7,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-	xmlns:fhctl="using:FluentHub.App.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
 	xmlns:wctconverters="using:CommunityToolkit.WinUI.UI.Converters"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
@@ -44,7 +44,7 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
-			<fhctl:Shimmer
+			<uc:Shimmer
 				x:Name="TitleBoxShimmer"
 				MinHeight="40"
 				HorizontalAlignment="Stretch"
@@ -70,7 +70,7 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
-				<fhctl:Shimmer
+				<uc:Shimmer
 					x:Name="PullRequestStateBoxShimmer"
 					Grid.Column="0"
 					MinWidth="64"
@@ -117,7 +117,7 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-					<fhctl:Shimmer
+					<uc:Shimmer
 						x:Name="HeadRefBranchBoxShimmer"
 						Grid.Column="0"
 						MinWidth="64"
@@ -153,7 +153,7 @@
 
 					</Grid>
 
-					<fhctl:Shimmer
+					<uc:Shimmer
 						x:Name="BranchMergeDirectionIndicatorFontIconShimmer"
 						Grid.Column="1"
 						MinWidth="24"
@@ -170,7 +170,7 @@
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Glyph="&#xE72A;" />
 
-					<fhctl:Shimmer
+					<uc:Shimmer
 						x:Name="BaseRefBranchBoxShimmer"
 						Grid.Column="2"
 						MinWidth="64"
