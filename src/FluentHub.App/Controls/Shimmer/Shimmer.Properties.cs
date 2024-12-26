@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.App.UserControls
+namespace FluentHub.App.Controls
 {
 	public partial class Shimmer : Control
 	{
