@@ -30,7 +30,7 @@ namespace FluentHub.App.Views
 			NavigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 
-			CustomCustomTabView.MainPageInstance = this;
+			// CustomCustomTabView.MainPageInstance = this;
 		}
 
 		private void SubscribeEvents()

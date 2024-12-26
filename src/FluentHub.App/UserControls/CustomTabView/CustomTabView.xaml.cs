@@ -11,13 +11,15 @@ namespace FluentHub.App.UserControls.CustomTabView
 {
 	public sealed partial class CustomTabView : UserControl, ITabView
 	{
+		/*
 		private MainPage _mainPage;
 
 		public MainPage MainPageInstance
 		{
 			get => _mainPage;
 			set => _mainPage = value;
-		}
+		} */
+
 		public ITabViewItem SelectedItem
 		{
 			get => (ITabViewItem)GetValue(SelectedItemProperty);
@@ -170,9 +172,10 @@ namespace FluentHub.App.UserControls.CustomTabView
 			}
 		}
 
+		/*
 		private void GlobalNavigationButton_Click(object sender, RoutedEventArgs e)
 		{
 			_mainPage.LeftSideNavigationViewOpenerButton_Click(sender, e);
-		}
+		} */
 	}
 }

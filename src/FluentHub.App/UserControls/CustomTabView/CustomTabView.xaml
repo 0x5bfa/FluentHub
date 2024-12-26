@@ -35,7 +35,7 @@
 			SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
 			TabCloseRequested="OnMainTabViewTabCloseRequested"
 			TabItemsSource="{x:Bind TabItems, Mode=OneWay}">
-			<TabView.TabStripHeader>
+			<!--"<TabView.TabStripHeader>
 				<Button
 					Grid.Column="1"
 					Width="30"
@@ -59,7 +59,7 @@
 						</AnimatedIcon>
 					</Viewbox>
 				</Button>
-			</TabView.TabStripHeader>
+			</TabView.TabStripHeader>-->
 
 			<TabView.TabItemTemplate>
 				<DataTemplate x:DataType="dataitems:TabViewItem">
