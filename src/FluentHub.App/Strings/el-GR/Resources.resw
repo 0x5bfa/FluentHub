@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Ρυθμίσεις Λογαριασμού</value>
   </data>
   <data name="Activities" xml:space="preserve">
     <value>Activities</value>
@@ -127,22 +127,22 @@
     <value>Choose your color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Γενικά</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Εμφάνιση</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Γλώσσα</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Γλώσσα</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
     <value>Custom themes</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Επιστροφή</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
     <value>Customize your pins</value>
