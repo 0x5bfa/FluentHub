@@ -301,7 +301,7 @@
     <value>Ημερομηνία</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Repository</value>
+    <value>Αποθετήριο</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
     <value>Ειδοποιήσεις</value>
@@ -334,7 +334,7 @@
     <value>Κανένα δημοφιλές αποθετήριο</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Δεν υπάρχουν pull requests</value>
+    <value>Δεν υπάρχουν αιτήματα έλξης</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
     <value>Δεν υπάρχουν αποθετήρια</value>
@@ -361,7 +361,7 @@
     <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull requests</value>
+    <value>Αιτήματα έλξης</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>Ανανέωση</value>
@@ -394,7 +394,7 @@
     <value>Αναζήτηση οργανισμών</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Αναζήτηση pull request</value>
+    <value>Αναζήτηση αιτημάτων έλξης</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
     <value>Αναζήτηση αποθετηρίων</value>
@@ -403,22 +403,22 @@
     <value>Αναζήτηση αστεριών</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>Εάν είστε διαχειριστής ενός ή παραπάνω οργανισμών, παρακαλώ παραχωρήστε άδεια στο FluentHub σε αυτών.</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Σχόλια</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Get help</value>
+    <value>Λήψη βοήθειας</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Αποσύνδεση</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Αστέρια</value>
@@ -427,7 +427,7 @@
     <value>Εναλλαγή λογαριασμού</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Συγχρονισμός με τo σύστημα</value>
+    <value>Συγχρονισμός με ρυθμίσεις συστήματος</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
     <value>Σκοτεινό</value>
@@ -457,10 +457,10 @@
     <value>Το προφίλ σας</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Τα pull request σας</value>
+    <value>Τα αιτήματα έλξης σας</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Τα repository σας</value>
+    <value>Τα αποθετήριά σας</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
     <value>Τα αστέρια σας</value>
@@ -481,10 +481,10 @@
     <value>Οι οργανισμοί σας</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Τα pull request σας</value>
+    <value>Τα αιτήματα έλξης σας</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Τα repository σας</value>
+    <value>Τα αποθετήριά σας</value>
   </data>
   <data name="YourStars" xml:space="preserve">
     <value>Τα αστέρια σας</value>
