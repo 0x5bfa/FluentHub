@@ -124,7 +124,7 @@
     <value>Ενέργειες</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Επιλέξτε το χρώμα σας</value>
+    <value>Επιλέξτε το χρώμα εμφάνισής</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
     <value>Γενικά</value>
