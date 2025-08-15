@@ -271,19 +271,19 @@
     <value>Ολοκληρώθηκε</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filter by:</value>
+    <value>Φιλτράρισμα κατά:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Inbox</value>
+    <value>Εισερχόμενα</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>Αναφορές</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team Mentioned</value>
+    <value>Αναφέρθηκε Ομάδα</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>Συμμετέχει</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
     <value>Review Requested</value>
