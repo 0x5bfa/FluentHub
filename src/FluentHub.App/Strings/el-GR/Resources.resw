@@ -118,375 +118,375 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Ρυθμίσεις Λογαριασμού</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Ενέργειες</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Επιλέξτε το χρώμα εμφάνισής</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Γενικά</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Εμφάνιση</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Γλώσσα</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Γλώσσα</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Custom themes</value>
+    <value>Προσαρμοσμένα θέματα</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Επιστροφή</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Customize your pins</value>
+    <value>Προσαρμόστε τα καρφιτσωμένα σας</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Developer Program Member</value>
+    <value>Μέλος Προγράμματος Προγραμματιστών</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>Συζητήσεις</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>Επεξεργασία προφίλ χρήστη</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Not available yet.</value>
+    <value>Αυτό δεν είναι ακόμα διαθέσιμο.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Activity</value>
+    <value>Δραστηριότητα</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>Δεν υπάρχει πρόσφατη δραστηριότητα.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Proceed to the FluentHub application.</value>
+    <value>Συνεχίστε στο FluentHub.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Login with GitHub";</value>
+    <value>Πατήστε "Σύνδεση με GitHub"</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>Ακολουθήστε</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>Ακόλουθοι</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>followers</value>
+    <value>ακόλουθοι</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Following</value>
+    <value>Ακολουθείτε</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>ακολουθείτε</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>Πατήστε "Άνοιγμα FluentHub DEV"</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Μπροστά</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Back</value>
+    <value>Επιστροφή</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Μπροστά</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Αρχική</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Αγαπημένα</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>Δεν υπάρχουν αγαπημένα στοιχεία.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Δουλειά</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Αρχική</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Recent</value>
+    <value>Πρόσφατα</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Εγχειρίδιο χρήσης</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Εξουσιοδότηση FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Ζητήματα</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Παρουσιάστηκε κάποιο πρόβλημα</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>Ανοίγει το φάκελο καταγραφής όπου αποθηκεύονται οι λεπτομέρειες σφάλματος της εφαρμογής στον τοπικό δίσκο.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>Άνοιγμα τοποθεσίας αρχείου καταγραφής</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
+    <value>Ανοίγει τη σελίδα μας στο GitHub για να δημιουργήσετε ένα ζήτημα. Σημείωση: Στο μέλλον, το FluentHub θα επικολλήσει αυτόματα τα περιεχόμενο σφαλμάτων, λεπτομέρειες, καταγραφές (logs), και τις στέλνει στην ομάδα προγραμματιστών του FluentHub μέσω GitHub αμέσως μόλις πατήσετε αυτό το κουμπί.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>Αναφορά προβλήματος</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Displays the stack trace results in a dialog.</value>
+    <value>Εμφανίζει τα αποτελέσματα των stack trace.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>See stack trace</value>
+    <value>Δείτε το stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login with GitHub</value>
+    <value>Σύνδεση με GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>Νέο</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Νέο</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>New organization</value>
+    <value>Νέος οργανισμός</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>New repository</value>
+    <value>Νέο repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Ειδοποιήσεις</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Assigned</value>
+    <value>Εκχωρημένα</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Done</value>
+    <value>Ολοκληρώθηκε</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filter by:</value>
+    <value>Φιλτράρισμα κατά:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Inbox</value>
+    <value>Εισερχόμενα</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mentioned</value>
+    <value>Αναφορές</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Team Mentioned</value>
+    <value>Αναφέρθηκε Ομάδα</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participating</value>
+    <value>Συμμετέχει</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Review Requested</value>
+    <value>Ζητείται αξιολόγηση</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Saved</value>
+    <value>Αποθηκευμένα</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Group by:</value>
+    <value>Ομαδοποίηση με:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>None</value>
+    <value>Κανένα</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Date</value>
+    <value>Ημερομηνία</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Repository</value>
+    <value>Αποθετήριο</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Ειδοποιήσεις</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>No recent notifications.</value>
+    <value>Δεν υπάρχουν πρόσφατες ειδοποιήσεις.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search notifications</value>
+    <value>Αναζήτηση ειδοποιήσεων</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Unread</value>
+    <value>Μη αναγνωσμένα</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>No discussions</value>
+    <value>Δεν υπάρχουν συζητήσεις</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>No followers</value>
+    <value>Δεν υπάρχουν ακόλουθοι</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>No following</value>
+    <value>Δεν ακολουθείτε κανέναν</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>No issues</value>
+    <value>Κανένα ζήτημα</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>No organizations</value>
+    <value>Κανένας οργανισμός</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>No popular repositories</value>
+    <value>Κανένα δημοφιλές αποθετήριο</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No pull requests</value>
+    <value>Δεν υπάρχουν αιτήματα έλξης</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>No repositories</value>
+    <value>Δεν υπάρχουν αποθετήρια</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>No stars</value>
+    <value>Δεν υπάρχουν αστέρια</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Organizations</value>
+    <value>Οργανισμοί</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>Επισκόπηση</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Packages</value>
+    <value>Πακέτα</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Pinned repositories</value>
+    <value>Καρφιτσωμένα αποθετήρια</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Popular repositories</value>
+    <value>Δημοφιλή αποθετήρια</value>
   </data>
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>Αιτήματα έλξης</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Ανανέωση</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Αποθετήρια</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Αποθετήρια</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>Αναζήτηση</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Search</value>
+    <value>Αναζήτηση</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search discussions</value>
+    <value>Αναζήτηση συζητήσεων</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search followers</value>
+    <value>Αναζήτηση ακολούθων</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search following</value>
+    <value>Αναζήτηση ακολουθιών</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search issues</value>
+    <value>Αναζήτηση ζητημάτων</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search organizations</value>
+    <value>Αναζήτηση οργανισμών</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search pull requests</value>
+    <value>Αναζήτηση αιτημάτων έλξης</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search repositories</value>
+    <value>Αναζήτηση αποθετηρίων</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search stars</value>
+    <value>Αναζήτηση αστεριών</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>Εάν είστε διαχειριστής ενός ή παραπάνω οργανισμών, παρακαλώ παραχωρήστε άδεια στο FluentHub σε αυτών.</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Σχόλια</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Get help</value>
+    <value>Λήψη βοήθειας</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Αποσύνδεση</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Stars</value>
+    <value>Αστέρια</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Εναλλαγή λογαριασμού</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Sync with system setting</value>
+    <value>Συγχρονισμός με ρυθμίσεις συστήματος</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Σκοτεινό</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Light</value>
+    <value>Φωτεινό</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Authorize FluentHub";</value>
+    <value>Πατήστε "Εξουσιοδότηση FluentHub".</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Try Again</value>
+    <value>Δοκιμάστε Ξανά</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>Άρση ακολούθησης</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Οι συζητήσεις σας</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Τα ζητήματά σας</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Οι οργανισμοί σας</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Your profile</value>
+    <value>Το προφίλ σας</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Τα αιτήματα έλξης σας</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Τα αποθετήριά σας</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Τα αστέρια σας</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Οι συζητήσεις σας</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Your followers</value>
+    <value>Οι ακόλουθοί σας</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Your following</value>
+    <value>Οι ακολουθήσεις σας</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Τα ζητήματά σας</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Οι οργανισμοί σας</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Τα αιτήματα έλξης σας</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Τα αποθετήριά σας</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Τα αστέρια σας</value>
   </data>
 </root>
