@@ -1,0 +1,52 @@
+<Solution>
+
+  <Configurations>
+    <Platform Name="x86" />
+    <Platform Name="x64" />
+    <Platform Name="ARM64" />
+  </Configurations>
+
+  <Folder Name="/global/">
+    <File Path=".gitattributes" />
+    <File Path=".github/workflows/cd-store.yml" />
+    <File Path=".github/workflows/ci.yml" />
+    <File Path=".gitignore" />
+    <File Path="CODEOWNERS" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="crowdin.yml" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+
+  <Folder Name="/src/">
+    <Project Path="src/FluentHub.App/FluentHub.App.csproj">
+      <Platform Solution="*|x86" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+    </Project>
+    <Project Path="src/FluentHub.Core/FluentHub.Core.csproj">
+      <Platform Solution="*|x86" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+    </Project>
+    <Project Path="src/FluentHub.Octicons.Generator/FluentHub.Octicons.Generator.csproj">
+      <Platform Solution="*|x86" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+    </Project>
+    <Project Path="src/FluentHub.Octokit.Generator/FluentHub.Octokit.Generator.csproj">
+      <Platform Solution="*|x86" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+    </Project>
+    <Project Path="src/FluentHub.Octokit/FluentHub.Octokit.csproj">
+      <Platform Solution="*|x86" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|ARM64" Project="ARM64" />
+    </Project>
+    <Project Path="src/FluentHub.Package/FluentHub.Package.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5">
+      <Deploy />
+    </Project>
+  </Folder>
+
+</Solution>
