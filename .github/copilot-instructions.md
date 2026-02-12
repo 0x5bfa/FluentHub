@@ -31,7 +31,7 @@ Watch for changes to resource files matching these patterns:
 ### Exception Rules
 
 Do not flag this warning if:
-- The commit message contains "Updated app translations by Crowdin" (case-insensitive - variations like "updated app translations by crowdin" will also match)
+- The commit message contains "Updated app translations by Crowdin" (case-insensitive)
 - The PR is from an automated bot account (e.g., `github-actions[bot]`, `crowdin-bot`, or similar automation accounts)
 - The PR description explicitly mentions manual translation fix with justification
 
@@ -101,6 +101,7 @@ When XAML files are modified along with resource files:
 - 文字列が明確で理解しやすい
 - UIコンテキストに適している
 - 適切な句読点と大文字小文字の使用
+- UI要素の長さ制約を考慮する
 
 **English:**
 When adding new strings, ensure:
