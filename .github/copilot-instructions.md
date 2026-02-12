@@ -82,7 +82,7 @@ When XAML files are modified along with resource files:
     - Format strings (e.g., "{0:N2}")
     - Markup/HTML tags
     - xmlns namespace declarations (e.g., `xmlns:local="using:FluentHub.App"`)
-    - Developer-only debug strings
+    - Developer-only debug strings (e.g., "DEBUG:", log prefixes visible only in debug builds)
 - `x:Uid` references that don't have corresponding entries in resource files
 - Inconsistent naming between XAML `x:Uid` and resource keys
 
