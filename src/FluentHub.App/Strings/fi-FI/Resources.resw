@@ -163,7 +163,7 @@
     <value>Activity</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>No recent activity.AAAA</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
     <value>Proceed to the FluentHub application.</value>
