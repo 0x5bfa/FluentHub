@@ -79,7 +79,12 @@ When XAML files are modified along with resource files:
 **❌ Issues to flag:**
 - Hard-coded user-visible strings in XAML that should be localized
   - Examples to flag: Button labels, TextBlock content, error messages, tooltips, dialog titles
-  - Acceptable hard-coded values: Technical identifiers (e.g., "UTF-8"), format strings (e.g., "{0:N2}"), markup/HTML tags, xmlns namespace declarations (e.g., `xmlns:local="using:FluentHub.App"`), developer-only debug strings
+  - Acceptable hard-coded values:
+    - Technical identifiers (e.g., "UTF-8")
+    - Format strings (e.g., "{0:N2}")
+    - Markup/HTML tags
+    - xmlns namespace declarations (e.g., `xmlns:local="using:FluentHub.App"`)
+    - Developer-only debug strings
 - `x:Uid` references that don't have corresponding entries in resource files
 - Inconsistent naming between XAML `x:Uid` and resource keys
 
