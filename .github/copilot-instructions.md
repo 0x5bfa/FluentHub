@@ -31,11 +31,9 @@ Watch for changes to resource files matching these patterns:
 ### Exception Rules
 
 Do not flag this warning if:
-- The commit message contains "Updated app translations by Crowdin" (case-insensitive match)
+- The commit message contains "Updated app translations by Crowdin" (case-insensitive - variations like "updated app translations by crowdin" will also match)
 - The PR is from an automated bot account (e.g., `github-actions[bot]`, `crowdin-bot`, or similar automation accounts)
 - The PR description explicitly mentions manual translation fix with justification
-
-**Note:** The commit message check is case-insensitive. Variations like "updated app translations by crowdin" or "Updated App Translations by Crowdin" will also bypass this rule.
 
 ## Additional Review Guidelines for Resource Strings
 
