@@ -31,9 +31,11 @@ Watch for changes to resource files matching these patterns:
 ### Exception Rules
 
 Do not flag this warning if:
-- The commit message contains "Updated app translations by Crowdin"
+- The commit message contains "Updated app translations by Crowdin" (case-insensitive match)
 - The PR is from Crowdin bot or automated translation sync
 - The PR description explicitly mentions manual translation fix with justification
+
+**Note:** The commit message check is case-insensitive. Variations like "updated app translations by crowdin" or "Updated App Translations by Crowdin" will also bypass this rule.
 
 ## Additional Review Guidelines for Resource Strings
 
@@ -75,7 +77,9 @@ When XAML files are modified along with resource files:
 ```
 
 **❌ Issues to flag:**
-- Hard-coded strings in XAML that should be localized
+- Hard-coded user-visible strings in XAML that should be localized
+  - Examples to flag: Button labels, TextBlock content, error messages, tooltips, dialog titles
+  - Acceptable hard-coded values: Technical identifiers (e.g., "UTF-8"), format strings (e.g., "{0:N2}"), markup/HTML tags, developer-only debug strings
 - `x:Uid` references that don't have corresponding entries in resource files
 - Inconsistent naming between XAML `x:Uid` and resource keys
 
