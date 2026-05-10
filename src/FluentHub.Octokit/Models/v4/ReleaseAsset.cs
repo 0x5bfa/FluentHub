@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The asset's content-type
 		/// </summary>
-		public string ContentType { get; set; }
+		public string? ContentType { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The number of times this asset was downloaded
@@ -31,7 +31,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the URL where you can download the release asset via the browser.
 		/// </summary>
-		public string DownloadUrl { get; set; }
+		public string? DownloadUrl { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ReleaseAsset object
@@ -41,12 +41,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the title of the release asset.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Release that the asset is associated with
 		/// </summary>
-		public Release Release { get; set; }
+		public Release? Release { get; set; }
 
 		/// <summary>
 		/// The size (in bytes) of the asset
@@ -61,16 +61,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The user that performed the upload
 		/// </summary>
-		public User UploadedBy { get; set; }
+		public User? UploadedBy { get; set; }
 
 		/// <summary>
 		/// Identifies the URL of the release asset.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

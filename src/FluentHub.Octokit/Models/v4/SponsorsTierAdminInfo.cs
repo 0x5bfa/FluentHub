@@ -32,6 +32,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="includePrivate">Whether or not to return private sponsorships using this tier. Defaults to only returning public sponsorships on this tier.</param>
 		/// <param name="orderBy">Ordering options for sponsorships returned from this connection. If left blank, the sponsorships will be ordered based on relevancy to the viewer.</param>
-		public SponsorshipConnection Sponsorships { get; set; }
+		public SponsorshipConnection? Sponsorships { get; set; }
 	}
 }

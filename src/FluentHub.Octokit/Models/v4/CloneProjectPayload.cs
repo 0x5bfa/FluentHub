@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The id of the JobStatus for populating cloned fields.
 		/// </summary>
-		public string JobStatusId { get; set; }
+		public string? JobStatusId { get; set; }
 
 		/// <summary>
 		/// The new cloned project.
 		/// </summary>
-		public Project Project { get; set; }
+		public Project? Project { get; set; }
 	}
 }

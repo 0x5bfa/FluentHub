@@ -24,7 +24,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class ProjectV2Recent : IProjectV2Recent
 	{
-		public ProjectV2Connection RecentProjects { get; set; }
+		public ProjectV2Connection? RecentProjects { get; set; }
 	}
 }
 

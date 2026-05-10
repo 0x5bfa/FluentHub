@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the migration source.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL of the source repository.
 		/// </summary>
-		public string SourceRepositoryUrl { get; set; }
+		public string? SourceRepositoryUrl { get; set; }
 
 		/// <summary>
 		/// The name of the imported repository.
 		/// </summary>
-		public string RepositoryName { get; set; }
+		public string? RepositoryName { get; set; }
 
 		/// <summary>
 		/// Whether to continue the migration on error. Defaults to `true`.
@@ -41,22 +41,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The signed URL to access the user-uploaded git archive.
 		/// </summary>
-		public string GitArchiveUrl { get; set; }
+		public string? GitArchiveUrl { get; set; }
 
 		/// <summary>
 		/// The signed URL to access the user-uploaded metadata archive.
 		/// </summary>
-		public string MetadataArchiveUrl { get; set; }
+		public string? MetadataArchiveUrl { get; set; }
 
 		/// <summary>
 		/// The migration source access token.
 		/// </summary>
-		public string AccessToken { get; set; }
+		public string? AccessToken { get; set; }
 
 		/// <summary>
 		/// The GitHub personal access token of the user importing to the target repository.
 		/// </summary>
-		public string GithubPat { get; set; }
+		public string? GithubPat { get; set; }
 
 		/// <summary>
 		/// Whether to skip migrating releases for the repository.
@@ -66,7 +66,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The visibility of the imported repository.
 		/// </summary>
-		public string TargetRepoVisibility { get; set; }
+		public string? TargetRepoVisibility { get; set; }
 
 		/// <summary>
 		/// Whether to lock the source repository.

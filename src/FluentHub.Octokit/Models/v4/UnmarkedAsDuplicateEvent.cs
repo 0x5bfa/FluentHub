@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// The authoritative issue or pull request which has been duplicated by another.
 		/// </summary>
-		public IssueOrPullRequest Canonical { get; set; }
+		public IssueOrPullRequest? Canonical { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The issue or pull request which has been marked as a duplicate of another.
 		/// </summary>
-		public IssueOrPullRequest Duplicate { get; set; }
+		public IssueOrPullRequest? Duplicate { get; set; }
 
 		/// <summary>
 		/// The Node ID of the UnmarkedAsDuplicateEvent object

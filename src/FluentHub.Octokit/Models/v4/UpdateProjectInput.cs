@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Project ID to update.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of project.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The description of project.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// Whether the project is open or closed.

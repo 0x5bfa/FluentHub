@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The owner on which the setting was updated.
 		/// </summary>
-		public VerifiableDomainOwner Owner { get; set; }
+		public VerifiableDomainOwner? Owner { get; set; }
 	}
 }

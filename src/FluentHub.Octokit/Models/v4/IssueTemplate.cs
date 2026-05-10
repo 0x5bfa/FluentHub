@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The template purpose.
 		/// </summary>
-		public string About { get; set; }
+		public string? About { get; set; }
 
 		/// <summary>
 		/// The suggested assignees.
@@ -20,17 +20,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public UserConnection Assignees { get; set; }
+		public UserConnection? Assignees { get; set; }
 
 		/// <summary>
 		/// The suggested issue body.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The template filename.
 		/// </summary>
-		public string Filename { get; set; }
+		public string? Filename { get; set; }
 
 		/// <summary>
 		/// The suggested issue labels
@@ -40,16 +40,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for labels returned from the connection.</param>
-		public LabelConnection Labels { get; set; }
+		public LabelConnection? Labels { get; set; }
 
 		/// <summary>
 		/// The template name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The suggested issue title.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 	}
 }

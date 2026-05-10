@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The user that was removed as an outside collaborator.
 		/// </summary>
-		public User RemovedUser { get; set; }
+		public User? RemovedUser { get; set; }
 	}
 }

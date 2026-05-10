@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Email used to sign this object.
 		/// </summary>
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		/// <summary>
 		/// True if the signature is valid and verified by GitHub.
@@ -21,22 +21,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Hex-encoded fingerprint of the key that signed this object.
 		/// </summary>
-		public string KeyFingerprint { get; set; }
+		public string? KeyFingerprint { get; set; }
 
 		/// <summary>
 		/// Payload for GPG signing object. Raw ODB object without the signature header.
 		/// </summary>
-		public string Payload { get; set; }
+		public string? Payload { get; set; }
 
 		/// <summary>
 		/// ASCII-armored signature header from object.
 		/// </summary>
-		public string Signature { get; set; }
+		public string? Signature { get; set; }
 
 		/// <summary>
 		/// GitHub user corresponding to the email signing this commit.
 		/// </summary>
-		public User Signer { get; set; }
+		public User? Signer { get; set; }
 
 		/// <summary>
 		/// The state of this signature. `VALID` if signature is valid and verified by GitHub, otherwise represents reason why signature is considered invalid.

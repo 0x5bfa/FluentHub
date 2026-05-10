@@ -39,9 +39,9 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public ID Id { get; set; }
 
-		public ProjectV2 ProjectV2 { get; set; }
+		public ProjectV2? ProjectV2 { get; set; }
 
-		public ProjectV2Connection ProjectsV2 { get; set; }
+		public ProjectV2Connection? ProjectsV2 { get; set; }
 	}
 }
 

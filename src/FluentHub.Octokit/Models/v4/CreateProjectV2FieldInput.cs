@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the Project to create the field in.
@@ -26,11 +26,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the field.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Options for a single select field. At least one value is required if data_type is SINGLE_SELECT
 		/// </summary>
-		public List<ProjectV2SingleSelectFieldOptionInput> SingleSelectOptions { get; set; }
+		public List<ProjectV2SingleSelectFieldOptionInput>? SingleSelectOptions { get; set; }
 	}
 }

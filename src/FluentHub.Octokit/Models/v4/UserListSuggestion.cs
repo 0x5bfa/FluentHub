@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the suggested user list
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 }

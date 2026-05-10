@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the pull request review to modify.
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The contents of the pull request review dismissal message.
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 	}
 }

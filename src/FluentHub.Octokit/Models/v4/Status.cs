@@ -15,23 +15,23 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public StatusCheckRollupContextConnection CombinedContexts { get; set; }
+		public StatusCheckRollupContextConnection? CombinedContexts { get; set; }
 
 		/// <summary>
 		/// The commit this status is attached to.
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// Looks up an individual status context by context name.
 		/// </summary>
 		/// <param name="name">The context name.</param>
-		public StatusContext Context { get; set; }
+		public StatusContext? Context { get; set; }
 
 		/// <summary>
 		/// The individual status contexts for this commit.
 		/// </summary>
-		public List<StatusContext> Contexts { get; set; }
+		public List<StatusContext>? Contexts { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Status object

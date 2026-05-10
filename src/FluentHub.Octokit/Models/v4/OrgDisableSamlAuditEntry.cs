@@ -11,47 +11,47 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The action name
 		/// </summary>
-		public string Action { get; set; }
+		public string? Action { get; set; }
 
 		/// <summary>
 		/// The user who initiated the action
 		/// </summary>
-		public AuditEntryActor Actor { get; set; }
+		public AuditEntryActor? Actor { get; set; }
 
 		/// <summary>
 		/// The IP address of the actor
 		/// </summary>
-		public string ActorIp { get; set; }
+		public string? ActorIp { get; set; }
 
 		/// <summary>
 		/// A readable representation of the actor's location
 		/// </summary>
-		public ActorLocation ActorLocation { get; set; }
+		public ActorLocation? ActorLocation { get; set; }
 
 		/// <summary>
 		/// The username of the user who initiated the action
 		/// </summary>
-		public string ActorLogin { get; set; }
+		public string? ActorLogin { get; set; }
 
 		/// <summary>
 		/// The HTTP path for the actor.
 		/// </summary>
-		public string ActorResourcePath { get; set; }
+		public string? ActorResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for the actor.
 		/// </summary>
-		public string ActorUrl { get; set; }
+		public string? ActorUrl { get; set; }
 
 		/// <summary>
 		/// The time the action was initiated
 		/// </summary>
-		public string CreatedAt { get; set; }
+		public string? CreatedAt { get; set; }
 
 		/// <summary>
 		/// The SAML provider's digest algorithm URL.
 		/// </summary>
-		public string DigestMethodUrl { get; set; }
+		public string? DigestMethodUrl { get; set; }
 
 		/// <summary>
 		/// The Node ID of the OrgDisableSamlAuditEntry object
@@ -61,7 +61,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The SAML provider's issuer URL.
 		/// </summary>
-		public string IssuerUrl { get; set; }
+		public string? IssuerUrl { get; set; }
 
 		/// <summary>
 		/// The corresponding operation type for the action
@@ -71,51 +71,51 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The Organization associated with the Audit Entry.
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
 		/// <summary>
 		/// The name of the Organization.
 		/// </summary>
-		public string OrganizationName { get; set; }
+		public string? OrganizationName { get; set; }
 
 		/// <summary>
 		/// The HTTP path for the organization
 		/// </summary>
-		public string OrganizationResourcePath { get; set; }
+		public string? OrganizationResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for the organization
 		/// </summary>
-		public string OrganizationUrl { get; set; }
+		public string? OrganizationUrl { get; set; }
 
 		/// <summary>
 		/// The SAML provider's signature algorithm URL.
 		/// </summary>
-		public string SignatureMethodUrl { get; set; }
+		public string? SignatureMethodUrl { get; set; }
 
 		/// <summary>
 		/// The SAML provider's single sign-on URL.
 		/// </summary>
-		public string SingleSignOnUrl { get; set; }
+		public string? SingleSignOnUrl { get; set; }
 
 		/// <summary>
 		/// The user affected by the action
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 
 		/// <summary>
 		/// For actions involving two users, the actor is the initiator and the user is the affected user.
 		/// </summary>
-		public string UserLogin { get; set; }
+		public string? UserLogin { get; set; }
 
 		/// <summary>
 		/// The HTTP path for the user.
 		/// </summary>
-		public string UserResourcePath { get; set; }
+		public string? UserResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for the user.
 		/// </summary>
-		public string UserUrl { get; set; }
+		public string? UserUrl { get; set; }
 	}
 }

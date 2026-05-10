@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The CVSS vector string associated with this advisory
 		/// </summary>
-		public string VectorString { get; set; }
+		public string? VectorString { get; set; }
 	}
 }

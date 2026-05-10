@@ -15,7 +15,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public GistCommentConnection Comments { get; set; }
+		public GistCommentConnection? Comments { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -25,19 +25,19 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The gist description.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The files in this gist.
 		/// </summary>
 		/// <param name="limit">The maximum number of files to return.</param>
 		/// <param name="oid">The oid of the files to return</param>
-		public List<GistFile> Files { get; set; }
+		public List<GistFile>? Files { get; set; }
 
 		/// <summary>
 		/// A list of forks associated with the gist
@@ -47,7 +47,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for gists returned from the connection</param>
-		public GistConnection Forks { get; set; }
+		public GistConnection? Forks { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Gist object
@@ -67,12 +67,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The gist name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The gist owner.
 		/// </summary>
-		public IRepositoryOwner Owner { get; set; }
+		public IRepositoryOwner? Owner { get; set; }
 
 		/// <summary>
 		/// Identifies when the gist was last pushed to.
@@ -82,12 +82,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies when the gist was last pushed to."
 		/// <summary>
-		public string PushedAtHumanized { get; set; }
+		public string? PushedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTML path to this resource.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Returns a count of how many stargazers there are on this object
@@ -102,7 +102,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Order for connection</param>
-		public StargazerConnection Stargazers { get; set; }
+		public StargazerConnection? Stargazers { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -112,12 +112,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this Gist.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// Returns a boolean indicating whether the viewing user has starred this starrable.

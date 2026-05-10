@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The organization the repository belongs to.
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
 		/// <summary>
 		/// The level of access this source has granted to the user.
@@ -21,11 +21,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the role this source has granted to the user.
 		/// </summary>
-		public string RoleName { get; set; }
+		public string? RoleName { get; set; }
 
 		/// <summary>
 		/// The source of this permission.
 		/// </summary>
-		public PermissionGranter Source { get; set; }
+		public PermissionGranter? Source { get; set; }
 	}
 }

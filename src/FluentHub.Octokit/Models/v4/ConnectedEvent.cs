@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ConnectedEvent object
@@ -36,11 +36,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Issue or pull request that made the reference.
 		/// </summary>
-		public ReferencedSubject Source { get; set; }
+		public ReferencedSubject? Source { get; set; }
 
 		/// <summary>
 		/// Issue or pull request which was connected.
 		/// </summary>
-		public ReferencedSubject Subject { get; set; }
+		public ReferencedSubject? Subject { get; set; }
 	}
 }

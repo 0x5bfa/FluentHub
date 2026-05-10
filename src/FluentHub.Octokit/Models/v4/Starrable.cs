@@ -44,7 +44,7 @@ namespace FluentHub.Octokit.Models.v4
 
 		public int StargazerCount { get; set; }
 
-		public StargazerConnection Stargazers { get; set; }
+		public StargazerConnection? Stargazers { get; set; }
 
 		public bool ViewerHasStarred { get; set; }
 	}

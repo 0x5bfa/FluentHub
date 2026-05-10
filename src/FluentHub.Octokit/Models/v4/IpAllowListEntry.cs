@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A single IP address or range of IP addresses in CIDR notation.
 		/// </summary>
-		public string AllowListValue { get; set; }
+		public string? AllowListValue { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the IpAllowListEntry object
@@ -36,12 +36,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the IP allow list entry.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The owner of the IP allow list entry.
 		/// </summary>
-		public IpAllowListOwner Owner { get; set; }
+		public IpAllowListOwner? Owner { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -51,6 +51,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

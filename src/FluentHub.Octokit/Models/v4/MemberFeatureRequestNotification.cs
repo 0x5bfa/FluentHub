@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Represents member feature request body containing entity name and the number of feature requests
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The Node ID of the MemberFeatureRequestNotification object
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Represents member feature request notification title
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -31,6 +31,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

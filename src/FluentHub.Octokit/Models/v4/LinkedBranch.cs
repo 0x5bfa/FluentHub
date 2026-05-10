@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The branch's ref.
 		/// </summary>
-		public Ref Ref { get; set; }
+		public Ref? Ref { get; set; }
 	}
 }

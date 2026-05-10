@@ -16,12 +16,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The description of this list
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The Node ID of the UserList object
@@ -40,7 +40,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public UserListItemsConnection Items { get; set; }
+		public UserListItemsConnection? Items { get; set; }
 
 		/// <summary>
 		/// The date and time at which this list was created or last had items added to it
@@ -50,17 +50,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The date and time at which this list was created or last had items added to it"
 		/// <summary>
-		public string LastAddedAtHumanized { get; set; }
+		public string? LastAddedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The name of this list
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The slug of this list
 		/// </summary>
-		public string Slug { get; set; }
+		public string? Slug { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -70,11 +70,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The user to which this list belongs
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }

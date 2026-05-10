@@ -30,11 +30,11 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class EnterpriseAuditEntryData : IEnterpriseAuditEntryData
 	{
-		public string EnterpriseResourcePath { get; set; }
+		public string? EnterpriseResourcePath { get; set; }
 
-		public string EnterpriseSlug { get; set; }
+		public string? EnterpriseSlug { get; set; }
 
-		public string EnterpriseUrl { get; set; }
+		public string? EnterpriseUrl { get; set; }
 	}
 }
 

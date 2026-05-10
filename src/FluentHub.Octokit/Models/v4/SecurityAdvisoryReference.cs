@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A publicly accessible reference
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

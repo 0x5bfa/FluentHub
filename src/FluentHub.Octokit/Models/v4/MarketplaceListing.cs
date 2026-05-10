@@ -11,47 +11,47 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The GitHub App this listing represents.
 		/// </summary>
-		public App App { get; set; }
+		public App? App { get; set; }
 
 		/// <summary>
 		/// URL to the listing owner's company site.
 		/// </summary>
-		public string CompanyUrl { get; set; }
+		public string? CompanyUrl { get; set; }
 
 		/// <summary>
 		/// The HTTP path for configuring access to the listing's integration or OAuth app
 		/// </summary>
-		public string ConfigurationResourcePath { get; set; }
+		public string? ConfigurationResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for configuring access to the listing's integration or OAuth app
 		/// </summary>
-		public string ConfigurationUrl { get; set; }
+		public string? ConfigurationUrl { get; set; }
 
 		/// <summary>
 		/// URL to the listing's documentation.
 		/// </summary>
-		public string DocumentationUrl { get; set; }
+		public string? DocumentationUrl { get; set; }
 
 		/// <summary>
 		/// The listing's detailed description.
 		/// </summary>
-		public string ExtendedDescription { get; set; }
+		public string? ExtendedDescription { get; set; }
 
 		/// <summary>
 		/// The listing's detailed description rendered to HTML.
 		/// </summary>
-		public string ExtendedDescriptionHTML { get; set; }
+		public string? ExtendedDescriptionHTML { get; set; }
 
 		/// <summary>
 		/// The listing's introductory description.
 		/// </summary>
-		public string FullDescription { get; set; }
+		public string? FullDescription { get; set; }
 
 		/// <summary>
 		/// The listing's introductory description rendered to HTML.
 		/// </summary>
-		public string FullDescriptionHTML { get; set; }
+		public string? FullDescriptionHTML { get; set; }
 
 		/// <summary>
 		/// Does this listing have any plans with a free trial?
@@ -71,12 +71,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A technical description of how this app works with GitHub.
 		/// </summary>
-		public string HowItWorks { get; set; }
+		public string? HowItWorks { get; set; }
 
 		/// <summary>
 		/// The listing's technical description rendered to HTML.
 		/// </summary>
-		public string HowItWorksHTML { get; set; }
+		public string? HowItWorksHTML { get; set; }
 
 		/// <summary>
 		/// The Node ID of the MarketplaceListing object
@@ -86,7 +86,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// URL to install the product to the viewer's account or organization.
 		/// </summary>
-		public string InstallationUrl { get; set; }
+		public string? InstallationUrl { get; set; }
 
 		/// <summary>
 		/// Whether this listing's app has been installed for the current viewer
@@ -146,88 +146,88 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The hex color code, without the leading '#', for the logo background.
 		/// </summary>
-		public string LogoBackgroundColor { get; set; }
+		public string? LogoBackgroundColor { get; set; }
 
 		/// <summary>
 		/// URL for the listing's logo image.
 		/// </summary>
 		/// <param name="size">The size in pixels of the resulting square image.</param>
-		public string LogoUrl { get; set; }
+		public string? LogoUrl { get; set; }
 
 		/// <summary>
 		/// The listing's full name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The listing's very short description without a trailing period or ampersands.
 		/// </summary>
-		public string NormalizedShortDescription { get; set; }
+		public string? NormalizedShortDescription { get; set; }
 
 		/// <summary>
 		/// URL to the listing's detailed pricing.
 		/// </summary>
-		public string PricingUrl { get; set; }
+		public string? PricingUrl { get; set; }
 
 		/// <summary>
 		/// The category that best describes the listing.
 		/// </summary>
-		public MarketplaceCategory PrimaryCategory { get; set; }
+		public MarketplaceCategory? PrimaryCategory { get; set; }
 
 		/// <summary>
 		/// URL to the listing's privacy policy, may return an empty string for listings that do not require a privacy policy URL.
 		/// </summary>
-		public string PrivacyPolicyUrl { get; set; }
+		public string? PrivacyPolicyUrl { get; set; }
 
 		/// <summary>
 		/// The HTTP path for the Marketplace listing.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The URLs for the listing's screenshots.
 		/// </summary>
-		public List<string> ScreenshotUrls { get; set; }
+		public List<string>? ScreenshotUrls { get; set; }
 
 		/// <summary>
 		/// An alternate category that describes the listing.
 		/// </summary>
-		public MarketplaceCategory SecondaryCategory { get; set; }
+		public MarketplaceCategory? SecondaryCategory { get; set; }
 
 		/// <summary>
 		/// The listing's very short description.
 		/// </summary>
-		public string ShortDescription { get; set; }
+		public string? ShortDescription { get; set; }
 
 		/// <summary>
 		/// The short name of the listing used in its URL.
 		/// </summary>
-		public string Slug { get; set; }
+		public string? Slug { get; set; }
 
 		/// <summary>
 		/// URL to the listing's status page.
 		/// </summary>
-		public string StatusUrl { get; set; }
+		public string? StatusUrl { get; set; }
 
 		/// <summary>
 		/// An email address for support for this listing's app.
 		/// </summary>
-		public string SupportEmail { get; set; }
+		public string? SupportEmail { get; set; }
 
 		/// <summary>
 		/// Either a URL or an email address for support for this listing's app, may return an empty string for listings that do not require a support URL.
 		/// </summary>
-		public string SupportUrl { get; set; }
+		public string? SupportUrl { get; set; }
 
 		/// <summary>
 		/// URL to the listing's terms of service.
 		/// </summary>
-		public string TermsOfServiceUrl { get; set; }
+		public string? TermsOfServiceUrl { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for the Marketplace listing.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// Can the current viewer add plans for this Marketplace listing.

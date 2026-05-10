@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The pull request that was reverted.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The new pull request that reverts the input pull request.
 		/// </summary>
-		public PullRequest RevertPullRequest { get; set; }
+		public PullRequest? RevertPullRequest { get; set; }
 	}
 }

@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the primary key from the database as a BigInt.
 		/// </summary>
-		public string FullDatabaseId { get; set; }
+		public string? FullDatabaseId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PinnedIssue object
@@ -26,16 +26,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The issue that was pinned.
 		/// </summary>
-		public Issue Issue { get; set; }
+		public Issue? Issue { get; set; }
 
 		/// <summary>
 		/// The actor that pinned this issue.
 		/// </summary>
-		public IActor PinnedBy { get; set; }
+		public IActor? PinnedBy { get; set; }
 
 		/// <summary>
 		/// The repository that this issue was pinned to.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

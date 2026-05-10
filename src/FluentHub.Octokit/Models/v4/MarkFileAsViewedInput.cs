@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the pull request.
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The path of the file to mark as viewed
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 	}
 }

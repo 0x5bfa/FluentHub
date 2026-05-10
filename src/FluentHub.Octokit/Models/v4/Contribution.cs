@@ -51,13 +51,13 @@ namespace FluentHub.Octokit.Models.v4
 
 		public DateTimeOffset OccurredAt { get; set; }
 
-		public string OccurredAtHumanized { get; set; }
+		public string? OccurredAtHumanized { get; set; }
 
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }
 

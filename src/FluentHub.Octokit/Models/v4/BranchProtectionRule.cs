@@ -30,7 +30,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public BranchProtectionRuleConflictConnection BranchProtectionRuleConflicts { get; set; }
+		public BranchProtectionRuleConflictConnection? BranchProtectionRuleConflicts { get; set; }
 
 		/// <summary>
 		/// A list of actors able to force push for this branch protection rule.
@@ -39,7 +39,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public BypassForcePushAllowanceConnection BypassForcePushAllowances { get; set; }
+		public BypassForcePushAllowanceConnection? BypassForcePushAllowances { get; set; }
 
 		/// <summary>
 		/// A list of actors able to bypass PRs for this branch protection rule.
@@ -48,12 +48,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public BypassPullRequestAllowanceConnection BypassPullRequestAllowances { get; set; }
+		public BypassPullRequestAllowanceConnection? BypassPullRequestAllowances { get; set; }
 
 		/// <summary>
 		/// The actor who created this branch protection rule.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -93,12 +93,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="query">Filters refs with query on name</param>
-		public RefConnection MatchingRefs { get; set; }
+		public RefConnection? MatchingRefs { get; set; }
 
 		/// <summary>
 		/// Identifies the protection rule pattern.
 		/// </summary>
-		public string Pattern { get; set; }
+		public string? Pattern { get; set; }
 
 		/// <summary>
 		/// A list push allowances for this branch protection rule.
@@ -107,12 +107,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public PushAllowanceConnection PushAllowances { get; set; }
+		public PushAllowanceConnection? PushAllowances { get; set; }
 
 		/// <summary>
 		/// The repository associated with this branch protection rule.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// Whether the most recent push must be approved by someone other than the person who pushed it
@@ -127,17 +127,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// List of required deployment environments that must be deployed successfully to update matching branches
 		/// </summary>
-		public List<string> RequiredDeploymentEnvironments { get; set; }
+		public List<string>? RequiredDeploymentEnvironments { get; set; }
 
 		/// <summary>
 		/// List of required status check contexts that must pass for commits to be accepted to matching branches.
 		/// </summary>
-		public List<string> RequiredStatusCheckContexts { get; set; }
+		public List<string>? RequiredStatusCheckContexts { get; set; }
 
 		/// <summary>
 		/// List of required status checks that must pass for commits to be accepted to matching branches.
 		/// </summary>
-		public List<RequiredStatusCheckDescription> RequiredStatusChecks { get; set; }
+		public List<RequiredStatusCheckDescription>? RequiredStatusChecks { get; set; }
 
 		/// <summary>
 		/// Are approving reviews required to update matching branches.
@@ -196,6 +196,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public ReviewDismissalAllowanceConnection ReviewDismissalAllowances { get; set; }
+		public ReviewDismissalAllowanceConnection? ReviewDismissalAllowances { get; set; }
 	}
 }

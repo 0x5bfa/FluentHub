@@ -35,13 +35,13 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class TeamAuditEntryData : ITeamAuditEntryData
 	{
-		public Team Team { get; set; }
+		public Team? Team { get; set; }
 
-		public string TeamName { get; set; }
+		public string? TeamName { get; set; }
 
-		public string TeamResourcePath { get; set; }
+		public string? TeamResourcePath { get; set; }
 
-		public string TeamUrl { get; set; }
+		public string? TeamUrl { get; set; }
 	}
 }
 

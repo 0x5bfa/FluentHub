@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the label color.
 		/// </summary>
-		public string Color { get; set; }
+		public string? Color { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the label was created.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the label was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// A brief description of this label.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Label object
@@ -49,12 +49,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="labels">A list of label names to filter the pull requests by.</param>
 		/// <param name="orderBy">Ordering options for issues returned from the connection.</param>
 		/// <param name="states">A list of states to filter the issues by.</param>
-		public IssueConnection Issues { get; set; }
+		public IssueConnection? Issues { get; set; }
 
 		/// <summary>
 		/// Identifies the label name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// A list of pull requests associated with this label.
@@ -68,17 +68,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="labels">A list of label names to filter the pull requests by.</param>
 		/// <param name="orderBy">Ordering options for pull requests returned from the connection.</param>
 		/// <param name="states">A list of states to filter the pull requests by.</param>
-		public PullRequestConnection PullRequests { get; set; }
+		public PullRequestConnection? PullRequests { get; set; }
 
 		/// <summary>
 		/// The repository associated with this label.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this label.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the label was last updated.
@@ -88,11 +88,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the label was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this label.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

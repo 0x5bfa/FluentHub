@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor that can force push.
 		/// </summary>
-		public BranchActorAllowanceActor Actor { get; set; }
+		public BranchActorAllowanceActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the branch protection rule associated with the allowed user, team, or app.
 		/// </summary>
-		public BranchProtectionRule BranchProtectionRule { get; set; }
+		public BranchProtectionRule? BranchProtectionRule { get; set; }
 
 		/// <summary>
 		/// The Node ID of the BypassForcePushAllowance object

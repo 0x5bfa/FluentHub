@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The headline of the message.
 		/// </summary>
-		public string Headline { get; set; }
+		public string? Headline { get; set; }
 
 		/// <summary>
 		/// The body of the message.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 	}
 }

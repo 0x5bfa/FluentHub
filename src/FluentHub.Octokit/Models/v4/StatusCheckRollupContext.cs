@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A check run.
 		/// </summary>
-		public CheckRun CheckRun { get; set; }
+		public CheckRun? CheckRun { get; set; }
 
 		/// <summary>
 		/// Represents an individual commit status context
 		/// </summary>
-		public StatusContext StatusContext { get; set; }
+		public StatusContext? StatusContext { get; set; }
 	}
 }

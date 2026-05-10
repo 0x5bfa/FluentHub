@@ -11,26 +11,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Ref to be updated.  Must be a branch.
 		/// </summary>
-		public CommittableBranch Branch { get; set; }
+		public CommittableBranch? Branch { get; set; }
 
 		/// <summary>
 		/// A description of changes to files in this commit.
 		/// </summary>
-		public FileChanges FileChanges { get; set; }
+		public FileChanges? FileChanges { get; set; }
 
 		/// <summary>
 		/// The commit message the be included with the commit.
 		/// </summary>
-		public CommitMessage Message { get; set; }
+		public CommitMessage? Message { get; set; }
 
 		/// <summary>
 		/// The git commit oid expected at the head of the branch prior to the commit
 		/// </summary>
-		public string ExpectedHeadOid { get; set; }
+		public string? ExpectedHeadOid { get; set; }
 	}
 }

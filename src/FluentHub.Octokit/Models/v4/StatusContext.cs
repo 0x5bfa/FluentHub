@@ -12,17 +12,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// The avatar of the OAuth application or the user that created the status
 		/// </summary>
 		/// <param name="size">The size of the resulting square image.</param>
-		public string AvatarUrl { get; set; }
+		public string? AvatarUrl { get; set; }
 
 		/// <summary>
 		/// This commit this status context is attached to.
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// The name of this status context.
 		/// </summary>
-		public string Context { get; set; }
+		public string? Context { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -32,17 +32,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who created this status context.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// The description for this status context.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The Node ID of the StatusContext object
@@ -64,6 +64,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL for this status context.
 		/// </summary>
-		public string TargetUrl { get; set; }
+		public string? TargetUrl { get; set; }
 	}
 }

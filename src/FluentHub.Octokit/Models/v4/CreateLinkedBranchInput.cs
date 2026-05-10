@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// ID of the issue to link to.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The commit SHA to base the new branch on.
 		/// </summary>
-		public string Oid { get; set; }
+		public string? Oid { get; set; }
 
 		/// <summary>
 		/// The name of the new branch. Defaults to issue number and title.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// ID of the repository to create the branch in. Defaults to the issue repository.

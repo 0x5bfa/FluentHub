@@ -16,17 +16,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// An emoji summarizing the user's status.
 		/// </summary>
-		public string Emoji { get; set; }
+		public string? Emoji { get; set; }
 
 		/// <summary>
 		/// The status emoji as HTML.
 		/// </summary>
-		public string EmojiHTML { get; set; }
+		public string? EmojiHTML { get; set; }
 
 		/// <summary>
 		/// If set, the status will not be shown after this date.
@@ -36,7 +36,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "If set, the status will not be shown after this date."
 		/// <summary>
-		public string ExpiresAtHumanized { get; set; }
+		public string? ExpiresAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the UserStatus object
@@ -51,12 +51,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A brief message describing what the user is doing.
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 		/// <summary>
 		/// The organization whose members can see this status. If null, this status is publicly visible.
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -66,11 +66,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The user who has this status.
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }

@@ -45,15 +45,15 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class AnnouncementBanner : IAnnouncementBanner
 	{
-		public string Announcement { get; set; }
+		public string? Announcement { get; set; }
 
 		public DateTimeOffset? AnnouncementCreatedAt { get; set; }
 
-		public string AnnouncementCreatedAtHumanized { get; set; }
+		public string? AnnouncementCreatedAtHumanized { get; set; }
 
 		public DateTimeOffset? AnnouncementExpiresAt { get; set; }
 
-		public string AnnouncementExpiresAtHumanized { get; set; }
+		public string? AnnouncementExpiresAtHumanized { get; set; }
 
 		public bool? AnnouncementUserDismissible { get; set; }
 	}

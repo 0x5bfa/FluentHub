@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The new commit.
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// The ref which has been updated to point to the new commit.
 		/// </summary>
-		public Ref Ref { get; set; }
+		public Ref? Ref { get; set; }
 	}
 }

@@ -25,9 +25,9 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class UniformResourceLocatable : IUniformResourceLocatable
 	{
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }
 

@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor that can push.
 		/// </summary>
-		public PushAllowanceActor Actor { get; set; }
+		public PushAllowanceActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the branch protection rule associated with the allowed user, team, or app.
 		/// </summary>
-		public BranchProtectionRule BranchProtectionRule { get; set; }
+		public BranchProtectionRule? BranchProtectionRule { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PushAllowance object

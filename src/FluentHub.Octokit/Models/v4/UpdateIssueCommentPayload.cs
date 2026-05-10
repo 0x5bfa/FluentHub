@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The updated comment.
 		/// </summary>
-		public IssueComment IssueComment { get; set; }
+		public IssueComment? IssueComment { get; set; }
 	}
 }

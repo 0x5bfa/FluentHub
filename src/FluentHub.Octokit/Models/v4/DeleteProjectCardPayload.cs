@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The column the deleted card was in.
 		/// </summary>
-		public ProjectColumn Column { get; set; }
+		public ProjectColumn? Column { get; set; }
 
 		/// <summary>
 		/// The deleted card ID.

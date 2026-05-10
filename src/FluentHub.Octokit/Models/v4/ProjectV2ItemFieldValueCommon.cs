@@ -62,21 +62,21 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public DateTimeOffset CreatedAt { get; set; }
 
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		public int? DatabaseId { get; set; }
 
-		public ProjectV2FieldConfiguration Field { get; set; }
+		public ProjectV2FieldConfiguration? Field { get; set; }
 
 		public ID Id { get; set; }
 
-		public ProjectV2Item Item { get; set; }
+		public ProjectV2Item? Item { get; set; }
 
 		public DateTimeOffset UpdatedAt { get; set; }
 
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }
 

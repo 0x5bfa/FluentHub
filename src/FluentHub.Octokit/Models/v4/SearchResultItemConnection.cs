@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<SearchResultItemEdge> Edges { get; set; }
+		public List<SearchResultItemEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// The total number of issues that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
@@ -31,12 +31,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<SearchResultItem> Nodes { get; set; }
+		public List<SearchResultItem>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// The total number of repositories that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.

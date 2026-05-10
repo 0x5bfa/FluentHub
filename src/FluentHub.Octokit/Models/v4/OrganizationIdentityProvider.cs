@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The digest algorithm used to sign SAML requests for the Identity Provider.
 		/// </summary>
-		public string DigestMethod { get; set; }
+		public string? DigestMethod { get; set; }
 
 		/// <summary>
 		/// External Identities provisioned by this Identity Provider
@@ -23,7 +23,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="login">Filter to external identities with the users login</param>
 		/// <param name="membersOnly">Filter to external identities with valid org membership only</param>
 		/// <param name="userName">Filter to external identities with the users userName/NameID attribute</param>
-		public ExternalIdentityConnection ExternalIdentities { get; set; }
+		public ExternalIdentityConnection? ExternalIdentities { get; set; }
 
 		/// <summary>
 		/// The Node ID of the OrganizationIdentityProvider object
@@ -33,26 +33,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The x509 certificate used by the Identity Provider to sign assertions and responses.
 		/// </summary>
-		public string IdpCertificate { get; set; }
+		public string? IdpCertificate { get; set; }
 
 		/// <summary>
 		/// The Issuer Entity ID for the SAML Identity Provider
 		/// </summary>
-		public string Issuer { get; set; }
+		public string? Issuer { get; set; }
 
 		/// <summary>
 		/// Organization this Identity Provider belongs to
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
 		/// <summary>
 		/// The signature algorithm used to sign SAML requests for the Identity Provider.
 		/// </summary>
-		public string SignatureMethod { get; set; }
+		public string? SignatureMethod { get; set; }
 
 		/// <summary>
 		/// The URL endpoint for the Identity Provider's SAML SSO.
 		/// </summary>
-		public string SsoUrl { get; set; }
+		public string? SsoUrl { get; set; }
 	}
 }

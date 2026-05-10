@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the check step was completed."
 		/// <summary>
-		public string CompletedAtHumanized { get; set; }
+		public string? CompletedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The conclusion of the check step.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A reference for the check step on the integrator's system.
 		/// </summary>
-		public string ExternalId { get; set; }
+		public string? ExternalId { get; set; }
 
 		/// <summary>
 		/// The step's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The index of the step in the list of steps of the parent check run.
@@ -51,7 +51,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the check step was started."
 		/// <summary>
-		public string StartedAtHumanized { get; set; }
+		public string? StartedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The current status of the check step.

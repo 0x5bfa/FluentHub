@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The discussion that was pinned.
 		/// </summary>
-		public Discussion Discussion { get; set; }
+		public Discussion? Discussion { get; set; }
 
 		/// <summary>
 		/// Color stops of the chosen gradient
 		/// </summary>
-		public List<string> GradientStopColors { get; set; }
+		public List<string>? GradientStopColors { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PinnedDiscussion object
@@ -46,7 +46,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor that pinned this discussion.
 		/// </summary>
-		public IActor PinnedBy { get; set; }
+		public IActor? PinnedBy { get; set; }
 
 		/// <summary>
 		/// Preconfigured background gradient option
@@ -56,7 +56,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The repository associated with this node.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -66,6 +66,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

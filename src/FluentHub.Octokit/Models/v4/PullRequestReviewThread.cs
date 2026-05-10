@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="skip">Skips the first _n_ elements in the list.</param>
-		public PullRequestReviewCommentConnection Comments { get; set; }
+		public PullRequestReviewCommentConnection? Comments { get; set; }
 
 		/// <summary>
 		/// The side of the diff on which this thread was placed.
@@ -61,22 +61,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the file path of this thread.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// Identifies the pull request associated with this thread.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// Identifies the repository associated with this thread.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// The user who resolved this thread
 		/// </summary>
-		public User ResolvedBy { get; set; }
+		public User? ResolvedBy { get; set; }
 
 		/// <summary>
 		/// The side of the diff that the first line of the thread starts on (multi-line only)

@@ -11,21 +11,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The owner scoping the reattributable data.
 		/// </summary>
-		public Organization Owner { get; set; }
+		public Organization? Owner { get; set; }
 
 		/// <summary>
 		/// The account owning the data to reattribute.
 		/// </summary>
-		public Claimable Source { get; set; }
+		public Claimable? Source { get; set; }
 
 		/// <summary>
 		/// The account which may claim the data.
 		/// </summary>
-		public Claimable Target { get; set; }
+		public Claimable? Target { get; set; }
 	}
 }

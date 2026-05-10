@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The id of the repository on which to create the discussion.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The title of the discussion.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The body of the discussion.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The id of the discussion category to associate with this discussion.

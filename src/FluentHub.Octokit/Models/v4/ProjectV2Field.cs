@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The field's type.
@@ -36,12 +36,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project field's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The project that contains this field.
 		/// </summary>
-		public ProjectV2 Project { get; set; }
+		public ProjectV2? Project { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -51,6 +51,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

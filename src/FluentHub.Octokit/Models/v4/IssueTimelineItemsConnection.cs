@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<IssueTimelineItemsEdge> Edges { get; set; }
+		public List<IssueTimelineItemsEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// Identifies the count of items after applying `before` and `after` filters.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<IssueTimelineItems> Nodes { get; set; }
+		public List<IssueTimelineItems>? Nodes { get; set; }
 
 		/// <summary>
 		/// Identifies the count of items after applying `before`/`after` filters and `first`/`last`/`skip` slicing.
@@ -31,7 +31,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.
@@ -46,6 +46,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the timeline was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

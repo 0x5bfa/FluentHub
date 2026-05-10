@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="organizationLogins">Only return members within the organizations with these logins</param>
 		/// <param name="query">The search string to look for.</param>
 		/// <param name="role">The role to filter by.</param>
-		public EnterpriseAdministratorConnection Admins { get; set; }
+		public EnterpriseAdministratorConnection? Admins { get; set; }
 
 		/// <summary>
 		/// A list of users in the enterprise who currently have two-factor authentication disabled.
@@ -29,7 +29,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public UserConnection AffiliatedUsersWithTwoFactorDisabled { get; set; }
+		public UserConnection? AffiliatedUsersWithTwoFactorDisabled { get; set; }
 
 		/// <summary>
 		/// Whether or not affiliated users with two-factor authentication disabled exist in the enterprise.
@@ -50,7 +50,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection AllowPrivateRepositoryForkingSettingOrganizations { get; set; }
+		public OrganizationConnection? AllowPrivateRepositoryForkingSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The value for the allow private repository forking policy on the enterprise.
@@ -71,7 +71,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection DefaultRepositoryPermissionSettingOrganizations { get; set; }
+		public OrganizationConnection? DefaultRepositoryPermissionSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// A list of domains owned by the enterprise. Visible to enterprise owners or enterprise owners' personal access tokens (classic) with admin:enterprise scope.
@@ -83,7 +83,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="isApproved">Filter whether or not the domain is approved.</param>
 		/// <param name="isVerified">Filter whether or not the domain is verified.</param>
 		/// <param name="orderBy">Ordering options for verifiable domains returned.</param>
-		public VerifiableDomainConnection Domains { get; set; }
+		public VerifiableDomainConnection? Domains { get; set; }
 
 		/// <summary>
 		/// Enterprise Server installations owned by the enterprise.
@@ -94,7 +94,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="connectedOnly">Whether or not to only return installations discovered via GitHub Connect.</param>
 		/// <param name="orderBy">Ordering options for Enterprise Server installations returned.</param>
-		public EnterpriseServerInstallationConnection EnterpriseServerInstallations { get; set; }
+		public EnterpriseServerInstallationConnection? EnterpriseServerInstallations { get; set; }
 
 		/// <summary>
 		/// A list of failed invitations in the enterprise.
@@ -104,7 +104,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="query">The search string to look for.</param>
-		public EnterpriseFailedInvitationConnection FailedInvitations { get; set; }
+		public EnterpriseFailedInvitationConnection? FailedInvitations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether the enterprise has an IP allow list enabled.
@@ -119,7 +119,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for IP allow list entries returned.</param>
-		public IpAllowListEntryConnection IpAllowListEntries { get; set; }
+		public IpAllowListEntryConnection? IpAllowListEntries { get; set; }
 
 		/// <summary>
 		/// The setting value for whether the enterprise has IP allow list configuration for installed GitHub Apps enabled.
@@ -150,7 +150,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanChangeRepositoryVisibilitySettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanChangeRepositoryVisibilitySettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether members of organizations in the enterprise can create internal repositories.
@@ -181,7 +181,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanCreateRepositoriesSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanCreateRepositoriesSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether members with admin permissions for repositories can delete issues.
@@ -197,7 +197,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanDeleteIssuesSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanDeleteIssuesSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether members with admin permissions for repositories can delete or transfer repositories.
@@ -213,7 +213,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanDeleteRepositoriesSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanDeleteRepositoriesSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether members of organizations in the enterprise can invite outside collaborators.
@@ -229,7 +229,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanInviteCollaboratorsSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanInviteCollaboratorsSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// Indicates whether members of this enterprise's organizations can purchase additional services for those organizations.
@@ -250,7 +250,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanUpdateProtectedBranchesSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanUpdateProtectedBranchesSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether members can view dependency insights.
@@ -266,7 +266,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection MembersCanViewDependencyInsightsSettingOrganizations { get; set; }
+		public OrganizationConnection? MembersCanViewDependencyInsightsSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// Indicates if email notification delivery for this enterprise is restricted to verified or approved domains.
@@ -276,7 +276,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The OIDC Identity Provider for the enterprise.
 		/// </summary>
-		public OIDCProvider OidcProvider { get; set; }
+		public OIDCProvider? OidcProvider { get; set; }
 
 		/// <summary>
 		/// The setting value for whether organization projects are enabled for organizations in this enterprise.
@@ -292,7 +292,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection OrganizationProjectsSettingOrganizations { get; set; }
+		public OrganizationConnection? OrganizationProjectsSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// A list of outside collaborators across the repositories in the enterprise.
@@ -307,7 +307,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="organizationLogins">Only return outside collaborators within the organizations with these logins</param>
 		/// <param name="query">The search string to look for.</param>
 		/// <param name="visibility">Only return outside collaborators on repositories with this visibility.</param>
-		public EnterpriseOutsideCollaboratorConnection OutsideCollaborators { get; set; }
+		public EnterpriseOutsideCollaboratorConnection? OutsideCollaborators { get; set; }
 
 		/// <summary>
 		/// A list of pending administrator invitations for the enterprise.
@@ -319,7 +319,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for pending enterprise administrator invitations returned from the connection.</param>
 		/// <param name="query">The search string to look for.</param>
 		/// <param name="role">The role to filter by.</param>
-		public EnterpriseAdministratorInvitationConnection PendingAdminInvitations { get; set; }
+		public EnterpriseAdministratorInvitationConnection? PendingAdminInvitations { get; set; }
 
 		/// <summary>
 		/// A list of pending collaborator invitations across the repositories in the enterprise.
@@ -330,7 +330,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for pending repository collaborator invitations returned from the connection.</param>
 		/// <param name="query">The search string to look for.</param>
-		public RepositoryInvitationConnection PendingCollaboratorInvitations { get; set; }
+		public RepositoryInvitationConnection? PendingCollaboratorInvitations { get; set; }
 
 		/// <summary>
 		/// A list of pending member invitations for organizations in the enterprise.
@@ -342,7 +342,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="invitationSource">Only return invitations matching this invitation source</param>
 		/// <param name="organizationLogins">Only return invitations within the organizations with these logins</param>
 		/// <param name="query">The search string to look for.</param>
-		public EnterprisePendingMemberInvitationConnection PendingMemberInvitations { get; set; }
+		public EnterprisePendingMemberInvitationConnection? PendingMemberInvitations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether repository projects are enabled in this enterprise.
@@ -358,12 +358,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection RepositoryProjectsSettingOrganizations { get; set; }
+		public OrganizationConnection? RepositoryProjectsSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The SAML Identity Provider for the enterprise.
 		/// </summary>
-		public EnterpriseIdentityProvider SamlIdentityProvider { get; set; }
+		public EnterpriseIdentityProvider? SamlIdentityProvider { get; set; }
 
 		/// <summary>
 		/// A list of enterprise organizations configured with the SAML single sign-on setting value.
@@ -374,7 +374,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection SamlIdentityProviderSettingOrganizations { get; set; }
+		public OrganizationConnection? SamlIdentityProviderSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// A list of members with a support entitlement.
@@ -384,7 +384,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for support entitlement users returned from the connection.</param>
-		public EnterpriseMemberConnection SupportEntitlements { get; set; }
+		public EnterpriseMemberConnection? SupportEntitlements { get; set; }
 
 		/// <summary>
 		/// The setting value for whether team discussions are enabled for organizations in this enterprise.
@@ -400,7 +400,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection TeamDiscussionsSettingOrganizations { get; set; }
+		public OrganizationConnection? TeamDiscussionsSettingOrganizations { get; set; }
 
 		/// <summary>
 		/// The setting value for whether the enterprise requires two-factor authentication for its organizations and users.
@@ -416,6 +416,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for organizations with this setting.</param>
-		public OrganizationConnection TwoFactorRequiredSettingOrganizations { get; set; }
+		public OrganizationConnection? TwoFactorRequiredSettingOrganizations { get; set; }
 	}
 }

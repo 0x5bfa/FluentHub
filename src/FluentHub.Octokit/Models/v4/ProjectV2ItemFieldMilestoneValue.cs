@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The field that contains this value.
 		/// </summary>
-		public ProjectV2FieldConfiguration Field { get; set; }
+		public ProjectV2FieldConfiguration? Field { get; set; }
 
 		/// <summary>
 		/// Milestone value of a field
 		/// </summary>
-		public Milestone Milestone { get; set; }
+		public Milestone? Milestone { get; set; }
 	}
 }

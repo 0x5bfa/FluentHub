@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The category's description.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The technical description of how apps listed in this category work with GitHub.
 		/// </summary>
-		public string HowItWorks { get; set; }
+		public string? HowItWorks { get; set; }
 
 		/// <summary>
 		/// The Node ID of the MarketplaceCategory object
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The category's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// How many Marketplace listings have this as their primary category.
@@ -36,7 +36,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The HTTP path for this Marketplace category.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// How many Marketplace listings have this as their secondary category.
@@ -46,11 +46,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The short name of the category used in its URL.
 		/// </summary>
-		public string Slug { get; set; }
+		public string? Slug { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this Marketplace category.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

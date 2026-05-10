@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Each of the contexts for this hovercard
 		/// </summary>
-		public List<IHovercardContext> Contexts { get; set; }
+		public List<IHovercardContext>? Contexts { get; set; }
 	}
 }

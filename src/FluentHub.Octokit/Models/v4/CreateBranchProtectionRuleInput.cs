@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The global relay id of the repository in which a new branch protection rule should be created in.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The glob-like pattern used to determine matching branches.
 		/// </summary>
-		public string Pattern { get; set; }
+		public string? Pattern { get; set; }
 
 		/// <summary>
 		/// Are approving reviews required to update matching branches.
@@ -91,17 +91,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of User, Team, or App IDs allowed to dismiss reviews on pull requests targeting matching branches.
 		/// </summary>
-		public List<ID> ReviewDismissalActorIds { get; set; }
+		public List<ID>? ReviewDismissalActorIds { get; set; }
 
 		/// <summary>
 		/// A list of User, Team, or App IDs allowed to bypass pull requests targeting matching branches.
 		/// </summary>
-		public List<ID> BypassPullRequestActorIds { get; set; }
+		public List<ID>? BypassPullRequestActorIds { get; set; }
 
 		/// <summary>
 		/// A list of User, Team, or App IDs allowed to bypass force push targeting matching branches.
 		/// </summary>
-		public List<ID> BypassForcePushActorIds { get; set; }
+		public List<ID>? BypassForcePushActorIds { get; set; }
 
 		/// <summary>
 		/// Is pushing to matching branches restricted.
@@ -111,17 +111,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of User, Team, or App IDs allowed to push to matching branches.
 		/// </summary>
-		public List<ID> PushActorIds { get; set; }
+		public List<ID>? PushActorIds { get; set; }
 
 		/// <summary>
 		/// List of required status check contexts that must pass for commits to be accepted to matching branches.
 		/// </summary>
-		public List<string> RequiredStatusCheckContexts { get; set; }
+		public List<string>? RequiredStatusCheckContexts { get; set; }
 
 		/// <summary>
 		/// The list of required status checks
 		/// </summary>
-		public List<RequiredStatusCheckInput> RequiredStatusChecks { get; set; }
+		public List<RequiredStatusCheckInput>? RequiredStatusChecks { get; set; }
 
 		/// <summary>
 		/// Are successful deployments required before merging.
@@ -131,7 +131,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The list of required deployment environments
 		/// </summary>
-		public List<string> RequiredDeploymentEnvironments { get; set; }
+		public List<string>? RequiredDeploymentEnvironments { get; set; }
 
 		/// <summary>
 		/// Are conversations required to be resolved before merging.

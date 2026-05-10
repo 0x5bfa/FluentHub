@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The configured URL for this funding link.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The username of the user or organization who is receiving the sponsorship. Required if sponsorableId is not given.
 		/// </summary>
-		public string SponsorableLogin { get; set; }
+		public string? SponsorableLogin { get; set; }
 
 		/// <summary>
 		/// The amount to pay to the sponsorable in US dollars. Valid values: 1-12000.

@@ -11,26 +11,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The emails associated with the SCIM identity
 		/// </summary>
-		public List<UserEmailMetadata> Emails { get; set; }
+		public List<UserEmailMetadata>? Emails { get; set; }
 
 		/// <summary>
 		/// Family name of the SCIM identity
 		/// </summary>
-		public string FamilyName { get; set; }
+		public string? FamilyName { get; set; }
 
 		/// <summary>
 		/// Given name of the SCIM identity
 		/// </summary>
-		public string GivenName { get; set; }
+		public string? GivenName { get; set; }
 
 		/// <summary>
 		/// The groups linked to this identity in IDP
 		/// </summary>
-		public List<string> Groups { get; set; }
+		public List<string>? Groups { get; set; }
 
 		/// <summary>
 		/// The userName of the SCIM identity
 		/// </summary>
-		public string Username { get; set; }
+		public string? Username { get; set; }
 	}
 }

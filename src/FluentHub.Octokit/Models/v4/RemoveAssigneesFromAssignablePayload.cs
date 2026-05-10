@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The item that was unassigned.
 		/// </summary>
-		public IAssignable Assignable { get; set; }
+		public IAssignable? Assignable { get; set; }
 
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 	}
 }

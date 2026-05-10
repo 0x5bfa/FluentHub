@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The body of the Code of Conduct
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The Node ID of the CodeOfConduct object
@@ -21,21 +21,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The key for the Code of Conduct
 		/// </summary>
-		public string Key { get; set; }
+		public string? Key { get; set; }
 
 		/// <summary>
 		/// The formal name of the Code of Conduct
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this Code of Conduct
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this Code of Conduct
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The newly created check run.
 		/// </summary>
-		public CheckRun CheckRun { get; set; }
+		public CheckRun? CheckRun { get; set; }
 
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 	}
 }

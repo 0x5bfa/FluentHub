@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// ID of the pull request to be merged.
@@ -21,17 +21,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Commit headline to use for the merge commit; if omitted, a default message will be used.
 		/// </summary>
-		public string CommitHeadline { get; set; }
+		public string? CommitHeadline { get; set; }
 
 		/// <summary>
 		/// Commit body to use for the merge commit; if omitted, a default message will be used
 		/// </summary>
-		public string CommitBody { get; set; }
+		public string? CommitBody { get; set; }
 
 		/// <summary>
 		/// OID that the pull request head ref must match to allow merge; if omitted, no check is performed.
 		/// </summary>
-		public string ExpectedHeadOid { get; set; }
+		public string? ExpectedHeadOid { get; set; }
 
 		/// <summary>
 		/// The merge method to use. If omitted, defaults to 'MERGE'
@@ -41,6 +41,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The email address to associate with this merge.
 		/// </summary>
-		public string AuthorEmail { get; set; }
+		public string? AuthorEmail { get; set; }
 	}
 }

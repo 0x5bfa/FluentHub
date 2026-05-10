@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The package name or version
 		/// </summary>
-		public string Identifier { get; set; }
+		public string? Identifier { get; set; }
 	}
 }

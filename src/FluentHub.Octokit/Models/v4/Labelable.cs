@@ -25,7 +25,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class Labelable : ILabelable
 	{
-		public LabelConnection Labels { get; set; }
+		public LabelConnection? Labels { get; set; }
 	}
 }
 

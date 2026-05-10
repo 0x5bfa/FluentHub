@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The global relay id of the repository ruleset to be updated.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the ruleset.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The target of the ruleset.
@@ -31,12 +31,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The list of rules for this ruleset
 		/// </summary>
-		public List<RepositoryRuleInput> Rules { get; set; }
+		public List<RepositoryRuleInput>? Rules { get; set; }
 
 		/// <summary>
 		/// The list of conditions for this ruleset
 		/// </summary>
-		public RepositoryRuleConditionsInput Conditions { get; set; }
+		public RepositoryRuleConditionsInput? Conditions { get; set; }
 
 		/// <summary>
 		/// The enforcement level for this ruleset
@@ -46,6 +46,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of actors that are allowed to bypass rules in this ruleset.
 		/// </summary>
-		public List<RepositoryRulesetBypassActorInput> BypassActors { get; set; }
+		public List<RepositoryRulesetBypassActorInput>? BypassActors { get; set; }
 	}
 }

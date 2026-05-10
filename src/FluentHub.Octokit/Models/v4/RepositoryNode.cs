@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class RepositoryNode : IRepositoryNode
 	{
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }
 

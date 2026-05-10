@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The hex color code that represents how many contributions were made on this day compared to others in the calendar.
 		/// </summary>
-		public string Color { get; set; }
+		public string? Color { get; set; }
 
 		/// <summary>
 		/// How many contributions were made by the user on this day.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The day this square represents.
 		/// </summary>
-		public string Date { get; set; }
+		public string? Date { get; set; }
 
 		/// <summary>
 		/// A number representing which day of the week this square represents, e.g., 1 is Monday.

@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The requested check suite.
 		/// </summary>
-		public CheckSuite CheckSuite { get; set; }
+		public CheckSuite? CheckSuite { get; set; }
 
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 	}
 }

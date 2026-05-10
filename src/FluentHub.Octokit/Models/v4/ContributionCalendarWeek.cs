@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The days of contributions in this week.
 		/// </summary>
-		public List<ContributionCalendarDay> ContributionDays { get; set; }
+		public List<ContributionCalendarDay>? ContributionDays { get; set; }
 
 		/// <summary>
 		/// The date of the earliest square in this week.
 		/// </summary>
-		public string FirstDay { get; set; }
+		public string? FirstDay { get; set; }
 	}
 }

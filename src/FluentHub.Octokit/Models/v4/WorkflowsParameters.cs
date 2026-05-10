@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Workflows that must pass for this rule to pass.
 		/// </summary>
-		public List<WorkflowFileReference> Workflows { get; set; }
+		public List<WorkflowFileReference>? Workflows { get; set; }
 	}
 }

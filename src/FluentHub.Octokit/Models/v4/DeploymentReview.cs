@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The comment the user left.
 		/// </summary>
-		public string Comment { get; set; }
+		public string? Comment { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -25,7 +25,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public EnvironmentConnection Environments { get; set; }
+		public EnvironmentConnection? Environments { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DeploymentReview object
@@ -40,6 +40,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The user that reviewed the deployment.
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }

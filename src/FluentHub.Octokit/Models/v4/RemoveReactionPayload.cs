@@ -11,21 +11,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The reaction object.
 		/// </summary>
-		public Reaction Reaction { get; set; }
+		public Reaction? Reaction { get; set; }
 
 		/// <summary>
 		/// The reaction groups for the subject.
 		/// </summary>
-		public List<ReactionGroup> ReactionGroups { get; set; }
+		public List<ReactionGroup>? ReactionGroups { get; set; }
 
 		/// <summary>
 		/// The reactable subject.
 		/// </summary>
-		public IReactable Subject { get; set; }
+		public IReactable? Subject { get; set; }
 	}
 }

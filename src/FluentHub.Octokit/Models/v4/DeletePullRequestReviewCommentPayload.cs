@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The pull request review the deleted comment belonged to.
 		/// </summary>
-		public PullRequestReview PullRequestReview { get; set; }
+		public PullRequestReview? PullRequestReview { get; set; }
 
 		/// <summary>
 		/// The deleted pull request review comment.
 		/// </summary>
-		public PullRequestReviewComment PullRequestReviewComment { get; set; }
+		public PullRequestReviewComment? PullRequestReviewComment { get; set; }
 	}
 }

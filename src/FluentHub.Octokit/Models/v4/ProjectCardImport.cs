@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Repository name with owner (owner/repository).
 		/// </summary>
-		public string Repository { get; set; }
+		public string? Repository { get; set; }
 
 		/// <summary>
 		/// The issue or pull request number.

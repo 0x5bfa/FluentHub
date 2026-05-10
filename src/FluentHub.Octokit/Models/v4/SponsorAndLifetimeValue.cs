@@ -16,16 +16,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The amount in USD, formatted as a string.
 		/// </summary>
-		public string FormattedAmount { get; set; }
+		public string? FormattedAmount { get; set; }
 
 		/// <summary>
 		/// The sponsor's GitHub account.
 		/// </summary>
-		public ISponsorable Sponsor { get; set; }
+		public ISponsorable? Sponsor { get; set; }
 
 		/// <summary>
 		/// The maintainer's GitHub account.
 		/// </summary>
-		public ISponsorable Sponsorable { get; set; }
+		public ISponsorable? Sponsorable { get; set; }
 	}
 }

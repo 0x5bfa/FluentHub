@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="archivedStates">A list of archived states to filter the cards by</param>
-		public ProjectCardConnection Cards { get; set; }
+		public ProjectCardConnection? Cards { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -41,12 +41,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project column's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The project that contains this column.
 		/// </summary>
-		public Project Project { get; set; }
+		public Project? Project { get; set; }
 
 		/// <summary>
 		/// The semantic purpose of the column
@@ -56,7 +56,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The HTTP path for this project column
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -66,11 +66,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this project column
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

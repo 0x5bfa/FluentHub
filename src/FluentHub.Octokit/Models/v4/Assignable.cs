@@ -24,7 +24,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class Assignable : IAssignable
 	{
-		public UserConnection Assignees { get; set; }
+		public UserConnection? Assignees { get; set; }
 	}
 }
 

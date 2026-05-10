@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The edge from the project's column connection.
 		/// </summary>
-		public ProjectColumnEdge ColumnEdge { get; set; }
+		public ProjectColumnEdge? ColumnEdge { get; set; }
 
 		/// <summary>
 		/// The project
 		/// </summary>
-		public Project Project { get; set; }
+		public Project? Project { get; set; }
 	}
 }

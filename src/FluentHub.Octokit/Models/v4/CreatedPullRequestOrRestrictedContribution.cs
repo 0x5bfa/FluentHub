@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Represents the contribution a user made on GitHub by opening a pull request.
 		/// </summary>
-		public CreatedPullRequestContribution CreatedPullRequestContribution { get; set; }
+		public CreatedPullRequestContribution? CreatedPullRequestContribution { get; set; }
 
 		/// <summary>
 		/// Represents a private contribution a user made on GitHub.
 		/// </summary>
-		public RestrictedContribution RestrictedContribution { get; set; }
+		public RestrictedContribution? RestrictedContribution { get; set; }
 	}
 }

@@ -45,17 +45,17 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class GitObject : IGitObject
 	{
-		public string AbbreviatedOid { get; set; }
+		public string? AbbreviatedOid { get; set; }
 
-		public string CommitResourcePath { get; set; }
+		public string? CommitResourcePath { get; set; }
 
-		public string CommitUrl { get; set; }
+		public string? CommitUrl { get; set; }
 
 		public ID Id { get; set; }
 
-		public string Oid { get; set; }
+		public string? Oid { get; set; }
 
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }
 

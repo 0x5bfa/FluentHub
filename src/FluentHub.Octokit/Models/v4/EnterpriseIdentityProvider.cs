@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The enterprise this identity provider belongs to.
 		/// </summary>
-		public Enterprise Enterprise { get; set; }
+		public Enterprise? Enterprise { get; set; }
 
 		/// <summary>
 		/// ExternalIdentities provisioned by this identity provider.
@@ -28,7 +28,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="login">Filter to external identities with the users login</param>
 		/// <param name="membersOnly">Filter to external identities with valid org membership only</param>
 		/// <param name="userName">Filter to external identities with the users userName/NameID attribute</param>
-		public ExternalIdentityConnection ExternalIdentities { get; set; }
+		public ExternalIdentityConnection? ExternalIdentities { get; set; }
 
 		/// <summary>
 		/// The Node ID of the EnterpriseIdentityProvider object
@@ -38,17 +38,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The x509 certificate used by the identity provider to sign assertions and responses.
 		/// </summary>
-		public string IdpCertificate { get; set; }
+		public string? IdpCertificate { get; set; }
 
 		/// <summary>
 		/// The Issuer Entity ID for the SAML identity provider.
 		/// </summary>
-		public string Issuer { get; set; }
+		public string? Issuer { get; set; }
 
 		/// <summary>
 		/// Recovery codes that can be used by admins to access the enterprise if the identity provider is unavailable.
 		/// </summary>
-		public List<string> RecoveryCodes { get; set; }
+		public List<string>? RecoveryCodes { get; set; }
 
 		/// <summary>
 		/// The signature algorithm used to sign SAML requests for the identity provider.
@@ -58,6 +58,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL endpoint for the identity provider's SAML SSO.
 		/// </summary>
-		public string SsoUrl { get; set; }
+		public string? SsoUrl { get; set; }
 	}
 }

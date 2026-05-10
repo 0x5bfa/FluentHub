@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Path to view the manifest file blob
 		/// </summary>
-		public string BlobPath { get; set; }
+		public string? BlobPath { get; set; }
 
 		/// <summary>
 		/// A list of manifest dependencies
@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public DependencyGraphDependencyConnection Dependencies { get; set; }
+		public DependencyGraphDependencyConnection? Dependencies { get; set; }
 
 		/// <summary>
 		/// The number of dependencies listed in the manifest
@@ -35,7 +35,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Fully qualified manifest filename
 		/// </summary>
-		public string Filename { get; set; }
+		public string? Filename { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DependencyGraphManifest object
@@ -50,6 +50,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The repository containing the manifest
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

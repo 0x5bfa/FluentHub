@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The field that contains this value.
 		/// </summary>
-		public ProjectV2FieldConfiguration Field { get; set; }
+		public ProjectV2FieldConfiguration? Field { get; set; }
 
 		/// <summary>
 		/// The reviewers for this field.
@@ -20,6 +20,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public RequestedReviewerConnection Reviewers { get; set; }
+		public RequestedReviewerConnection? Reviewers { get; set; }
 	}
 }

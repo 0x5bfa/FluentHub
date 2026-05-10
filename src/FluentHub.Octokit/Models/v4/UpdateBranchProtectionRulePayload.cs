@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The newly created BranchProtectionRule.
 		/// </summary>
-		public BranchProtectionRule BranchProtectionRule { get; set; }
+		public BranchProtectionRule? BranchProtectionRule { get; set; }
 
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 	}
 }

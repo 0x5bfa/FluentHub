@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the repository.
@@ -23,13 +23,13 @@ namespace FluentHub.Octokit.Models.v4
 		/// on the current repository. You cannot update the base branch on a pull request to point
 		/// to another repository.
 		/// </summary>
-		public string BaseRefName { get; set; }
+		public string? BaseRefName { get; set; }
 
 		/// <summary>
 		/// The name of the branch where your changes are implemented. For cross-repository pull requests
 		/// in the same network, namespace `head_ref_name` with a user like this: `username:branch`.
 		/// </summary>
-		public string HeadRefName { get; set; }
+		public string? HeadRefName { get; set; }
 
 		/// <summary>
 		/// The Node ID of the head repository.
@@ -39,12 +39,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The title of the pull request.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The contents of the pull request.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// Indicates whether maintainers can modify the pull request.

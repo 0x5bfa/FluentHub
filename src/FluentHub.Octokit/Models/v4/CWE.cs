@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The id of the CWE
 		/// </summary>
-		public string CweId { get; set; }
+		public string? CweId { get; set; }
 
 		/// <summary>
 		/// A detailed description of this CWE
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The Node ID of the CWE object
@@ -26,6 +26,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of this CWE
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 }

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the enterprise on which to set an identity provider.
@@ -21,17 +21,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL endpoint for the identity provider's SAML SSO.
 		/// </summary>
-		public string SsoUrl { get; set; }
+		public string? SsoUrl { get; set; }
 
 		/// <summary>
 		/// The Issuer Entity ID for the SAML identity provider
 		/// </summary>
-		public string Issuer { get; set; }
+		public string? Issuer { get; set; }
 
 		/// <summary>
 		/// The x509 certificate used by the identity provider to sign assertions and responses.
 		/// </summary>
-		public string IdpCertificate { get; set; }
+		public string? IdpCertificate { get; set; }
 
 		/// <summary>
 		/// The signature algorithm used to sign SAML requests for the identity provider.

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Ref to be updated.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The GitObjectID that the Ref shall be updated to target.
 		/// </summary>
-		public string Oid { get; set; }
+		public string? Oid { get; set; }
 
 		/// <summary>
 		/// Permit updates of branch Refs that are not fast-forwards?

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The node ID of the pull request reviewing
@@ -35,7 +35,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Description:** `commitOID` will be removed. use addPullRequestReviewThread or addPullRequestReviewThreadReply instead
 		/// **Reason:** We are deprecating the addPullRequestReviewComment mutation
 		/// </summary>
-		public string CommitOID { get; set; }
+		public string? CommitOID { get; set; }
 
 		/// <summary>
 		/// The text of the comment. This field is required
@@ -43,7 +43,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Description:** `body` will be removed. use addPullRequestReviewThread or addPullRequestReviewThreadReply instead
 		/// **Reason:** We are deprecating the addPullRequestReviewComment mutation
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The relative path of the file to comment on.
@@ -51,7 +51,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Description:** `path` will be removed. use addPullRequestReviewThread or addPullRequestReviewThreadReply instead
 		/// **Reason:** We are deprecating the addPullRequestReviewComment mutation
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The line index in the diff to comment on.

@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Filters the check suites by this name.
 		/// </summary>
-		public string CheckName { get; set; }
+		public string? CheckName { get; set; }
 	}
 }

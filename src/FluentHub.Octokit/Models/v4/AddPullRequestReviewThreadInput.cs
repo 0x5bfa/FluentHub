@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// Path to the file being commented on.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// Body of the thread's first comment.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The node ID of the pull request reviewing

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Repository to create the Ref in.
@@ -21,11 +21,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The fully qualified name of the new Ref (ie: `refs/heads/my_new_branch`).
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The GitObjectID that the new Ref shall target. Must point to a commit.
 		/// </summary>
-		public string Oid { get; set; }
+		public string? Oid { get; set; }
 	}
 }

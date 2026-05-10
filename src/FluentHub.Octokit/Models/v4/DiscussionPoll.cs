@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The discussion that this poll belongs to.
 		/// </summary>
-		public Discussion Discussion { get; set; }
+		public Discussion? Discussion { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DiscussionPoll object
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">How to order the options for the discussion poll.</param>
-		public DiscussionPollOptionConnection Options { get; set; }
+		public DiscussionPollOptionConnection? Options { get; set; }
 
 		/// <summary>
 		/// The question that is being asked by this poll.
 		/// </summary>
-		public string Question { get; set; }
+		public string? Question { get; set; }
 
 		/// <summary>
 		/// The total number of votes that have been cast for this poll.

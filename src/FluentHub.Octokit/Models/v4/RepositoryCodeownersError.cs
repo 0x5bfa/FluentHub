@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A short string describing the type of error.
 		/// </summary>
-		public string Kind { get; set; }
+		public string? Kind { get; set; }
 
 		/// <summary>
 		/// The line number where the error occurs.
@@ -26,21 +26,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A complete description of the error, combining information from other fields.
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 		/// <summary>
 		/// The path to the file when the error occurs.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The content of the line where the error occurs.
 		/// </summary>
-		public string Source { get; set; }
+		public string? Source { get; set; }
 
 		/// <summary>
 		/// A suggestion of how to fix the error.
 		/// </summary>
-		public string Suggestion { get; set; }
+		public string? Suggestion { get; set; }
 	}
 }

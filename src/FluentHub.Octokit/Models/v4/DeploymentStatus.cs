@@ -16,32 +16,32 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the actor who triggered the deployment.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// Identifies the deployment associated with status.
 		/// </summary>
-		public Deployment Deployment { get; set; }
+		public Deployment? Deployment { get; set; }
 
 		/// <summary>
 		/// Identifies the description of the deployment.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// Identifies the environment of the deployment at the time of this deployment status
 		/// </summary>
-		public string Environment { get; set; }
+		public string? Environment { get; set; }
 
 		/// <summary>
 		/// Identifies the environment URL of the deployment.
 		/// </summary>
-		public string EnvironmentUrl { get; set; }
+		public string? EnvironmentUrl { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DeploymentStatus object
@@ -51,7 +51,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the log URL of the deployment.
 		/// </summary>
-		public string LogUrl { get; set; }
+		public string? LogUrl { get; set; }
 
 		/// <summary>
 		/// Identifies the current state of the deployment.
@@ -66,6 +66,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

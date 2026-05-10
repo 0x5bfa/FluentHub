@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The latest completed deployment with status success, failure, or error if it exists
 		/// </summary>
-		public Deployment LatestCompletedDeployment { get; set; }
+		public Deployment? LatestCompletedDeployment { get; set; }
 
 		/// <summary>
 		/// The name of the environment
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The position of the environment if it is pinned, null if it is not pinned
@@ -45,6 +45,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public DeploymentProtectionRuleConnection ProtectionRules { get; set; }
+		public DeploymentProtectionRuleConnection? ProtectionRules { get; set; }
 	}
 }

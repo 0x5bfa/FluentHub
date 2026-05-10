@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ReadyForReviewEvent object
@@ -31,16 +31,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// PullRequest referenced by event.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this ready for review event.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this ready for review event.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

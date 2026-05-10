@@ -12,12 +12,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// A URL pointing to the GitHub App's public avatar.
 		/// </summary>
 		/// <param name="size">The size of the resulting square image.</param>
-		public string AvatarUrl { get; set; }
+		public string? AvatarUrl { get; set; }
 
 		/// <summary>
 		/// The user that has claimed the data attributed to this mannequin.
 		/// </summary>
-		public User Claimant { get; set; }
+		public User? Claimant { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -27,7 +27,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -37,7 +37,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The mannequin's email on the source instance.
 		/// </summary>
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Mannequin object
@@ -47,12 +47,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The username of the actor.
 		/// </summary>
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
 		/// <summary>
 		/// The HTML path to this resource.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -62,11 +62,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The URL to this resource.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

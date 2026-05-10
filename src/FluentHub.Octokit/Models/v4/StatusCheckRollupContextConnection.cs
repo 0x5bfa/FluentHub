@@ -16,22 +16,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Counts of check runs by state.
 		/// </summary>
-		public List<CheckRunStateCount> CheckRunCountsByState { get; set; }
+		public List<CheckRunStateCount>? CheckRunCountsByState { get; set; }
 
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<StatusCheckRollupContextEdge> Edges { get; set; }
+		public List<StatusCheckRollupContextEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<StatusCheckRollupContext> Nodes { get; set; }
+		public List<StatusCheckRollupContext>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// The number of status contexts in this rollup.
@@ -41,7 +41,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Counts of status contexts by state.
 		/// </summary>
-		public List<StatusContextStateCount> StatusContextCountsByState { get; set; }
+		public List<StatusContextStateCount>? StatusContextCountsByState { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.

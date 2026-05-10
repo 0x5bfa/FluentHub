@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The list that was just created
 		/// </summary>
-		public UserList List { get; set; }
+		public UserList? List { get; set; }
 
 		/// <summary>
 		/// The user who created the list
 		/// </summary>
-		public User Viewer { get; set; }
+		public User? Viewer { get; set; }
 	}
 }

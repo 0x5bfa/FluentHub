@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The file paths that are restricted from being pushed to the commit graph.
 		/// </summary>
-		public List<string> RestrictedFilePaths { get; set; }
+		public List<string>? RestrictedFilePaths { get; set; }
 	}
 }

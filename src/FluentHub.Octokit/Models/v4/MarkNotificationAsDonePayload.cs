@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// Did the operation succeed?
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The user that the notification belongs to.
 		/// </summary>
-		public User Viewer { get; set; }
+		public User? Viewer { get; set; }
 	}
 }

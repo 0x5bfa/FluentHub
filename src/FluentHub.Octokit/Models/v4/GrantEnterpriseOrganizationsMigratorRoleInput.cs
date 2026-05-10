@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the enterprise to which all organizations managed by it will be granted the migrator role.
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The login of the user to grant the migrator role
 		/// </summary>
-		public string Login { get; set; }
+		public string? Login { get; set; }
 	}
 }

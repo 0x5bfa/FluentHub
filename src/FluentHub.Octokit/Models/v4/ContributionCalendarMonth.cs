@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The date of the first day of this month.
 		/// </summary>
-		public string FirstDay { get; set; }
+		public string? FirstDay { get; set; }
 
 		/// <summary>
 		/// The name of the month.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// How many weeks started in this month.

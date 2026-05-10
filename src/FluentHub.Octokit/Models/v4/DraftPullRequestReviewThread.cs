@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Path to the file being commented on.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The line of the blob to which the thread refers. The end of the line range for multi-line comments.
@@ -36,6 +36,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Body of the comment to leave.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 	}
 }

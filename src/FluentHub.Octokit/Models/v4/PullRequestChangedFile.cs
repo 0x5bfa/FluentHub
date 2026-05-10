@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The path of the file.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The state of the file for the viewer.

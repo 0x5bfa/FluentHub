@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the Issue to modify.
@@ -21,17 +21,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The title for the issue.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The body for the issue description.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// An array of Node IDs of users for this issue.
 		/// </summary>
-		public List<ID> AssigneeIds { get; set; }
+		public List<ID>? AssigneeIds { get; set; }
 
 		/// <summary>
 		/// The Node ID of the milestone for this issue.
@@ -41,7 +41,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// An array of Node IDs of labels for this issue.
 		/// </summary>
-		public List<ID> LabelIds { get; set; }
+		public List<ID>? LabelIds { get; set; }
 
 		/// <summary>
 		/// The desired issue state.
@@ -51,6 +51,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// An array of Node IDs for projects associated with this issue.
 		/// </summary>
-		public List<ID> ProjectIds { get; set; }
+		public List<ID>? ProjectIds { get; set; }
 	}
 }

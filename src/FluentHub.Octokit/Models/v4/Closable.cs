@@ -44,7 +44,7 @@ namespace FluentHub.Octokit.Models.v4
 
 		public DateTimeOffset? ClosedAt { get; set; }
 
-		public string ClosedAtHumanized { get; set; }
+		public string? ClosedAtHumanized { get; set; }
 
 		public bool ViewerCanClose { get; set; }
 

@@ -32,7 +32,7 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public bool IsMinimized { get; set; }
 
-		public string MinimizedReason { get; set; }
+		public string? MinimizedReason { get; set; }
 
 		public bool ViewerCanMinimize { get; set; }
 	}

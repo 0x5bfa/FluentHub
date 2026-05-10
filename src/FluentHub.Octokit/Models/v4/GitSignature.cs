@@ -50,15 +50,15 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class GitSignature : IGitSignature
 	{
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		public bool IsValid { get; set; }
 
-		public string Payload { get; set; }
+		public string? Payload { get; set; }
 
-		public string Signature { get; set; }
+		public string? Signature { get; set; }
 
-		public User Signer { get; set; }
+		public User? Signer { get; set; }
 
 		public GitSignatureState State { get; set; }
 

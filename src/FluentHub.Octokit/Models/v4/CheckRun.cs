@@ -15,12 +15,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public CheckAnnotationConnection Annotations { get; set; }
+		public CheckAnnotationConnection? Annotations { get; set; }
 
 		/// <summary>
 		/// The check suite that this run is a part of.
 		/// </summary>
-		public CheckSuite CheckSuite { get; set; }
+		public CheckSuite? CheckSuite { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the check run was completed.
@@ -30,7 +30,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the check run was completed."
 		/// <summary>
-		public string CompletedAtHumanized { get; set; }
+		public string? CompletedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The conclusion of the check run.
@@ -45,17 +45,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The corresponding deployment for this job, if any
 		/// </summary>
-		public Deployment Deployment { get; set; }
+		public Deployment? Deployment { get; set; }
 
 		/// <summary>
 		/// The URL from which to find full details of the check run on the integrator's site.
 		/// </summary>
-		public string DetailsUrl { get; set; }
+		public string? DetailsUrl { get; set; }
 
 		/// <summary>
 		/// A reference for the check run on the integrator's system.
 		/// </summary>
-		public string ExternalId { get; set; }
+		public string? ExternalId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the CheckRun object
@@ -72,27 +72,27 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the check for this check run.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Information about a pending deployment, if any, in this check run
 		/// </summary>
-		public DeploymentRequest PendingDeploymentRequest { get; set; }
+		public DeploymentRequest? PendingDeploymentRequest { get; set; }
 
 		/// <summary>
 		/// The permalink to the check run summary.
 		/// </summary>
-		public string Permalink { get; set; }
+		public string? Permalink { get; set; }
 
 		/// <summary>
 		/// The repository associated with this check run.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this check run.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the check run was started.
@@ -102,7 +102,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the check run was started."
 		/// <summary>
-		public string StartedAtHumanized { get; set; }
+		public string? StartedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The current status of the check run.
@@ -117,26 +117,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="number">Step number</param>
-		public CheckStepConnection Steps { get; set; }
+		public CheckStepConnection? Steps { get; set; }
 
 		/// <summary>
 		/// A string representing the check run's summary
 		/// </summary>
-		public string Summary { get; set; }
+		public string? Summary { get; set; }
 
 		/// <summary>
 		/// A string representing the check run's text
 		/// </summary>
-		public string Text { get; set; }
+		public string? Text { get; set; }
 
 		/// <summary>
 		/// A string representing the check run
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this check run.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

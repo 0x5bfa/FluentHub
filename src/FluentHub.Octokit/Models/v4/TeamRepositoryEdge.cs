@@ -11,9 +11,9 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A cursor for use in pagination.
 		/// </summary>
-		public string Cursor { get; set; }
+		public string? Cursor { get; set; }
 
-		public Repository Node { get; set; }
+		public Repository? Node { get; set; }
 
 		/// <summary>
 		/// The permission level the team has on the repository

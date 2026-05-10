@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the line author
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// The ending line for the range

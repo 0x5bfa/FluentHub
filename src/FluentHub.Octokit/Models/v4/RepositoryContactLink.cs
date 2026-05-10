@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The contact link purpose.
 		/// </summary>
-		public string About { get; set; }
+		public string? About { get; set; }
 
 		/// <summary>
 		/// The contact link name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The contact link URL.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

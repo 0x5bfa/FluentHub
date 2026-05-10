@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// Repository ID being granted access to.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of teams being granted access. Limit: 10
 		/// </summary>
-		public List<ID> TeamIds { get; set; }
+		public List<ID>? TeamIds { get; set; }
 
 		/// <summary>
 		/// Permission that should be granted to the teams.

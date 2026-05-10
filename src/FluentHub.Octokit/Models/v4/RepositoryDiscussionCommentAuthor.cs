@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class RepositoryDiscussionCommentAuthor : IRepositoryDiscussionCommentAuthor
 	{
-		public DiscussionCommentConnection RepositoryDiscussionComments { get; set; }
+		public DiscussionCommentConnection? RepositoryDiscussionComments { get; set; }
 	}
 }
 

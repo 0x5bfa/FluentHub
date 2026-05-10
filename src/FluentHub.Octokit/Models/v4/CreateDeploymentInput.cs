@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The node ID of the repository.
@@ -31,26 +31,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The status contexts to verify against commit status checks. To bypass required contexts, pass an empty array. Defaults to all unique contexts.
 		/// </summary>
-		public List<string> RequiredContexts { get; set; }
+		public List<string>? RequiredContexts { get; set; }
 
 		/// <summary>
 		/// Short description of the deployment.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// Name for the target deployment environment.
 		/// </summary>
-		public string Environment { get; set; }
+		public string? Environment { get; set; }
 
 		/// <summary>
 		/// Specifies a task to execute.
 		/// </summary>
-		public string Task { get; set; }
+		public string? Task { get; set; }
 
 		/// <summary>
 		/// JSON payload with extra information about the deployment.
 		/// </summary>
-		public string Payload { get; set; }
+		public string? Payload { get; set; }
 	}
 }

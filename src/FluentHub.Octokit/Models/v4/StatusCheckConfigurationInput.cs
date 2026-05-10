@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The status check context name that must be present on the commit.
 		/// </summary>
-		public string Context { get; set; }
+		public string? Context { get; set; }
 
 		/// <summary>
 		/// The optional integration ID that this status check must originate from.

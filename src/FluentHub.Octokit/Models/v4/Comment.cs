@@ -114,23 +114,23 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class Comment : IComment
 	{
-		public IActor Author { get; set; }
+		public IActor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
-		public string BodyHTML { get; set; }
+		public string? BodyHTML { get; set; }
 
-		public string BodyText { get; set; }
+		public string? BodyText { get; set; }
 
 		public DateTimeOffset CreatedAt { get; set; }
 
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		public bool CreatedViaEmail { get; set; }
 
-		public IActor Editor { get; set; }
+		public IActor? Editor { get; set; }
 
 		public ID Id { get; set; }
 
@@ -138,17 +138,17 @@ namespace FluentHub.Octokit.Models.v4
 
 		public DateTimeOffset? LastEditedAt { get; set; }
 
-		public string LastEditedAtHumanized { get; set; }
+		public string? LastEditedAtHumanized { get; set; }
 
 		public DateTimeOffset? PublishedAt { get; set; }
 
-		public string PublishedAtHumanized { get; set; }
+		public string? PublishedAtHumanized { get; set; }
 
 		public DateTimeOffset UpdatedAt { get; set; }
 
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
-		public UserContentEditConnection UserContentEdits { get; set; }
+		public UserContentEditConnection? UserContentEdits { get; set; }
 
 		public bool ViewerDidAuthor { get; set; }
 	}

@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the protection rule pattern.
 		/// </summary>
-		public string Pattern { get; set; }
+		public string? Pattern { get; set; }
 
 		/// <summary>
 		/// Number of approving reviews required to update matching branches.
@@ -36,7 +36,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// List of required status check contexts that must pass for commits to be accepted to matching branches.
 		/// </summary>
-		public List<string> RequiredStatusCheckContexts { get; set; }
+		public List<string>? RequiredStatusCheckContexts { get; set; }
 
 		/// <summary>
 		/// Are reviews from code owners required to update matching branches.

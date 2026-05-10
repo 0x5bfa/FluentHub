@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Any problems that were encountered while parsing the `CODEOWNERS` file.
 		/// </summary>
-		public List<RepositoryCodeownersError> Errors { get; set; }
+		public List<RepositoryCodeownersError>? Errors { get; set; }
 	}
 }

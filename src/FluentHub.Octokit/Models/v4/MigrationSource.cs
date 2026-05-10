@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The migration source name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The migration source type.
@@ -26,6 +26,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The migration source URL, for example `https://github.com` or `https://monalisa.ghe.com`.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

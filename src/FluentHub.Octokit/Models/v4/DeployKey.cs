@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DeployKey object
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The deploy key.
 		/// </summary>
-		public string Key { get; set; }
+		public string? Key { get; set; }
 
 		/// <summary>
 		/// Whether or not the deploy key is read only.
@@ -36,7 +36,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The deploy key title.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// Whether or not the deploy key has been verified.

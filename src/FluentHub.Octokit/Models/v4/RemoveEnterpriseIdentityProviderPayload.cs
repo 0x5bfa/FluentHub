@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The identity provider that was removed from the enterprise.
 		/// </summary>
-		public EnterpriseIdentityProvider IdentityProvider { get; set; }
+		public EnterpriseIdentityProvider? IdentityProvider { get; set; }
 	}
 }

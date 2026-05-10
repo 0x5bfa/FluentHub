@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the option
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The display color of the option
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The description text of the option
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 	}
 }

@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The enterprise that owns the created organization.
 		/// </summary>
-		public Enterprise Enterprise { get; set; }
+		public Enterprise? Enterprise { get; set; }
 
 		/// <summary>
 		/// The organization that was created.
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 	}
 }

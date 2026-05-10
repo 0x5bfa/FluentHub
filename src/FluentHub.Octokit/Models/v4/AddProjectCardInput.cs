@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ProjectColumn.
@@ -26,6 +26,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The note on the card.
 		/// </summary>
-		public string Note { get; set; }
+		public string? Note { get; set; }
 	}
 }

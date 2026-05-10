@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the Project to add the draft issue to.
@@ -21,16 +21,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The title of the draft issue. A project item can also be created by providing the URL of an Issue or Pull Request if you have access.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The body of the draft issue.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The IDs of the assignees of the draft issue.
 		/// </summary>
-		public List<ID> AssigneeIds { get; set; }
+		public List<ID>? AssigneeIds { get; set; }
 	}
 }

@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Tools that must provide code scanning results for this rule to pass.
 		/// </summary>
-		public List<CodeScanningToolInput> CodeScanningTools { get; set; }
+		public List<CodeScanningToolInput>? CodeScanningTools { get; set; }
 	}
 }

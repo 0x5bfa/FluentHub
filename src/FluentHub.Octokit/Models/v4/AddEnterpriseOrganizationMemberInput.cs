@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the enterprise which owns the organization.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The IDs of the enterprise members to add.
 		/// </summary>
-		public List<ID> UserIds { get; set; }
+		public List<ID>? UserIds { get; set; }
 
 		/// <summary>
 		/// The role to assign the users in the organization

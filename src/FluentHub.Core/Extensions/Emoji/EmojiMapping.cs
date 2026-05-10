@@ -1703,9 +1703,9 @@ namespace FluentHub.Core.Extensions.Emoji
 
 		public static string GetUnicode(string shortCode)
 		{
-			DefaultShortCodeToUnicode.TryGetValue(shortCode, out string value);
+			DefaultShortCodeToUnicode.TryGetValue(shortCode, out var value);
 
-			return value;
+			return value ?? string.Empty;
 		}
 	}
 }

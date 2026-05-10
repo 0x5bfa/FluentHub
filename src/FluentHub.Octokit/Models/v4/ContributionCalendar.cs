@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of hex color codes used in this calendar. The darker the color, the more contributions it represents.
 		/// </summary>
-		public List<string> Colors { get; set; }
+		public List<string>? Colors { get; set; }
 
 		/// <summary>
 		/// Determine if the color set was chosen because it's currently Halloween.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of the months of contributions in this calendar.
 		/// </summary>
-		public List<ContributionCalendarMonth> Months { get; set; }
+		public List<ContributionCalendarMonth>? Months { get; set; }
 
 		/// <summary>
 		/// The count of total contributions in the calendar.
@@ -31,6 +31,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of the weeks of contributions in this calendar.
 		/// </summary>
-		public List<ContributionCalendarWeek> Weeks { get; set; }
+		public List<ContributionCalendarWeek>? Weeks { get; set; }
 	}
 }

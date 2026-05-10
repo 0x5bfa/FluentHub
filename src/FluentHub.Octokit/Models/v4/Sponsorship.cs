@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Sponsorship object
@@ -42,7 +42,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// The entity that is being sponsored
 		/// </summary>
 		[Obsolete(@"`Sponsorship.maintainer` will be removed. Use `Sponsorship.sponsorable` instead. Removal on 2020-04-01 UTC.")]
-		public User Maintainer { get; set; }
+		public User? Maintainer { get; set; }
 
 		/// <summary>
 		/// The platform that was most recently used to pay for the sponsorship.
@@ -58,22 +58,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// The user that is sponsoring. Returns null if the sponsorship is private or if sponsor is not a user.
 		/// </summary>
 		[Obsolete(@"`Sponsorship.sponsor` will be removed. Use `Sponsorship.sponsorEntity` instead. Removal on 2020-10-01 UTC.")]
-		public User Sponsor { get; set; }
+		public User? Sponsor { get; set; }
 
 		/// <summary>
 		/// The user or organization that is sponsoring, if you have permission to view them.
 		/// </summary>
-		public Sponsor SponsorEntity { get; set; }
+		public Sponsor? SponsorEntity { get; set; }
 
 		/// <summary>
 		/// The entity that is being sponsored
 		/// </summary>
-		public ISponsorable Sponsorable { get; set; }
+		public ISponsorable? Sponsorable { get; set; }
 
 		/// <summary>
 		/// The associated sponsorship tier
 		/// </summary>
-		public SponsorsTier Tier { get; set; }
+		public SponsorsTier? Tier { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the current tier was chosen for this sponsorship.
@@ -83,6 +83,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the current tier was chosen for this sponsorship."
 		/// <summary>
-		public string TierSelectedAtHumanized { get; set; }
+		public string? TierSelectedAtHumanized { get; set; }
 	}
 }

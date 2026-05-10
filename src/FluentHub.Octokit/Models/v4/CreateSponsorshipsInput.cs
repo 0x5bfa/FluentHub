@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The username of the user or organization who is acting as the sponsor, paying for the sponsorships.
 		/// </summary>
-		public string SponsorLogin { get; set; }
+		public string? SponsorLogin { get; set; }
 
 		/// <summary>
 		/// The list of maintainers to sponsor and for how much apiece.
 		/// </summary>
-		public List<BulkSponsorship> Sponsorships { get; set; }
+		public List<BulkSponsorship>? Sponsorships { get; set; }
 
 		/// <summary>
 		/// Whether the sponsor should receive email updates from the sponsorables.

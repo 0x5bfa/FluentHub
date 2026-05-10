@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the enterprise to which you want to invite an administrator.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The login of a user to invite as an administrator.
 		/// </summary>
-		public string Invitee { get; set; }
+		public string? Invitee { get; set; }
 
 		/// <summary>
 		/// The email of the person to invite as an administrator.
 		/// </summary>
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		/// <summary>
 		/// The role of the administrator.

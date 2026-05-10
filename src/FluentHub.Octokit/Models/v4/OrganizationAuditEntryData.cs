@@ -35,13 +35,13 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class OrganizationAuditEntryData : IOrganizationAuditEntryData
 	{
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
-		public string OrganizationName { get; set; }
+		public string? OrganizationName { get; set; }
 
-		public string OrganizationResourcePath { get; set; }
+		public string? OrganizationResourcePath { get; set; }
 
-		public string OrganizationUrl { get; set; }
+		public string? OrganizationUrl { get; set; }
 	}
 }
 

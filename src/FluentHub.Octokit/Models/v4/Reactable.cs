@@ -50,9 +50,9 @@ namespace FluentHub.Octokit.Models.v4
 
 		public ID Id { get; set; }
 
-		public List<ReactionGroup> ReactionGroups { get; set; }
+		public List<ReactionGroup>? ReactionGroups { get; set; }
 
-		public ReactionConnection Reactions { get; set; }
+		public ReactionConnection? Reactions { get; set; }
 
 		public bool ViewerCanReact { get; set; }
 	}

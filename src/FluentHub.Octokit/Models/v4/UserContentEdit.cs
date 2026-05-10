@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was deleted.
@@ -26,17 +26,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was deleted."
 		/// <summary>
-		public string DeletedAtHumanized { get; set; }
+		public string? DeletedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who deleted this content
 		/// </summary>
-		public IActor DeletedBy { get; set; }
+		public IActor? DeletedBy { get; set; }
 
 		/// <summary>
 		/// A summary of the changes for this edit
 		/// </summary>
-		public string Diff { get; set; }
+		public string? Diff { get; set; }
 
 		/// <summary>
 		/// When this content was edited
@@ -46,12 +46,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "When this content was edited"
 		/// <summary>
-		public string EditedAtHumanized { get; set; }
+		public string? EditedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who edited this content
 		/// </summary>
-		public IActor Editor { get; set; }
+		public IActor? Editor { get; set; }
 
 		/// <summary>
 		/// The Node ID of the UserContentEdit object
@@ -66,6 +66,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

@@ -11,22 +11,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The migration source name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The migration source URL, for example `https://github.com` or `https://monalisa.ghe.com`.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// The migration source access token.
 		/// </summary>
-		public string AccessToken { get; set; }
+		public string? AccessToken { get; set; }
 
 		/// <summary>
 		/// The migration source type.
@@ -41,6 +41,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The GitHub personal access token of the user importing to the target repository.
 		/// </summary>
-		public string GithubPat { get; set; }
+		public string? GithubPat { get; set; }
 	}
 }

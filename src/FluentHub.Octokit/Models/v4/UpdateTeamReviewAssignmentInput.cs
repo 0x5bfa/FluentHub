@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the team to update review assignments of
@@ -56,6 +56,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// An array of team member IDs to exclude
 		/// </summary>
-		public List<ID> ExcludedTeamMemberIds { get; set; }
+		public List<ID>? ExcludedTeamMemberIds { get; set; }
 	}
 }

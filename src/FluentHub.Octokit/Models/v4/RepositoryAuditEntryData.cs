@@ -35,13 +35,13 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class RepositoryAuditEntryData : IRepositoryAuditEntryData
 	{
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
-		public string RepositoryName { get; set; }
+		public string? RepositoryName { get; set; }
 
-		public string RepositoryResourcePath { get; set; }
+		public string? RepositoryResourcePath { get; set; }
 
-		public string RepositoryUrl { get; set; }
+		public string? RepositoryUrl { get; set; }
 	}
 }
 

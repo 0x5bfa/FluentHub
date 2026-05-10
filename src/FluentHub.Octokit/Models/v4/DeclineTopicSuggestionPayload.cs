@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The declined topic.
 		/// </summary>
 		[Obsolete(@"Suggested topics are no longer supported Removal on 2024-04-01 UTC.")]
-		public Topic Topic { get; set; }
+		public Topic? Topic { get; set; }
 	}
 }

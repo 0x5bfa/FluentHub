@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The list of ranges from a Git blame.
 		/// </summary>
-		public List<BlameRange> Ranges { get; set; }
+		public List<BlameRange>? Ranges { get; set; }
 	}
 }

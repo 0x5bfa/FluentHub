@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The node ID of the environment.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The ids of users or teams that can approve deployments to this environment
 		/// </summary>
-		public List<ID> Reviewers { get; set; }
+		public List<ID>? Reviewers { get; set; }
 
 		/// <summary>
 		/// Whether deployments to this environment can be approved by the user who created the deployment.

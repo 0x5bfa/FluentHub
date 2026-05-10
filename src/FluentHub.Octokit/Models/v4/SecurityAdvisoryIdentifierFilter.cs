@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The identifier string. Supports exact or partial matching.
 		/// </summary>
-		public string Value { get; set; }
+		public string? Value { get; set; }
 	}
 }

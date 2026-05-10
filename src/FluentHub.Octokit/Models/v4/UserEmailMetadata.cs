@@ -16,11 +16,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Type of email
 		/// </summary>
-		public string Type { get; set; }
+		public string? Type { get; set; }
 
 		/// <summary>
 		/// Email id
 		/// </summary>
-		public string Value { get; set; }
+		public string? Value { get; set; }
 	}
 }

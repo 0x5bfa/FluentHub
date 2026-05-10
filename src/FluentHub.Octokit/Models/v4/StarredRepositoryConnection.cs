@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<StarredRepositoryEdge> Edges { get; set; }
+		public List<StarredRepositoryEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// Is the list of stars for this user truncated? This is true for users that have many stars.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<Repository> Nodes { get; set; }
+		public List<Repository>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.

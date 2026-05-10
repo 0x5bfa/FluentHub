@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The text to set on the field.
 		/// </summary>
-		public string Text { get; set; }
+		public string? Text { get; set; }
 
 		/// <summary>
 		/// The number to set on the field.
@@ -21,16 +21,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The ISO 8601 date to set on the field.
 		/// </summary>
-		public string Date { get; set; }
+		public string? Date { get; set; }
 
 		/// <summary>
 		/// The id of the single select option to set on the field.
 		/// </summary>
-		public string SingleSelectOptionId { get; set; }
+		public string? SingleSelectOptionId { get; set; }
 
 		/// <summary>
 		/// The id of the iteration to set on the field.
 		/// </summary>
-		public string IterationId { get; set; }
+		public string? IterationId { get; set; }
 	}
 }

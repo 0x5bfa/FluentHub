@@ -11,21 +11,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Configuration for the ref_name condition
 		/// </summary>
-		public RefNameConditionTargetInput RefName { get; set; }
+		public RefNameConditionTargetInput? RefName { get; set; }
 
 		/// <summary>
 		/// Configuration for the repository_name condition
 		/// </summary>
-		public RepositoryNameConditionTargetInput RepositoryName { get; set; }
+		public RepositoryNameConditionTargetInput? RepositoryName { get; set; }
 
 		/// <summary>
 		/// Configuration for the repository_id condition
 		/// </summary>
-		public RepositoryIdConditionTargetInput RepositoryId { get; set; }
+		public RepositoryIdConditionTargetInput? RepositoryId { get; set; }
 
 		/// <summary>
 		/// Configuration for the repository_property condition
 		/// </summary>
-		public RepositoryPropertyConditionTargetInput RepositoryProperty { get; set; }
+		public RepositoryPropertyConditionTargetInput? RepositoryProperty { get; set; }
 	}
 }

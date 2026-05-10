@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The extension of the file
 		/// </summary>
-		public string Extension { get; set; }
+		public string? Extension { get; set; }
 
 		/// <summary>
 		/// Whether or not this tree entry is generated
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The programming language this file is written in.
 		/// </summary>
-		public Language Language { get; set; }
+		public Language? Language { get; set; }
 
 		/// <summary>
 		/// Number of lines in the file.
@@ -36,37 +36,37 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Entry file name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Entry file name. (Base64-encoded)
 		/// </summary>
-		public string NameRaw { get; set; }
+		public string? NameRaw { get; set; }
 
 		/// <summary>
 		/// Entry file object.
 		/// </summary>
-		public IGitObject Object { get; set; }
+		public IGitObject? Object { get; set; }
 
 		/// <summary>
 		/// Entry file Git object ID.
 		/// </summary>
-		public string Oid { get; set; }
+		public string? Oid { get; set; }
 
 		/// <summary>
 		/// The full path of the file.
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The full path of the file. (Base64-encoded)
 		/// </summary>
-		public string PathRaw { get; set; }
+		public string? PathRaw { get; set; }
 
 		/// <summary>
 		/// The Repository the tree entry belongs to
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// Entry byte size
@@ -76,11 +76,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// If the TreeEntry is for a directory occupied by a submodule project, this returns the corresponding submodule
 		/// </summary>
-		public Submodule Submodule { get; set; }
+		public Submodule? Submodule { get; set; }
 
 		/// <summary>
 		/// Entry file type.
 		/// </summary>
-		public string Type { get; set; }
+		public string? Type { get; set; }
 	}
 }

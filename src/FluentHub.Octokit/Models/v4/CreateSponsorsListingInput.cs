@@ -11,22 +11,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The username of the organization to create a GitHub Sponsors profile for, if desired. Defaults to creating a GitHub Sponsors profile for the authenticated user if omitted.
 		/// </summary>
-		public string SponsorableLogin { get; set; }
+		public string? SponsorableLogin { get; set; }
 
 		/// <summary>
 		/// The username of the supported fiscal host's GitHub organization, if you want to receive sponsorship payouts through a fiscal host rather than directly to a bank account. For example, 'Open-Source-Collective' for Open Source Collective or 'numfocus' for numFOCUS. Case insensitive. See https://docs.github.com/sponsors/receiving-sponsorships-through-github-sponsors/using-a-fiscal-host-to-receive-github-sponsors-payouts for more information.
 		/// </summary>
-		public string FiscalHostLogin { get; set; }
+		public string? FiscalHostLogin { get; set; }
 
 		/// <summary>
 		/// The URL for your profile page on the fiscal host's website, e.g., https://opencollective.com/babel or https://numfocus.org/project/bokeh. Required if fiscalHostLogin is specified.
 		/// </summary>
-		public string FiscallyHostedProjectProfileUrl { get; set; }
+		public string? FiscallyHostedProjectProfileUrl { get; set; }
 
 		/// <summary>
 		/// The country or region where the sponsorable's bank account is located. Required if fiscalHostLogin is not specified, ignored when fiscalHostLogin is specified.
@@ -41,11 +41,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The email address we should use to contact you about the GitHub Sponsors profile being created. This will not be shared publicly. Must be a verified email address already on your GitHub account. Only relevant when the sponsorable is yourself. Defaults to your primary email address on file if omitted.
 		/// </summary>
-		public string ContactEmail { get; set; }
+		public string? ContactEmail { get; set; }
 
 		/// <summary>
 		/// Provide an introduction to serve as the main focus that appears on your GitHub Sponsors profile. It's a great opportunity to help potential sponsors learn more about you, your work, and why their sponsorship is important to you. GitHub-flavored Markdown is supported.
 		/// </summary>
-		public string FullDescription { get; set; }
+		public string? FullDescription { get; set; }
 	}
 }

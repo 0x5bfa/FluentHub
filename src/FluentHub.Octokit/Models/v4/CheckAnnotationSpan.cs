@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// End position (inclusive).
 		/// </summary>
-		public CheckAnnotationPosition End { get; set; }
+		public CheckAnnotationPosition? End { get; set; }
 
 		/// <summary>
 		/// Start position (inclusive).
 		/// </summary>
-		public CheckAnnotationPosition Start { get; set; }
+		public CheckAnnotationPosition? Start { get; set; }
 	}
 }

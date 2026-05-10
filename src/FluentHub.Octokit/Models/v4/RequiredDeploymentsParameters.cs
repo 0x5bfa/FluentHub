@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The environments that must be successfully deployed to before branches can be merged.
 		/// </summary>
-		public List<string> RequiredDeploymentEnvironments { get; set; }
+		public List<string>? RequiredDeploymentEnvironments { get; set; }
 	}
 }

@@ -31,22 +31,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The tier that the sponsorship used to use, for tier change events.
 		/// </summary>
-		public SponsorsTier PreviousSponsorsTier { get; set; }
+		public SponsorsTier? PreviousSponsorsTier { get; set; }
 
 		/// <summary>
 		/// The user or organization who triggered this activity and was/is sponsoring the sponsorable.
 		/// </summary>
-		public Sponsor Sponsor { get; set; }
+		public Sponsor? Sponsor { get; set; }
 
 		/// <summary>
 		/// The user or organization that is being sponsored, the maintainer.
 		/// </summary>
-		public ISponsorable Sponsorable { get; set; }
+		public ISponsorable? Sponsorable { get; set; }
 
 		/// <summary>
 		/// The associated sponsorship tier.
 		/// </summary>
-		public SponsorsTier SponsorsTier { get; set; }
+		public SponsorsTier? SponsorsTier { get; set; }
 
 		/// <summary>
 		/// The timestamp of this event.
@@ -56,7 +56,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The timestamp of this event."
 		/// <summary>
-		public string TimestampHumanized { get; set; }
+		public string? TimestampHumanized { get; set; }
 
 		/// <summary>
 		/// Was this sponsorship made alongside other sponsorships at the same time from the same sponsor?

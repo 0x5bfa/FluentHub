@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A string describing this context
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 		/// <summary>
 		/// An octicon to accompany this context
 		/// </summary>
-		public string Octicon { get; set; }
+		public string? Octicon { get; set; }
 
 		/// <summary>
 		/// Organizations this user is a member of that are relevant
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for the User's organizations.</param>
-		public OrganizationConnection RelevantOrganizations { get; set; }
+		public OrganizationConnection? RelevantOrganizations { get; set; }
 
 		/// <summary>
 		/// The total number of organizations this user is in

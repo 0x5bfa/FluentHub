@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<SubmoduleEdge> Edges { get; set; }
+		public List<SubmoduleEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<Submodule> Nodes { get; set; }
+		public List<Submodule>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.

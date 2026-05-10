@@ -16,11 +16,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for contributions returned from the connection.</param>
-		public CreatedIssueContributionConnection Contributions { get; set; }
+		public CreatedIssueContributionConnection? Contributions { get; set; }
 
 		/// <summary>
 		/// The repository in which the issues were opened.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

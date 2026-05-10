@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A cursor for use in pagination.
 		/// </summary>
-		public string Cursor { get; set; }
+		public string? Cursor { get; set; }
 
 		/// <summary>
 		/// The item at the end of the edge.
 		/// </summary>
-		public SearchResultItem Node { get; set; }
+		public SearchResultItem? Node { get; set; }
 
 		/// <summary>
 		/// Text matches on the result found.
 		/// </summary>
-		public List<TextMatch> TextMatches { get; set; }
+		public List<TextMatch>? TextMatches { get; set; }
 	}
 }

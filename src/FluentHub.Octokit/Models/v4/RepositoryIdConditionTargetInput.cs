@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// One of these repo IDs must match the repo.
 		/// </summary>
-		public List<ID> RepositoryIds { get; set; }
+		public List<ID>? RepositoryIds { get; set; }
 	}
 }

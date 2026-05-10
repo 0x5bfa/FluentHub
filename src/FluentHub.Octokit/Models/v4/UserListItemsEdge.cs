@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A cursor for use in pagination.
 		/// </summary>
-		public string Cursor { get; set; }
+		public string? Cursor { get; set; }
 
 		/// <summary>
 		/// The item at the end of the edge.
 		/// </summary>
-		public UserListItems Node { get; set; }
+		public UserListItems? Node { get; set; }
 	}
 }

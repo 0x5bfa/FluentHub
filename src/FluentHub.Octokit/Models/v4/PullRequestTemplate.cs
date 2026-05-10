@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The body of the template
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The filename of the template
 		/// </summary>
-		public string Filename { get; set; }
+		public string? Filename { get; set; }
 
 		/// <summary>
 		/// The repository the template belongs to
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

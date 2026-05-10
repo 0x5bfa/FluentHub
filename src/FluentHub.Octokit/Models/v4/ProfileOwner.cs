@@ -88,27 +88,27 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public bool AnyPinnableItems { get; set; }
 
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		public ID Id { get; set; }
 
-		public ProfileItemShowcase ItemShowcase { get; set; }
+		public ProfileItemShowcase? ItemShowcase { get; set; }
 
-		public string Location { get; set; }
+		public string? Location { get; set; }
 
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
-		public PinnableItemConnection PinnableItems { get; set; }
+		public PinnableItemConnection? PinnableItems { get; set; }
 
-		public PinnableItemConnection PinnedItems { get; set; }
+		public PinnableItemConnection? PinnedItems { get; set; }
 
 		public int PinnedItemsRemaining { get; set; }
 
 		public bool ViewerCanChangePinnedItems { get; set; }
 
-		public string WebsiteUrl { get; set; }
+		public string? WebsiteUrl { get; set; }
 	}
 }
 

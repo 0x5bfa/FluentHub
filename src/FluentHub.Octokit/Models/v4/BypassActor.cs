@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A GitHub App.
 		/// </summary>
-		public App App { get; set; }
+		public App? App { get; set; }
 
 		/// <summary>
 		/// A team of users in an organization.
 		/// </summary>
-		public Team Team { get; set; }
+		public Team? Team { get; set; }
 	}
 }

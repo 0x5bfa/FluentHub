@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// How this rule will appear to users.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// If true, the rule will fail if the pattern matches.
@@ -21,11 +21,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The operator to use for matching.
 		/// </summary>
-		public string Operator { get; set; }
+		public string? Operator { get; set; }
 
 		/// <summary>
 		/// The pattern to match with.
 		/// </summary>
-		public string Pattern { get; set; }
+		public string? Pattern { get; set; }
 	}
 }

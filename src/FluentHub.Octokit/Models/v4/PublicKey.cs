@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The last time this authorization was used to perform an action. Values will be null for keys not owned by the user."
 		/// <summary>
-		public string AccessedAtHumanized { get; set; }
+		public string? AccessedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the key was created. Keys created before March 5th, 2014 have inaccurate values. Values will be null for keys not owned by the user.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the key was created. Keys created before March 5th, 2014 have inaccurate values. Values will be null for keys not owned by the user."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The fingerprint for this PublicKey.
 		/// </summary>
-		public string Fingerprint { get; set; }
+		public string? Fingerprint { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PublicKey object
@@ -46,7 +46,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The public key string.
 		/// </summary>
-		public string Key { get; set; }
+		public string? Key { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the key was updated. Keys created before March 5th, 2014 may have inaccurate values. Values will be null for keys not owned by the user.
@@ -56,6 +56,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the key was updated. Keys created before March 5th, 2014 may have inaccurate values. Values will be null for keys not owned by the user."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

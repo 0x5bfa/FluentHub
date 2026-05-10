@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The fully qualified name of the ref to be update. For example `refs/heads/branch-name`
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The value this ref should be updated to.
 		/// </summary>
-		public string AfterOid { get; set; }
+		public string? AfterOid { get; set; }
 
 		/// <summary>
 		/// The value this ref needs to point to before the update.
 		/// </summary>
-		public string BeforeOid { get; set; }
+		public string? BeforeOid { get; set; }
 
 		/// <summary>
 		/// Force a non fast-forward update.

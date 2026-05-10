@@ -165,27 +165,27 @@ namespace FluentHub.Octokit.Models.v4
 
 		public bool IsSponsoringViewer { get; set; }
 
-		public SponsorAndLifetimeValueConnection LifetimeReceivedSponsorshipValues { get; set; }
+		public SponsorAndLifetimeValueConnection? LifetimeReceivedSponsorshipValues { get; set; }
 
 		public int MonthlyEstimatedSponsorsIncomeInCents { get; set; }
 
-		public SponsorConnection Sponsoring { get; set; }
+		public SponsorConnection? Sponsoring { get; set; }
 
-		public SponsorConnection Sponsors { get; set; }
+		public SponsorConnection? Sponsors { get; set; }
 
-		public SponsorsActivityConnection SponsorsActivities { get; set; }
+		public SponsorsActivityConnection? SponsorsActivities { get; set; }
 
-		public SponsorsListing SponsorsListing { get; set; }
+		public SponsorsListing? SponsorsListing { get; set; }
 
-		public Sponsorship SponsorshipForViewerAsSponsor { get; set; }
+		public Sponsorship? SponsorshipForViewerAsSponsor { get; set; }
 
-		public Sponsorship SponsorshipForViewerAsSponsorable { get; set; }
+		public Sponsorship? SponsorshipForViewerAsSponsorable { get; set; }
 
-		public SponsorshipNewsletterConnection SponsorshipNewsletters { get; set; }
+		public SponsorshipNewsletterConnection? SponsorshipNewsletters { get; set; }
 
-		public SponsorshipConnection SponsorshipsAsMaintainer { get; set; }
+		public SponsorshipConnection? SponsorshipsAsMaintainer { get; set; }
 
-		public SponsorshipConnection SponsorshipsAsSponsor { get; set; }
+		public SponsorshipConnection? SponsorshipsAsSponsor { get; set; }
 
 		public int? TotalSponsorshipAmountAsSponsorInCents { get; set; }
 

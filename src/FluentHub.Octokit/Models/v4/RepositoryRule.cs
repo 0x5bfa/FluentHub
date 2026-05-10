@@ -16,12 +16,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The parameters for this rule.
 		/// </summary>
-		public RuleParameters Parameters { get; set; }
+		public RuleParameters? Parameters { get; set; }
 
 		/// <summary>
 		/// The repository ruleset associated with this rule configuration
 		/// </summary>
-		public RepositoryRuleset RepositoryRuleset { get; set; }
+		public RepositoryRuleset? RepositoryRuleset { get; set; }
 
 		/// <summary>
 		/// The type of rule.

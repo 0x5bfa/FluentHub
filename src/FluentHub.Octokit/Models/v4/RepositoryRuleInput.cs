@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The parameters for the rule.
 		/// </summary>
-		public RuleParametersInput Parameters { get; set; }
+		public RuleParametersInput? Parameters { get; set; }
 	}
 }

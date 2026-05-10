@@ -12,7 +12,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// A URL pointing to the enterprise user account's public avatar.
 		/// </summary>
 		/// <param name="size">The size of the resulting square image.</param>
-		public string AvatarUrl { get; set; }
+		public string? AvatarUrl { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -22,12 +22,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The enterprise in which this user account exists.
 		/// </summary>
-		public Enterprise Enterprise { get; set; }
+		public Enterprise? Enterprise { get; set; }
 
 		/// <summary>
 		/// A list of Enterprise Server installations this user is a member of.
@@ -39,7 +39,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for installations returned from the connection.</param>
 		/// <param name="query">The search string to look for.</param>
 		/// <param name="role">The role of the user in the installation.</param>
-		public EnterpriseServerInstallationMembershipConnection EnterpriseInstallations { get; set; }
+		public EnterpriseServerInstallationMembershipConnection? EnterpriseInstallations { get; set; }
 
 		/// <summary>
 		/// The Node ID of the EnterpriseUserAccount object
@@ -49,12 +49,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// An identifier for the enterprise user account, a login or email address
 		/// </summary>
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
 		/// <summary>
 		/// The name of the enterprise user account
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// A list of enterprise organizations this user is a member of.
@@ -66,12 +66,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for organizations returned from the connection.</param>
 		/// <param name="query">The search string to look for.</param>
 		/// <param name="role">The role of the user in the enterprise organization.</param>
-		public EnterpriseOrganizationMembershipConnection Organizations { get; set; }
+		public EnterpriseOrganizationMembershipConnection? Organizations { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this user.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -81,16 +81,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this user.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// The user within the enterprise.
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }

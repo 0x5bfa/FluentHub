@@ -16,26 +16,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The SHA after the push
 		/// </summary>
-		public string NextSha { get; set; }
+		public string? NextSha { get; set; }
 
 		/// <summary>
 		/// The permalink for this push.
 		/// </summary>
-		public string Permalink { get; set; }
+		public string? Permalink { get; set; }
 
 		/// <summary>
 		/// The SHA before the push
 		/// </summary>
-		public string PreviousSha { get; set; }
+		public string? PreviousSha { get; set; }
 
 		/// <summary>
 		/// The actor who pushed
 		/// </summary>
-		public IActor Pusher { get; set; }
+		public IActor? Pusher { get; set; }
 
 		/// <summary>
 		/// The repository that was pushed to
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

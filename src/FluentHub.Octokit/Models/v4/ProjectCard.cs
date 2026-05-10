@@ -14,12 +14,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// in a pending state and has yet to be associated with a column. Once cards are
 		/// associated with a column, they will not become pending in the future.
 		/// </summary>
-		public ProjectColumn Column { get; set; }
+		public ProjectColumn? Column { get; set; }
 
 		/// <summary>
 		/// The card content item
 		/// </summary>
-		public ProjectCardItem Content { get; set; }
+		public ProjectCardItem? Content { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -29,12 +29,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who created this card
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -54,17 +54,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The card note
 		/// </summary>
-		public string Note { get; set; }
+		public string? Note { get; set; }
 
 		/// <summary>
 		/// The project that contains this card.
 		/// </summary>
-		public Project Project { get; set; }
+		public Project? Project { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this card
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The state of ProjectCard
@@ -79,11 +79,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this card
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

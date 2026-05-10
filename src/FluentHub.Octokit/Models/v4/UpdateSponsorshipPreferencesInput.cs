@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the user or organization who is acting as the sponsor, paying for the sponsorship. Required if sponsorLogin is not given.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The username of the user or organization who is acting as the sponsor, paying for the sponsorship. Required if sponsorId is not given.
 		/// </summary>
-		public string SponsorLogin { get; set; }
+		public string? SponsorLogin { get; set; }
 
 		/// <summary>
 		/// The ID of the user or organization who is receiving the sponsorship. Required if sponsorableLogin is not given.
@@ -31,7 +31,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The username of the user or organization who is receiving the sponsorship. Required if sponsorableId is not given.
 		/// </summary>
-		public string SponsorableLogin { get; set; }
+		public string? SponsorableLogin { get; set; }
 
 		/// <summary>
 		/// Whether the sponsor should receive email updates from the sponsorable.

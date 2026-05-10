@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The emoji to represent your status. Can either be a native Unicode emoji or an emoji name with colons, e.g., :grinning:.
 		/// </summary>
-		public string Emoji { get; set; }
+		public string? Emoji { get; set; }
 
 		/// <summary>
 		/// A short description of your current status.
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 		/// <summary>
 		/// The ID of the organization whose members will be allowed to see the status. If omitted, the status will be publicly visible.

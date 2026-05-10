@@ -198,15 +198,15 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public DateTimeOffset? ArchivedAt { get; set; }
 
-		public string ArchivedAtHumanized { get; set; }
+		public string? ArchivedAtHumanized { get; set; }
 
 		public DateTimeOffset CreatedAt { get; set; }
 
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
-		public string DescriptionHTML { get; set; }
+		public string? DescriptionHTML { get; set; }
 
 		public int ForkCount { get; set; }
 
@@ -220,7 +220,7 @@ namespace FluentHub.Octokit.Models.v4
 
 		public bool HasWikiEnabled { get; set; }
 
-		public string HomepageUrl { get; set; }
+		public string? HomepageUrl { get; set; }
 
 		public bool IsArchived { get; set; }
 
@@ -236,33 +236,33 @@ namespace FluentHub.Octokit.Models.v4
 
 		public bool IsTemplate { get; set; }
 
-		public License LicenseInfo { get; set; }
+		public License? LicenseInfo { get; set; }
 
 		public RepositoryLockReason? LockReason { get; set; }
 
-		public string MirrorUrl { get; set; }
+		public string? MirrorUrl { get; set; }
 
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
-		public string NameWithOwner { get; set; }
+		public string? NameWithOwner { get; set; }
 
-		public string OpenGraphImageUrl { get; set; }
+		public string? OpenGraphImageUrl { get; set; }
 
-		public IRepositoryOwner Owner { get; set; }
+		public IRepositoryOwner? Owner { get; set; }
 
 		public DateTimeOffset? PushedAt { get; set; }
 
-		public string PushedAtHumanized { get; set; }
+		public string? PushedAtHumanized { get; set; }
 
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
-		public string ShortDescriptionHTML { get; set; }
+		public string? ShortDescriptionHTML { get; set; }
 
 		public DateTimeOffset UpdatedAt { get; set; }
 
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		public bool UsesCustomOpenGraphImage { get; set; }
 

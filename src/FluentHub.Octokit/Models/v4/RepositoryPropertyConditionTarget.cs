@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Array of repository properties that must not match.
 		/// </summary>
-		public List<PropertyTargetDefinition> Exclude { get; set; }
+		public List<PropertyTargetDefinition>? Exclude { get; set; }
 
 		/// <summary>
 		/// Array of repository properties that must match
 		/// </summary>
-		public List<PropertyTargetDefinition> Include { get; set; }
+		public List<PropertyTargetDefinition>? Include { get; set; }
 	}
 }

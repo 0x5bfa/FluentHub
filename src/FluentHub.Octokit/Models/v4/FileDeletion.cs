@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The path to delete
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 	}
 }

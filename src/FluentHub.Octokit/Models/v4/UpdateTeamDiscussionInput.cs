@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the discussion to modify.
@@ -21,17 +21,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The updated title of the discussion.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The updated text of the discussion.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The current version of the body content. If provided, this update operation will be rejected if the given version does not match the latest version on the server.
 		/// </summary>
-		public string BodyVersion { get; set; }
+		public string? BodyVersion { get; set; }
 
 		/// <summary>
 		/// If provided, sets the pinned state of the updated discussion.

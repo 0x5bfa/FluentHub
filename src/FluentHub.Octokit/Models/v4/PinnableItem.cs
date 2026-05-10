@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A Gist.
 		/// </summary>
-		public Gist Gist { get; set; }
+		public Gist? Gist { get; set; }
 
 		/// <summary>
 		/// A repository contains the content for a project.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

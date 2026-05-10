@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The identifier type, e.g. GHSA, CVE
 		/// </summary>
-		public string Type { get; set; }
+		public string? Type { get; set; }
 
 		/// <summary>
 		/// The identifier
 		/// </summary>
-		public string Value { get; set; }
+		public string? Value { get; set; }
 	}
 }

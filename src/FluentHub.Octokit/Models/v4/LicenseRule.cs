@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A description of the rule
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The machine-readable rule key
 		/// </summary>
-		public string Key { get; set; }
+		public string? Key { get; set; }
 
 		/// <summary>
 		/// The human-readable rule label
 		/// </summary>
-		public string Label { get; set; }
+		public string? Label { get; set; }
 	}
 }

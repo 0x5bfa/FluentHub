@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The verifiable domain that was approved.
 		/// </summary>
-		public VerifiableDomain Domain { get; set; }
+		public VerifiableDomain? Domain { get; set; }
 	}
 }

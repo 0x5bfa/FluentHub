@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class UpdatableComment : IUpdatableComment
 	{
-		public List<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
+		public List<CommentCannotUpdateReason>? ViewerCannotUpdateReasons { get; set; }
 	}
 }
 

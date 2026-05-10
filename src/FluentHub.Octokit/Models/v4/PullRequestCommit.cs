@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The Git commit object
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PullRequestCommit object
@@ -21,16 +21,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The pull request this commit belongs to
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this pull request commit
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this pull request commit
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

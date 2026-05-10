@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The CVSS associated with this advisory
 		/// </summary>
-		public CVSS Cvss { get; set; }
+		public CVSS? Cvss { get; set; }
 
 		/// <summary>
 		/// CWEs associated with this Advisory
@@ -25,7 +25,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public CWEConnection Cwes { get; set; }
+		public CWEConnection? Cwes { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -35,12 +35,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// This is a long plaintext description of the advisory
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The GitHub Security Advisory ID
 		/// </summary>
-		public string GhsaId { get; set; }
+		public string? GhsaId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the SecurityAdvisory object
@@ -50,22 +50,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of identifiers for this advisory
 		/// </summary>
-		public List<SecurityAdvisoryIdentifier> Identifiers { get; set; }
+		public List<SecurityAdvisoryIdentifier>? Identifiers { get; set; }
 
 		/// <summary>
 		/// The permalink for the advisory's dependabot alerts page
 		/// </summary>
-		public string NotificationsPermalink { get; set; }
+		public string? NotificationsPermalink { get; set; }
 
 		/// <summary>
 		/// The organization that originated the advisory
 		/// </summary>
-		public string Origin { get; set; }
+		public string? Origin { get; set; }
 
 		/// <summary>
 		/// The permalink for the advisory
 		/// </summary>
-		public string Permalink { get; set; }
+		public string? Permalink { get; set; }
 
 		/// <summary>
 		/// When the advisory was published
@@ -75,12 +75,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "When the advisory was published"
 		/// <summary>
-		public string PublishedAtHumanized { get; set; }
+		public string? PublishedAtHumanized { get; set; }
 
 		/// <summary>
 		/// A list of references for this advisory
 		/// </summary>
-		public List<SecurityAdvisoryReference> References { get; set; }
+		public List<SecurityAdvisoryReference>? References { get; set; }
 
 		/// <summary>
 		/// The severity of the advisory
@@ -90,7 +90,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A short plaintext summary of the advisory
 		/// </summary>
-		public string Summary { get; set; }
+		public string? Summary { get; set; }
 
 		/// <summary>
 		/// When the advisory was last updated
@@ -100,7 +100,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "When the advisory was last updated"
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Vulnerabilities associated with this Advisory
@@ -114,7 +114,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="orderBy">Ordering options for the returned topics.</param>
 		/// <param name="package">A package name to filter vulnerabilities by.</param>
 		/// <param name="severities">A list of severities to filter vulnerabilities by.</param>
-		public SecurityVulnerabilityConnection Vulnerabilities { get; set; }
+		public SecurityVulnerabilityConnection? Vulnerabilities { get; set; }
 
 		/// <summary>
 		/// When the advisory was withdrawn, if it has been withdrawn
@@ -124,6 +124,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "When the advisory was withdrawn, if it has been withdrawn"
 		/// <summary>
-		public string WithdrawnAtHumanized { get; set; }
+		public string? WithdrawnAtHumanized { get; set; }
 	}
 }

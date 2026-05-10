@@ -30,11 +30,11 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class OauthApplicationAuditEntryData : IOauthApplicationAuditEntryData
 	{
-		public string OauthApplicationName { get; set; }
+		public string? OauthApplicationName { get; set; }
 
-		public string OauthApplicationResourcePath { get; set; }
+		public string? OauthApplicationResourcePath { get; set; }
 
-		public string OauthApplicationUrl { get; set; }
+		public string? OauthApplicationUrl { get; set; }
 	}
 }
 

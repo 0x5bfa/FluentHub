@@ -25,9 +25,9 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class TopicAuditEntryData : ITopicAuditEntryData
 	{
-		public Topic Topic { get; set; }
+		public Topic? Topic { get; set; }
 
-		public string TopicName { get; set; }
+		public string? TopicName { get; set; }
 	}
 }
 

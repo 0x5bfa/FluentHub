@@ -12,12 +12,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A string describing this context
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
 		/// <summary>
 		/// An octicon to accompany this context
 		/// </summary>
-		public string Octicon { get; set; }
+		public string? Octicon { get; set; }
 
 		/// <summary>
 		/// The current status of the pull request with respect to code review.

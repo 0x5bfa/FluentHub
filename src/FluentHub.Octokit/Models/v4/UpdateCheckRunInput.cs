@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The node ID of the repository.
@@ -26,17 +26,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the check.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The URL of the integrator's site that has the full details of the check.
 		/// </summary>
-		public string DetailsUrl { get; set; }
+		public string? DetailsUrl { get; set; }
 
 		/// <summary>
 		/// A reference for the run on the integrator's system.
 		/// </summary>
-		public string ExternalId { get; set; }
+		public string? ExternalId { get; set; }
 
 		/// <summary>
 		/// The current status.
@@ -61,11 +61,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Descriptive details about the run.
 		/// </summary>
-		public CheckRunOutput Output { get; set; }
+		public CheckRunOutput? Output { get; set; }
 
 		/// <summary>
 		/// Possible further actions the integrator can perform, which a user may trigger.
 		/// </summary>
-		public List<CheckRunAction> Actions { get; set; }
+		public List<CheckRunAction>? Actions { get; set; }
 	}
 }

@@ -11,6 +11,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The file extensions that are restricted from being pushed to the commit graph.
 		/// </summary>
-		public List<string> RestrictedFileExtensions { get; set; }
+		public List<string>? RestrictedFileExtensions { get; set; }
 	}
 }

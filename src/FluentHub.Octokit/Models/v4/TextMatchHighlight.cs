@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The text matched.
 		/// </summary>
-		public string Text { get; set; }
+		public string? Text { get; set; }
 	}
 }

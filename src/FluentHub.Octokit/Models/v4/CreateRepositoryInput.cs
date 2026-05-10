@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The name of the new repository.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The ID of the owner for the new repository.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A short description of the new repository.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// Indicates the repository's visibility level.
@@ -41,7 +41,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL for a web page about this repository.
 		/// </summary>
-		public string HomepageUrl { get; set; }
+		public string? HomepageUrl { get; set; }
 
 		/// <summary>
 		/// Indicates if the repository should have the wiki feature enabled.

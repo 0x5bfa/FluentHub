@@ -16,6 +16,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Email addresses to filter by. Commits authored by any of the specified email addresses will be returned.
 		/// </summary>
-		public List<string> Emails { get; set; }
+		public List<string>? Emails { get; set; }
 	}
 }

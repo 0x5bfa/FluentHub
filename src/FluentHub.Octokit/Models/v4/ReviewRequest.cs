@@ -26,11 +26,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the pull request associated with this review request.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The reviewer that is requested.
 		/// </summary>
-		public RequestedReviewer RequestedReviewer { get; set; }
+		public RequestedReviewer? RequestedReviewer { get; set; }
 	}
 }

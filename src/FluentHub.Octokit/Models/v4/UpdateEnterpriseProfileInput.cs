@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Enterprise ID to update.
@@ -21,21 +21,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the enterprise.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The description of the enterprise.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The URL of the enterprise's website.
 		/// </summary>
-		public string WebsiteUrl { get; set; }
+		public string? WebsiteUrl { get; set; }
 
 		/// <summary>
 		/// The location of the enterprise.
 		/// </summary>
-		public string Location { get; set; }
+		public string? Location { get; set; }
 	}
 }

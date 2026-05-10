@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<GitActorEdge> Edges { get; set; }
+		public List<GitActorEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<GitActor> Nodes { get; set; }
+		public List<GitActor>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.

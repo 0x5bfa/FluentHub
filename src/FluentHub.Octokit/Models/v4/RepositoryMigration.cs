@@ -21,17 +21,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
 		/// </summary>
-		public string DatabaseId { get; set; }
+		public string? DatabaseId { get; set; }
 
 		/// <summary>
 		/// The reason the migration failed.
 		/// </summary>
-		public string FailureReason { get; set; }
+		public string? FailureReason { get; set; }
 
 		/// <summary>
 		/// The Node ID of the RepositoryMigration object
@@ -41,22 +41,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The URL for the migration log (expires 1 day after migration completes).
 		/// </summary>
-		public string MigrationLogUrl { get; set; }
+		public string? MigrationLogUrl { get; set; }
 
 		/// <summary>
 		/// The migration source.
 		/// </summary>
-		public MigrationSource MigrationSource { get; set; }
+		public MigrationSource? MigrationSource { get; set; }
 
 		/// <summary>
 		/// The target repository name.
 		/// </summary>
-		public string RepositoryName { get; set; }
+		public string? RepositoryName { get; set; }
 
 		/// <summary>
 		/// The migration source URL, for example `https://github.com` or `https://monalisa.ghe.com`.
 		/// </summary>
-		public string SourceUrl { get; set; }
+		public string? SourceUrl { get; set; }
 
 		/// <summary>
 		/// The migration state.

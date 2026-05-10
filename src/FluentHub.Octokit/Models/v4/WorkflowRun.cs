@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The check suite this workflow run belongs to.
 		/// </summary>
-		public CheckSuite CheckSuite { get; set; }
+		public CheckSuite? CheckSuite { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -35,17 +35,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public DeploymentReviewConnection DeploymentReviews { get; set; }
+		public DeploymentReviewConnection? DeploymentReviews { get; set; }
 
 		/// <summary>
 		/// The event that triggered the workflow run
 		/// </summary>
-		public string Event { get; set; }
+		public string? Event { get; set; }
 
 		/// <summary>
 		/// The workflow file
 		/// </summary>
-		public WorkflowRunFile File { get; set; }
+		public WorkflowRunFile? File { get; set; }
 
 		/// <summary>
 		/// The Node ID of the WorkflowRun object
@@ -59,12 +59,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public DeploymentRequestConnection PendingDeploymentRequests { get; set; }
+		public DeploymentRequestConnection? PendingDeploymentRequests { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this workflow run
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// A number that uniquely identifies this workflow run in its parent workflow.
@@ -79,16 +79,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this workflow run
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// The workflow executed in this workflow run.
 		/// </summary>
-		public Workflow Workflow { get; set; }
+		public Workflow? Workflow { get; set; }
 	}
 }

@@ -4,10 +4,10 @@
 	{
 		public NotificationSubjectType Type { get; set; }
 
-		public string TypeHumanized { get; set; }
+		public string? TypeHumanized { get; set; }
 
 		public int Number { get; set; }
 
-		public string Title { get; set; }
+		public string? Title { get; set; }
 	}
 }

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The repository this came from
 		/// </summary>
-		public Repository FromRepository { get; set; }
+		public Repository? FromRepository { get; set; }
 
 		/// <summary>
 		/// The Node ID of the TransferredEvent object
@@ -36,6 +36,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the issue associated with the event.
 		/// </summary>
-		public Issue Issue { get; set; }
+		public Issue? Issue { get; set; }
 	}
 }

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the name of the base ref for the pull request after it was changed.
 		/// </summary>
-		public string CurrentRefName { get; set; }
+		public string? CurrentRefName { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -41,11 +41,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the name of the base ref for the pull request before it was changed.
 		/// </summary>
-		public string PreviousRefName { get; set; }
+		public string? PreviousRefName { get; set; }
 
 		/// <summary>
 		/// PullRequest referenced by event.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 	}
 }

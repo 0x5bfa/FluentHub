@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The comment that was minimized.
 		/// </summary>
-		public IMinimizable MinimizedComment { get; set; }
+		public IMinimizable? MinimizedComment { get; set; }
 	}
 }

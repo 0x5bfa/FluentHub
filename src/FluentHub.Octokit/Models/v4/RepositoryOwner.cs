@@ -66,19 +66,19 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class RepositoryOwner : IRepositoryOwner
 	{
-		public string AvatarUrl { get; set; }
+		public string? AvatarUrl { get; set; }
 
 		public ID Id { get; set; }
 
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
-		public RepositoryConnection Repositories { get; set; }
+		public RepositoryConnection? Repositories { get; set; }
 
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }
 

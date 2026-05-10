@@ -79,21 +79,21 @@ namespace FluentHub.Octokit.Models.v4
 
 		public DateTimeOffset CreatedAt { get; set; }
 
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
-		public string DatabaseId { get; set; }
+		public string? DatabaseId { get; set; }
 
-		public string FailureReason { get; set; }
+		public string? FailureReason { get; set; }
 
 		public ID Id { get; set; }
 
-		public string MigrationLogUrl { get; set; }
+		public string? MigrationLogUrl { get; set; }
 
-		public MigrationSource MigrationSource { get; set; }
+		public MigrationSource? MigrationSource { get; set; }
 
-		public string RepositoryName { get; set; }
+		public string? RepositoryName { get; set; }
 
-		public string SourceUrl { get; set; }
+		public string? SourceUrl { get; set; }
 
 		public MigrationState State { get; set; }
 

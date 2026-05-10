@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering of the returned package files.</param>
-		public PackageFileConnection Files { get; set; }
+		public PackageFileConnection? Files { get; set; }
 
 		/// <summary>
 		/// The Node ID of the PackageVersion object
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The package associated with this version.
 		/// </summary>
-		public Package Package { get; set; }
+		public Package? Package { get; set; }
 
 		/// <summary>
 		/// The platform this version was built for.
 		/// </summary>
-		public string Platform { get; set; }
+		public string? Platform { get; set; }
 
 		/// <summary>
 		/// Whether or not this version is a pre-release.
@@ -41,26 +41,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The README of this package version.
 		/// </summary>
-		public string Readme { get; set; }
+		public string? Readme { get; set; }
 
 		/// <summary>
 		/// The release associated with this package version.
 		/// </summary>
-		public Release Release { get; set; }
+		public Release? Release { get; set; }
 
 		/// <summary>
 		/// Statistics about package activity.
 		/// </summary>
-		public PackageVersionStatistics Statistics { get; set; }
+		public PackageVersionStatistics? Statistics { get; set; }
 
 		/// <summary>
 		/// The package version summary.
 		/// </summary>
-		public string Summary { get; set; }
+		public string? Summary { get; set; }
 
 		/// <summary>
 		/// The version string.
 		/// </summary>
-		public string Version { get; set; }
+		public string? Version { get; set; }
 	}
 }

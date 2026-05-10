@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The node ID of the deployment.
@@ -26,17 +26,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A short description of the status. Maximum length of 140 characters.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// If provided, updates the environment of the deploy. Otherwise, does not modify the environment.
 		/// </summary>
-		public string Environment { get; set; }
+		public string? Environment { get; set; }
 
 		/// <summary>
 		/// Sets the URL for accessing your environment.
 		/// </summary>
-		public string EnvironmentUrl { get; set; }
+		public string? EnvironmentUrl { get; set; }
 
 		/// <summary>
 		/// Adds a new inactive status to all non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment.
@@ -46,6 +46,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The log URL to associate with this status.       This URL should contain output to keep the user updated while the task is running       or serve as historical information for what happened in the deployment.
 		/// </summary>
-		public string LogUrl { get; set; }
+		public string? LogUrl { get; set; }
 	}
 }

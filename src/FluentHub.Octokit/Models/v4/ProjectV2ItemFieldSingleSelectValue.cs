@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who created the item.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -36,17 +36,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A plain-text description of the selected single-select option, such as what the option means.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The description of the selected single-select option, including HTML tags.
 		/// </summary>
-		public string DescriptionHTML { get; set; }
+		public string? DescriptionHTML { get; set; }
 
 		/// <summary>
 		/// The project field that contains this value.
 		/// </summary>
-		public ProjectV2FieldConfiguration Field { get; set; }
+		public ProjectV2FieldConfiguration? Field { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ProjectV2ItemFieldSingleSelectValue object
@@ -56,22 +56,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project item that contains this value.
 		/// </summary>
-		public ProjectV2Item Item { get; set; }
+		public ProjectV2Item? Item { get; set; }
 
 		/// <summary>
 		/// The name of the selected single select option.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The html name of the selected single select option.
 		/// </summary>
-		public string NameHTML { get; set; }
+		public string? NameHTML { get; set; }
 
 		/// <summary>
 		/// The id of the selected single select option.
 		/// </summary>
-		public string OptionId { get; set; }
+		public string? OptionId { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -81,6 +81,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

@@ -80,31 +80,31 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class AuditEntry : IAuditEntry
 	{
-		public string Action { get; set; }
+		public string? Action { get; set; }
 
-		public AuditEntryActor Actor { get; set; }
+		public AuditEntryActor? Actor { get; set; }
 
-		public string ActorIp { get; set; }
+		public string? ActorIp { get; set; }
 
-		public ActorLocation ActorLocation { get; set; }
+		public ActorLocation? ActorLocation { get; set; }
 
-		public string ActorLogin { get; set; }
+		public string? ActorLogin { get; set; }
 
-		public string ActorResourcePath { get; set; }
+		public string? ActorResourcePath { get; set; }
 
-		public string ActorUrl { get; set; }
+		public string? ActorUrl { get; set; }
 
-		public string CreatedAt { get; set; }
+		public string? CreatedAt { get; set; }
 
 		public OperationType? OperationType { get; set; }
 
-		public User User { get; set; }
+		public User? User { get; set; }
 
-		public string UserLogin { get; set; }
+		public string? UserLogin { get; set; }
 
-		public string UserResourcePath { get; set; }
+		public string? UserResourcePath { get; set; }
 
-		public string UserUrl { get; set; }
+		public string? UserUrl { get; set; }
 	}
 }
 

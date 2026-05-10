@@ -16,12 +16,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Find the latest version for the package.
 		/// </summary>
-		public PackageVersion LatestVersion { get; set; }
+		public PackageVersion? LatestVersion { get; set; }
 
 		/// <summary>
 		/// Identifies the name of the package.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Identifies the type of the package.
@@ -31,18 +31,18 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The repository this package belongs to.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// Statistics about package activity.
 		/// </summary>
-		public PackageStatistics Statistics { get; set; }
+		public PackageStatistics? Statistics { get; set; }
 
 		/// <summary>
 		/// Find package version by version string.
 		/// </summary>
 		/// <param name="version">The package version.</param>
-		public PackageVersion Version { get; set; }
+		public PackageVersion? Version { get; set; }
 
 		/// <summary>
 		/// list of versions for this package
@@ -52,6 +52,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering of the returned packages.</param>
-		public PackageVersionConnection Versions { get; set; }
+		public PackageVersionConnection? Versions { get; set; }
 	}
 }

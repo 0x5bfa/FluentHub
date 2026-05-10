@@ -12,17 +12,17 @@ namespace FluentHub.Octokit.Models.v3
 		/// <summary>
 		/// A list of edges.
 		/// </summary>
-		public List<NotificationEdge> Edges { get; set; }
+		public List<NotificationEdge>? Edges { get; set; }
 
 		/// <summary>
 		/// A list of nodes.
 		/// </summary>
-		public List<Notification> Nodes { get; set; }
+		public List<Notification>? Nodes { get; set; }
 
 		/// <summary>
 		/// Information to aid in pagination.
 		/// </summary>
-		public PageInfo PageInfo { get; set; }
+		public PageInfo? PageInfo { get; set; }
 
 		/// <summary>
 		/// Identifies the total count of items in the connection.

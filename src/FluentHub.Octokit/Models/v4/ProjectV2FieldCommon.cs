@@ -62,7 +62,7 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public DateTimeOffset CreatedAt { get; set; }
 
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		public ProjectV2FieldType DataType { get; set; }
 
@@ -70,13 +70,13 @@ namespace FluentHub.Octokit.Models.v4
 
 		public ID Id { get; set; }
 
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
-		public ProjectV2 Project { get; set; }
+		public ProjectV2? Project { get; set; }
 
 		public DateTimeOffset UpdatedAt { get; set; }
 
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }
 

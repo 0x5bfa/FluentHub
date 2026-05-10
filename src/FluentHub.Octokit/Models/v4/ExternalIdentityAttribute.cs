@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The attribute metadata as JSON
 		/// </summary>
-		public string Metadata { get; set; }
+		public string? Metadata { get; set; }
 
 		/// <summary>
 		/// The attribute name
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The attribute value
 		/// </summary>
-		public string Value { get; set; }
+		public string? Value { get; set; }
 	}
 }

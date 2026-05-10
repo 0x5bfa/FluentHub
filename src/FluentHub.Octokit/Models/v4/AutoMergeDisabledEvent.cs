@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The user who disabled auto-merge for this Pull Request
 		/// </summary>
-		public User Disabler { get; set; }
+		public User? Disabler { get; set; }
 
 		/// <summary>
 		/// The Node ID of the AutoMergeDisabledEvent object
@@ -36,16 +36,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// PullRequest referenced by event
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The reason auto-merge was disabled
 		/// </summary>
-		public string Reason { get; set; }
+		public string? Reason { get; set; }
 
 		/// <summary>
 		/// The reason_code relating to why auto-merge was disabled
 		/// </summary>
-		public string ReasonCode { get; set; }
+		public string? ReasonCode { get; set; }
 	}
 }

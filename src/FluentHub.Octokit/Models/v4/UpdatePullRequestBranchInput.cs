@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The Node ID of the pull request.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The head ref oid for the upstream branch.
 		/// </summary>
-		public string ExpectedHeadOid { get; set; }
+		public string? ExpectedHeadOid { get; set; }
 
 		/// <summary>
 		/// The update branch method to use. If omitted, defaults to 'MERGE'

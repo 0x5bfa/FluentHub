@@ -15,22 +15,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public UserConnection Assignees { get; set; }
+		public UserConnection? Assignees { get; set; }
 
 		/// <summary>
 		/// The body of the draft issue.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The body of the draft issue rendered to HTML.
 		/// </summary>
-		public string BodyHTML { get; set; }
+		public string? BodyHTML { get; set; }
 
 		/// <summary>
 		/// The body of the draft issue rendered to text.
 		/// </summary>
-		public string BodyText { get; set; }
+		public string? BodyText { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -40,12 +40,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who created this draft issue.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DraftIssue object
@@ -59,7 +59,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public ProjectV2ItemConnection ProjectV2Items { get; set; }
+		public ProjectV2ItemConnection? ProjectV2Items { get; set; }
 
 		/// <summary>
 		/// Projects that link to this draft issue (currently draft issue can be linked to only one project).
@@ -68,12 +68,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public ProjectV2Connection ProjectsV2 { get; set; }
+		public ProjectV2Connection? ProjectsV2 { get; set; }
 
 		/// <summary>
 		/// The title of the draft issue
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -83,6 +83,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

@@ -35,7 +35,7 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public ID Id { get; set; }
 
-		public PackageConnection Packages { get; set; }
+		public PackageConnection? Packages { get; set; }
 	}
 }
 

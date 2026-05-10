@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// When paginating forwards, the cursor to continue.
 		/// </summary>
-		public string EndCursor { get; set; }
+		public string? EndCursor { get; set; }
 
 		/// <summary>
 		/// When paginating forwards, are there more items?
@@ -26,6 +26,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// When paginating backwards, the cursor to continue.
 		/// </summary>
-		public string StartCursor { get; set; }
+		public string? StartCursor { get; set; }
 	}
 }

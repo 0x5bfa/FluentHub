@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor who authored the comment.
 		/// </summary>
-		public IActor Author { get; set; }
+		public IActor? Author { get; set; }
 
 		/// <summary>
 		/// Author's association with the discussion's team.
@@ -22,23 +22,23 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The body as Markdown.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The body rendered to HTML.
 		/// </summary>
-		public string BodyHTML { get; set; }
+		public string? BodyHTML { get; set; }
 
 		/// <summary>
 		/// The body rendered to text.
 		/// </summary>
-		public string BodyText { get; set; }
+		public string? BodyText { get; set; }
 
 		/// <summary>
 		/// Identifies the discussion body hash.
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string BodyVersion { get; set; }
+		public string? BodyVersion { get; set; }
 
 		/// <summary>
 		/// A list of comments on this discussion.
@@ -49,19 +49,19 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="fromComment">When provided, filters the connection such that results begin with the comment with this number.</param>
 		/// <param name="orderBy">Order for connection</param>
-		public TeamDiscussionCommentConnection Comments { get; set; }
+		public TeamDiscussionCommentConnection? Comments { get; set; }
 
 		/// <summary>
 		/// The HTTP path for discussion comments
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string CommentsResourcePath { get; set; }
+		public string? CommentsResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for discussion comments
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string CommentsUrl { get; set; }
+		public string? CommentsUrl { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -71,7 +71,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Check if this comment was created via an email reply.
@@ -86,7 +86,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor who edited the comment.
 		/// </summary>
-		public IActor Editor { get; set; }
+		public IActor? Editor { get; set; }
 
 		/// <summary>
 		/// The Node ID of the TeamDiscussion object
@@ -118,7 +118,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The moment the editor made the last edit"
 		/// <summary>
-		public string LastEditedAtHumanized { get; set; }
+		public string? LastEditedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the discussion within its team.
@@ -134,12 +134,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies when the comment was published at."
 		/// <summary>
-		public string PublishedAtHumanized { get; set; }
+		public string? PublishedAtHumanized { get; set; }
 
 		/// <summary>
 		/// A list of reactions grouped by content left on the subject.
 		/// </summary>
-		public List<ReactionGroup> ReactionGroups { get; set; }
+		public List<ReactionGroup>? ReactionGroups { get; set; }
 
 		/// <summary>
 		/// A list of Reactions left on the Issue.
@@ -150,25 +150,25 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="content">Allows filtering Reactions by emoji.</param>
 		/// <param name="orderBy">Allows specifying the order in which reactions are returned.</param>
-		public ReactionConnection Reactions { get; set; }
+		public ReactionConnection? Reactions { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this discussion
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The team that defines the context of this discussion.
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public Team Team { get; set; }
+		public Team? Team { get; set; }
 
 		/// <summary>
 		/// The title of the discussion
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -178,13 +178,13 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this discussion
 		/// </summary>
 		[Obsolete(@"The Team Discussions feature is deprecated in favor of Organization Discussions. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement. Removal on 2024-07-01 UTC.")]
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// A list of edits to this content.
@@ -193,7 +193,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public UserContentEditConnection UserContentEdits { get; set; }
+		public UserContentEditConnection? UserContentEdits { get; set; }
 
 		/// <summary>
 		/// Check if the current viewer can delete this object.
@@ -224,7 +224,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Reasons why the current viewer can not update this comment.
 		/// </summary>
-		public List<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
+		public List<CommentCannotUpdateReason>? ViewerCannotUpdateReasons { get; set; }
 
 		/// <summary>
 		/// Did the viewer author this comment.

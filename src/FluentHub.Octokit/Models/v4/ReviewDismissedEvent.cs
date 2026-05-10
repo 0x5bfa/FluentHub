@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -31,12 +31,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the optional message associated with the 'review_dismissed' event.
 		/// </summary>
-		public string DismissalMessage { get; set; }
+		public string? DismissalMessage { get; set; }
 
 		/// <summary>
 		/// Identifies the optional message associated with the event, rendered to HTML.
 		/// </summary>
-		public string DismissalMessageHTML { get; set; }
+		public string? DismissalMessageHTML { get; set; }
 
 		/// <summary>
 		/// The Node ID of the ReviewDismissedEvent object
@@ -51,26 +51,26 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// PullRequest referenced by event.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// Identifies the commit which caused the review to become stale.
 		/// </summary>
-		public PullRequestCommit PullRequestCommit { get; set; }
+		public PullRequestCommit? PullRequestCommit { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this review dismissed event.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Identifies the review associated with the 'review_dismissed' event.
 		/// </summary>
-		public PullRequestReview Review { get; set; }
+		public PullRequestReview? Review { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this review dismissed event.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

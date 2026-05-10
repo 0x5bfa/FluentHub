@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project's description body.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The projects description body rendered to HTML.
 		/// </summary>
-		public string BodyHTML { get; set; }
+		public string? BodyHTML { get; set; }
 
 		/// <summary>
 		/// Indicates if the object is closed (definition of closed may depend on type)
@@ -31,7 +31,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was closed."
 		/// <summary>
-		public string ClosedAtHumanized { get; set; }
+		public string? ClosedAtHumanized { get; set; }
 
 		/// <summary>
 		/// List of columns in the project
@@ -40,7 +40,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public ProjectColumnConnection Columns { get; set; }
+		public ProjectColumnConnection? Columns { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -50,12 +50,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The actor who originally created the project.
 		/// </summary>
-		public IActor Creator { get; set; }
+		public IActor? Creator { get; set; }
 
 		/// <summary>
 		/// Identifies the primary key from the database.
@@ -70,7 +70,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The project's number.
@@ -80,7 +80,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The project's owner. Currently limited to repositories, organizations, and users.
 		/// </summary>
-		public IProjectOwner Owner { get; set; }
+		public IProjectOwner? Owner { get; set; }
 
 		/// <summary>
 		/// List of pending cards in this project
@@ -90,17 +90,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="archivedStates">A list of archived states to filter the cards by</param>
-		public ProjectCardConnection PendingCards { get; set; }
+		public ProjectCardConnection? PendingCards { get; set; }
 
 		/// <summary>
 		/// Project progress details.
 		/// </summary>
-		public ProjectProgress Progress { get; set; }
+		public ProjectProgress? Progress { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this project
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// Whether the project is open or closed.
@@ -115,12 +115,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this project
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// Indicates if the object can be closed by the viewer.

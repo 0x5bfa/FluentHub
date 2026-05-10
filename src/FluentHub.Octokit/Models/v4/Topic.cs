@@ -16,14 +16,14 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The topic's name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// A list of related topics, including aliases of this topic, sorted with the most relevant
 		/// first. Returns up to 10 Topics.
 		/// </summary>
 		/// <param name="first">How many topics to return.</param>
-		public List<Topic> RelatedTopics { get; set; }
+		public List<Topic>? RelatedTopics { get; set; }
 
 		/// <summary>
 		/// A list of repositories.
@@ -40,7 +40,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="privacy">If non-null, filters repositories according to privacy. Internal repositories are considered private; consider using the visibility argument if only internal repositories are needed. Cannot be combined with the visibility argument.</param>
 		/// <param name="sponsorableOnly">If true, only repositories whose owner can be sponsored via GitHub Sponsors will be returned.</param>
 		/// <param name="visibility">If non-null, filters repositories according to visibility. Cannot be combined with the privacy argument.</param>
-		public RepositoryConnection Repositories { get; set; }
+		public RepositoryConnection? Repositories { get; set; }
 
 		/// <summary>
 		/// Returns a count of how many stargazers there are on this object
@@ -55,7 +55,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Order for connection</param>
-		public StargazerConnection Stargazers { get; set; }
+		public StargazerConnection? Stargazers { get; set; }
 
 		/// <summary>
 		/// Returns a boolean indicating whether the viewing user has starred this starrable.

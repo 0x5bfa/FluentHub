@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The path in the repository where the file will be located
 		/// </summary>
-		public string Path { get; set; }
+		public string? Path { get; set; }
 
 		/// <summary>
 		/// The base64 encoded contents of the file
 		/// </summary>
-		public string Contents { get; set; }
+		public string? Contents { get; set; }
 	}
 }

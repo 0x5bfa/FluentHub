@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// User emails belonging to this user account.
@@ -26,12 +26,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
 		/// <param name="orderBy">Ordering options for Enterprise Server user account emails returned from the connection.</param>
-		public EnterpriseServerUserAccountEmailConnection Emails { get; set; }
+		public EnterpriseServerUserAccountEmailConnection? Emails { get; set; }
 
 		/// <summary>
 		/// The Enterprise Server installation on which this user account exists.
 		/// </summary>
-		public EnterpriseServerInstallation EnterpriseServerInstallation { get; set; }
+		public EnterpriseServerInstallation? EnterpriseServerInstallation { get; set; }
 
 		/// <summary>
 		/// The Node ID of the EnterpriseServerUserAccount object
@@ -46,12 +46,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The login of the user account on the Enterprise Server installation.
 		/// </summary>
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
 		/// <summary>
 		/// The profile name of the user account on the Enterprise Server installation.
 		/// </summary>
-		public string ProfileName { get; set; }
+		public string? ProfileName { get; set; }
 
 		/// <summary>
 		/// The date and time when the user account was created on the Enterprise Server installation.
@@ -61,7 +61,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The date and time when the user account was created on the Enterprise Server installation."
 		/// <summary>
-		public string RemoteCreatedAtHumanized { get; set; }
+		public string? RemoteCreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The ID of the user account on the Enterprise Server installation.
@@ -76,6 +76,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

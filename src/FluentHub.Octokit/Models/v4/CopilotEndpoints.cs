@@ -11,21 +11,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Copilot API endpoint
 		/// </summary>
-		public string Api { get; set; }
+		public string? Api { get; set; }
 
 		/// <summary>
 		/// Copilot origin tracker endpoint
 		/// </summary>
-		public string OriginTracker { get; set; }
+		public string? OriginTracker { get; set; }
 
 		/// <summary>
 		/// Copilot proxy endpoint
 		/// </summary>
-		public string Proxy { get; set; }
+		public string? Proxy { get; set; }
 
 		/// <summary>
 		/// Copilot telemetry endpoint
 		/// </summary>
-		public string Telemetry { get; set; }
+		public string? Telemetry { get; set; }
 	}
 }

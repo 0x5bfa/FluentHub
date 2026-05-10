@@ -25,9 +25,9 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class HovercardContext : IHovercardContext
 	{
-		public string Message { get; set; }
+		public string? Message { get; set; }
 
-		public string Octicon { get; set; }
+		public string? Octicon { get; set; }
 	}
 }
 

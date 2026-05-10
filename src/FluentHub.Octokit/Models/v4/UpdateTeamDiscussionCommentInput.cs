@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the comment to modify.
@@ -21,11 +21,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The updated text of the comment.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The current version of the body content.
 		/// </summary>
-		public string BodyVersion { get; set; }
+		public string? BodyVersion { get; set; }
 	}
 }

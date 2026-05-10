@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The iteration's completed iterations
 		/// </summary>
-		public List<ProjectV2IterationFieldIteration> CompletedIterations { get; set; }
+		public List<ProjectV2IterationFieldIteration>? CompletedIterations { get; set; }
 
 		/// <summary>
 		/// The iteration's duration in days
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The iteration's iterations
 		/// </summary>
-		public List<ProjectV2IterationFieldIteration> Iterations { get; set; }
+		public List<ProjectV2IterationFieldIteration>? Iterations { get; set; }
 
 		/// <summary>
 		/// The iteration's start day of the week

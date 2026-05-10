@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the team to which the discussion belongs. This field is required.
@@ -27,7 +27,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Description:** `title` will be removed. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement.
 		/// **Reason:** The Team Discussions feature is deprecated in favor of Organization Discussions.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The content of the discussion. This field is required.
@@ -35,7 +35,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// **Description:** `body` will be removed. Follow the guide at https://github.blog/changelog/2023-02-08-sunset-notice-team-discussions/ to find a suitable replacement.
 		/// **Reason:** The Team Discussions feature is deprecated in favor of Organization Discussions.
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// If true, restricts the visibility of this discussion to team members and organization owners. If false or not specified, allows any organization member to view this discussion.

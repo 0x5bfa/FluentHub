@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the owner for which to create the new IP allow list entry.
@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// An IP address or range of addresses in CIDR notation.
 		/// </summary>
-		public string AllowListValue { get; set; }
+		public string? AllowListValue { get; set; }
 
 		/// <summary>
 		/// An optional name for the IP allow list entry.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// Whether the IP allow list entry is active when an IP allow list is enabled.

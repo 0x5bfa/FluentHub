@@ -11,11 +11,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The deleted field.
 		/// </summary>
-		public ProjectV2FieldConfiguration ProjectV2Field { get; set; }
+		public ProjectV2FieldConfiguration? ProjectV2Field { get; set; }
 	}
 }

@@ -16,12 +16,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The email address of the user invited to the organization.
 		/// </summary>
-		public string Email { get; set; }
+		public string? Email { get; set; }
 
 		/// <summary>
 		/// The Node ID of the OrganizationInvitation object
@@ -41,23 +41,23 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The user who was invited to the organization.
 		/// </summary>
-		public User Invitee { get; set; }
+		public User? Invitee { get; set; }
 
 		/// <summary>
 		/// The user who created the invitation.
 		/// </summary>
 		[Obsolete(@"`inviter` will be removed. `inviter` will be replaced by `inviterActor`. Removal on 2024-07-01 UTC.")]
-		public User Inviter { get; set; }
+		public User? Inviter { get; set; }
 
 		/// <summary>
 		/// The user who created the invitation.
 		/// </summary>
-		public User InviterActor { get; set; }
+		public User? InviterActor { get; set; }
 
 		/// <summary>
 		/// The organization the invite is for
 		/// </summary>
-		public Organization Organization { get; set; }
+		public Organization? Organization { get; set; }
 
 		/// <summary>
 		/// The user's pending role in the organization (e.g. member, owner).

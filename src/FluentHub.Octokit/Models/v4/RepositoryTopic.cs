@@ -16,16 +16,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The HTTP path for this repository-topic.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The topic.
 		/// </summary>
-		public Topic Topic { get; set; }
+		public Topic? Topic { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this repository-topic.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

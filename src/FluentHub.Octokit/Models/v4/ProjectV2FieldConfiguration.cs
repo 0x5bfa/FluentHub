@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A field inside a project.
 		/// </summary>
-		public ProjectV2Field ProjectV2Field { get; set; }
+		public ProjectV2Field? ProjectV2Field { get; set; }
 
 		/// <summary>
 		/// An iteration field inside a project.
 		/// </summary>
-		public ProjectV2IterationField ProjectV2IterationField { get; set; }
+		public ProjectV2IterationField? ProjectV2IterationField { get; set; }
 
 		/// <summary>
 		/// A single select field inside a project.
 		/// </summary>
-		public ProjectV2SingleSelectField ProjectV2SingleSelectField { get; set; }
+		public ProjectV2SingleSelectField? ProjectV2SingleSelectField { get; set; }
 	}
 }

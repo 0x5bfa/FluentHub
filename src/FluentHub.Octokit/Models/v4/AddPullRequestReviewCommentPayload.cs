@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The newly created comment.
 		/// </summary>
-		public PullRequestReviewComment Comment { get; set; }
+		public PullRequestReviewComment? Comment { get; set; }
 
 		/// <summary>
 		/// The edge from the review's comment connection.
 		/// </summary>
-		public PullRequestReviewCommentEdge CommentEdge { get; set; }
+		public PullRequestReviewCommentEdge? CommentEdge { get; set; }
 	}
 }

@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The error from a dependency update
 		/// </summary>
-		public DependabotUpdateError Error { get; set; }
+		public DependabotUpdateError? Error { get; set; }
 
 		/// <summary>
 		/// The associated pull request
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The repository associated with this node.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 	}
 }

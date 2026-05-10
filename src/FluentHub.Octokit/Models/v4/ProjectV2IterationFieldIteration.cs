@@ -16,21 +16,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The iteration's ID.
 		/// </summary>
-		public string Id { get; set; }
+		public string? Id { get; set; }
 
 		/// <summary>
 		/// The iteration's start date
 		/// </summary>
-		public string StartDate { get; set; }
+		public string? StartDate { get; set; }
 
 		/// <summary>
 		/// The iteration's title.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 
 		/// <summary>
 		/// The iteration's html title.
 		/// </summary>
-		public string TitleHTML { get; set; }
+		public string? TitleHTML { get; set; }
 	}
 }

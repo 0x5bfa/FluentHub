@@ -16,22 +16,22 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// A description of this category.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// An emoji representing this category.
 		/// </summary>
-		public string Emoji { get; set; }
+		public string? Emoji { get; set; }
 
 		/// <summary>
 		/// This category's emoji rendered as HTML.
 		/// </summary>
-		public string EmojiHTML { get; set; }
+		public string? EmojiHTML { get; set; }
 
 		/// <summary>
 		/// The Node ID of the DiscussionCategory object
@@ -46,17 +46,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of this category.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The repository associated with this node.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// The slug of this category.
 		/// </summary>
-		public string Slug { get; set; }
+		public string? Slug { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -66,6 +66,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

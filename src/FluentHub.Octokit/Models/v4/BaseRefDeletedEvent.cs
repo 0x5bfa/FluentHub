@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Identifies the actor who performed the event.
 		/// </summary>
-		public IActor Actor { get; set; }
+		public IActor? Actor { get; set; }
 
 		/// <summary>
 		/// Identifies the name of the Ref associated with the `base_ref_deleted` event.
 		/// </summary>
-		public string BaseRefName { get; set; }
+		public string? BaseRefName { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The Node ID of the BaseRefDeletedEvent object
@@ -36,6 +36,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// PullRequest referenced by event.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 	}
 }

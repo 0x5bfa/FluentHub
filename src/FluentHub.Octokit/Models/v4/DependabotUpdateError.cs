@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The body of the error
 		/// </summary>
-		public string Body { get; set; }
+		public string? Body { get; set; }
 
 		/// <summary>
 		/// The error code
 		/// </summary>
-		public string ErrorType { get; set; }
+		public string? ErrorType { get; set; }
 
 		/// <summary>
 		/// The title of the error
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 	}
 }

@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// SponsorsTier information only visible to users that can administer the associated Sponsors listing.
 		/// </summary>
-		public SponsorsTierAdminInfo AdminInfo { get; set; }
+		public SponsorsTierAdminInfo? AdminInfo { get; set; }
 
 		/// <summary>
 		/// Get a different tier for this tier's maintainer that is at the same frequency as this tier but with an equal or lesser cost. Returns the published tier with the monthly price closest to this tier's without going over.
 		/// </summary>
-		public SponsorsTier ClosestLesserValueTier { get; set; }
+		public SponsorsTier? ClosestLesserValueTier { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was created.
@@ -26,17 +26,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was created."
 		/// <summary>
-		public string CreatedAtHumanized { get; set; }
+		public string? CreatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// The description of the tier.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// The tier description rendered to HTML
 		/// </summary>
-		public string DescriptionHTML { get; set; }
+		public string? DescriptionHTML { get; set; }
 
 		/// <summary>
 		/// The Node ID of the SponsorsTier object
@@ -66,12 +66,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the tier.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The sponsors listing that this tier belongs to.
 		/// </summary>
-		public SponsorsListing SponsorsListing { get; set; }
+		public SponsorsListing? SponsorsListing { get; set; }
 
 		/// <summary>
 		/// Identifies the date and time when the object was last updated.
@@ -81,6 +81,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 	}
 }

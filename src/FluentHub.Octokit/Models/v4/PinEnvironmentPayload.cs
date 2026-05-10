@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The environment that was pinned
 		/// </summary>
-		public Environment Environment { get; set; }
+		public Environment? Environment { get; set; }
 
 		/// <summary>
 		/// The pinned environment if we pinned
 		/// </summary>
-		public PinnedEnvironment PinnedEnvironment { get; set; }
+		public PinnedEnvironment? PinnedEnvironment { get; set; }
 	}
 }

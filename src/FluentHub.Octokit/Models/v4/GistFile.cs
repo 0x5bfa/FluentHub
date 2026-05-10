@@ -11,17 +11,17 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The file name encoded to remove characters that are invalid in URL paths.
 		/// </summary>
-		public string EncodedName { get; set; }
+		public string? EncodedName { get; set; }
 
 		/// <summary>
 		/// The gist file encoding.
 		/// </summary>
-		public string Encoding { get; set; }
+		public string? Encoding { get; set; }
 
 		/// <summary>
 		/// The file extension from the file name.
 		/// </summary>
-		public string Extension { get; set; }
+		public string? Extension { get; set; }
 
 		/// <summary>
 		/// Indicates if this file is an image.
@@ -36,12 +36,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The programming language this file is written in.
 		/// </summary>
-		public Language Language { get; set; }
+		public Language? Language { get; set; }
 
 		/// <summary>
 		/// The gist file name.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The gist file size in bytes.
@@ -52,6 +52,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// UTF8 text data or null if the file is binary
 		/// </summary>
 		/// <param name="truncate">Optionally truncate the returned file to this length.</param>
-		public string Text { get; set; }
+		public string? Text { get; set; }
 	}
 }

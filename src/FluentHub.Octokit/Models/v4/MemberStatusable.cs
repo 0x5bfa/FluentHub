@@ -25,7 +25,7 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class MemberStatusable : IMemberStatusable
 	{
-		public UserStatusConnection MemberStatuses { get; set; }
+		public UserStatusConnection? MemberStatuses { get; set; }
 	}
 }
 

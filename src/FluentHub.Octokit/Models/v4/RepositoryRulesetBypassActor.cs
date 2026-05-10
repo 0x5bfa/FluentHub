@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The actor that can bypass rules.
 		/// </summary>
-		public BypassActor Actor { get; set; }
+		public BypassActor? Actor { get; set; }
 
 		/// <summary>
 		/// The mode for the bypass actor
@@ -41,11 +41,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// If the actor is a repository role, the repository role's name that can bypass
 		/// </summary>
-		public string RepositoryRoleName { get; set; }
+		public string? RepositoryRoleName { get; set; }
 
 		/// <summary>
 		/// Identifies the ruleset associated with the allowed actor
 		/// </summary>
-		public RepositoryRuleset RepositoryRuleset { get; set; }
+		public RepositoryRuleset? RepositoryRuleset { get; set; }
 	}
 }

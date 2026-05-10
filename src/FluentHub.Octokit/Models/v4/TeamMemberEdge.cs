@@ -11,19 +11,19 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A cursor for use in pagination.
 		/// </summary>
-		public string Cursor { get; set; }
+		public string? Cursor { get; set; }
 
 		/// <summary>
 		/// The HTTP path to the organization's member access page.
 		/// </summary>
-		public string MemberAccessResourcePath { get; set; }
+		public string? MemberAccessResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL to the organization's member access page.
 		/// </summary>
-		public string MemberAccessUrl { get; set; }
+		public string? MemberAccessUrl { get; set; }
 
-		public User Node { get; set; }
+		public User? Node { get; set; }
 
 		/// <summary>
 		/// The role the member has on the team.

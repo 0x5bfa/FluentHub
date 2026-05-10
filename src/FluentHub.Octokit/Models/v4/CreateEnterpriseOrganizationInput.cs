@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The ID of the enterprise owning the new organization.
@@ -21,21 +21,21 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The login of the new organization.
 		/// </summary>
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
 		/// <summary>
 		/// The profile name of the new organization.
 		/// </summary>
-		public string ProfileName { get; set; }
+		public string? ProfileName { get; set; }
 
 		/// <summary>
 		/// The email used for sending billing receipts.
 		/// </summary>
-		public string BillingEmail { get; set; }
+		public string? BillingEmail { get; set; }
 
 		/// <summary>
 		/// The logins for the administrators of the new organization.
 		/// </summary>
-		public List<string> AdminLogins { get; set; }
+		public List<string>? AdminLogins { get; set; }
 	}
 }

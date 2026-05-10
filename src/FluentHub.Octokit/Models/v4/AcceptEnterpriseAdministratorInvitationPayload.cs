@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The invitation that was accepted.
 		/// </summary>
-		public EnterpriseAdministratorInvitation Invitation { get; set; }
+		public EnterpriseAdministratorInvitation? Invitation { get; set; }
 
 		/// <summary>
 		/// A message confirming the result of accepting an administrator invitation.
 		/// </summary>
-		public string Message { get; set; }
+		public string? Message { get; set; }
 	}
 }

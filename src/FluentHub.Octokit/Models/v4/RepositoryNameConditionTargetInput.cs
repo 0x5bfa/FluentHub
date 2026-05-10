@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Array of repository names or patterns to exclude. The condition will not pass if any of these patterns match.
 		/// </summary>
-		public List<string> Exclude { get; set; }
+		public List<string>? Exclude { get; set; }
 
 		/// <summary>
 		/// Array of repository names or patterns to include. One of these patterns must match for the condition to pass. Also accepts `~ALL` to include all repositories.
 		/// </summary>
-		public List<string> Include { get; set; }
+		public List<string>? Include { get; set; }
 
 		/// <summary>
 		/// Target changes that match these patterns will be prevented except by those with bypass permissions.

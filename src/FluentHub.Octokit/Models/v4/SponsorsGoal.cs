@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A description of the goal from the maintainer.
 		/// </summary>
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		/// <summary>
 		/// What the objective of this goal is.
@@ -31,6 +31,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A brief summary of the kind and target value of this goal.
 		/// </summary>
-		public string Title { get; set; }
+		public string? Title { get; set; }
 	}
 }

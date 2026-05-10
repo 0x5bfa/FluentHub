@@ -11,12 +11,12 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A cursor for use in pagination.
 		/// </summary>
-		public string Cursor { get; set; }
+		public string? Cursor { get; set; }
 
 		/// <summary>
 		/// The author of the reaction.
 		/// </summary>
-		public Reactor Node { get; set; }
+		public Reactor? Node { get; set; }
 
 		/// <summary>
 		/// The moment when the user made the reaction.
@@ -26,6 +26,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "The moment when the user made the reaction."
 		/// <summary>
-		public string ReactedAtHumanized { get; set; }
+		public string? ReactedAtHumanized { get; set; }
 	}
 }

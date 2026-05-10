@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The color defined for the current language.
 		/// </summary>
-		public string Color { get; set; }
+		public string? Color { get; set; }
 
 		/// <summary>
 		/// The Node ID of the Language object
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The name of the current language.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 	}
 }

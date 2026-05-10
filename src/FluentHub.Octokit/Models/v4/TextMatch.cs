@@ -11,16 +11,16 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The specific text fragment within the property matched on.
 		/// </summary>
-		public string Fragment { get; set; }
+		public string? Fragment { get; set; }
 
 		/// <summary>
 		/// Highlights within the matched fragment.
 		/// </summary>
-		public List<TextMatchHighlight> Highlights { get; set; }
+		public List<TextMatchHighlight>? Highlights { get; set; }
 
 		/// <summary>
 		/// The property matched on.
 		/// </summary>
-		public string Property { get; set; }
+		public string? Property { get; set; }
 	}
 }

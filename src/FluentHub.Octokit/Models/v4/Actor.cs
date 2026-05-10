@@ -36,13 +36,13 @@ namespace FluentHub.Octokit.Models.v4
 {
 	public class Actor : IActor
 	{
-		public string AvatarUrl { get; set; }
+		public string? AvatarUrl { get; set; }
 
-		public string Login { get; set; }
+		public string? Login { get; set; }
 
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }
 

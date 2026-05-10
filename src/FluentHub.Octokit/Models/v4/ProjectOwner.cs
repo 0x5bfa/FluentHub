@@ -55,13 +55,13 @@ namespace FluentHub.Octokit.Models.v4
 	{
 		public ID Id { get; set; }
 
-		public Project Project { get; set; }
+		public Project? Project { get; set; }
 
-		public ProjectConnection Projects { get; set; }
+		public ProjectConnection? Projects { get; set; }
 
-		public string ProjectsResourcePath { get; set; }
+		public string? ProjectsResourcePath { get; set; }
 
-		public string ProjectsUrl { get; set; }
+		public string? ProjectsUrl { get; set; }
 
 		public bool ViewerCanCreateProjects { get; set; }
 	}

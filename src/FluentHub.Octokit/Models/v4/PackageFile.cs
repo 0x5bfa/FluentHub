@@ -16,27 +16,27 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// MD5 hash of the file.
 		/// </summary>
-		public string Md5 { get; set; }
+		public string? Md5 { get; set; }
 
 		/// <summary>
 		/// Name of the file.
 		/// </summary>
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		/// <summary>
 		/// The package version this file belongs to.
 		/// </summary>
-		public PackageVersion PackageVersion { get; set; }
+		public PackageVersion? PackageVersion { get; set; }
 
 		/// <summary>
 		/// SHA1 hash of the file.
 		/// </summary>
-		public string Sha1 { get; set; }
+		public string? Sha1 { get; set; }
 
 		/// <summary>
 		/// SHA256 hash of the file.
 		/// </summary>
-		public string Sha256 { get; set; }
+		public string? Sha256 { get; set; }
 
 		/// <summary>
 		/// Size of the file in bytes.
@@ -51,11 +51,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "Identifies the date and time when the object was last updated."
 		/// <summary>
-		public string UpdatedAtHumanized { get; set; }
+		public string? UpdatedAtHumanized { get; set; }
 
 		/// <summary>
 		/// URL to download the asset.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 	}
 }

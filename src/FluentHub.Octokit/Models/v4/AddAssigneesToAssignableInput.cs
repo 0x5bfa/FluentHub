@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The id of the assignable object to add assignees to.
@@ -21,6 +21,6 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The id of users to add as assignees.
 		/// </summary>
-		public List<ID> AssigneeIds { get; set; }
+		public List<ID>? AssigneeIds { get; set; }
 	}
 }

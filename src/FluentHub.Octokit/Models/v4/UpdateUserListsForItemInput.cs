@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// A unique identifier for the client performing the mutation.
 		/// </summary>
-		public string ClientMutationId { get; set; }
+		public string? ClientMutationId { get; set; }
 
 		/// <summary>
 		/// The item to add to the list
@@ -21,11 +21,11 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The lists to which this item should belong
 		/// </summary>
-		public List<ID> ListIds { get; set; }
+		public List<ID>? ListIds { get; set; }
 
 		/// <summary>
 		/// The suggested lists to create and add this item to
 		/// </summary>
-		public List<ID> SuggestedListIds { get; set; }
+		public List<ID>? SuggestedListIds { get; set; }
 	}
 }

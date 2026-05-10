@@ -23,36 +23,36 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// Humanized string of "When this contribution was made."
 		/// <summary>
-		public string OccurredAtHumanized { get; set; }
+		public string? OccurredAtHumanized { get; set; }
 
 		/// <summary>
 		/// The pull request the user reviewed.
 		/// </summary>
-		public PullRequest PullRequest { get; set; }
+		public PullRequest? PullRequest { get; set; }
 
 		/// <summary>
 		/// The review the user left on the pull request.
 		/// </summary>
-		public PullRequestReview PullRequestReview { get; set; }
+		public PullRequestReview? PullRequestReview { get; set; }
 
 		/// <summary>
 		/// The repository containing the pull request that the user reviewed.
 		/// </summary>
-		public Repository Repository { get; set; }
+		public Repository? Repository { get; set; }
 
 		/// <summary>
 		/// The HTTP path for this contribution.
 		/// </summary>
-		public string ResourcePath { get; set; }
+		public string? ResourcePath { get; set; }
 
 		/// <summary>
 		/// The HTTP URL for this contribution.
 		/// </summary>
-		public string Url { get; set; }
+		public string? Url { get; set; }
 
 		/// <summary>
 		/// The user who made this contribution.
 		/// </summary>
-		public User User { get; set; }
+		public User? User { get; set; }
 	}
 }

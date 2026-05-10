@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <summary>
 		/// The commit the status and check runs are attached to.
 		/// </summary>
-		public Commit Commit { get; set; }
+		public Commit? Commit { get; set; }
 
 		/// <summary>
 		/// A list of status contexts and check runs for this commit.
@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
 		/// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
 		/// <param name="last">Returns the last _n_ elements from the list.</param>
 		/// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-		public StatusCheckRollupContextConnection Contexts { get; set; }
+		public StatusCheckRollupContextConnection? Contexts { get; set; }
 
 		/// <summary>
 		/// The Node ID of the StatusCheckRollup object
