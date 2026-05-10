@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "FluentHub.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FluentHub.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -23,6 +23,7 @@
       <Platform Solution="*|x86" Project="x86" />
       <Platform Solution="*|x64" Project="x64" />
       <Platform Solution="*|ARM64" Project="ARM64" />
+      <Deploy Solution="Debug|x64" />
     </Project>
     <Project Path="src/FluentHub.Core/FluentHub.Core.csproj">
       <Platform Solution="*|x86" Project="x86" />
