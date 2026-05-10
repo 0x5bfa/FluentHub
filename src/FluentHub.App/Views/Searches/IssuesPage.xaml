@@ -9,7 +9,7 @@
 	xmlns:helpers="using:FluentHub.App.Helpers"
 	xmlns:local="using:FluentHub.App.Views.Searches"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	mc:Ignorable="d">
 

@@ -6,9 +6,9 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
-	xmlns:wctconverters="using:CommunityToolkit.WinUI.UI.Converters"
+	xmlns:wctconverters="using:CommunityToolkit.WinUI.Converters"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 

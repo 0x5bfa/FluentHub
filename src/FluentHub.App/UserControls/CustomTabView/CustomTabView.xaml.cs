@@ -1,7 +1,7 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using CommunityToolkit.WinUI.UI;
+using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;

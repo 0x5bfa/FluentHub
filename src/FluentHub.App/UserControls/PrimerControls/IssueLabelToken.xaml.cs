@@ -1,4 +1,4 @@
-using CommunityToolkit.WinUI.UI.Helpers;
+using CommunityToolkit.WinUI.Helpers;
 using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.Overview;

@@ -10,7 +10,7 @@
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
 	xmlns:ov="using:FluentHub.App.UserControls.Overview"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	mc:Ignorable="d">
 

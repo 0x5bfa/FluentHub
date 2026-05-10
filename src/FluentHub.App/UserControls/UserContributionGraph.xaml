@@ -9,7 +9,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">

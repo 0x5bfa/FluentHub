@@ -12,7 +12,7 @@
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
 	xmlns:ov="using:FluentHub.App.UserControls.Overview"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	xmlns:views="using:FluentHub.App.Views"
 	mc:Ignorable="d">

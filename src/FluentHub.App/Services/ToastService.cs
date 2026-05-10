@@ -1,5 +1,6 @@
-using CommunityToolkit.WinUI.Notifications;
 using FluentHub.App.Utils;
+﻿using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using System.Globalization;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -16,25 +17,25 @@ namespace FluentHub.App.Services
 		{
 			try
 			{
-				var builder = new ToastContentBuilder()
-					.SetToastScenario(ToastScenario.Default)
-					.AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
-					.AddText(title.Truncate(50))
-					.AddText(text.Truncate(100));
+				//var builder = new ToastContentBuilder()
+				//	.SetToastScenario(ToastScenario.Default)
+				//	.AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
+				//	.AddText(title.Truncate(50))
+				//	.AddText(text.Truncate(100));
 
-				/*builder.Content.Audio = new ToastAudio()
-				{
-					Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
-				};*/
+				///*builder.Content.Audio = new ToastAudio()
+				//{
+				//	Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
+				//};*/
 
-				if (Uri.TryCreate(appLogoOverrideImage, UriKind.RelativeOrAbsolute, out var uri))
-					builder.AddAppLogoOverride(uri);
-				if (Uri.TryCreate(heroImage, UriKind.RelativeOrAbsolute, out uri))
-					builder.AddHeroImage(uri);
-				if (Uri.TryCreate(inlineImage, UriKind.RelativeOrAbsolute, out uri))
-					builder.AddInlineImage(uri);
+				//if (Uri.TryCreate(appLogoOverrideImage, UriKind.RelativeOrAbsolute, out var uri))
+				//	builder.AddAppLogoOverride(uri);
+				//if (Uri.TryCreate(heroImage, UriKind.RelativeOrAbsolute, out uri))
+				//	builder.AddHeroImage(uri);
+				//if (Uri.TryCreate(inlineImage, UriKind.RelativeOrAbsolute, out uri))
+				//	builder.AddInlineImage(uri);
 
-				ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(builder.Content.GetXml()));
+				//ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(builder.Content.GetXml()));
 			}
 			catch (Exception e)
 			{
@@ -76,69 +77,69 @@ namespace FluentHub.App.Services
 			badgeUpdater.Update(badge);
 		}
 
-		public string GetBadgeString()
-		{
-			BadgeGlyphContent content = new BadgeGlyphContent();
-			return content.GetContent();
-		}
+		//public string GetBadgeString()
+		//{
+		//	BadgeGlyphContent content = new BadgeGlyphContent();
+		//	return content.GetContent();
+		//}
 
 		public void ShowToastNotificationWithProgress(string tag, string group, string title, string progressTitle, string leftText, string rightText, double progress)
 		{
-			// Define a tag (and optionally a group) to uniquely identify the notification, in order update the notification data later;
-			//string tag = "weekly-playlist";
-			//string group = "downloads";
+			//// Define a tag (and optionally a group) to uniquely identify the notification, in order update the notification data later;
+			////string tag = "weekly-playlist";
+			////string group = "downloads";
 
-			// Construct the toast content with data bound fields
-			var content = new ToastContent()
-			{
-				/*Audio = new ToastAudio()
-				{
-					Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
-				},*/
-				Visual = new ToastVisual()
-				{
-					BindingGeneric = new ToastBindingGeneric()
-					{
-						Children =
-						{
-							new AdaptiveText()
-							{
-								Text = title
-							},
+			//// Construct the toast content with data bound fields
+			//var content = new ToastContent()
+			//{
+			//	/*Audio = new ToastAudio()
+			//	{
+			//		Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
+			//	},*/
+			//	Visual = new ToastVisual()
+			//	{
+			//		BindingGeneric = new ToastBindingGeneric()
+			//		{
+			//			Children =
+			//			{
+			//				new AdaptiveText()
+			//				{
+			//					Text = title
+			//				},
 
-							new AdaptiveProgressBar()
-							{
-								Title = progressTitle,
-								Value = new BindableProgressBarValue("progress"),
-								Status = new BindableString("leftText"),
-								ValueStringOverride = new BindableString("rightText")
-							}
-						}
-					}
-				}
-			};
+			//				new AdaptiveProgressBar()
+			//				{
+			//					Title = progressTitle,
+			//					Value = new BindableProgressBarValue("progress"),
+			//					Status = new BindableString("leftText"),
+			//					ValueStringOverride = new BindableString("rightText")
+			//				}
+			//			}
+			//		}
+			//	}
+			//};
 
-			// Generate the toast notification
-			var toast = new ToastNotification(content.GetXml())
-			{
-				// Assign the tag and group
-				Tag = tag,
-				Group = group,
+			//// Generate the toast notification
+			//var toast = new ToastNotification(content.GetXml())
+			//{
+			//	// Assign the tag and group
+			//	Tag = tag,
+			//	Group = group,
 
-				// Assign initial NotificationData values
-				// Values must be of type string
-				Data = new NotificationData()
-			};
+			//	// Assign initial NotificationData values
+			//	// Values must be of type string
+			//	Data = new NotificationData()
+			//};
 
-			toast.Data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
-			toast.Data.Values["leftText"] = leftText;
-			toast.Data.Values["rightText"] = rightText;
+			//toast.Data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
+			//toast.Data.Values["leftText"] = leftText;
+			//toast.Data.Values["rightText"] = rightText;
 
-			// Provide sequence number to prevent out-of-order updates, or assign 0 to indicate "always update"
-			toast.Data.SequenceNumber = 1;
+			//// Provide sequence number to prevent out-of-order updates, or assign 0 to indicate "always update"
+			//toast.Data.SequenceNumber = 1;
 
-			// Show the toast notification to the user
-			ToastNotificationManager.CreateToastNotifier().Show(toast);
+			//// Show the toast notification to the user
+			//ToastNotificationManager.CreateToastNotifier().Show(toast);
 		}
 
 		public void UpdateToastWithProgress(string tag, string group, string leftText, string rightText, double progress, uint sequenceNumber)

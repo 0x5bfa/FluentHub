@@ -15,7 +15,7 @@
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:root="using:FluentHub.App"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	xmlns:views="using:FluentHub.App.Views"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"

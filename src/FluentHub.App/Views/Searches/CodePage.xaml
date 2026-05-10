@@ -10,7 +10,7 @@
 	xmlns:local="using:FluentHub.App.Views.Searches"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:modelsV3Search="using:FluentHub.Octokit.Models.v3.Searches"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
 	mc:Ignorable="d">
 
