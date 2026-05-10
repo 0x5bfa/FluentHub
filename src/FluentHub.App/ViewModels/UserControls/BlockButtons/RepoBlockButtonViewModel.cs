@@ -3,6 +3,7 @@
 
 using FluentHub.Octokit.Mutations;
 using System.Windows.Input;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 {

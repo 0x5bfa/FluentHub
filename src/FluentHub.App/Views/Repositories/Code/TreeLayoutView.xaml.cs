@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.App.ViewModels.Repositories.Codes;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Views.Repositories.Code
 {

@@ -1,3 +1,5 @@
+using FluentHub.Octokit.Models.v4;
+
 namespace FluentHub.App.ViewModels.Repositories
 {
 	public class RepoContextViewModel : ObservableObject

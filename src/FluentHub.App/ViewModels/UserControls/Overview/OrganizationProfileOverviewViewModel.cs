@@ -2,6 +2,7 @@ using FluentHub.App.Helpers;
 using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.UserControls.Overview
 {

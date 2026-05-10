@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.App.Data.Parameters;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Views.Repositories.Commits
 {

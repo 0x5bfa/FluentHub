@@ -1,6 +1,8 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Octokit.Models.v4;
+
 namespace FluentHub.App.Models
 {
 	public class MergedCalendarDays

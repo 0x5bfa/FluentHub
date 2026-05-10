@@ -7,6 +7,7 @@ using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.Repositories.Discussions
 {

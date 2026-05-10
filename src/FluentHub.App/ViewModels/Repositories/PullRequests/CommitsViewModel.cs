@@ -4,6 +4,7 @@
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.Repositories.PullRequests
 {

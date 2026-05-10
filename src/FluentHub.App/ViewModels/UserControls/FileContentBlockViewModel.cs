@@ -7,6 +7,7 @@ using FluentHub.App.ViewModels.Repositories;
 using System.IO;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.UserControls
 {

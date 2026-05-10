@@ -10,6 +10,7 @@ using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels
 {

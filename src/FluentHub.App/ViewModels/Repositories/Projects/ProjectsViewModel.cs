@@ -8,6 +8,7 @@ using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Xml.Linq;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.Repositories.Projects
 {

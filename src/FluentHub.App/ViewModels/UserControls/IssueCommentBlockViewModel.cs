@@ -3,6 +3,7 @@ using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Controls;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.UserControls
 {

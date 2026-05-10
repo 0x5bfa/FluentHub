@@ -5,6 +5,7 @@ using FluentHub.App.Dialogs;
 using FluentHub.App.ViewModels.UserControls.FeedBlocks;
 using FluentHub.Octokit.Queries.Users;
 using System.Windows.Input;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.Viewers
 {

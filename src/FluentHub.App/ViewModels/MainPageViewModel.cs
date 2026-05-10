@@ -1,6 +1,5 @@
 using CommunityToolkit.WinUI;
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.App.Helpers;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls.Overview;
@@ -12,6 +11,7 @@ using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
 using FluentHub.App.Data.Items;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels
 {

@@ -3,6 +3,7 @@ using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.FeedBlocks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.UserControls.FeedBlocks
 {

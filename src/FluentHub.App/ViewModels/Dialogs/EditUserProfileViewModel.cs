@@ -1,6 +1,7 @@
 using FluentHub.App.Utils;
 using FluentHub.App.Models;
 using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.ViewModels.Dialogs
 {

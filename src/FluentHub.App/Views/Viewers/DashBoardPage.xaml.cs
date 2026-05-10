@@ -5,6 +5,7 @@ using FluentHub.App.ViewModels.Viewers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Views.Viewers
 {
