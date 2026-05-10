@@ -25,9 +25,9 @@ jobs:
       CONFIGURATION:                '${{ matrix.configuration }}'
       PLATFORM:                     '${{ matrix.platform }}'
       WORKING_DIR:                  '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-      SOLUTION_PATH:                '${{ github.workspace }}\FluentHub.sln'
-      PACKAGE_PROJECT_DIR:          '${{ github.workspace }}\src\FluentHub.Package'
-      PACKAGE_PROJECT_PATH:         '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
+      SOLUTION_PATH:                '${{ github.workspace }}\FluentHub.slnx'
+      APP_PROJECT_DIR:              '${{ github.workspace }}\src\FluentHub.App'
+      APP_PROJECT_PATH:             '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
       APP_CREDENTIALS_PATH:         '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
       ARTIFACTS_STAGING_DIR:        '${{ github.workspace }}\artifacts'
       APPX_PACKAGE_DIR:             '${{ github.workspace }}\artifacts\AppxPackages'
@@ -42,10 +42,8 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
-    - name: Setup .NET 8
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
 
     - name: Save base64 credentials into a file
       shell: pwsh
@@ -55,22 +53,10 @@ jobs:
       env:
         GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
-    - name: Restore NuGet
-      shell: pwsh
-      run: 'nuget restore $env:SOLUTION_PATH'
-
-    - name: Restore FluentHub
-      shell: pwsh
-      run: |
-        msbuild $env:SOLUTION_PATH `
-        -t:Restore `
-        -p:Platform=$env:PLATFORM `
-        -p:Configuration=$env:CONFIGURATION `
-        -p:PublishReadyToRun=true
-
     - name: Build & package FluentHub
       run: |
-        msbuild "$env:PACKAGE_PROJECT_PATH" `
+        msbuild "$env:APP_PROJECT_PATH" `
+        -restore `
         -t:Build `
         -t:_GenerateAppxPackage `
         -clp:ErrorsOnly `

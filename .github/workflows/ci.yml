@@ -24,11 +24,11 @@ env:
   APPX_SELFSIGNED_CERT_PATH:     '${{ github.workspace }}\.github\workflows\FluentHub_SelfSigned.pfx'
   ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
   APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
-  PACKAGE_PROJECT_DIR:           '${{ github.workspace }}\src\FluentHub.Package'
-  PACKAGE_PROJECT_PATH:          '${{ github.workspace }}\src\FluentHub.Package\FluentHub.Package.wapproj'
+  APP_PROJECT_DIR:               '${{ github.workspace }}\src\FluentHub.App'
+  APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
   APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.sln'
-  AUTOMATED_TESTS_ARCHITECTURE:  'x64'
+  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.slnx'
+  AUTOMATED_TESTS_PLATFORM:      'x64'
   AUTOMATED_TESTS_CONFIGURATION: 'Release'
 
 jobs:
@@ -82,7 +82,7 @@ jobs:
         platform: [x64, arm64]
     env:
       CONFIGURATION: ${{ matrix.configuration }}
-      ARCHITECTURE: ${{ matrix.platform }}
+      PLATFORM: ${{ matrix.platform }}
 
     steps:
 
@@ -92,10 +92,8 @@ jobs:
       uses: microsoft/setup-msbuild@v2
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
-    - name: Setup .NET 8
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
 
     - name: Save base64 credentials into a file
       shell: pwsh
@@ -105,60 +103,51 @@ jobs:
       env:
         GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
-    - name: Restore NuGet
-      shell: pwsh
-      run: 'nuget restore $env:SOLUTION_PATH'
-
-    - name: Restore FluentHub
-      shell: pwsh
-      run: |
-        msbuild $env:SOLUTION_PATH `
-          -t:Restore `
-          -p:Platform=$env:ARCHITECTURE `
-          -p:Configuration=$env:CONFIGURATION `
-          -p:PublishReadyToRun=true
-
-    - if: env.CONFIGURATION != env.AUTOMATED_TESTS_CONFIGURATION || env.ARCHITECTURE != env.AUTOMATED_TESTS_ARCHITECTURE 
+    - if: env.CONFIGURATION != env.AUTOMATED_TESTS_CONFIGURATION || env.PLATFORM != env.AUTOMATED_TESTS_PLATFORM 
       name: Build FluentHub
       run: |
         msbuild `
-          $env:PACKAGE_PROJECT_PATH `
+          $env:APP_PROJECT_PATH `
+          -restore `
           -t:Build `
           -clp:ErrorsOnly `
           -p:Configuration=$env:CONFIGURATION `
-          -p:Platform=$env:ARCHITECTURE `
-          -p:AppxBundle=Never
+          -p:Platform=$env:PLATFORM `
+          -p:AppxBundle=Never `
+          -p:PublishReadyToRun=true
 
-    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE
+    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM
       name: Create self signed cert as a pfx file
       run: ./.github/scripts/Generate-SelfCertPfx.ps1 -Destination "$env:APPX_SELFSIGNED_CERT_PATH"
 
-    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE
+    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM
       name: Build & package Files
       run: |
         msbuild `
-          $env:PACKAGE_PROJECT_PATH `
+          $env:APP_PROJECT_PATH `
+          -restore `
           -t:Build `
           -t:_GenerateAppxPackage `
           -clp:ErrorsOnly `
           -p:Configuration=$env:CONFIGURATION `
-          -p:Platform=$env:ARCHITECTURE `
-          -p:AppxBundlePlatforms=$env:AUTOMATED_TESTS_ARCHITECTURE `
+          -p:Platform=$env:PLATFORM `
+          -p:AppxBundlePlatforms=$env:AUTOMATED_TESTS_PLATFORM `
           -p:AppxBundle=Always `
           -p:UapAppxPackageBuildMode=SideloadOnly `
           -p:AppxPackageDir=$env:APPX_PACKAGE_DIR `
           -p:AppxPackageSigningEnabled=true `
           -p:PackageCertificateKeyFile=$env:APPX_SELFSIGNED_CERT_PATH `
           -p:PackageCertificatePassword="" `
-          -p:PackageCertificateThumbprint=""
+          -p:PackageCertificateThumbprint="" `
+          -p:PublishReadyToRun=true
 
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})'
+        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
         path: ${{ env.ARTIFACTS_STAGING_DIR }}
 
-    - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+    - if: env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
       name: Get artifact size
       id: get_artifact_size
       uses: actions/github-script@v6
@@ -170,7 +159,7 @@ jobs:
             repo: context.repo.repo,
           });
 
-          const artifact = artifacts.artifacts.find(a => a.name === 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.ARCHITECTURE }})');
+          const artifact = artifacts.artifacts.find(a => a.name === 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})');
           
           if (artifact)
           {
@@ -184,11 +173,11 @@ jobs:
             return "0"
           }
 
-    - if: env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+    - if: env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
       name: Display artifact size
       run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
 
-    #- if: github.event_name == 'pull_request' && env.ARCHITECTURE == env.AUTOMATED_TESTS_ARCHITECTURE && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
+    #- if: github.event_name == 'pull_request' && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
     #  uses: marocchino/sticky-pull-request-comment@v1
     #  with:
     #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
