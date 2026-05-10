@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Models;
-using FluentHub.App.ViewModels.SignIn;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
@@ -10,7 +9,6 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System.IO;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
 using WinUIEx;
 
 namespace FluentHub.App
@@ -84,27 +82,6 @@ namespace FluentHub.App
 								rootFrame.Navigate(typeof(Views.SignIn.IntroPage));
 								pageType = typeof(Views.SignIn.IntroPage);
 							}
-						}
-
-						break;
-					}
-				// Launched the app with protocol - 'fluenthub://'
-				case IProtocolActivatedEventArgs eventArgs:
-					{
-						switch (eventArgs.Uri.Authority.ToLower())
-						{
-							// 'fluenthub://auth?code=[code]'
-							case "auth" when eventArgs.Uri.Query.Contains("code"):
-								{
-									// Get GitHub User ID
-									var code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
-
-									var introViewModel = Ioc.Default.GetService<IntroViewModel>();
-
-									introViewModel.ReceivedUserIdentity = code;
-
-									break;
-								}
 						}
 
 						break;

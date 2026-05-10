@@ -161,6 +161,50 @@
 								Severity="Success" />
 						</Grid>
 
+						<!--  Device Authorization Block  -->
+						<Grid
+							x:Name="DeviceAuthorizationGrid"
+							Margin="0,12,0,0"
+							Padding="12"
+							x:Load="{x:Bind ViewModel.IsDeviceAuthorizationAvailable, Mode=OneWay}"
+							Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="8"
+							RowSpacing="8">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<TextBlock
+								Style="{StaticResource BodyStrongTextBlockStyle}"
+								Text="Enter this code on GitHub" />
+
+							<TextBlock
+								Grid.Row="1"
+								FontFamily="Consolas"
+								FontSize="28"
+								IsTextSelectionEnabled="True"
+								Text="{x:Bind ViewModel.DeviceUserCode, Mode=OneWay}" />
+
+							<TextBlock
+								Grid.Row="2"
+								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+								IsTextSelectionEnabled="True"
+								Style="{StaticResource CaptionTextBlockStyle}"
+								Text="{x:Bind ViewModel.DeviceAuthorizationStatus, Mode=OneWay}"
+								TextWrapping="Wrap" />
+
+							<Button
+								Grid.Row="3"
+								HorizontalAlignment="Stretch"
+								Command="{x:Bind ViewModel.OpenDeviceVerificationUriCommand}"
+								Content="Open GitHub device page" />
+						</Grid>
+
 						<!--  Steps To Authorize  -->
 						<Grid Margin="0,18" RowSpacing="12">
 							<Grid.RowDefinitions>

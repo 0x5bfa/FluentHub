@@ -14,6 +14,7 @@ namespace FluentHub.App.ViewModels.SignIn
 	{
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
+		private CancellationTokenSource _deviceAuthorizationCancellationTokenSource;
 
 		private bool _authorizedSuccessfully;
 		public bool AuthorizedSuccessfully
@@ -38,15 +39,33 @@ namespace FluentHub.App.ViewModels.SignIn
 		protected bool _IsTaskLoading;
 		public bool IsTaskLoading { get => _IsTaskLoading; set => SetProperty(ref _IsTaskLoading, value); }
 
-		public string ReceivedUserIdentity
+		private string _deviceUserCode;
+		public string DeviceUserCode
 		{
+			get => _deviceUserCode;
 			set
 			{
-				var command = AuthorizeOAuthCommand;
-				if (command.CanExecute(value))
-					command.Execute(value);
+				SetProperty(ref _deviceUserCode, value);
+				OnPropertyChanged(nameof(IsDeviceAuthorizationAvailable));
 			}
 		}
+
+		private string _deviceVerificationUri;
+		public string DeviceVerificationUri
+		{
+			get => _deviceVerificationUri;
+			set => SetProperty(ref _deviceVerificationUri, value);
+		}
+
+		private string _deviceAuthorizationStatus;
+		public string DeviceAuthorizationStatus
+		{
+			get => _deviceAuthorizationStatus;
+			set => SetProperty(ref _deviceAuthorizationStatus, value);
+		}
+
+		public bool IsDeviceAuthorizationAvailable
+			=> string.IsNullOrEmpty(DeviceUserCode) is false;
 
 		public string Version
 		{
@@ -64,8 +83,8 @@ namespace FluentHub.App.ViewModels.SignIn
 			}
 		}
 
-		public ICommand AuthorizeOAuthCommand { get; set; }
 		public ICommand AuthorizeWithBrowserCommand { get; set; }
+		public ICommand OpenDeviceVerificationUriCommand { get; set; }
 
 		public IntroViewModel()
 		{
@@ -73,13 +92,24 @@ namespace FluentHub.App.ViewModels.SignIn
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
 
 			AuthorizeWithBrowserCommand = new AsyncRelayCommand(AuthorizeWithBrowserAsync);
-			AuthorizeOAuthCommand = new AsyncRelayCommand<string>(AuthorizeOAuthAsync);
+			OpenDeviceVerificationUriCommand = new AsyncRelayCommand(OpenDeviceVerificationUriAsync);
 		}
 
 		private async Task AuthorizeWithBrowserAsync()
 		{
+			_deviceAuthorizationCancellationTokenSource?.Cancel();
+			_deviceAuthorizationCancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = _deviceAuthorizationCancellationTokenSource.Token;
+
 			try
 			{
+				IsTaskLoading = true;
+				IsTaskFaulted = false;
+				AuthorizedSuccessfully = false;
+				DeviceUserCode = string.Empty;
+				DeviceVerificationUri = string.Empty;
+				DeviceAuthorizationStatus = "Requesting a GitHub device code...";
+
 				var secrets = await OctokitSecretsService.LoadOctokitSecretsAsync();
 
 				if (secrets is null)
@@ -94,15 +124,36 @@ namespace FluentHub.App.ViewModels.SignIn
 					return;
 				}
 
-				// Get authorization URL
-				AuthorizationService request = new();
-				var url = request.RequestGitHubIdentityAsync(secrets);
+				AuthorizationService authService = new();
+				var deviceAuthorization = await authService.RequestDeviceAuthorizationAsync(secrets);
+
+				DeviceUserCode = deviceAuthorization.UserCode;
+				DeviceVerificationUri = deviceAuthorization.VerificationUri;
+				DeviceAuthorizationStatus = "Waiting for GitHub authorization...";
 
 				// Load the URL in user's browser
-				await Launcher.LaunchUriAsync(new Uri(url));
+				await OpenDeviceVerificationUriAsync();
 
 				App.AppSettings.SetupProgress = true;
 				UrlWasLaunched = true;
+
+				var accessToken = await WaitForDeviceAccessTokenAsync(authService, secrets, deviceAuthorization, cancellationToken);
+
+				_logger?.Info("FluentHub is authorized successfully.");
+
+				// Set token and login to App Settings Container
+				await SetAccountInfo(accessToken);
+
+				AuthorizedSuccessfully = true;
+				DeviceAuthorizationStatus = "FluentHub is authorized successfully.";
+
+				// Setup was completed successfully
+				App.AppSettings.SetupProgress = true;
+				App.AppSettings.SetupCompleted = true;
+			}
+			catch (OperationCanceledException)
+			{
+				DeviceAuthorizationStatus = string.Empty;
 			}
 			catch (Exception ex)
 			{
@@ -114,43 +165,46 @@ namespace FluentHub.App.ViewModels.SignIn
 			}
 			finally
 			{
-
+				IsTaskLoading = false;
 			}
 		}
 
-		private async Task AuthorizeOAuthAsync(string? code)
+		private async Task<string> WaitForDeviceAccessTokenAsync(
+			AuthorizationService authService,
+			OctokitSecrets secrets,
+			DeviceAuthorizationResponse deviceAuthorization,
+			CancellationToken cancellationToken)
 		{
-			try
+			var interval = Math.Max(deviceAuthorization.Interval ?? 5, 5);
+			var expiresAt = DateTimeOffset.UtcNow.AddSeconds(deviceAuthorization.ExpiresIn);
+
+			while (DateTimeOffset.UtcNow < expiresAt)
 			{
-				IsTaskLoading = true;
+				await Task.Delay(TimeSpan.FromSeconds(interval), cancellationToken);
 
-				var secrets = await OctokitSecretsService.LoadOctokitSecretsAsync();
-
-				AuthorizationService authService = new();
-				var accessToken = await authService.RequestOAuthTokenAsync(code, secrets);
-
-				_logger?.Info("FluentHub is authorized successfully.");
-
-				// Set token and login to App Settings Container
-				await SetAccountInfo(accessToken);
-
-				AuthorizedSuccessfully = true;
-
-				// Setup was completed successfully
-				App.AppSettings.SetupProgress = true;
-				App.AppSettings.SetupCompleted = true;
+				try
+				{
+					return await authService.RequestDeviceAccessTokenAsync(deviceAuthorization.DeviceCode, secrets);
+				}
+				catch (DeviceAuthorizationPendingException)
+				{
+					DeviceAuthorizationStatus = "Waiting for GitHub authorization...";
+				}
+				catch (DeviceAuthorizationSlowDownException ex)
+				{
+					interval = Math.Max(ex.Interval ?? interval + 5, interval + 5);
+					DeviceAuthorizationStatus = "GitHub asked us to slow down. Still waiting...";
+				}
 			}
-			catch (Exception ex)
-			{
-				TaskException = ex;
-				_logger?.Info("FluentHub authorization failed.");
 
-				AuthorizedSuccessfully = false;
-				IsTaskFaulted = true;
-			}
-			finally
+			throw new TimeoutException("The GitHub device authorization code has expired.");
+		}
+
+		private async Task OpenDeviceVerificationUriAsync()
+		{
+			if (Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
 			{
-				IsTaskLoading = false;
+				await Launcher.LaunchUriAsync(uri);
 			}
 		}
 

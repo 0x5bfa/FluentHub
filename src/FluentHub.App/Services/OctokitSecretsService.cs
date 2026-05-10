@@ -13,7 +13,7 @@ namespace FluentHub.App.Services
 			var nodeId = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='id']/@value");
 			var nodeSecret = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='secret']/@value");
 
-			if (string.IsNullOrEmpty(nodeId.NodeValue as string) || string.IsNullOrEmpty(nodeSecret.NodeValue as string))
+			if (string.IsNullOrEmpty(nodeId?.NodeValue as string))
 			{
 				return null;
 			}
@@ -21,7 +21,7 @@ namespace FluentHub.App.Services
 			return new Octokit.Authorization.OctokitSecrets()
 			{
 				ClientId = (string)nodeId.NodeValue,
-				ClientSecret = (string)nodeSecret.NodeValue,
+				ClientSecret = nodeSecret?.NodeValue as string ?? string.Empty,
 			};
 		}
 	}
