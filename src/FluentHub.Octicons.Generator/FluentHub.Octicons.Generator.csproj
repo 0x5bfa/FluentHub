@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<OutputType>Exe</OutputType>
 		<Platforms>x86;x64;ARM64</Platforms>
+		<IsAotCompatible>true</IsAotCompatible>
 	</PropertyGroup>
 
 	<ItemGroup>

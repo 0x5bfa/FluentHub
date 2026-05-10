@@ -4,15 +4,41 @@
 		<TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 		<OutputType>WinExe</OutputType>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<Platforms>x86;x64;ARM64</Platforms>
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
-		<UseWinUI>true</UseWinUI>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
-		<Optimize Condition="'$(Configuration)' != 'Debug'">true</Optimize>
+
+		<!--  WinUI properties  -->
+		<UseWinUI>true</UseWinUI>
+		<WinUISDKReferences>false</WinUISDKReferences>
+		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+		<!--<ApplicationIcon>Assets\AppTiles\Dev\Logo.ico</ApplicationIcon>-->
+		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+		<DisableXbfLineInfo>false</DisableXbfLineInfo>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<CsWinRTIncludes>Files.App.Server;Microsoft.UI.Content.ContentExternalOutputLink;Microsoft.UI.Content.IContentExternalOutputLink</CsWinRTIncludes>
+
+		<!--  MSIX packaging properties  -->
 		<EnableMsixTooling>true</EnableMsixTooling>
+		<DefaultLanguage>en-US</DefaultLanguage>
+		<AppxPackageSigningTimestampDigestAlgorithm>sha256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>true</AppxAutoIncrementPackageRevision>
+		<AppxBundle Condition="'$(Configuration)' == 'Debug'">Never</AppxBundle>
+		<AppxBundle Condition="'$(Configuration)' != 'Debug'">Always</AppxBundle>
+		<AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+		<UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
+		<GenerateAppxPackageOnBuild Condition="'$(Configuration)' != 'Debug'">true</GenerateAppxPackageOnBuild>
+		<AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
+		<!--<AppxDefaultResourceQualifiers>Language=en-US;af;ar;be-BY;bg;ca;cs-CZ;da;de-DE;el;en-GB;es-ES;es-419;fa-IR;fi-FI;fil-PH;fr-FR;he-IL;hi-IN;hr-HR;hu-HU;hy-AM;id-ID;it-IT;ja-JP;ka;km-KH;ko-KR;lt-LT;lv-LV;ms-MY;nb-NO;nl-NL;pl-PL;pt-BR;pt-PT;ro-RO;ru-RU;sk-SK;sq-AL;sr-Cyrl;sv-SE;ta;th-TH;tr-TR;uk-UA;vi;zh-Hans;zh-Hant</AppxDefaultResourceQualifiers>-->
+
+		<IsAotCompatible>true</IsAotCompatible>
+		<PublishAot>true</PublishAot>
+		<SelfContained>true</SelfContained>
+		<PublishSingleFile>false</PublishSingleFile>
+		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+
 	</PropertyGroup>
 
 	<ItemGroup>
