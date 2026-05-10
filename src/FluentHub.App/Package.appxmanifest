@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Package
+﻿<Package
     xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
     xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
     xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
@@ -24,7 +23,7 @@
     </Properties>
 
     <Dependencies>
-        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.22000.0" />
+        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.26100.0" />
     </Dependencies>
 
     <Resources>
@@ -32,10 +31,7 @@
     </Resources>
 
     <Applications>
-        <Application
-            Id="App"
-            Executable="$targetnametoken$.exe"
-            EntryPoint="$targetentrypoint$">
+        <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
 
             <uap:VisualElements
                 DisplayName="FluentHub Dev"
