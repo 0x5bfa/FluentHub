@@ -9,11 +9,8 @@ on:
 run-name: 'FluentHub CD (Store)'
 
 jobs:
-
   build:
-
     if: github.repository_owner == '0x5bfa'
-
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -35,7 +32,6 @@ jobs:
       STORE_BROKER_CONFIG_PATH:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
 
     steps:
-
     - name: Checkout the repository
       uses: actions/checkout@v4
     - name: Setup MSBuild
@@ -45,27 +41,18 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - name: Save base64 credentials into a file
-      shell: pwsh
+    - name: Build & package FluentHub
       run: |
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
         [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
+
+        ./.github/scripts/Build-App.ps1 `
+          -Platform $env:PLATFORM `
+          -Configuration $env:CONFIGURATION `
+          -IsStorePublish $true `
+          -PackageManifestPath $env:APP_MANIFEST_PATH
       env:
         GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
-
-    - name: Build & package FluentHub
-      run: |
-        msbuild "$env:APP_PROJECT_PATH" `
-        -restore `
-        -t:Build `
-        -t:_GenerateAppxPackage `
-        -clp:ErrorsOnly `
-        -p:Platform=$env:PLATFORM `
-        -p:Configuration=$env:CONFIGURATION `
-        -p:AppxBundlePlatforms=$env:APPX_BUNDLE_PLATFORMS `
-        -p:AppxPackageDir="$env:APPX_PACKAGE_DIR" `
-        -p:AppxBundle=Always `
-        -p:UapAppxPackageBuildMode=StoreUpload
 
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4

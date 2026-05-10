@@ -21,59 +21,16 @@ run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' |
 
 env:
   WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  APPX_SELFSIGNED_CERT_PATH:     '${{ github.workspace }}\.github\workflows\FluentHub_SelfSigned.pfx'
-  ARTIFACTS_STAGING_DIR:         '${{ github.workspace }}\artifacts'
-  APPX_PACKAGE_DIR:              '${{ github.workspace }}\artifacts\AppxPackages'
-  APP_PROJECT_DIR:               '${{ github.workspace }}\src\FluentHub.App'
+  APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub.App\AppPackages\'
   APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
+  APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
   APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-  SOLUTION_PATH:                 '${{ github.workspace }}\FluentHub.slnx'
   AUTOMATED_TESTS_PLATFORM:      'x64'
   AUTOMATED_TESTS_CONFIGURATION: 'Release'
 
 jobs:
-
-  check-formatting:
-
-    if: github.repository_owner == '0x5bfa'
-
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: pwsh
-
-    steps:
-
-    - name: Checkout the repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
-    
-    - name: Install XamlStyler console
-      run: 'dotnet tool install --global XamlStyler.Console'
-
-    - name: Check XAML formatting
-      id: check-step
-      run: |
-        $changedFiles = (git diff --diff-filter=d --name-only HEAD~1) -split "\n" | Where-Object {$_ -like "*.xaml"}
-        foreach ($file in $changedFiles)
-        {
-          xstyler -p -l None -f $file
-          if ($LASTEXITCODE -ne 0)
-          {
-            echo "::error file=$file::Format check failed"
-          }
-        }
-      continue-on-error: true
-    
-    - name: Fail if necessary
-      if: steps.check-step.outcome == 'failure'
-      run: exit 1
-
   build:
-
     if: github.repository_owner == '0x5bfa'
-
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -95,91 +52,20 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - name: Save base64 credentials into a file
-      shell: pwsh
+    - name: Build FluentHub
       run: |
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
         [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
+
+        ./.github/scripts/Build-App.ps1 `
+          -Platform $env:PLATFORM `
+          -Configuration $env:CONFIGURATION `
+          -PackageManifestPath $env:APP_MANIFEST_PATH
       env:
         GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
-
-    - if: env.CONFIGURATION != env.AUTOMATED_TESTS_CONFIGURATION || env.PLATFORM != env.AUTOMATED_TESTS_PLATFORM 
-      name: Build FluentHub
-      run: |
-        msbuild `
-          $env:APP_PROJECT_PATH `
-          -restore `
-          -t:Build `
-          -clp:ErrorsOnly `
-          -p:Configuration=$env:CONFIGURATION `
-          -p:Platform=$env:PLATFORM `
-          -p:AppxBundle=Never `
-          -p:PublishReadyToRun=true
-
-    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM
-      name: Create self signed cert as a pfx file
-      run: ./.github/scripts/Generate-SelfCertPfx.ps1 -Destination "$env:APPX_SELFSIGNED_CERT_PATH"
-
-    - if: env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM
-      name: Build & package Files
-      run: |
-        msbuild `
-          $env:APP_PROJECT_PATH `
-          -restore `
-          -t:Build `
-          -t:_GenerateAppxPackage `
-          -clp:ErrorsOnly `
-          -p:Configuration=$env:CONFIGURATION `
-          -p:Platform=$env:PLATFORM `
-          -p:AppxBundlePlatforms=$env:AUTOMATED_TESTS_PLATFORM `
-          -p:AppxBundle=Always `
-          -p:UapAppxPackageBuildMode=SideloadOnly `
-          -p:AppxPackageDir=$env:APPX_PACKAGE_DIR `
-          -p:AppxPackageSigningEnabled=true `
-          -p:PackageCertificateKeyFile=$env:APPX_SELFSIGNED_CERT_PATH `
-          -p:PackageCertificatePassword="" `
-          -p:PackageCertificateThumbprint="" `
-          -p:PublishReadyToRun=true
 
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
-        path: ${{ env.ARTIFACTS_STAGING_DIR }}
-
-    - if: env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
-      name: Get artifact size
-      id: get_artifact_size
-      uses: actions/github-script@v6
-      with:
-        result-encoding: string
-        script: |
-          const { data: artifacts } = await github.rest.actions.listArtifactsForRepo({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-          });
-
-          const artifact = artifacts.artifacts.find(a => a.name === 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})');
-          
-          if (artifact)
-          {
-            console.log('Artifact Size: ${artifact.size_in_bytes} bytes');
-            core.setOutput("artifact-size", artifact.size_in_bytes);
-            return "${artifact.size_in_bytes}"
-          }
-          else
-          {
-            console.log('Artifact not found.');
-            return "0"
-          }
-
-    - if: env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
-      name: Display artifact size
-      run: 'echo "Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes."'
-
-    #- if: github.event_name == 'pull_request' && env.PLATFORM == env.AUTOMATED_TESTS_PLATFORM && env.CONFIGURATION == env.AUTOMATED_TESTS_CONFIGURATION
-    #  uses: marocchino/sticky-pull-request-comment@v1
-    #  with:
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #    header: ci-comment
-    #    message: 'Artifact size is ${{ steps.get_artifact_size.outputs.artifact-size }} bytes.'
+        path: ${{ env.APP_APPX_DIR }}
