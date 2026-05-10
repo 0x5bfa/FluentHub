@@ -4,13 +4,13 @@ using Microsoft.UI.Xaml.Markup;
 namespace FluentHub.App.Helpers
 {
 	[MarkupExtensionReturnType(ReturnType = typeof(string))]
-	public sealed class ResourceString : MarkupExtension
+	public sealed partial class ResourceString : MarkupExtension
 	{
-		private static ResourceLoader resourceLoader = new ResourceLoader();
+		private static readonly ResourceLoader _resourceLoader = new();
 
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		protected override object ProvideValue()
-			=> resourceLoader.GetString(Name);
+			=> _resourceLoader.GetString(Name) ?? string.Empty;
 	}
 }

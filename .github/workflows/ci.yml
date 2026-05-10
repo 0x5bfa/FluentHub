@@ -42,7 +42,6 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
 
     steps:
-
     - name: Checkout the repository
       uses: actions/checkout@v4
     - name: Setup MSBuild
