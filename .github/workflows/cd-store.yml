@@ -18,18 +18,16 @@ jobs:
         configuration: [Release] # Consider to use Store
         platform: [x64]
     env:
-      APPX_BUNDLE_PLATFORMS:        'x64|arm64'
-      CONFIGURATION:                '${{ matrix.configuration }}'
-      PLATFORM:                     '${{ matrix.platform }}'
-      WORKING_DIR:                  '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-      SOLUTION_PATH:                '${{ github.workspace }}\FluentHub.slnx'
-      APP_PROJECT_DIR:              '${{ github.workspace }}\src\FluentHub.App'
-      APP_PROJECT_PATH:             '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
-      APP_CREDENTIALS_PATH:         '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-      ARTIFACTS_STAGING_DIR:        '${{ github.workspace }}\artifacts'
-      APPX_PACKAGE_DIR:             '${{ github.workspace }}\artifacts\AppxPackages'
-      STORE_BROKER_STAGING_DIR:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\submission'
-      STORE_BROKER_CONFIG_PATH:     '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
+      APPX_BUNDLE_PLATFORMS:         'x64|arm64'
+      CONFIGURATION:                 '${{ matrix.configuration }}'
+      PLATFORM:                      '${{ matrix.platform }}'
+      WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
+      APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub.App\AppPackages\'
+      APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
+      APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
+      APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+      STORE_BROKER_STAGING_DIR:      '${{ github.workspace }}\.github\configurations\MicrosoftStore\submission'
+      STORE_BROKER_CONFIG_PATH:      '${{ github.workspace }}\.github\configurations\MicrosoftStore\config.json'
 
     steps:
     - name: Checkout the repository
@@ -46,7 +44,9 @@ jobs:
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
         [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
 
-        ./.github/scripts/Build-App.ps1 `
+        cd $env:WORKING_DIR\src
+
+        & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
           -Platform $env:PLATFORM `
           -Configuration $env:CONFIGURATION `
           -IsStorePublish $true `

@@ -25,8 +25,6 @@ env:
   APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
   APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
   APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-  AUTOMATED_TESTS_PLATFORM:      'x64'
-  AUTOMATED_TESTS_CONFIGURATION: 'Release'
 
 jobs:
   build:
@@ -56,7 +54,9 @@ jobs:
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
         [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
 
-        ./.github/scripts/Build-App.ps1 `
+        cd $env:WORKING_DIR\src
+
+        & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
           -Platform $env:PLATFORM `
           -Configuration $env:CONFIGURATION `
           -PackageManifestPath $env:APP_MANIFEST_PATH
@@ -67,4 +67,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
-        path: ${{ env.APP_APPX_DIR }}
+        path: ${{ env.APP_PACKAGE_DIR }}
