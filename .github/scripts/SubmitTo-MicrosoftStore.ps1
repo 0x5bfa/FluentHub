@@ -98,7 +98,7 @@ function Get-PropertyByName
         Select-Object -First 1
 }
 
-function ConvertTo-ComparableJson
+function Normalize-ComparableValue
 {
     param(
         [AllowNull()]
@@ -107,10 +107,40 @@ function ConvertTo-ComparableJson
 
     if ($null -eq $Value)
     {
+        return $null
+    }
+
+    if ($Value -is [string])
+    {
+        return [regex]::Replace($Value, '\s+', ' ').Trim()
+    }
+
+    if ($Value -is [System.Collections.IEnumerable] -and
+        $Value -isnot [System.Collections.IDictionary])
+    {
+        return @($Value | ForEach-Object {
+            Normalize-ComparableValue -Value $_
+        })
+    }
+
+    return $Value
+}
+
+function ConvertTo-ComparableJson
+{
+    param(
+        [AllowNull()]
+        [object]$Value
+    )
+
+    $normalizedValue = Normalize-ComparableValue -Value $Value
+
+    if ($null -eq $normalizedValue)
+    {
         return "null"
     }
 
-    return $Value | ConvertTo-Json -Depth 100 -Compress
+    return $normalizedValue | ConvertTo-Json -Depth 100 -Compress
 }
 
 function Test-UpdatedSubmission
