@@ -198,30 +198,11 @@ jobs:
     - name: Prepare and publish Microsoft Store submission
       shell: bash
       run: |
-        dbus-run-session -- bash -euo pipefail <<'BASH'
-        keyring_env="$(printf '\n' | gnome-keyring-daemon --unlock)"
-        eval "$keyring_env"
-
-        pwsh -NoLogo -NoProfile -Command - <<'POWERSHELL'
-        $submit = [Convert]::ToBoolean($env:STORE_SUBMIT)
-        $replaceExistingDraft = [Convert]::ToBoolean($env:STORE_REPLACE_EXISTING_DRAFT)
-
-        & "$env:GITHUB_WORKSPACE/.github/scripts/SubmitTo-MicrosoftStore.ps1" `
-          -StorePackagePath $env:STORE_PACKAGE_PATH `
-          -StoreListingsPath $env:STORE_LISTINGS_DIR `
-          -StoreLocalesPath $env:STORE_LOCALES_PATH `
-          -PartnerCenterClientId $env:PARTNER_CENTER_CLIENT_ID `
-          -PartnerCenterClientSecret $env:PARTNER_CENTER_CLIENT_SECRET `
-          -PartnerCenterSellerId $env:PARTNER_CENTER_SELLER_ID `
-          -PartnerCenterStoreId $env:STORE_PRODUCT_ID `
-          -PartnerCenterTenantId $env:PARTNER_CENTER_TENANT_ID `
-          -Submit:$submit `
-          -ReplaceExistingDraft:$replaceExistingDraft `
-          -ReleaseNotes $env:STORE_RELEASE_NOTES `
-          -FlightId $env:STORE_FLIGHT_ID `
-          -PackageRolloutPercentage $env:STORE_ROLLOUT_PERCENTAGE
-        POWERSHELL
-        BASH
+        dbus-run-session -- bash -euo pipefail -c '
+          keyring_env="$(printf '\''\n'\'' | gnome-keyring-daemon --unlock)"
+          eval "$keyring_env"
+          pwsh -NoLogo -NoProfile -File "$GITHUB_WORKSPACE/.github/scripts/Run-MicrosoftStoreSubmission.ps1"
+        '
       env:
         STORE_PACKAGE_PATH: ${{ steps.package.outputs.package_path }}
         STORE_SUBMIT: ${{ inputs.submit }}
