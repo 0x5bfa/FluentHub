@@ -7,12 +7,21 @@ on:
   workflow_dispatch:
     inputs:
       submit:
-        description: 'Submit the package to Microsoft Store certification. When false, the submission stays as a draft.'
+        description: 'Submit the prepared draft to Microsoft Store certification.'
         required: true
         default: false
         type: boolean
+      replace_existing_draft:
+        description: 'Replace an existing Partner Center draft. Keep disabled unless that draft can be discarded.'
+        required: true
+        default: false
+        type: boolean
+      release_notes:
+        description: 'Optional English release notes. When empty, the existing Store value is preserved.'
+        required: false
+        type: string
       flight_id:
-        description: 'Optional Microsoft Store flight ID.'
+        description: 'Optional Microsoft Store flight ID. Store listings are not updated for flights.'
         required: false
         type: string
       rollout_percentage:
@@ -25,25 +34,25 @@ run-name: 'FluentHub CD (Store)'
 permissions:
   contents: read
 
+concurrency:
+  group: microsoft-store-production
+  cancel-in-progress: false
+
 jobs:
   build:
     if: github.repository_owner == '0x5bfa'
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        configuration: [Release] # Consider to use Store
-        platform: [x64]
     env:
       APPX_BUNDLE_PLATFORMS:         'x64|arm64'
-      CONFIGURATION:                 '${{ matrix.configuration }}'
-      PLATFORM:                      '${{ matrix.platform }}'
-      WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
+      CONFIGURATION:                 'Release'
+      PLATFORM:                      'x64'
+      WORKING_DIR:                   '${{ github.workspace }}'
       APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub.App\AppPackages\'
       APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
       APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
       APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
-      STORE_PRODUCT_ID:              "${{ vars.MICROSOFT_STORE_PRODUCT_ID || '9NKB9HX8RJZ3' }}"
+      STORE_LISTINGS_DIR:            '${{ github.workspace }}\Packaging\MicrosoftStore\Listings'
+      STORE_LOCALES_PATH:            '${{ github.workspace }}\Packaging\MicrosoftStore\locales.json'
 
     steps:
     - name: Checkout the repository
@@ -55,12 +64,20 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
 
-    - name: Build & package FluentHub
+    - name: Validate Microsoft Store listings
+      shell: pwsh
+      run: |
+        & "$env:WORKING_DIR\.github\scripts\Validate-MicrosoftStoreListings.ps1" `
+          -ListingsPath $env:STORE_LISTINGS_DIR `
+          -LocalesPath $env:STORE_LOCALES_PATH
+
+    - name: Build and package FluentHub
+      shell: pwsh
       run: |
         $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
         [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
 
-        cd $env:WORKING_DIR\src
+        Set-Location "$env:WORKING_DIR\src"
 
         & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
           -Platform $env:PLATFORM `
@@ -70,8 +87,7 @@ jobs:
       env:
         GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
-    - name: Find Store package
-      id: package
+    - name: Verify Store package
       shell: pwsh
       run: |
         $package = Get-ChildItem -Path $env:APP_PACKAGE_DIR -Recurse -File -Include *.msixupload, *.msixbundle, *.msix |
@@ -99,35 +115,96 @@ jobs:
           throw "No Store package was found under '$env:APP_PACKAGE_DIR'."
         }
 
-        "package_path=$($package.FullName)" >> $env:GITHUB_OUTPUT
-        "package_name=$($package.Name)" >> $env:GITHUB_OUTPUT
         Write-Host "Found Store package: $($package.FullName)"
 
-    - name: Upload the packages to the Artifacts
+    - name: Upload the Store package
       uses: actions/upload-artifact@v4
       with:
-        name: 'Appx Packages (${{ env.CONFIGURATION }}, ${{ env.PLATFORM }})'
+        name: FluentHub Store package
         path: ${{ env.APP_PACKAGE_DIR }}
         if-no-files-found: error
+        retention-days: 14
 
-    - name: Setup Microsoft Store Developer CLI
-      uses: microsoft/microsoft-store-apppublisher@v1.2
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: microsoft-store
+    env:
+      STORE_ARTIFACT_DIR:             '${{ github.workspace }}/artifacts/store'
+      STORE_LISTINGS_DIR:             '${{ github.workspace }}/Packaging/MicrosoftStore/Listings'
+      STORE_LOCALES_PATH:             '${{ github.workspace }}/Packaging/MicrosoftStore/locales.json'
+      STORE_PRODUCT_ID:               "${{ vars.MICROSOFT_STORE_PRODUCT_ID || '9NKB9HX8RJZ3' }}"
+      STORE_RELEASE_NOTES:            '${{ inputs.release_notes }}'
+      STORE_FLIGHT_ID:                '${{ inputs.flight_id }}'
+      STORE_ROLLOUT_PERCENTAGE:       '${{ inputs.rollout_percentage }}'
 
-    - name: Publish to Microsoft Store
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Download the Store package
+      uses: actions/download-artifact@v4
+      with:
+        name: FluentHub Store package
+        path: ${{ env.STORE_ARTIFACT_DIR }}
+
+    - name: Find Store package
+      id: package
       shell: pwsh
       run: |
-        $submit = [System.Convert]::ToBoolean("${{ inputs.submit }}")
+        $package = Get-ChildItem -Path $env:STORE_ARTIFACT_DIR -Recurse -File -Include *.msixupload, *.msixbundle, *.msix |
+          Sort-Object `
+            @{
+              Expression = {
+                switch ($_.Extension.ToLowerInvariant())
+                {
+                  ".msixupload" { 0 }
+                  ".msixbundle" { 1 }
+                  ".msix" { 2 }
+                  default { 3 }
+                }
+              }
+              Ascending = $true
+            },
+            @{
+              Expression = "LastWriteTimeUtc"
+              Descending = $true
+            } |
+          Select-Object -First 1
 
-        & "$env:WORKING_DIR\.github\scripts\SubmitTo-MicrosoftStore.ps1" `
+        if ($null -eq $package)
+        {
+          throw "No Store package was found under '$env:STORE_ARTIFACT_DIR'."
+        }
+
+        "package_path=$($package.FullName)" >> $env:GITHUB_OUTPUT
+        Write-Host "Found Store package: $($package.FullName)"
+
+    - name: Setup Microsoft Store Developer CLI
+      uses: microsoft/microsoft-store-apppublisher@cc9910a8d59f2eb55cbb83df0a3800cf3b5300e0
+      with:
+        version: v0.3.9
+
+    - name: Prepare and publish Microsoft Store submission
+      shell: pwsh
+      run: |
+        $submit = [Convert]::ToBoolean("${{ inputs.submit }}")
+        $replaceExistingDraft = [Convert]::ToBoolean("${{ inputs.replace_existing_draft }}")
+
+        & "${{ github.workspace }}/.github/scripts/SubmitTo-MicrosoftStore.ps1" `
           -StorePackagePath "${{ steps.package.outputs.package_path }}" `
+          -StoreListingsPath $env:STORE_LISTINGS_DIR `
+          -StoreLocalesPath $env:STORE_LOCALES_PATH `
           -PartnerCenterClientId $env:PARTNER_CENTER_CLIENT_ID `
           -PartnerCenterClientSecret $env:PARTNER_CENTER_CLIENT_SECRET `
           -PartnerCenterSellerId $env:PARTNER_CENTER_SELLER_ID `
           -PartnerCenterStoreId $env:STORE_PRODUCT_ID `
           -PartnerCenterTenantId $env:PARTNER_CENTER_TENANT_ID `
           -Submit:$submit `
-          -FlightId "${{ inputs.flight_id }}" `
-          -PackageRolloutPercentage "${{ inputs.rollout_percentage }}"
+          -ReplaceExistingDraft:$replaceExistingDraft `
+          -ReleaseNotes $env:STORE_RELEASE_NOTES `
+          -FlightId $env:STORE_FLIGHT_ID `
+          -PackageRolloutPercentage $env:STORE_ROLLOUT_PERCENTAGE
       env:
         PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
         PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
