@@ -83,6 +83,137 @@ function Invoke-MsStoreJson
     return $output.Substring($jsonStart, $jsonEnd - $jsonStart + 1)
 }
 
+function Get-PropertyByName
+{
+    param(
+        [Parameter(Mandatory)]
+        [psobject]$InputObject,
+
+        [Parameter(Mandatory)]
+        [string]$Name
+    )
+
+    return $InputObject.PSObject.Properties |
+        Where-Object { $_.Name.Equals($Name, [StringComparison]::OrdinalIgnoreCase) } |
+        Select-Object -First 1
+}
+
+function ConvertTo-ComparableJson
+{
+    param(
+        [AllowNull()]
+        [object]$Value
+    )
+
+    if ($null -eq $Value)
+    {
+        return "null"
+    }
+
+    return $Value | ConvertTo-Json -Depth 100 -Compress
+}
+
+function Test-UpdatedSubmission
+{
+    $submissionJson = Invoke-MsStoreJson -Arguments @(
+        "submission",
+        "get",
+        $PartnerCenterStoreId
+    )
+    $submission = $submissionJson | ConvertFrom-Json -Depth 100
+
+    $applicationPackagesProperty = Get-PropertyByName `
+        -InputObject $submission `
+        -Name "ApplicationPackages"
+
+    if ($null -eq $applicationPackagesProperty)
+    {
+        throw "The updated submission does not contain ApplicationPackages."
+    }
+
+    $expectedPackageName = [IO.Path]::GetFileName($StorePackagePath)
+    $packageMatch = $null
+
+    foreach ($applicationPackage in @($applicationPackagesProperty.Value))
+    {
+        $fileNameProperty = Get-PropertyByName `
+            -InputObject $applicationPackage `
+            -Name "FileName"
+
+        if ($null -ne $fileNameProperty -and
+            [string]$fileNameProperty.Value -ieq $expectedPackageName)
+        {
+            $packageMatch = $applicationPackage
+            break
+        }
+    }
+
+    if ($null -eq $packageMatch)
+    {
+        throw "The updated submission does not contain the uploaded package '$expectedPackageName'."
+    }
+
+    Write-Host "Verified Store package in submission: $expectedPackageName"
+
+    $listingsProperty = Get-PropertyByName `
+        -InputObject $submission `
+        -Name "Listings"
+
+    if ($null -eq $listingsProperty)
+    {
+        throw "The updated submission does not contain Listings."
+    }
+
+    $localeConfiguration = Get-Content -LiteralPath $StoreLocalesPath -Raw | ConvertFrom-Json -Depth 10
+    $locales = @($localeConfiguration.PSObject.Properties["locales"].Value)
+
+    foreach ($locale in $locales)
+    {
+        $submissionListing = $listingsProperty.Value.PSObject.Properties |
+            Where-Object { $_.Name.Equals($locale, [StringComparison]::OrdinalIgnoreCase) } |
+            Select-Object -First 1
+
+        if ($null -eq $submissionListing)
+        {
+            throw "The updated submission does not contain the '$locale' listing."
+        }
+
+        $baseListingProperty = Get-PropertyByName `
+            -InputObject $submissionListing.Value `
+            -Name "BaseListing"
+
+        if ($null -eq $baseListingProperty)
+        {
+            throw "The updated '$locale' listing does not contain BaseListing."
+        }
+
+        $listingPath = Join-Path $StoreListingsPath "$locale.json"
+        $localizedListing = Get-Content -LiteralPath $listingPath -Raw | ConvertFrom-Json -Depth 20
+
+        foreach ($property in $localizedListing.PSObject.Properties)
+        {
+            $updatedProperty = Get-PropertyByName `
+                -InputObject $baseListingProperty.Value `
+                -Name $property.Name
+
+            if ($null -eq $updatedProperty)
+            {
+                throw "The updated '$locale' listing does not contain '$($property.Name)'."
+            }
+
+            $expectedValue = ConvertTo-ComparableJson -Value $property.Value
+            $actualValue = ConvertTo-ComparableJson -Value $updatedProperty.Value
+
+            if ($expectedValue -cne $actualValue)
+            {
+                throw "The updated '$locale' listing property '$($property.Name)' does not match the repository listing."
+            }
+        }
+
+        Write-Host "Verified Store listing in submission: $locale"
+    }
+}
+
 function Test-PendingSubmission
 {
     if ([string]::IsNullOrWhiteSpace($FlightId))
@@ -247,6 +378,27 @@ try
         $PartnerCenterStoreId,
         $updatedMetadata
     )
+
+    $verificationAttempts = 3
+
+    for ($attempt = 1; $attempt -le $verificationAttempts; $attempt++)
+    {
+        try
+        {
+            Test-UpdatedSubmission
+            break
+        }
+        catch
+        {
+            if ($attempt -eq $verificationAttempts)
+            {
+                throw
+            }
+
+            Write-Warning "Store submission verification attempt $attempt failed: $($_.Exception.Message). Retrying."
+            Start-Sleep -Seconds 5
+        }
+    }
 
     if (-not $Submit)
     {
