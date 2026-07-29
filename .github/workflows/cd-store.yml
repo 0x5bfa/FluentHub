@@ -185,14 +185,29 @@ jobs:
       with:
         version: v0.3.9
 
-    - name: Prepare and publish Microsoft Store submission
-      shell: pwsh
+    - name: Setup Linux credential store
+      shell: bash
       run: |
-        $submit = [Convert]::ToBoolean("${{ inputs.submit }}")
-        $replaceExistingDraft = [Convert]::ToBoolean("${{ inputs.replace_existing_draft }}")
+        sudo apt-get update
+        sudo apt-get install --yes --no-install-recommends \
+          dbus \
+          dbus-x11 \
+          gnome-keyring \
+          libsecret-1-0
 
-        & "${{ github.workspace }}/.github/scripts/SubmitTo-MicrosoftStore.ps1" `
-          -StorePackagePath "${{ steps.package.outputs.package_path }}" `
+    - name: Prepare and publish Microsoft Store submission
+      shell: bash
+      run: |
+        dbus-run-session -- bash -euo pipefail <<'BASH'
+        keyring_env="$(printf '\n' | gnome-keyring-daemon --unlock)"
+        eval "$keyring_env"
+
+        pwsh -NoLogo -NoProfile -Command - <<'POWERSHELL'
+        $submit = [Convert]::ToBoolean($env:STORE_SUBMIT)
+        $replaceExistingDraft = [Convert]::ToBoolean($env:STORE_REPLACE_EXISTING_DRAFT)
+
+        & "$env:GITHUB_WORKSPACE/.github/scripts/SubmitTo-MicrosoftStore.ps1" `
+          -StorePackagePath $env:STORE_PACKAGE_PATH `
           -StoreListingsPath $env:STORE_LISTINGS_DIR `
           -StoreLocalesPath $env:STORE_LOCALES_PATH `
           -PartnerCenterClientId $env:PARTNER_CENTER_CLIENT_ID `
@@ -205,7 +220,12 @@ jobs:
           -ReleaseNotes $env:STORE_RELEASE_NOTES `
           -FlightId $env:STORE_FLIGHT_ID `
           -PackageRolloutPercentage $env:STORE_ROLLOUT_PERCENTAGE
+        POWERSHELL
+        BASH
       env:
+        STORE_PACKAGE_PATH: ${{ steps.package.outputs.package_path }}
+        STORE_SUBMIT: ${{ inputs.submit }}
+        STORE_REPLACE_EXISTING_DRAFT: ${{ inputs.replace_existing_draft }}
         PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
         PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
         PARTNER_CENTER_SELLER_ID: ${{ secrets.PARTNER_CENTER_SELLER_ID }}
