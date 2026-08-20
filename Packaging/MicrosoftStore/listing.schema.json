@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FluentHub Microsoft Store listing",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "description"
+  ],
+  "properties": {
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+    "shortDescription": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "features": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "maxItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+      }
+    },
+    "releaseNotes": {
+      "type": "string",
+      "maxLength": 1500
+    },
+    "shortTitle": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "voiceTitle": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "devStudio": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "copyrightAndTrademarkInfo": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "licenseTerms": {
+      "type": "string",
+      "maxLength": 10000
+    },
+    "recommendedHardware": {
+      "type": "array",
+      "maxItems": 11,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "minimumHardware": {
+      "type": "array",
+      "maxItems": 11,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    }
+  }
+}
