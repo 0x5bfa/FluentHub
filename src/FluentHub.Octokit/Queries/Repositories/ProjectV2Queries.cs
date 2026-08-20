@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class ProjectV2Queries
 	{
-		public async Task<List<Project>> GetAllAsync(string owner, string name)
+		private readonly IGitHubApiClient _gitHub;
+
+		public ProjectV2Queries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Project>> GetAllAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -37,12 +43,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.ToList();
 		}
 
-		public async Task<Project> GetAsync(string owner, string name, int number)
+		public async Task<Project> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -76,7 +82,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

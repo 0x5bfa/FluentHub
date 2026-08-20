@@ -1,8 +1,17 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Mutations
 {
 	public class RemoveStarMutation
 	{
-		public Task<RemoveStarPayload> ExecuteAsync(ID starrableRepoId)
+		private readonly IGitHubApiClient _gitHub;
+
+		public RemoveStarMutation(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+
+		public Task<RemoveStarPayload> ExecuteAsync(
+			ID starrableRepoId,
+			CancellationToken cancellationToken = default)
 		{
 			var mutation = new Mutation()
 				.RemoveStar(new(new OctokitGraphQLModel.RemoveStarInput
@@ -15,7 +24,7 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 	}
 }

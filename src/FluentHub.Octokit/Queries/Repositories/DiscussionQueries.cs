@@ -1,24 +1,30 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class DiscussionQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public DiscussionQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Discussion>> GetPageAsync(
 			string owner,
 			string name,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			ID? categoryId = null,
-			OctokitGraphQLModel.DiscussionOrder? orderBy = null)
+			OctokitGraphQLModel.DiscussionOrder? orderBy = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			var query = new Query()
 				.Repository(owner: owner, name: name)
 				.Discussions(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					categoryId,
 					orderBy)
 				.Select(connection => new DiscussionConnection
@@ -70,21 +76,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Discussion>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 
-		public async Task<Discussion> GetAsync(string owner, string name, int number)
+		public async Task<Discussion> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(owner: owner, name: name)
@@ -143,7 +145,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

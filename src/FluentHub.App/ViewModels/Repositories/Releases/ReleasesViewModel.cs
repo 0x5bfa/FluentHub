@@ -28,7 +28,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryReleasesFurtherCommand { get; }
 
-		public ReleasesViewModel() : base()
+		public ReleasesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
@@ -73,17 +73,12 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		private async Task LoadRepositoryReleasesAsync(string login, string name)
 		{
-			ReleaseQueries queries = new();
+			var queries = _gitHub.Repositories.Releases;
 
-			var result = await queries.GetAllAsync(
-				owner: login,
-				name: name,
-				first: 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(login, name, PageRequest.Forward(20));
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<Release>)result.Response;
+			var items = result.Items;
 
 			if (items.Any())
 			{
@@ -104,18 +99,15 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 			try
 			{
-				ReleaseQueries queries = new();
+				var queries = _gitHub.Repositories.Releases;
 
-				var result = await queries.GetAllAsync(
-					owner: Login,
-					name: Name,
-					first: 20,
-					after: _lastPageInfo.EndCursor);
-				if (result.Response is null || result.PageInfo is null)
-					return;
+				var result = await queries.GetPageAsync(
+					Login,
+					Name,
+					PageRequest.Forward(20, _lastPageInfo.EndCursor));
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<Release>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 					_items.Add(item);
@@ -133,7 +125,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		public async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 

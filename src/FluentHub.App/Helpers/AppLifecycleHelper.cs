@@ -4,6 +4,8 @@
 using FluentHub.App.Utils;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels;
+using FluentHub.Octokit.Authorization;
+using FluentHub.Octokit.Clients;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
@@ -38,7 +40,14 @@ namespace FluentHub.App.Helpers
 					.AddSingleton<INavigationService, NavigationService>()
 					.AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Log.Logger))
 					.AddSingleton<ToastService>()
+					.AddSingleton<MarkdownApiHandler>()
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
+					// GitHub API
+					.AddSingleton<GitHubSessionManager>()
+					.AddSingleton<IGitHubSessionManager>(services => services.GetRequiredService<GitHubSessionManager>())
+					.AddSingleton<IGitHubApiClient, GitHubApiClient>()
+					.AddSingleton<IFluentHubGitHubClient, FluentHubGitHubClient>()
+					.AddSingleton<AuthorizationService>()
 					// ViewModels
 					.AddSingleton<MainPageViewModel>()
 					.AddSingleton<ViewModels.SignIn.IntroViewModel>()
@@ -77,6 +86,7 @@ namespace FluentHub.App.Helpers
 					.AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
 					.AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
 					.AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
+					.AddTransient<ViewModels.UserControls.UserContributionGraphViewModel>()
 					.AddTransient<ViewModels.Users.ContributionsViewModel>()
 					.AddTransient<ViewModels.Users.DiscussionsViewModel>()
 					.AddTransient<ViewModels.Users.FollowersViewModel>()

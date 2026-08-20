@@ -10,8 +10,11 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class UserContributionGraphViewModel : ObservableObject
 	{
-		public UserContributionGraphViewModel()
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public UserContributionGraphViewModel(IFluentHubGitHubClient gitHub)
 		{
+			_gitHub = gitHub;
 			_mergedCalendar = new();
 			MergedCalendar = new(_mergedCalendar);
 		}
@@ -27,7 +30,7 @@ namespace FluentHub.App.ViewModels.UserControls
 
 		public async Task GetContributionCalendarAsync()
 		{
-			ActivityQueries queries = new();
+			var queries = _gitHub.Users.Activities;
 			var response = await queries.GetContributionCalendarAsync(Login);
 
 			Calendar = response;

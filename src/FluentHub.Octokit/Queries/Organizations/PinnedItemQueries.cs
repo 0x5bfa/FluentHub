@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Organizations
 {
 	public class PinnedItemQueries
 	{
-		public async Task<List<Repository>> GetAllAsync(string org)
+		private readonly IGitHubApiClient _gitHub;
+
+		public PinnedItemQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Repository>> GetAllAsync(string org, CancellationToken cancellationToken = default)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[]
@@ -67,7 +73,7 @@ namespace FluentHub.Octokit.Queries.Organizations
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.ToList();
 		}

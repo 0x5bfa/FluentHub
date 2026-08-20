@@ -19,7 +19,7 @@ namespace FluentHub.App.ViewModels.Users
 		public IAsyncRelayCommand LoadUserFollowersPageCommand { get; }
 		public IAsyncRelayCommand LoadUserFollowersFurtherCommand { get; }
 
-		public FollowersViewModel() : base()
+		public FollowersViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			if (parameter.AsViewer)
@@ -71,14 +71,12 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserFollowersAsync(string login)
 		{
-			FollowersQueries queries = new();
+			var queries = _gitHub.Users.Followers;
 
-			var result = await queries.GetAllAsync(login, 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(login, PageRequest.Forward(20));
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<User>)result.Response;
+			var items = result.Items;
 
 			_followersItems.Clear();
 			foreach (var item in items)
@@ -101,14 +99,12 @@ namespace FluentHub.App.ViewModels.Users
 
 			try
 			{
-				FollowersQueries queries = new();
+				var queries = _gitHub.Users.Followers;
 
-				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
-				if (result.Response is null || result.PageInfo is null)
-					return;
+				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<User>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 				{

@@ -21,7 +21,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestFileChangesPageCommand { get; }
 
-		public FileChangesViewModel() : base()
+		public FileChangesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_diffViewModels = new();
 			DiffViewModels = new(_diffViewModels);
@@ -64,8 +64,11 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestFileChangesAsync(string owner, string name)
 		{
-			DiffQueries queries = new();
-			var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
+			var queries = _gitHub.Repositories.Diffs;
+			var response = await queries.GetPullRequestFilesAsync(
+				PullItem.Repository.Owner.Login,
+				PullItem.Repository.Name,
+				PullItem.Number);
 
 			if (response.Any() is false) return;
 
@@ -74,18 +77,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			{
 				DiffBlockViewModel viewModel = new()
 				{
-					ChangedFile = new(
-						item.FileName,
-						item.Additions,
-						item.Deletions,
-						item.Changes,
-						item.Status,
-						item.BlobUrl,
-						item.ContentsUrl,
-						item.RawUrl,
-						item.Sha,
-						item.Patch,
-						item.PreviousFileName),
+					ChangedFile = item,
 				};
 
 				_diffViewModels.Add(viewModel);
@@ -94,7 +86,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		public async Task LoadPullRequestAsync(string owner, string name)
 		{
-			PullRequestQueries queries = new();
+			var queries = _gitHub.Repositories.PullRequests;
 			PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
 
 			PullRequestOverviewViewModel = new()
@@ -106,7 +98,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		public async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

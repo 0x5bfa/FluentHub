@@ -28,7 +28,7 @@ namespace FluentHub.App.Dialogs
 
 		private async void OnEditPinnedRepositoriesDialogLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
 		{
-			await ViewModel.LoadPinnableAndPinnedRepositories();
+			await ViewModel.LoadPinnableAndPinnedRepositoriesAsync();
 		}
 	}
 }

@@ -71,7 +71,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 		public IAsyncRelayCommand AddIssueCommentCommand { get; }
 		public IAsyncRelayCommand ToggleIssueStateCommand { get; }
 
-		public IssueViewModel() : base()
+		public IssueViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_timelineItems = new();
 			TimelineItems = new(_timelineItems);
@@ -112,8 +112,8 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 		private async Task LoadRepositoryOneIssueAsync(string owner, string name)
 		{
-			IssueQueries issueQueries = new();
-			IssueEventQueries queries = new();
+			var issueQueries = _gitHub.Repositories.Issues;
+			var queries = _gitHub.Repositories.IssueEvents;
 			_timelineItems.Clear();
 
 			IssueItem = await issueQueries.GetAsync(owner, name, Number);
@@ -128,7 +128,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 
@@ -141,7 +141,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 			try
 			{
-				IssueMutations mutations = new();
+				var mutations = _gitHub.Mutations.Issues;
 				var response = await mutations.AddCommentAsync(new AddCommentInput
 				{
 					SubjectId = IssueItem.Id,
@@ -182,7 +182,7 @@ namespace FluentHub.App.ViewModels.Repositories.Issues
 
 			try
 			{
-				IssueMutations mutations = new();
+				var mutations = _gitHub.Mutations.Issues;
 				Issue? issue;
 
 				if (IssueItem.Closed)

@@ -28,9 +28,9 @@ global using global::FluentHub.App.Data.Parameters;
 global using global::FluentHub.App.Helpers;
 global using global::FluentHub.App.Services;
 global using global::FluentHub.Core.Data.Enums;
+global using global::FluentHub.Octokit;
+global using global::FluentHub.Octokit.Clients;
 global using global::FluentHub.Octokit.Models.v3;
 
 // Third-party
-global using global::Octokit.GraphQL;
-global using OctokitOriginal = global::Octokit;
 global using global::Humanizer;

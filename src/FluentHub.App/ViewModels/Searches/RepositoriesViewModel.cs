@@ -12,8 +12,11 @@ namespace FluentHub.App.ViewModels.Searches
 {
 	public class RepositoriesViewModel : ObservableObject
 	{
-		public RepositoriesViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public RepositoriesViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 
@@ -79,7 +82,7 @@ namespace FluentHub.App.ViewModels.Searches
 			if (_loadedToTheEnd)
 				return;
 
-			RepositorySearches searches = new();
+			var searches = _gitHub.Searches.Repositories;
 			var response = await searches.GetAllAsync(term);
 
 			_loadedItemCount += response.Count;
@@ -92,7 +95,7 @@ namespace FluentHub.App.ViewModels.Searches
 			_resultItems.Clear();
 			foreach (var item in response)
 			{
-				RepoBlockButtonViewModel viewModel = new()
+				RepoBlockButtonViewModel viewModel = new(_gitHub)
 				{
 					Repository = item,
 				};

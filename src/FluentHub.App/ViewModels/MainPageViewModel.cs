@@ -17,6 +17,8 @@ namespace FluentHub.App.ViewModels
 {
 	public class MainPageViewModel : ObservableObject
 	{
+		private readonly IFluentHubGitHubClient _gitHub;
+
 		private readonly Microsoft.UI.Dispatching.DispatcherQueue _dispatcher;
 		private readonly INavigationService _navigationService;
 		private readonly IMessenger? _messenger = default!;
@@ -72,8 +74,9 @@ namespace FluentHub.App.ViewModels
 
 		public IAsyncRelayCommand LoadSignedInUserCommand { get; }
 
-		public MainPageViewModel(INavigationService navigationService, IMessenger? notificationMessenger = null, ToastService? toastService = null, ILogger? logger = null)
+		public MainPageViewModel(IFluentHubGitHubClient gitHub, INavigationService navigationService, IMessenger? notificationMessenger = null, ToastService? toastService = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			// To Access the UI thread later.
 			_dispatcher = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
 
@@ -200,13 +203,13 @@ namespace FluentHub.App.ViewModels
 
 			try
 			{
-				UserQueries queries = new();
+				var queries = _gitHub.Users.Users;
 				var user = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
 				SignedInUser = user ?? new();
 
-				NotificationQueries notificationQueries = new();
-				var count = await notificationQueries.GetUnreadCount();
+				var notificationQueries = _gitHub.Users.Notifications;
+				var count = await notificationQueries.GetUnreadCountAsync();
 
 				UnreadCount = count;
 				_toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
@@ -225,13 +228,11 @@ namespace FluentHub.App.ViewModels
 
 		private async Task LoadUserRepositoriesAsync()
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Users.Repositories;
 
-			var result = await queries.GetAllAsync(App.AppSettings.SignedInUserName, 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(App.AppSettings.SignedInUserName, PageRequest.Forward(20));
 
-			var items = (List<Repository>)result.Response;
+			var items = result.Items;
 
 			_repositories.Clear();
 			foreach (var item in items)

@@ -9,8 +9,11 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class LatestCommitBlockViewModel : ObservableObject
 	{
-		public LatestCommitBlockViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public LatestCommitBlockViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 
@@ -37,7 +40,7 @@ namespace FluentHub.App.ViewModels.UserControls
 		{
 			try
 			{
-				CommitQueries queries = new();
+				var queries = _gitHub.Repositories.Commits;
 				var response = await queries.GetLatestAsync(
 					ContextViewModel.Repository.Name,
 					ContextViewModel.Repository.Owner.Login,

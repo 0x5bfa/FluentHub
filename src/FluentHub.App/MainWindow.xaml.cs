@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Models;
+using FluentHub.Octokit.Clients;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
@@ -68,7 +69,8 @@ namespace FluentHub.App
 							if (App.AppSettings.SetupCompleted == true)
 							{
 								// Initialize API connection
-								Octokit.Authorization.InitializeOctokit.InitializeApiConnections(App.AppSettings.AccessToken);
+								Ioc.Default.GetRequiredService<IGitHubSessionManager>()
+									.SwitchAccount(App.AppSettings.AccessToken);
 
 								rootFrame.Navigate(typeof(Views.MainPage));
 								pageType = typeof(Views.MainPage);

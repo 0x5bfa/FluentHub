@@ -25,7 +25,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		public ICommand GoToSidebarActivityCommand { get; }
 		public ICommand LoadUserHomePageCommand { get; }
 
-		public DashBoardViewModel()
+		public DashBoardViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_TopRepositories = new();
 			TopRepositories = new(_TopRepositories);
@@ -70,13 +70,11 @@ namespace FluentHub.App.ViewModels.Viewers
 
 		private async Task LoadHomeContentsAsync()
 		{
-			RepositoryQueries repositoryQueries = new();
+			var repositoryQueries = _gitHub.Users.Repositories;
 
-			var repositoryResult = await repositoryQueries.GetAllAsync(App.AppSettings.SignedInUserName, 20);
-			if (repositoryResult.Response is null || repositoryResult.PageInfo is null)
-				return;
+			var repositoryResult = await repositoryQueries.GetPageAsync(App.AppSettings.SignedInUserName, PageRequest.Forward(20));
 
-			var items = (List<Repository>)repositoryResult.Response;
+			var items = repositoryResult.Items;
 
 			_TopRepositories.Clear();
 
@@ -87,11 +85,11 @@ namespace FluentHub.App.ViewModels.Viewers
 			}
 			else
 			{
-				foreach (var item in items.GetRange(0, 6))
+				foreach (var item in items.Take(6))
 					_TopRepositories.Add(item);
 			}
 
-			NotificationQueries notificationQueries = new();
+			var notificationQueries = _gitHub.Users.Notifications;
 			var notificationResponse = await notificationQueries.GetAllAsync(
 				new() { All = true },
 				new()
@@ -119,7 +117,7 @@ namespace FluentHub.App.ViewModels.Viewers
 					_RecentActivities.Add(item);
 			}
 
-			ActivityQueries activityQueries = new();
+			var activityQueries = _gitHub.Users.Activities;
 
 			var activityResponse = await activityQueries.GetAllAsync(App.AppSettings.SignedInUserName);
 			if (activityResponse == null)
@@ -145,7 +143,7 @@ namespace FluentHub.App.ViewModels.Viewers
 				x.Type == ActivityPayloadType.WatchEvent /*||
 				x.Type == ActivityPayloadType.StatusEvent*/).ToList())
 			{
-				ActivityBlockViewModel viewModel = new()
+				ActivityBlockViewModel viewModel = new(_gitHub)
 				{
 					Payload = item,
 				};

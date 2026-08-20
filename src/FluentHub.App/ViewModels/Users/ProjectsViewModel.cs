@@ -19,7 +19,7 @@ namespace FluentHub.App.ViewModels.Users
 		public IAsyncRelayCommand LoadUserProjectsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserProjectsFurtherCommand { get; }
 
-		public ProjectsViewModel() : base()
+		public ProjectsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			if (parameter.AsViewer)
@@ -71,14 +71,12 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserProjectsAsync(string login)
 		{
-			ProjectQueries queries = new();
+			var queries = _gitHub.Users.Projects;
 
-			var result = await queries.GetAllAsync(login, 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(login, PageRequest.Forward(20));
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<Project>)result.Response;
+			var items = result.Items;
 
 			_projects.Clear();
 			foreach (var item in items)
@@ -101,14 +99,12 @@ namespace FluentHub.App.ViewModels.Users
 
 			try
 			{
-				ProjectQueries queries = new();
+				var queries = _gitHub.Users.Projects;
 
-				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
-				if (result.Response is null || result.PageInfo is null)
-					return;
+				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<Project>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 				{

@@ -20,7 +20,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		public IAsyncRelayCommand LoadRepositoryProjectPageCommand { get; }
 
-		public ProjectViewModel() : base()
+		public ProjectViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			LoadRepositoryProjectPageCommand = new AsyncRelayCommand(LoadRepositoryProjectPageAsync);
 		}
@@ -56,7 +56,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadProjectPageAsync(string owner, string name)
 		{
-			ProjectQueries queries = new();
+			var queries = _gitHub.Repositories.Projects;
 			var response = await queries.GetAsync(owner, name, Number);
 
 			Project = response;
@@ -64,7 +64,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

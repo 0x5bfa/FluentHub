@@ -1,16 +1,22 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class StarredRepoQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public StarredRepoQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Repository>> GetPageAsync(
 			string login,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			OctokitGraphQLModel.StarOrder? orderBy = null,
-			bool? ownedByViewer = null)
+			bool? ownedByViewer = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[]
 				{
@@ -26,10 +32,10 @@ namespace FluentHub.Octokit.Queries.Users
 			var query = new Query()
 				.User(login)
 				.StarredRepositories(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					orderBy,
 					ownedByViewer)
 				.Select(connection => new RepositoryConnection
@@ -94,18 +100,14 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Repository>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 	}
 }

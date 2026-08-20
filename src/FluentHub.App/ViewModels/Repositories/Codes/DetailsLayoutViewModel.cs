@@ -29,7 +29,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
 
-		public DetailsLayoutViewModel() : base()
+		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
@@ -83,7 +83,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 			ContextViewModel.IsDir = true;
 
-			TreeQueries queries = new();
+			var queries = _gitHub.Repositories.Trees;
 			var response = await queries.GetWithObjectNameAsync(name, login, branch, path);
 
 			if (string.IsNullOrEmpty(path))
@@ -122,7 +122,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 

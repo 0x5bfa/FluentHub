@@ -22,7 +22,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 		public IAsyncRelayCommand LoadRepositoryCommitsPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryCommitsFurtherCommand { get; }
 
-		public CommitsViewModel() : base()
+		public CommitsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_items = new();
 			Items = new(_items);
@@ -62,19 +62,17 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 		private async Task LoadRepositoryCommitsAsync(string owner, string name)
 		{
-			CommitQueries queries = new();
+			var queries = _gitHub.Repositories.Commits;
 
-			var result = await queries.GetAllAsync(
-				owner: owner,
-				name: name,
-				first: 20,
-				refs: ContextViewModel.BranchName,
+			var result = await queries.GetPageAsync(
+				owner,
+				name,
+				ContextViewModel.BranchName,
+				PageRequest.Forward(20),
 				path: ContextViewModel.Path);
-			if (result.Response is null || result.PageInfo is null)
-				return;
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<Commit>)result.Response;
+			var items = result.Items;
 
 			_items.Clear();
 			foreach (var item in items)
@@ -97,20 +95,17 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 			try
 			{
-				CommitQueries queries = new();
+				var queries = _gitHub.Repositories.Commits;
 
-				var result = await queries.GetAllAsync(
-					owner: Login,
-					name: Name,
-					refs: ContextViewModel.BranchName,
-					first: 20,
-					after: _lastPageInfo.EndCursor,
+				var result = await queries.GetPageAsync(
+					Login,
+					Name,
+					ContextViewModel.BranchName,
+					PageRequest.Forward(20, _lastPageInfo.EndCursor),
 					path: ContextViewModel.Path);
-				if (result.Response is null || result.PageInfo is null)
-					return;
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<Commit>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 				{
@@ -135,7 +130,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Globalization;
 
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class TreeQueries
 	{
-		public async Task<List<TreeEntry>> GetAllAsync(string name, string owner, string refs, string path)
+		private readonly IGitHubApiClient _gitHub;
+
+		public TreeQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<TreeEntry>> GetAllAsync(string name, string owner, string refs, string path, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -23,12 +29,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.ToList();
 		}
 
-		public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path)
+		public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path, CancellationToken cancellationToken = default)
 		{
 			var queryToGetFileInfo = new Query()
 				.Repository(name, owner)
@@ -43,7 +49,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response1 = await App.Connection.Run(queryToGetFileInfo);
+			var response1 = await _gitHub.RunGraphQLAsync(queryToGetFileInfo, cancellationToken);
 
 			List<Commit> items = new();
 
@@ -65,7 +71,7 @@ query {{
 }}",
 			};
 
-			var response2 = await App.GraphQLHttpClient.SendQueryAsync<object>(request2);
+			var response2 = await _gitHub.SendGraphQLAsync<object>(request2, cancellationToken);
 			List<Commit> zippedData = new();
 			(List<TreeEntry> Files, List<Commit> Commits) pre = (response1.ToList(), zippedData);
 

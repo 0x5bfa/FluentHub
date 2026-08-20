@@ -12,8 +12,11 @@ namespace FluentHub.App.ViewModels.Searches
 {
 	public class UsersViewModel : ObservableObject
 	{
-		public UsersViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public UsersViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 
@@ -78,7 +81,7 @@ namespace FluentHub.App.ViewModels.Searches
 		{
 			if (_loadedToTheEnd) return;
 
-			UserSearches searches = new();
+			var searches = _gitHub.Searches.Users;
 			var response = await searches.GetAllAsync(term);
 
 			_loadedItemCount += response.Count();

@@ -21,7 +21,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 		public IAsyncRelayCommand LoadRepositoryCommitPageCommand { get; }
 
-		public CommitViewModel() : base()
+		public CommitViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_diffViewModels = new();
 			DiffViewModels = new(_diffViewModels);
@@ -60,8 +60,8 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 		private async Task LoadRepositoryCommitAsync(string owner, string name)
 		{
-			DiffQueries queries = new();
-			var response = await queries.GetAllAsync(owner, name, CommitItem.Oid);
+			var queries = _gitHub.Repositories.Diffs;
+			var response = await queries.GetCommitAsync(owner, name, CommitItem.Oid);
 
 			_diffViewModels.Clear();
 			foreach (var item in response.Files)
@@ -77,7 +77,7 @@ namespace FluentHub.App.ViewModels.Repositories.Commits
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

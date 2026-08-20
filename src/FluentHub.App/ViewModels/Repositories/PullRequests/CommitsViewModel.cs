@@ -21,7 +21,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestCommitsPageCommand { get; }
 
-		public CommitsViewModel() : base()
+		public CommitsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_items = new();
 			Items = new(_items);
@@ -64,7 +64,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestCommitsAsync(string owner, string name)
 		{
-			PullRequestCommitQueries queries = new();
+			var queries = _gitHub.Repositories.PullRequestCommits;
 			var items = await queries.GetAllAsync(owner, name, PullItem.Number);
 
 			_items.Clear();
@@ -82,7 +82,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadPullRequestAsync(string owner, string name)
 		{
-			PullRequestQueries queries = new();
+			var queries = _gitHub.Repositories.PullRequests;
 			PullItem = await queries.GetAsync(owner, name, Number);
 
 			PullRequestOverviewViewModel = new()
@@ -94,7 +94,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

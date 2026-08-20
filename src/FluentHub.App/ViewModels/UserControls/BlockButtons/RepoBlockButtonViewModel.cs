@@ -10,6 +10,8 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 {
 	public class RepoBlockButtonViewModel : ObservableObject
 	{
+		private readonly IFluentHubGitHubClient _gitHub;
+
 		private Repository _item = default!;
 		public Repository Repository { get => _item; set => SetProperty(ref _item, value); }
 
@@ -22,8 +24,9 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 		public ICommand GoRepositoryCommand { get; private set; }
 		public ICommand AddStarToRepositoryCommand { get; private set; }
 
-		public RepoBlockButtonViewModel()
+		public RepoBlockButtonViewModel(IFluentHubGitHubClient gitHub)
 		{
+			_gitHub = gitHub;
 			GoRepositoryCommand = new RelayCommand(GoRepository);
 			AddStarToRepositoryCommand = new AsyncRelayCommand(AddStarToRepositoryAsync);
 		}
@@ -52,14 +55,14 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 				if (Repository.ViewerHasStarred)
 				{
 					// Remove star
-					var removeStarMutation = new RemoveStarMutation();
+					var removeStarMutation = _gitHub.Mutations.RemoveStar;
 
 					await removeStarMutation.ExecuteAsync(Repository.Id);
 				}
 				else
 				{
 					// Add star
-					var addStarMutation = new AddStarMutation();
+					var addStarMutation = _gitHub.Mutations.AddStar;
 
 					await addStarMutation.ExecuteAsync(Repository.Id);
 				}

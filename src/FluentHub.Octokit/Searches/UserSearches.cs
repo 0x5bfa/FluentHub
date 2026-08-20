@@ -1,14 +1,22 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Searches
 {
 	public class UserSearches
 	{
-		public async Task<List<User>> GetAllAsync(string term)
+		private readonly IGitHubApiClient _gitHub;
+
+		public UserSearches(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<User>> GetAllAsync(string term, CancellationToken cancellationToken = default)
 		{
 			var request = new OctokitV3.SearchUsersRequest(term);
-			var response = await App.Client.Search.SearchUsers(request);
+			var response = await _gitHub.RunRestAsync(
+				client => client.Search.SearchUsers(request),
+				cancellationToken);
 
 			List<User> result = new();
 

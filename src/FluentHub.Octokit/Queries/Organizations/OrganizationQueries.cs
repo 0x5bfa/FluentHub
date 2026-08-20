@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Organizations
 {
 	public class OrganizationQueries
 	{
-		public async Task<Organization> GetAsync(string org)
+		private readonly IGitHubApiClient _gitHub;
+
+		public OrganizationQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<Organization> GetAsync(string org, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Organization(org)
@@ -27,7 +33,7 @@ namespace FluentHub.Octokit.Queries.Organizations
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

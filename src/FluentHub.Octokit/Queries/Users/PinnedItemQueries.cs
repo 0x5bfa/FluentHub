@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class PinnedItemQueries
 	{
-		public async Task<List<Repository>> GetAllAsync(string login)
+		private readonly IGitHubApiClient _gitHub;
+
+		public PinnedItemQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Repository>> GetAllAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.User(login)
@@ -35,12 +41,12 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.ToList();
 		}
 
-		public async Task<List<Repository>> GetAllPinnableItems(string login)
+		public async Task<List<Repository>> GetAllPinnableItemsAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.User(login)
@@ -73,12 +79,12 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.ToList();
 		}
 
-		public async Task<(List<Repository>, List<Repository>)> GetAllPinnableAndPinnedItems(string login)
+		public async Task<(List<Repository>, List<Repository>)> GetAllPinnableAndPinnedItemsAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.User(login)
@@ -141,7 +147,7 @@ namespace FluentHub.Octokit.Queries.Users
 				
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return (response.PinnableItems, response.PinnedItems);
 		}

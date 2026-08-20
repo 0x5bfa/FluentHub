@@ -1,27 +1,33 @@
 using Octokit.GraphQL.Core;
 
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class PackageQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public PackageQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Package>> GetPageAsync(
 			string login,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			IEnumerable<string>? names = null,
 			OctokitGraphQLModel.PackageOrder? orderBy = null,
 			OctokitGraphQLModel.PackageType? packageType = null,
-			ID? repositoryId = null)
+			ID? repositoryId = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			var query = new Query()
 				.User(login)
 				.Packages(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					names is null ? null! : new Arg<IEnumerable<string>>(names!),
 					orderBy is null ? null! : new Arg<OctokitGraphQLModel.PackageOrder>(orderBy!),
 					packageType is null ? null : new Arg<OctokitGraphQLModel.PackageType>((OctokitGraphQLModel.PackageType)packageType),
@@ -68,18 +74,14 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Package>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 	}
 }

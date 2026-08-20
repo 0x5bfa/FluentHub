@@ -36,7 +36,7 @@ namespace FluentHub.App.UserControls
 		{
 			InitializeComponent();
 
-			ViewModel = new();
+			ViewModel = Ioc.Default.GetRequiredService<UserContributionGraphViewModel>();
 		}
 	}
 }

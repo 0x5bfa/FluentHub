@@ -6,6 +6,8 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 {
 	public class ActivityBlockViewModel : ObservableObject
 	{
+		private readonly IFluentHubGitHubClient _gitHub;
+
 		private Activity _payload = default!;
 		public Activity Payload { get => _payload; set => SetProperty(ref _payload, value); }
 
@@ -31,14 +33,15 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 		public SingleReleaseBlockViewModel SingleReleaseBlockViewModel { get => _singleReleaseBlockViewModel; set => SetProperty(ref _singleReleaseBlockViewModel, value); }
 
 
-		public ActivityBlockViewModel()
+		public ActivityBlockViewModel(IFluentHubGitHubClient gitHub)
 		{
+			_gitHub = gitHub;
 		}
 
 		public async Task LoadContentsAsync()
 		{
-			Octokit.Queries.Repositories.RepositoryQueries repositoryQueries = new();
-			Octokit.Queries.Users.UserQueries userQueries = new();
+			var repositoryQueries = _gitHub.Repositories.Repositories;
+			var userQueries = _gitHub.Users.Users;
 			var payload = Payload;
 
 			async Task<FluentHub.Octokit.Models.v4.Repository?> LoadRepositoryAsync()
@@ -75,7 +78,7 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 						if (response is null)
 							break;
 
-						RepoBlockViewModel = new()
+						RepoBlockViewModel = new(_gitHub)
 						{
 							DisplayDetails = true,
 							DisplayStarButton = true,
@@ -89,7 +92,7 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 						if (response is null)
 							break;
 
-						RepoBlockViewModel = new()
+						RepoBlockViewModel = new(_gitHub)
 						{
 							DisplayDetails = true,
 							DisplayStarButton = true,
@@ -174,7 +177,7 @@ namespace FluentHub.App.ViewModels.UserControls.FeedBlocks
 						if (response is null)
 							break;
 
-						RepoBlockViewModel = new()
+						RepoBlockViewModel = new(_gitHub)
 						{
 							DisplayDetails = true,
 							DisplayStarButton = true,

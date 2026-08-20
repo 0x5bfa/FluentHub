@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class RepositoryQueries
 	{
-		public async Task<Repository> GetAsync(string owner, string name)
+		private readonly IGitHubApiClient _gitHub;
+
+		public RepositoryQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<Repository> GetAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -61,12 +67,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}
 
-		public async Task<Repository> GetDetailsAsync(string owner, string name)
+		public async Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -174,12 +180,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}
 
-		public async Task<CustomRepositoryResponseForCodePage> GetCustomDetailsAsync(string owner, string name)
+		public async Task<CustomRepositoryResponseForCodePage> GetCustomDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -296,7 +302,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return new CustomRepositoryResponseForCodePage()
 			{
@@ -306,7 +312,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 			};
 		}
 
-		public async Task<(int, int)> GetBranchAndTagCountAsync(string owner, string name)
+		public async Task<(int, int)> GetBranchAndTagCountAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(owner: owner, name: name)
@@ -317,12 +323,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return (response.HeadRefsCount, response.TagCount);
 		}
 
-		public async Task<List<string>> GetBranchNameAllAsync(string owner, string name)
+		public async Task<List<string>> GetBranchNameAllAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			#region query
 			var query = new Query()
@@ -339,7 +345,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.Compile();
 			#endregion
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			List<string> branchNames = new();
 			foreach (var branch in response.BranchNames)
@@ -351,18 +357,20 @@ namespace FluentHub.Octokit.Queries.Repositories
 			return branchNames;
 		}
 
-		public async Task<string?> GetReadmeHtml(string owner, string name, string branch, string theme, string index)
+		public async Task<string?> GetReadmeHtmlAsync(string owner, string name, string branch, string theme, string index, CancellationToken cancellationToken = default)
 		{
 			string bodyHtml;
 
 			try
 			{
-				bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
+				bodyHtml = await _gitHub.RunRestAsync(
+					client => client.Repository.Content.GetReadmeHtml(owner, name),
+					cancellationToken);
 
 				string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
 
-				MarkdownQueries markdown = new();
-				var html = markdown.GetHtml(index, bodyHtml, missedPath, theme, true);
+				var markdown = new MarkdownQueries(_gitHub);
+				var html = await markdown.GetHtmlAsync(index, bodyHtml, missedPath, theme, true, cancellationToken);
 
 				return html;
 			}

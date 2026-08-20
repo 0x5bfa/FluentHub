@@ -7,8 +7,11 @@ namespace FluentHub.App.ViewModels.Dialogs
 {
 	public class EditUserProfileViewModel : ObservableObject
 	{
-		public EditUserProfileViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public EditUserProfileViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_logger = logger;
 			_messenger = messenger;
 		}
@@ -43,7 +46,7 @@ namespace FluentHub.App.ViewModels.Dialogs
 		{
 			try
 			{
-				UserQueries queries = new();
+				var queries = _gitHub.Users.Users;
 				var response = await queries.GetAsync(login);
 
 				if (response == null) return;

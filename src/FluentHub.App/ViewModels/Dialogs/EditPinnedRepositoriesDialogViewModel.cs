@@ -6,8 +6,14 @@ namespace FluentHub.App.ViewModels.Dialogs
 {
 	public class EditPinnedRepositoriesDialogViewModel : ObservableObject
 	{
-		public EditPinnedRepositoriesDialogViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public EditPinnedRepositoriesDialogViewModel(
+			IFluentHubGitHubClient gitHub,
+			IMessenger? messenger = null,
+			ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_logger = logger;
 			_messenger = messenger;
 
@@ -26,15 +32,15 @@ namespace FluentHub.App.ViewModels.Dialogs
 		public ReadOnlyObservableCollection<PinnableRepository> PinnableItems { get; }
 		#endregion
 
-		public async Task LoadPinnableAndPinnedRepositories()
+		public async Task LoadPinnableAndPinnedRepositoriesAsync(CancellationToken cancellationToken = default)
 		{
 			if (Login == null)
 			{
 				throw new ArgumentNullException();
 			}
 
-			var queries = new Octokit.Queries.Users.PinnedItemQueries();
-			(List<Repository> pinnables, List<Repository> pinneds) = await queries.GetAllPinnableAndPinnedItems(Login);
+			var queries = _gitHub.Users.PinnedItems;
+			(List<Repository> pinnables, List<Repository> pinneds) = await queries.GetAllPinnableAndPinnedItemsAsync(Login, cancellationToken);
 
 			foreach (var item in pinnables)
 			{
