@@ -639,18 +639,7 @@ try
         throw "The pending Store submission could not be retrieved."
     }
 
-    $validationSubmission = $submissionJson | ConvertFrom-Json -Depth 100
-    $validationSubmissionJson = $validationSubmission |
-        ConvertTo-Json -Depth 100 -Compress
-
-    Write-Host "Requesting Partner Center package validation for '$expectedPackageName'."
-    Invoke-MsStore -Arguments @(
-        "submission",
-        "updateMetadata",
-        $PartnerCenterStoreId,
-        $validationSubmissionJson
-    )
-
+    Write-Host "Checking Partner Center package staging for '$expectedPackageName'."
     $submissionJson = Wait-MicrosoftStorePackageReadiness
     [IO.File]::WriteAllText(
         $submissionPath,
@@ -678,7 +667,9 @@ try
 
     if (-not $Submit)
     {
-        Write-Host "The package and localized listings are ready and will remain in draft state."
+        Write-Host @"
+The package and localized listings are staged in the Submission API and will remain in PendingCommit state. The Partner Center editor can continue to show its previous values until the submission is committed.
+"@
         return
     }
 

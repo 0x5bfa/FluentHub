@@ -206,7 +206,7 @@ jobs:
           gnome-keyring \
           libsecret-1-0
 
-    - name: Prepare and publish Microsoft Store submission
+    - name: Prepare Microsoft Store submission
       shell: bash
       run: |
         dbus-run-session -- bash -euo pipefail -c '
