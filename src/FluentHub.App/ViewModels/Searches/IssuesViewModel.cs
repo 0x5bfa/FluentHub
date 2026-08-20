@@ -12,8 +12,11 @@ namespace FluentHub.App.ViewModels.Searches
 {
 	public class IssuesViewModel : ObservableObject
 	{
-		public IssuesViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public IssuesViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 
@@ -77,7 +80,7 @@ namespace FluentHub.App.ViewModels.Searches
 			if (_loadedToTheEnd)
 				return;
 
-			IssueSearches searches = new();
+			var searches = _gitHub.Searches.Issues;
 			var response = await searches.GetAllAsync(term);
 
 			_loadedItemCount += response.Count;

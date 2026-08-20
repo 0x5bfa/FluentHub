@@ -19,7 +19,7 @@ namespace FluentHub.App.ViewModels.Users
 		public IAsyncRelayCommand LoadUserStarredRepositoriesPageCommand { get; }
 		public IAsyncRelayCommand LoadUserStarredRepositoriesFurtherCommand { get; }
 
-		public StarredReposViewModel() : base()
+		public StarredReposViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			if (parameter.AsViewer)
@@ -71,19 +71,17 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserStarredRepositoriesAsync(string login)
 		{
-			StarredRepoQueries queries = new();
+			var queries = _gitHub.Users.StarredRepositories;
 
-			var result = await queries.GetAllAsync(login, 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(login, PageRequest.Forward(20));
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<Repository>)result.Response;
+			var items = result.Items;
 
 			_repositories.Clear();
 			foreach (var item in items)
 			{
-				RepoBlockButtonViewModel viewModel = new()
+				RepoBlockButtonViewModel viewModel = new(_gitHub)
 				{
 					Repository = item,
 					DisplayDetails = true,
@@ -103,18 +101,16 @@ namespace FluentHub.App.ViewModels.Users
 
 			try
 			{
-				StarredRepoQueries queries = new();
+				var queries = _gitHub.Users.StarredRepositories;
 
-				var result = await queries.GetAllAsync(Login, 20, _lastPageInfo.EndCursor);
-				if (result.Response is null || result.PageInfo is null)
-					return;
+				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<Repository>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 				{
-					RepoBlockButtonViewModel viewModel = new()
+					RepoBlockButtonViewModel viewModel = new(_gitHub)
 					{
 						Repository = item,
 						DisplayDetails = true,

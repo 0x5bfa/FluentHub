@@ -20,7 +20,7 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
 
-		public OverviewViewModel() : base()
+		public OverviewViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_pinnedItems = new();
 			PinnedItems = new(_pinnedItems);
@@ -68,13 +68,13 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		private async Task LoadOrganizationOverviewAsync(string org)
 		{
-			RepositoryQueries repoQueries = new();
+			var repoQueries = _gitHub.Organizations.Repositories;
 			var repoItems = await repoQueries.GetAllAsync(org);
 
 			_repositories.Clear();
 			foreach (var item in repoItems)
 			{
-				RepoBlockButtonViewModel viewModel = new()
+				RepoBlockButtonViewModel viewModel = new(_gitHub)
 				{
 					Repository = item,
 					DisplayDetails = false,
@@ -84,7 +84,7 @@ namespace FluentHub.App.ViewModels.Organizations
 				_repositories.Add(viewModel);
 			}
 
-			PinnedItemQueries queries = new();
+			var queries = _gitHub.Organizations.PinnedItems;
 			var pinnedItems = await queries.GetAllAsync(org);
 			if (pinnedItems == null)
 				return;
@@ -92,7 +92,7 @@ namespace FluentHub.App.ViewModels.Organizations
 			_pinnedItems.Clear();
 			foreach (var item in pinnedItems)
 			{
-				RepoBlockButtonViewModel viewModel = new()
+				RepoBlockButtonViewModel viewModel = new(_gitHub)
 				{
 					Repository = item,
 					DisplayDetails = false,
@@ -105,7 +105,7 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		private async Task LoadOrganizationAsync(string org)
 		{
-			OrganizationQueries queries = new();
+			var queries = _gitHub.Organizations.Organizations;
 			var response = await queries.GetAsync(org);
 
 			Organization = response ?? new();

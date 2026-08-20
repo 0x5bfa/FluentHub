@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class BlobQueries
 	{
-		public async Task<Blob> GetAsync(string name, string owner, string branch, string path)
+		private readonly IGitHubApiClient _gitHub;
+
+		public BlobQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<Blob> GetAsync(string name, string owner, string branch, string path, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -21,7 +27,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

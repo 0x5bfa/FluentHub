@@ -21,7 +21,7 @@ namespace FluentHub.App.ViewModels.Users
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
 
-		public OverviewViewModel() : base()
+		public OverviewViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_pinnedRepositories = new();
 			PinnedRepositories = new(_pinnedRepositories);
@@ -67,18 +67,18 @@ namespace FluentHub.App.ViewModels.Users
 			_pinnableRepositories.Clear();
 			_pinnedRepositories.Clear();
 
-			PinnedItemQueries queries = new();
+			var queries = _gitHub.Users.PinnedItems;
 			var pinnedItemsRes = await queries.GetAllAsync(login);
 			if (pinnedItemsRes == null) return;
 
 			if (pinnedItemsRes.Count == 0)
 			{
-				var pinnableItemsRes = await queries.GetAllPinnableItems(login);
+				var pinnableItemsRes = await queries.GetAllPinnableItemsAsync(login);
 				if (pinnableItemsRes == null) return;
 
 				foreach (var item in pinnableItemsRes)
 				{
-					RepoBlockButtonViewModel viewModel = new()
+					RepoBlockButtonViewModel viewModel = new(_gitHub)
 					{
 						Repository = item,
 						DisplayDetails = false,
@@ -92,7 +92,7 @@ namespace FluentHub.App.ViewModels.Users
 			{
 				foreach (var item in pinnedItemsRes)
 				{
-					RepoBlockButtonViewModel viewModel = new()
+					RepoBlockButtonViewModel viewModel = new(_gitHub)
 					{
 						Repository = item,
 						DisplayDetails = false,

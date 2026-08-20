@@ -12,6 +12,9 @@ namespace FluentHub.App.ViewModels.SignIn
 {
 	public class IntroViewModel : ObservableObject
 	{
+		private readonly IFluentHubGitHubClient _gitHub;
+		private readonly IGitHubSessionManager _sessionManager;
+		private readonly AuthorizationService _authorizationService;
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
 		private CancellationTokenSource _deviceAuthorizationCancellationTokenSource = default!;
@@ -86,10 +89,18 @@ namespace FluentHub.App.ViewModels.SignIn
 		public ICommand AuthorizeWithBrowserCommand { get; set; }
 		public ICommand OpenDeviceVerificationUriCommand { get; set; }
 
-		public IntroViewModel()
+		public IntroViewModel(
+			IFluentHubGitHubClient gitHub,
+			IGitHubSessionManager sessionManager,
+			AuthorizationService authorizationService,
+			ILogger logger,
+			IMessenger messenger)
 		{
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
+			_gitHub = gitHub;
+			_sessionManager = sessionManager;
+			_authorizationService = authorizationService;
+			_logger = logger;
+			_messenger = messenger;
 
 			AuthorizeWithBrowserCommand = new AsyncRelayCommand(AuthorizeWithBrowserAsync);
 			OpenDeviceVerificationUriCommand = new AsyncRelayCommand(OpenDeviceVerificationUriAsync);
@@ -124,8 +135,9 @@ namespace FluentHub.App.ViewModels.SignIn
 					return;
 				}
 
-				AuthorizationService authService = new();
-				var deviceAuthorization = await authService.RequestDeviceAuthorizationAsync(secrets);
+				var deviceAuthorization = await _authorizationService.RequestDeviceAuthorizationAsync(
+					secrets,
+					cancellationToken);
 
 				DeviceUserCode = deviceAuthorization.UserCode;
 				DeviceVerificationUri = deviceAuthorization.VerificationUri;
@@ -137,12 +149,15 @@ namespace FluentHub.App.ViewModels.SignIn
 				App.AppSettings.SetupProgress = true;
 				UrlWasLaunched = true;
 
-				var accessToken = await WaitForDeviceAccessTokenAsync(authService, secrets, deviceAuthorization, cancellationToken);
+				var accessToken = await WaitForDeviceAccessTokenAsync(
+					secrets,
+					deviceAuthorization,
+					cancellationToken);
 
 				_logger?.Info("FluentHub is authorized successfully.");
 
 				// Set token and login to App Settings Container
-				await SetAccountInfo(accessToken);
+				await SetAccountInfoAsync(accessToken, cancellationToken);
 
 				AuthorizedSuccessfully = true;
 				DeviceAuthorizationStatus = "FluentHub is authorized successfully.";
@@ -170,7 +185,6 @@ namespace FluentHub.App.ViewModels.SignIn
 		}
 
 		private async Task<string> WaitForDeviceAccessTokenAsync(
-			AuthorizationService authService,
 			OctokitSecrets secrets,
 			DeviceAuthorizationResponse deviceAuthorization,
 			CancellationToken cancellationToken)
@@ -184,7 +198,10 @@ namespace FluentHub.App.ViewModels.SignIn
 
 				try
 				{
-					return await authService.RequestDeviceAccessTokenAsync(deviceAuthorization.DeviceCode, secrets);
+					return await _authorizationService.RequestDeviceAccessTokenAsync(
+						deviceAuthorization.DeviceCode,
+						secrets,
+						cancellationToken);
 				}
 				catch (DeviceAuthorizationPendingException)
 				{
@@ -208,25 +225,18 @@ namespace FluentHub.App.ViewModels.SignIn
 			}
 		}
 
-		private async Task SetAccountInfo(string accessToken)
+		private async Task SetAccountInfoAsync(
+			string accessToken,
+			CancellationToken cancellationToken)
 		{
+			_sessionManager.SwitchAccount(accessToken);
+
+			var queries = _gitHub.Users.Users;
+			string login = await queries.GetViewerLoginAsync(cancellationToken);
+
 			App.AppSettings.AccessToken = accessToken;
-
-			try
-			{
-				Octokit.Queries.Users.UserQueries queries = new();
-				string login = await queries.GetViewerLogin();
-				App.AppSettings.SignedInUserName = login;
-
-				AccountService.AddAccount(login);
-			}
-			catch (Exception ex)
-			{
-				TaskException = ex;
-				_logger?.Info("FluentHub authorization failed in getting authorized account info.");
-
-				AuthorizedSuccessfully = false;
-			}
+			App.AppSettings.SignedInUserName = login;
+			AccountService.AddAccount(login);
 		}
 	}
 }

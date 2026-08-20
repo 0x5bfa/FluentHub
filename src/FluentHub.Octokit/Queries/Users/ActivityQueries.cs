@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class ActivityQueries
 	{
-		public async Task<List<Activity>> GetAllAsync(string login)
+		private readonly IGitHubApiClient _gitHub;
+
+		public ActivityQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Activity>> GetAllAsync(string login, CancellationToken cancellationToken = default)
 		{
 			OctokitV3.ApiOptions options = new()
 			{
@@ -11,7 +17,9 @@ namespace FluentHub.Octokit.Queries.Users
 				StartPage = 1
 			};
 
-			var response = await App.Client.Activity.Events.GetAllUserReceived(login, options);
+			var response = await _gitHub.RunRestAsync(
+				client => client.Activity.Events.GetAllUserReceived(login, options),
+				cancellationToken);
 
 			Wrappers.ActivityWrapper wrapper = new();
 			var activities = wrapper.Wrap(response);
@@ -19,7 +27,7 @@ namespace FluentHub.Octokit.Queries.Users
 			return activities;
 		}
 
-		public async Task<ContributionCalendar> GetContributionCalendarAsync(string login)
+		public async Task<ContributionCalendar> GetContributionCalendarAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.User(login)
@@ -44,7 +52,7 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

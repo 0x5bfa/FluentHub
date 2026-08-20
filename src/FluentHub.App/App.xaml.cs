@@ -20,6 +20,8 @@ namespace FluentHub.App
 {
 	public partial class App : Application
 	{
+		private readonly IHost _host;
+
 		public new static App Current
 			=> (App)Application.Current;
 
@@ -39,7 +41,7 @@ namespace FluentHub.App
 			TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
 			Log.Logger = GetSerilogLogger();
-			var _host = AppLifecycleHelper.ConfigureServices();
+			_host = AppLifecycleHelper.ConfigureServices();
 			Ioc.Default.ConfigureServices(_host.Services);
 
 			AppSettings ??= new SettingsViewModel();
@@ -85,7 +87,7 @@ namespace FluentHub.App
 		private void EnsureWindowIsInitialized()
 		{
 			MainWindow.Instance.Activated += Window_Activated;
-			//Window.Closed += Window_Closed;
+			MainWindow.Instance.Closed += (_, _) => _host.Dispose();
 		}
 
 		private void Window_Activated(object sender, WindowActivatedEventArgs args)

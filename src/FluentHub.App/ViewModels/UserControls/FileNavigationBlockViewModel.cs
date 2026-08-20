@@ -8,8 +8,11 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class FileNavigationBlockViewModel : ObservableObject
 	{
-		public FileNavigationBlockViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public FileNavigationBlockViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 
@@ -34,7 +37,7 @@ namespace FluentHub.App.ViewModels.UserControls
 		{
 			try
 			{
-				RepositoryQueries queries = new();
+				var queries = _gitHub.Repositories.Repositories;
 
 				// temp workaround
 				var branchNames = await queries.GetBranchNameAllAsync(contextViewModel.Repository.Owner.Login, contextViewModel.Repository.Name);

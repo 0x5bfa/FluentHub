@@ -24,7 +24,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		public IAsyncRelayCommand LoadRepositoryReleasePageCommand { get; }
 
-		public ReleaseViewModel()
+		public ReleaseViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
@@ -65,7 +65,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		private async Task LoadRepositorySingleReleaseAsync(string login, string name, string tagName)
 		{
-			 var queries = new ReleaseQueries();
+			 var queries = _gitHub.Repositories.Releases;
 			 var response = await queries.GetAsync(login, name, tagName);
 
 			 SingleRelease = response;
@@ -73,7 +73,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

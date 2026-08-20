@@ -19,6 +19,7 @@ namespace FluentHub.App.ViewModels
 		protected readonly IMessenger _messenger;
 		protected readonly ILogger _logger;
 		protected readonly INavigationService _navigation;
+		protected readonly IFluentHubGitHubClient _gitHub;
 
 		// Provided for v3 API response
 		protected int _loadedItemCount = 0;
@@ -70,8 +71,10 @@ namespace FluentHub.App.ViewModels
 		protected bool _IsEmpty;
 		public bool IsEmpty { get => _IsEmpty; set => SetProperty(ref _IsEmpty, value); }
 
-		protected BaseViewModel()
+		protected BaseViewModel(IFluentHubGitHubClient gitHub)
 		{
+			_gitHub = gitHub;
+
 			// Dependency Injection
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
@@ -132,7 +135,7 @@ namespace FluentHub.App.ViewModels
 
 		protected async Task LoadUserAsync(string login)
 		{
-			UserQueries queries = new();
+			var queries = _gitHub.Users.Users;
 			var response = await queries.GetAsync(login);
 
 			User = response ?? new();

@@ -77,7 +77,7 @@ namespace FluentHub.App.ViewModels.AppSettings
 		public ICommand CopyVersionCommand { get; }
 		public ICommand OpenLogsCommand { get; }
 
-		public GeneralViewModel() : base()
+		public GeneralViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			InitializeDefaultValues();
 
@@ -124,7 +124,7 @@ namespace FluentHub.App.ViewModels.AppSettings
 
 			if (AppSettingsOverviewViewModel.StoredUser is null)
 			{
-				UserQueries queries = new();
+				var queries = _gitHub.Users.Users;
 				var response = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
 				User = response;

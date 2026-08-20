@@ -1,17 +1,23 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class FollowersQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public FollowersQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<User>> GetPageAsync(
 			string login,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null)
+			PageRequest page,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			var query = new Query()
 				.User(login)
-				.Followers(first, after, last, before)
+				.Followers(page.First, page.After, page.Last, page.Before)
 				.Select(connection => new FollowerConnection
 				{
 					Edges = connection.Edges.Select(edge => (UserEdge?)new UserEdge
@@ -38,18 +44,14 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<User>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 	}
 }

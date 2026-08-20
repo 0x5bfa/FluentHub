@@ -23,7 +23,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 		public IAsyncRelayCommand LoadRepositoryProjectsPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryProjectsFurtherCommand { get; }
 
-		public ProjectsViewModel() : base()
+		public ProjectsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_items = new();
 			Items = new(_items);
@@ -66,17 +66,12 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadProjectsPageAsync(string owner, string name)
 		{
-			ProjectQueries queries = new();
+			var queries = _gitHub.Repositories.Projects;
 
-			var result = await queries.GetAllAsync(
-				owner: owner,
-				name: name,
-				first: 20);
-			if (result.Response is null || result.PageInfo is null)
-				return;
+			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20));
 
 			_lastPageInfo = result.PageInfo;
-			var items = (List<Project>)result.Response;
+			var items = result.Items;
 
 			_items.Clear();
 			foreach (var item in items)
@@ -99,18 +94,15 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 			try
 			{
-				ProjectQueries queries = new();
+				var queries = _gitHub.Repositories.Projects;
 
-				var result = await queries.GetAllAsync(
-					owner: Login,
-					name: Name,
-					first: 20,
-					after: _lastPageInfo.EndCursor);
-				if (result.Response is null || result.PageInfo is null)
-					return;
+				var result = await queries.GetPageAsync(
+					Login,
+					Name,
+					PageRequest.Forward(20, _lastPageInfo.EndCursor));
 
 				_lastPageInfo = result.PageInfo;
-				var items = (List<Project>)result.Response;
+				var items = result.Items;
 
 				foreach (var item in items)
 				{
@@ -135,7 +127,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

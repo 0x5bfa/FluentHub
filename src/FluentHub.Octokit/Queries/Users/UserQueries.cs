@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class UserQueries
 	{
-		public async Task<User> GetAsync(string login)
+		private readonly IGitHubApiClient _gitHub;
+
+		public UserQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<User> GetAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.User(login)
@@ -47,12 +53,12 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}
 
-		public async Task<string> GetViewerLogin()
+		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Viewer
@@ -62,7 +68,7 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response.Login;
 		}

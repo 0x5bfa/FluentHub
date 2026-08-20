@@ -9,8 +9,12 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class ReadmeContentBlockViewModel : ObservableObject
 	{
-		public ReadmeContentBlockViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		public ReadmeContentBlockViewModel(
+			MarkdownApiHandler markdownApiHandler,
+			IMessenger? messenger = null,
+			ILogger? logger = null)
 		{
+			_markdownApiHandler = markdownApiHandler;
 			_messenger = messenger;
 			_logger = logger;
 		}
@@ -18,6 +22,7 @@ namespace FluentHub.App.ViewModels.UserControls
 		#region Fields and Properties
 		private readonly ILogger? _logger;
 		private readonly IMessenger? _messenger;
+		private readonly MarkdownApiHandler _markdownApiHandler;
 
 		private RepoContextViewModel contextViewModel = default!;
 		public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
@@ -36,8 +41,7 @@ namespace FluentHub.App.ViewModels.UserControls
 				if (settingTheme == "default")
 					settingTheme = appTheme;
 
-				MarkdownApiHandler queries = new();
-				var html = await queries.GetHtmlAsync(
+				var html = await _markdownApiHandler.GetHtmlAsync(
 					ContextViewModel.Repository.Owner.Login,
 					ContextViewModel.Repository.Name,
 					ContextViewModel.BranchName,

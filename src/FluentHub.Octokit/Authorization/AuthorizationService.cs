@@ -32,7 +32,9 @@ namespace FluentHub.Octokit.Authorization
 
 		private static readonly HttpClient HttpClient = new();
 
-		public async Task<DeviceAuthorizationResponse> RequestDeviceAuthorizationAsync(OctokitSecrets secrets)
+		public async Task<DeviceAuthorizationResponse> RequestDeviceAuthorizationAsync(
+			OctokitSecrets secrets,
+			CancellationToken cancellationToken = default)
 		{
 			var clientId = secrets.ClientId ?? throw new InvalidOperationException("GitHub OAuth client id is not configured.");
 
@@ -48,8 +50,8 @@ namespace FluentHub.Octokit.Authorization
 			};
 			request.Headers.Accept.ParseAdd("application/json");
 
-			using HttpResponseMessage response = await HttpClient.SendAsync(request);
-			string json = await response.Content.ReadAsStringAsync();
+			using HttpResponseMessage response = await HttpClient.SendAsync(request, cancellationToken);
+			string json = await response.Content.ReadAsStringAsync(cancellationToken);
 			var deviceAuthorization = System.Text.Json.JsonSerializer.Deserialize(
 				json,
 				GitHubDeviceFlowJsonContext.Default.DeviceAuthorizationResponse);
@@ -63,7 +65,10 @@ namespace FluentHub.Octokit.Authorization
 			return deviceAuthorization;
 		}
 
-		public async Task<string> RequestDeviceAccessTokenAsync(string deviceCode, OctokitSecrets secrets)
+		public async Task<string> RequestDeviceAccessTokenAsync(
+			string deviceCode,
+			OctokitSecrets secrets,
+			CancellationToken cancellationToken = default)
 		{
 			var clientId = secrets.ClientId ?? throw new InvalidOperationException("GitHub OAuth client id is not configured.");
 
@@ -80,8 +85,8 @@ namespace FluentHub.Octokit.Authorization
 			};
 			request.Headers.Accept.ParseAdd("application/json");
 
-			using HttpResponseMessage response = await HttpClient.SendAsync(request);
-			string json = await response.Content.ReadAsStringAsync();
+			using HttpResponseMessage response = await HttpClient.SendAsync(request, cancellationToken);
+			string json = await response.Content.ReadAsStringAsync(cancellationToken);
 			var token = System.Text.Json.JsonSerializer.Deserialize(
 				json,
 				GitHubDeviceFlowJsonContext.Default.DeviceAccessTokenResponse);
@@ -94,9 +99,6 @@ namespace FluentHub.Octokit.Authorization
 
 			if (string.IsNullOrEmpty(token.AccessToken))
 				throw new ArgumentNullException("token");
-
-			// Initialize octokit.net and octokit.graphql.net
-			InitializeOctokit.InitializeApiConnections(token.AccessToken);
 
 			return token.AccessToken;
 		}

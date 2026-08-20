@@ -17,7 +17,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 
 		public IAsyncRelayCommand LoadRepositoryDiscussionPageCommand { get; }
 
-		public DiscussionViewModel() : base()
+		public DiscussionViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			LoadRepositoryDiscussionPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionPageAsync);
 		}
@@ -55,7 +55,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 
 		private async Task LoadRepositoryOneDiscussionAsync(string owner, string name)
 		{
-			DiscussionQueries queries = new();
+			var queries = _gitHub.Repositories.Discussions;
 			var response = await queries.GetAsync(owner, name, Number);
 
 			if (response == null)
@@ -66,7 +66,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

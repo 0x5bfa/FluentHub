@@ -1,20 +1,26 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class PullRequestQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
-			string name,
+		private readonly IGitHubApiClient _gitHub;
+
+		public PullRequestQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<PullRequest>> GetPageAsync(
 			string owner,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			string name,
+			PageRequest page,
 			string? baseRefName = null,
 			string? headRefName = null,
 			IEnumerable<string>? labels = null,
 			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.PullRequestState>? states = null)
+			IEnumerable<OctokitGraphQLModel.PullRequestState>? states = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			orderBy ??= new()
 			{
 				Direction = OctokitGraphQLModel.OrderDirection.Desc,
@@ -24,10 +30,10 @@ namespace FluentHub.Octokit.Queries.Repositories
 			var query = new Query()
 				.Repository(name, owner)
 				.PullRequests(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					baseRefName,
 					headRefName,
 					labels is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(labels) : null!,
@@ -121,21 +127,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<PullRequest>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 
-		public async Task<PullRequest> GetAsync(string owner, string name, int number)
+		public async Task<PullRequest> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -305,12 +307,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}
 
-		public async Task<IssueComment> GetBodyAsync(string owner, string name, int number)
+		public async Task<IssueComment> GetBodyAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -356,7 +358,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

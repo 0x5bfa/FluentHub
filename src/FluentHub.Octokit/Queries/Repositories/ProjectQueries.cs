@@ -1,25 +1,31 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class ProjectQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public ProjectQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Project>> GetPageAsync(
 			string owner,
 			string name,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			OctokitGraphQLModel.ProjectOrder? orderBy = null,
 			string? search = null,
-			IEnumerable<OctokitGraphQLModel.ProjectState>? states = null)
+			IEnumerable<OctokitGraphQLModel.ProjectState>? states = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			var query = new Query()
 				.Repository(name, owner)
 				.Projects(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					orderBy,
 					search,
 					states is not null ? new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.ProjectState>>(states) : null!)
@@ -65,21 +71,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Project>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 
-		public async Task<Project> GetAsync(string owner, string name, int number)
+		public async Task<Project> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -113,7 +115,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return response;
 		}

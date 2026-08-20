@@ -20,7 +20,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		public IAsyncRelayCommand LoadUserNotificationsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserNotificationsFurtherCommand { get; }
 
-		public NotificationsViewModel()
+		public NotificationsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_toastService = Ioc.Default.GetRequiredService<ToastService>();
 
@@ -70,7 +70,7 @@ namespace FluentHub.App.ViewModels.Viewers
 		{
 			if (_loadedToTheEnd) return;
 
-			NotificationQueries queries = new();
+			var queries = _gitHub.Users.Notifications;
 			var response = await queries.GetAllAsync(
 				new() { All = true },
 				new()
@@ -106,7 +106,7 @@ namespace FluentHub.App.ViewModels.Viewers
 			{
 				if (_loadedToTheEnd) return;
 
-				NotificationQueries queries = new();
+				var queries = _gitHub.Users.Notifications;
 				var response = await queries.GetAllAsync(
 					new() { All = true },
 					new()

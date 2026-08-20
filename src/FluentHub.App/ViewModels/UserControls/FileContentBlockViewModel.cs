@@ -13,8 +13,11 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class FileContentBlockViewModel : ObservableObject
 	{
-		public FileContentBlockViewModel(IMessenger? messenger = null, ILogger? logger = null)
+		private readonly IFluentHubGitHubClient _gitHub;
+
+		public FileContentBlockViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
 		{
+			_gitHub = gitHub;
 			_messenger = messenger;
 			_logger = logger;
 		}
@@ -43,7 +46,7 @@ namespace FluentHub.App.ViewModels.UserControls
 		{
 			try
 			{
-				BlobQueries queries = new();
+				var queries = _gitHub.Repositories.Blobs;
 				var content = await queries.GetAsync(
 					ContextViewModel.Repository.Name,
 					ContextViewModel.Repository.Owner.Login,

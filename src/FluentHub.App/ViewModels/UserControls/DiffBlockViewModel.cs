@@ -6,11 +6,11 @@ namespace FluentHub.App.ViewModels.UserControls
 {
 	public class DiffBlockViewModel : ObservableObject
 	{
-		private OctokitOriginal.GitHubCommitFile _changedFile = default!;
-		public OctokitOriginal.GitHubCommitFile ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
+		private FileChange _changedFile = default!;
+		public FileChange ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
 
-		private OctokitOriginal.PullRequestFile _changedPullRequestFile = default!;
-		public OctokitOriginal.PullRequestFile ChangedPullRequestFile { get => _changedPullRequestFile; set => SetProperty(ref _changedPullRequestFile, value); }
+		private FileChange _changedPullRequestFile = default!;
+		public FileChange ChangedPullRequestFile { get => _changedPullRequestFile; set => SetProperty(ref _changedPullRequestFile, value); }
 
 		private bool _isVaildDiff;
 		public bool IsValidDiff { get => _isVaildDiff; set => SetProperty(ref _isVaildDiff, value); }

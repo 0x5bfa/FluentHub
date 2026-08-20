@@ -1,13 +1,21 @@
 using GraphQL;
 using Newtonsoft.Json.Linq;
 
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class NotificationQueries
 	{
-		public async Task<List<Notification>> GetAllAsync(OctokitV3.NotificationsRequest? request = null, OctokitV3.ApiOptions? options = null)
+		private readonly IGitHubApiClient _gitHub;
+
+		public NotificationQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Notification>> GetAllAsync(OctokitV3.NotificationsRequest? request = null, OctokitV3.ApiOptions? options = null, CancellationToken cancellationToken = default)
 		{
-			var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
+			var response = await _gitHub.RunRestAsync(
+				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				cancellationToken);
 
 			List<Notification> notifications = new();
 			foreach (var item in response)
@@ -109,7 +117,7 @@ namespace FluentHub.Octokit.Queries.Users
 			var request2 = new GraphQLRequest { Query = @$"query {{ {fragments} }}" };
 
 			// Response contains a lot of repository response tokens
-			var response2 = await App.GraphQLHttpClient.SendQueryAsync<object>(request2);
+			var response2 = await _gitHub.SendGraphQLAsync<object>(request2, cancellationToken);
 
 			var repositories = ParseGraphQLJsonResponse(response2.Data as JToken, notifications.Count());
 
@@ -343,7 +351,7 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 			return notifications;
 		}
 
-		public async Task<int> GetUnreadCount()
+		public async Task<int> GetUnreadCountAsync(CancellationToken cancellationToken = default)
 		{
 			OctokitV3.NotificationsRequest request = new()
 			{
@@ -358,7 +366,9 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 			};
 
 			// Even if there are more than 50 unread items, this method will only count up to a maximum of 50.
-			var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
+			var response = await _gitHub.RunRestAsync(
+				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				cancellationToken);
 
 			int unreadCount = 0;
 			foreach (var indivisual in response)

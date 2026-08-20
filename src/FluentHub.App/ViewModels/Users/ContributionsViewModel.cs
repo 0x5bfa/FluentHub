@@ -15,7 +15,7 @@ namespace FluentHub.App.ViewModels.Users
 
 		public IAsyncRelayCommand LoadUserDiscussionsPageCommand { get; }
 
-		public ContributionsViewModel() : base()
+		public ContributionsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_discussions = new();
 			DiscussionItems = new(_discussions);

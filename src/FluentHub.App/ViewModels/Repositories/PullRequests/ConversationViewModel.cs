@@ -20,7 +20,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestConversationPageCommand { get; }
 
-		public ConversationViewModel() : base()
+		public ConversationViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
 			Login = parameter.PrimaryText;
@@ -68,8 +68,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryPullRequestCommentsAsync(string owner, string name)
 		{
-			PullRequestQueries pullRequestQueries = new();
-			PullRequestEventQueries queries = new();
+			var pullRequestQueries = _gitHub.Repositories.PullRequests;
+			var queries = _gitHub.Repositories.PullRequestEvents;
 			_timelineItems.Clear();
 
 			// Get pull request body comment
@@ -84,7 +84,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadPullRequestAsync(string owner, string name)
 		{
-			PullRequestQueries queries = new();
+			var queries = _gitHub.Repositories.PullRequests;
 			PullItem = await queries.GetAsync(owner, name, Number);
 
 			PullRequestOverviewViewModel = new()
@@ -96,7 +96,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
 		}
 	}

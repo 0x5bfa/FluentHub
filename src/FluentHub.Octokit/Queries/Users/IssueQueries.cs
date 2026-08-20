@@ -1,20 +1,26 @@
 using Octokit.GraphQL.Core;
 
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class IssueQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public IssueQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Issue>> GetPageAsync(
 			string login,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			OctokitGraphQLModel.IssueFilters? filterBy = null,
 			IEnumerable<string>? labels = null,
 			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.IssueState>? states = null)
+			IEnumerable<OctokitGraphQLModel.IssueState>? states = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			orderBy ??= new()
 			{
 				Direction = OctokitGraphQLModel.OrderDirection.Desc,
@@ -23,7 +29,7 @@ namespace FluentHub.Octokit.Queries.Users
 
 			var query = new Query()
 				.User(login)
-				.Issues(first, after, last, before, filterBy, labels is null ? null! : new Arg<IEnumerable<string>>(labels), orderBy, states is null ? null! : new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
+				.Issues(page.First, page.After, page.Last, page.Before, filterBy, labels is null ? null! : new Arg<IEnumerable<string>>(labels), orderBy, states is null ? null! : new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
 				.Select(connection => new IssueConnection
 				{
 					Edges = connection.Edges.Select(edge => (IssueEdge?)new IssueEdge
@@ -80,18 +86,14 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Issue>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 	}
 }

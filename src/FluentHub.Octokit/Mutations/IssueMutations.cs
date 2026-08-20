@@ -1,7 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Mutations
 {
 	public class IssueMutations
 	{
+		private readonly IGitHubApiClient _gitHub;
+
+		public IssueMutations(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+
 		private static readonly Expression<Func<OctokitGraphQLModel.Issue, Issue>> IssueStateSelector
 			= issue => new Issue
 			{
@@ -42,7 +49,9 @@ namespace FluentHub.Octokit.Mutations
 				.SingleOrDefault(),
 			};
 
-		public Task<CreateIssuePayload> CreateIssueAsync(CreateIssueInput input)
+		public Task<CreateIssuePayload> CreateIssueAsync(
+			CreateIssueInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -55,10 +64,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<UpdateIssuePayload> UpdateIssueAsync(UpdateIssueInput input)
+		public Task<UpdateIssuePayload> UpdateIssueAsync(
+			UpdateIssueInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -71,10 +82,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<CloseIssuePayload> CloseIssueAsync(CloseIssueInput input)
+		public Task<CloseIssuePayload> CloseIssueAsync(
+			CloseIssueInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -87,10 +100,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<ReopenIssuePayload> ReopenIssueAsync(ReopenIssueInput input)
+		public Task<ReopenIssuePayload> ReopenIssueAsync(
+			ReopenIssueInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -103,10 +118,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<AddCommentPayload> AddCommentAsync(AddCommentInput input)
+		public Task<AddCommentPayload> AddCommentAsync(
+			AddCommentInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -123,10 +140,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<UpdateIssueCommentPayload> UpdateIssueCommentAsync(UpdateIssueCommentInput input)
+		public Task<UpdateIssueCommentPayload> UpdateIssueCommentAsync(
+			UpdateIssueCommentInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -139,10 +158,12 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<DeleteIssueCommentPayload> DeleteIssueCommentAsync(DeleteIssueCommentInput input)
+		public Task<DeleteIssueCommentPayload> DeleteIssueCommentAsync(
+			DeleteIssueCommentInput input,
+			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(input);
 
@@ -154,7 +175,7 @@ namespace FluentHub.Octokit.Mutations
 				})
 				.Compile();
 
-			return MutationExecutor.RunAsync(mutation);
+			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
 		private static OctokitGraphQLModel.CreateIssueInput ToGraphQLInput(CreateIssueInput input)

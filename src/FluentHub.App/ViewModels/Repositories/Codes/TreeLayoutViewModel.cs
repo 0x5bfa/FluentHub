@@ -23,7 +23,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryCommand { get; }
 
-		public TreeLayoutViewModel() : base()
+		public TreeLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_items = new();
 			Items = new(_items);
@@ -42,7 +42,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
 					return;
 
-				TreeQueries queries = new();
+				var queries = _gitHub.Repositories.Trees;
 				var response = await queries.GetAllAsync(
 					ContextViewModel.Repository.Name,
 					ContextViewModel.Repository.Owner.Login,
@@ -103,7 +103,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
 					return null;
 
-				TreeQueries queries = new();
+				var queries = _gitHub.Repositories.Trees;
 				var objects = await queries.GetAllAsync(
 					ContextViewModel.Repository.Name,
 					ContextViewModel.Repository.Owner.Login,
@@ -163,7 +163,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			var pathSegments = uri.AbsolutePath.Split("/").ToList();
 			pathSegments.RemoveAt(0);
 
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
 		}
 	}

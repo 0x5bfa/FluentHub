@@ -17,7 +17,7 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		public IAsyncRelayCommand LoadOrganizationRepositoriesPageCommand { get; }
 
-		public RepositoriesViewModel() : base()
+		public RepositoriesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_repositories = new();
 			Repositories = new(_repositories);
@@ -62,13 +62,13 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		private async Task LoadOrganizationRepositoriesAsync(string org)
 		{
-			RepositoryQueries queries = new();
+			var queries = _gitHub.Organizations.Repositories;
 			var response = await queries.GetAllAsync(org);
 
 			_repositories.Clear();
 			foreach (var item in response)
 			{
-				RepoBlockButtonViewModel viewModel = new()
+				RepoBlockButtonViewModel viewModel = new(_gitHub)
 				{
 					Repository = item,
 					DisplayDetails = true,
@@ -81,7 +81,7 @@ namespace FluentHub.App.ViewModels.Organizations
 
 		private async Task LoadOrganizationAsync(string org)
 		{
-			OrganizationQueries queries = new();
+			var queries = _gitHub.Organizations.Organizations;
 			var response = await queries.GetAsync(org);
 
 			Organization = response ?? new();

@@ -1,17 +1,26 @@
-using System.Net.Http;
-using System.Net.Http.Headers;
+using FluentHub.Octokit.Clients;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class MarkdownQueries
 	{
-		private static readonly HttpClient HttpClient = new();
+		private readonly IGitHubApiClient _gitHub;
 
-		public string GetHtml(string index, string markdown, string missedPath, string theme, bool isHtml)
+		public MarkdownQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+
+		public async Task<string> GetHtmlAsync(
+			string index,
+			string markdown,
+			string missedPath,
+			string theme,
+			bool isHtml,
+			CancellationToken cancellationToken = default)
 		{
-			// Get rwa html string
-			string body = isHtml ? markdown : GetRawHtml(markdown);
+			string body = isHtml
+				? markdown
+				: await GetRawHtmlAsync(markdown, cancellationToken);
 
 			//body = AddMissedLineBreaks(body);
 
@@ -24,21 +33,21 @@ namespace FluentHub.Octokit.Queries.Repositories
 			return html;
 		}
 
-		private string GetRawHtml(string markdown)
+		private async Task<string> GetRawHtmlAsync(
+			string markdown,
+			CancellationToken cancellationToken)
 		{
-			using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.github.com/markdown/raw")
+			using var request = new HttpRequestMessage(HttpMethod.Post, "markdown/raw")
 			{
 				Content = new StringContent(markdown, Encoding.UTF8, "text/plain"),
 			};
 
-			request.Headers.UserAgent.ParseAdd("FluentHub");
-			request.Headers.Authorization = new AuthenticationHeaderValue("token", App.AccessToken);
 			request.Headers.Add("Mode", "GFM");
 
-			using var response = HttpClient.Send(request);
+			using var response = await _gitHub.SendRestAsync(request, cancellationToken);
 			response.EnsureSuccessStatusCode();
 
-			return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+			return await response.Content.ReadAsStringAsync(cancellationToken);
 		}
 
 		private string CorrectRelativePaths(string html, string missedPath)

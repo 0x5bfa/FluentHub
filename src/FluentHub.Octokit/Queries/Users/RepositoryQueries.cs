@@ -1,20 +1,26 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Users
 {
 	public class RepositoryQueries
 	{
-		public async Task<OctokitQueryResult> GetAllAsync(
+		private readonly IGitHubApiClient _gitHub;
+
+		public RepositoryQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<PageResult<Repository>> GetPageAsync(
 			string login,
-			int? first = null,
-			string? after = null,
-			int? last = null,
-			string? before = null,
+			PageRequest page,
 			IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>? affiliations = null,
 			bool? isFork = null,
 			bool? isLocked = null,
 			OctokitGraphQLModel.RepositoryOrder? orderBy = null,
 			IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>? ownerAffiliations = null,
-			OctokitGraphQLModel.RepositoryPrivacy? privacy = null)
+			OctokitGraphQLModel.RepositoryPrivacy? privacy = null,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[]
 				{
@@ -30,10 +36,10 @@ namespace FluentHub.Octokit.Queries.Users
 			var query = new Query()
 				.User(login)
 				.Repositories(
-					first,
-					after,
-					last,
-					before,
+					page.First,
+					page.After,
+					page.Last,
+					page.Before,
 					affiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
 					isFork,
 					isLocked,
@@ -103,18 +109,14 @@ namespace FluentHub.Octokit.Queries.Users
 				})
 				.Compile();
 
-			var response = await App.Connection.Run(query);
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			var result = new OctokitQueryResult()
-			{
-				PageInfo = response.PageInfo,
-				Response = response.Edges?
+			return new PageResult<Repository>(
+				response.Edges?
 					.Where(x => x?.Node is not null)
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
-			};
-
-			return result;
+				response.PageInfo);
 		}
 	}
 }

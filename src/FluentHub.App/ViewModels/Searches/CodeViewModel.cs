@@ -23,7 +23,7 @@ namespace FluentHub.App.ViewModels.Searches
 
 		public IAsyncRelayCommand LoadSearchCodePageCommand { get; }
 
-		public CodeViewModel() : base()
+		public CodeViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			_resultItems = new();
 			ResultItems = new(_resultItems);
@@ -61,7 +61,7 @@ namespace FluentHub.App.ViewModels.Searches
 			if (_loadedToTheEnd)
 				return;
 
-			CodeSearches searches = new();
+			var searches = _gitHub.Searches.Code;
 			var response = await searches.GetAllAsync(term);
 
 			_loadedItemCount += response.Count;

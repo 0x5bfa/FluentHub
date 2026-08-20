@@ -1,8 +1,14 @@
+using FluentHub.Octokit.Clients;
+
 namespace FluentHub.Octokit.Queries.Repositories
 {
 	public class PullRequestCommitQueries
 	{
-		public async Task<List<Commit>> GetAllAsync(string owner, string name, int number)
+		private readonly IGitHubApiClient _gitHub;
+
+		public PullRequestCommitQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+		public async Task<List<Commit>> GetAllAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
 			var query = new Query()
 				.Repository(name, owner)
@@ -41,7 +47,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.Single())
 				.Compile();
 
-			var result = await App.Connection.Run(query);
+			var result = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return result.ToList();
 		}
