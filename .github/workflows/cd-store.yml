@@ -28,11 +28,16 @@ on:
         description: 'Optional package rollout percentage. Leave empty for the Store default.'
         required: false
         type: string
+      artifact_run_id:
+        description: 'Optional prior Store workflow run ID whose package artifact should be reused.'
+        required: false
+        type: string
 
 run-name: 'FluentHub CD (Store)'
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: microsoft-store-production
@@ -40,7 +45,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository_owner == '0x5bfa'
+    if: github.repository_owner == '0x5bfa' && inputs.artifact_run_id == ''
     runs-on: windows-latest
     env:
       APPX_BUNDLE_PLATFORMS:         'x64|arm64'
@@ -127,6 +132,9 @@ jobs:
 
   deploy:
     needs: build
+    if: >-
+      always() &&
+      (needs.build.result == 'success' || needs.build.result == 'skipped')
     runs-on: ubuntu-latest
     environment: microsoft-store
     env:
@@ -147,6 +155,9 @@ jobs:
       with:
         name: FluentHub Store package
         path: ${{ env.STORE_ARTIFACT_DIR }}
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.artifact_run_id || github.run_id }}
 
     - name: Find Store package
       id: package

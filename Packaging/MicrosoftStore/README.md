@@ -29,4 +29,6 @@ verification uses backoff for up to five minutes.
 If a run stops while the uploaded package is still being validated, rerun the
 workflow with `replace_existing_draft` disabled. When the existing draft contains
 the same package filename, the workflow resumes that draft instead of replacing
-it and resetting Partner Center processing.
+it and resetting Partner Center processing. Set `artifact_run_id` to a prior
+Store workflow run whose build succeeded to reuse that run's package artifact
+and skip another package build while diagnosing or resuming a deployment.

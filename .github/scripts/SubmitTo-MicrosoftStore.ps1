@@ -620,12 +620,16 @@ try
         throw "The pending Store submission could not be retrieved."
     }
 
+    $validationSubmission = $submissionJson | ConvertFrom-Json -Depth 100
+    $validationSubmissionJson = $validationSubmission |
+        ConvertTo-Json -Depth 100 -Compress
+
     Write-Host "Requesting Partner Center package validation for '$expectedPackageName'."
     Invoke-MsStore -Arguments @(
         "submission",
         "updateMetadata",
         $PartnerCenterStoreId,
-        $submissionJson
+        $validationSubmissionJson
     )
 
     $submissionJson = Wait-MicrosoftStorePackageValidation
