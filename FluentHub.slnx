@@ -12,6 +12,7 @@
     <File Path=".gitignore" />
     <File Path="AGENTS.md" />
     <File Path="crowdin.yml" />
+    <File Path="Directory.Build.props" />
     <File Path="LICENSE" />
     <File Path="Settings.XamlStyler" />
   </Folder>
