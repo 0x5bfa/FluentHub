@@ -11,14 +11,14 @@
 Translation resource files (non-en-US `.resw` files) have been modified. Please do not directly modify translation resource files.
 
 **重要 / Important:**
-- **変更すべきファイル / Files to modify:** `src/FluentHub.App/Strings/en-US/*.resw` のみ
+- **変更すべきファイル / Files to modify:** `src/FluentHub/Strings/en-US/*.resw` のみ
 - **翻訳の更新方法 / How translations are updated:** 他の言語の翻訳は、翻訳管理システム（Crowdin）を通じて自動的に更新されます
 - **Crowdinの同期 / Crowdin sync:** このルールは、Crowdin からの自動同期（コミットメッセージに "Updated app translations by Crowdin" を含む）の場合は適用されません
 
 ### File Pattern to Monitor
 
 Watch for changes to resource files matching these patterns:
-- `src/FluentHub.App/Strings/*/Resources.resw` (excluding `en-US`)
+- `src/FluentHub/Strings/*/Resources.resw` (excluding `en-US`)
 - Any `.resw` or `.resx` files in language code directories (e.g., `ja-JP`, `fr-FR`, `de-DE`, `zh-CN`, etc.)
 
 **Locale directories to monitor (excluding en-US):**
@@ -81,7 +81,7 @@ When XAML files are modified along with resource files:
     - Technical identifiers (e.g., "UTF-8")
     - Format strings (e.g., "{0:N2}")
     - Markup/HTML tags
-    - xmlns namespace declarations (e.g., `xmlns:local="using:FluentHub.App"`)
+    - xmlns namespace declarations (e.g., `xmlns:local="using:FluentHub"`)
     - Developer-only debug strings (e.g., "DEBUG:", log prefixes visible only in debug builds)
 - `x:Uid` references that don't have corresponding entries in resource files
 - Inconsistent naming between XAML `x:Uid` and resource keys
@@ -114,7 +114,7 @@ When adding new strings, ensure:
 
 ### For Contributors:
 
-1. **Adding new strings:** Only modify `src/FluentHub.App/Strings/en-US/*.resw`
+1. **Adding new strings:** Only modify `src/FluentHub/Strings/en-US/*.resw`
 2. **Updating existing strings:** Edit the en-US version only
 3. **Translations:** After merging to main, Crowdin will automatically update other languages
 4. **XAML files:** Use `x:Uid` or `x:Name` attributes appropriately

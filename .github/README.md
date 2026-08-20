@@ -58,13 +58,13 @@ See [the documentation](../docs/credentials.md).
 The app builds without credentials, but GitHub sign-in remains unavailable until you copy and configure the example file:
 
 ```powershell
-Copy-Item src\FluentHub.App\AppCredentials.config.example src\FluentHub.App\AppCredentials.config
+Copy-Item src\FluentHub\AppCredentials.config.example src\FluentHub\AppCredentials.config
 ```
 
 ### 3. Build the project
 
 - Open `FluentHub.slnx`.
-- Set `FluentHub.App` as the startup project.
+- Set `FluentHub` as the startup project.
 - Build with the `Debug` and `x64` configuration.
 
 ## Credit

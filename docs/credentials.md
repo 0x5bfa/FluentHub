@@ -16,7 +16,7 @@ This application uses GitHub OAuth Device Flow. You must independently get a cli
 		|Badge background color|`#FFFFFF`|True (whatever)|
 
  2.  Enable Device Flow in the OAuth app settings.
- 3.  Copy `src/FluentHub.App/AppCredentials.config.example` to `src/FluentHub.App/AppCredentials.config`.
+ 3.  Copy `src/FluentHub/AppCredentials.config.example` to `src/FluentHub/AppCredentials.config`.
  4.  Change the `id` node value. The `secret` node can be empty because Device Flow does not use the client secret.
 
 		```xml

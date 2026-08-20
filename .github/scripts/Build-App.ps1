@@ -32,9 +32,9 @@ if ($IsStorePublish)
 
 if ($IsStorePublish)
 {
-    msbuild FluentHub.App -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration /p:UapAppxPackageBuildMode=StoreOnly
+    msbuild FluentHub -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration /p:UapAppxPackageBuildMode=StoreOnly
 }
 else
 {
-    msbuild FluentHub.App -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration
+    msbuild FluentHub -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration
 }

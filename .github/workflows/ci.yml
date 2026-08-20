@@ -21,9 +21,9 @@ run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' |
 
 env:
   WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub.App\AppPackages\'
-  APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
-  APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
+  APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub\AppPackages\'
+  APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
+  APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
 
 jobs:
   test:
