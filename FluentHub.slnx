@@ -40,4 +40,8 @@
     </Project>
   </Folder>
 
+  <Folder Name="/tests/">
+    <Project Path="tests/FluentHub.Tests/FluentHub.Tests.csproj" />
+  </Folder>
+
 </Solution>
