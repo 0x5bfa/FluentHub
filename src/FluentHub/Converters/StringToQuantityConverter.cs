@@ -12,7 +12,7 @@ namespace FluentHub.Converters
 			var val = System.Convert.ToInt32(value);
 			var param = parameter?.ToString() ?? string.Empty;
 
-			return param.ToQuantity(val);
+			return HumanReadableFormatter.FormatQuantity(param, val);
 		}
 
 		public object ConvertBack(object? value, Type targetType, object? parameter, string language)

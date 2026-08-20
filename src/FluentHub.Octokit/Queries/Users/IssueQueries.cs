@@ -40,7 +40,7 @@ namespace FluentHub.Octokit.Queries.Users
 							Number = x.Number,
 							Title = x.Title,
 							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
 
 							Repository = x.Repository.Select(repo => new Repository
 							{

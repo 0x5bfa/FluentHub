@@ -11,7 +11,7 @@ namespace FluentHub.Converters
 		{
 			var val = System.Convert.ToInt32(value.ToString());
 
-			return val.ToMetric(MetricNumeralFormats.UseName, 1);
+			return HumanReadableFormatter.FormatMetric(val);
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -19,7 +19,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.AddedToProjectEvent(y => new AddedToProjectEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -32,7 +32,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.AssignedEvent(y => new AssignedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -77,7 +77,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ClosedEvent(y => new ClosedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					StateReason = (IssueStateReason?)y.StateReason,
 
@@ -107,7 +107,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.CommentDeletedEvent(y => new CommentDeletedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -127,7 +127,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ConnectedEvent(y => new ConnectedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					IsCrossRepository = y.IsCrossRepository,
 
@@ -217,7 +217,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ConvertedNoteToIssueEvent(y => new ConvertedNoteToIssueEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -230,7 +230,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ConvertedToDiscussionEvent(y => new ConvertedToDiscussionEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -250,7 +250,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.CrossReferencedEvent(y => new CrossReferencedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					IsCrossRepository = y.IsCrossRepository,
 					ReferencedAt = y.ReferencedAt,
@@ -350,7 +350,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.DemilestonedEvent(y => new DemilestonedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					MilestoneTitle = y.MilestoneTitle,
 
@@ -364,7 +364,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.DisconnectedEvent(y => new DisconnectedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					IsCrossRepository = y.IsCrossRepository,
 
@@ -457,13 +457,13 @@ namespace FluentHub.Octokit.Queries.Repositories
 					Body = y.Body,
 					BodyHTML = y.BodyHTML,
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					IsMinimized = y.IsMinimized,
 					LastEditedAt = y.LastEditedAt,
 					MinimizedReason = y.MinimizedReason,
 					UpdatedAt = y.UpdatedAt,
-					UpdatedAtHumanized = y.UpdatedAt.Humanize(null, null),
+					UpdatedAtHumanized = y.UpdatedAt.ToRelativeTime(),
 					Url = y.Url,
 					ViewerCanDelete = y.ViewerCanDelete,
 					ViewerCanMinimize = y.ViewerCanMinimize,
@@ -497,7 +497,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.LabeledEvent(y => new LabeledEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -518,7 +518,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.LockedEvent(y => new LockedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					LockReason = (LockReason?)y.LockReason,
 
@@ -532,7 +532,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.MarkedAsDuplicateEvent(y => new MarkedAsDuplicateEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -577,7 +577,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.MentionedEvent(y => new  MentionedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -590,7 +590,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.MilestonedEvent(y => new MilestonedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					MilestoneTitle = y.MilestoneTitle,
 
@@ -604,7 +604,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.MovedColumnsInProjectEvent(y => new MovedColumnsInProjectEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -617,7 +617,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.PinnedEvent(y => new PinnedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -630,7 +630,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ReferencedEvent(y => new ReferencedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					IsCrossRepository = y.IsCrossRepository,
 					IsDirectReference = y.IsDirectReference,
@@ -664,7 +664,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.RemovedFromProjectEvent(y => new RemovedFromProjectEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -677,7 +677,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.RenamedTitleEvent(y => new RenamedTitleEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					CurrentTitle = y.CurrentTitle,
 					Id = y.Id,
 					PreviousTitle = y.PreviousTitle,
@@ -692,7 +692,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.ReopenedEvent(y => new ReopenedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 					StateReason = (IssueStateReason?)y.StateReason,
 
@@ -706,7 +706,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.SubscribedEvent(y => new SubscribedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -719,7 +719,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.TransferredEvent(y => new TransferredEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -745,7 +745,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnassignedEvent(y => new UnassignedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -790,7 +790,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnlabeledEvent(y => new UnlabeledEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -811,7 +811,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnlockedEvent(y => new UnlockedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -824,7 +824,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnmarkedAsDuplicateEvent(y => new UnmarkedAsDuplicateEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -869,7 +869,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnpinnedEvent(y => new UnpinnedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -882,7 +882,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.UnsubscribedEvent(y => new UnsubscribedEvent
 				{
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor
@@ -896,7 +896,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				{
 					BlockDuration = (UserBlockDuration)y.BlockDuration,
 					CreatedAt = y.CreatedAt,
-					CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
 
 					Actor = y.Actor.Select(actor => new Actor

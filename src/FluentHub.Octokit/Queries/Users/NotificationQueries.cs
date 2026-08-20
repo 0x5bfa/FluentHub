@@ -48,13 +48,13 @@ namespace FluentHub.Octokit.Queries.Users
 				if (item.LastReadAt != null)
 				{
 					indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
-					indivisual.LastReadAtHumanized = indivisual.LastReadAt.Humanize();
+					indivisual.LastReadAtHumanized = indivisual.LastReadAt.ToRelativeTime();
 				}
 
 				if (item.UpdatedAt != null)
 				{
 					indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
-					indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.Humanize();
+					indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.ToRelativeTime();
 				}
 
 				indivisual.Reason = item.Reason switch

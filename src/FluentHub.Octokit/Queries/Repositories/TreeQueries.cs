@@ -111,7 +111,7 @@ query {{
 				{
 					Message = message,
 					CommittedDate = parsedCommittedDate,
-					CommittedDateHumanized = parsedCommittedDate.Humanize()
+					CommittedDateHumanized = parsedCommittedDate.ToRelativeTime()
 				});
 			}
 

@@ -55,7 +55,7 @@ namespace FluentHub.ViewModels.UserControls
 
 				Blob = content;
 
-				FormattedFileSize = content.ByteSize.Bytes().ToString("#.##");
+				FormattedFileSize = HumanReadableFormatter.FormatFileSize(content.ByteSize);
 
 				if (string.IsNullOrEmpty(content.Text))
 					return;

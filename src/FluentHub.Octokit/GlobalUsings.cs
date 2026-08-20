@@ -18,7 +18,7 @@ global using global::Newtonsoft.Json.Converters;
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
 global using global::FluentHub.Octokit.Models.v4Custom;
-global using global::Humanizer;
+global using global::FluentHub.Core;
 global using global::Octokit.GraphQL;
 global using OctokitV3 = global::Octokit;
 global using OctokitGraphQLCore = global::Octokit.GraphQL.Core;

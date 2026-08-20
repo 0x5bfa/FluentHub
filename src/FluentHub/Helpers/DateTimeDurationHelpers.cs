@@ -15,7 +15,7 @@ namespace FluentHub.Helpers
 
 			var span = (TimeSpan)(date2 - date1);
 
-			return span.Humanize();
+			return HumanReadableFormatter.FormatDuration(span);
 		}
 	}
 }

@@ -62,7 +62,7 @@ namespace FluentHub.Octokit.Queries.Users
 							IsInOrganization = x.IsInOrganization,
 							ViewerHasStarred = x.ViewerHasStarred,
 							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
 
 							LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
 							{
