@@ -51,12 +51,10 @@ namespace FluentHub.App.ViewModels
 		private readonly ObservableCollection<Repository> _repositories;
 		public ReadOnlyObservableCollection<Repository> Repositories { get; }
 
-		public ICommand AddNewTabAcceleratorCommand { get; private set; }
-		public ICommand CloseTabAcceleratorCommand { get; private set; }
-		public ICommand GoToNextTabAcceleratorCommand { get; private set; }
-		public ICommand GoToPreviousTabAcceleratorCommand { get; private set; }
-		public ICommand AddNewTabWithMouseAcceleratorCommand { get; private set; }
-		public ICommand CloseTabWithMouseAcceleratorCommand { get; private set; }
+		public ICommand AddNewTabAcceleratorCommand { get; }
+		public ICommand CloseTabAcceleratorCommand { get; }
+		public ICommand GoToNextTabAcceleratorCommand { get; }
+		public ICommand GoToPreviousTabAcceleratorCommand { get; }
 
 		public ICommand GoBackCommand { get; private set; }
 		public ICommand GoForwardCommand { get; private set; }
@@ -98,9 +96,6 @@ namespace FluentHub.App.ViewModels
 			CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
 			GoToNextTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToNextTabAccelerator);
 			GoToPreviousTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToPreviousTabAccelerator);
-			AddNewTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabWithMouseAccelerator);
-			CloseTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabWithMouseAccelerator);
-
 			GoBackCommand = new RelayCommand(GoBack);
 			GoForwardCommand = new RelayCommand(GoForward);
 			ReloadCommand = new RelayCommand(Reload);
@@ -132,14 +127,12 @@ namespace FluentHub.App.ViewModels
 			if (e is null)
 				return;
 
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
-			{
-				_navigationService.TabView.SelectedIndex = 0;
-			}
-			else
-			{
-				_navigationService.TabView.SelectedIndex++;
-			}
+			var tabCount = _navigationService.TabView.TabItems.Count;
+			if (tabCount == 0)
+				return;
+
+			_navigationService.TabView.SelectedIndex =
+				(_navigationService.TabView.SelectedIndex + 1) % tabCount;
 
 			e.Handled = true;
 		}
@@ -149,33 +142,13 @@ namespace FluentHub.App.ViewModels
 			if (e is null)
 				return;
 
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
-			{
-				_navigationService.TabView.SelectedIndex = 0;
-			}
-			else
-			{
-				_navigationService.TabView.SelectedIndex--;
-			}
-
-			e.Handled = true;
-		}
-
-		private void AddNewTabWithMouseAccelerator(KeyboardAcceleratorInvokedEventArgs? e)
-		{
-			if (e is null)
+			var tabCount = _navigationService.TabView.TabItems.Count;
+			if (tabCount == 0)
 				return;
 
-			_navigationService.OpenTab<Views.Viewers.DashBoardPage>();
-			e.Handled = true;
-		}
+			var selectedIndex = _navigationService.TabView.SelectedIndex;
+			_navigationService.TabView.SelectedIndex = selectedIndex <= 0 ? tabCount - 1 : selectedIndex - 1;
 
-		private void CloseTabWithMouseAccelerator(KeyboardAcceleratorInvokedEventArgs? e)
-		{
-			if (e is null)
-				return;
-
-			_navigationService.CloseTab(_navigationService.TabView.SelectedItem.Guid);
 			e.Handled = true;
 		}
 

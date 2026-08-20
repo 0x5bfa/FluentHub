@@ -9,6 +9,7 @@ using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.Graphics;
 
@@ -29,6 +30,33 @@ namespace FluentHub.App.Views
 			ViewModel = Ioc.Default.GetRequiredService<MainPageViewModel>();
 			NavigationService = Ioc.Default.GetRequiredService<INavigationService>();
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
+		}
+
+		private void OnAddNewTabAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.AddNewTabAcceleratorCommand, args);
+
+		private void OnCloseTabAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.CloseTabAcceleratorCommand, args);
+
+		private void OnNextTabAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.GoToNextTabAcceleratorCommand, args);
+
+		private void OnPreviousTabAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.GoToPreviousTabAcceleratorCommand, args);
+
+		private void OnGoBackAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.GoBackCommand, args);
+
+		private void OnGoForwardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+			=> ExecuteAcceleratorCommand(ViewModel.GoForwardCommand, args);
+
+		private static void ExecuteAcceleratorCommand(System.Windows.Input.ICommand command, KeyboardAcceleratorInvokedEventArgs args)
+		{
+			if (command.CanExecute(args))
+			{
+				command.Execute(args);
+				args.Handled = true;
+			}
 		}
 
 		private void SubscribeEvents()

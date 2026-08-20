@@ -8,7 +8,6 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataitems="using:FluentHub.App.Data.Items"
 	xmlns:helpers="using:FluentHub.App.Helpers"
-	xmlns:i="using:Microsoft.Xaml.Interactivity"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.App.Models"
 	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
@@ -21,48 +20,12 @@
 	mc:Ignorable="d">
 
 	<Page.KeyboardAccelerators>
-		<KeyboardAccelerator Key="T" Modifiers="Control">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.AddNewTabAcceleratorCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="W" Modifiers="Control">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabAcceleratorCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="Tab" Modifiers="Control">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="Tab" Modifiers="Control,Shift">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoToNextTabAcceleratorCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="Left" Modifiers="Menu">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoBackCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="Right" Modifiers="Menu">
-			<i:Interaction.Behaviors>
-				<i:EventTriggerBehavior EventName="Invoked">
-					<i:InvokeCommandAction Command="{x:Bind ViewModel.GoForwardCommand}" />
-				</i:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
+		<KeyboardAccelerator Invoked="OnAddNewTabAcceleratorInvoked" Key="T" Modifiers="Control" />
+		<KeyboardAccelerator Invoked="OnCloseTabAcceleratorInvoked" Key="W" Modifiers="Control" />
+		<KeyboardAccelerator Invoked="OnNextTabAcceleratorInvoked" Key="Tab" Modifiers="Control" />
+		<KeyboardAccelerator Invoked="OnPreviousTabAcceleratorInvoked" Key="Tab" Modifiers="Control,Shift" />
+		<KeyboardAccelerator Invoked="OnGoBackAcceleratorInvoked" Key="Left" Modifiers="Menu" />
+		<KeyboardAccelerator Invoked="OnGoForwardAcceleratorInvoked" Key="Right" Modifiers="Menu" />
 	</Page.KeyboardAccelerators>
 
 	<Page.Resources>
