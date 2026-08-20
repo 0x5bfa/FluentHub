@@ -134,6 +134,16 @@ if ([string]::IsNullOrWhiteSpace($defaultLocale))
     throw "The Microsoft Store defaultLocale must be specified."
 }
 
+for ($localeIndex = 0; $localeIndex -lt $locales.Count; $localeIndex++)
+{
+    $locale = $locales[$localeIndex]
+
+    if ($locale -isnot [string] -or [string]::IsNullOrWhiteSpace($locale))
+    {
+        throw "The Microsoft Store locale at index $localeIndex must be a non-empty string."
+    }
+}
+
 if ($locales -inotcontains $defaultLocale)
 {
     throw "The Microsoft Store defaultLocale must be included in locales."
