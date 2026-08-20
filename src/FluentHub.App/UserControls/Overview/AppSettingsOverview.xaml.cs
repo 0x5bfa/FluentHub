@@ -55,13 +55,10 @@ namespace FluentHub.App.UserControls.Overview
 
 		private void OnSettingsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 		{
-			// Parameter (should not use)
-			FrameNavigationParameter parameter = new()
-			{
-				PrimaryText = ViewModel?.User?.Login,
-			};
+			if (args.InvokedItemContainer?.Tag is not { } tag)
+				return;
 
-			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+			switch (tag.ToString()!.ToLowerInvariant())
 			{
 				case "appearance":
 					_navigation.Navigate<Views.AppSettings.GeneralPage>();

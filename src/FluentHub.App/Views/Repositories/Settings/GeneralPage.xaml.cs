@@ -19,12 +19,16 @@ namespace FluentHub.App.Views.Repositories.Settings
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var url = e.Parameter as string;
-			var uri = new Uri(url);
+			if (e.Parameter is not string url || !Uri.TryCreate(url, UriKind.Absolute, out var uri))
+				return;
+
 			var pathSegments = uri.AbsolutePath.Split("/").ToList();
 			pathSegments.RemoveAt(0);
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
 			currentItem.Header = "Settings";
 			currentItem.Description = "Settings";
 

@@ -33,7 +33,8 @@ namespace FluentHub.App.UserControls.FeedBlocks
 
 		private void OnActivityRepositoryButtonClick(object sender, RoutedEventArgs e)
 		{
-			Repository repo = ((Button)sender).Tag as Repository;
+			if (sender is not Button { Tag: Repository repo } || repo.Owner is null)
+				return;
 
 			var service = Ioc.Default.GetRequiredService<INavigationService>();
 

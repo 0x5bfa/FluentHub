@@ -20,8 +20,10 @@ namespace FluentHub.App.Views.Searches
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.SearchTerm = param.Parameters as string;
+			if (e.Parameter is not FrameNavigationParameter { Parameters: string searchTerm })
+				return;
+
+			ViewModel.SearchTerm = searchTerm;
 
 			var command = ViewModel.LoadSearchUsersPageCommand;
 			if (command.CanExecute(null))

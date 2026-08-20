@@ -20,6 +20,9 @@ namespace FluentHub.App.Views.Repositories.Insights
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
 			currentItem.Header = "Insights";
 			currentItem.Description = "Insights";
 			currentItem.Icon = new ImageIconSource
@@ -29,7 +32,10 @@ namespace FluentHub.App.Views.Repositories.Insights
 		}
 
 		private void OnInsightsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-			=> OnInsightsNavViewItemSelected(args.InvokedItemContainer.Tag.ToString().ToLower());
+		{
+			if (args.InvokedItemContainer?.Tag is { } tag)
+				OnInsightsNavViewItemSelected(tag.ToString()!.ToLowerInvariant());
+		}
 
 		private void OnInsightsNavViewItemSelected(string tag)
 		{

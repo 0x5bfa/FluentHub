@@ -101,8 +101,9 @@ namespace FluentHub.App.ViewModels.Viewers
 
 			// Filter the notifications; remove closed Issue & Pull Requests
 			notificationResponse.RemoveAll(x =>
-				x.Subject.Type != NotificationSubjectType.IssueOpen &&
-				x.Subject.Type != NotificationSubjectType.PullRequestOpen);
+				x.Subject is null ||
+				(x.Subject.Type != NotificationSubjectType.IssueOpen &&
+				x.Subject.Type != NotificationSubjectType.PullRequestOpen));
 
 			_RecentActivities.Clear();
 
@@ -182,7 +183,7 @@ namespace FluentHub.App.ViewModels.Viewers
 
 		private void GoToSidebarActivity(Notification? notification)
 		{
-			if (notification is null)
+			if (notification?.Repository?.Owner is null || notification.Subject is null)
 				return;
 
 			var navBar = _navigation.TabView.SelectedItem.NavigationBar;

@@ -14,11 +14,7 @@ namespace FluentHub.App.Views.Repositories.Code
 {
 	public sealed partial class TreeLayoutView : LocatablePage
 	{
-		private static Repository RepositoryCache { get; set; } = default!;
-
 		public TreeLayoutViewModel ViewModel { get; }
-
-		private readonly INavigationService navigationService;
 
 		public TreeLayoutView()
 			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
@@ -26,22 +22,13 @@ namespace FluentHub.App.Views.Repositories.Code
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<TreeLayoutViewModel>();
-			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-			//_pageLoadCommand = ViewModel.LoadUserStarredRepositoriesPageCommand;
-		}
-
-		protected async override void OnNavigatedTo(NavigationEventArgs e)
-		{
 		}
 
 		private async void OnDirTreeViewExpanding(TreeView sender, TreeViewExpandingEventArgs args)
 		{
-			if (args.Node.HasUnrealizedChildren && !(args.Item as TreeLayoutPageModel).IsBolb)
+			if (args.Node.HasUnrealizedChildren && args.Item is TreeLayoutPageModel { IsBolb: false } item)
 			{
-				var item = args.Item as TreeLayoutPageModel;
-				string path = item?.Path;
-
-				var result = await ViewModel.LoadSubItemsAsync(path);
+				var result = await ViewModel.LoadSubItemsAsync(item.Path);
 
 				item.Children.Clear();
 				foreach (var res in result) item.Children.Add(res);
@@ -52,7 +39,8 @@ namespace FluentHub.App.Views.Repositories.Code
 
 		private void OnDirTreeViewItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
 		{
-			var item = args.InvokedItem as TreeLayoutPageModel;
+			if (args.InvokedItem is not TreeLayoutPageModel item)
+				return;
 
 			ViewModel.BlobSelected = false;
 			if (!item.IsBolb) return;
@@ -67,7 +55,7 @@ namespace FluentHub.App.Views.Repositories.Code
 				IsSubDir = false,
 				Repository = ViewModel.ContextViewModel.Repository,
 				BranchName = ViewModel.ContextViewModel.BranchName,
-				Path = "/" + item?.Path,
+				Path = "/" + item.Path,
 			};
 
 			ViewModel.SelectedContextViewModel = viewmodel;

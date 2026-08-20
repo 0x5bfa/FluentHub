@@ -34,8 +34,8 @@ namespace FluentHub.App.Views.Repositories.Code
 
 		private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
 		{
-			var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
-			var objType = item?.Type;
+			if (DirListView.SelectedItem is not DetailsLayoutListViewModel item)
+				return;
 
 			string path = ViewModel.ContextViewModel.Path;
 
@@ -44,7 +44,7 @@ namespace FluentHub.App.Views.Repositories.Code
 
 			path += item.Name;
 
-			string param = $"{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
+			string param = $"{item.Type}/{ViewModel.ContextViewModel.BranchName}/{path}";
 
 			SelectedTabViewItem.NavigationBar.Context = new()
 			{

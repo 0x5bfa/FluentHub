@@ -28,8 +28,10 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.CommitItem = param.Parameters as Commit;
+			if (e.Parameter is not FrameNavigationParameter { Parameters: Commit commit })
+				return;
+
+			ViewModel.CommitItem = commit;
 
 			var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
 			if (command.CanExecute(null))

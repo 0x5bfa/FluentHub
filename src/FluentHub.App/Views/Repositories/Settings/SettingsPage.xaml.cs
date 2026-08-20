@@ -20,6 +20,9 @@ namespace FluentHub.App.Views.Repositories.Settings
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
 			currentItem.Header = "Settings";
 			currentItem.Description = "Settings";
 			currentItem.Icon = new ImageIconSource

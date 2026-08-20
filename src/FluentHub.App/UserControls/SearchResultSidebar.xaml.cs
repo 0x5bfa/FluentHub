@@ -56,7 +56,10 @@ namespace FluentHub.App.UserControls
 				Parameters = SearchTerm
 			};
 
-			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+			if (args.InvokedItemContainer?.Tag is not { } tag)
+				return;
+
+			switch (tag.ToString()!.ToLowerInvariant())
 			{
 				default:
 				case "repositories":

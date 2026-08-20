@@ -28,17 +28,21 @@ namespace FluentHub.App.UserControls.BlockButtons
 
 		private void OnClick(object sender, RoutedEventArgs e)
 		{
+			var item = ViewModel?.Item;
+			if (item?.Repository?.Owner is null || item.Subject is null)
+				return;
+
 			var service = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var navBar = service.TabView.SelectedItem.NavigationBar;
 			navBar.Context = new()
 			{
-				PrimaryText = ViewModel.Item.Repository.Owner.Login,
-				SecondaryText = ViewModel.Item.Repository.Name,
-				Number = ViewModel.Item.Subject.Number,
+				PrimaryText = item.Repository.Owner.Login,
+				SecondaryText = item.Repository.Name,
+				Number = item.Subject.Number,
 			};
 
-			switch (ViewModel.Item.Subject.Type)
+			switch (item.Subject.Type)
 			{
 				case NotificationSubjectType.IssueClosedAsCompleted:
 				case NotificationSubjectType.IssueClosedAsNotPlanned:

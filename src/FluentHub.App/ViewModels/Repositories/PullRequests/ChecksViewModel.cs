@@ -70,7 +70,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 			var response = await queries.GetAllAsync(owner, name, Number);
 
 			// Remove elements that doesn't have any CheckRuns
-			response.RemoveAll(p => p.CheckRuns.Nodes.Count == 0);
+			response.RemoveAll(p => p.CheckRuns?.Nodes?.Count is null or 0);
 
 			foreach (var item in response)
 			{

@@ -22,11 +22,15 @@ namespace FluentHub.App.Views.Viewers
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
 			_pageLoadCommand = ViewModel.LoadUserNotificationsPageCommand;
 
-			_navigation.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
-				_navigation.TabView.SelectedItem.NavigationBar.Context = new()
+			var selectedItem = _navigation.TabView.SelectedItem;
+			var context = new FrameNavigationParameter
 				{
 					PrimaryText = "Notifications"
-			};
+				};
+
+			selectedItem.NavigationBar.Context = context;
+			if (selectedItem.NavigationHistory.CurrentItem is { } currentItem)
+				currentItem.Context = context;
 		}
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)

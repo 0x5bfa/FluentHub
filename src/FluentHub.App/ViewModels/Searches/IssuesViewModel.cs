@@ -113,6 +113,9 @@ namespace FluentHub.App.ViewModels.Searches
 			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
 			currentItem.Header = "Issue Results";
 			currentItem.Description = "Issue Results for \"" + SearchTerm + "\"";
 			currentItem.Icon = new ImageIconSource

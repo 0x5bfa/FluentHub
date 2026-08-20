@@ -27,8 +27,10 @@ namespace FluentHub.App.Views.Repositories.Commits
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.ContextViewModel = param.Parameters as RepoContextViewModel;
+			if (e.Parameter is not FrameNavigationParameter { Parameters: RepoContextViewModel context })
+				return;
+
+			ViewModel.ContextViewModel = context;
 
 			var command = ViewModel.LoadRepositoryCommitsPageCommand;
 			if (command.CanExecute(null))

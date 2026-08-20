@@ -34,10 +34,14 @@ namespace FluentHub.App.Views
 
 		public void CheckIfNavigationBarShouldBeChanged()
 		{
-			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.Context =
-				_navigationService.TabView.SelectedItem.NavigationBar.Context;
+			var selectedItem = _navigationService.TabView.SelectedItem;
+			var currentItem = selectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
 
-			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
+			currentItem.Context = selectedItem.NavigationBar.Context;
+
+			var currentTabNavigationBar = selectedItem.NavigationBar;
 			if (currentTabNavigationBar is null)
 				return;
 
@@ -69,8 +73,8 @@ namespace FluentHub.App.Views
 					currentTabNavigationBar.NavigationBarItems.Add(item);
 			}
 
-			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKey = _currentPageItemKey;
-			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKind = _currentPageKind;
+			currentItem.PageKey = _currentPageItemKey;
+			currentItem.PageKind = _currentPageKind;
 
 			// Select item
 			if (currentTabNavigationBar.NavigationBarItems is null)

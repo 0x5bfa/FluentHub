@@ -39,7 +39,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 			try
 			{
-				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef?.Name))
 					return;
 
 				var queries = _gitHub.Repositories.Trees;
@@ -54,7 +54,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 					TreeLayoutPageModel model = new()
 					{
 						Name = item.Name,
-						Path = item.Path,
+						Path = item.Path ?? string.Empty,
 						Tag = item.Type,
 						IsBolb = false,
 					};
@@ -100,8 +100,8 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 				var pathItems = path.Split("/");
 				List<TreeLayoutPageModel> subItems = new();
 
-				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
-					return null;
+				if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef?.Name))
+					return [];
 
 				var queries = _gitHub.Repositories.Trees;
 				var objects = await queries.GetAllAsync(
@@ -115,7 +115,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 					TreeLayoutPageModel model = new()
 					{
 						Name = obj.Name,
-						Path = obj.Path,
+						Path = obj.Path ?? string.Empty,
 						Tag = obj.Type,
 						IsBolb = false,
 					};
@@ -142,7 +142,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
 				return subItems;
 			}
-			catch (OperationCanceledException) { }
+			catch (OperationCanceledException)
+			{
+				return [];
+			}
 			catch (Exception ex)
 			{
 				_logger?.Error(nameof(LoadSubItemsAsync), ex);
@@ -153,15 +156,17 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 				}
 				throw;
 			}
-
-			return null;
 		}
 
-		private async Task LoadRepositoryAsync(string url, CancellationToken token)
+		private async Task LoadRepositoryAsync(string? url, CancellationToken token)
 		{
-			var uri = new Uri(url);
+			if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+				return;
+
 			var pathSegments = uri.AbsolutePath.Split("/").ToList();
 			pathSegments.RemoveAt(0);
+			if (pathSegments.Count < 2)
+				return;
 
 			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);

@@ -149,6 +149,10 @@ namespace FluentHub.App.Data.Items
 
 		private void UpdateNavigationBar(bool isBackNavigation = false)
 		{
+			var currentItem = CurrentItem;
+			if (currentItem is null)
+				return;
+
 			var previousItem = isBackNavigation ? Items[CurrentItemIndex + 1] : Items[CurrentItemIndex - 1];
 
 			var _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
@@ -157,27 +161,27 @@ namespace FluentHub.App.Data.Items
 			if (currentTabNavigationBar is null)
 				return;
 
-			if (CurrentItem.PageKind is NavigationPageKind.None)
+			if (currentItem.PageKind is NavigationPageKind.None)
 			{
 				currentTabNavigationBar.NavigationBarItems = new();
-				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
-				currentTabNavigationBar.Context = CurrentItem.Context ?? new();
+				currentTabNavigationBar.PageKind = currentItem.PageKind;
+				currentTabNavigationBar.Context = currentItem.Context ?? new();
 
 				return;
 			}
 
-			currentTabNavigationBar.Context = CurrentItem.Context ?? new();
+			currentTabNavigationBar.Context = currentItem.Context ?? new();
 
 			// Generate new navigation bar items
-			if (previousItem.PageKind != CurrentItem.PageKind)
+			if (previousItem.PageKind != currentItem.PageKind)
 			{
-				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
+				currentTabNavigationBar.PageKind = currentItem.PageKind;
 
 				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
 					currentTabNavigationBar.NavigationBarItems.Clear();
 
 				// Generate items
-				var items = CurrentItem.PageKind switch
+				var items = currentItem.PageKind switch
 				{
 					NavigationPageKind.Organization => NavigationBarFactory.GetOrganizationNavigationBarItems(),
 					NavigationPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
@@ -190,7 +194,7 @@ namespace FluentHub.App.Data.Items
 					currentTabNavigationBar.NavigationBarItems.Add(item);
 			}
 
-			if (CurrentItem.PageKey is NavigationPageKey.None)
+			if (currentItem.PageKey is NavigationPageKey.None)
 			{
 				currentTabNavigationBar.SelectedNavigationBarItem = null;
 			}
@@ -198,7 +202,7 @@ namespace FluentHub.App.Data.Items
 			{
 				foreach (var item in currentTabNavigationBar.NavigationBarItems)
 				{
-					if (item.PageItemKey == CurrentItem.PageKey)
+					if (item.PageItemKey == currentItem.PageKey)
 					{
 						currentTabNavigationBar.SelectedNavigationBarItem = item;
 						break;

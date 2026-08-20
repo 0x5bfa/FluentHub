@@ -55,7 +55,10 @@ namespace FluentHub.App.ViewModels.UserControls
 				}
 			}
 
-			int weekDay = _mergedCalendar.FirstOrDefault().Weekday;
+			if (_mergedCalendar.FirstOrDefault() is not { } firstDay)
+				return;
+
+			int weekDay = firstDay.Weekday;
 
 			// If the first day is not Sunday (Weekday != 0), fill in the vacancies to correct the position.
 			if (weekDay != 0)
@@ -94,14 +97,19 @@ namespace FluentHub.App.ViewModels.UserControls
 			{
 				return level switch
 				{
-					ContributionLevel.None => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
+					ContributionLevel.None => GetEmptyContributionColor(),
 					ContributionLevel.FirstQuartile =>  "#0E4429",
 					ContributionLevel.SecondQuartile => "#006D32",
 					ContributionLevel.ThirdQuartile =>  "#26A641",
 					ContributionLevel.FourthQuartile => "#39D353",
-					_ => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
+					_ => GetEmptyContributionColor(),
 				};
 			}
 		}
+
+		private static string GetEmptyContributionColor()
+			=> Application.Current.Resources["PrimerScaleGray8"] is SolidColorBrush brush
+				? brush.Color.ToString()
+				: "#161B22";
 	}
 }

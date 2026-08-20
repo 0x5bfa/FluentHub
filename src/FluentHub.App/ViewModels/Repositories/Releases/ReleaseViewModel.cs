@@ -13,9 +13,6 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 {
 	public class ReleaseViewModel : BaseViewModel
 	{
-		private Repository _repository = default!;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private string _tagName = default!;
 		public string TagName{ get => _tagName; set => SetProperty(ref _tagName, value); }
 
@@ -27,9 +24,9 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		public ReleaseViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			Name = parameter.SecondaryText;
-			TagName = parameter.Parameters as string;
+			Login = parameter.PrimaryText ?? string.Empty;
+			Name = parameter.SecondaryText ?? string.Empty;
+			TagName = parameter.Parameters as string ?? string.Empty;
 
 			LoadRepositoryReleasePageCommand = new AsyncRelayCommand(LoadRepositoryReleasePageAsync);
 		}

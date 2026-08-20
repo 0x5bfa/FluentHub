@@ -32,11 +32,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			Name = parameter.SecondaryText;
+			Login = parameter.PrimaryText ?? string.Empty;
+			Name = parameter.SecondaryText ?? string.Empty;
 
-			if (parameter.Parameters is not null)
-				CurrentPath = parameter.Parameters as string;
+			CurrentPath = parameter.Parameters as string ?? string.Empty;
 
 			_items = new();
 			Items = new(_items);
@@ -99,9 +98,9 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 				{
 					Type = item.File.Type,
 					Name = item.File.Name,
-					LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
+					LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault() ?? string.Empty,
 					UpdatedAt = item.Commit.CommittedDate,
-					UpdatedAtHumanized = item.Commit.CommittedDateHumanized,
+					UpdatedAtHumanized = item.Commit.CommittedDateHumanized ?? string.Empty,
 				};
 
 				if (item.File.Type == "tree")
@@ -133,14 +132,14 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 			bool isSubDir = false;
 			bool isDir = false;
 			string actualPath = path;
-			var pathItems = path?.Split("/").ToList();
+			var pathItems = string.IsNullOrEmpty(path) ? [] : path.Split("/").ToList();
 			string branchName = "";
 
 			// owner/name
-			if (pathItems == null || pathItems.Count == 0)
+			if (pathItems.Count == 0)
 			{
 				isDir = isRootDir = true;
-				branchName = Repository.DefaultBranchRef?.Name;
+				branchName = Repository.DefaultBranchRef?.Name ?? string.Empty;
 			}
 			// owner/name/tree/main
 			else if (pathItems.Count == 2)

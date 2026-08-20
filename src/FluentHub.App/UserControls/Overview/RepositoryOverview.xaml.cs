@@ -34,7 +34,7 @@ namespace FluentHub.App.UserControls.Overview
 		{
 			var service = Ioc.Default.GetRequiredService<INavigationService>();
 
-			switch (args.InvokedItemContainer?.Tag?.ToString().ToLower())
+			switch (args.InvokedItemContainer?.Tag?.ToString()?.ToLowerInvariant())
 			{
 				default:
 				case "code":

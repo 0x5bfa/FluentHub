@@ -15,9 +15,6 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 {
 	public class ReleasesViewModel : BaseViewModel
 	{
-		private Repository _repository = default!;
-		public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
-
 		private readonly ObservableCollection<Release> _items;
 		public ReadOnlyObservableCollection<Release> Items { get; }
 
@@ -31,8 +28,8 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 		public ReleasesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			Name = parameter.SecondaryText;
+			Login = parameter.PrimaryText ?? string.Empty;
+			Name = parameter.SecondaryText ?? string.Empty;
 
 			_items = new();
 			Items = new(_items);
@@ -82,7 +79,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
 
 			if (items.Any())
 			{
-				LatestRelease = items.FirstOrDefault();
+				LatestRelease = items[0];
 			}
 
 			_items.Clear();

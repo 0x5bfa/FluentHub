@@ -23,8 +23,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 		public ConversationViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
 			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText;
-			Name = parameter.SecondaryText;
+			Login = parameter.PrimaryText ?? string.Empty;
+			Name = parameter.SecondaryText ?? string.Empty;
 			Number = parameter.Number;
 
 			_timelineItems = new();

@@ -81,6 +81,9 @@ namespace FluentHub.App.UserControls
 			INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			if (currentItem is null)
+				return;
+
 			currentItem.Header = "Something went wrong";
 			currentItem.Description = "Something went wrong";
 		}
@@ -89,7 +92,7 @@ namespace FluentHub.App.UserControls
 		{
 			var messenger = Ioc.Default.GetRequiredService<IMessenger>();
 
-			UserNotificationMessage notification = new("Something went wrong", TaskException?.Message, UserNotificationType.Error);
+			UserNotificationMessage notification = new("Something went wrong", TaskException?.Message ?? string.Empty, UserNotificationType.Error);
 			messenger?.Send(notification);
 		}
 	}

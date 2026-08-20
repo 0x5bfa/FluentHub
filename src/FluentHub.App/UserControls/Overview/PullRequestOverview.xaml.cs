@@ -35,16 +35,19 @@ namespace FluentHub.App.UserControls.Overview
 
 		private void OnPullRequestNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 		{
+			if (ViewModel?.PullRequest is not { } pullRequest || args.InvokedItemContainer?.Tag is not { } tag)
+				return;
+
 			var service = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var param = new FrameNavigationParameter()
 			{
-				PrimaryText = ViewModel.PullRequest?.Repository?.Owner?.Login,
-				SecondaryText = ViewModel.PullRequest?.Repository?.Name,
-				Number = ViewModel.PullRequest.Number,
+				PrimaryText = pullRequest.Repository?.Owner?.Login,
+				SecondaryText = pullRequest.Repository?.Name,
+				Number = pullRequest.Number,
 			};
 
-			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+			switch (tag.ToString()!.ToLowerInvariant())
 			{
 				default:
 				case "conversation":

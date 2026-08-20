@@ -22,9 +22,11 @@ namespace FluentHub.App.Views.Repositories.Discussions
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var param = e.Parameter as FrameNavigationParameter;
-			ViewModel.Login = param.PrimaryText;
-			ViewModel.Name = param.SecondaryText;
+			if (e.Parameter is not FrameNavigationParameter param)
+				return;
+
+			ViewModel.Login = param.PrimaryText ?? string.Empty;
+			ViewModel.Name = param.SecondaryText ?? string.Empty;
 			ViewModel.Number = param.Number;
 
 			var command = ViewModel.LoadRepositoryDiscussionPageCommand;

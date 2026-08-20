@@ -33,9 +33,6 @@ namespace FluentHub.App.ViewModels.AppSettings
 
 		public ReadOnlyCollection<string> Themes { get; set; } = default!;
 
-		private User _user = default!;
-		public User User { get => _user; set => SetProperty(ref _user, value); }
-
 		private int _selectedThemeIndex;
 		public int SelectedThemeIndex
 		{
