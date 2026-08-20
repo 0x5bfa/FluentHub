@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Media;
 
 namespace FluentHub.App.Converters
 {
-	public class HexColorCodeToSolidColorBrushConverter : IValueConverter
+	public partial class HexColorCodeToSolidColorBrushConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{

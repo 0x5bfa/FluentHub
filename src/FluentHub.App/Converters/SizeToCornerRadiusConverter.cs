@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.App.Converters
 {
-	public class SizeToCornerRadiusConverter : IValueConverter
+	public partial class SizeToCornerRadiusConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.App.Converters
 {
-	public class StringToQuantityConverter : IValueConverter
+	public partial class StringToQuantityConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{

@@ -55,7 +55,7 @@ namespace FluentHub.App.Converters
 		}
 	}
 
-	public class InverseBooleanConverter : ValueConverter<bool, bool>
+	public partial class InverseBooleanConverter : ValueConverter<bool, bool>
 	{
 		protected override bool Convert(bool value, object? parameter, string? language)
 		{
@@ -68,7 +68,7 @@ namespace FluentHub.App.Converters
 		}
 	}
 
-	public class NullToTrueConverter : ValueConverter<object?, bool>
+	public partial class NullToTrueConverter : ValueConverter<object?, bool>
 	{
 		public bool Inverse { get; set; }
 
@@ -83,7 +83,7 @@ namespace FluentHub.App.Converters
 		}
 	}
 
-	public class StringNullOrWhiteSpaceToTrueConverter : ValueConverter<string, bool>
+	public partial class StringNullOrWhiteSpaceToTrueConverter : ValueConverter<string, bool>
 	{
 		public bool Inverse { get; set; }
 

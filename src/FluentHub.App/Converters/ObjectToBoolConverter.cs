@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.App.Converters
 {
-	public class ObjectToBoolConverter : IValueConverter
+	public partial class ObjectToBoolConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
@@ -44,11 +44,26 @@ namespace FluentHub.App.Converters
 			if (value is string s)
 				return string.IsNullOrWhiteSpace(s) || string.IsNullOrEmpty(s) ? falseValue : trueValue;
 
-			var type = value.GetType();
-			if (type.IsValueType)
+			if (value is bool boolean)
 			{
-				var defaultValue = Activator.CreateInstance(type);
-				return value.Equals(defaultValue) ? falseValue : trueValue;
+				return boolean ? trueValue : falseValue;
+			}
+
+			if (value.GetType().IsEnum)
+			{
+				return System.Convert.ToInt64(value) == 0 ? falseValue : trueValue;
+			}
+
+			if (value is IConvertible convertible)
+			{
+				try
+				{
+					return convertible.ToDecimal(null) == 0 ? falseValue : trueValue;
+				}
+				catch (InvalidCastException)
+				{
+					// Non-numeric convertible values are non-empty objects.
+				}
 			}
 
 			return value == default ? falseValue : trueValue;

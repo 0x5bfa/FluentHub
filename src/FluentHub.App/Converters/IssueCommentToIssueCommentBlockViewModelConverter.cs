@@ -6,7 +6,7 @@ using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Converters
 {
-	public class IssueCommentToIssueCommentBlockViewModelConverter : IValueConverter
+	public partial class IssueCommentToIssueCommentBlockViewModelConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
@@ -31,6 +31,7 @@ namespace FluentHub.App.Converters
 					ReactionContent.Heart => issueCommentBlockViewModel.HeartCount++,
 					ReactionContent.Rocket => issueCommentBlockViewModel.RocketCount++,
 					ReactionContent.Eyes => issueCommentBlockViewModel.EyesCount++,
+					_ => 0,
 				};
 			}
 

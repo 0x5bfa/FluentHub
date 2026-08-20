@@ -64,17 +64,23 @@ namespace FluentHub.App.ViewModels
 
 		public CustomThemeItem SelectedThemeItem
 		{
-			get => Newtonsoft.Json.JsonConvert.DeserializeObject<CustomThemeItem>(
-				Get(System.Text.Json.JsonSerializer.Serialize(
-					new CustomThemeItem()
-					{
-						Name = "Default"
-					}))
-				) ?? new CustomThemeItem()
+			get
+			{
+				var defaultTheme = new CustomThemeItem()
 				{
-					Name = "Default"
+					Name = "Default",
+					Path = string.Empty,
+					AbsolutePath = string.Empty,
 				};
-			set => Set(Newtonsoft.Json.JsonConvert.SerializeObject(value));
+
+				var typeInfo = Serialization.AppJsonSerializerContext.Default.CustomThemeItem;
+				var json = Get(System.Text.Json.JsonSerializer.Serialize(defaultTheme, typeInfo));
+
+				return System.Text.Json.JsonSerializer.Deserialize(json, typeInfo) ?? defaultTheme;
+			}
+			set => Set(System.Text.Json.JsonSerializer.Serialize(
+				value,
+				Serialization.AppJsonSerializerContext.Default.CustomThemeItem));
 		}
 
 		#endregion

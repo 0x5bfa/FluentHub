@@ -7,7 +7,7 @@ using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Models
 {
-	public class TimelineItemSelector : DataTemplateSelector
+	public partial class TimelineItemSelector : DataTemplateSelector
 	{
 		public DataTemplate AddedToProjectEventDataTemplate { get; set; } = default!;
 		public DataTemplate AssignedEventDataTemplate { get; set; } = default!;

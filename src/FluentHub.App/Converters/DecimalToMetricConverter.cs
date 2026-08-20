@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.App.Converters
 {
-	public class DecimalToMetricConverter : IValueConverter
+	public partial class DecimalToMetricConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

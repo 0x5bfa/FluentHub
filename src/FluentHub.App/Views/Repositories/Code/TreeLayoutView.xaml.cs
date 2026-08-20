@@ -74,7 +74,7 @@ namespace FluentHub.App.Views.Repositories.Code
 		}
 	}
 
-	class ExplorerItemTemplateSelector : DataTemplateSelector
+	partial class ExplorerItemTemplateSelector : DataTemplateSelector
 	{
 		public DataTemplate FolderTemplate { get; set; } = default!;
 		public DataTemplate FileTemplate { get; set; } = default!;

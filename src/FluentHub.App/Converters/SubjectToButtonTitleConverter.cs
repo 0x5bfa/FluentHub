@@ -6,7 +6,7 @@ using FluentHub.Octokit.Models.v4;
 
 namespace FluentHub.App.Converters
 {
-	public class SubjectToButtonTitleConverter : IValueConverter
+	public partial class SubjectToButtonTitleConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
