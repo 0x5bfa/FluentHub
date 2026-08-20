@@ -151,7 +151,7 @@
 							Spacing="4">
 
 							<TextBlock IsTextSelectionEnabled="True" Style="{ThemeResource BodyTextBlockStyle}">
-								<Run FontWeight="SemiBold" Text="{x:Bind ViewModel.CommitItem.ChangedFiles, Mode=OneWay}" />
+								<Run FontWeight="SemiBold" Text="{x:Bind ViewModel.CommitItem.ChangedFilesIfAvailable, Mode=OneWay}" />
 								<Run FontWeight="SemiBold" Text="files changed" />
 								<Run Text="with" />
 								<Run

@@ -46,7 +46,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 						{
 							AbbreviatedOid = x.AbbreviatedOid,
 							Additions = x.Additions,
-							ChangedFiles = x.ChangedFiles,
+							ChangedFilesIfAvailable = x.ChangedFilesIfAvailable,
 							CommittedDate = x.CommittedDate,
 							CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
 							Deletions = x.Deletions,
@@ -129,7 +129,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 						{
 							AbbreviatedOid = y.AbbreviatedOid,
 							Additions = y.Additions,
-							ChangedFiles = y.ChangedFiles,
+							ChangedFilesIfAvailable = y.ChangedFilesIfAvailable,
 							CommittedDate = y.CommittedDate,
 							CommittedDateHumanized = y.CommittedDate.Humanize(null, null),
 							Deletions = y.Deletions,

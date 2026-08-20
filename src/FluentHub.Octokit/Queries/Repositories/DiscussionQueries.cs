@@ -21,12 +21,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 			var query = new Query()
 				.Repository(owner: owner, name: name)
 				.Discussions(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					categoryId,
-					orderBy)
+					first: page.First,
+					after: page.After,
+					last: page.Last,
+					before: page.Before,
+					categoryId: categoryId,
+					orderBy: orderBy)
 				.Select(connection => new DiscussionConnection
 				{
 					Edges = connection.Edges.Select(edge => (DiscussionEdge?)new DiscussionEdge

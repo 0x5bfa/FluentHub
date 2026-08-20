@@ -36,16 +36,16 @@ namespace FluentHub.Octokit.Queries.Users
 			var query = new Query()
 				.User(login)
 				.Repositories(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					affiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
-					isFork,
-					isLocked,
-					orderBy,
-					ownerAffiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(ownerAffiliations),
-					privacy)
+					first: page.First,
+					after: page.After,
+					last: page.Last,
+					before: page.Before,
+					affiliations: affiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
+					isFork: isFork,
+					isLocked: isLocked,
+					orderBy: orderBy,
+					ownerAffiliations: ownerAffiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(ownerAffiliations),
+					privacy: privacy)
 				.Select(connection => new RepositoryConnection
 				{
 					Edges = connection.Edges.Select(edge => (RepositoryEdge?)new RepositoryEdge
