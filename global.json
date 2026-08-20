@@ -1,0 +1,13 @@
+{
+  "sdk": {
+    "version": "10.0.203",
+    "rollForward": "latestPatch",
+    "allowPrerelease": false
+  },
+  "msbuild-sdks": {
+    "MSTest.Sdk": "4.3.3"
+  },
+  "test": {
+    "runner": "Microsoft.Testing.Platform"
+  }
+}

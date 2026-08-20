@@ -53,7 +53,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 							Number = x.Number,
 							Title = x.Title,
 							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
 
 							Repository = x.Repository.Select(repo => new Repository
 							{
@@ -155,7 +155,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 					Number = x.Number,
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
-					UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
@@ -323,11 +323,11 @@ namespace FluentHub.Octokit.Queries.Repositories
 					Body = x.Body,
 					BodyHTML = x.BodyHTML,
 					CreatedAt = x.CreatedAt,
-					CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
+					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Id = x.Id,
 					LastEditedAt = x.LastEditedAt,
 					UpdatedAt = x.UpdatedAt,
-					UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
 					Url = x.Url,
 					ViewerCanReact = x.ViewerCanReact,
 					ViewerCanUpdate = x.ViewerCanUpdate,

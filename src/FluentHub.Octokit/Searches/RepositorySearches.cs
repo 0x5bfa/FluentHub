@@ -29,7 +29,7 @@ namespace FluentHub.Octokit.Searches
 					ForkCount = item.ForksCount,
 					StargazerCount = item.StargazersCount,
 					UpdatedAt = item.UpdatedAt,
-					UpdatedAtHumanized = item.UpdatedAt.Humanize(null, null),
+					UpdatedAtHumanized = item.UpdatedAt.ToRelativeTime(),
 
 					Issues = new()
 					{

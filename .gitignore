@@ -37,9 +37,9 @@ bld/
 [Ll]ogs/
 
 # Exclude View[Model]s/Repositories/Releases contents
-!src/FluentHub.App/Views/**
-!src/FluentHub.App/ViewModels/**
-!src/FluentHub.App/Assets/AppTiles/**
+!src/FluentHub/Views/**
+!src/FluentHub/ViewModels/**
+!src/FluentHub/Assets/AppTiles/**
 !src/FluentHub.Package/Assets/AppTiles/**
 
 # Visual Studio 2015/2017 cache/options directory

@@ -8,83 +8,59 @@ namespace FluentHub.Octokit.Queries.Organizations
 
 		public ProjectV2Queries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<List<Project>> GetAllAsync(string org, CancellationToken cancellationToken = default)
+
+		public async Task<PageResult<ProjectV2>> GetPageAsync(
+			string organization,
+			PageRequest page,
+			CancellationToken cancellationToken = default)
 		{
+			ArgumentNullException.ThrowIfNull(page);
+
 			var query = new Query()
-				.Organization(org)
-				.ProjectsV2(first: 30)
-				.Nodes
-				.Select(x => new Project
+				.Organization(organization)
+				.ProjectsV2(page.First, page.After, page.Last, page.Before)
+				.Select(connection => new ProjectV2Connection
 				{
-					//Body = x.Body,
-					//Closed = x.Closed,
-					//Id = x.Id,
-					//Name = x.Name,
-					//Number = x.Number,
-					//State = (ProjectState)x.State,
-					//Url = x.Url,
-					//ViewerCanUpdate = x.ViewerCanUpdate,
-
-					//ClosedAt = x.ClosedAt,
-					//CreatedAt = x.CreatedAt,
-					//UpdatedAt = x.UpdatedAt,
-
-					//Progress = x.Progress.Select(y => new ProjectProgress
-					//{
-					//	DoneCount = y.DoneCount,
-					//	DonePercentage = y.DonePercentage,
-					//	Enabled = y.Enabled,
-					//	InProgressCount = y.InProgressCount,
-					//	InProgressPercentage = y.InProgressPercentage,
-					//	TodoCount = y.TodoCount,
-					//	TodoPercentage = y.TodoPercentage,
-					//})
-					//.Single(),
+					Edges = connection.Edges.Select(edge => (ProjectV2Edge?)new ProjectV2Edge
+					{
+						Node = edge.Node.Select(SelectProject).Single(),
+					}).ToList(),
+					PageInfo = new()
+					{
+						EndCursor = connection.PageInfo.EndCursor,
+						HasNextPage = connection.PageInfo.HasNextPage,
+						HasPreviousPage = connection.PageInfo.HasPreviousPage,
+						StartCursor = connection.PageInfo.StartCursor,
+					},
 				})
 				.Compile();
 
 			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			return response.ToList();
+			return new PageResult<ProjectV2>(
+				response.Edges?
+					.Where(x => x?.Node is not null)
+					.Select(x => x!.Node!)
+					.ToList() ?? [],
+				response.PageInfo);
 		}
 
-		public async Task<Project> GetAsync(string org, int number, CancellationToken cancellationToken = default)
-		{
-			var query = new Query()
-				.Organization(org)
-				.ProjectV2(number)
-				.Select(x => new Project
-				{
-					//Body = x.Body,
-					//Closed = x.Closed,
-					//Id = x.Id,
-					//Name = x.Name,
-					//Number = x.Number,
-					//State = (ProjectState)x.State,
-					//Url = x.Url,
-					//ViewerCanUpdate = x.ViewerCanUpdate,
-
-					//ClosedAt = x.ClosedAt,
-					//CreatedAt = x.CreatedAt,
-					//UpdatedAt = x.UpdatedAt,
-
-					//Progress = x.Progress.Select(y => new ProjectProgress
-					//{
-					//	DoneCount = y.DoneCount,
-					//	DonePercentage = y.DonePercentage,
-					//	Enabled = y.Enabled,
-					//	InProgressCount = y.InProgressCount,
-					//	InProgressPercentage = y.InProgressPercentage,
-					//	TodoCount = y.TodoCount,
-					//	TodoPercentage = y.TodoPercentage,
-					//})
-					//.Single(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
-		}
+		private static readonly Expression<Func<OctokitGraphQLModel.ProjectV2, ProjectV2>> SelectProject = project
+			=> new ProjectV2
+			{
+				Closed = project.Closed,
+				ClosedAt = project.ClosedAt,
+				CreatedAt = project.CreatedAt,
+				Id = project.Id,
+				Number = project.Number,
+				Public = project.Public,
+				Readme = project.Readme,
+				ResourcePath = project.ResourcePath,
+				ShortDescription = project.ShortDescription,
+				Title = project.Title,
+				UpdatedAt = project.UpdatedAt,
+				Url = project.Url,
+				ViewerCanUpdate = project.ViewerCanUpdate,
+			};
 	}
 }

@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<OutputType>WinExe</OutputType>
+		<Platforms>x86;x64;arm64</Platforms>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<Nullable>enable</Nullable>
+		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+
+		<!--  WinUI properties  -->
+		<UseWinUI>true</UseWinUI>
+		<WinUISDKReferences>false</WinUISDKReferences>
+		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+		<!--<ApplicationIcon>Assets\AppTiles\Dev\Logo.ico</ApplicationIcon>-->
+		<DisableXbfLineInfo>false</DisableXbfLineInfo>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<!--  MSIX packaging properties  -->
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<DefaultLanguage>en-US</DefaultLanguage>
+		<AppxPackageSigningTimestampDigestAlgorithm>sha256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>true</AppxAutoIncrementPackageRevision>
+		<AppxBundle Condition="'$(Configuration)' == 'Debug'">Never</AppxBundle>
+		<AppxBundle Condition="'$(Configuration)' != 'Debug'">Always</AppxBundle>
+		<AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+		<UapAppxPackageBuildMode>StoreAndSideload</UapAppxPackageBuildMode>
+		<GenerateAppxPackageOnBuild Condition="'$(Configuration)' != 'Debug'">true</GenerateAppxPackageOnBuild>
+		<AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
+		<!--<AppxDefaultResourceQualifiers>Language=en-US;af;ar;be-BY;bg;ca;cs-CZ;da;de-DE;el;en-GB;es-ES;es-419;fa-IR;fi-FI;fil-PH;fr-FR;he-IL;hi-IN;hr-HR;hu-HU;hy-AM;id-ID;it-IT;ja-JP;ka;km-KH;ko-KR;lt-LT;lv-LV;ms-MY;nb-NO;nl-NL;pl-PL;pt-BR;pt-PT;ro-RO;ru-RU;sk-SK;sq-AL;sr-Cyrl;sv-SE;ta;th-TH;tr-TR;uk-UA;vi;zh-Hans;zh-Hant</AppxDefaultResourceQualifiers>-->
+
+		<!--  Publish AOT  -->
+		<IsAotCompatible>true</IsAotCompatible>
+		<PublishAot>true</PublishAot>
+		<SelfContained>true</SelfContained>
+		<IlcGenerateMstatFile>true</IlcGenerateMstatFile>
+		<IlcGenerateDgmlFile>true</IlcGenerateDgmlFile>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Manifest Include="$(ApplicationManifest)" />
+		<Content Include="Assets\**" />
+		<Content Include="AppCredentials.config" Condition="Exists('AppCredentials.config')" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ColorCode.WinUI" Version="2.0.15" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="CommunityToolkit.WinUI.Animations" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Triggers" Version="8.2.251219" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.4.0" />
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.1" />
+		<PackageReference Include="WinUIEx" Version="2.9.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
+		<ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
+	</ItemGroup>
+
+</Project>

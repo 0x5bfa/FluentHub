@@ -12,23 +12,19 @@
     <File Path=".gitignore" />
     <File Path="AGENTS.md" />
     <File Path="crowdin.yml" />
+    <File Path="Directory.Build.props" />
     <File Path="LICENSE" />
     <File Path="Settings.XamlStyler" />
   </Folder>
 
   <Folder Name="/src/">
-    <Project Path="src/FluentHub.App/FluentHub.App.csproj">
+    <Project Path="src/FluentHub/FluentHub.csproj">
       <Platform Solution="*|arm64" Project="arm64" />
       <Platform Solution="*|x64" Project="x64" />
       <Platform Solution="*|x86" Project="x86" />
       <Deploy Solution="*|x64" />
     </Project>
     <Project Path="src/FluentHub.Core/FluentHub.Core.csproj">
-      <Platform Solution="*|arm64" Project="arm64" />
-      <Platform Solution="*|x64" Project="x64" />
-      <Platform Solution="*|x86" Project="x86" />
-    </Project>
-    <Project Path="src/FluentHub.Octicons.Generator/FluentHub.Octicons.Generator.csproj">
       <Platform Solution="*|arm64" Project="arm64" />
       <Platform Solution="*|x64" Project="x64" />
       <Platform Solution="*|x86" Project="x86" />
@@ -43,6 +39,10 @@
       <Platform Solution="*|x64" Project="x64" />
       <Platform Solution="*|x86" Project="x86" />
     </Project>
+  </Folder>
+
+  <Folder Name="/tests/">
+    <Project Path="tests/FluentHub.Tests/FluentHub.Tests.csproj" />
   </Folder>
 
 </Solution>

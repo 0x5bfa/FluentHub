@@ -1,0 +1,33 @@
+using FluentHub.Extensions;
+using FluentHub.Services;
+using FluentHub.ViewModels.Repositories.Releases;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Web.WebView2.Core;
+using FluentHub.Data.Parameters;
+
+namespace FluentHub.Views.Repositories.Releases
+{
+	public sealed partial class ReleasePage : LocatablePage
+	{
+		public ReleaseViewModel ViewModel;
+
+		public ReleasePage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
+
+			ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryReleasePageCommand;
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var command = ViewModel.LoadRepositoryReleasePageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
+}
