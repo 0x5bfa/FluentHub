@@ -2,3 +2,5 @@ commit_message: 'Updated app translations by Crowdin'
 files:
   - source: /src/FluentHub.App/Strings/en-US/*.resw
     translation: /src/FluentHub.App/Strings/%locale%/%original_file_name%
+  - source: /Packaging/MicrosoftStore/Listings/en-US.json
+    translation: /Packaging/MicrosoftStore/Listings/%locale%.json
