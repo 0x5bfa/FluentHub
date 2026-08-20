@@ -15,20 +15,29 @@ namespace FluentHub.App.UserControls
 				nameof(ContextViewModel),
 				typeof(RepoContextViewModel),
 				typeof(FileContentBlock),
-				new PropertyMetadata(null));
+				new PropertyMetadata(null, OnContextViewModelChanged));
 
-		public RepoContextViewModel ContextViewModel
+		public RepoContextViewModel? ContextViewModel
 		{
-			get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-			set
-			{
-				SetValue(ContextViewModelProperty, value);
+			get => (RepoContextViewModel?)GetValue(ContextViewModelProperty);
+			set => SetValue(ContextViewModelProperty, value);
+		}
 
-				if (ContextViewModel != null)
-				{
-					ViewModel.ContextViewModel = ContextViewModel;
-					ViewModel.LoadRepositoryOneContentAsync(ColorCodeBlock);
-				}
+		private static async void OnContextViewModelChanged(
+			DependencyObject sender,
+			DependencyPropertyChangedEventArgs args)
+		{
+			if (sender is not FileContentBlock control || args.NewValue is not RepoContextViewModel context)
+				return;
+
+			control.ViewModel.ContextViewModel = context;
+			try
+			{
+				await control.ViewModel.LoadRepositoryOneContentAsync(control.ColorCodeBlock);
+			}
+			catch
+			{
+				// The view model logs failures; dependency-property callbacks cannot return a Task.
 			}
 		}
 		#endregion
@@ -42,8 +51,5 @@ namespace FluentHub.App.UserControls
 
 		public FileContentBlockViewModel ViewModel { get; }
 
-		private void OnFileContentBlockLoaded(object sender, RoutedEventArgs e)
-		{
-		}
 	}
 }

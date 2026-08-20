@@ -17,21 +17,23 @@ namespace FluentHub.App.UserControls
 				nameof(ContextViewModel),
 				typeof(RepoContextViewModel),
 				typeof(ReadmeContentBlock),
-				null);
+				new PropertyMetadata(null, OnContextViewModelChanged));
 
-		public RepoContextViewModel ContextViewModel
+		public RepoContextViewModel? ContextViewModel
 		{
-			get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-			set
-			{
-				SetValue(ContextViewModelProperty, value);
+			get => (RepoContextViewModel?)GetValue(ContextViewModelProperty);
+			set => SetValue(ContextViewModelProperty, value);
+		}
 
-				if (value != null)
-				{
-					ViewModel.ContextViewModel = value;
-					ViewModel.LoadRepositoryReadmeAsync(ReadmeContentWebView2);
-				}
-			}
+		private static async void OnContextViewModelChanged(
+			DependencyObject sender,
+			DependencyPropertyChangedEventArgs args)
+		{
+			if (sender is not ReadmeContentBlock control || args.NewValue is not RepoContextViewModel context)
+				return;
+
+			control.ViewModel.ContextViewModel = context;
+			await control.ViewModel.LoadRepositoryReadmeAsync(control.ReadmeContentWebView2);
 		}
 		#endregion
 
