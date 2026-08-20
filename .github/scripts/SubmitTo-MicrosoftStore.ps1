@@ -37,7 +37,13 @@ param(
 
     [string]$FlightId = "",
 
-    [string]$PackageRolloutPercentage = ""
+    [string]$PackageRolloutPercentage = "",
+
+    [ValidateRange(1, 3600)]
+    [int]$PackageValidationTimeoutSeconds = 300,
+
+    [ValidateRange(1, 3600)]
+    [int]$SubmissionVerificationTimeoutSeconds = 300
 )
 
 $ErrorActionPreference = "Stop"
@@ -143,6 +149,181 @@ function ConvertTo-ComparableJson
     return $normalizedValue | ConvertTo-Json -Depth 100 -Compress
 }
 
+function Get-ApplicationPackage
+{
+    param(
+        [Parameter(Mandatory)]
+        [psobject]$Submission,
+
+        [Parameter(Mandatory)]
+        [string]$FileName
+    )
+
+    $applicationPackagesProperty = Get-PropertyByName `
+        -InputObject $Submission `
+        -Name "ApplicationPackages"
+
+    if ($null -eq $applicationPackagesProperty)
+    {
+        return $null
+    }
+
+    foreach ($applicationPackage in @($applicationPackagesProperty.Value))
+    {
+        $fileNameProperty = Get-PropertyByName `
+            -InputObject $applicationPackage `
+            -Name "FileName"
+
+        if ($null -ne $fileNameProperty -and
+            [string]$fileNameProperty.Value -ieq $FileName)
+        {
+            return $applicationPackage
+        }
+    }
+
+    return $null
+}
+
+function Assert-SubmissionLocales
+{
+    param(
+        [Parameter(Mandatory)]
+        [psobject]$Submission,
+
+        [Parameter(Mandatory)]
+        [string[]]$ConfiguredLocales
+    )
+
+    $listingsProperty = Get-PropertyByName `
+        -InputObject $Submission `
+        -Name "Listings"
+
+    if ($null -eq $listingsProperty -or $null -eq $listingsProperty.Value)
+    {
+        throw "The Store submission does not contain Listings."
+    }
+
+    $configuredLocaleSet = [Collections.Generic.HashSet[string]]::new(
+        [StringComparer]::OrdinalIgnoreCase
+    )
+
+    foreach ($locale in $ConfiguredLocales)
+    {
+        $configuredLocaleSet.Add($locale) | Out-Null
+    }
+
+    $submissionLocales = @($listingsProperty.Value.PSObject.Properties.Name)
+    $unmanagedLocales = @(
+        $submissionLocales |
+            Where-Object { -not $configuredLocaleSet.Contains($_) }
+    )
+    $missingLocales = @(
+        $ConfiguredLocales |
+            Where-Object { $submissionLocales -inotcontains $_ }
+    )
+
+    if ($unmanagedLocales.Count -gt 0 -or $missingLocales.Count -gt 0)
+    {
+        $expectedLocales = @($ConfiguredLocales | Sort-Object) -join ", "
+        $actualLocales = @($submissionLocales | Sort-Object) -join ", "
+        throw "The Store listing locale set does not match locales.json. Expected: [$expectedLocales]. Actual: [$actualLocales]."
+    }
+
+    return $listingsProperty.Value
+}
+
+function Wait-MicrosoftStorePackageValidation
+{
+    $expectedPackageName = [IO.Path]::GetFileName($StorePackagePath)
+    $deadline = [DateTime]::UtcNow.AddSeconds($PackageValidationTimeoutSeconds)
+    $delaySeconds = 5
+    $attempt = 0
+    $lastError = "The package has not been returned by Partner Center."
+
+    while ($true)
+    {
+        $attempt++
+
+        try
+        {
+            $submissionJson = Invoke-MsStoreJson -Arguments @(
+                "submission",
+                "get",
+                $PartnerCenterStoreId
+            )
+            $submission = $submissionJson | ConvertFrom-Json -Depth 100
+            $applicationPackage = Get-ApplicationPackage `
+                -Submission $submission `
+                -FileName $expectedPackageName
+
+            if ($null -eq $applicationPackage)
+            {
+                $lastError = "The draft does not contain '$expectedPackageName'."
+            }
+            else
+            {
+                $versionProperty = Get-PropertyByName `
+                    -InputObject $applicationPackage `
+                    -Name "Version"
+                $languagesProperty = Get-PropertyByName `
+                    -InputObject $applicationPackage `
+                    -Name "Languages"
+                $version = ""
+                $languages = @()
+
+                if ($null -ne $versionProperty)
+                {
+                    $version = [string]$versionProperty.Value
+                }
+
+                if ($null -ne $languagesProperty)
+                {
+                    $languages = @(
+                        $languagesProperty.Value |
+                            Where-Object {
+                                $_ -is [string] -and
+                                -not [string]::IsNullOrWhiteSpace($_)
+                            }
+                    )
+                }
+
+                if (-not [string]::IsNullOrWhiteSpace($version) -and
+                    $languages.Count -gt 0)
+                {
+                    Write-Host @"
+Store package validation completed: $expectedPackageName (version=$version, languages=$($languages.Count)).
+"@
+                    return $submissionJson
+                }
+
+                $lastError = @"
+Partner Center has not finished validating '$expectedPackageName' (version='$version', languages=$($languages.Count)).
+"@.Trim()
+            }
+        }
+        catch
+        {
+            $lastError = $_.Exception.Message
+        }
+
+        $remainingSeconds = [int][Math]::Floor(
+            ($deadline - [DateTime]::UtcNow).TotalSeconds
+        )
+
+        if ($remainingSeconds -le 0)
+        {
+            throw "Timed out waiting for Store package validation after $attempt attempt(s). Last result: $lastError"
+        }
+
+        $sleepSeconds = [Math]::Min($delaySeconds, $remainingSeconds)
+        Write-Warning @"
+Store package validation attempt $attempt is not ready: $lastError Retrying in $sleepSeconds second(s).
+"@
+        Start-Sleep -Seconds $sleepSeconds
+        $delaySeconds = [Math]::Min($delaySeconds * 2, 30)
+    }
+}
+
 function Test-UpdatedSubmission
 {
     $submissionJson = Invoke-MsStoreJson -Arguments @(
@@ -152,31 +333,10 @@ function Test-UpdatedSubmission
     )
     $submission = $submissionJson | ConvertFrom-Json -Depth 100
 
-    $applicationPackagesProperty = Get-PropertyByName `
-        -InputObject $submission `
-        -Name "ApplicationPackages"
-
-    if ($null -eq $applicationPackagesProperty)
-    {
-        throw "The updated submission does not contain ApplicationPackages."
-    }
-
     $expectedPackageName = [IO.Path]::GetFileName($StorePackagePath)
-    $packageMatch = $null
-
-    foreach ($applicationPackage in @($applicationPackagesProperty.Value))
-    {
-        $fileNameProperty = Get-PropertyByName `
-            -InputObject $applicationPackage `
-            -Name "FileName"
-
-        if ($null -ne $fileNameProperty -and
-            [string]$fileNameProperty.Value -ieq $expectedPackageName)
-        {
-            $packageMatch = $applicationPackage
-            break
-        }
-    }
+    $packageMatch = Get-ApplicationPackage `
+        -Submission $submission `
+        -FileName $expectedPackageName
 
     if ($null -eq $packageMatch)
     {
@@ -185,21 +345,15 @@ function Test-UpdatedSubmission
 
     Write-Host "Verified Store package in submission: $expectedPackageName"
 
-    $listingsProperty = Get-PropertyByName `
-        -InputObject $submission `
-        -Name "Listings"
-
-    if ($null -eq $listingsProperty)
-    {
-        throw "The updated submission does not contain Listings."
-    }
-
     $localeConfiguration = Get-Content -LiteralPath $StoreLocalesPath -Raw | ConvertFrom-Json -Depth 10
     $locales = @($localeConfiguration.PSObject.Properties["locales"].Value)
+    $submissionListings = Assert-SubmissionLocales `
+        -Submission $submission `
+        -ConfiguredLocales $locales
 
     foreach ($locale in $locales)
     {
-        $submissionListing = $listingsProperty.Value.PSObject.Properties |
+        $submissionListing = $submissionListings.PSObject.Properties |
             Where-Object { $_.Name.Equals($locale, [StringComparison]::OrdinalIgnoreCase) } |
             Select-Object -First 1
 
@@ -228,7 +382,10 @@ function Test-UpdatedSubmission
 
             if ($null -eq $updatedProperty)
             {
-                throw "The updated '$locale' listing does not contain '$($property.Name)'."
+                $expectedValue = ConvertTo-ComparableJson -Value $property.Value
+                throw @"
+The updated '$locale' listing does not contain '$($property.Name)'. Expected: $expectedValue. Actual: <missing>.
+"@
             }
 
             $expectedValue = ConvertTo-ComparableJson -Value $property.Value
@@ -236,11 +393,53 @@ function Test-UpdatedSubmission
 
             if ($expectedValue -cne $actualValue)
             {
-                throw "The updated '$locale' listing property '$($property.Name)' does not match the repository listing."
+                throw @"
+The updated '$locale' listing property '$($property.Name)' does not match the repository listing. Expected: $expectedValue. Actual: $actualValue.
+"@
             }
         }
 
         Write-Host "Verified Store listing in submission: $locale"
+    }
+}
+
+function Wait-MicrosoftStoreSubmissionVerification
+{
+    $deadline = [DateTime]::UtcNow.AddSeconds($SubmissionVerificationTimeoutSeconds)
+    $delaySeconds = 5
+    $attempt = 0
+    $lastError = "The Store submission has not been verified."
+
+    while ($true)
+    {
+        $attempt++
+
+        try
+        {
+            Test-UpdatedSubmission
+            Write-Host "Verified the updated Store submission after $attempt attempt(s)."
+            return
+        }
+        catch
+        {
+            $lastError = $_.Exception.Message
+        }
+
+        $remainingSeconds = [int][Math]::Floor(
+            ($deadline - [DateTime]::UtcNow).TotalSeconds
+        )
+
+        if ($remainingSeconds -le 0)
+        {
+            throw "Timed out verifying the Store submission after $attempt attempt(s). Last error: $lastError"
+        }
+
+        $sleepSeconds = [Math]::Min($delaySeconds, $remainingSeconds)
+        Write-Warning @"
+Store submission verification attempt $attempt failed: $lastError Retrying in $sleepSeconds second(s).
+"@
+        Start-Sleep -Seconds $sleepSeconds
+        $delaySeconds = [Math]::Min($delaySeconds * 2, 30)
     }
 }
 
@@ -382,11 +581,7 @@ try
 {
     $submissionPath = Join-Path $tempPath "submission.json"
     $updatedSubmissionPath = Join-Path $tempPath "submission.updated.json"
-    $submissionJson = Invoke-MsStoreJson -Arguments @(
-        "submission",
-        "get",
-        $PartnerCenterStoreId
-    )
+    $submissionJson = Wait-MicrosoftStorePackageValidation
     [IO.File]::WriteAllText(
         $submissionPath,
         $submissionJson + [Environment]::NewLine,
@@ -409,26 +604,7 @@ try
         $updatedMetadata
     )
 
-    $verificationAttempts = 3
-
-    for ($attempt = 1; $attempt -le $verificationAttempts; $attempt++)
-    {
-        try
-        {
-            Test-UpdatedSubmission
-            break
-        }
-        catch
-        {
-            if ($attempt -eq $verificationAttempts)
-            {
-                throw
-            }
-
-            Write-Warning "Store submission verification attempt $attempt failed: $($_.Exception.Message). Retrying."
-            Start-Sleep -Seconds 5
-        }
-    }
+    Wait-MicrosoftStoreSubmissionVerification
 
     if (-not $Submit)
     {

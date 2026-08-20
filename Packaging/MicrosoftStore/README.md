@@ -16,6 +16,12 @@ Before enabling a new locale:
 4. Add the exact locale to `locales.json`.
 5. Run the Store workflow with `submit` disabled and review the resulting draft.
 
-The workflow intentionally fails when a configured locale is missing from the
-Partner Center draft. This prevents an incomplete listing without screenshots
-from being submitted.
+The Partner Center draft must contain exactly the locales listed in
+`locales.json`. The workflow fails when a configured locale is missing or an
+unmanaged locale remains enabled. This prevents an incomplete listing without
+source-controlled text and screenshots from blocking certification.
+
+After uploading a package, the workflow waits for Partner Center to expose its
+validated version and languages before updating listing metadata. It then
+verifies the persisted package and listing values with backoff for up to five
+minutes before leaving the submission as a draft or sending it to certification.

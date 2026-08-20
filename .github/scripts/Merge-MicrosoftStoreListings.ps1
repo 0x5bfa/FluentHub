@@ -65,6 +65,28 @@ if ($null -eq $listingsProperty -or $null -eq $listingsProperty.Value)
 
 $locales = @($localeConfiguration.PSObject.Properties["locales"].Value)
 $defaultLocale = [string]$localeConfiguration.PSObject.Properties["defaultLocale"].Value
+$configuredLocaleSet = [Collections.Generic.HashSet[string]]::new(
+    [StringComparer]::OrdinalIgnoreCase
+)
+
+foreach ($locale in $locales)
+{
+    $configuredLocaleSet.Add([string]$locale) | Out-Null
+}
+
+$submissionLocales = @($listingsProperty.Value.PSObject.Properties.Name)
+$unmanagedLocales = @(
+    $submissionLocales |
+        Where-Object { -not $configuredLocaleSet.Contains($_) }
+)
+
+if ($unmanagedLocales.Count -gt 0)
+{
+    throw @"
+The Partner Center draft contains Store listings that are not configured in locales.json: $($unmanagedLocales -join ', ').
+Remove those languages from the draft, or add their source-controlled listings and screenshots before rerunning this workflow.
+"@
+}
 
 foreach ($locale in $locales)
 {
