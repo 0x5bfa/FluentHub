@@ -47,41 +47,36 @@ namespace FluentHub.App.Models
 			if (item is null)
 				return DefaultDataTemplate;
 
-			var typeName = item.GetType().Name;
-
-			return typeName switch
+			return item switch
 			{
-				nameof(AddedToProjectEvent) => AddedToProjectEventDataTemplate,
-				nameof(AssignedEvent) => AssignedEventDataTemplate,
-				nameof(ClosedEvent) => ClosedEventDataTemplate,
-				nameof(CommentDeletedEvent) => CommentDeletedEventDataTemplate,
-				nameof(ConnectedEvent) => ConnectedEventDataTemplate,
-				nameof(ConvertedToDiscussionEvent) => ConvertedToDiscussionEventDataTemplate,
-				nameof(ConvertedNoteToIssueEvent) => ConvertedNoteToIssueEventDataTemplate,
-				nameof(CrossReferencedEvent) => CrossReferencedEventDataTemplate,
-				nameof(DemilestonedEvent) => DemilestonedEventDataTemplate,
-				nameof(DisconnectedEvent) => DisconnectedEventDataTemplate,
-				nameof(IssueComment) => IssueCommentDataTemplate,
-				nameof(LabeledEvent) => LabeledEventDataTemplate,
-				nameof(LockedEvent) => LockedEventDataTemplate,
-				nameof(MarkedAsDuplicateEvent) => MarkedAsDuplicateEventDataTemplate,
-				//nameof(MentionedEvent) => MentionedEventDataTemplate;
-				nameof(MilestonedEvent) => MilestonedEventDataTemplate,
-				nameof(MovedColumnsInProjectEvent) => MovedColumnsInProjectEventDataTemplate,
-				nameof(PinnedEvent) => PinnedEventDataTemplate,
-				nameof(ReferencedEvent) => ReferencedEventDataTemplate,
-				nameof(RemovedFromProjectEvent) => RemovedFromProjectEventDataTemplate,
-				nameof(RenamedTitleEvent) => RenamedTitleEventDataTemplate,
-				nameof(ReopenedEvent) => ReopenedEventDataTemplate,
-				//nameof(SubscribedEvent) => SubscribedEventDataTemplate;
-				nameof(TransferredEvent) => TransferredEventDataTemplate,
-				nameof(UnassignedEvent) => UnassignedEventDataTemplate,
-				nameof(UnlabeledEvent) => UnlabeledEventDataTemplate,
-				nameof(UnlockedEvent) => UnlockedEventDataTemplate,
-				nameof(UnmarkedAsDuplicateEvent) => UnmarkedAsDuplicateEventDataTemplate,
-				nameof(UnpinnedEvent) => UnpinnedEventDataTemplate,
-				//nameof(UnsubscribedEvent) => UnsubscribedEventDataTemplate;
-				nameof(UserBlockedEvent) => UserBlockedEventDataTemplate,
+				AddedToProjectEvent => AddedToProjectEventDataTemplate,
+				AssignedEvent => AssignedEventDataTemplate,
+				ClosedEvent => ClosedEventDataTemplate,
+				CommentDeletedEvent => CommentDeletedEventDataTemplate,
+				ConnectedEvent => ConnectedEventDataTemplate,
+				ConvertedToDiscussionEvent => ConvertedToDiscussionEventDataTemplate,
+				ConvertedNoteToIssueEvent => ConvertedNoteToIssueEventDataTemplate,
+				CrossReferencedEvent => CrossReferencedEventDataTemplate,
+				DemilestonedEvent => DemilestonedEventDataTemplate,
+				DisconnectedEvent => DisconnectedEventDataTemplate,
+				IssueComment => IssueCommentDataTemplate,
+				LabeledEvent => LabeledEventDataTemplate,
+				LockedEvent => LockedEventDataTemplate,
+				MarkedAsDuplicateEvent => MarkedAsDuplicateEventDataTemplate,
+				MilestonedEvent => MilestonedEventDataTemplate,
+				MovedColumnsInProjectEvent => MovedColumnsInProjectEventDataTemplate,
+				PinnedEvent => PinnedEventDataTemplate,
+				ReferencedEvent => ReferencedEventDataTemplate,
+				RemovedFromProjectEvent => RemovedFromProjectEventDataTemplate,
+				RenamedTitleEvent => RenamedTitleEventDataTemplate,
+				ReopenedEvent => ReopenedEventDataTemplate,
+				TransferredEvent => TransferredEventDataTemplate,
+				UnassignedEvent => UnassignedEventDataTemplate,
+				UnlabeledEvent => UnlabeledEventDataTemplate,
+				UnlockedEvent => UnlockedEventDataTemplate,
+				UnmarkedAsDuplicateEvent => UnmarkedAsDuplicateEventDataTemplate,
+				UnpinnedEvent => UnpinnedEventDataTemplate,
+				UserBlockedEvent => UserBlockedEventDataTemplate,
 				_ => DefaultDataTemplate,
 			};
 		}
