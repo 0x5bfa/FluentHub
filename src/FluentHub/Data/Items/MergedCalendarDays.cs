@@ -1,0 +1,20 @@
+// Copyright (c) 2022-2024 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.Octokit.Models.v4;
+
+namespace FluentHub.Models
+{
+	public class MergedCalendarDays
+	{
+		public string Color { get; set; } = default!;
+
+		public int ContributionCount { get; set; }
+
+		public ContributionLevel ContributionLevel { get; set; }
+
+		public int Weekday { get; set; }
+
+		public bool IsVaild { get; set; }
+	}
+}

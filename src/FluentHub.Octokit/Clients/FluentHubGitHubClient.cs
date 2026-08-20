@@ -32,7 +32,6 @@ namespace FluentHub.Octokit.Clients
 			Organizations = new(apiClient);
 			Packages = new(apiClient);
 			PinnedItems = new(apiClient);
-			Projects = new(apiClient);
 			ProjectsV2 = new(apiClient);
 			Repositories = new(apiClient);
 		}
@@ -40,7 +39,6 @@ namespace FluentHub.Octokit.Clients
 		public Queries.Organizations.OrganizationQueries Organizations { get; }
 		public Queries.Organizations.PackageQueries Packages { get; }
 		public Queries.Organizations.PinnedItemQueries PinnedItems { get; }
-		public Queries.Organizations.ProjectQueries Projects { get; }
 		public Queries.Organizations.ProjectV2Queries ProjectsV2 { get; }
 		public Queries.Organizations.RepositoryQueries Repositories { get; }
 	}
@@ -58,7 +56,6 @@ namespace FluentHub.Octokit.Clients
 			Issues = new(apiClient);
 			Markdown = new(apiClient);
 			Packages = new(apiClient);
-			Projects = new(apiClient);
 			ProjectsV2 = new(apiClient);
 			PullRequestChecks = new(apiClient);
 			PullRequestCommits = new(apiClient);
@@ -78,7 +75,6 @@ namespace FluentHub.Octokit.Clients
 		public Queries.Repositories.IssueQueries Issues { get; }
 		public Queries.Repositories.MarkdownQueries Markdown { get; }
 		public Queries.Repositories.PackageQueries Packages { get; }
-		public Queries.Repositories.ProjectQueries Projects { get; }
 		public Queries.Repositories.ProjectV2Queries ProjectsV2 { get; }
 		public Queries.Repositories.PullRequestCheckQueries PullRequestChecks { get; }
 		public Queries.Repositories.PullRequestCommitQueries PullRequestCommits { get; }
@@ -102,7 +98,6 @@ namespace FluentHub.Octokit.Clients
 			Organizations = new(apiClient);
 			Packages = new(apiClient);
 			PinnedItems = new(apiClient);
-			Projects = new(apiClient);
 			ProjectsV2 = new(apiClient);
 			PullRequests = new(apiClient);
 			Repositories = new(apiClient);
@@ -119,7 +114,6 @@ namespace FluentHub.Octokit.Clients
 		public Queries.Users.OrganizationQueries Organizations { get; }
 		public Queries.Users.PackageQueries Packages { get; }
 		public Queries.Users.PinnedItemQueries PinnedItems { get; }
-		public Queries.Users.ProjectQueries Projects { get; }
 		public Queries.Users.ProjectV2Queries ProjectsV2 { get; }
 		public Queries.Users.PullRequestQueries PullRequests { get; }
 		public Queries.Users.RepositoryQueries Repositories { get; }

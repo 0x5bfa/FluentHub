@@ -43,7 +43,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 							IsPrerelease = x.IsPrerelease,
 							Name = x.Name,
 							PublishedAt = x.PublishedAt,
-							PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
+							PublishedAtHumanized = x.PublishedAt.ToRelativeTime(),
 							TagName = x.TagName,
 						}).Single(),
 					}).ToList(),
@@ -81,7 +81,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 					IsPrerelease = x.IsPrerelease,
 					Name = x.Name,
 					PublishedAt = x.PublishedAt,
-					PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
+					PublishedAtHumanized = x.PublishedAt.ToRelativeTime(),
 					TagName = x.TagName,
 
 					Author = x.Author.Select(author => new User

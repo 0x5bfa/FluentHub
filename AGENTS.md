@@ -1,10 +1,10 @@
 # AGENTS.md
 
 ## Project Structure
-- `src/FluentHub.App`: WinUI 3 application layer (views, view models, app services, app lifecycle).
+- `src/FluentHub`: WinUI 3 application layer (views, view models, app services, app lifecycle).
 - `src/FluentHub.Octokit`: GitHub API access layer (Octokit clients, queries, mutations, authorization).
 - `src/FluentHub.Core`: shared constants, enums, and reusable core utilities.
-- `src/FluentHub.Octokit.Generator` and `src/FluentHub.Octicons.Generator`: code generation utilities; treat generated output carefully.
+- `src/FluentHub.Octokit.Generator`: code generation utilities; treat generated output carefully.
 - `docs`: contributor-facing setup and feature documentation.
 
 ## Coding Convensions

@@ -45,7 +45,7 @@ namespace FluentHub.Octokit.Wrappers
 				{
 					CreatedAt = item.CreatedAt,
 
-					CreatedAtHumanized = item.CreatedAt.Humanize(),
+					CreatedAtHumanized = item.CreatedAt.ToRelativeTime(),
 
 					Repository = itemRep,
 
@@ -138,7 +138,7 @@ namespace FluentHub.Octokit.Wrappers
 									Number = issueEventPayload.Issue.Number,
 									Title = issueEventPayload.Issue.Title,
 									UpdatedAt = issueEventPayload.Issue.UpdatedAt.GetValueOrDefault(),
-									UpdatedAtHumanized = issueEventPayload.Issue.UpdatedAt.Humanize(null, null),
+									UpdatedAtHumanized = issueEventPayload.Issue.UpdatedAt.ToRelativeTime(),
 
 									Repository = itemRep,
 								},
@@ -172,7 +172,7 @@ namespace FluentHub.Octokit.Wrappers
 									Number = pullRequestPayload.PullRequest.Number,
 									Title = pullRequestPayload.PullRequest.Title,
 									UpdatedAt = pullRequestPayload.PullRequest.UpdatedAt,
-									UpdatedAtHumanized = pullRequestPayload.PullRequest.UpdatedAt.Humanize(null, null),
+									UpdatedAtHumanized = pullRequestPayload.PullRequest.UpdatedAt.ToRelativeTime(),
 									IsDraft = pullRequestPayload.PullRequest.Draft,
 									Merged = pullRequestPayload.PullRequest.Merged,
 

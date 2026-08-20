@@ -44,7 +44,8 @@ Your dashboard|Your repos|User profile page
 ### 1. Prerequisites
 
 - Windows 10 (Build 10.0.19041.0) or newer with Developer Mode enabled in the Windows Settings
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) with [Windows App SDK (version 10.0.22621.0)](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and .NET 8 SDK (.NET Desktop Development workload)
+- [Visual Studio](https://visualstudio.microsoft.com/vs/) with the WinUI application development workload
+- .NET 10 SDK
 
 ```
 git clone https://github.com/FluentHub/FluentHub
@@ -54,14 +55,17 @@ git clone https://github.com/FluentHub/FluentHub
 
 See [the documentation](../docs/credentials.md).
 
-> [!WARNING]  
-> If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
+The app builds without credentials, but GitHub sign-in remains unavailable until you copy and configure the example file:
+
+```powershell
+Copy-Item src\FluentHub\AppCredentials.config.example src\FluentHub\AppCredentials.config
+```
 
 ### 3. Build the project
 
-- Open `FluentHub.sln`.
-- Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
-- Build with `Debug`, `x64`, `FluentHub.Package`.
+- Open `FluentHub.slnx`.
+- Set `FluentHub` as the startup project.
+- Build with the `Debug` and `x64` configuration.
 
 ## Credit
 

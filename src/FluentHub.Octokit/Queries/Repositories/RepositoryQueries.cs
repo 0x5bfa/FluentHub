@@ -271,7 +271,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 							IsPrerelease = release.IsPrerelease,
 							Name = release.Name,
 							PublishedAt = release.PublishedAt,
-							PublishedAtHumanized = release.PublishedAt.Humanize(null, null),
+							PublishedAtHumanized = release.PublishedAt.ToRelativeTime(),
 						}).Single(),
 
 						Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection

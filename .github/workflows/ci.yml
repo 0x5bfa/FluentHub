@@ -21,14 +21,26 @@ run-name: ${{ github.event_name == 'pull_request' && 'FluentHub PR Validation' |
 
 env:
   WORKING_DIR:                   '${{ github.workspace }}' # Default: 'D:\a\FluentHub\FluentHub'
-  APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub.App\AppPackages\'
-  APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub.App\FluentHub.App.csproj'
-  APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub.App\Package.appxmanifest'
-  APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub.App\AppCredentials.config'
+  APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub\AppPackages\'
+  APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
+  APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
+    - name: Run unit tests
+      run: dotnet test --project tests/FluentHub.Tests/FluentHub.Tests.csproj -c Debug
+
   build:
-    if: github.repository_owner == '0x5bfa'
+    needs: test
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -48,20 +60,17 @@ jobs:
       uses: NuGet/setup-nuget@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
 
     - name: Build FluentHub
       run: |
-        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
-        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
-
         cd $env:WORKING_DIR\src
 
         & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
           -Platform $env:PLATFORM `
           -Configuration $env:CONFIGURATION `
           -PackageManifestPath $env:APP_MANIFEST_PATH
-      env:
-        GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
     - name: Upload the packages to the Artifacts
       uses: actions/upload-artifact@v4

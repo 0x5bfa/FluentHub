@@ -1,0 +1,15 @@
+﻿<Project Sdk="MSTest.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\FluentHub.Core\FluentHub.Core.csproj" />
+		<ProjectReference Include="..\..\src\FluentHub.Octokit\FluentHub.Octokit.csproj" />
+	</ItemGroup>
+
+</Project>
