@@ -7,7 +7,17 @@ namespace FluentHub.App.Services
 	{
 		public static async Task<Octokit.Authorization.OctokitSecrets?> LoadOctokitSecretsAsync()
 		{
-			var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
+			StorageFile file;
+
+			try
+			{
+				file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
+			}
+			catch (System.IO.FileNotFoundException)
+			{
+				return null;
+			}
+
 			var xmlDoc = await XmlDocument.LoadFromFileAsync(file);
 
 			var nodeId = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='id']/@value");

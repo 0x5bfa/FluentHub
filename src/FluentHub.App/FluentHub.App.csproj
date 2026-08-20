@@ -16,7 +16,6 @@
 		<WinUISDKReferences>false</WinUISDKReferences>
 		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
 		<!--<ApplicationIcon>Assets\AppTiles\Dev\Logo.ico</ApplicationIcon>-->
-		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
 		<DisableXbfLineInfo>false</DisableXbfLineInfo>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 
@@ -45,7 +44,7 @@
 	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
 		<Content Include="Assets\**" />
-		<Content Include="AppCredentials.config" />
+		<Content Include="AppCredentials.config" Condition="Exists('AppCredentials.config')" />
 	</ItemGroup>
 
 	<ItemGroup>
