@@ -66,7 +66,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 		private async Task LoadProjectsPageAsync(string owner, string name)
 		{
-			var queries = _gitHub.Repositories.Projects;
+			var queries = _gitHub.Repositories.ProjectsV2;
 
 			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20));
 
@@ -94,7 +94,7 @@ namespace FluentHub.App.ViewModels.Repositories.Projects
 
 			try
 			{
-				var queries = _gitHub.Repositories.Projects;
+				var queries = _gitHub.Repositories.ProjectsV2;
 
 				var result = await queries.GetPageAsync(
 					Login,

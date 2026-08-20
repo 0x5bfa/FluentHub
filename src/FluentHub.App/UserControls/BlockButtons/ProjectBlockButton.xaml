@@ -24,7 +24,7 @@
 
 	<Button
 		Padding="16,12"
-		Click="Button_Click"
+		Click="OnButtonClick"
 		Style="{StaticResource ContentBlockButtonStyle}">
 
 		<Button.ContextFlyout>
@@ -94,7 +94,7 @@
 					Grid.Row="1"
 					Margin="0,4"
 					Style="{StaticResource BodyStrongTextBlockStyle}"
-					Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}" />
+					Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
 			</Grid>
 		</Grid>
 

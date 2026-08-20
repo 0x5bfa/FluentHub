@@ -7,7 +7,7 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 {
 	public class ProjectBlockButtonViewModel : ObservableObject
 	{
-		private Project _item = default!;
-		public Project Item { get => _item; set => SetProperty(ref _item, value); }
+		private ProjectV2 _item = default!;
+		public ProjectV2 Item { get => _item; set => SetProperty(ref _item, value); }
 	}
 }

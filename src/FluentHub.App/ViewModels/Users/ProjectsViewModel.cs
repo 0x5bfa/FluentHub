@@ -71,7 +71,7 @@ namespace FluentHub.App.ViewModels.Users
 
 		private async Task LoadUserProjectsAsync(string login)
 		{
-			var queries = _gitHub.Users.Projects;
+			var queries = _gitHub.Users.ProjectsV2;
 
 			var result = await queries.GetPageAsync(login, PageRequest.Forward(20));
 
@@ -99,7 +99,7 @@ namespace FluentHub.App.ViewModels.Users
 
 			try
 			{
-				var queries = _gitHub.Users.Projects;
+				var queries = _gitHub.Users.ProjectsV2;
 
 				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
 

@@ -12,7 +12,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 		#region dprops
 		public static readonly DependencyProperty ViewModelProperty
 			= DependencyProperty.Register(
-				  nameof(Project),
+				  nameof(ViewModel),
 				  typeof(ProjectBlockButtonViewModel),
 				  typeof(ProjectBlockButton),
 				  new PropertyMetadata(null)
@@ -32,16 +32,10 @@ namespace FluentHub.App.UserControls.BlockButtons
 		public ProjectBlockButton()
 			=> InitializeComponent();
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private async void OnButtonClick(object sender, RoutedEventArgs e)
 		{
-			//var navService = Ioc.Default.GetRequiredService<INavigationService>();
-			//navService.Navigate<ProjectPage>(
-			//	new FrameNavigationArgs()
-			//	{
-			//		Login = ViewModel.Item.Repository.Owner.Login,
-			//		Name = ViewModel.Item.Repository.Name,
-			//		Number = ViewModel.Item.Number,
-			//	});
+			if (Uri.TryCreate(ViewModel.Item.Url, UriKind.Absolute, out var uri))
+				await Windows.System.Launcher.LaunchUriAsync(uri);
 		}
 	}
 }

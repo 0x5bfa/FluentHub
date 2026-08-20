@@ -52,7 +52,7 @@
 							</ListView.ItemContainerStyle>
 							<ListView.ItemTemplate>
 								<DataTemplate x:DataType="bbvm:ProjectBlockButtonViewModel">
-									<bbuc:ProjectBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
+									<bbuc:ProjectBlockButton ViewModel="{x:Bind}" />
 								</DataTemplate>
 							</ListView.ItemTemplate>
 						</ListView>
