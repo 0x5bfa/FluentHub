@@ -14,7 +14,6 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
 using FluentHub.ViewModels.Repositories.Codes;
-using Serilog;
 
 namespace FluentHub
 {
@@ -40,7 +39,6 @@ namespace FluentHub
 			UnhandledException += OnUnhandledException;
 			TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
-			Log.Logger = GetSerilogLogger();
 			_host = AppLifecycleHelper.ConfigureServices();
 			Ioc.Default.ConfigureServices(_host.Services);
 
@@ -64,24 +62,6 @@ namespace FluentHub
 
 			// Initialize Window
 			_ = MainWindow.Instance.DispatcherQueue.EnqueueAsync(() => MainWindow.Instance.InitializeApplication(activatedEventArgs.Data));
-		}
-
-		private static Serilog.ILogger GetSerilogLogger()
-		{
-			string logFilePath = System.IO.Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
-
-			var logger = new LoggerConfiguration()
-				.MinimumLevel
-#if DEBUG
-				.Verbose()
-#else
-				.Error()
-#endif
-				.WriteTo
-				.File(logFilePath, rollingInterval: RollingInterval.Day)
-				.CreateLogger();
-
-			return logger;
 		}
 
 		private void EnsureWindowIsInitialized()

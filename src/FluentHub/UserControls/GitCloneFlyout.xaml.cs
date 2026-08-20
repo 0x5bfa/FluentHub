@@ -3,7 +3,6 @@ using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Serilog;
 
 namespace FluentHub.UserControls
 {
@@ -111,11 +110,11 @@ namespace FluentHub.UserControls
 
 			if (success)
 			{
-				Log.Write(Serilog.Events.LogEventLevel.Information, "Downloaded the repository into a .zip file");
+				Ioc.Default.GetService<Utils.ILogger>()?.Info("Downloaded the repository into a .zip file");
 			}
 			else
 			{
-				Log.Error(downloadZip, "Something went wrong. The URL was not found or it doesn't work");
+				Ioc.Default.GetService<Utils.ILogger>()?.Error("Failed to download repository archive from {0}", downloadZip);
 			}
 		}
 
@@ -129,7 +128,7 @@ namespace FluentHub.UserControls
 
 			if (!success)
 			{
-				Log.Warning($"Cannot open GitHub Desktop with uri \"" + gitHubDeskUrl + "\"");
+				Ioc.Default.GetService<Utils.ILogger>()?.Warn("Cannot open GitHub Desktop with URI {0}", gitHubDeskUrl);
 			}
 		}
 

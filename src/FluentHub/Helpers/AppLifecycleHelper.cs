@@ -14,7 +14,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
 using Windows.Storage;
-using Serilog;
+using System.IO;
 
 namespace FluentHub.Helpers
 {
@@ -38,7 +38,8 @@ namespace FluentHub.Helpers
 			return Host.CreateDefaultBuilder()
 				.ConfigureServices(services => services
 					.AddSingleton<INavigationService, NavigationService>()
-					.AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Log.Logger))
+					.AddSingleton<Utils.ILogger>(_ => new FileLogger(
+						Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs", "Log.log")))
 					.AddSingleton<ToastService>()
 					.AddSingleton<MarkdownApiHandler>()
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
