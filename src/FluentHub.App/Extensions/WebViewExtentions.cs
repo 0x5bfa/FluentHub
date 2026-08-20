@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml.Controls;
+using FluentHub.App.Utils;
 
 namespace FluentHub.App.Extensions
 {
@@ -20,7 +21,7 @@ namespace FluentHub.App.Extensions
 			}
 			catch (Exception ex)
 			{
-				// Log the exception
+				Ioc.Default.GetService<ILogger>()?.Error(nameof(HandleResize), ex);
 			}
 		}
 	}

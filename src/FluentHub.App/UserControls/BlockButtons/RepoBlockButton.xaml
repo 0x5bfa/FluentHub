@@ -128,7 +128,7 @@
 							</Border.Background>
 						</Border>
 
-						<TextBlock x:Name="Language" Text="{x:Bind ViewModel.Repository.PrimaryLanguage.Name, Mode=OneWay}" />
+						<TextBlock x:Name="LanguageText" Text="{x:Bind ViewModel.Repository.PrimaryLanguage.Name, Mode=OneWay}" />
 
 					</StackPanel>
 

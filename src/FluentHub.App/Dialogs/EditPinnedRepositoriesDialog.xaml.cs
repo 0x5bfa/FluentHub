@@ -19,7 +19,6 @@ namespace FluentHub.App.Dialogs
 			ViewModel.Login = login ?? string.Empty;
 		}
 
-		private readonly INavigationService navigationService = default!;
 		public EditPinnedRepositoriesDialogViewModel ViewModel { get; }
 
 		private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

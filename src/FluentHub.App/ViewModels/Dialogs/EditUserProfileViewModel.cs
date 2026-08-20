@@ -9,16 +9,14 @@ namespace FluentHub.App.ViewModels.Dialogs
 	{
 		private readonly IFluentHubGitHubClient _gitHub;
 
-		public EditUserProfileViewModel(IFluentHubGitHubClient gitHub, IMessenger? messenger = null, ILogger? logger = null)
+		public EditUserProfileViewModel(IFluentHubGitHubClient gitHub, ILogger? logger = null)
 		{
 			_gitHub = gitHub;
 			_logger = logger;
-			_messenger = messenger;
 		}
 
 		#region Fields and Properties
 		private readonly ILogger? _logger;
-		private readonly IMessenger? _messenger;
 
 		private string _login = default!;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
@@ -55,7 +53,7 @@ namespace FluentHub.App.ViewModels.Dialogs
 			}
 			catch (Exception ex)
 			{
-				// TODO: Log the exception
+				_logger?.Error(nameof(LoadUserAsync), ex);
 			}
 		}
 

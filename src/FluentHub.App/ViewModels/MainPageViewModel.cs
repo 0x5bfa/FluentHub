@@ -48,9 +48,6 @@ namespace FluentHub.App.ViewModels
 		private readonly ObservableCollection<SearchQueryModel> _autoSuggestionItems;
 		public ReadOnlyObservableCollection<SearchQueryModel> AutoSuggestionItems;
 
-		private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewItems = default!;
-		public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewItems = default!;
-
 		private readonly ObservableCollection<Repository> _repositories;
 		public ReadOnlyObservableCollection<Repository> Repositories { get; }
 
