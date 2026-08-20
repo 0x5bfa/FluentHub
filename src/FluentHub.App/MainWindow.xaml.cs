@@ -4,8 +4,10 @@
 using FluentHub.App.Models;
 using FluentHub.Octokit.Clients;
 using Microsoft.UI;
+using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System.IO;
@@ -14,7 +16,7 @@ using WinUIEx;
 
 namespace FluentHub.App
 {
-	public sealed partial class MainWindow : WindowEx
+	public sealed class MainWindow : WindowEx
 	{
 		private static MainWindow? _Instance;
 		public static MainWindow Instance => _Instance ??= new();
@@ -24,8 +26,7 @@ namespace FluentHub.App
 		public MainWindow()
 		{
 			WindowHandle = this.GetWindowHandle();
-
-			InitializeComponent();
+			SystemBackdrop = new MicaBackdrop { Kind = MicaKind.BaseAlt };
 
 			EnsureEarlyWindow();
 		}
