@@ -40,7 +40,7 @@ param(
     [string]$PackageRolloutPercentage = "",
 
     [ValidateRange(1, 3600)]
-    [int]$PackageValidationTimeoutSeconds = 300,
+    [int]$PackageValidationTimeoutSeconds = 900,
 
     [ValidateRange(1, 3600)]
     [int]$SubmissionVerificationTimeoutSeconds = 300
@@ -512,65 +512,98 @@ Invoke-MsStore -Arguments @(
 )
 
 $hasPendingSubmission = Test-PendingSubmission
+$submissionJson = $null
+$expectedPackageName = [IO.Path]::GetFileName($StorePackagePath)
 
 if ($hasPendingSubmission -and -not $ReplaceExistingDraft)
 {
-    throw @"
-Partner Center already has a pending submission for this target.
-The Microsoft Store CLI replaces pending submissions when publishing a package.
-Review or remove the draft in Partner Center, or rerun with ReplaceExistingDraft enabled.
-"@
-}
-
-if ($hasPendingSubmission)
-{
-    Write-Warning "The existing Partner Center draft will be replaced."
-}
-
-$publishArgs = @(
-    "publish",
-    $StorePackagePath,
-    "--appId",
-    $PartnerCenterStoreId,
-    "--noCommit"
-)
-
-if (-not [string]::IsNullOrWhiteSpace($FlightId))
-{
-    $publishArgs += @("--flightId", $FlightId)
-}
-
-if (-not [string]::IsNullOrWhiteSpace($PackageRolloutPercentage))
-{
-    $publishArgs += @("--packageRolloutPercentage", $PackageRolloutPercentage)
-}
-
-Write-Host "Uploading package '$StorePackagePath' to Microsoft Store app '$PartnerCenterStoreId'."
-Invoke-MsStore -Arguments $publishArgs
-
-if (-not [string]::IsNullOrWhiteSpace($FlightId))
-{
-    if (-not $Submit)
+    if (-not [string]::IsNullOrWhiteSpace($FlightId))
     {
-        Write-Host "The flight submission is ready and will remain in draft state."
+        throw @"
+Partner Center already has a pending flight submission for this target.
+Review or remove the draft, or rerun with ReplaceExistingDraft enabled.
+"@
+    }
+
+    $submissionJson = Invoke-MsStoreJson -Arguments @(
+        "submission",
+        "get",
+        $PartnerCenterStoreId
+    )
+    $pendingSubmission = $submissionJson | ConvertFrom-Json -Depth 100
+    $pendingPackage = Get-ApplicationPackage `
+        -Submission $pendingSubmission `
+        -FileName $expectedPackageName
+
+    if ($null -eq $pendingPackage)
+    {
+        throw @"
+Partner Center already has a pending submission, but it does not contain '$expectedPackageName'.
+Review the draft, or rerun with ReplaceExistingDraft enabled only if it can be discarded.
+"@
+    }
+
+    Write-Host "Resuming the existing Partner Center draft for package '$expectedPackageName'."
+}
+
+if (-not $hasPendingSubmission -or $ReplaceExistingDraft)
+{
+    if ($hasPendingSubmission)
+    {
+        Write-Warning "The existing Partner Center draft will be replaced."
+    }
+
+    $publishArgs = @(
+        "publish",
+        $StorePackagePath,
+        "--appId",
+        $PartnerCenterStoreId,
+        "--noCommit"
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($FlightId))
+    {
+        $publishArgs += @("--flightId", $FlightId)
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($PackageRolloutPercentage))
+    {
+        $publishArgs += @("--packageRolloutPercentage", $PackageRolloutPercentage)
+    }
+
+    Write-Host "Uploading package '$StorePackagePath' to Microsoft Store app '$PartnerCenterStoreId'."
+    Invoke-MsStore -Arguments $publishArgs
+
+    if (-not [string]::IsNullOrWhiteSpace($FlightId))
+    {
+        if (-not $Submit)
+        {
+            Write-Host "The flight submission is ready and will remain in draft state."
+            return
+        }
+
+        Invoke-MsStore -Arguments @(
+            "flights",
+            "submission",
+            "publish",
+            $PartnerCenterStoreId,
+            $FlightId
+        )
+        Invoke-MsStore -Arguments @(
+            "flights",
+            "submission",
+            "poll",
+            $PartnerCenterStoreId,
+            $FlightId
+        )
         return
     }
 
-    Invoke-MsStore -Arguments @(
-        "flights",
+    $submissionJson = Invoke-MsStoreJson -Arguments @(
         "submission",
-        "publish",
-        $PartnerCenterStoreId,
-        $FlightId
+        "get",
+        $PartnerCenterStoreId
     )
-    Invoke-MsStore -Arguments @(
-        "flights",
-        "submission",
-        "poll",
-        $PartnerCenterStoreId,
-        $FlightId
-    )
-    return
 }
 
 $tempRoot = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())
@@ -581,6 +614,20 @@ try
 {
     $submissionPath = Join-Path $tempPath "submission.json"
     $updatedSubmissionPath = Join-Path $tempPath "submission.updated.json"
+
+    if ([string]::IsNullOrWhiteSpace($submissionJson))
+    {
+        throw "The pending Store submission could not be retrieved."
+    }
+
+    Write-Host "Requesting Partner Center package validation for '$expectedPackageName'."
+    Invoke-MsStore -Arguments @(
+        "submission",
+        "updateMetadata",
+        $PartnerCenterStoreId,
+        $submissionJson
+    )
+
     $submissionJson = Wait-MicrosoftStorePackageValidation
     [IO.File]::WriteAllText(
         $submissionPath,

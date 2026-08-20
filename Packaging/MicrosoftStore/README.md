@@ -21,7 +21,12 @@ The Partner Center draft must contain exactly the locales listed in
 unmanaged locale remains enabled. This prevents an incomplete listing without
 source-controlled text and screenshots from blocking certification.
 
-After uploading a package, the workflow waits for Partner Center to expose its
-validated version and languages before updating listing metadata. It then
-verifies the persisted package and listing values with backoff for up to five
-minutes before leaving the submission as a draft or sending it to certification.
+After uploading a package, the workflow requests package validation and waits
+for Partner Center to expose its validated version and languages before updating
+listing metadata. Package validation uses backoff for up to 15 minutes; listing
+verification uses backoff for up to five minutes.
+
+If a run stops while the uploaded package is still being validated, rerun the
+workflow with `replace_existing_draft` disabled. When the existing draft contains
+the same package filename, the workflow resumes that draft instead of replacing
+it and resetting Partner Center processing.
