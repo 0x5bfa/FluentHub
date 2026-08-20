@@ -39,8 +39,9 @@ param(
 
     [string]$PackageRolloutPercentage = "",
 
+    [Alias("PackageValidationTimeoutSeconds")]
     [ValidateRange(1, 3600)]
-    [int]$PackageValidationTimeoutSeconds = 900,
+    [int]$PackageReadinessTimeoutSeconds = 300,
 
     [ValidateRange(1, 3600)]
     [int]$SubmissionVerificationTimeoutSeconds = 300
@@ -232,10 +233,10 @@ function Assert-SubmissionLocales
     return $listingsProperty.Value
 }
 
-function Wait-MicrosoftStorePackageValidation
+function Wait-MicrosoftStorePackageReadiness
 {
     $expectedPackageName = [IO.Path]::GetFileName($StorePackagePath)
-    $deadline = [DateTime]::UtcNow.AddSeconds($PackageValidationTimeoutSeconds)
+    $deadline = [DateTime]::UtcNow.AddSeconds($PackageReadinessTimeoutSeconds)
     $delaySeconds = 5
     $attempt = 0
     $lastError = "The package has not been returned by Partner Center."
@@ -268,8 +269,12 @@ function Wait-MicrosoftStorePackageValidation
                 $languagesProperty = Get-PropertyByName `
                     -InputObject $applicationPackage `
                     -Name "Languages"
+                $fileStatusProperty = Get-PropertyByName `
+                    -InputObject $applicationPackage `
+                    -Name "FileStatus"
                 $version = ""
                 $languages = @()
+                $fileStatus = ""
 
                 if ($null -ne $versionProperty)
                 {
@@ -287,17 +292,31 @@ function Wait-MicrosoftStorePackageValidation
                     )
                 }
 
-                if (-not [string]::IsNullOrWhiteSpace($version) -and
+                if ($null -ne $fileStatusProperty)
+                {
+                    $fileStatus = [string]$fileStatusProperty.Value
+                }
+
+                if ($fileStatus -ieq "PendingUpload")
+                {
+                    Write-Host @"
+Store package is staged in the draft: $expectedPackageName (fileStatus=$fileStatus). Version and languages will be populated when Partner Center processes the committed submission.
+"@
+                    return $submissionJson
+                }
+
+                if ($fileStatus -ieq "Uploaded" -and
+                    -not [string]::IsNullOrWhiteSpace($version) -and
                     $languages.Count -gt 0)
                 {
                     Write-Host @"
-Store package validation completed: $expectedPackageName (version=$version, languages=$($languages.Count)).
+Store package validation completed: $expectedPackageName (fileStatus=$fileStatus, version=$version, languages=$($languages.Count)).
 "@
                     return $submissionJson
                 }
 
                 $lastError = @"
-Partner Center has not finished validating '$expectedPackageName' (version='$version', languages=$($languages.Count)).
+Partner Center has not staged '$expectedPackageName' (fileStatus='$fileStatus', version='$version', languages=$($languages.Count)).
 "@.Trim()
             }
         }
@@ -312,12 +331,12 @@ Partner Center has not finished validating '$expectedPackageName' (version='$ver
 
         if ($remainingSeconds -le 0)
         {
-            throw "Timed out waiting for Store package validation after $attempt attempt(s). Last result: $lastError"
+            throw "Timed out waiting for Store package readiness after $attempt attempt(s). Last result: $lastError"
         }
 
         $sleepSeconds = [Math]::Min($delaySeconds, $remainingSeconds)
         Write-Warning @"
-Store package validation attempt $attempt is not ready: $lastError Retrying in $sleepSeconds second(s).
+Store package readiness attempt $attempt is not ready: $lastError Retrying in $sleepSeconds second(s).
 "@
         Start-Sleep -Seconds $sleepSeconds
         $delaySeconds = [Math]::Min($delaySeconds * 2, 30)
@@ -632,7 +651,7 @@ try
         $validationSubmissionJson
     )
 
-    $submissionJson = Wait-MicrosoftStorePackageValidation
+    $submissionJson = Wait-MicrosoftStorePackageReadiness
     [IO.File]::WriteAllText(
         $submissionPath,
         $submissionJson + [Environment]::NewLine,
