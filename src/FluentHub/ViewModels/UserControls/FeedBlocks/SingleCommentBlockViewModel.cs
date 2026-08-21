@@ -6,7 +6,7 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 {
 	public class SingleCommentBlockViewModel : ObservableObject
 	{
-		private IssueCommentPayload _issueCommentPayload = default!;
-		public IssueCommentPayload IssueCommentPayload { get => _issueCommentPayload; set => SetProperty(ref _issueCommentPayload, value); }
+		private IssueCommentActivityDetails _details = default!;
+		public IssueCommentActivityDetails Details { get => _details; set => SetProperty(ref _details, value); }
 	}
 }

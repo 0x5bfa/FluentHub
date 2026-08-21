@@ -9,7 +9,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Views.Searches"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:modelsV3Search="using:FluentHub.Octokit.Models.v3.Searches"
+	xmlns:contracts="using:FluentHub.Octokit.Contracts"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	xmlns:uc="using:FluentHub.UserControls"
 	mc:Ignorable="d">
@@ -63,7 +63,7 @@
 								<ItemsRepeater.Layout>
 									<StackLayout Orientation="Vertical" Spacing="6" />
 								</ItemsRepeater.Layout>
-								<DataTemplate x:DataType="modelsV3Search:SearchCode">
+								<DataTemplate x:DataType="contracts:SearchCode">
 									<Grid
 										Padding="20,16"
 										Background="{ThemeResource LayerFillColorDefaultBrush}"

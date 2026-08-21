@@ -4,9 +4,9 @@ using FluentHub.Utils;
 
 namespace FluentHub.ViewModels.UserControls.FeedBlocks
 {
-	public class SingleReleaseBlockViewModel :ObservableObject
+	public class SingleReleaseBlockViewModel : ObservableObject
 	{
-		private ReleaseEventPayload _releaseEventPayload = default!;
-		public ReleaseEventPayload ReleaseEventPayload { get => _releaseEventPayload; set => SetProperty(ref _releaseEventPayload, value); }
+		private ReleaseActivityDetails _details = default!;
+		public ReleaseActivityDetails Details { get => _details; set => SetProperty(ref _details, value); }
 	}
 }

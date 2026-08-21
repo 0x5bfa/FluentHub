@@ -54,25 +54,25 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 				return await repositoryQueries.GetAsync(owner, name);
 			}
 
-			switch (payload.Type.ToString())
+			switch (payload.Type)
 			{
-				case "CheckRunEvent":
+				case ActivityKind.CheckRunEvent:
 					{
 					}
 					break;
-				case "CheckSuiteEvent":
+				case ActivityKind.CheckSuiteEvent:
 					{
 					}
 					break;
-				case "CommitComment":
+				case ActivityKind.CommitComment:
 					{
 					}
 					break;
-				case "CreateEvent":
+				case ActivityKind.CreateEvent:
 					{
 					}
 					break;
-				case "DeleteEvent":
+				case ActivityKind.DeleteEvent:
 					{
 						var response = await LoadRepositoryAsync();
 						if (response is null)
@@ -86,7 +86,7 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 						};
 						break;
 					}
-				case "ForkEvent":
+				case ActivityKind.ForkEvent:
 					{
 						var response = await LoadRepositoryAsync();
 						if (response is null)
@@ -100,78 +100,66 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 						};
 						break;
 					}
-				case "IssueCommentEvent":
+				case ActivityKind.IssueCommentEvent:
 					{
-						if (payload.PayloadSets?.IssueCommentPayload is null)
+						if (payload.Details.IssueCommentEvent is null)
 							break;
 
 						SingleCommentBlockViewModel = new()
 						{
-							IssueCommentPayload = payload.PayloadSets.IssueCommentPayload,
+							Details = payload.Details.IssueCommentEvent,
 						};
 					}
 					break;
-				case "IssueEvent":
+				case ActivityKind.IssueEvent:
 					{
-						if (payload.PayloadSets?.IssueCommentPayload?.Issue is null)
+						if (payload.Details.IssueEvent?.Issue is null)
 							break;
 
 						IssueBlockButtonViewModel = new()
 						{
-							IssueItem = payload.PayloadSets.IssueCommentPayload.Issue,
+							IssueItem = payload.Details.IssueEvent.Issue,
 						};
 					}
 					break;
-				case "PullRequestComment":
+				case ActivityKind.PullRequestComment:
 					{
 					}
 					break;
-				case "PullRequestEvent":
+				case ActivityKind.PullRequestEvent:
 					{
-						if (payload.PayloadSets?.PullRequestEventPayload?.PullRequest is null)
+						if (payload.Details.PullRequestEvent?.PullRequest is null)
 							break;
 
 						PullBlockButtonViewModel = new()
 						{
-							PullItem = payload.PayloadSets.PullRequestEventPayload.PullRequest,
+							PullItem = payload.Details.PullRequestEvent.PullRequest,
 						};
 					}
 					break;
-				case "PullRequestReviewEvent":
+				case ActivityKind.PullRequestReviewEvent:
 					{
 					}
 					break;
-				case "PushEvent":
-					if (payload.PayloadSets?.PushEventPayload is null)
+				case ActivityKind.PushEvent:
+					if (payload.Details.PushEvent is null)
 						break;
 
 					SingleCommitBlockViewModel = new()
 					{
-						PushEventPayload = payload.PayloadSets.PushEventPayload,
+						Details = payload.Details.PushEvent,
 					};
 					break;
-				case "PushWebhookCommit":
-					{
-					}
-					break;
-				case "PushWebhookCommitter":
-					{
-					}
-					break;
-				case "PushWebhook":
-					{
-					}
-					break;
-				case "ReleaseEvent":
-					if (payload.PayloadSets?.ReleaseEventPayload is null)
+				case ActivityKind.ReleaseEvent:
+					if (payload.Details.ReleaseEvent is null)
 						break;
 
 					SingleReleaseBlockViewModel = new()
 					{
-						ReleaseEventPayload = payload.PayloadSets.ReleaseEventPayload,
+						Details = payload.Details.ReleaseEvent,
 					};
 					break;
-				case "WatchEvent":
+				case ActivityKind.WatchEvent:
 					{
 						var response = await LoadRepositoryAsync();
 						if (response is null)
@@ -185,9 +173,12 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 						};
 						break;
 					}
-				case "StatusEvent":
+				case ActivityKind.StatusEvent:
 					{
 					}
+					break;
+				case ActivityKind.Unknown:
+				default:
 					break;
 			}
 		}

@@ -11,14 +11,14 @@ namespace FluentHub.Octokit.Searches
 
 		public CodeSearches(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<List<Models.v3.Searches.SearchCode>> GetAllAsync(string term, CancellationToken cancellationToken = default)
+		public async Task<List<SearchCode>> GetAllAsync(string term, CancellationToken cancellationToken = default)
 		{
 			var request = new OctokitV3.SearchCodeRequest(term);
 			var response = await _gitHub.RunRestAsync(
 				client => client.Search.SearchCode(request),
 				cancellationToken);
 
-			List<Models.v3.Searches.SearchCode> result = new();
+			List<SearchCode> result = new();
 
 			foreach (var item in response.Items)
 			{

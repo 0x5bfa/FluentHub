@@ -8,7 +8,6 @@
 	xmlns:fbuc="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:local="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
@@ -125,11 +124,11 @@
 							<Button
 								Padding="4,2"
 								Click="OnActivityRepositoryButtonClick"
-								Tag="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee, Mode=OneWay}">
+								Tag="{x:Bind ViewModel.Payload.Details.ForkEvent.Forkee, Mode=OneWay}">
 								<StackPanel Orientation="Horizontal">
-									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee.Owner.Login, Mode=OneWay}" />
+									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Details.ForkEvent.Forkee.Owner.Login, Mode=OneWay}" />
 									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
-									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee.Name, Mode=OneWay}" />
+									<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Details.ForkEvent.Forkee.Name, Mode=OneWay}" />
 								</StackPanel>
 							</Button>
 							<TextBlock

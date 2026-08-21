@@ -7,6 +7,8 @@ namespace FluentHub.Tests;
 public sealed class ContractArchitectureTests
 {
 	private const string ContractNamespace = "FluentHub.Octokit.Contracts";
+	private const string LegacyRestModelNamespace = "FluentHub.Octokit.Models.v3";
+	private const string RestTransportModelNamespace = "Octokit";
 	private const string TransportModelNamespace = "Octokit.GraphQL.Model";
 
 	[TestMethod]
@@ -27,12 +29,24 @@ public sealed class ContractArchitectureTests
 		var exposedTransportProperties = GetContractTypes()
 			.SelectMany(type => type.GetProperties())
 			.Where(property => GetReferencedTypes(property.PropertyType)
-				.Any(type => type.Namespace == TransportModelNamespace))
+				.Any(type => type.Namespace is TransportModelNamespace or RestTransportModelNamespace))
 			.Select(property => $"{property.DeclaringType!.Name}.{property.Name}")
 			.ToList();
 
 		Assert.AreEqual(0, exposedTransportProperties.Count,
 			$"Contract properties expose transport models: {string.Join(", ", exposedTransportProperties)}");
+	}
+
+	[TestMethod]
+	public void LegacyRestModelsAreRemoved()
+	{
+		var legacyTypes = typeof(UpdateIssueRequest).Assembly.GetExportedTypes()
+			.Where(type => type.Namespace?.StartsWith(LegacyRestModelNamespace, StringComparison.Ordinal) == true)
+			.Select(type => type.FullName)
+			.ToList();
+
+		Assert.AreEqual(0, legacyTypes.Count,
+			$"Legacy REST models remain: {string.Join(", ", legacyTypes)}");
 	}
 
 	private static List<Type> GetContractTypes()
