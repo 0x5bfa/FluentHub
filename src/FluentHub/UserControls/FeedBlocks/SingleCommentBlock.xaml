@@ -16,6 +16,6 @@
 			IsTextSelectionEnabled="True"
 			MaxLines="6"
 			Style="{StaticResource BodyTextBlockStyle}"
-			Text="{x:Bind ViewModel.IssueCommentPayload.Comment.Body, Mode=OneWay}" />
+			Text="{x:Bind ViewModel.Details.Comment.Body, Mode=OneWay}" />
 	</Grid>
 </UserControl>

@@ -149,11 +149,17 @@ namespace FluentHub.Octokit.Clients
 		{
 			AddStar = new(apiClient);
 			Issues = new(apiClient);
+			PullRequests = new(apiClient);
+			Reactions = new(apiClient);
 			RemoveStar = new(apiClient);
+			Subscriptions = new(apiClient);
 		}
 
 		public Mutations.AddStarMutation AddStar { get; }
 		public Mutations.IssueMutations Issues { get; }
+		public Mutations.PullRequestMutations PullRequests { get; }
+		public Mutations.ReactionMutations Reactions { get; }
 		public Mutations.RemoveStarMutation RemoveStar { get; }
+		public Mutations.SubscriptionMutations Subscriptions { get; }
 	}
 }

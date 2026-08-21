@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.AppSettings
 {

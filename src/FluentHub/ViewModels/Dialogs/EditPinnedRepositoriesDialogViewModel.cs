@@ -1,6 +1,6 @@
 using FluentHub.Utils;
 using FluentHub.Models;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.Dialogs
 {

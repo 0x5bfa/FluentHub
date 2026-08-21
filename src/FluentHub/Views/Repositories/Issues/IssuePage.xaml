@@ -9,7 +9,7 @@
 	xmlns:local="using:FluentHub.Views.Repositories.Issues"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.Models"
-	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
 	xmlns:ov="using:FluentHub.UserControls.Overview"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
@@ -92,14 +92,15 @@
 								<FontIcon FontSize="16" Glyph="&#xE10C;" />
 								<Button.Flyout>
 									<MenuFlyout Placement="BottomEdgeAlignedRight">
-										<MenuFlyoutItem IsEnabled="False" Text="Edit title" />
-										<MenuFlyoutItem IsEnabled="False" Text="Subscribe" />
+										<MenuFlyoutItem Click="OnEditIssueClicked" IsEnabled="{x:Bind ViewModel.CanEditIssue, Mode=OneWay}" Text="Edit title and description" />
+										<MenuFlyoutItem Click="OnEditMetadataClicked" IsEnabled="{x:Bind ViewModel.CanEditMetadata, Mode=OneWay}" Text="Edit metadata" />
+										<MenuFlyoutItem Command="{x:Bind ViewModel.ToggleSubscriptionCommand}" Text="{x:Bind ViewModel.SubscriptionButtonText, Mode=OneWay}" />
 										<MenuFlyoutItem IsEnabled="False" Text="Lock" />
 										<MenuFlyoutItem IsEnabled="False" Text="Report" />
-										<MenuFlyoutSubItem IsEnabled="False" Text="Close Issue">
+										<MenuFlyoutSubItem IsEnabled="{x:Bind ViewModel.CanCloseIssue, Mode=OneWay}" Text="Close Issue">
 											<MenuFlyoutSubItem.Items>
-												<MenuFlyoutItem IsEnabled="False" Text="Completed" />
-												<MenuFlyoutItem IsEnabled="False" Text="Not planned" />
+												<MenuFlyoutItem Click="OnCloseIssueClicked" Tag="Completed" Text="Completed" />
+												<MenuFlyoutItem Click="OnCloseIssueClicked" Tag="NotPlanned" Text="Not planned" />
 											</MenuFlyoutSubItem.Items>
 										</MenuFlyoutSubItem>
 									</MenuFlyout>
@@ -320,8 +321,8 @@
 
 									<Button
 										HorizontalAlignment="Stretch"
-										Content="Subscribe"
-										IsEnabled="False" />
+										Command="{x:Bind ViewModel.ToggleSubscriptionCommand}"
+										Content="{x:Bind ViewModel.SubscriptionButtonText, Mode=OneWay}" />
 
 								</StackPanel>
 

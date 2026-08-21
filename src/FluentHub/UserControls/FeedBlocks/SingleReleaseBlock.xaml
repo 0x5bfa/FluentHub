@@ -21,8 +21,8 @@
 				Width="32"
 				Height="32"
 				HorizontalAlignment="Left"
-				Label="{x:Bind ViewModel.ReleaseEventPayload.Sender.Login}"
-				Source="{x:Bind ViewModel.ReleaseEventPayload.Sender.AvatarUrl}" />
+				Label="{x:Bind ViewModel.Details.Sender.Login}"
+				Source="{x:Bind ViewModel.Details.Sender.AvatarUrl}" />
 		</Grid>
 		<Rectangle
 			Grid.Row="1"
@@ -33,6 +33,6 @@
 			Margin="16,16"
 			IsTextSelectionEnabled="True"
 			MaxLines="6"
-			Text="{x:Bind ViewModel.ReleaseEventPayload.Release.Description, Mode=OneWay}" />
+			Text="{x:Bind ViewModel.Details.Release.Description, Mode=OneWay}" />
 	</Grid>
 </UserControl>

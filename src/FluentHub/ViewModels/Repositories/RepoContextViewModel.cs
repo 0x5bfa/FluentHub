@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.Repositories
 {

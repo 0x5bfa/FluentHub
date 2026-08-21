@@ -31,4 +31,4 @@ global using global::FluentHub.Core;
 global using global::FluentHub.Core.Data.Enums;
 global using global::FluentHub.Octokit;
 global using global::FluentHub.Octokit.Clients;
-global using global::FluentHub.Octokit.Models.v3;
+global using global::FluentHub.Octokit.Contracts;

@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 					{
 						Nodes = suites.Nodes.Select(suite => (CheckSuite?)new CheckSuite
 						{
-							App = suite.App.Select(app => new Models.v4.App
+							App = suite.App.Select(app => new Contracts.App
 							{
 								Name = app.Name,
 								LogoBackgroundColor = app.LogoBackgroundColor,
@@ -43,7 +43,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
 									CheckSuite = run.CheckSuite.Select(runsuite => new CheckSuite
 									{
-										App = runsuite.App.Select(runapp => new Models.v4.App
+										App = runsuite.App.Select(runapp => new Contracts.App
 										{
 											Name = runapp.Name,
 										})

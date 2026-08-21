@@ -3,7 +3,7 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.Models
 {

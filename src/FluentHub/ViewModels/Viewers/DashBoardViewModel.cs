@@ -5,7 +5,7 @@ using FluentHub.Dialogs;
 using FluentHub.ViewModels.UserControls.FeedBlocks;
 using FluentHub.Octokit.Queries.Users;
 using System.Windows.Input;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.Viewers
 {
@@ -101,9 +101,8 @@ namespace FluentHub.ViewModels.Viewers
 
 			// Filter the notifications; remove closed Issue & Pull Requests
 			notificationResponse.RemoveAll(x =>
-				x.Subject is null ||
-				(x.Subject.Type != NotificationSubjectType.IssueOpen &&
-				x.Subject.Type != NotificationSubjectType.PullRequestOpen));
+				x.Subject.Type != NotificationSubjectType.IssueOpen &&
+				x.Subject.Type != NotificationSubjectType.PullRequestOpen);
 
 			_RecentActivities.Clear();
 
@@ -125,24 +124,13 @@ namespace FluentHub.ViewModels.Viewers
 				return;
 
 			foreach (var item in activityResponse.Where(x =>
-				//x.Type == ActivityPayloadType.CheckRunEvent ||
-				//x.Type == ActivityPayloadType.CheckSuiteEvent ||
-				//x.Type == ActivityPayloadType.CommitComment ||
-				//x.Type == ActivityPayloadType.CreateEvent ||
-				//x.Type == ActivityPayloadType.DeleteEvent ||
-				x.Type == ActivityPayloadType.ForkEvent ||
-				x.Type == ActivityPayloadType.IssueCommentEvent ||
-				x.Type == ActivityPayloadType.IssueEvent ||
-				x.Type == ActivityPayloadType.PullRequestComment ||
-				x.Type == ActivityPayloadType.PullRequestEvent||
-				//x.Type == ActivityPayloadType.PullRequestReviewEvent||
-				//x.Type == ActivityPayloadType.PushEvent||
-				//x.Type == ActivityPayloadType.PushWebhookCommit||
-				//x.Type == ActivityPayloadType.PushWebhookCommitter||
-				//x.Type == ActivityPayloadType.PushWebhook ||
-				x.Type == ActivityPayloadType.ReleaseEvent ||
-				x.Type == ActivityPayloadType.WatchEvent /*||
-				x.Type == ActivityPayloadType.StatusEvent*/).ToList())
+				x.Type == ActivityKind.ForkEvent ||
+				x.Type == ActivityKind.IssueCommentEvent ||
+				x.Type == ActivityKind.IssueEvent ||
+				x.Type == ActivityKind.PullRequestComment ||
+				x.Type == ActivityKind.PullRequestEvent ||
+				x.Type == ActivityKind.ReleaseEvent ||
+				x.Type == ActivityKind.WatchEvent).ToList())
 			{
 				ActivityBlockViewModel viewModel = new(_gitHub)
 				{

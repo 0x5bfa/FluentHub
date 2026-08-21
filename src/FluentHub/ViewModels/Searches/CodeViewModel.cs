@@ -15,8 +15,8 @@ namespace FluentHub.ViewModels.Searches
 		private string _searchTerm = default!;
 		public string SearchTerm { get => _searchTerm; set => SetProperty(ref _searchTerm, value); }
 
-		private readonly ObservableCollection<FluentHub.Octokit.Models.v3.Searches.SearchCode> _resultItems;
-		public ReadOnlyObservableCollection<FluentHub.Octokit.Models.v3.Searches.SearchCode> ResultItems { get; }
+		private readonly ObservableCollection<SearchCode> _resultItems;
+		public ReadOnlyObservableCollection<SearchCode> ResultItems { get; }
 
 		public IAsyncRelayCommand LoadSearchCodePageCommand { get; }
 

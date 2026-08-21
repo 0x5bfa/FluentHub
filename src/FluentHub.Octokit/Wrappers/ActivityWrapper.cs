@@ -47,31 +47,33 @@ namespace FluentHub.Octokit.Wrappers
 
 					CreatedAtHumanized = item.CreatedAt.ToRelativeTime(),
 
+					Id = item.Id,
+
+					Public = item.Public,
+
 					Repository = itemRep,
 
 					Actor = itemUser,
 
 					Organization = itemOrganization,
-
-					PayloadSets = new ActivityPayloads(),
 				};
 
 				switch (item.Type)
 				{
 					case "CheckRunEvent":
-						indivisual.Type = ActivityPayloadType.CheckRunEvent;
+						indivisual.Type = ActivityKind.CheckRunEvent;
 						break;
 					case "CheckSuiteEvent":
-						indivisual.Type = ActivityPayloadType.CheckSuiteEvent;
+						indivisual.Type = ActivityKind.CheckSuiteEvent;
 						break;
 					case "CommitComment":
-						indivisual.Type = ActivityPayloadType.CommitComment;
+						indivisual.Type = ActivityKind.CommitComment;
 						break;
 					case "CreateEvent":
 						{
-							indivisual.Type = ActivityPayloadType.CreateEvent;
+							indivisual.Type = ActivityKind.CreateEvent;
 							var createEventPayload = (OctokitV3.CreateEventPayload)item.Payload;
-							indivisual.PayloadSets.CreateEventPayload = new()
+							indivisual.Details.CreateEvent = new()
 							{
 								Description = createEventPayload.Description,
 								MasterBranch = createEventPayload.MasterBranch,
@@ -81,9 +83,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "DeleteEvent":
 						{
-							indivisual.Type = ActivityPayloadType.DeleteEvent;
+							indivisual.Type = ActivityKind.DeleteEvent;
 							var deleteEventPayload = (OctokitV3.DeleteEventPayload)item.Payload;
-							indivisual.PayloadSets.DeleteEventPayload = new()
+							indivisual.Details.DeleteEvent = new()
 							{
 								Ref = deleteEventPayload.Ref,
 							};
@@ -91,9 +93,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "ForkEvent":
 						{
-							indivisual.Type = ActivityPayloadType.ForkEvent;
+							indivisual.Type = ActivityKind.ForkEvent;
 							var forkEventPayload = (OctokitV3.ForkEventPayload)item.Payload;
-							indivisual.PayloadSets.ForkEventPayload = new()
+							indivisual.Details.ForkEvent = new()
 							{
 								Forkee = new()
 								{
@@ -109,9 +111,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "IssueCommentEvent":
 						{
-							indivisual.Type = ActivityPayloadType.IssueCommentEvent;
+							indivisual.Type = ActivityKind.IssueCommentEvent;
 							var issueCommentPayload = (OctokitV3.IssueCommentPayload)item.Payload;
-							indivisual.PayloadSets.IssueCommentPayload = new()
+							indivisual.Details.IssueCommentEvent = new()
 							{
 								Action = issueCommentPayload.Action,
 								Comment = new()
@@ -127,9 +129,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "IssueEvent":
 						{
-							indivisual.Type = ActivityPayloadType.IssueEvent;
+							indivisual.Type = ActivityKind.IssueEvent;
 							var issueEventPayload = (OctokitV3.IssueEventPayload)item.Payload;
-							indivisual.PayloadSets.IssueEventPayload = new()
+							indivisual.Details.IssueEvent = new()
 							{
 								Action = issueEventPayload.Action,
 								Issue = new()
@@ -147,9 +149,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "PullRequestComment":
 						{
-							indivisual.Type = ActivityPayloadType.PullRequestComment;
+							indivisual.Type = ActivityKind.PullRequestComment;
 							var pullRequestCommentPayload = (OctokitV3.PullRequestCommentPayload)item.Payload;
-							indivisual.PayloadSets.PullRequestCommentPayload = new()
+							indivisual.Details.PullRequestCommentEvent = new()
 							{
 								Action = pullRequestCommentPayload.Action,
 								PullRequest = new()
@@ -161,9 +163,9 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "PullRequestEvent":
 						{
-							indivisual.Type = ActivityPayloadType.PullRequestEvent;
+							indivisual.Type = ActivityKind.PullRequestEvent;
 							var pullRequestPayload = (OctokitV3.PullRequestEventPayload)item.Payload;
-							indivisual.PayloadSets.PullRequestEventPayload = new()
+							indivisual.Details.PullRequestEvent = new()
 							{
 								Action = pullRequestPayload.Action,
 								PullRequest = new()
@@ -183,41 +185,37 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "PullRequestReviewEvent":
 						{
-							indivisual.Type = ActivityPayloadType.PullRequestReviewEvent;
+							indivisual.Type = ActivityKind.PullRequestReviewEvent;
 						}
 						break;
 					case "PushEvent":
 						{
-							indivisual.Type = ActivityPayloadType.PushEvent;
+							indivisual.Type = ActivityKind.PushEvent;
 							var pushEventPayload = (OctokitV3.PushEventPayload)item.Payload;
-							indivisual.PayloadSets.PushEventPayload = new()
+							indivisual.Details.PushEvent = new()
 							{
+								Commits = pushEventPayload.Commits.Select(commit => new ActivityCommit
+								{
+									Message = commit.Message,
+									Sha = commit.Sha,
+									User = new()
+									{
+										AvatarUrl = commit.User?.AvatarUrl ?? string.Empty,
+										Login = commit.User?.Login ?? commit.Author?.Name ?? string.Empty,
+										Name = commit.User?.Name ?? commit.Author?.Name ?? string.Empty,
+									},
+								}).ToList(),
 								Head = pushEventPayload.Head,
 								Ref = pushEventPayload.Ref,
 								Size = pushEventPayload.Size,
 							};
 						}
 						break;
-					case "PushWebhookCommit":
-						{
-							indivisual.Type = ActivityPayloadType.PushWebhookCommit;
-						}
-						break;
-					case "PushWebhookCommitter":
-						{
-							indivisual.Type = ActivityPayloadType.PushWebhookCommitter;
-						}
-						break;
-					case "PushWebhook":
-						{
-							indivisual.Type = ActivityPayloadType.PushWebhook;
-						}
-						break;
 					case "ReleaseEvent":
 						{
-							indivisual.Type = ActivityPayloadType.ReleaseEvent;
+							indivisual.Type = ActivityKind.ReleaseEvent;
 							var releaseEventPayload = (OctokitV3.ReleaseEventPayload)item.Payload;
-							indivisual.PayloadSets.ReleaseEventPayload = new()
+							indivisual.Details.ReleaseEvent = new()
 							{
 								Action = releaseEventPayload.Action,
 								Release = new()
@@ -225,14 +223,15 @@ namespace FluentHub.Octokit.Wrappers
 									Name = releaseEventPayload.Release.Name,
 									Description = releaseEventPayload.Release.Body,
 								},
+								Sender = itemUser,
 							};
 						}
 						break;
 					case "WatchEvent":
 						{
-							indivisual.Type = ActivityPayloadType.WatchEvent;
+							indivisual.Type = ActivityKind.WatchEvent;
 							var watchEventPayload = (OctokitV3.StarredEventPayload)item.Payload;
-							indivisual.PayloadSets.StarredEventPayload = new()
+							indivisual.Details.StarredEvent = new()
 							{
 								Action = watchEventPayload.Action,
 							};
@@ -240,7 +239,7 @@ namespace FluentHub.Octokit.Wrappers
 						break;
 					case "StatusEvent":
 						{
-							indivisual.Type = ActivityPayloadType.StatusEvent;
+							indivisual.Type = ActivityKind.StatusEvent;
 						}
 						break;
 				}

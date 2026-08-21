@@ -87,6 +87,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.Repository(owner: owner, name: name)
 				.Select(x => new Repository
 				{
+					Id = x.Id,
 					HomepageUrl = x.HomepageUrl,
 					ForkingAllowed = x.ForkingAllowed,
 					HasIssuesEnabled = x.HasIssuesEnabled,
@@ -103,6 +104,9 @@ namespace FluentHub.Octokit.Queries.Repositories
 					IsFork = x.IsFork,
 					IsInOrganization = x.IsInOrganization,
 					ViewerHasStarred = x.ViewerHasStarred,
+					ViewerPermission = x.ViewerPermission == null
+						? null
+						: (RepositoryPermission?)x.ViewerPermission.Value,
 					UpdatedAt = x.UpdatedAt,
 
 					LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
@@ -326,6 +330,55 @@ namespace FluentHub.Octokit.Queries.Repositories
 			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
 			return (response.HeadRefsCount, response.TagCount);
+		}
+
+		public async Task<Repository> GetIssueOptionsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+		{
+			var openMilestones = new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.MilestoneState>>(
+				new[] { OctokitGraphQLModel.MilestoneState.Open });
+
+			var query = new Query()
+				.Repository(name, owner)
+				.Select(repository => new Repository
+				{
+					AssignableUsers = repository.AssignableUsers(100, null, null, null, null).Select(users => new UserConnection
+					{
+						Nodes = users.Nodes.Select(user => (User?)new User
+						{
+							AvatarUrl = user.AvatarUrl(500),
+							Id = user.Id,
+							Login = user.Login,
+							Name = user.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Labels = repository.Labels(100, null, null, null, null, null).Select(labels => new LabelConnection
+					{
+						Nodes = labels.Nodes.Select(label => (Label?)new Label
+						{
+							Color = label.Color,
+							Description = label.Description,
+							Id = label.Id,
+							Name = label.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Milestones = repository.Milestones(100, null, null, null, null, null, openMilestones).Select(milestones => new MilestoneConnection
+					{
+						Nodes = milestones.Nodes.Select(milestone => (Milestone?)new Milestone
+						{
+							Id = milestone.Id,
+							ProgressPercentage = milestone.ProgressPercentage,
+							Title = milestone.Title,
+						}).ToList(),
+					}).SingleOrDefault(),
+				})
+				.Compile();
+
+			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
 		}
 
 		public async Task<List<string>> GetBranchNameAllAsync(string owner, string name, CancellationToken cancellationToken = default)

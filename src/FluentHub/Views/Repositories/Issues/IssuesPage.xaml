@@ -29,12 +29,25 @@
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
+					<Grid Margin="0,0,0,16">
+						<TextBlock
+							VerticalAlignment="Center"
+							Style="{StaticResource TitleTextBlockStyle}"
+							Text="Issues" />
+						<Button
+							HorizontalAlignment="Right"
+							Click="OnCreateIssueClicked"
+							Content="New issue"
+							IsEnabled="{x:Bind ViewModel.CanCreateIssue, Mode=OneWay}" />
+					</Grid>
+
 					<Grid
 						x:Name="PinnedIssuesBlock"
-						Grid.Row="0"
+						Grid.Row="1"
 						Margin="0,0,0,16"
 						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 						RowSpacing="12">
@@ -71,12 +84,12 @@
 					</Grid>
 
 					<TextBox
-						Grid.Row="1"
+						Grid.Row="2"
 						Margin="0,8,0,16"
 						IsEnabled="False"
 						PlaceholderText="Search issues" />
 
-					<Grid Grid.Row="2">
+					<Grid Grid.Row="3">
 
 						<ListView ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}" SelectionMode="None">
 							<ListView.ItemsPanel>

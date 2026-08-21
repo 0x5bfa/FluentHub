@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using FluentHub.Data.Parameters;
+using Microsoft.UI.Xaml;
 
 namespace FluentHub.Views.Repositories.Issues
 {
@@ -40,6 +41,38 @@ namespace FluentHub.Views.Repositories.Issues
 				if (command.CanExecute(null))
 					command.Execute(null);
 			}
+		}
+
+		private async void OnCreateIssueClicked(object sender, RoutedEventArgs e)
+		{
+			var titleBox = new TextBox
+			{
+				Header = "Title",
+				PlaceholderText = "Issue title",
+			};
+			var bodyBox = new TextBox
+			{
+				Header = "Description",
+				AcceptsReturn = true,
+				MinHeight = 160,
+				TextWrapping = TextWrapping.Wrap,
+			};
+			var content = new StackPanel { Spacing = 12 };
+			content.Children.Add(titleBox);
+			content.Children.Add(bodyBox);
+
+			var dialog = new ContentDialog
+			{
+				Title = "New issue",
+				Content = content,
+				PrimaryButtonText = "Create",
+				CloseButtonText = "Cancel",
+				DefaultButton = ContentDialogButton.Primary,
+				XamlRoot = XamlRoot,
+			};
+
+			if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+				await ViewModel.CreateIssueAsync(titleBox.Text, bodyBox.Text);
 		}
 	}
 }

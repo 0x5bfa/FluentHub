@@ -4,7 +4,7 @@
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Models;
 using FluentHub.ViewModels.UserControls.BlockButtons;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.Users
 {

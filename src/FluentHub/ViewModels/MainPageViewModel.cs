@@ -11,7 +11,7 @@ using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
 using FluentHub.Data.Items;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels
 {
@@ -28,8 +28,8 @@ namespace FluentHub.ViewModels
 		private UserNotificationMessage _lastNotification = default!;
 		public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
 
-		private Octokit.Models.v4.User _signedInUser = default!;
-		public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+		private FluentHub.Octokit.Contracts.User _signedInUser = default!;
+		public FluentHub.Octokit.Contracts.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
 		private bool _taskIsInProgress;
 		public bool TaskIsInProgress { get => _taskIsInProgress; private set => SetProperty(ref _taskIsInProgress, value); }

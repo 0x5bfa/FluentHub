@@ -7,7 +7,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:modelsV3="using:Octokit"
+	xmlns:contracts="using:FluentHub.Octokit.Contracts"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
@@ -22,18 +22,18 @@
 		</Grid.RowDefinitions>
 
 		<StackPanel Orientation="Horizontal" Spacing="4">
-			<TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.PushEventPayload.Commits.Count, Mode=OneWay}" />
+			<TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.Details.Commits.Count, Mode=OneWay}" />
 			<TextBlock VerticalAlignment="Center" Text="commit" />
 		</StackPanel>
 
 		<MenuFlyoutSeparator Grid.Row="1" Margin="-16,8" />
 
 		<StackPanel Grid.Row="2">
-			<ItemsRepeater ItemsSource="{x:Bind ViewModel.PushEventPayload.Commits, Mode=OneWay}">
+			<ItemsRepeater ItemsSource="{x:Bind ViewModel.Details.Commits, Mode=OneWay}">
 				<ItemsRepeater.Layout>
 					<StackLayout Orientation="Vertical" Spacing="8" />
 				</ItemsRepeater.Layout>
-				<DataTemplate x:DataType="modelsV3:Commit">
+				<DataTemplate x:DataType="contracts:ActivityCommit">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<Border
 							Width="20"

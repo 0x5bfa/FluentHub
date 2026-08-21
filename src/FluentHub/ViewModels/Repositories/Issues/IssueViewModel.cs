@@ -6,13 +6,15 @@ using FluentHub.Utils;
 using FluentHub.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 
 namespace FluentHub.ViewModels.Repositories.Issues
 {
 	public class IssueViewModel : BaseViewModel
 	{
+		private IssueComment? _bodyComment;
+
 		private Issue _issueItem = default!;
 		public Issue IssueItem
 		{
@@ -22,6 +24,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				if (SetProperty(ref _issueItem, value))
 				{
 					OnPropertyChanged(nameof(IssueStateButtonText));
+					OnPropertyChanged(nameof(SubscriptionButtonText));
+					OnPropertyChanged(nameof(CanEditIssue));
+					OnPropertyChanged(nameof(CanEditMetadata));
 					NotifyMutationCommandsCanExecuteChanged();
 				}
 			}
@@ -52,6 +57,25 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		public string IssueStateButtonText
 			=> _issueItem?.Closed is true ? "Reopen issue" : "Close issue";
 
+		public string SubscriptionButtonText
+			=> _issueItem?.ViewerSubscription == SubscriptionState.Subscribed ? "Unsubscribe" : "Subscribe";
+
+		public bool CanEditIssue
+			=> !IsIssueMutationRunning && _issueItem?.ViewerCanUpdate is true;
+
+		public bool CanEditMetadata
+			=> !IsIssueMutationRunning
+			&& (_issueItem?.ViewerCanLabel is true || ViewerCanManageIssues);
+
+		public bool CanCloseIssue
+			=> _issueItem?.Closed is false && CanToggleIssueState;
+
+		private bool ViewerCanManageIssues
+			=> Repository?.ViewerPermission is RepositoryPermission.Admin
+				or RepositoryPermission.Maintain
+				or RepositoryPermission.Write
+				or RepositoryPermission.Triage;
+
 		private bool CanAddIssueComment
 			=> !IsIssueMutationRunning
 			&& _issueItem is not null
@@ -61,8 +85,12 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			=> !IsIssueMutationRunning
 			&& _issueItem is not null
 			&& (_issueItem.Closed
-				? _issueItem.ViewerCanReopen || _issueItem.ViewerCanUpdate
-				: _issueItem.ViewerCanClose || _issueItem.ViewerCanUpdate);
+				? _issueItem.ViewerCanReopen || _issueItem.ViewerCanUpdate || ViewerCanManageIssues
+				: _issueItem.ViewerCanClose || _issueItem.ViewerCanUpdate || ViewerCanManageIssues);
+
+		private bool CanToggleSubscription
+			=> !IsIssueMutationRunning
+			&& _issueItem?.ViewerCanSubscribe is true;
 
 		private readonly ObservableCollection<object> _timelineItems;
 		public ReadOnlyObservableCollection<object> TimelineItems { get; set; }
@@ -70,6 +98,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		public IAsyncRelayCommand LoadRepositoryIssuePageCommand { get; }
 		public IAsyncRelayCommand AddIssueCommentCommand { get; }
 		public IAsyncRelayCommand ToggleIssueStateCommand { get; }
+		public IAsyncRelayCommand ToggleSubscriptionCommand { get; }
 
 		public IssueViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
@@ -79,6 +108,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			LoadRepositoryIssuePageCommand = new AsyncRelayCommand(LoadRepositoryIssuePageAsync);
 			AddIssueCommentCommand = new AsyncRelayCommand(AddIssueCommentAsync, () => CanAddIssueComment);
 			ToggleIssueStateCommand = new AsyncRelayCommand(ToggleIssueStateAsync, () => CanToggleIssueState);
+			ToggleSubscriptionCommand = new AsyncRelayCommand(ToggleSubscriptionAsync, () => CanToggleSubscription);
 		}
 
 		private async Task LoadRepositoryIssuePageAsync()
@@ -118,8 +148,11 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			IssueItem = await issueQueries.GetAsync(owner, name, Number);
 
-			var bodyComment = await issueQueries.GetBodyAsync(owner, name, Number);
-			_timelineItems.Add(bodyComment);
+			_bodyComment = await issueQueries.GetBodyAsync(owner, name, Number);
+			// The issue body uses the issue node ID, so it must be edited through UpdateIssue.
+			_bodyComment.ViewerCanUpdate = false;
+			_bodyComment.ViewerCanDelete = false;
+			_timelineItems.Add(_bodyComment);
 
 			var issueEvents = await queries.GetAllAsync(owner, name, Number);
 			foreach (var item in issueEvents)
@@ -142,7 +175,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			try
 			{
 				var mutations = _gitHub.Mutations.Issues;
-				var response = await mutations.AddCommentAsync(new AddCommentInput
+				var response = await mutations.AddCommentAsync(new AddCommentRequest
 				{
 					SubjectId = IssueItem.Id,
 					Body = CommentBody,
@@ -187,7 +220,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 				if (IssueItem.Closed)
 				{
-					var response = await mutations.ReopenIssueAsync(new ReopenIssueInput
+					var response = await mutations.ReopenIssueAsync(new ReopenIssueRequest
 					{
 						IssueId = IssueItem.Id,
 					});
@@ -196,7 +229,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				}
 				else
 				{
-					var response = await mutations.CloseIssueAsync(new CloseIssueInput
+					var response = await mutations.CloseIssueAsync(new CloseIssueRequest
 					{
 						IssueId = IssueItem.Id,
 						StateReason = IssueClosedStateReason.Completed,
@@ -217,19 +250,169 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			}
 		}
 
+		public async Task CloseIssueAsync(IssueClosedStateReason reason)
+		{
+			if (!CanToggleIssueState || IssueItem.Closed)
+				return;
+
+			IsIssueMutationRunning = true;
+
+			try
+			{
+				var response = await _gitHub.Mutations.Issues.CloseIssueAsync(new CloseIssueRequest
+				{
+					IssueId = IssueItem.Id,
+					StateReason = reason,
+				});
+
+				ApplyIssueState(response.Issue
+					?? throw new InvalidOperationException("The close issue mutation did not return an issue."));
+			}
+			catch (Exception ex)
+			{
+				NotifyMutationFailed(nameof(CloseIssueAsync), ex);
+			}
+			finally
+			{
+				IsIssueMutationRunning = false;
+			}
+		}
+
+		public async Task UpdateIssueAsync(string title, string body)
+		{
+			if (!CanEditIssue || string.IsNullOrWhiteSpace(title))
+				return;
+
+			IsIssueMutationRunning = true;
+
+			try
+			{
+				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueRequest
+				{
+					Id = IssueItem.Id,
+					Title = title.Trim(),
+					Body = body,
+				});
+
+				ApplyIssueState(response.Issue
+					?? throw new InvalidOperationException("The update issue mutation did not return an issue."));
+				SetTabInformation(IssueItem.Title, IssueItem.Title);
+			}
+			catch (Exception ex)
+			{
+				NotifyMutationFailed(nameof(UpdateIssueAsync), ex);
+			}
+			finally
+			{
+				IsIssueMutationRunning = false;
+			}
+		}
+
+		public Task<Repository> GetIssueOptionsAsync()
+			=> _gitHub.Repositories.Repositories.GetIssueOptionsAsync(Login, Name);
+
+		public async Task UpdateMetadataAsync(
+			IReadOnlyCollection<User> assignees,
+			IReadOnlyCollection<Label> labels,
+			Milestone? milestone)
+		{
+			if (!CanEditMetadata)
+				return;
+
+			IsIssueMutationRunning = true;
+
+			try
+			{
+				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueRequest
+				{
+					Id = IssueItem.Id,
+					AssigneeIds = assignees.Select(x => x.Id).ToList(),
+					LabelIds = labels.Select(x => x.Id).ToList(),
+					MilestoneId = milestone?.Id,
+				});
+
+				ApplyIssueState(response.Issue
+					?? throw new InvalidOperationException("The update issue mutation did not return an issue."));
+				IssueItem.Assignees = new UserConnection { Nodes = assignees.Cast<User?>().ToList() };
+				IssueItem.Labels = new LabelConnection { Nodes = labels.Cast<Label?>().ToList() };
+				IssueItem.Milestone = milestone;
+				OnPropertyChanged(nameof(IssueItem));
+			}
+			catch (Exception ex)
+			{
+				NotifyMutationFailed(nameof(UpdateMetadataAsync), ex);
+			}
+			finally
+			{
+				IsIssueMutationRunning = false;
+			}
+		}
+
+		private async Task ToggleSubscriptionAsync()
+		{
+			if (!CanToggleSubscription)
+				return;
+
+			IsIssueMutationRunning = true;
+
+			try
+			{
+				var nextState = IssueItem.ViewerSubscription == SubscriptionState.Subscribed
+					? SubscriptionState.Unsubscribed
+					: SubscriptionState.Subscribed;
+				var response = await _gitHub.Mutations.Subscriptions.UpdateAsync(new UpdateSubscriptionRequest
+				{
+					SubscribableId = IssueItem.Id,
+					State = nextState,
+				});
+
+				IssueItem.ViewerSubscription = response.Subscribable?.ViewerSubscription ?? nextState;
+				OnPropertyChanged(nameof(IssueItem));
+				OnPropertyChanged(nameof(SubscriptionButtonText));
+			}
+			catch (Exception ex)
+			{
+				NotifyMutationFailed(nameof(ToggleSubscriptionAsync), ex);
+			}
+			finally
+			{
+				IsIssueMutationRunning = false;
+			}
+		}
+
 		private void ApplyIssueState(Issue issue)
 		{
+			IssueItem.Body = issue.Body;
 			IssueItem.Closed = issue.Closed;
+			IssueItem.Title = issue.Title;
 			IssueItem.State = issue.State;
 			IssueItem.StateReason = issue.StateReason;
 			IssueItem.UpdatedAt = issue.UpdatedAt;
 			IssueItem.UpdatedAtHumanized = issue.UpdatedAtHumanized;
 			IssueItem.ViewerCanClose = issue.ViewerCanClose;
 			IssueItem.ViewerCanReopen = issue.ViewerCanReopen;
+			IssueItem.ViewerCanLabel = issue.ViewerCanLabel;
+			IssueItem.ViewerCanSubscribe = issue.ViewerCanSubscribe;
 			IssueItem.ViewerCanUpdate = issue.ViewerCanUpdate;
+			IssueItem.ViewerSubscription = issue.ViewerSubscription;
+
+			if (_bodyComment is not null && _bodyComment.Body != issue.Body)
+			{
+				_bodyComment.Body = issue.Body;
+				var index = _timelineItems.IndexOf(_bodyComment);
+				if (index >= 0)
+				{
+					_timelineItems.RemoveAt(index);
+					_timelineItems.Insert(index, _bodyComment);
+				}
+			}
 
 			OnPropertyChanged(nameof(IssueItem));
 			OnPropertyChanged(nameof(IssueStateButtonText));
+			OnPropertyChanged(nameof(SubscriptionButtonText));
+			OnPropertyChanged(nameof(CanEditIssue));
+			OnPropertyChanged(nameof(CanEditMetadata));
+			OnPropertyChanged(nameof(CanCloseIssue));
 			NotifyMutationCommandsCanExecuteChanged();
 		}
 
@@ -237,7 +420,12 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		{
 			AddIssueCommentCommand?.NotifyCanExecuteChanged();
 			ToggleIssueStateCommand?.NotifyCanExecuteChanged();
+			ToggleSubscriptionCommand?.NotifyCanExecuteChanged();
 			OnPropertyChanged(nameof(IssueStateButtonText));
+			OnPropertyChanged(nameof(SubscriptionButtonText));
+			OnPropertyChanged(nameof(CanEditIssue));
+			OnPropertyChanged(nameof(CanEditMetadata));
+			OnPropertyChanged(nameof(CanCloseIssue));
 		}
 
 		private void NotifyMutationFailed(string operationName, Exception exception)

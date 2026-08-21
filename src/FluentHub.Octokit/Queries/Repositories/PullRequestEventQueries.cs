@@ -536,6 +536,16 @@ namespace FluentHub.Octokit.Queries.Repositories
 						.ToList(),
 					})
 					.SingleOrDefault(),
+
+					ReactionGroups = y.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
 				})
 				.LabeledEvent(y => new LabeledEvent
 				{
