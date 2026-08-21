@@ -105,6 +105,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 				.Issue(number)
 				.Select(x => new Issue
 				{
+					Body = x.Body,
 					Closed = x.Closed,
 					Id = x.Id,
 					Number = x.Number,
@@ -113,14 +114,20 @@ namespace FluentHub.Octokit.Queries.Repositories
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
 					ViewerCanClose = x.ViewerCanUpdate,
+					ViewerCanLabel = x.ViewerCanUpdate,
 					ViewerCanReopen = x.ViewerCanUpdate,
+					ViewerCanSubscribe = x.ViewerCanSubscribe,
 					ViewerCanUpdate = x.ViewerCanUpdate,
+					ViewerSubscription = x.ViewerSubscription == null
+						? null
+						: (SubscriptionState?)x.ViewerSubscription.Value,
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
 						Nodes = assignees.Nodes.Select(y => (User?)new User
 						{
 							AvatarUrl = y.AvatarUrl(500),
+							Id = y.Id,
 							Login = y.Login,
 						})
 						.ToList(),
@@ -139,6 +146,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 						{
 							Color = y.Color,
 							Description = y.Description,
+							Id = y.Id,
 							Name = y.Name,
 						})
 						.ToList(),
@@ -147,6 +155,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
 					Milestone = x.Milestone.Select(y => new Milestone
 					{
+						Id = y.Id,
 						Title = y.Title,
 						ProgressPercentage = y.ProgressPercentage,
 					})
@@ -237,6 +246,16 @@ namespace FluentHub.Octokit.Queries.Repositories
 						.ToList(),
 					})
 					.SingleOrDefault(),
+
+					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
 				})
 				.Compile();
 

@@ -146,16 +146,29 @@ namespace FluentHub.Octokit.Queries.Repositories
 				{
 					Additions = x.Additions,
 					BaseRefName = x.BaseRefName,
+					Body = x.Body,
 					ChangedFiles = x.ChangedFiles,
 					Closed = x.Closed,
 					Deletions = x.Deletions,
 					HeadRefName = x.HeadRefName,
+					HeadRefOid = x.HeadRefOid,
+					Id = x.Id,
 					IsDraft = x.IsDraft,
+					Mergeable = (MergeableState)x.Mergeable,
 					Merged = x.Merged,
 					Number = x.Number,
+					State = (PullRequestState)x.State,
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
 					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
+					ViewerCanClose = x.ViewerCanUpdate,
+					ViewerCanMergeAsAdmin = x.ViewerCanMergeAsAdmin,
+					ViewerCanReopen = x.ViewerCanUpdate,
+					ViewerCanSubscribe = x.ViewerCanSubscribe,
+					ViewerCanUpdate = x.ViewerCanUpdate,
+					ViewerSubscription = x.ViewerSubscription == null
+						? null
+						: (SubscriptionState?)x.ViewerSubscription.Value,
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
@@ -355,6 +368,16 @@ namespace FluentHub.Octokit.Queries.Repositories
 						.ToList(),
 					})
 					.SingleOrDefault(),
+
+					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
 				})
 				.Compile();
 

@@ -3,6 +3,7 @@
 
 using Microsoft.UI.Xaml.Data;
 using FluentHub.Octokit.Models.v4;
+using FluentHub.Services;
 
 namespace FluentHub.Converters
 {
@@ -10,30 +11,9 @@ namespace FluentHub.Converters
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
-			if (value is not IssueComment ic)
-				return new ViewModels.UserControls.IssueCommentBlockViewModel();
-
-			var issueCommentBlockViewModel = new ViewModels.UserControls.IssueCommentBlockViewModel()
-			{
-				IssueComment = ic,
-			};
-
-			// Parse reactions nodes
-			foreach (var reaction in (ic.Reactions?.Nodes ?? Enumerable.Empty<Reaction?>()).OfType<Reaction>())
-			{
-				_ = reaction.Content switch
-				{
-					ReactionContent.ThumbsUp => issueCommentBlockViewModel.ThumbsUpCount++,
-					ReactionContent.ThumbsDown => issueCommentBlockViewModel.ThumbsDownCount++,
-					ReactionContent.Laugh => issueCommentBlockViewModel.LaughCount++,
-					ReactionContent.Hooray => issueCommentBlockViewModel.HoorayCount++,
-					ReactionContent.Confused => issueCommentBlockViewModel.ConfusedCount++,
-					ReactionContent.Heart => issueCommentBlockViewModel.HeartCount++,
-					ReactionContent.Rocket => issueCommentBlockViewModel.RocketCount++,
-					ReactionContent.Eyes => issueCommentBlockViewModel.EyesCount++,
-					_ => 0,
-				};
-			}
+			var issueCommentBlockViewModel = Ioc.Default.GetRequiredService<ViewModels.UserControls.IssueCommentBlockViewModel>();
+			if (value is IssueComment issueComment)
+				issueCommentBlockViewModel.IssueComment = issueComment;
 
 			return issueCommentBlockViewModel;
 		}

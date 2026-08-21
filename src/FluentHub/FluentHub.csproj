@@ -35,6 +35,8 @@
 		<!--  Publish AOT  -->
 		<IsAotCompatible>true</IsAotCompatible>
 		<PublishAot>true</PublishAot>
+		<ILLinkTreatWarningsAsErrors>false</ILLinkTreatWarningsAsErrors>
+		<IlcTreatWarningsAsErrors>false</IlcTreatWarningsAsErrors>
 		<SelfContained>true</SelfContained>
 		<IlcGenerateMstatFile>true</IlcGenerateMstatFile>
 		<IlcGenerateDgmlFile>true</IlcGenerateDgmlFile>

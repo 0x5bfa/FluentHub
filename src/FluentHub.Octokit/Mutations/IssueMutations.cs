@@ -9,46 +9,6 @@ namespace FluentHub.Octokit.Mutations
 		public IssueMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		private static readonly Expression<Func<OctokitGraphQLModel.Issue, Issue>> IssueStateSelector
-			= issue => new Issue
-			{
-				Id = issue.Id,
-				Closed = issue.Closed,
-				State = (IssueState)issue.State,
-				StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
-				UpdatedAt = issue.UpdatedAt,
-				UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-				ViewerCanClose = issue.ViewerCanUpdate,
-				ViewerCanReopen = issue.ViewerCanUpdate,
-				ViewerCanUpdate = issue.ViewerCanUpdate,
-			};
-
-		private static readonly Expression<Func<OctokitGraphQLModel.IssueComment, IssueComment>> IssueCommentSelector
-			= comment => new IssueComment
-			{
-				AuthorAssociation = (CommentAuthorAssociation)comment.AuthorAssociation,
-				Body = comment.Body,
-				BodyHTML = comment.BodyHTML,
-				CreatedAt = comment.CreatedAt,
-				CreatedAtHumanized = comment.CreatedAt.ToRelativeTime(),
-				Id = comment.Id,
-				LastEditedAt = comment.LastEditedAt,
-				UpdatedAt = comment.UpdatedAt,
-				UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime(),
-				Url = comment.Url,
-				ViewerCanDelete = comment.ViewerCanDelete,
-				ViewerCanReact = comment.ViewerCanReact,
-				ViewerCanUpdate = comment.ViewerCanUpdate,
-				ViewerDidAuthor = comment.ViewerDidAuthor,
-
-				Author = comment.Author.Select(author => new Actor
-				{
-					AvatarUrl = author.AvatarUrl(500),
-					Login = author.Login,
-				})
-				.SingleOrDefault(),
-			};
-
 		public Task<CreateIssuePayload> CreateIssueAsync(
 			CreateIssueInput input,
 			CancellationToken cancellationToken = default)
@@ -60,7 +20,26 @@ namespace FluentHub.Octokit.Mutations
 				.Select(x => new CreateIssuePayload
 				{
 					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(IssueStateSelector).SingleOrDefault(),
+					Issue = x.Issue.Select(issue => new Issue
+					{
+						Id = issue.Id,
+						Body = issue.Body,
+						Closed = issue.Closed,
+						Number = issue.Number,
+						State = (IssueState)issue.State,
+						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
+						Title = issue.Title,
+						UpdatedAt = issue.UpdatedAt,
+						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
+						ViewerCanClose = issue.ViewerCanUpdate,
+						ViewerCanLabel = issue.ViewerCanUpdate,
+						ViewerCanReopen = issue.ViewerCanUpdate,
+						ViewerCanSubscribe = issue.ViewerCanSubscribe,
+						ViewerCanUpdate = issue.ViewerCanUpdate,
+						ViewerSubscription = issue.ViewerSubscription == null
+							? null
+							: (SubscriptionState?)issue.ViewerSubscription.Value,
+					}).SingleOrDefault(),
 				})
 				.Compile();
 
@@ -78,7 +57,26 @@ namespace FluentHub.Octokit.Mutations
 				.Select(x => new UpdateIssuePayload
 				{
 					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(IssueStateSelector).SingleOrDefault(),
+					Issue = x.Issue.Select(issue => new Issue
+					{
+						Id = issue.Id,
+						Body = issue.Body,
+						Closed = issue.Closed,
+						Number = issue.Number,
+						State = (IssueState)issue.State,
+						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
+						Title = issue.Title,
+						UpdatedAt = issue.UpdatedAt,
+						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
+						ViewerCanClose = issue.ViewerCanUpdate,
+						ViewerCanLabel = issue.ViewerCanUpdate,
+						ViewerCanReopen = issue.ViewerCanUpdate,
+						ViewerCanSubscribe = issue.ViewerCanSubscribe,
+						ViewerCanUpdate = issue.ViewerCanUpdate,
+						ViewerSubscription = issue.ViewerSubscription == null
+							? null
+							: (SubscriptionState?)issue.ViewerSubscription.Value,
+					}).SingleOrDefault(),
 				})
 				.Compile();
 
@@ -96,7 +94,26 @@ namespace FluentHub.Octokit.Mutations
 				.Select(x => new CloseIssuePayload
 				{
 					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(IssueStateSelector).SingleOrDefault(),
+					Issue = x.Issue.Select(issue => new Issue
+					{
+						Id = issue.Id,
+						Body = issue.Body,
+						Closed = issue.Closed,
+						Number = issue.Number,
+						State = (IssueState)issue.State,
+						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
+						Title = issue.Title,
+						UpdatedAt = issue.UpdatedAt,
+						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
+						ViewerCanClose = issue.ViewerCanUpdate,
+						ViewerCanLabel = issue.ViewerCanUpdate,
+						ViewerCanReopen = issue.ViewerCanUpdate,
+						ViewerCanSubscribe = issue.ViewerCanSubscribe,
+						ViewerCanUpdate = issue.ViewerCanUpdate,
+						ViewerSubscription = issue.ViewerSubscription == null
+							? null
+							: (SubscriptionState?)issue.ViewerSubscription.Value,
+					}).SingleOrDefault(),
 				})
 				.Compile();
 
@@ -114,7 +131,26 @@ namespace FluentHub.Octokit.Mutations
 				.Select(x => new ReopenIssuePayload
 				{
 					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(IssueStateSelector).SingleOrDefault(),
+					Issue = x.Issue.Select(issue => new Issue
+					{
+						Id = issue.Id,
+						Body = issue.Body,
+						Closed = issue.Closed,
+						Number = issue.Number,
+						State = (IssueState)issue.State,
+						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
+						Title = issue.Title,
+						UpdatedAt = issue.UpdatedAt,
+						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
+						ViewerCanClose = issue.ViewerCanUpdate,
+						ViewerCanLabel = issue.ViewerCanUpdate,
+						ViewerCanReopen = issue.ViewerCanUpdate,
+						ViewerCanSubscribe = issue.ViewerCanSubscribe,
+						ViewerCanUpdate = issue.ViewerCanUpdate,
+						ViewerSubscription = issue.ViewerSubscription == null
+							? null
+							: (SubscriptionState?)issue.ViewerSubscription.Value,
+					}).SingleOrDefault(),
 				})
 				.Compile();
 
@@ -135,7 +171,28 @@ namespace FluentHub.Octokit.Mutations
 					CommentEdge = x.CommentEdge.Select(edge => new IssueCommentEdge
 					{
 						Cursor = edge.Cursor,
-						Node = edge.Node.Select(IssueCommentSelector).SingleOrDefault(),
+						Node = edge.Node.Select(comment => new IssueComment
+						{
+							AuthorAssociation = (CommentAuthorAssociation)comment.AuthorAssociation,
+							Body = comment.Body,
+							BodyHTML = comment.BodyHTML,
+							CreatedAt = comment.CreatedAt,
+							CreatedAtHumanized = comment.CreatedAt.ToRelativeTime(),
+							Id = comment.Id,
+							LastEditedAt = comment.LastEditedAt,
+							UpdatedAt = comment.UpdatedAt,
+							UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime(),
+							Url = comment.Url,
+							ViewerCanDelete = comment.ViewerCanDelete,
+							ViewerCanReact = comment.ViewerCanReact,
+							ViewerCanUpdate = comment.ViewerCanUpdate,
+							ViewerDidAuthor = comment.ViewerDidAuthor,
+							Author = comment.Author.Select(author => new Actor
+							{
+								AvatarUrl = author.AvatarUrl(500),
+								Login = author.Login,
+							}).SingleOrDefault(),
+						}).SingleOrDefault(),
 					}).SingleOrDefault(),
 				})
 				.Compile();
@@ -154,7 +211,28 @@ namespace FluentHub.Octokit.Mutations
 				.Select(x => new UpdateIssueCommentPayload
 				{
 					ClientMutationId = x.ClientMutationId,
-					IssueComment = x.IssueComment.Select(IssueCommentSelector).SingleOrDefault(),
+					IssueComment = x.IssueComment.Select(comment => new IssueComment
+					{
+						AuthorAssociation = (CommentAuthorAssociation)comment.AuthorAssociation,
+						Body = comment.Body,
+						BodyHTML = comment.BodyHTML,
+						CreatedAt = comment.CreatedAt,
+						CreatedAtHumanized = comment.CreatedAt.ToRelativeTime(),
+						Id = comment.Id,
+						LastEditedAt = comment.LastEditedAt,
+						UpdatedAt = comment.UpdatedAt,
+						UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime(),
+						Url = comment.Url,
+						ViewerCanDelete = comment.ViewerCanDelete,
+						ViewerCanReact = comment.ViewerCanReact,
+						ViewerCanUpdate = comment.ViewerCanUpdate,
+						ViewerDidAuthor = comment.ViewerDidAuthor,
+						Author = comment.Author.Select(author => new Actor
+						{
+							AvatarUrl = author.AvatarUrl(500),
+							Login = author.Login,
+						}).SingleOrDefault(),
+					}).SingleOrDefault(),
 				})
 				.Compile();
 

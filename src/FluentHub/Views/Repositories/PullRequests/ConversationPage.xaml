@@ -291,8 +291,8 @@
 
 									<Button
 										HorizontalAlignment="Stretch"
-										Content="Subscribe"
-										IsEnabled="False" />
+										Command="{x:Bind ViewModel.ToggleSubscriptionCommand}"
+										Content="{x:Bind ViewModel.SubscriptionButtonText, Mode=OneWay}" />
 
 								</StackPanel>
 
@@ -441,7 +441,8 @@
 							<TextBox
 								Margin="12"
 								Background="{ThemeResource LayerFillColorDefaultBrush}"
-								PlaceholderText="Leave a comment" />
+								PlaceholderText="Leave a comment"
+								Text="{x:Bind ViewModel.CommentBody, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 						</Grid>
 
 						<Grid
@@ -453,10 +454,31 @@
 								HorizontalAlignment="Right"
 								Orientation="Horizontal"
 								Spacing="8">
-								<Button Content="Close issue" IsEnabled="False" />
+								<Button
+									Click="OnEditPullRequestClicked"
+									Content="Edit"
+									IsEnabled="{x:Bind ViewModel.CanEditPullRequest, Mode=OneWay}" />
+								<Button
+									Click="OnReviewClicked"
+									Content="Review"
+									IsEnabled="{x:Bind ViewModel.CanSubmitReview, Mode=OneWay}" />
+								<Button
+									Content="Merge"
+									IsEnabled="{x:Bind ViewModel.CanMergePullRequest, Mode=OneWay}">
+									<Button.Flyout>
+										<MenuFlyout>
+											<MenuFlyoutItem Click="OnMergeClicked" Tag="Merge" Text="Create a merge commit" />
+											<MenuFlyoutItem Click="OnMergeClicked" Tag="Squash" Text="Squash and merge" />
+											<MenuFlyoutItem Click="OnMergeClicked" Tag="Rebase" Text="Rebase and merge" />
+										</MenuFlyout>
+									</Button.Flyout>
+								</Button>
+								<Button
+									Command="{x:Bind ViewModel.ToggleStateCommand}"
+									Content="{x:Bind ViewModel.PullRequestStateButtonText, Mode=OneWay}" />
 								<Button
 									Content="Comment"
-									IsEnabled="False"
+									Command="{x:Bind ViewModel.AddCommentCommand}"
 									Style="{StaticResource AccentButtonStyle}" />
 							</StackPanel>
 						</Grid>

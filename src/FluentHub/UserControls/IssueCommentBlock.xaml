@@ -73,11 +73,11 @@
 							<MenuFlyoutItem IsEnabled="False" Text="Quote reply" />
 							<MenuFlyoutItem IsEnabled="False" Text="Reference in new issue" />
 							<MenuFlyoutSeparator />
-							<MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanUpdate}" Text="Edit" />
+							<MenuFlyoutItem Click="OnEditCommentClicked" IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}" Text="Edit" />
 							<MenuFlyoutSeparator />
 							<MenuFlyoutItem IsEnabled="False" Text="Report" />
 							<MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanMinimize}" Text="Hide" />
-							<MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanDelete}" Text="Delete" />
+							<MenuFlyoutItem Click="OnDeleteCommentClicked" IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}" Text="Delete" />
 						</MenuFlyout>
 					</Button.Flyout>
 				</Button>
@@ -101,8 +101,7 @@
 		<Grid
 			x:Name="IssueCommentReactionGroupGrid"
 			Grid.Row="3"
-			Padding="12,0,0,12"
-			x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+			Padding="12,0,0,12">
 			<StackPanel Orientation="Horizontal" Spacing="6">
 
 				<Button
@@ -110,7 +109,7 @@
 					Width="32"
 					Height="32"
 					Padding="0"
-					x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
 					CornerRadius="16">
 					<Button.Content>
 						<FontIcon FontSize="14" Glyph="&#xE170;" />
@@ -119,37 +118,53 @@
 						<Flyout Placement="TopEdgeAlignedLeft">
 							<StackPanel Orientation="Horizontal" Spacing="6">
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="👍"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedThumbsUp, Mode=OneWay}"
+									Tag="ThumbsUp" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="👎"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedThumbsDown, Mode=OneWay}"
+									Tag="ThumbsDown" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="😄"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedLaugh, Mode=OneWay}"
+									Tag="Laugh" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="🎉"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedHooray, Mode=OneWay}"
+									Tag="Hooray" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="😕"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedConfused, Mode=OneWay}"
+									Tag="Confused" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="❤️"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedHeart, Mode=OneWay}"
+									Tag="Heart" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="🚀"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedRocket, Mode=OneWay}"
+									Tag="Rocket" />
 								<ToggleButton
+									Click="OnReactionClicked"
 									Content="👀"
 									CornerRadius="8"
-									IsEnabled="False" />
+									IsChecked="{x:Bind ViewModel.ViewerReactedEyes, Mode=OneWay}"
+									Tag="Eyes" />
 							</StackPanel>
 						</Flyout>
 					</Button.Flyout>
@@ -157,9 +172,12 @@
 
 				<ToggleButton
 					x:Name="ThumbsUpToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.ThumbsUpCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedThumbsUp, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="ThumbsUp">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="👍" />
 						<TextBlock Text="{x:Bind ViewModel.ThumbsUpCount, Mode=OneWay}" />
@@ -168,9 +186,12 @@
 
 				<ToggleButton
 					x:Name="ThumbsDownToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.ThumbsDownCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedThumbsDown, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="ThumbsDown">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="👎" />
 						<TextBlock Text="{x:Bind ViewModel.ThumbsDownCount, Mode=OneWay}" />
@@ -179,9 +200,12 @@
 
 				<ToggleButton
 					x:Name="LaughToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.LaughCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedLaugh, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Laugh">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="😄" />
 						<TextBlock Text="{x:Bind ViewModel.LaughCount, Mode=OneWay}" />
@@ -190,9 +214,12 @@
 
 				<ToggleButton
 					x:Name="HoorayToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.HoorayCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedHooray, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Hooray">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="🎉" />
 						<TextBlock Text="{x:Bind ViewModel.HoorayCount, Mode=OneWay}" />
@@ -201,9 +228,12 @@
 
 				<ToggleButton
 					x:Name="ConfusedToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.ConfusedCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedConfused, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Confused">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="😕" />
 						<TextBlock Text="{x:Bind ViewModel.ConfusedCount, Mode=OneWay}" />
@@ -212,9 +242,12 @@
 
 				<ToggleButton
 					x:Name="HeartToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.HeartCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedHeart, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Heart">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="❤️" />
 						<TextBlock Text="{x:Bind ViewModel.HeartCount, Mode=OneWay}" />
@@ -223,9 +256,12 @@
 
 				<ToggleButton
 					x:Name="RocketToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.RocketCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedRocket, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Rocket">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="🚀" />
 						<TextBlock Text="{x:Bind ViewModel.RocketCount, Mode=OneWay}" />
@@ -234,9 +270,12 @@
 
 				<ToggleButton
 					x:Name="EyesToggleButton"
+					Click="OnReactionClicked"
 					x:Load="{x:Bind ViewModel.EyesCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 					CornerRadius="16"
-					IsEnabled="False">
+					IsChecked="{x:Bind ViewModel.ViewerReactedEyes, Mode=OneWay}"
+					IsEnabled="{x:Bind ViewModel.CanReact, Mode=OneWay}"
+					Tag="Eyes">
 					<StackPanel Orientation="Horizontal" Spacing="4">
 						<TextBlock Text="👀" />
 						<TextBlock Text="{x:Bind ViewModel.EyesCount, Mode=OneWay}" />

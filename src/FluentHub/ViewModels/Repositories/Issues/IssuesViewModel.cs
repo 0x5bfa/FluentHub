@@ -8,6 +8,7 @@ using FluentHub.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Mutations;
 
 namespace FluentHub.ViewModels.Repositories.Issues
 {
@@ -21,6 +22,23 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 		public IAsyncRelayCommand LoadRepositoryIssuesPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryIssuesFurtherCommand { get; }
+
+		private bool _isIssueMutationRunning;
+		public bool IsIssueMutationRunning
+		{
+			get => _isIssueMutationRunning;
+			private set
+			{
+				if (SetProperty(ref _isIssueMutationRunning, value))
+					OnPropertyChanged(nameof(CanCreateIssue));
+			}
+		}
+
+		public bool CanCreateIssue
+			=> !IsIssueMutationRunning
+			&& Repository is not null
+			&& Repository.HasIssuesEnabled
+			&& !Repository.IsArchived;
 
 		public IssuesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
@@ -146,6 +164,44 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		{
 			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
+			OnPropertyChanged(nameof(CanCreateIssue));
+		}
+
+		public async Task CreateIssueAsync(string title, string body)
+		{
+			if (!CanCreateIssue || string.IsNullOrWhiteSpace(title))
+				return;
+
+			IsIssueMutationRunning = true;
+
+			try
+			{
+				var response = await _gitHub.Mutations.Issues.CreateIssueAsync(new CreateIssueInput
+				{
+					RepositoryId = Repository.Id,
+					Title = title.Trim(),
+					Body = body,
+				});
+
+				var issue = response.Issue
+					?? throw new InvalidOperationException("The create issue mutation did not return an issue.");
+
+				issue.Repository = Repository;
+				issue.Comments = new IssueCommentConnection();
+				issue.Labels = new LabelConnection { Nodes = [] };
+
+				_issueItems.Insert(0, new IssueBlockButtonViewModel { IssueItem = issue });
+				IsEmpty = false;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(CreateIssueAsync), ex);
+				_messenger?.Send(new UserNotificationMessage("Something went wrong", ex.Message, UserNotificationType.Error));
+			}
+			finally
+			{
+				IsIssueMutationRunning = false;
+			}
 		}
 	}
 }
