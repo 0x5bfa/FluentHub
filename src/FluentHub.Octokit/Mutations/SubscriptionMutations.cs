@@ -9,20 +9,20 @@ namespace FluentHub.Octokit.Mutations
 		public SubscriptionMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<UpdateSubscriptionPayload> UpdateAsync(
-			UpdateSubscriptionInput input,
+		public Task<UpdateSubscriptionResult> UpdateAsync(
+			UpdateSubscriptionRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.UpdateSubscription(new(new OctokitGraphQLModel.UpdateSubscriptionInput
 				{
-					SubscribableId = input.SubscribableId,
-					State = (OctokitGraphQLModel.SubscriptionState)input.State,
-					ClientMutationId = input.ClientMutationId,
+					SubscribableId = request.SubscribableId,
+					State = (OctokitGraphQLModel.SubscriptionState)request.State,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new UpdateSubscriptionPayload
+				.Select(x => new UpdateSubscriptionResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					Subscribable = x.Subscribable.Select(subject => new Subscribable

@@ -3,7 +3,7 @@
 
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {

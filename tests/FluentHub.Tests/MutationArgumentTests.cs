@@ -1,5 +1,5 @@
 using FluentHub.Octokit.Clients;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 using FluentHub.Octokit.Queries.Repositories;
 using GraphQL;
@@ -60,7 +60,7 @@ public sealed class MutationArgumentTests
 	public void PullRequestReviewRejectsInlineCommentsUntilSupported()
 	{
 		var mutations = new PullRequestMutations(null!);
-		var input = new AddPullRequestReviewInput
+		var input = new AddPullRequestReviewRequest
 		{
 			Comments = [],
 		};
@@ -78,24 +78,24 @@ public sealed class MutationArgumentTests
 		var reactionMutations = new ReactionMutations(api);
 		var subscriptionMutations = new SubscriptionMutations(api);
 
-		issueMutations.CreateIssueAsync(new CreateIssueInput { RepositoryId = id, Title = "Test" });
-		issueMutations.UpdateIssueAsync(new UpdateIssueInput { Id = id, Title = "Test" });
-		issueMutations.CloseIssueAsync(new CloseIssueInput { IssueId = id });
-		issueMutations.ReopenIssueAsync(new ReopenIssueInput { IssueId = id });
-		issueMutations.AddCommentAsync(new AddCommentInput { SubjectId = id, Body = "Test" });
-		issueMutations.UpdateIssueCommentAsync(new UpdateIssueCommentInput { Id = id, Body = "Test" });
-		issueMutations.DeleteIssueCommentAsync(new DeleteIssueCommentInput { Id = id });
+		issueMutations.CreateIssueAsync(new CreateIssueRequest { RepositoryId = id, Title = "Test" });
+		issueMutations.UpdateIssueAsync(new UpdateIssueRequest { Id = id, Title = "Test" });
+		issueMutations.CloseIssueAsync(new CloseIssueRequest { IssueId = id });
+		issueMutations.ReopenIssueAsync(new ReopenIssueRequest { IssueId = id });
+		issueMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
+		issueMutations.UpdateIssueCommentAsync(new UpdateIssueCommentRequest { Id = id, Body = "Test" });
+		issueMutations.DeleteIssueCommentAsync(new DeleteIssueCommentRequest { Id = id });
 
-		pullRequestMutations.UpdateAsync(new UpdatePullRequestInput { PullRequestId = id, Title = "Test" });
-		pullRequestMutations.CloseAsync(new ClosePullRequestInput { PullRequestId = id });
-		pullRequestMutations.ReopenAsync(new ReopenPullRequestInput { PullRequestId = id });
-		pullRequestMutations.MergeAsync(new MergePullRequestInput { PullRequestId = id });
-		pullRequestMutations.AddCommentAsync(new AddCommentInput { SubjectId = id, Body = "Test" });
-		pullRequestMutations.AddReviewAsync(new AddPullRequestReviewInput { PullRequestId = id });
+		pullRequestMutations.UpdateAsync(new UpdatePullRequestRequest { PullRequestId = id, Title = "Test" });
+		pullRequestMutations.CloseAsync(new ClosePullRequestRequest { PullRequestId = id });
+		pullRequestMutations.ReopenAsync(new ReopenPullRequestRequest { PullRequestId = id });
+		pullRequestMutations.MergeAsync(new MergePullRequestRequest { PullRequestId = id });
+		pullRequestMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
+		pullRequestMutations.AddReviewAsync(new AddPullRequestReviewRequest { PullRequestId = id });
 
-		reactionMutations.AddAsync(new AddReactionInput { SubjectId = id, Content = ReactionContent.Heart });
-		reactionMutations.RemoveAsync(new RemoveReactionInput { SubjectId = id, Content = ReactionContent.Heart });
-		subscriptionMutations.UpdateAsync(new UpdateSubscriptionInput
+		reactionMutations.AddAsync(new AddReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
+		reactionMutations.RemoveAsync(new RemoveReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
+		subscriptionMutations.UpdateAsync(new UpdateSubscriptionRequest
 		{
 			SubscribableId = id,
 			State = SubscriptionState.Subscribed,

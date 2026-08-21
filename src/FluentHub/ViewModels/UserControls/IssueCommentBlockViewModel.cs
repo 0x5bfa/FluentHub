@@ -3,7 +3,7 @@ using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 
 namespace FluentHub.ViewModels.UserControls
@@ -114,7 +114,7 @@ namespace FluentHub.ViewModels.UserControls
 			IsMutationRunning = true;
 			try
 			{
-				var response = await _gitHub.Mutations.Issues.UpdateIssueCommentAsync(new UpdateIssueCommentInput
+				var response = await _gitHub.Mutations.Issues.UpdateIssueCommentAsync(new UpdateIssueCommentRequest
 				{
 					Id = IssueComment.Id,
 					Body = body,
@@ -143,7 +143,7 @@ namespace FluentHub.ViewModels.UserControls
 			IsMutationRunning = true;
 			try
 			{
-				await _gitHub.Mutations.Issues.DeleteIssueCommentAsync(new DeleteIssueCommentInput
+				await _gitHub.Mutations.Issues.DeleteIssueCommentAsync(new DeleteIssueCommentRequest
 				{
 					Id = IssueComment.Id,
 				});
@@ -174,7 +174,7 @@ namespace FluentHub.ViewModels.UserControls
 				List<ReactionGroup>? groups;
 				if (ViewerHasReacted(content))
 				{
-					var response = await _gitHub.Mutations.Reactions.RemoveAsync(new RemoveReactionInput
+					var response = await _gitHub.Mutations.Reactions.RemoveAsync(new RemoveReactionRequest
 					{
 						SubjectId = IssueComment.Id,
 						Content = content,
@@ -183,7 +183,7 @@ namespace FluentHub.ViewModels.UserControls
 				}
 				else
 				{
-					var response = await _gitHub.Mutations.Reactions.AddAsync(new AddReactionInput
+					var response = await _gitHub.Mutations.Reactions.AddAsync(new AddReactionRequest
 					{
 						SubjectId = IssueComment.Id,
 						Content = content,

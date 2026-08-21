@@ -4,7 +4,7 @@ using FluentHub.Models;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.ViewModels.UserControls
 {

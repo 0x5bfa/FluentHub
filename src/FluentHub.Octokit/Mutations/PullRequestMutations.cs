@@ -9,30 +9,30 @@ namespace FluentHub.Octokit.Mutations
 		public PullRequestMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<UpdatePullRequestPayload> UpdateAsync(
-			UpdatePullRequestInput input,
+		public Task<UpdatePullRequestResult> UpdateAsync(
+			UpdatePullRequestRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.UpdatePullRequest(new(new OctokitGraphQLModel.UpdatePullRequestInput
 				{
-					PullRequestId = input.PullRequestId,
-					BaseRefName = input.BaseRefName,
-					Title = input.Title,
-					Body = input.Body,
-					State = input.State is null
+					PullRequestId = request.PullRequestId,
+					BaseRefName = request.BaseRefName,
+					Title = request.Title,
+					Body = request.Body,
+					State = request.State is null
 						? null
-						: (OctokitGraphQLModel.PullRequestUpdateState)input.State.Value,
-					MaintainerCanModify = input.MaintainerCanModify,
-					AssigneeIds = input.AssigneeIds,
-					MilestoneId = input.MilestoneId,
-					LabelIds = input.LabelIds,
-					ProjectIds = input.ProjectIds,
-					ClientMutationId = input.ClientMutationId,
+						: (OctokitGraphQLModel.PullRequestUpdateState)request.State.Value,
+					MaintainerCanModify = request.MaintainerCanModify,
+					AssigneeIds = request.AssigneeIds,
+					MilestoneId = request.MilestoneId,
+					LabelIds = request.LabelIds,
+					ProjectIds = request.ProjectIds,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new UpdatePullRequestPayload
+				.Select(x => new UpdatePullRequestResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					PullRequest = x.PullRequest.Select(pullRequest => new PullRequest
@@ -62,19 +62,19 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<ClosePullRequestPayload> CloseAsync(
-			ClosePullRequestInput input,
+		public Task<ClosePullRequestResult> CloseAsync(
+			ClosePullRequestRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.ClosePullRequest(new(new OctokitGraphQLModel.ClosePullRequestInput
 				{
-					PullRequestId = input.PullRequestId,
-					ClientMutationId = input.ClientMutationId,
+					PullRequestId = request.PullRequestId,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new ClosePullRequestPayload
+				.Select(x => new ClosePullRequestResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					PullRequest = x.PullRequest.Select(pullRequest => new PullRequest
@@ -104,19 +104,19 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<ReopenPullRequestPayload> ReopenAsync(
-			ReopenPullRequestInput input,
+		public Task<ReopenPullRequestResult> ReopenAsync(
+			ReopenPullRequestRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.ReopenPullRequest(new(new OctokitGraphQLModel.ReopenPullRequestInput
 				{
-					PullRequestId = input.PullRequestId,
-					ClientMutationId = input.ClientMutationId,
+					PullRequestId = request.PullRequestId,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new ReopenPullRequestPayload
+				.Select(x => new ReopenPullRequestResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					PullRequest = x.PullRequest.Select(pullRequest => new PullRequest
@@ -146,26 +146,26 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<MergePullRequestPayload> MergeAsync(
-			MergePullRequestInput input,
+		public Task<MergePullRequestResult> MergeAsync(
+			MergePullRequestRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.MergePullRequest(new(new OctokitGraphQLModel.MergePullRequestInput
 				{
-					PullRequestId = input.PullRequestId,
-					CommitHeadline = input.CommitHeadline,
-					CommitBody = input.CommitBody,
-					ExpectedHeadOid = input.ExpectedHeadOid,
-					MergeMethod = input.MergeMethod is null
+					PullRequestId = request.PullRequestId,
+					CommitHeadline = request.CommitHeadline,
+					CommitBody = request.CommitBody,
+					ExpectedHeadOid = request.ExpectedHeadOid,
+					MergeMethod = request.MergeMethod is null
 						? null
-						: (OctokitGraphQLModel.PullRequestMergeMethod)input.MergeMethod.Value,
-					AuthorEmail = input.AuthorEmail,
-					ClientMutationId = input.ClientMutationId,
+						: (OctokitGraphQLModel.PullRequestMergeMethod)request.MergeMethod.Value,
+					AuthorEmail = request.AuthorEmail,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new MergePullRequestPayload
+				.Select(x => new MergePullRequestResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					PullRequest = x.PullRequest.Select(pullRequest => new PullRequest
@@ -195,20 +195,20 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<AddCommentPayload> AddCommentAsync(
-			AddCommentInput input,
+		public Task<AddCommentResult> AddCommentAsync(
+			AddCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.AddComment(new(new OctokitGraphQLModel.AddCommentInput
 				{
-					SubjectId = input.SubjectId,
-					Body = input.Body,
-					ClientMutationId = input.ClientMutationId,
+					SubjectId = request.SubjectId,
+					Body = request.Body,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new AddCommentPayload
+				.Select(x => new AddCommentResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					CommentEdge = x.CommentEdge.Select(edge => new IssueCommentEdge
@@ -243,27 +243,27 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<AddPullRequestReviewPayload> AddReviewAsync(
-			AddPullRequestReviewInput input,
+		public Task<AddPullRequestReviewResult> AddReviewAsync(
+			AddPullRequestReviewRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
-			if (input.Comments is not null || input.Threads is not null)
+			if (request.Comments is not null || request.Threads is not null)
 				throw new NotSupportedException("Inline review comments are not supported by this mutation wrapper.");
 
 			var mutation = new Mutation()
 				.AddPullRequestReview(new(new OctokitGraphQLModel.AddPullRequestReviewInput
 				{
-					PullRequestId = input.PullRequestId,
-					CommitOID = input.CommitOID,
-					Body = input.Body,
-					Event = input.Event is null
+					PullRequestId = request.PullRequestId,
+					CommitOID = request.CommitOID,
+					Body = request.Body,
+					Event = request.Event is null
 						? null
-						: (OctokitGraphQLModel.PullRequestReviewEvent)input.Event.Value,
-					ClientMutationId = input.ClientMutationId,
+						: (OctokitGraphQLModel.PullRequestReviewEvent)request.Event.Value,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new AddPullRequestReviewPayload
+				.Select(x => new AddPullRequestReviewResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					PullRequestReview = x.PullRequestReview.Select(review => new PullRequestReview

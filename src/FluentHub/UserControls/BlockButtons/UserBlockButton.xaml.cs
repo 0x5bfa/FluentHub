@@ -3,7 +3,7 @@ using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 
 namespace FluentHub.UserControls.BlockButtons
 {

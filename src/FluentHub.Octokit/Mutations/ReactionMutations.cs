@@ -9,20 +9,20 @@ namespace FluentHub.Octokit.Mutations
 		public ReactionMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<AddReactionPayload> AddAsync(
-			AddReactionInput input,
+		public Task<AddReactionResult> AddAsync(
+			AddReactionRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.AddReaction(new(new OctokitGraphQLModel.AddReactionInput
 				{
-					SubjectId = input.SubjectId,
-					Content = (OctokitGraphQLModel.ReactionContent)input.Content,
-					ClientMutationId = input.ClientMutationId,
+					SubjectId = request.SubjectId,
+					Content = (OctokitGraphQLModel.ReactionContent)request.Content,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new AddReactionPayload
+				.Select(x => new AddReactionResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
@@ -40,20 +40,20 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<RemoveReactionPayload> RemoveAsync(
-			RemoveReactionInput input,
+		public Task<RemoveReactionResult> RemoveAsync(
+			RemoveReactionRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
 				.RemoveReaction(new(new OctokitGraphQLModel.RemoveReactionInput
 				{
-					SubjectId = input.SubjectId,
-					Content = (OctokitGraphQLModel.ReactionContent)input.Content,
-					ClientMutationId = input.ClientMutationId,
+					SubjectId = request.SubjectId,
+					Content = (OctokitGraphQLModel.ReactionContent)request.Content,
+					ClientMutationId = request.ClientMutationId,
 				}))
-				.Select(x => new RemoveReactionPayload
+				.Select(x => new RemoveReactionResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup

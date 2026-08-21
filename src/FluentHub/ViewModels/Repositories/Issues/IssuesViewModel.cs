@@ -7,7 +7,7 @@ using FluentHub.ViewModels.UserControls.Overview;
 using FluentHub.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 
 namespace FluentHub.ViewModels.Repositories.Issues
@@ -176,7 +176,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			try
 			{
-				var response = await _gitHub.Mutations.Issues.CreateIssueAsync(new CreateIssueInput
+				var response = await _gitHub.Mutations.Issues.CreateIssueAsync(new CreateIssueRequest
 				{
 					RepositoryId = Repository.Id,
 					Title = title.Trim(),

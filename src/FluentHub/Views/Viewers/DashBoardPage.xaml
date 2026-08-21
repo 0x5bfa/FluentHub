@@ -12,7 +12,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.Models"
 	xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
-	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:root="using:FluentHub"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"

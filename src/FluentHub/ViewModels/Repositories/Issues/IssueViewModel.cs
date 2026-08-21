@@ -6,7 +6,7 @@ using FluentHub.Utils;
 using FluentHub.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 
 namespace FluentHub.ViewModels.Repositories.Issues
@@ -175,7 +175,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			try
 			{
 				var mutations = _gitHub.Mutations.Issues;
-				var response = await mutations.AddCommentAsync(new AddCommentInput
+				var response = await mutations.AddCommentAsync(new AddCommentRequest
 				{
 					SubjectId = IssueItem.Id,
 					Body = CommentBody,
@@ -220,7 +220,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 				if (IssueItem.Closed)
 				{
-					var response = await mutations.ReopenIssueAsync(new ReopenIssueInput
+					var response = await mutations.ReopenIssueAsync(new ReopenIssueRequest
 					{
 						IssueId = IssueItem.Id,
 					});
@@ -229,7 +229,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				}
 				else
 				{
-					var response = await mutations.CloseIssueAsync(new CloseIssueInput
+					var response = await mutations.CloseIssueAsync(new CloseIssueRequest
 					{
 						IssueId = IssueItem.Id,
 						StateReason = IssueClosedStateReason.Completed,
@@ -259,7 +259,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			try
 			{
-				var response = await _gitHub.Mutations.Issues.CloseIssueAsync(new CloseIssueInput
+				var response = await _gitHub.Mutations.Issues.CloseIssueAsync(new CloseIssueRequest
 				{
 					IssueId = IssueItem.Id,
 					StateReason = reason,
@@ -287,7 +287,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			try
 			{
-				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueInput
+				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueRequest
 				{
 					Id = IssueItem.Id,
 					Title = title.Trim(),
@@ -323,7 +323,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			try
 			{
-				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueInput
+				var response = await _gitHub.Mutations.Issues.UpdateIssueAsync(new UpdateIssueRequest
 				{
 					Id = IssueItem.Id,
 					AssigneeIds = assignees.Select(x => x.Id).ToList(),
@@ -360,7 +360,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				var nextState = IssueItem.ViewerSubscription == SubscriptionState.Subscribed
 					? SubscriptionState.Unsubscribed
 					: SubscriptionState.Subscribed;
-				var response = await _gitHub.Mutations.Subscriptions.UpdateAsync(new UpdateSubscriptionInput
+				var response = await _gitHub.Mutations.Subscriptions.UpdateAsync(new UpdateSubscriptionRequest
 				{
 					SubscribableId = IssueItem.Id,
 					State = nextState,

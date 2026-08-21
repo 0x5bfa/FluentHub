@@ -9,15 +9,15 @@ namespace FluentHub.Octokit.Mutations
 		public IssueMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<CreateIssuePayload> CreateIssueAsync(
-			CreateIssueInput input,
+		public Task<CreateIssueResult> CreateIssueAsync(
+			CreateIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.CreateIssue(new(ToGraphQLInput(input)))
-				.Select(x => new CreateIssuePayload
+				.CreateIssue(new(ToGraphQLInput(request)))
+				.Select(x => new CreateIssueResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					Issue = x.Issue.Select(issue => new Issue
@@ -46,15 +46,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<UpdateIssuePayload> UpdateIssueAsync(
-			UpdateIssueInput input,
+		public Task<UpdateIssueResult> UpdateIssueAsync(
+			UpdateIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.UpdateIssue(new(ToGraphQLInput(input)))
-				.Select(x => new UpdateIssuePayload
+				.UpdateIssue(new(ToGraphQLInput(request)))
+				.Select(x => new UpdateIssueResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					Issue = x.Issue.Select(issue => new Issue
@@ -83,15 +83,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<CloseIssuePayload> CloseIssueAsync(
-			CloseIssueInput input,
+		public Task<CloseIssueResult> CloseIssueAsync(
+			CloseIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.CloseIssue(new(ToGraphQLInput(input)))
-				.Select(x => new CloseIssuePayload
+				.CloseIssue(new(ToGraphQLInput(request)))
+				.Select(x => new CloseIssueResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					Issue = x.Issue.Select(issue => new Issue
@@ -120,15 +120,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<ReopenIssuePayload> ReopenIssueAsync(
-			ReopenIssueInput input,
+		public Task<ReopenIssueResult> ReopenIssueAsync(
+			ReopenIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.ReopenIssue(new(ToGraphQLInput(input)))
-				.Select(x => new ReopenIssuePayload
+				.ReopenIssue(new(ToGraphQLInput(request)))
+				.Select(x => new ReopenIssueResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					Issue = x.Issue.Select(issue => new Issue
@@ -157,15 +157,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<AddCommentPayload> AddCommentAsync(
-			AddCommentInput input,
+		public Task<AddCommentResult> AddCommentAsync(
+			AddCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.AddComment(new(ToGraphQLInput(input)))
-				.Select(x => new AddCommentPayload
+				.AddComment(new(ToGraphQLInput(request)))
+				.Select(x => new AddCommentResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					CommentEdge = x.CommentEdge.Select(edge => new IssueCommentEdge
@@ -200,15 +200,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<UpdateIssueCommentPayload> UpdateIssueCommentAsync(
-			UpdateIssueCommentInput input,
+		public Task<UpdateIssueCommentResult> UpdateIssueCommentAsync(
+			UpdateIssueCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.UpdateIssueComment(new(ToGraphQLInput(input)))
-				.Select(x => new UpdateIssueCommentPayload
+				.UpdateIssueComment(new(ToGraphQLInput(request)))
+				.Select(x => new UpdateIssueCommentResult
 				{
 					ClientMutationId = x.ClientMutationId,
 					IssueComment = x.IssueComment.Select(comment => new IssueComment
@@ -239,15 +239,15 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		public Task<DeleteIssueCommentPayload> DeleteIssueCommentAsync(
-			DeleteIssueCommentInput input,
+		public Task<DeleteIssueCommentResult> DeleteIssueCommentAsync(
+			DeleteIssueCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(input);
+			ArgumentNullException.ThrowIfNull(request);
 
 			var mutation = new Mutation()
-				.DeleteIssueComment(new(ToGraphQLInput(input)))
-				.Select(x => new DeleteIssueCommentPayload
+				.DeleteIssueComment(new(ToGraphQLInput(request)))
+				.Select(x => new DeleteIssueCommentResult
 				{
 					ClientMutationId = x.ClientMutationId,
 				})
@@ -256,70 +256,70 @@ namespace FluentHub.Octokit.Mutations
 			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
 		}
 
-		private static OctokitGraphQLModel.CreateIssueInput ToGraphQLInput(CreateIssueInput input)
+		private static OctokitGraphQLModel.CreateIssueInput ToGraphQLInput(CreateIssueRequest request)
 			=> new()
 			{
-				RepositoryId = input.RepositoryId,
-				Title = input.Title,
-				Body = input.Body,
-				AssigneeIds = input.AssigneeIds,
-				MilestoneId = input.MilestoneId,
-				LabelIds = input.LabelIds,
-				ProjectIds = input.ProjectIds,
-				IssueTemplate = input.IssueTemplate,
-				ClientMutationId = input.ClientMutationId,
+				RepositoryId = request.RepositoryId,
+				Title = request.Title,
+				Body = request.Body,
+				AssigneeIds = request.AssigneeIds,
+				MilestoneId = request.MilestoneId,
+				LabelIds = request.LabelIds,
+				ProjectIds = request.ProjectIds,
+				IssueTemplate = request.IssueTemplate,
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.UpdateIssueInput ToGraphQLInput(UpdateIssueInput input)
+		private static OctokitGraphQLModel.UpdateIssueInput ToGraphQLInput(UpdateIssueRequest request)
 			=> new()
 			{
-				Id = input.Id,
-				Title = input.Title,
-				Body = input.Body,
-				AssigneeIds = input.AssigneeIds,
-				MilestoneId = input.MilestoneId,
-				LabelIds = input.LabelIds,
-				State = input.State is null ? null : (OctokitGraphQLModel.IssueState)input.State.Value,
-				ProjectIds = input.ProjectIds,
-				ClientMutationId = input.ClientMutationId,
+				Id = request.Id,
+				Title = request.Title,
+				Body = request.Body,
+				AssigneeIds = request.AssigneeIds,
+				MilestoneId = request.MilestoneId,
+				LabelIds = request.LabelIds,
+				State = request.State is null ? null : (OctokitGraphQLModel.IssueState)request.State.Value,
+				ProjectIds = request.ProjectIds,
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.CloseIssueInput ToGraphQLInput(CloseIssueInput input)
+		private static OctokitGraphQLModel.CloseIssueInput ToGraphQLInput(CloseIssueRequest request)
 			=> new()
 			{
-				IssueId = input.IssueId,
-				StateReason = ToGraphQLIssueClosedStateReason(input.StateReason),
-				ClientMutationId = input.ClientMutationId,
+				IssueId = request.IssueId,
+				StateReason = ToGraphQLIssueClosedStateReason(request.StateReason),
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.ReopenIssueInput ToGraphQLInput(ReopenIssueInput input)
+		private static OctokitGraphQLModel.ReopenIssueInput ToGraphQLInput(ReopenIssueRequest request)
 			=> new()
 			{
-				IssueId = input.IssueId,
-				ClientMutationId = input.ClientMutationId,
+				IssueId = request.IssueId,
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.AddCommentInput ToGraphQLInput(AddCommentInput input)
+		private static OctokitGraphQLModel.AddCommentInput ToGraphQLInput(AddCommentRequest request)
 			=> new()
 			{
-				SubjectId = input.SubjectId,
-				Body = input.Body,
-				ClientMutationId = input.ClientMutationId,
+				SubjectId = request.SubjectId,
+				Body = request.Body,
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.UpdateIssueCommentInput ToGraphQLInput(UpdateIssueCommentInput input)
+		private static OctokitGraphQLModel.UpdateIssueCommentInput ToGraphQLInput(UpdateIssueCommentRequest request)
 			=> new()
 			{
-				Id = input.Id,
-				Body = input.Body,
-				ClientMutationId = input.ClientMutationId,
+				Id = request.Id,
+				Body = request.Body,
+				ClientMutationId = request.ClientMutationId,
 			};
 
-		private static OctokitGraphQLModel.DeleteIssueCommentInput ToGraphQLInput(DeleteIssueCommentInput input)
+		private static OctokitGraphQLModel.DeleteIssueCommentInput ToGraphQLInput(DeleteIssueCommentRequest request)
 			=> new()
 			{
-				Id = input.Id,
-				ClientMutationId = input.ClientMutationId,
+				Id = request.Id,
+				ClientMutationId = request.ClientMutationId,
 			};
 
 		private static OctokitGraphQLModel.IssueClosedStateReason? ToGraphQLIssueClosedStateReason(IssueClosedStateReason? stateReason)

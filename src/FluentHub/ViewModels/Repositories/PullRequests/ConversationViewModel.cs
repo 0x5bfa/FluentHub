@@ -3,7 +3,7 @@
 
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Octokit.Models.v4;
+using FluentHub.Octokit.Contracts;
 using FluentHub.Octokit.Mutations;
 using FluentHub.Helpers;
 using FluentHub.Models;
@@ -186,7 +186,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 			IsMutationRunning = true;
 			try
 			{
-				var response = await _gitHub.Mutations.PullRequests.AddCommentAsync(new AddCommentInput
+				var response = await _gitHub.Mutations.PullRequests.AddCommentAsync(new AddCommentRequest
 				{
 					SubjectId = PullItem.Id,
 					Body = CommentBody,
@@ -222,7 +222,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 				PullRequest? pullRequest;
 				if (PullItem.Closed)
 				{
-					var response = await _gitHub.Mutations.PullRequests.ReopenAsync(new ReopenPullRequestInput
+					var response = await _gitHub.Mutations.PullRequests.ReopenAsync(new ReopenPullRequestRequest
 					{
 						PullRequestId = PullItem.Id,
 					});
@@ -230,7 +230,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 				}
 				else
 				{
-					var response = await _gitHub.Mutations.PullRequests.CloseAsync(new ClosePullRequestInput
+					var response = await _gitHub.Mutations.PullRequests.CloseAsync(new ClosePullRequestRequest
 					{
 						PullRequestId = PullItem.Id,
 					});
@@ -258,7 +258,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 			IsMutationRunning = true;
 			try
 			{
-				var response = await _gitHub.Mutations.PullRequests.UpdateAsync(new UpdatePullRequestInput
+				var response = await _gitHub.Mutations.PullRequests.UpdateAsync(new UpdatePullRequestRequest
 				{
 					PullRequestId = PullItem.Id,
 					Title = title.Trim(),
@@ -286,7 +286,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 			IsMutationRunning = true;
 			try
 			{
-				var response = await _gitHub.Mutations.PullRequests.MergeAsync(new MergePullRequestInput
+				var response = await _gitHub.Mutations.PullRequests.MergeAsync(new MergePullRequestRequest
 				{
 					PullRequestId = PullItem.Id,
 					ExpectedHeadOid = PullItem.HeadRefOid,
@@ -315,7 +315,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 			IsMutationRunning = true;
 			try
 			{
-				await _gitHub.Mutations.PullRequests.AddReviewAsync(new AddPullRequestReviewInput
+				await _gitHub.Mutations.PullRequests.AddReviewAsync(new AddPullRequestReviewRequest
 				{
 					PullRequestId = PullItem.Id,
 					CommitOID = PullItem.HeadRefOid,
@@ -345,7 +345,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 				var nextState = PullItem.ViewerSubscription == SubscriptionState.Subscribed
 					? SubscriptionState.Unsubscribed
 					: SubscriptionState.Subscribed;
-				var response = await _gitHub.Mutations.Subscriptions.UpdateAsync(new UpdateSubscriptionInput
+				var response = await _gitHub.Mutations.Subscriptions.UpdateAsync(new UpdateSubscriptionRequest
 				{
 					SubscribableId = PullItem.Id,
 					State = nextState,

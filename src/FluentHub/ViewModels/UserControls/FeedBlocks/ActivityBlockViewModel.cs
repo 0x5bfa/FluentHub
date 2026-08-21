@@ -44,7 +44,7 @@ namespace FluentHub.ViewModels.UserControls.FeedBlocks
 			var userQueries = _gitHub.Users.Users;
 			var payload = Payload;
 
-			async Task<FluentHub.Octokit.Models.v4.Repository?> LoadRepositoryAsync()
+			async Task<FluentHub.Octokit.Contracts.Repository?> LoadRepositoryAsync()
 			{
 				var owner = payload.Repository?.Owner?.Login;
 				var name = payload.Repository?.Name;

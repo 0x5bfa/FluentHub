@@ -9,7 +9,7 @@ namespace FluentHub.Octokit.Mutations
 		public AddStarMutation(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<AddStarPayload> ExecuteAsync(
+		public Task<AddStarResult> ExecuteAsync(
 			ID starrableRepoId,
 			CancellationToken cancellationToken = default)
 		{
@@ -18,7 +18,7 @@ namespace FluentHub.Octokit.Mutations
 				{
 					StarrableId = starrableRepoId,
 				}))
-				.Select(x => new AddStarPayload
+				.Select(x => new AddStarResult
 				{
 					ClientMutationId = x.ClientMutationId,
 				})
