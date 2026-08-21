@@ -7,7 +7,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Views.Repositories.Releases"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
+	xmlns:modelsV4="using:FluentHub.Core.Contracts"
 	xmlns:ov="using:FluentHub.UserControls.Overview"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"

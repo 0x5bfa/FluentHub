@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;
@@ -6,8 +6,9 @@ namespace FluentHub.Tests;
 [TestClass]
 public sealed class ContractArchitectureTests
 {
-	private const string ContractNamespace = "FluentHub.Octokit.Contracts";
-	private const string LegacyRestModelNamespace = "FluentHub.Octokit.Models.v3";
+	private const string ContractNamespace = "FluentHub.Core.Contracts";
+	private const string LegacyOctokitNamespace = "FluentHub.Octokit";
+	private const string LegacyRestModelNamespace = "FluentHub.Core.Models.v3";
 	private const string RestTransportModelNamespace = "Octokit";
 	private const string TransportModelNamespace = "Octokit.GraphQL.Model";
 
@@ -47,6 +48,18 @@ public sealed class ContractArchitectureTests
 
 		Assert.AreEqual(0, legacyTypes.Count,
 			$"Legacy REST models remain: {string.Join(", ", legacyTypes)}");
+	}
+
+	[TestMethod]
+	public void LegacyOctokitNamespaceIsRemoved()
+	{
+		var legacyTypes = typeof(UpdateIssueRequest).Assembly.GetExportedTypes()
+			.Where(type => type.Namespace?.StartsWith(LegacyOctokitNamespace, StringComparison.Ordinal) == true)
+			.Select(type => type.FullName)
+			.ToList();
+
+		Assert.AreEqual(0, legacyTypes.Count,
+			$"Legacy Octokit namespaces remain: {string.Join(", ", legacyTypes)}");
 	}
 
 	private static List<Type> GetContractTypes()

@@ -1,3 +1,4 @@
+using FluentHub.Core.Application;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Utils;
@@ -7,7 +8,7 @@ using Windows.Storage;
 
 namespace FluentHub.ViewModels
 {
-	public class SettingsViewModel : ObservableObject
+	public class SettingsViewModel : ObservableObject, IAccountStore
 	{
 		public SettingsViewModel()
 		{

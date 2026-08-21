@@ -1,10 +1,11 @@
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Core.Queries.Users;
 using FluentHub.Helpers;
-using FluentHub.Models;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Application;
+using FluentHub.Core.Contracts;
+using FluentHub.Core.Models;
 
 namespace FluentHub.ViewModels.UserControls
 {
@@ -25,8 +26,8 @@ namespace FluentHub.ViewModels.UserControls
 		private ContributionCalendar _calendar = default!;
 		public ContributionCalendar Calendar { get => _calendar; set => SetProperty(ref _calendar, value); }
 
-		private readonly ObservableCollection<MergedCalendarDays> _mergedCalendar;
-		public ReadOnlyObservableCollection<MergedCalendarDays> MergedCalendar { get; }
+		private readonly ObservableCollection<ContributionCalendarItem> _mergedCalendar;
+		public ReadOnlyObservableCollection<ContributionCalendarItem> MergedCalendar { get; }
 
 		public async Task GetContributionCalendarAsync()
 		{
@@ -34,48 +35,13 @@ namespace FluentHub.ViewModels.UserControls
 			var response = await queries.GetContributionCalendarAsync(Login);
 
 			Calendar = response;
-
-			// Flatting
-			foreach (var weekItem in response.Weeks)
+			_mergedCalendar.Clear();
+			foreach (var item in ContributionCalendarService.CreateItems(response))
 			{
-				foreach (var dayItem in weekItem.ContributionDays)
-				{
-					var item = new MergedCalendarDays()
-					{
-						Color = dayItem.Color,
-						ContributionCount = dayItem.ContributionCount,
-						ContributionLevel = dayItem.ContributionLevel,
-						Weekday = dayItem.Weekday,
-						IsVaild = true,
-					};
-
+				if (item.IsValid)
 					item.Color = GetProperColor(item.ContributionLevel);
 
-					_mergedCalendar.Add(item);
-				}
-			}
-
-			if (_mergedCalendar.FirstOrDefault() is not { } firstDay)
-				return;
-
-			int weekDay = firstDay.Weekday;
-
-			// If the first day is not Sunday (Weekday != 0), fill in the vacancies to correct the position.
-			if (weekDay != 0)
-			{
-				for (int index = 0; index < weekDay; index++)
-				{
-					_mergedCalendar.Insert(
-						0,
-						new()
-						{
-							Color = "#FFFFFF",
-							ContributionCount = 0,
-							ContributionLevel = ContributionLevel.None,
-							Weekday = weekDay - (index + 1), // prevent the value of Weekday from descending order.
-							IsVaild = false,
-						});
-				}
+				_mergedCalendar.Add(item);
 			}
 		}
 

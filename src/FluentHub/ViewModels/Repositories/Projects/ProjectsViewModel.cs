@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Core.Queries.Repositories;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
@@ -8,7 +8,7 @@ using FluentHub.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Xml.Linq;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.Repositories.Projects
 {

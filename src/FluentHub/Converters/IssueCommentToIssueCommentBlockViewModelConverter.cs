@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using Microsoft.UI.Xaml.Data;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 using FluentHub.Services;
 
 namespace FluentHub.Converters

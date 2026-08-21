@@ -2,9 +2,9 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Models;
-using FluentHub.Octokit.Mutations;
+using FluentHub.Core.Mutations;
 using System.Windows.Input;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.UserControls.BlockButtons
 {

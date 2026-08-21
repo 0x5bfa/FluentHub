@@ -1,9 +1,9 @@
 // Copyright (c) 2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Core.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {

@@ -1,3 +1,4 @@
+using FluentHub.Core.Authorization;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
 
@@ -5,7 +6,7 @@ namespace FluentHub.Services
 {
 	public static class OctokitSecretsService
 	{
-		public static async Task<Octokit.Authorization.OctokitSecrets?> LoadOctokitSecretsAsync()
+		public static async Task<OctokitSecrets?> LoadOctokitSecretsAsync()
 		{
 			StorageFile file;
 
@@ -28,7 +29,7 @@ namespace FluentHub.Services
 				return null;
 			}
 
-			return new Octokit.Authorization.OctokitSecrets()
+			return new OctokitSecrets()
 			{
 				ClientId = (string)nodeId.NodeValue,
 				ClientSecret = nodeSecret?.NodeValue as string ?? string.Empty,

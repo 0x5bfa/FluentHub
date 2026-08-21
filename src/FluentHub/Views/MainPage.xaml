@@ -10,7 +10,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.Models"
-	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
+	xmlns:modelsV4="using:FluentHub.Core.Contracts"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:tabsuc="using:FluentHub.UserControls.CustomTabView"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"

@@ -3,8 +3,8 @@ using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Octokit.Contracts;
-using FluentHub.Octokit.Mutations;
+using FluentHub.Core.Contracts;
+using FluentHub.Core.Mutations;
 
 namespace FluentHub.ViewModels.UserControls
 {

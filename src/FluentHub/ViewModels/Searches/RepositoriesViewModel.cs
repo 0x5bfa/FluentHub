@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Searches;
+using FluentHub.Core.Searches;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;

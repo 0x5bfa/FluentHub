@@ -29,6 +29,5 @@ global using global::FluentHub.Helpers;
 global using global::FluentHub.Services;
 global using global::FluentHub.Core;
 global using global::FluentHub.Core.Data.Enums;
-global using global::FluentHub.Octokit;
-global using global::FluentHub.Octokit.Clients;
-global using global::FluentHub.Octokit.Contracts;
+global using global::FluentHub.Core.Clients;
+global using global::FluentHub.Core.Contracts;

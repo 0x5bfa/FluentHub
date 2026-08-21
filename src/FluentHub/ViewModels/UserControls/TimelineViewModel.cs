@@ -2,7 +2,7 @@ using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Media;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.UserControls
 {
