@@ -43,10 +43,14 @@
 
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<AppCredentialsPath Condition="'$(AppCredentialsPath)' == ''">$(MSBuildProjectDirectory)\AppCredentials.config</AppCredentialsPath>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
 		<Content Include="Assets\**" />
-		<Content Include="AppCredentials.config" Condition="Exists('AppCredentials.config')" />
+		<Content Include="AppCredentials.config" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,5 +76,26 @@
 	<ItemGroup>
 		<ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
 	</ItemGroup>
+
+	<Target Name="ValidateAppCredentials" BeforeTargets="PrepareForBuild">
+		<Error
+			Condition="!Exists('$(AppCredentialsPath)')"
+			Text="AppCredentials.config is required. Copy AppCredentials.config.example and configure its client id." />
+		<XmlPeek
+			Condition="Exists('$(AppCredentialsPath)')"
+			XmlInputPath="$(AppCredentialsPath)"
+			Query="/configuration/client/type[@key='id']/@value">
+			<Output TaskParameter="Result" ItemName="_AppCredentialClientId" />
+		</XmlPeek>
+		<Error
+			Condition="'@(_AppCredentialClientId->Count())' != '1'"
+			Text="AppCredentials.config must contain exactly one client id." />
+		<Error
+			Condition="$([System.String]::IsNullOrWhiteSpace('@(_AppCredentialClientId)'))"
+			Text="AppCredentials.config must contain a non-empty client id." />
+		<Error
+			Condition="'@(_AppCredentialClientId)' == 'YOUR-APP-ID'"
+			Text="AppCredentials.config still contains the example client id. Configure a GitHub OAuth app client id before building." />
+	</Target>
 
 </Project>

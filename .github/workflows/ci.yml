@@ -24,6 +24,7 @@ env:
   APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub\AppPackages\'
   APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
   APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
+  APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub\AppCredentials.config'
 
 jobs:
   test:
@@ -66,6 +67,13 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         global-json-file: global.json
+
+    - name: Prepare CI app credentials
+      shell: pwsh
+      run: |
+        $examplePath = "$env:APP_CREDENTIALS_PATH.example"
+        $contents = [IO.File]::ReadAllText($examplePath).Replace("YOUR-APP-ID", "ci-validation-client-id")
+        [IO.File]::WriteAllText($env:APP_CREDENTIALS_PATH, $contents, [Text.UTF8Encoding]::new($false))
 
     - name: Build FluentHub
       run: |

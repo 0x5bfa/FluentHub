@@ -91,12 +91,30 @@ jobs:
           -Destination $env:PACKAGE_CERTIFICATE_PATH `
           -Publisher "CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
 
+    - name: Prepare app credentials
+      shell: pwsh
+      run: |
+        if ([string]::IsNullOrWhiteSpace($env:APP_CREDENTIALS_CONFIG_BASE64))
+        {
+          throw "The APP_CREDENTIALS_CONFIG_BASE64 Actions secret is not configured."
+        }
+
+        try
+        {
+          $bytes = [Convert]::FromBase64String($env:APP_CREDENTIALS_CONFIG_BASE64)
+        }
+        catch
+        {
+          throw "The APP_CREDENTIALS_CONFIG_BASE64 Actions secret is not valid base64."
+        }
+
+        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
+      env:
+        APP_CREDENTIALS_CONFIG_BASE64: '${{ secrets.APP_CREDENTIALS_CONFIG_BASE64 }}'
+
     - name: Build and package FluentHub
       shell: pwsh
       run: |
-        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
-        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
-
         Set-Location "$env:WORKING_DIR\src"
 
         & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
@@ -106,8 +124,6 @@ jobs:
           -PackageManifestPath $env:APP_MANIFEST_PATH `
           -PackageCertificateKeyFile $env:PACKAGE_CERTIFICATE_PATH `
           -AppxBundlePlatforms $env:APPX_BUNDLE_PLATFORMS
-      env:
-        GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
 
     - name: Verify Store package
       shell: pwsh

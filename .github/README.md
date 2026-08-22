@@ -55,7 +55,7 @@ git clone https://github.com/FluentHub/FluentHub
 
 See [the documentation](../docs/credentials.md).
 
-The app builds without credentials, but GitHub sign-in remains unavailable until you copy and configure the example file:
+Every app build validates `AppCredentials.config`. Copy and configure the example file before building:
 
 ```powershell
 Copy-Item src\FluentHub\AppCredentials.config.example src\FluentHub\AppCredentials.config
