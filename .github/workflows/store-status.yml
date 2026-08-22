@@ -1,0 +1,47 @@
+# Copyright (c) 2024 0x5BFA
+# Licensed under the MIT License. See the LICENSE.
+
+name: FluentHub Microsoft Store Status
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+run-name: 'Microsoft Store certification status'
+
+permissions:
+  contents: read
+  deployments: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: microsoft-store-status
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    if: github.repository_owner == '0x5bfa'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Check Microsoft Store submissions
+      shell: pwsh
+      run: |
+        & "$env:GITHUB_WORKSPACE/.github/scripts/Watch-MicrosoftStoreSubmissions.ps1" `
+          -Repository $env:GITHUB_REPOSITORY `
+          -GitHubToken $env:GH_TOKEN `
+          -PartnerCenterTenantId $env:PARTNER_CENTER_TENANT_ID `
+          -PartnerCenterClientId $env:PARTNER_CENTER_CLIENT_ID `
+          -PartnerCenterClientSecret $env:PARTNER_CENTER_CLIENT_SECRET `
+          -Mention '0x5bfa'
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PARTNER_CENTER_CLIENT_ID: ${{ secrets.PARTNER_CENTER_CLIENT_ID }}
+        PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
+        PARTNER_CENTER_TENANT_ID: ${{ secrets.PARTNER_CENTER_TENANT_ID }}

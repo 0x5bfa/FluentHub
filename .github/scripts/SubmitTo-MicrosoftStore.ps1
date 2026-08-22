@@ -44,7 +44,9 @@ param(
     [int]$PackageReadinessTimeoutSeconds = 300,
 
     [ValidateRange(1, 3600)]
-    [int]$SubmissionVerificationTimeoutSeconds = 300
+    [int]$SubmissionVerificationTimeoutSeconds = 300,
+
+    [string]$SubmissionMetadataPath = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -103,6 +105,50 @@ function Get-PropertyByName
     return $InputObject.PSObject.Properties |
         Where-Object { $_.Name.Equals($Name, [StringComparison]::OrdinalIgnoreCase) } |
         Select-Object -First 1
+}
+
+function Write-SubmissionMetadata
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$SubmissionId,
+
+        [Parameter(Mandatory)]
+        [string]$Status,
+
+        [AllowEmptyString()]
+        [string]$SubmissionFlightId = ""
+    )
+
+    if ([string]::IsNullOrWhiteSpace($SubmissionMetadataPath))
+    {
+        return
+    }
+
+    $metadataPath = [IO.Path]::GetFullPath($SubmissionMetadataPath)
+    $metadataDirectory = [IO.Path]::GetDirectoryName($metadataPath)
+
+    if (-not [string]::IsNullOrWhiteSpace($metadataDirectory))
+    {
+        [IO.Directory]::CreateDirectory($metadataDirectory) | Out-Null
+    }
+
+    $metadata = [ordered]@{
+        ProductId = $PartnerCenterStoreId
+        SubmissionId = $SubmissionId
+        FlightId = $SubmissionFlightId
+        Status = $Status
+        SubmittedAtUtc = [DateTime]::UtcNow.ToString("O")
+    }
+
+    $metadataJson = $metadata | ConvertTo-Json -Depth 10
+    [IO.File]::WriteAllText(
+        $metadataPath,
+        $metadataJson + [Environment]::NewLine,
+        [Text.UTF8Encoding]::new($false)
+    )
+
+    Write-Host "Saved Store submission metadata for submission '$SubmissionId'."
 }
 
 function Normalize-ComparableValue
@@ -601,6 +647,40 @@ if (-not $hasPendingSubmission -or $ReplaceExistingDraft)
             return
         }
 
+        $flightJson = Invoke-MsStoreJson -Arguments @(
+            "flights",
+            "get",
+            $PartnerCenterStoreId,
+            $FlightId
+        )
+        $flight = $flightJson | ConvertFrom-Json -Depth 100
+        $pendingFlightSubmissionProperty = Get-PropertyByName `
+            -InputObject $flight `
+            -Name "PendingFlightSubmission"
+
+        if ($null -eq $pendingFlightSubmissionProperty -or
+            $null -eq $pendingFlightSubmissionProperty.Value)
+        {
+            throw "The pending flight submission could not be retrieved."
+        }
+
+        $flightSubmissionIdProperty = Get-PropertyByName `
+            -InputObject $pendingFlightSubmissionProperty.Value `
+            -Name "Id"
+        $flightSubmissionId = if ($null -eq $flightSubmissionIdProperty)
+        {
+            ""
+        }
+        else
+        {
+            [string]$flightSubmissionIdProperty.Value
+        }
+
+        if ([string]::IsNullOrWhiteSpace($flightSubmissionId))
+        {
+            throw "The pending flight submission does not contain an ID."
+        }
+
         Invoke-MsStore -Arguments @(
             "flights",
             "submission",
@@ -608,13 +688,13 @@ if (-not $hasPendingSubmission -or $ReplaceExistingDraft)
             $PartnerCenterStoreId,
             $FlightId
         )
-        Invoke-MsStore -Arguments @(
-            "flights",
-            "submission",
-            "poll",
-            $PartnerCenterStoreId,
-            $FlightId
-        )
+
+        Write-SubmissionMetadata `
+            -SubmissionId $flightSubmissionId `
+            -Status "CommitStarted" `
+            -SubmissionFlightId $FlightId
+
+        Write-Host "Committed Store flight submission '$flightSubmissionId'; certification will be tracked by GitHub."
         return
     }
 
@@ -678,11 +758,30 @@ The package and localized listings are staged in the Submission API and will rem
         "publish",
         $PartnerCenterStoreId
     )
-    Invoke-MsStore -Arguments @(
-        "submission",
-        "poll",
-        $PartnerCenterStoreId
-    )
+
+    $committedSubmission = $submissionJson | ConvertFrom-Json -Depth 100
+    $submissionIdProperty = Get-PropertyByName `
+        -InputObject $committedSubmission `
+        -Name "Id"
+    $submissionId = if ($null -eq $submissionIdProperty)
+    {
+        ""
+    }
+    else
+    {
+        [string]$submissionIdProperty.Value
+    }
+
+    if ([string]::IsNullOrWhiteSpace($submissionId))
+    {
+        throw "The committed Store submission does not contain an ID."
+    }
+
+    Write-SubmissionMetadata `
+        -SubmissionId $submissionId `
+        -Status "CommitStarted"
+
+    Write-Host "Committed Store submission '$submissionId'; certification will be tracked by GitHub."
 }
 finally
 {

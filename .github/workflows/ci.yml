@@ -28,6 +28,10 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Debug, Release]
 
     steps:
     - name: Checkout the repository
@@ -37,7 +41,7 @@ jobs:
       with:
         global-json-file: global.json
     - name: Run unit tests
-      run: dotnet test --project tests/FluentHub.Tests/FluentHub.Tests.csproj -c Debug
+      run: dotnet test --project tests/FluentHub.Tests/FluentHub.Tests.csproj -c ${{ matrix.configuration }}
 
   build:
     needs: test
