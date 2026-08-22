@@ -1,0 +1,24 @@
+{
+  "description": "FluentHub is a modern GitHub client designed for Windows. Browse repositories, issues, pull requests, releases, and user profiles in a native Fluent Design interface. Work across multiple pages with tabs and keep your navigation history while you manage everyday GitHub tasks.",
+  "shortDescription": "A stylish yet powerful GitHub client designed for Windows.",
+  "features": [
+    "Native Windows experience built with WinUI 3",
+    "Browse repositories, issues, pull requests, releases, and profiles",
+    "Create and manage issues and pull requests",
+    "Work across multiple tabs",
+    "Navigate without losing history or progress"
+  ],
+  "keywords": [
+    "GitHub",
+    "Git",
+    "repository",
+    "issues",
+    "pull requests",
+    "developer",
+    "code"
+  ],
+  "shortTitle": "FluentHub",
+  "voiceTitle": "Fluent Hub",
+  "devStudio": "FluentHub",
+  "copyrightAndTrademarkInfo": "Copyright FluentHub contributors."
+}
