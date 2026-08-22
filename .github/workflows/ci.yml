@@ -71,9 +71,9 @@ jobs:
     - name: Prepare CI app credentials
       shell: pwsh
       run: |
-        $contents = [IO.File]::ReadAllText($env:APP_CREDENTIALS_PATH) `
-          .Replace("YOUR_OAUTH_APP_CLIENT_ID", "ci-validation-client-id") `
-          .Replace("YOUR_OAUTH_APP_CLIENT_SECRET", [string]::Empty)
+        $contents = [IO.File]::ReadAllText($env:APP_CREDENTIALS_PATH)
+        $contents = $contents.Replace("YOUR_OAUTH_APP_CLIENT_ID", "ci-validation-client-id")
+        $contents = $contents.Replace("YOUR_OAUTH_APP_CLIENT_SECRET", [string]::Empty)
         [IO.File]::WriteAllText($env:APP_CREDENTIALS_PATH, $contents, [Text.UTF8Encoding]::new($false))
 
     - name: Build FluentHub
