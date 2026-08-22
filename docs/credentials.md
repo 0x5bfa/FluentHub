@@ -16,18 +16,25 @@ This application uses GitHub OAuth Device Flow. You must independently get a cli
 		|Badge background color|`#FFFFFF`|True (whatever)|
 
  2.  Enable Device Flow in the OAuth app settings.
- 3.  Copy `src/FluentHub/AppCredentials.config.example` to `src/FluentHub/AppCredentials.config`.
- 4.  Change the `id` node value. The `secret` node can be empty because Device Flow does not use the client secret.
+ 3.  Open `src/FluentHub/AppCredentials.config` and replace the placeholder client ID. The client secret can be empty because Device Flow does not use it.
 
 		```xml
 		<?xml version="1.0" encoding="utf-8" ?>
 		<configuration>
 		    <client>
-		        <type key="id" value="YOUR-APP-ID"/>
-		        <type key="secret" value=""/>
+		        <type key="id" value="YOUR_OAUTH_APP_CLIENT_ID"/>
+		        <type key="secret" value="YOUR_OAUTH_APP_CLIENT_SECRET"/>
 		    </client>
 		</configuration>
 		```
+
+ 4.  To keep your local credentials out of normal Git status output, mark the tracked file as `skip-worktree`:
+
+		```powershell
+		git update-index --skip-worktree src/FluentHub/AppCredentials.config
+		```
+
+	To receive future repository updates to the placeholder file, clear the local flag first with `git update-index --no-skip-worktree src/FluentHub/AppCredentials.config`.
 
 		![image](https://user-images.githubusercontent.com/62196528/161758514-350c2d44-8ffc-402a-b67e-4ccc48c706df.png)
 

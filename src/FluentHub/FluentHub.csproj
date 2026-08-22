@@ -80,7 +80,7 @@
 	<Target Name="ValidateAppCredentials" BeforeTargets="PrepareForBuild">
 		<Error
 			Condition="!Exists('$(AppCredentialsPath)')"
-			Text="AppCredentials.config is required. Copy AppCredentials.config.example and configure its client id." />
+			Text="AppCredentials.config is required. Restore the tracked file and configure its client id." />
 		<XmlPeek
 			Condition="Exists('$(AppCredentialsPath)')"
 			XmlInputPath="$(AppCredentialsPath)"
@@ -94,7 +94,7 @@
 			Condition="$([System.String]::IsNullOrWhiteSpace('@(_AppCredentialClientId)'))"
 			Text="AppCredentials.config must contain a non-empty client id." />
 		<Error
-			Condition="'@(_AppCredentialClientId)' == 'YOUR-APP-ID'"
+			Condition="'@(_AppCredentialClientId)' == 'YOUR_OAUTH_APP_CLIENT_ID'"
 			Text="AppCredentials.config still contains the example client id. Configure a GitHub OAuth app client id before building." />
 	</Target>
 
