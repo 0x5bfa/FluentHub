@@ -9,7 +9,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\FluentHub.Core\FluentHub.Core.csproj" />
-		<ProjectReference Include="..\..\src\FluentHub.Octokit\FluentHub.Octokit.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,7 +4,8 @@
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
-using FluentHub.Octokit.Authorization;
+using FluentHub.Core.Application;
+using FluentHub.Core.Authorization;
 using System.Windows.Input;
 using Windows.System;
 
@@ -15,6 +16,7 @@ namespace FluentHub.ViewModels.SignIn
 		private readonly IFluentHubGitHubClient _gitHub;
 		private readonly IGitHubSessionManager _sessionManager;
 		private readonly AuthorizationService _authorizationService;
+		private readonly AccountService _accountService;
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
 		private CancellationTokenSource _deviceAuthorizationCancellationTokenSource = default!;
@@ -93,12 +95,14 @@ namespace FluentHub.ViewModels.SignIn
 			IFluentHubGitHubClient gitHub,
 			IGitHubSessionManager sessionManager,
 			AuthorizationService authorizationService,
+			AccountService accountService,
 			ILogger logger,
 			IMessenger messenger)
 		{
 			_gitHub = gitHub;
 			_sessionManager = sessionManager;
 			_authorizationService = authorizationService;
+			_accountService = accountService;
 			_logger = logger;
 			_messenger = messenger;
 
@@ -149,9 +153,17 @@ namespace FluentHub.ViewModels.SignIn
 				App.AppSettings.SetupProgress = true;
 				UrlWasLaunched = true;
 
-				var accessToken = await WaitForDeviceAccessTokenAsync(
+				var progress = new Progress<DeviceAuthorizationPollingStatus>(status =>
+					DeviceAuthorizationStatus = status switch
+					{
+						DeviceAuthorizationPollingStatus.Pending => "Waiting for GitHub authorization...",
+						DeviceAuthorizationPollingStatus.SlowedDown => "GitHub asked us to slow down. Still waiting...",
+						_ => DeviceAuthorizationStatus,
+					});
+				var accessToken = await _authorizationService.WaitForDeviceAccessTokenAsync(
 					secrets,
 					deviceAuthorization,
+					progress,
 					cancellationToken);
 
 				_logger?.Info("FluentHub is authorized successfully.");
@@ -184,39 +196,6 @@ namespace FluentHub.ViewModels.SignIn
 			}
 		}
 
-		private async Task<string> WaitForDeviceAccessTokenAsync(
-			OctokitSecrets secrets,
-			DeviceAuthorizationResponse deviceAuthorization,
-			CancellationToken cancellationToken)
-		{
-			var interval = Math.Max(deviceAuthorization.Interval ?? 5, 5);
-			var expiresAt = DateTimeOffset.UtcNow.AddSeconds(deviceAuthorization.ExpiresIn);
-
-			while (DateTimeOffset.UtcNow < expiresAt)
-			{
-				await Task.Delay(TimeSpan.FromSeconds(interval), cancellationToken);
-
-				try
-				{
-					return await _authorizationService.RequestDeviceAccessTokenAsync(
-						deviceAuthorization.DeviceCode,
-						secrets,
-						cancellationToken);
-				}
-				catch (DeviceAuthorizationPendingException)
-				{
-					DeviceAuthorizationStatus = "Waiting for GitHub authorization...";
-				}
-				catch (DeviceAuthorizationSlowDownException ex)
-				{
-					interval = Math.Max(ex.Interval ?? interval + 5, interval + 5);
-					DeviceAuthorizationStatus = "GitHub asked us to slow down. Still waiting...";
-				}
-			}
-
-			throw new TimeoutException("The GitHub device authorization code has expired.");
-		}
-
 		private async Task OpenDeviceVerificationUriAsync()
 		{
 			if (Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
@@ -236,7 +215,7 @@ namespace FluentHub.ViewModels.SignIn
 
 			App.AppSettings.AccessToken = accessToken;
 			App.AppSettings.SignedInUserName = login;
-			AccountService.AddAccount(login);
+			_accountService.AddAccount(login);
 		}
 	}
 }

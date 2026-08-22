@@ -1,4 +1,4 @@
-using FluentHub.Octokit;
+using FluentHub.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;

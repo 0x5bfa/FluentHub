@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.UserControls.BlockButtons"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
+	xmlns:modelsV4="using:FluentHub.Core.Contracts"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"

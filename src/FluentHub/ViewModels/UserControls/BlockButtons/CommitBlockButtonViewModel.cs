@@ -2,7 +2,7 @@ using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.UserControls.BlockButtons
 {

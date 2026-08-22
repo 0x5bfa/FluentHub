@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Models;
-using FluentHub.Octokit.Clients;
+using FluentHub.Core.Clients;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;

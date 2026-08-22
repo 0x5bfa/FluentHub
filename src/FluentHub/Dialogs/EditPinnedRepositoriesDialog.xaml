@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.Dialogs"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:models="using:FluentHub.Models"
+	xmlns:coreModels="using:FluentHub.Core.Models"
 	Loaded="OnEditPinnedRepositoriesDialogLoaded"
 	PrimaryButtonClick="OnPrimaryButtonClick"
 	PrimaryButtonText="Save pins"
@@ -59,7 +59,7 @@
 						</ListView.ItemContainerStyle>
 
 						<ListView.ItemTemplate>
-							<DataTemplate x:DataType="models:PinnableRepository">
+							<DataTemplate x:DataType="coreModels:PinnableRepositoryItem">
 
 								<StackPanel
 									Padding="0,0"

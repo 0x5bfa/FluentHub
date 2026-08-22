@@ -1,7 +1,7 @@
-using FluentHub.Octokit.Clients;
-using FluentHub.Octokit.Contracts;
-using FluentHub.Octokit.Mutations;
-using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Core.Clients;
+using FluentHub.Core.Contracts;
+using FluentHub.Core.Mutations;
+using FluentHub.Core.Queries.Repositories;
 using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

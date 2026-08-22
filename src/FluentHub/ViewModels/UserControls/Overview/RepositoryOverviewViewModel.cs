@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using System.Windows.Input;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.UserControls.Overview
 {

@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Core.Queries.Users;
 using FluentHub.Extensions;
 using FluentHub.Models;
 using FluentHub.ViewModels.UserControls.Overview;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.AppSettings
 {

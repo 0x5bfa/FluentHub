@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Core.Queries.Repositories;
 using Windows.Storage;
 
 namespace FluentHub.Services

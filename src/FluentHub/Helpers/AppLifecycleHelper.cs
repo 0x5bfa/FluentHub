@@ -4,8 +4,9 @@
 using FluentHub.Utils;
 using FluentHub.Services;
 using FluentHub.ViewModels;
-using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Clients;
+using FluentHub.Core.Application;
+using FluentHub.Core.Authorization;
+using FluentHub.Core.Clients;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
@@ -43,6 +44,9 @@ namespace FluentHub.Helpers
 					.AddSingleton<ToastService>()
 					.AddSingleton<MarkdownApiHandler>()
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
+					// Application services
+					.AddSingleton<IAccountStore>(_ => App.AppSettings)
+					.AddSingleton<AccountService>()
 					// GitHub API
 					.AddSingleton<GitHubSessionManager>()
 					.AddSingleton<IGitHubSessionManager>(services => services.GetRequiredService<GitHubSessionManager>())

@@ -1,0 +1,83 @@
+using FluentHub.Core.Clients;
+using System.Text.RegularExpressions;
+
+namespace FluentHub.Core.Queries.Repositories
+{
+	public class MarkdownQueries
+	{
+		private readonly IGitHubApiClient _gitHub;
+
+		public MarkdownQueries(IGitHubApiClient gitHub)
+			=> _gitHub = gitHub;
+
+		public async Task<string> GetHtmlAsync(
+			string index,
+			string markdown,
+			string missedPath,
+			string theme,
+			bool isHtml,
+			CancellationToken cancellationToken = default)
+		{
+			string body = isHtml
+				? markdown
+				: await GetRawHtmlAsync(markdown, cancellationToken);
+
+			//body = AddMissedLineBreaks(body);
+
+			string html
+				= ((string)index!.Clone())
+				.Replace("{{renderTheme}}", theme)
+				.Replace("{{htmlBody}}", body);
+
+			html = CorrectRelativePaths(html, missedPath);
+			return html;
+		}
+
+		private async Task<string> GetRawHtmlAsync(
+			string markdown,
+			CancellationToken cancellationToken)
+		{
+			using var request = new HttpRequestMessage(HttpMethod.Post, "markdown/raw")
+			{
+				Content = new StringContent(markdown, Encoding.UTF8, "text/plain"),
+			};
+
+			request.Headers.Add("Mode", "GFM");
+
+			using var response = await _gitHub.SendRestAsync(request, cancellationToken);
+			response.EnsureSuccessStatusCode();
+
+			return await response.Content.ReadAsStringAsync(cancellationToken);
+		}
+
+		private string CorrectRelativePaths(string html, string missedPath)
+		{
+			var baseUri = new Uri(missedPath);
+
+			var pattern = @"(?<name>src|href)=""(?<value>[^""]*)""";
+
+			var matchEvaluator = new MatchEvaluator(
+				match =>
+				{
+					var value = match.Groups["value"].Value;
+
+					// Remove the first character slash
+					if (value[0] == '/') value = value.Remove(0, 1);
+
+					Uri uri = new Uri(baseUri, value);
+
+					var name = match.Groups["name"].Value;
+					return string.Format("{0}=\"{1}\"", name, uri.AbsoluteUri);
+				});
+
+			var correctedHtml = Regex.Replace(html, pattern, matchEvaluator);
+
+			return correctedHtml;
+		}
+
+		private string AddMissedLineBreaks(string html)
+		{
+			return html.Replace(@"</strong>", "</strong>\n</br>");
+		}
+	}
+}

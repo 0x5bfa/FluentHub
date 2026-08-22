@@ -3,9 +3,9 @@
 
 using FluentHub.Dialogs;
 using FluentHub.ViewModels.UserControls.FeedBlocks;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Core.Queries.Users;
 using System.Windows.Input;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.ViewModels.Viewers
 {

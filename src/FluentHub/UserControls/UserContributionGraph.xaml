@@ -4,11 +4,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
 	xmlns:converters="using:FluentHub.Converters"
+	xmlns:coreModels="using:FluentHub.Core.Models"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.UserControls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:models="using:FluentHub.Models"
-	xmlns:modelsV4="using:FluentHub.Octokit.Contracts"
+	xmlns:modelsV4="using:FluentHub.Core.Contracts"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
@@ -139,7 +139,7 @@
 						VerticalSpacing="4" />
 				</ItemsRepeater.Layout>
 
-				<DataTemplate x:DataType="models:MergedCalendarDays">
+				<DataTemplate x:DataType="coreModels:ContributionCalendarItem">
 					<Border
 						x:Name="ContributionLevelBorder"
 						Width="14"
@@ -147,7 +147,7 @@
 						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 						BorderThickness="1"
 						CornerRadius="4"
-						Visibility="{x:Bind IsVaild, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+						Visibility="{x:Bind IsValid, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 						<Border.Background>
 							<SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
 						</Border.Background>

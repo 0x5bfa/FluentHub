@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.Data.Parameters;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Contracts;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {

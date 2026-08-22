@@ -1,6 +1,7 @@
 using FluentHub.Utils;
-using FluentHub.Models;
-using FluentHub.Octokit.Contracts;
+using FluentHub.Core.Application;
+using FluentHub.Core.Contracts;
+using FluentHub.Core.Models;
 
 namespace FluentHub.ViewModels.Dialogs
 {
@@ -28,8 +29,8 @@ namespace FluentHub.ViewModels.Dialogs
 		private string _login = default!;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
 
-		private readonly ObservableCollection<PinnableRepository> _pinnableItems;
-		public ReadOnlyObservableCollection<PinnableRepository> PinnableItems { get; }
+		private readonly ObservableCollection<PinnableRepositoryItem> _pinnableItems;
+		public ReadOnlyObservableCollection<PinnableRepositoryItem> PinnableItems { get; }
 		#endregion
 
 		public async Task LoadPinnableAndPinnedRepositoriesAsync(CancellationToken cancellationToken = default)
@@ -42,22 +43,9 @@ namespace FluentHub.ViewModels.Dialogs
 			var queries = _gitHub.Users.PinnedItems;
 			(List<Repository> pinnables, List<Repository> pinneds) = await queries.GetAllPinnableAndPinnedItemsAsync(Login, cancellationToken);
 
-			foreach (var item in pinnables)
-			{
-				var pinnableRepo = new PinnableRepository()
-				{
-					PinnableItem = item,
-				};
-
-				var result = pinneds.Find(x => x.NameWithOwner == item.NameWithOwner);
-
-				if (result != default(Repository))
-				{
-					pinnableRepo.IsPinned = true;
-				}
-
-				_pinnableItems.Add(pinnableRepo);
-			}
+			_pinnableItems.Clear();
+			foreach (var item in PinnedRepositoryService.CreateItems(pinnables, pinneds))
+				_pinnableItems.Add(item);
 		}
 	}
 }

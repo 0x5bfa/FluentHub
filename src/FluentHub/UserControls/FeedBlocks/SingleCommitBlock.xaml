@@ -7,7 +7,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:contracts="using:FluentHub.Octokit.Contracts"
+	xmlns:contracts="using:FluentHub.Core.Contracts"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
