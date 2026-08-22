@@ -265,16 +265,6 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.SingleOrDefault(),
 
-					ProjectCards = x.ProjectCards(6, null, null, null, null).Select(projects => new ProjectCardConnection
-					{
-						Nodes = projects.Nodes.Select(y => (ProjectCard?)new ProjectCard
-						{
-							Note = y.Note,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-
 					Repository = x.Repository.Select(repo => new Repository
 					{
 						Name = repo.Name,
