@@ -40,7 +40,7 @@ In order to report a security vulnerability, you can use [GitHub's built-in tool
 ### Spotting secrets in code
 
 If you spot a secret in the code, please let us know by contacting us on Discord via private DM. This helps us quietly remove the vulnerability without letting others abuse it.
-If you notice that we've accidentally published an `AppCredentials.config` file or removed it from the `.gitignore` in the project root, please notify us.
+`AppCredentials.config` intentionally contains tracked placeholders. If you notice that real OAuth credentials were committed to it or any other file, please notify us privately.
 
 ### GitHub API
 

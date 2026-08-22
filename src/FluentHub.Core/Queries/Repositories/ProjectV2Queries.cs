@@ -24,7 +24,22 @@ namespace FluentHub.Core.Queries.Repositories
 				{
 					Edges = connection.Edges.Select(edge => (ProjectV2Edge?)new ProjectV2Edge
 					{
-						Node = edge.Node.Select(SelectProject).Single(),
+						Node = edge.Node.Select(project => new ProjectV2
+						{
+							Closed = project.Closed,
+							ClosedAt = project.ClosedAt,
+							CreatedAt = project.CreatedAt,
+							Id = project.Id,
+							Number = project.Number,
+							Public = project.Public,
+							Readme = project.Readme,
+							ResourcePath = project.ResourcePath,
+							ShortDescription = project.ShortDescription,
+							Title = project.Title,
+							UpdatedAt = project.UpdatedAt,
+							Url = project.Url,
+							ViewerCanUpdate = project.ViewerCanUpdate,
+						}).Single(),
 					}).ToList(),
 					PageInfo = new()
 					{
@@ -45,23 +60,5 @@ namespace FluentHub.Core.Queries.Repositories
 					.ToList() ?? [],
 				response.PageInfo);
 		}
-
-		private static readonly Expression<Func<OctokitGraphQLModel.ProjectV2, ProjectV2>> SelectProject = project
-			=> new ProjectV2
-			{
-				Closed = project.Closed,
-				ClosedAt = project.ClosedAt,
-				CreatedAt = project.CreatedAt,
-				Id = project.Id,
-				Number = project.Number,
-				Public = project.Public,
-				Readme = project.Readme,
-				ResourcePath = project.ResourcePath,
-				ShortDescription = project.ShortDescription,
-				Title = project.Title,
-				UpdatedAt = project.UpdatedAt,
-				Url = project.Url,
-				ViewerCanUpdate = project.ViewerCanUpdate,
-			};
 	}
 }

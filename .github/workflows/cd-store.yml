@@ -16,10 +16,6 @@ on:
         required: true
         default: false
         type: boolean
-      release_notes:
-        description: 'Optional English release notes. When empty, the existing Store value is preserved.'
-        required: false
-        type: string
       flight_id:
         description: 'Optional Microsoft Store flight ID. Store listings are not updated for flights.'
         required: false
@@ -32,12 +28,19 @@ on:
         description: 'Optional prior Store workflow run ID whose package artifact should be reused.'
         required: false
         type: string
+      source_pr:
+        description: 'Optional pull request number that produced the submitted package.'
+        required: false
+        type: string
 
 run-name: 'FluentHub CD (Store)'
 
 permissions:
   contents: read
   actions: read
+  deployments: write
+  issues: write
+  pull-requests: write
 
 concurrency:
   group: microsoft-store-production
@@ -56,8 +59,9 @@ jobs:
       APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
       APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
       APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub\AppCredentials.config'
-      STORE_LISTINGS_DIR:            '${{ github.workspace }}\Packaging\MicrosoftStore\Listings'
-      STORE_LOCALES_PATH:            '${{ github.workspace }}\Packaging\MicrosoftStore\locales.json'
+      STORE_LISTINGS_DIR:            '${{ github.workspace }}\.github\msstore-config\Listings'
+      STORE_LOCALES_PATH:            '${{ github.workspace }}\.github\msstore-config\locales.json'
+      PACKAGE_CERTIFICATE_PATH:      '${{ github.workspace }}\.github\TempCertificate.pfx'
 
     steps:
     - name: Checkout the repository
@@ -76,21 +80,46 @@ jobs:
           -ListingsPath $env:STORE_LISTINGS_DIR `
           -LocalesPath $env:STORE_LOCALES_PATH
 
+    - name: Generate temporary Store package certificate
+      shell: pwsh
+      run: |
+        & "$env:WORKING_DIR\.github\scripts\Generate-SelfCertPfx.ps1" `
+          -Destination $env:PACKAGE_CERTIFICATE_PATH `
+          -Publisher "CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+
+    - name: Prepare app credentials
+      shell: pwsh
+      run: |
+        if ([string]::IsNullOrWhiteSpace($env:APP_CREDENTIALS_CONFIG_BASE64))
+        {
+          throw "The APP_CREDENTIALS_CONFIG_BASE64 Actions secret is not configured."
+        }
+
+        try
+        {
+          $bytes = [Convert]::FromBase64String($env:APP_CREDENTIALS_CONFIG_BASE64)
+        }
+        catch
+        {
+          throw "The APP_CREDENTIALS_CONFIG_BASE64 Actions secret is not valid base64."
+        }
+
+        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
+      env:
+        APP_CREDENTIALS_CONFIG_BASE64: '${{ secrets.APP_CREDENTIALS_CONFIG_BASE64 }}'
+
     - name: Build and package FluentHub
       shell: pwsh
       run: |
-        $bytes = [Convert]::FromBase64String($env:GH_CREDENTIALS_SECRET)
-        [IO.File]::WriteAllBytes($env:APP_CREDENTIALS_PATH, $bytes)
-
         Set-Location "$env:WORKING_DIR\src"
 
         & "$env:WORKING_DIR\.github\scripts\Build-App.ps1" `
           -Platform $env:PLATFORM `
           -Configuration $env:CONFIGURATION `
           -IsStorePublish $true `
-          -PackageManifestPath $env:APP_MANIFEST_PATH
-      env:
-        GH_CREDENTIALS_SECRET: '${{ secrets.GH_CREDENTIALS_JSON_BASE64 }}'
+          -PackageManifestPath $env:APP_MANIFEST_PATH `
+          -PackageCertificateKeyFile $env:PACKAGE_CERTIFICATE_PATH `
+          -AppxBundlePlatforms $env:APPX_BUNDLE_PLATFORMS
 
     - name: Verify Store package
       shell: pwsh
@@ -130,21 +159,112 @@ jobs:
         if-no-files-found: error
         retention-days: 14
 
-  deploy:
+  validate-release:
     needs: build
     if: >-
       always() &&
       (needs.build.result == 'success' || needs.build.result == 'skipped')
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - architecture: x64
+            runner: windows-latest
+          - architecture: arm64
+            runner: windows-11-arm
+    runs-on: ${{ matrix.runner }}
+    env:
+      STORE_ARTIFACT_DIR:             '${{ github.workspace }}\artifacts\store'
+      VALIDATION_RESULTS_DIR:         '${{ github.workspace }}\TestResults\StoreValidation'
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Download the Store package
+      uses: actions/download-artifact@v4
+      with:
+        name: FluentHub Store package
+        path: ${{ env.STORE_ARTIFACT_DIR }}
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.artifact_run_id || github.run_id }}
+
+    - name: Find sideload validation package
+      id: validation-package
+      shell: pwsh
+      run: |
+        $bundle = Get-ChildItem -Path $env:STORE_ARTIFACT_DIR -Recurse -File -Filter *.msixbundle |
+          Where-Object { $_.DirectoryName -like "*_Test*" } |
+          Sort-Object LastWriteTimeUtc -Descending |
+          Select-Object -First 1
+        $certificate = Get-ChildItem -Path $env:STORE_ARTIFACT_DIR -Recurse -File -Filter *.cer |
+          Where-Object { $_.DirectoryName -like "*_Test*" } |
+          Sort-Object LastWriteTimeUtc -Descending |
+          Select-Object -First 1
+
+        if ($null -eq $bundle)
+        {
+          throw "The Store artifact does not contain a sideload .msixbundle in a _Test directory. Rebuild it with StoreUpload mode."
+        }
+
+        if ($null -eq $certificate)
+        {
+          throw "The Store artifact does not contain the certificate for its sideload validation package."
+        }
+
+        "bundle_path=$($bundle.FullName)" >> $env:GITHUB_OUTPUT
+        "certificate_path=$($certificate.FullName)" >> $env:GITHUB_OUTPUT
+        Write-Host "Validation bundle: $($bundle.FullName)"
+
+    - name: Run Windows App Certification Kit
+      shell: pwsh
+      run: |
+        & "$env:GITHUB_WORKSPACE\.github\scripts\Invoke-WindowsAppCertificationKit.ps1" `
+          -PackagePath '${{ steps.validation-package.outputs.bundle_path }}' `
+          -CertificatePath '${{ steps.validation-package.outputs.certificate_path }}' `
+          -ReportPath "$env:VALIDATION_RESULTS_DIR\WackReport.xml"
+
+    - name: Install and launch the Release package
+      shell: pwsh
+      run: |
+        & "$env:GITHUB_WORKSPACE\.github\scripts\Test-PackagedAppStartup.ps1" `
+          -PackagePath '${{ steps.validation-package.outputs.bundle_path }}' `
+          -CertificatePath '${{ steps.validation-package.outputs.certificate_path }}' `
+          -PackageName '49462fluenthub-uwp.FluentHub' `
+          -Architecture '${{ matrix.architecture }}' `
+          -DiagnosticsPath $env:VALIDATION_RESULTS_DIR
+
+    - name: Upload validation diagnostics
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Store validation (${{ matrix.architecture }})'
+        path: ${{ env.VALIDATION_RESULTS_DIR }}
+        if-no-files-found: ignore
+        retention-days: 14
+
+  deploy:
+    needs:
+      - build
+      - validate-release
+    if: >-
+      always() &&
+      (needs.build.result == 'success' || needs.build.result == 'skipped') &&
+      needs.validate-release.result == 'success'
     runs-on: ubuntu-latest
     environment: microsoft-store
     env:
       STORE_ARTIFACT_DIR:             '${{ github.workspace }}/artifacts/store'
-      STORE_LISTINGS_DIR:             '${{ github.workspace }}/Packaging/MicrosoftStore/Listings'
-      STORE_LOCALES_PATH:             '${{ github.workspace }}/Packaging/MicrosoftStore/locales.json'
+      APP_MANIFEST_PATH:              '${{ github.workspace }}/src/FluentHub/Package.appxmanifest'
+      STORE_LISTINGS_DIR:             '${{ github.workspace }}/.github/msstore-config/Listings'
+      STORE_LOCALES_PATH:             '${{ github.workspace }}/.github/msstore-config/locales.json'
       STORE_PRODUCT_ID:               "${{ vars.MICROSOFT_STORE_PRODUCT_ID || '9NKB9HX8RJZ3' }}"
-      STORE_RELEASE_NOTES:            '${{ inputs.release_notes }}'
+      STORE_RELEASE_NOTES_DIR:        '${{ github.workspace }}/.github/release-notes'
       STORE_FLIGHT_ID:                '${{ inputs.flight_id }}'
       STORE_ROLLOUT_PERCENTAGE:       '${{ inputs.rollout_percentage }}'
+      STORE_SUBMISSION_METADATA_PATH: '${{ github.workspace }}/artifacts/store-submission.json'
 
     steps:
     - name: Checkout the repository
@@ -191,6 +311,47 @@ jobs:
         "package_path=$($package.FullName)" >> $env:GITHUB_OUTPUT
         Write-Host "Found Store package: $($package.FullName)"
 
+    - name: Resolve source commit and pull request
+      id: source
+      if: inputs.submit
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+        ARTIFACT_RUN_ID: ${{ inputs.artifact_run_id }}
+        REQUESTED_SOURCE_PR: ${{ inputs.source_pr }}
+      run: |
+        $sourceSha = '${{ github.sha }}'
+        $sourcePullRequest = $env:REQUESTED_SOURCE_PR.Trim()
+
+        if (-not [string]::IsNullOrWhiteSpace($sourcePullRequest) -and
+            $sourcePullRequest -notmatch '^[1-9]\d*$')
+        {
+          throw "source_pr must be a positive pull request number."
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($env:ARTIFACT_RUN_ID))
+        {
+          $sourceRun = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:ARTIFACT_RUN_ID" | ConvertFrom-Json
+          $sourceSha = [string]$sourceRun.head_sha
+        }
+
+        if ([string]::IsNullOrWhiteSpace($sourceSha))
+        {
+          throw "The source commit could not be resolved."
+        }
+
+        if ([string]::IsNullOrWhiteSpace($sourcePullRequest))
+        {
+          $pullRequests = @(gh api "repos/$env:GITHUB_REPOSITORY/commits/$sourceSha/pulls" | ConvertFrom-Json)
+          $sourcePullRequest = [string]($pullRequests |
+            Sort-Object updated_at -Descending |
+            Select-Object -First 1 -ExpandProperty number)
+        }
+
+        "source_sha=$sourceSha" >> $env:GITHUB_OUTPUT
+        "source_pr=$sourcePullRequest" >> $env:GITHUB_OUTPUT
+        Write-Host "Submission source: $sourceSha (PR: $sourcePullRequest)"
+
     - name: Setup Microsoft Store Developer CLI
       uses: microsoft/microsoft-store-apppublisher@cc9910a8d59f2eb55cbb83df0a3800cf3b5300e0
       with:
@@ -222,3 +383,18 @@ jobs:
         PARTNER_CENTER_CLIENT_SECRET: ${{ secrets.PARTNER_CENTER_CLIENT_SECRET }}
         PARTNER_CENTER_SELLER_ID: ${{ secrets.PARTNER_CENTER_SELLER_ID }}
         PARTNER_CENTER_TENANT_ID: ${{ secrets.PARTNER_CENTER_TENANT_ID }}
+
+    - name: Register Store certification deployment
+      id: certification-deployment
+      if: inputs.submit
+      shell: pwsh
+      run: |
+        & "$env:GITHUB_WORKSPACE/.github/scripts/Register-MicrosoftStoreDeployment.ps1" `
+          -SubmissionMetadataPath $env:STORE_SUBMISSION_METADATA_PATH `
+          -Repository $env:GITHUB_REPOSITORY `
+          -GitHubToken $env:GH_TOKEN `
+          -SourceSha '${{ steps.source.outputs.source_sha }}' `
+          -SourcePullRequest '${{ steps.source.outputs.source_pr }}' `
+          -WorkflowRunUrl "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
+      env:
+        GH_TOKEN: ${{ github.token }}

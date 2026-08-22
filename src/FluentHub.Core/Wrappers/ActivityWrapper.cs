@@ -194,17 +194,19 @@ namespace FluentHub.Core.Wrappers
 							var pushEventPayload = (OctokitV3.PushEventPayload)item.Payload;
 							indivisual.Details.PushEvent = new()
 							{
-								Commits = pushEventPayload.Commits.Select(commit => new ActivityCommit
-								{
-									Message = commit.Message,
-									Sha = commit.Sha,
-									User = new()
+								Commits = pushEventPayload.Commits?
+									.Select(commit => new ActivityCommit
 									{
-										AvatarUrl = commit.User?.AvatarUrl ?? string.Empty,
-										Login = commit.User?.Login ?? commit.Author?.Name ?? string.Empty,
-										Name = commit.User?.Name ?? commit.Author?.Name ?? string.Empty,
-									},
-								}).ToList(),
+										Message = commit.Message,
+										Sha = commit.Sha,
+										User = new()
+										{
+											AvatarUrl = commit.User?.AvatarUrl ?? string.Empty,
+											Login = commit.User?.Login ?? commit.Author?.Name ?? string.Empty,
+											Name = commit.User?.Name ?? commit.Author?.Name ?? string.Empty,
+										},
+									})
+									.ToList() ?? [],
 								Head = pushEventPayload.Head,
 								Ref = pushEventPayload.Ref,
 								Size = pushEventPayload.Size,

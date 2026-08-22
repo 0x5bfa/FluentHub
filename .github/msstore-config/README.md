@@ -33,6 +33,12 @@ show the previously committed package and listing values in this state. Enable
 updated values become Store-visible after Partner Center finishes processing
 and certification.
 
+Production release notes are selected from `../release-notes` using the first
+three components of `Package.appxmanifest`'s `Identity` version. For example,
+version `0.10.0.0` loads `../release-notes/0.10.0.md`. Update that file before
+starting a Store submission; the workflow does not accept release notes as a
+manual input.
+
 If a run stops after uploading a package, rerun the workflow with
 `replace_existing_draft` disabled. When the existing draft contains the same
 package filename, the workflow resumes that draft instead of replacing it. Set

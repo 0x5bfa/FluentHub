@@ -55,10 +55,10 @@ git clone https://github.com/FluentHub/FluentHub
 
 See [the documentation](../docs/credentials.md).
 
-The app builds without credentials, but GitHub sign-in remains unavailable until you copy and configure the example file:
+Every app build validates the tracked `AppCredentials.config`. Replace its placeholder client ID before building. You can hide your local credential changes with Git's local `skip-worktree` flag:
 
 ```powershell
-Copy-Item src\FluentHub\AppCredentials.config.example src\FluentHub\AppCredentials.config
+git update-index --skip-worktree src/FluentHub/AppCredentials.config
 ```
 
 ### 3. Build the project

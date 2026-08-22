@@ -24,10 +24,15 @@ env:
   APP_PACKAGE_DIR:               '${{ github.workspace }}\src\FluentHub\AppPackages\'
   APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
   APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
+  APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub\AppCredentials.config'
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Debug, Release]
 
     steps:
     - name: Checkout the repository
@@ -37,7 +42,7 @@ jobs:
       with:
         global-json-file: global.json
     - name: Run unit tests
-      run: dotnet test --project tests/FluentHub.Tests/FluentHub.Tests.csproj -c Debug
+      run: dotnet test --project tests/FluentHub.Tests/FluentHub.Tests.csproj -c ${{ matrix.configuration }}
 
   build:
     needs: test
@@ -62,6 +67,14 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         global-json-file: global.json
+
+    - name: Prepare CI app credentials
+      shell: pwsh
+      run: |
+        $contents = [IO.File]::ReadAllText($env:APP_CREDENTIALS_PATH)
+        $contents = $contents.Replace("YOUR_OAUTH_APP_CLIENT_ID", "ci-validation-client-id")
+        $contents = $contents.Replace("YOUR_OAUTH_APP_CLIENT_SECRET", [string]::Empty)
+        [IO.File]::WriteAllText($env:APP_CREDENTIALS_PATH, $contents, [Text.UTF8Encoding]::new($false))
 
     - name: Build FluentHub
       run: |

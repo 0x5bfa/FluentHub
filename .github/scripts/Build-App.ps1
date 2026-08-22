@@ -5,7 +5,9 @@ param(
     [string]$Platform =       "x64",
     [string]$Configuration =  "Debug",
     [bool]$IsStorePublish  = $false,
-    [string]$PackageManifestPath = ""
+    [string]$PackageManifestPath = "",
+    [string]$PackageCertificateKeyFile = "",
+    [string]$AppxBundlePlatforms = ""
 )
 
 # Load Package.appxmanifest
@@ -30,11 +32,51 @@ if ($IsStorePublish)
     }
 }
 
+$buildArguments = @(
+    "FluentHub",
+    "-restore",
+    "/clp:ErrorsOnly",
+    "/p:Platform=$Platform",
+    "/p:Configuration=$Configuration"
+)
+
 if ($IsStorePublish)
 {
-    msbuild FluentHub -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration /p:UapAppxPackageBuildMode=StoreOnly
+    $packageBuildMode = if ([string]::IsNullOrWhiteSpace($PackageCertificateKeyFile))
+    {
+        "StoreOnly"
+    }
+    else
+    {
+        "StoreUpload"
+    }
+
+    $buildArguments += "/p:UapAppxPackageBuildMode=$packageBuildMode"
 }
-else
+
+if (-not [string]::IsNullOrWhiteSpace($AppxBundlePlatforms))
 {
-    msbuild FluentHub -restore /clp:ErrorsOnly /p:Platform=$Platform /p:Configuration=$Configuration
+    $buildArguments += "/p:AppxBundlePlatforms=$AppxBundlePlatforms"
+}
+
+if (-not [string]::IsNullOrWhiteSpace($PackageCertificateKeyFile))
+{
+    $certificatePath = [IO.Path]::GetFullPath($PackageCertificateKeyFile)
+
+    if (-not [IO.File]::Exists($certificatePath))
+    {
+        throw "The package signing certificate does not exist: $certificatePath"
+    }
+
+    $buildArguments += @(
+        "/p:AppxPackageSigningEnabled=true",
+        "/p:PackageCertificateKeyFile=$certificatePath"
+    )
+}
+
+& msbuild @buildArguments
+
+if ($LASTEXITCODE -ne 0)
+{
+    throw "MSBuild failed with exit code $LASTEXITCODE."
 }
