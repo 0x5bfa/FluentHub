@@ -28,6 +28,17 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 3.0
 
+function Assert-Administrator
+{
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = [Security.Principal.WindowsPrincipal]::new($identity)
+
+    if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
+    {
+        throw "Packaged app validation must run as administrator because self-signed MSIX trust requires Cert:\LocalMachine\TrustedPeople."
+    }
+}
+
 function Save-StartupDiagnostics
 {
     param(
@@ -90,8 +101,10 @@ if (-not [IO.File]::Exists($resolvedCertificatePath))
 }
 
 [IO.Directory]::CreateDirectory($diagnosticsDirectory) | Out-Null
+Assert-Administrator
 
 $certificateThumbprint = $null
+# Self-signed MSIX sideload validation requires device trust in the LocalMachine store.
 $certificateStore = "Cert:\LocalMachine\TrustedPeople"
 $installedPackage = $null
 $activatedProcess = $null

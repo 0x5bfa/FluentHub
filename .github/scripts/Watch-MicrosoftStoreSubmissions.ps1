@@ -97,6 +97,43 @@ function Invoke-GitHubApi
     return Invoke-RestMethod @parameters
 }
 
+function Invoke-GitHubApiPaginated
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$Path
+    )
+
+    $items = [Collections.Generic.List[object]]::new()
+    $page = 1
+    $separator = if ($Path.Contains("?")) { "&" } else { "?" }
+
+    while ($true)
+    {
+        $pagePath = "{0}{1}per_page=100&page={2}" -f $Path, $separator, $page
+        $pageItems = @(
+            Invoke-GitHubApi `
+                -Method "GET" `
+                -Path $pagePath `
+                -Body $null
+        )
+
+        foreach ($item in $pageItems)
+        {
+            $items.Add($item)
+        }
+
+        if ($pageItems.Count -lt 100)
+        {
+            break
+        }
+
+        $page++
+    }
+
+    return $items.ToArray()
+}
+
 function New-DeploymentStatus
 {
     param(
@@ -140,10 +177,8 @@ function Test-PullRequestCommentExists
     )
 
     $comments = @(
-        Invoke-GitHubApi `
-            -Method "GET" `
-            -Path "/repos/$Repository/issues/$PullRequest/comments?per_page=100" `
-            -Body $null
+        Invoke-GitHubApiPaginated `
+            -Path "/repos/$Repository/issues/$PullRequest/comments"
     )
 
     return $null -ne ($comments |
@@ -226,10 +261,8 @@ if ([string]::IsNullOrWhiteSpace($accessToken))
 
 $encodedEnvironment = [Uri]::EscapeDataString($Environment)
 $deployments = @(
-    Invoke-GitHubApi `
-        -Method "GET" `
-        -Path "/repos/$Repository/deployments?environment=$encodedEnvironment&per_page=100" `
-        -Body $null
+    Invoke-GitHubApiPaginated `
+        -Path "/repos/$Repository/deployments?environment=$encodedEnvironment"
 )
 $errors = [Collections.Generic.List[string]]::new()
 $activeDeploymentCount = 0

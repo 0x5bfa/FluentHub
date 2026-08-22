@@ -18,6 +18,17 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 3.0
 
+function Assert-Administrator
+{
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = [Security.Principal.WindowsPrincipal]::new($identity)
+
+    if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
+    {
+        throw "Windows App Certification Kit validation must run as administrator because self-signed MSIX trust requires Cert:\LocalMachine\TrustedPeople."
+    }
+}
+
 $resolvedPackagePath = [IO.Path]::GetFullPath($PackagePath)
 $resolvedCertificatePath = [IO.Path]::GetFullPath($CertificatePath)
 $resolvedReportPath = [IO.Path]::GetFullPath($ReportPath)
@@ -37,6 +48,8 @@ foreach ($requiredFile in @(
     }
 }
 
+Assert-Administrator
+
 $reportDirectory = [IO.Path]::GetDirectoryName($resolvedReportPath)
 
 if (-not [string]::IsNullOrWhiteSpace($reportDirectory))
@@ -45,6 +58,7 @@ if (-not [string]::IsNullOrWhiteSpace($reportDirectory))
 }
 
 $certificateThumbprint = $null
+# Self-signed MSIX sideload validation requires device trust in the LocalMachine store.
 $certificateStore = "Cert:\LocalMachine\TrustedPeople"
 
 try
