@@ -16,10 +16,6 @@ on:
         required: true
         default: false
         type: boolean
-      release_notes:
-        description: 'Optional English release notes. When empty, the existing Store value is preserved.'
-        required: false
-        type: string
       flight_id:
         description: 'Optional Microsoft Store flight ID. Store listings are not updated for flights.'
         required: false
@@ -63,9 +59,9 @@ jobs:
       APP_PROJECT_PATH:              '${{ github.workspace }}\src\FluentHub\FluentHub.csproj'
       APP_MANIFEST_PATH:             '${{ github.workspace }}\src\FluentHub\Package.appxmanifest'
       APP_CREDENTIALS_PATH:          '${{ github.workspace }}\src\FluentHub\AppCredentials.config'
-      STORE_LISTINGS_DIR:            '${{ github.workspace }}\Packaging\MicrosoftStore\Listings'
-      STORE_LOCALES_PATH:            '${{ github.workspace }}\Packaging\MicrosoftStore\locales.json'
-      PACKAGE_CERTIFICATE_PATH:      '${{ github.workspace }}\.temporary\FluentHub.StoreValidation.pfx'
+      STORE_LISTINGS_DIR:            '${{ github.workspace }}\.github\msstore-config\Listings'
+      STORE_LOCALES_PATH:            '${{ github.workspace }}\.github\msstore-config\locales.json'
+      PACKAGE_CERTIFICATE_PATH:      '${{ github.workspace }}\.github\TempCertificate.pfx'
 
     steps:
     - name: Checkout the repository
@@ -261,10 +257,11 @@ jobs:
     environment: microsoft-store
     env:
       STORE_ARTIFACT_DIR:             '${{ github.workspace }}/artifacts/store'
-      STORE_LISTINGS_DIR:             '${{ github.workspace }}/Packaging/MicrosoftStore/Listings'
-      STORE_LOCALES_PATH:             '${{ github.workspace }}/Packaging/MicrosoftStore/locales.json'
+      APP_MANIFEST_PATH:              '${{ github.workspace }}/src/FluentHub/Package.appxmanifest'
+      STORE_LISTINGS_DIR:             '${{ github.workspace }}/.github/msstore-config/Listings'
+      STORE_LOCALES_PATH:             '${{ github.workspace }}/.github/msstore-config/locales.json'
       STORE_PRODUCT_ID:               "${{ vars.MICROSOFT_STORE_PRODUCT_ID || '9NKB9HX8RJZ3' }}"
-      STORE_RELEASE_NOTES:            '${{ inputs.release_notes }}'
+      STORE_RELEASE_NOTES_DIR:        '${{ github.workspace }}/.github/release-notes'
       STORE_FLIGHT_ID:                '${{ inputs.flight_id }}'
       STORE_ROLLOUT_PERCENTAGE:       '${{ inputs.rollout_percentage }}'
       STORE_SUBMISSION_METADATA_PATH: '${{ github.workspace }}/artifacts/store-submission.json'
