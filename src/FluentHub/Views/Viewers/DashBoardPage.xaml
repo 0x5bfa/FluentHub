@@ -202,7 +202,7 @@
 												<FontIcon
 													FontFamily="{StaticResource Octicons}"
 													FontSize="16"
-													Foreground="{StaticResource PrimerOpenForeground}"
+													Foreground="{StaticResource SystemFillColorSuccessBrush}"
 													Glyph="&#xE9EA;" />
 											</toolkit:Case>
 
@@ -210,7 +210,7 @@
 												<FontIcon
 													FontFamily="{StaticResource Octicons}"
 													FontSize="16"
-													Foreground="{StaticResource PrimerOpenForeground}"
+													Foreground="{StaticResource SystemFillColorSuccessBrush}"
 													Glyph="&#xE9BF;" />
 											</toolkit:Case>
 

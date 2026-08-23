@@ -74,7 +74,7 @@ namespace FluentHub.ViewModels.UserControls
 		}
 
 		private static string GetEmptyContributionColor()
-			=> Application.Current.Resources["PrimerScaleGray8"] is SolidColorBrush brush
+			=> Application.Current.Resources["CardBackgroundFillColorSecondaryBrush"] is SolidColorBrush brush
 				? brush.Color.ToString()
 				: "#161B22";
 	}

@@ -65,7 +65,7 @@
 						VerticalAlignment="Center"
 						FontFamily="Cascadia Code"
 						FontWeight="SemiLight"
-						Foreground="{ThemeResource PrimerSuccessForeground}"
+						Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 						IsTextSelectionEnabled="True"
 						Style="{StaticResource CaptionTextBlockStyle}">
 						<Run Text="+" />
@@ -78,7 +78,7 @@
 						VerticalAlignment="Center"
 						FontFamily="Cascadia Code"
 						FontWeight="SemiLight"
-						Foreground="{ThemeResource PrimerDangerForeground}"
+						Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 						IsTextSelectionEnabled="True"
 						Style="{StaticResource CaptionTextBlockStyle}">
 						<Run Text="-" />
@@ -165,13 +165,13 @@
 				<DataTemplate x:DataType="x:Int32">
 					<toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind}">
 						<toolkit:Case Value="0">
-							<Rectangle Height="18" Fill="{ThemeResource PrimerAccentMuted}" />
+							<Rectangle Height="18" Fill="{ThemeResource AccentFillColorTertiaryBrush}" />
 						</toolkit:Case>
 						<toolkit:Case Value="1">
-							<Rectangle Height="18" Fill="{ThemeResource PrimerSuccessMuted}" />
+							<Rectangle Height="18" Fill="{ThemeResource SystemFillColorSuccessBackgroundBrush}" />
 						</toolkit:Case>
 						<toolkit:Case Value="2">
-							<Rectangle Height="18" Fill="{ThemeResource PrimerDangerMuted}" />
+							<Rectangle Height="18" Fill="{ThemeResource SystemFillColorCriticalBackgroundBrush}" />
 						</toolkit:Case>
 						<toolkit:Case Value="3">
 							<Rectangle Height="18" Fill="Transparent" />

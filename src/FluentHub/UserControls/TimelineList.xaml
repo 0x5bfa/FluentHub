@@ -99,7 +99,7 @@
 				<Grid>
 					<toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind StateReason.ToString(), Mode=OneWay}">
 						<toolkit:Case Value="NotPlanned">
-							<primer:Timeline BadgeBackground="{ThemeResource PrimerForegroundMuted}">
+							<primer:Timeline BadgeBackground="{ThemeResource TextFillColorSecondaryBrush}">
 								<primer:Timeline.Badge>
 									<FontIcon
 										FontFamily="{StaticResource Octicons}"
@@ -135,7 +135,7 @@
 							</primer:Timeline>
 						</toolkit:Case>
 						<toolkit:Case Value="Completed">
-							<primer:Timeline BadgeBackground="{ThemeResource PrimerDoneForeground}">
+							<primer:Timeline BadgeBackground="{ThemeResource AccentTextFillColorPrimaryBrush}">
 								<primer:Timeline.Badge>
 									<FontIcon
 										FontFamily="{StaticResource Octicons}"
@@ -424,7 +424,7 @@
 												<Border
 													Width="24"
 													Height="24"
-													Background="{ThemeResource PrimerOpenEmphasis}"
+													Background="{ThemeResource SystemFillColorSuccessBrush}"
 													CornerRadius="4">
 													<FontIcon
 														FontFamily="{StaticResource Octicons}"
@@ -443,7 +443,7 @@
 															<Border
 																Width="24"
 																Height="24"
-																Background="{ThemeResource PrimerNeutralEmphasis}"
+																Background="{ThemeResource SystemFillColorNeutralBrush}"
 																CornerRadius="4">
 																<FontIcon
 																	FontFamily="{StaticResource Octicons}"
@@ -455,7 +455,7 @@
 															<Border
 																Width="24"
 																Height="24"
-																Background="{ThemeResource PrimerDoneEmphasis}"
+																Background="{ThemeResource AccentFillColorDefaultBrush}"
 																CornerRadius="4">
 																<FontIcon
 																	FontFamily="{StaticResource Octicons}"
@@ -476,7 +476,7 @@
 												<Border
 													Width="24"
 													Height="24"
-													Background="{ThemeResource PrimerNeutralEmphasis}"
+													Background="{ThemeResource SystemFillColorNeutralBrush}"
 													CornerRadius="4">
 													<FontIcon
 														FontFamily="{StaticResource Octicons}"
@@ -495,7 +495,7 @@
 															<Border
 																Width="24"
 																Height="24"
-																Background="{ThemeResource PrimerOpenEmphasis}"
+																Background="{ThemeResource SystemFillColorSuccessBrush}"
 																CornerRadius="4">
 																<FontIcon
 																	FontFamily="{StaticResource Octicons}"
@@ -507,7 +507,7 @@
 															<Border
 																Width="24"
 																Height="24"
-																Background="{ThemeResource PrimerDangerEmphasis}"
+																Background="{ThemeResource SystemFillColorCriticalBrush}"
 																CornerRadius="4">
 																<FontIcon
 																	FontFamily="{StaticResource Octicons}"
@@ -519,7 +519,7 @@
 															<Border
 																Width="24"
 																Height="24"
-																Background="{ThemeResource PrimerDoneEmphasis}"
+																Background="{ThemeResource AccentFillColorDefaultBrush}"
 																CornerRadius="4">
 																<FontIcon
 																	FontFamily="{StaticResource Octicons}"
@@ -639,7 +639,7 @@
 						Height="16"
 						Margin="36,0,0,0"
 						HorizontalAlignment="Left"
-						Background="{ThemeResource PrimerBorderMuted}" />
+						Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 					<uc:IssueCommentBlock ViewModel="{x:Bind Converter={StaticResource IssueCommentToIssueCommentBlockViewModelConverter}}" />
 					<Border
 						Grid.Row="0"
@@ -647,7 +647,7 @@
 						Height="16"
 						Margin="36,0,0,0"
 						HorizontalAlignment="Left"
-						Background="{ThemeResource PrimerBorderMuted}" />
+						Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 				</StackPanel>
 			</DataTemplate>
 
@@ -700,12 +700,12 @@
 			</DataTemplate>
 
 			<DataTemplate x:Key="LockedEventDataTemplate" x:DataType="modelsV4:LockedEvent">
-				<primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
+				<primer:Timeline BadgeBackground="{ThemeResource SystemFillColorSolidNeutralBrush}">
 					<primer:Timeline.Badge>
 						<FontIcon
 							FontFamily="{StaticResource Octicons}"
 							FontSize="14"
-							Foreground="{ThemeResource PrimerNeutralEmphasis}"
+							Foreground="{ThemeResource SystemFillColorNeutralBrush}"
 							Glyph="&#xEA05;" />
 					</primer:Timeline.Badge>
 					<primer:Timeline.Body>
@@ -1066,7 +1066,7 @@
 			</DataTemplate>
 
 			<DataTemplate x:Key="ReopenedEventDataTemplate" x:DataType="modelsV4:ReopenedEvent">
-				<primer:Timeline BadgeBackground="{ThemeResource PrimerOpenEmphasis}">
+				<primer:Timeline BadgeBackground="{ThemeResource SystemFillColorSuccessBrush}">
 					<primer:Timeline.Badge>
 						<FontIcon
 							FontFamily="{StaticResource Octicons}"
@@ -1286,12 +1286,12 @@
 			</DataTemplate>
 
 			<DataTemplate x:Key="UnlockedEventDataTemplate" x:DataType="modelsV4:UnlockedEvent">
-				<primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
+				<primer:Timeline BadgeBackground="{ThemeResource SystemFillColorSolidNeutralBrush}">
 					<primer:Timeline.Badge>
 						<FontIcon
 							FontFamily="{StaticResource Octicons}"
 							FontSize="14"
-							Foreground="{ThemeResource PrimerNeutralEmphasis}"
+							Foreground="{ThemeResource SystemFillColorNeutralBrush}"
 							Glyph="&#xEAC4;" />
 					</primer:Timeline.Badge>
 					<primer:Timeline.Body>

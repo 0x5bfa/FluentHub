@@ -57,7 +57,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerDoneForeground}"
+						Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
 						Glyph="&#xE9E6;" />
 				</toolkit:Case>
 
@@ -65,7 +65,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Foreground="{StaticResource SystemFillColorNeutralBrush}"
 						Glyph="&#xEA84;" />
 				</toolkit:Case>
 
@@ -73,7 +73,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerOpenForeground}"
+						Foreground="{StaticResource SystemFillColorSuccessBrush}"
 						Glyph="&#xE9EA;" />
 				</toolkit:Case>
 
@@ -81,7 +81,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerClosedForeground}"
+						Foreground="{StaticResource SystemFillColorCriticalBrush}"
 						Glyph="&#xE9C1;" />
 				</toolkit:Case>
 
@@ -89,7 +89,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerDoneForeground}"
+						Foreground="{StaticResource AccentTextFillColorPrimaryBrush}"
 						Glyph="&#xE9BD;" />
 				</toolkit:Case>
 
@@ -97,7 +97,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Foreground="{StaticResource SystemFillColorNeutralBrush}"
 						Glyph="&#xE9C3;" />
 				</toolkit:Case>
 
@@ -105,7 +105,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerOpenForeground}"
+						Foreground="{StaticResource SystemFillColorSuccessBrush}"
 						Glyph="&#xE9BF;" />
 				</toolkit:Case>
 
@@ -113,7 +113,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Foreground="{StaticResource SystemFillColorNeutralBrush}"
 						Glyph="&#xE95D;" />
 				</toolkit:Case>
 
@@ -121,7 +121,7 @@
 					<FontIcon
 						FontFamily="{StaticResource Octicons}"
 						FontSize="22"
-						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Foreground="{StaticResource SystemFillColorNeutralBrush}"
 						Glyph="&#xE9B9;" />
 				</toolkit:Case>
 

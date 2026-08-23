@@ -21,7 +21,6 @@
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 
-			<converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
 			<converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 			<wctconverters:BoolNegationConverter x:Key="BoolNegationConverter" />
@@ -131,14 +130,14 @@
 						Height="24"
 						HorizontalAlignment="Left"
 						x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
-						BorderBrush="{ThemeResource PrimerAccentEmphasis}"
+						BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
 						BorderThickness="1"
 						CornerRadius="8">
 
 						<Grid
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch"
-							Background="{ThemeResource PrimerAccentEmphasis}"
+							Background="{ThemeResource AccentFillColorDefaultBrush}"
 							CornerRadius="8"
 							Opacity="0.2" />
 
@@ -147,7 +146,7 @@
 							VerticalAlignment="Center"
 							FontFamily="Cascadia Code"
 							FontWeight="Light"
-							Foreground="{ThemeResource PrimerAccentForeground}"
+							Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
 							Style="{StaticResource CaptionTextBlockStyle}"
 							Text="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
 
@@ -185,14 +184,14 @@
 						Height="24"
 						HorizontalAlignment="Left"
 						x:Load="{x:Bind ViewModel.Loaded, Mode=OneWay}"
-						BorderBrush="{ThemeResource PrimerAccentEmphasis}"
+						BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
 						BorderThickness="1"
 						CornerRadius="8">
 
 						<Grid
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Stretch"
-							Background="{ThemeResource PrimerAccentEmphasis}"
+							Background="{ThemeResource AccentFillColorDefaultBrush}"
 							CornerRadius="8"
 							Opacity="0.2" />
 
@@ -201,7 +200,7 @@
 							VerticalAlignment="Center"
 							FontFamily="Cascadia Code"
 							FontWeight="Light"
-							Foreground="{ThemeResource PrimerAccentForeground}"
+							Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
 							Style="{StaticResource CaptionTextBlockStyle}"
 							Text="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
 
@@ -264,10 +263,10 @@
 
 								<TextBlock Text="Conversation" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="CommentsCounter"
 									x:Load="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>
@@ -283,10 +282,10 @@
 
 								<TextBlock Text="Commits" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="CommitsCounter"
 									x:Load="{x:Bind ViewModel.PullRequest.Commits.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.PullRequest.Commits.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.PullRequest.Commits.TotalCount, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>
@@ -302,10 +301,10 @@
 
 								<TextBlock Text="Checks" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="ChecksCounter"
 									x:Load="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>
@@ -321,10 +320,10 @@
 
 								<TextBlock Text="Files changed" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="FileChangesCounter"
 									x:Load="{x:Bind ViewModel.PullRequest.ChangedFiles, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.PullRequest.ChangedFiles, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.PullRequest.ChangedFiles, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>

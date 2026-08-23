@@ -29,42 +29,42 @@ namespace FluentHub.UserControls.PrimerControls
 				{
 					default:
 					case "IssueClosed":
-						Context.StatusColor = GetStatusBrush("PrimerDoneEmphasis");
+						Context.StatusColor = GetStatusBrush("AccentFillColorDefaultBrush");
 						Context.StatusText = "Closed";
 						Context.StatusGlyph = "\uE9E6";
 						break;
 					case "IssueClosedNotPlanned":
-						Context.StatusColor = GetStatusBrush("PrimerNeutralEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorNeutralBrush");
 						Context.StatusText = "Closed";
 						Context.StatusGlyph = "\uE984";
 						break;
 					case "IssueDraft":
-						Context.StatusColor = GetStatusBrush("PrimerNeutralEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorNeutralBrush");
 						Context.StatusText = "Draft";
 						Context.StatusGlyph = "\uE9E8";
 						break;
 					case "IssueOpen":
-						Context.StatusColor = GetStatusBrush("PrimerSuccessEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorSuccessBrush");
 						Context.StatusText = "Open";
 						Context.StatusGlyph = "\uE9EA";
 						break;
 					case "PullClosed":
-						Context.StatusColor = GetStatusBrush("PrimerDangerEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorCriticalBrush");
 						Context.StatusText = "Closed";
 						Context.StatusGlyph = "\uE9C1";
 						break;
 					case "PullDraft":
-						Context.StatusColor = GetStatusBrush("PrimerNeutralEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorNeutralBrush");
 						Context.StatusText = "Draft";
 						Context.StatusGlyph = "\uE9C3";
 						break;
 					case "PullMerged":
-						Context.StatusColor = GetStatusBrush("PrimerDoneEmphasis");
+						Context.StatusColor = GetStatusBrush("AccentFillColorDefaultBrush");
 						Context.StatusText = "Merged";
 						Context.StatusGlyph = "\uE9BD";
 						break;
 					case "PullOpen":
-						Context.StatusColor = GetStatusBrush("PrimerSuccessEmphasis");
+						Context.StatusColor = GetStatusBrush("SystemFillColorSuccessBrush");
 						Context.StatusText = "Open";
 						Context.StatusGlyph = "\uE9BF";
 						break;

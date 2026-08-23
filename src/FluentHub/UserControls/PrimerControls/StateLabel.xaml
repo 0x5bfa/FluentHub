@@ -37,13 +37,13 @@
 				x:Name="StateLabelFont"
 				FontFamily="{StaticResource Octicons}"
 				FontSize="16"
-				Foreground="{ThemeResource PrimerForegroundOnEmphasis}"
+				Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
 				Glyph="{x:Bind Context.StatusGlyph, Mode=OneWay}" />
 
 			<TextBlock
 				x:Name="StateLabelTextBlock"
 				VerticalAlignment="Center"
-				Foreground="{ThemeResource PrimerForegroundOnEmphasis}"
+				Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
 				Style="{StaticResource BodyStrongTextBlockStyle}"
 				Text="{x:Bind Context.StatusText, Mode=OneWay}" />
 

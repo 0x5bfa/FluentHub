@@ -219,7 +219,7 @@
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="·" />
 												<TextBlock
-													Foreground="{ThemeResource PrimerSuccessForeground}"
+													Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="Latest" />
 											</StackPanel>
@@ -234,7 +234,7 @@
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="·" />
 												<TextBlock
-													Foreground="{ThemeResource PrimerAttentionForeground}"
+													Foreground="{ThemeResource SystemFillColorCautionBrush}"
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="Pre-release" />
 											</StackPanel>

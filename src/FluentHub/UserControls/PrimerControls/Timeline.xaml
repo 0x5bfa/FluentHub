@@ -30,7 +30,7 @@
 			Height="16"
 			Margin="36,0,0,0"
 			HorizontalAlignment="Left"
-			Background="{ThemeResource PrimerBorderMuted}" />
+			Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 		<Grid
 			Grid.Row="1"
@@ -80,7 +80,7 @@
 				Width="1.5"
 				Margin="32,0,0,0"
 				HorizontalAlignment="Left"
-				Background="{ThemeResource PrimerBorderMuted}" />
+				Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 			<Grid
 				Grid.RowSpan="3"
@@ -102,6 +102,6 @@
 			Height="10"
 			Margin="36,0,0,0"
 			HorizontalAlignment="Left"
-			Background="{ThemeResource PrimerBorderMuted}" />
+			Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 	</Grid>
 </UserControl>

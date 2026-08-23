@@ -93,7 +93,7 @@
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
 									FontSize="16"
-									Foreground="{StaticResource PrimerScaleYellow2}"
+									Foreground="{StaticResource SystemFillColorCautionBrush}"
 									Glyph="&#xEA96;" />
 
 							</toolkit:Case>
@@ -239,7 +239,7 @@
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
 									FontSize="16"
-									Foreground="{StaticResource PrimerScaleYellow2}"
+									Foreground="{StaticResource SystemFillColorCautionBrush}"
 									Glyph="&#xEA96;" />
 								<TextBlock Text="Unstar" />
 							</StackPanel>
