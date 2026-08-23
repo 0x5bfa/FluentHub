@@ -32,7 +32,7 @@ namespace FluentHub.ViewModels.Users
 
 		public ObservableCollection<string> LanguageFilterOptions { get; } = ["All"];
 
-		public ObservableCollection<string> SortFilterOptions { get; } = ["Name", "Stars"];
+		public ObservableCollection<string> SortFilterOptions { get; } = ["Last updated", "Name", "Stars"];
 
 		private UserRepositoryListFilters _filters = new();
 		private IReadOnlyList<Repository>? _localSearchResults;
@@ -214,14 +214,24 @@ namespace FluentHub.ViewModels.Users
 				UserRepositoryTypeFilter.Private => OctokitGraphQLModel.RepositoryPrivacy.Private,
 				_ => (OctokitGraphQLModel.RepositoryPrivacy?)null,
 			};
-			var order = new OctokitGraphQLModel.RepositoryOrder
+			var order = _filters.Sort switch
 			{
-				Direction = _filters.Sort == UserRepositorySort.Name
-					? OctokitGraphQLModel.OrderDirection.Asc
-					: OctokitGraphQLModel.OrderDirection.Desc,
-				Field = _filters.Sort == UserRepositorySort.Name
-					? OctokitGraphQLModel.RepositoryOrderField.Name
-					: OctokitGraphQLModel.RepositoryOrderField.Stargazers,
+				UserRepositorySort.LastUpdated => new OctokitGraphQLModel.RepositoryOrder
+				{
+					Direction = OctokitGraphQLModel.OrderDirection.Desc,
+					Field = OctokitGraphQLModel.RepositoryOrderField.UpdatedAt,
+				},
+				UserRepositorySort.Name => new OctokitGraphQLModel.RepositoryOrder
+				{
+					Direction = OctokitGraphQLModel.OrderDirection.Asc,
+					Field = OctokitGraphQLModel.RepositoryOrderField.Name,
+				},
+				UserRepositorySort.Stars => new OctokitGraphQLModel.RepositoryOrder
+				{
+					Direction = OctokitGraphQLModel.OrderDirection.Desc,
+					Field = OctokitGraphQLModel.RepositoryOrderField.Stargazers,
+				},
+				_ => throw new ArgumentOutOfRangeException(nameof(_filters.Sort), _filters.Sort, "Unsupported repository sort."),
 			};
 
 			return _gitHub.Users.Repositories.GetPageAsync(

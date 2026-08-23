@@ -26,6 +26,16 @@ public sealed class UserRepositoryListFiltersTests
 	}
 
 	[TestMethod]
+	public void RepositoryFiltersDefaultToLastUpdated()
+	{
+		var filters = new UserRepositoryListFilters();
+		var query = UserRepositorySearchQueryBuilder.Build("octocat", filters);
+
+		Assert.AreEqual(UserRepositorySort.LastUpdated, filters.Sort);
+		StringAssert.EndsWith(query, "sort:updated-desc");
+	}
+
+	[TestMethod]
 	public void SearchQueryUsesGitHubRepositoryTypeQualifiers()
 	{
 		Assert.IsTrue(Build(UserRepositoryTypeFilter.All).Contains("fork:true", StringComparison.Ordinal));

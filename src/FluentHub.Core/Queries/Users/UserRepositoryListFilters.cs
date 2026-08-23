@@ -15,6 +15,7 @@ namespace FluentHub.Core.Queries.Users
 
 	public enum UserRepositorySort
 	{
+		LastUpdated,
 		Name,
 		Stars,
 	}
@@ -83,8 +84,15 @@ namespace FluentHub.Core.Queries.Users
 			if (!string.IsNullOrWhiteSpace(filters.Language))
 				terms.Add($"language:{Quote(filters.Language.Trim())}");
 
-			if (filters.Sort == UserRepositorySort.Stars)
-				terms.Add("sort:stars-desc");
+			var sortQualifier = filters.Sort switch
+			{
+				UserRepositorySort.LastUpdated => "sort:updated-desc",
+				UserRepositorySort.Name => null,
+				UserRepositorySort.Stars => "sort:stars-desc",
+				_ => throw new ArgumentOutOfRangeException(nameof(filters.Sort), filters.Sort, "Unsupported repository sort."),
+			};
+			if (sortQualifier is not null)
+				terms.Add(sortQualifier);
 
 			return string.Join(' ', terms);
 		}

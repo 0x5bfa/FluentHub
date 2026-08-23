@@ -85,9 +85,9 @@ namespace FluentHub.Views.Users
 				Language = LanguageFilterBox.SelectedIndex > 0
 					? LanguageFilterBox.SelectedItem as string
 					: null,
-				Sort = SortFilterBox.SelectedIndex == (int)UserRepositorySort.Stars
-					? UserRepositorySort.Stars
-					: UserRepositorySort.Name,
+				Sort = SortFilterBox.SelectedIndex is >= 0 and <= (int)UserRepositorySort.Stars
+					? (UserRepositorySort)SortFilterBox.SelectedIndex
+					: UserRepositorySort.LastUpdated,
 			};
 
 		private void ResetFilterSelections()
