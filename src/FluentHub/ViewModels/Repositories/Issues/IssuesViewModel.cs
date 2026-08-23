@@ -20,6 +20,39 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		private readonly ObservableCollection<IssueBlockButtonViewModel> _issueItems;
 		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> IssueItems { get; }
 
+		public IReadOnlyList<string> StateFilterOptions { get; } = ["Open", "Closed", "All"];
+
+		public IReadOnlyList<string> SortFilterOptions { get; } =
+		[
+			"Newest",
+			"Oldest",
+			"Most commented",
+			"Least commented",
+			"Recently updated",
+			"Least recently updated",
+			"Best match",
+			"Most 👍 reactions",
+			"Most 👎 reactions",
+			"Most 😄 reactions",
+			"Most 🎉 reactions",
+			"Most 😕 reactions",
+			"Most ❤️ reactions",
+			"Most 🚀 reactions",
+			"Most 👀 reactions",
+		];
+
+		public ObservableCollection<string> LabelFilterOptions { get; } = ["All labels", "No labels"];
+
+		public ObservableCollection<string> IssueTypeFilterOptions { get; } = ["All types", "No type"];
+
+		public ObservableCollection<string> AuthorFilterOptions { get; } = ["All authors"];
+
+		public ObservableCollection<string> AssigneeFilterOptions { get; } = ["All assignees", "Unassigned"];
+
+		public ObservableCollection<string> MilestoneFilterOptions { get; } = ["All milestones", "No milestone"];
+
+		private RepositoryItemListFilters _filters = new();
+
 		public IAsyncRelayCommand LoadRepositoryIssuesPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryIssuesFurtherCommand { get; }
 
@@ -65,13 +98,15 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
 				await LoadRepositoryAsync(Login, Name);
 
+				_currentTaskingMethodName = nameof(LoadFilterOptionsAsync);
+				await LoadFilterOptionsAsync(Login, Name);
+
 				_currentTaskingMethodName = nameof(LoadRepositoryIssuesAsync);
 				await LoadRepositoryIssuesAsync(Login, Name);
 
 				SetTabInformation($"Issues \u2022 {Login}/{Name}", $"Issues \u2022 {Login}/{Name}");
 
-				if (IssueItems.Count == 0)
-					IsEmpty = true;
+				IsEmpty = IssueItems.Count == 0;
 			}
 			catch (Exception ex)
 			{
@@ -84,11 +119,11 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			}
 		}
 
-		private async Task LoadRepositoryIssuesAsync(string owner, string name)
+		private async Task LoadRepositoryIssuesAsync(string owner, string name, bool loadPinned = true)
 		{
 			var queries = _gitHub.Repositories.Issues;
 
-			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20));
+			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20), _filters);
 
 			_lastPageInfo = result.PageInfo;
 			var items = result.Items;
@@ -103,6 +138,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 				_issueItems.Add(viewModel);
 			}
+
+			if (!loadPinned)
+				return;
 
 			var pinnedIssues = await queries.GetPinnedAllAsync(owner, name);
 			if (pinnedIssues == null)
@@ -120,9 +158,67 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			}
 		}
 
+		private async Task LoadFilterOptionsAsync(string owner, string name)
+		{
+			var repositories = _gitHub.Repositories.Repositories;
+			var issues = _gitHub.Repositories.Issues;
+			var optionsTask = repositories.GetIssueListOptionsAsync(owner, name);
+			var authorsTask = issues.GetAuthorLoginsAsync(owner, name);
+			var issueTypesTask = issues.GetIssueTypeNamesAsync(owner, name);
+
+			await Task.WhenAll(optionsTask, authorsTask, issueTypesTask);
+
+			var options = await optionsTask;
+			ReplaceOptions(
+				LabelFilterOptions,
+				["All labels", "No labels"],
+				options.Labels?.Nodes?.OfType<Label>().Select(label => label.Name) ?? []);
+			ReplaceOptions(
+				IssueTypeFilterOptions,
+				["All types", "No type"],
+				await issueTypesTask);
+			ReplaceOptions(
+				AuthorFilterOptions,
+				["All authors"],
+				await authorsTask);
+			ReplaceOptions(
+				AssigneeFilterOptions,
+				["All assignees", "Unassigned"],
+				options.AssignableUsers?.Nodes?.OfType<User>().Select(user => user.Login) ?? []);
+			ReplaceOptions(
+				MilestoneFilterOptions,
+				["All milestones", "No milestone"],
+				options.Milestones?.Nodes?.OfType<Milestone>().Select(milestone => milestone.Title) ?? []);
+		}
+
+		public async Task ApplyFiltersAsync(RepositoryItemListFilters filters)
+		{
+			ArgumentNullException.ThrowIfNull(filters);
+
+			_filters = filters;
+			InitializeNodePagingInfo();
+			SetLoadingProgress(true);
+			_currentTaskingMethodName = nameof(ApplyFiltersAsync);
+
+			try
+			{
+				await LoadRepositoryIssuesAsync(Login, Name, false);
+				IsEmpty = IssueItems.Count == 0;
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
+		}
+
 		private async Task LoadRepositoryIssuesFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);
@@ -134,7 +230,8 @@ namespace FluentHub.ViewModels.Repositories.Issues
 				var result = await queries.GetPageAsync(
 					Login,
 					Name,
-					PageRequest.Forward(20, _lastPageInfo.EndCursor));
+					PageRequest.Forward(20, _lastPageInfo.EndCursor),
+					_filters);
 
 				_lastPageInfo = result.PageInfo;
 				var items = result.Items;
@@ -167,6 +264,25 @@ namespace FluentHub.ViewModels.Repositories.Issues
 			OnPropertyChanged(nameof(CanCreateIssue));
 		}
 
+		private static void ReplaceOptions(
+			ObservableCollection<string> target,
+			IEnumerable<string> defaults,
+			IEnumerable<string> values)
+		{
+			var options = defaults.Concat(values)
+				.Where(value => !string.IsNullOrWhiteSpace(value))
+				.Distinct(StringComparer.OrdinalIgnoreCase)
+				.ToList();
+			if (target.SequenceEqual(options, StringComparer.Ordinal))
+				return;
+
+			target.Clear();
+			foreach (var item in options)
+			{
+				target.Add(item);
+			}
+		}
+
 		public async Task CreateIssueAsync(string title, string body)
 		{
 			if (!CanCreateIssue || string.IsNullOrWhiteSpace(title))
@@ -183,15 +299,11 @@ namespace FluentHub.ViewModels.Repositories.Issues
 					Body = body,
 				});
 
-				var issue = response.Issue
-					?? throw new InvalidOperationException("The create issue mutation did not return an issue.");
+				if (response.Issue is null)
+					throw new InvalidOperationException("The create issue mutation did not return an issue.");
 
-				issue.Repository = Repository;
-				issue.Comments = new IssueCommentConnection();
-				issue.Labels = new LabelConnection { Nodes = [] };
-
-				_issueItems.Insert(0, new IssueBlockButtonViewModel { IssueItem = issue });
-				IsEmpty = false;
+				await LoadRepositoryIssuesAsync(Login, Name, false);
+				IsEmpty = IssueItems.Count == 0;
 			}
 			catch (Exception ex)
 			{

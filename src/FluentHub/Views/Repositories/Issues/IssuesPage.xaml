@@ -30,6 +30,7 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
@@ -83,13 +84,74 @@
 
 					</Grid>
 
-					<TextBox
+					<AutoSuggestBox
+						x:Name="SearchIssuesBox"
 						Grid.Row="2"
 						Margin="0,8,0,16"
-						IsEnabled="False"
-						PlaceholderText="Search issues" />
+						PlaceholderText="Search issues"
+						QuerySubmitted="OnSearchQuerySubmitted" />
 
-					<Grid Grid.Row="3">
+					<ScrollViewer
+						Grid.Row="3"
+						Margin="0,0,0,16"
+						HorizontalScrollBarVisibility="Auto"
+						HorizontalScrollMode="Enabled"
+						VerticalScrollBarVisibility="Disabled"
+						VerticalScrollMode="Disabled">
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<ComboBox
+								x:Name="StateFilterBox"
+								MinWidth="120"
+								Header="State"
+								ItemsSource="{x:Bind ViewModel.StateFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="LabelFilterBox"
+								MinWidth="180"
+								Header="Labels"
+								ItemsSource="{x:Bind ViewModel.LabelFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="IssueTypeFilterBox"
+								MinWidth="160"
+								Header="Issue type"
+								ItemsSource="{x:Bind ViewModel.IssueTypeFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="AuthorFilterBox"
+								MinWidth="160"
+								Header="Author"
+								ItemsSource="{x:Bind ViewModel.AuthorFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="AssigneeFilterBox"
+								MinWidth="180"
+								Header="Assignee"
+								ItemsSource="{x:Bind ViewModel.AssigneeFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="MilestoneFilterBox"
+								MinWidth="180"
+								Header="Milestone"
+								ItemsSource="{x:Bind ViewModel.MilestoneFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="SortFilterBox"
+								MinWidth="210"
+								Header="Sort"
+								ItemsSource="{x:Bind ViewModel.SortFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+						</StackPanel>
+					</ScrollViewer>
+
+					<Grid Grid.Row="4">
 
 						<ListView ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}" SelectionMode="None">
 							<ListView.ItemsPanel>
