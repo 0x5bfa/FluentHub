@@ -61,7 +61,6 @@ namespace FluentHub.Core.Clients
 			Insights = new(apiClient);
 			IssueEvents = new(apiClient);
 			Issues = new(apiClient);
-			Markdown = new(apiClient);
 			Packages = new(apiClient);
 			ProjectsV2 = new(apiClient);
 			PullRequestChecks = new(apiClient);
@@ -80,7 +79,6 @@ namespace FluentHub.Core.Clients
 		public Queries.Repositories.InsightQueries Insights { get; }
 		public Queries.Repositories.IssueEventQueries IssueEvents { get; }
 		public Queries.Repositories.IssueQueries Issues { get; }
-		public Queries.Repositories.MarkdownQueries Markdown { get; }
 		public Queries.Repositories.PackageQueries Packages { get; }
 		public Queries.Repositories.ProjectV2Queries ProjectsV2 { get; }
 		public Queries.Repositories.PullRequestCheckQueries PullRequestChecks { get; }

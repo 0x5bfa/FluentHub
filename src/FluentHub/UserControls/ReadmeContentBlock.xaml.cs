@@ -1,11 +1,8 @@
-using FluentHub.Extensions;
-using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.Web.WebView2.Core;
 
 namespace FluentHub.UserControls
 {
@@ -33,7 +30,7 @@ namespace FluentHub.UserControls
 				return;
 
 			control.ViewModel.ContextViewModel = context;
-			await control.ViewModel.LoadRepositoryReadmeAsync(control.ReadmeContentWebView2);
+			await control.ViewModel.LoadRepositoryReadmeAsync();
 		}
 		#endregion
 
@@ -45,17 +42,5 @@ namespace FluentHub.UserControls
 		}
 
 		public ReadmeContentBlockViewModel ViewModel { get; }
-
-		private async void OnReadmeContentWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
-			=> await sender.HandleResize();
-
-		private async void OnReadmeContentWebView2SizeChanged(object sender, SizeChangedEventArgs e)
-			=> await ((WebView2)sender).HandleResize();
-
-		private void OnUserControlUnloaded(object sender, RoutedEventArgs e)
-		{
-			// https://github.com/microsoft/microsoft-ui-xaml/issues/4752
-			ReadmeContentWebView2.Close();
-		}
 	}
 }

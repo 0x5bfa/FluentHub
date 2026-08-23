@@ -120,15 +120,22 @@
 							</StackPanel>
 						</StackPanel>
 
-						<Grid Grid.Row="1">
+						<Grid Grid.Row="1" MaxHeight="240">
 
+							<uc:GitHubMarkdownTextBlock
+								Margin="16,0,16,16"
+								Text="{x:Bind ViewModel.LatestRelease.Description, Mode=OneWay}"
+								Visibility="{x:Bind ViewModel.LatestRelease.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 							<TextBlock
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
-								Text="No contents available here for now." />
+								FontStyle="Italic"
+								Text="No release notes provided."
+								Visibility="{x:Bind ViewModel.LatestRelease.Description, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
 							<Border
 								Height="96"
 								HorizontalAlignment="Stretch"
+								IsHitTestVisible="False"
 								VerticalAlignment="Bottom">
 								<Border.Background>
 									<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">

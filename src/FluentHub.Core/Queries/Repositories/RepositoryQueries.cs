@@ -200,6 +200,7 @@ namespace FluentHub.Core.Queries.Repositories
 
 					LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
 					{
+						Description = release.Description,
 						DescriptionHTML = release.DescriptionHTML,
 						IsDraft = release.IsDraft,
 						IsLatest = release.IsLatest,
@@ -314,6 +315,7 @@ namespace FluentHub.Core.Queries.Repositories
 
 						LatestRelease = x.LatestRelease.Select(release => new Release
 						{
+							Description = release.Description,
 							DescriptionHTML = release.DescriptionHTML,
 							IsDraft = release.IsDraft,
 							IsLatest = release.IsLatest,
@@ -455,26 +457,32 @@ namespace FluentHub.Core.Queries.Repositories
 			return branchNames;
 		}
 
-		public async Task<string?> GetReadmeHtmlAsync(string owner, string name, string branch, string theme, string index, CancellationToken cancellationToken = default)
+		public Task<string> GetReadmeMarkdownAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
-			string bodyHtml;
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetReadmeMarkdownUncachedAsync(owner, name, cancellationToken);
 
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey("repository-readme", owner, name),
+				CachePolicies.Repository,
+				CacheSerializers.String,
+				token => GetReadmeMarkdownUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		private async Task<string> GetReadmeMarkdownUncachedAsync(string owner, string name, CancellationToken cancellationToken)
+		{
 			try
 			{
-				bodyHtml = await _gitHub.RunRestAsync(
-					client => client.Repository.Content.GetReadmeHtml(owner, name),
+				var readme = await _gitHub.RunRestAsync(
+					client => client.Repository.Content.GetReadme(owner, name),
 					cancellationToken);
-
-				string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
-
-				var markdown = new MarkdownQueries(_gitHub);
-				var html = await markdown.GetHtmlAsync(index, bodyHtml, missedPath, theme, true, cancellationToken);
-
-				return html;
+				return readme.Content;
 			}
 			catch (global::Octokit.NotFoundException)
 			{
-				return null;
+				return string.Empty;
 			}
 		}
 

@@ -43,7 +43,6 @@ namespace FluentHub.Helpers
 					.AddSingleton<Utils.ILogger>(_ => new FileLogger(
 						Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs", "Log.log")))
 					.AddSingleton<ToastService>()
-					.AddSingleton<MarkdownApiHandler>()
 					.AddSingleton<ICacheService>(_ => new FileCacheService(
 						Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "FluentHub.Cache", "v1")))
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)

@@ -22,9 +22,6 @@ namespace FluentHub.Core
 
 		public static class ResourcePaths
 		{
-			public const string WebViewIndexHtml = @"ms-appx:///Assets/WebView/index.html";
-			public const string WebViewDarkModeCss = @"ms-appx:///Assets/WebView/github-markdown-dark.css";
-			public const string WebViewLightModeCss = @"ms-appx:///Assets/WebView/github-markdown-light.css";
 			public const string GlyphsPath = @"ms-appx:///Assets/Glyphs";
 		}
 

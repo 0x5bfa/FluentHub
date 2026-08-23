@@ -150,6 +150,7 @@ public sealed class FileCacheServiceTests
 				Login = "owner",
 			},
 			Issues = new IssueConnection { TotalCount = 3 },
+			LatestRelease = new Release { Description = "# Changes" },
 			PullRequests = new PullRequestConnection { TotalCount = 2 },
 			PrimaryLanguage = new Language { Name = "C#", Color = "#178600" },
 		};
@@ -171,6 +172,7 @@ public sealed class FileCacheServiceTests
 		Assert.IsInstanceOfType<RepositoryOwner>(restored.Owner);
 		Assert.AreEqual("owner", restored.Owner.Login);
 		Assert.AreEqual(3, restored.Issues.TotalCount);
+		Assert.AreEqual("# Changes", restored.LatestRelease?.Description);
 		Assert.AreEqual(2, restored.PullRequests.TotalCount);
 		Assert.AreEqual("C#", restored.PrimaryLanguage?.Name);
 	}

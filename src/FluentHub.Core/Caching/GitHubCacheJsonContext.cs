@@ -346,6 +346,7 @@ namespace FluentHub.Core.Caching
 
 	internal sealed class CachedRelease
 	{
+		public string? Description { get; set; }
 		public string? DescriptionHTML { get; set; }
 		public bool IsDraft { get; set; }
 		public bool IsLatest { get; set; }
@@ -360,6 +361,7 @@ namespace FluentHub.Core.Caching
 				? null
 				: new()
 				{
+					Description = value.Description,
 					DescriptionHTML = value.DescriptionHTML,
 					IsDraft = value.IsDraft,
 					IsLatest = value.IsLatest,
@@ -373,6 +375,7 @@ namespace FluentHub.Core.Caching
 		public Release ToContract()
 			=> new()
 			{
+				Description = Description,
 				DescriptionHTML = DescriptionHTML,
 				IsDraft = IsDraft,
 				IsLatest = IsLatest,
