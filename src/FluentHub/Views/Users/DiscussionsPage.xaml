@@ -55,9 +55,9 @@
 								<ItemsRepeater.Layout>
 									<StackLayout Orientation="Vertical" Spacing="4" />
 								</ItemsRepeater.Layout>
-									<DataTemplate x:DataType="bbvm:DiscussionBlockButtonViewModel">
-										<bbuc:DiscussionBlockButton IsEnabled="False" ViewModel="{x:Bind}" />
-									</DataTemplate>
+								<DataTemplate x:DataType="bbvm:DiscussionBlockButtonViewModel">
+									<bbuc:DiscussionBlockButton ViewModel="{x:Bind}" />
+								</DataTemplate>
 							</ItemsRepeater>
 
 							<StackPanel
