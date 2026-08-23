@@ -81,6 +81,33 @@
 				<TextBlock
 					Margin="4,16,4,8"
 					Style="{StaticResource BodyStrongTextBlockStyle}"
+					Text="Storage" />
+
+				<toolkit:SettingsCard
+					Description="{x:Bind ViewModel.CacheSizeText, Mode=OneWay}"
+					Header="Cache">
+					<toolkit:SettingsCard.HeaderIcon>
+						<FontIcon Glyph="&#xE74D;" />
+					</toolkit:SettingsCard.HeaderIcon>
+
+					<Button
+						Height="32"
+						Command="{x:Bind ViewModel.ClearCacheCommand}"
+						ToolTipService.ToolTip="Clear cached GitHub images and data">
+						<StackPanel Orientation="Horizontal" Spacing="6">
+							<FontIcon FontSize="16" Glyph="&#xE74D;" />
+							<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Clear" />
+						</StackPanel>
+					</Button>
+				</toolkit:SettingsCard>
+
+			</StackPanel>
+
+			<StackPanel Grid.Row="1">
+
+				<TextBlock
+					Margin="4,16,4,8"
+					Style="{StaticResource BodyStrongTextBlockStyle}"
 					Text="About app" />
 
 				<StackPanel Spacing="4">

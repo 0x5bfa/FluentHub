@@ -56,7 +56,7 @@
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Glyph="&#xE77B;" />
 				</Grid>
-				<Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
+				<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
 			</Grid>
 
 			<Grid

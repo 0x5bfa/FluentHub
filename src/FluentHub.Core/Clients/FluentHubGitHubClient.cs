@@ -1,15 +1,22 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Core.Caching;
+
 namespace FluentHub.Core.Clients
 {
 	public sealed class FluentHubGitHubClient : IFluentHubGitHubClient
 	{
 		public FluentHubGitHubClient(IGitHubApiClient apiClient)
+			: this(apiClient, null)
 		{
-			Organizations = new(apiClient);
-			Repositories = new(apiClient);
-			Users = new(apiClient);
+		}
+
+		public FluentHubGitHubClient(IGitHubApiClient apiClient, ICacheService? cache)
+		{
+			Organizations = new(apiClient, cache);
+			Repositories = new(apiClient, cache);
+			Users = new(apiClient, cache);
 			Searches = new(apiClient);
 			Mutations = new(apiClient);
 		}
@@ -27,9 +34,9 @@ namespace FluentHub.Core.Clients
 
 	public sealed class OrganizationApiClient
 	{
-		internal OrganizationApiClient(IGitHubApiClient apiClient)
+		internal OrganizationApiClient(IGitHubApiClient apiClient, ICacheService? cache)
 		{
-			Organizations = new(apiClient);
+			Organizations = new(apiClient, cache);
 			Packages = new(apiClient);
 			PinnedItems = new(apiClient);
 			ProjectsV2 = new(apiClient);
@@ -45,7 +52,7 @@ namespace FluentHub.Core.Clients
 
 	public sealed class RepositoryApiClient
 	{
-		internal RepositoryApiClient(IGitHubApiClient apiClient)
+		internal RepositoryApiClient(IGitHubApiClient apiClient, ICacheService? cache)
 		{
 			Blobs = new(apiClient);
 			Commits = new(apiClient);
@@ -62,7 +69,7 @@ namespace FluentHub.Core.Clients
 			PullRequestEvents = new(apiClient);
 			PullRequests = new(apiClient);
 			Releases = new(apiClient);
-			Repositories = new(apiClient);
+			Repositories = new(apiClient, cache);
 			Trees = new(apiClient);
 		}
 
@@ -87,7 +94,7 @@ namespace FluentHub.Core.Clients
 
 	public sealed class UserApiClient
 	{
-		internal UserApiClient(IGitHubApiClient apiClient)
+		internal UserApiClient(IGitHubApiClient apiClient, ICacheService? cache)
 		{
 			Activities = new(apiClient);
 			Discussions = new(apiClient);
@@ -102,7 +109,7 @@ namespace FluentHub.Core.Clients
 			PullRequests = new(apiClient);
 			Repositories = new(apiClient);
 			StarredRepositories = new(apiClient);
-			Users = new(apiClient);
+			Users = new(apiClient, cache);
 		}
 
 		public Queries.Users.ActivityQueries Activities { get; }

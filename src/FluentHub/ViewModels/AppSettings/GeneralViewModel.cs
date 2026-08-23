@@ -1,4 +1,5 @@
 using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Caching;
 using FluentHub.Extensions;
 using FluentHub.Models;
 using FluentHub.ViewModels.UserControls.Overview;
@@ -13,6 +14,8 @@ namespace FluentHub.ViewModels.AppSettings
 {
 	public class GeneralViewModel : BaseViewModel
 	{
+		private readonly ICacheService _cache;
+
 		public string Version
 		{
 			get
@@ -66,6 +69,9 @@ namespace FluentHub.ViewModels.AppSettings
 		private bool _showRestartMessage;
 		public bool ShowRestartMessage { get => _showRestartMessage; set => SetProperty(ref _showRestartMessage, value); }
 
+		private string _cacheSizeText = "GitHub images and data";
+		public string CacheSizeText { get => _cacheSizeText; set => SetProperty(ref _cacheSizeText, value); }
+
 		private AppSettingsOverviewViewModel _appSettingsOverviewViewModel = default!;
 		public AppSettingsOverviewViewModel AppSettingsOverviewViewModel { get => _appSettingsOverviewViewModel; set => SetProperty(ref _appSettingsOverviewViewModel, value); }
 
@@ -73,14 +79,17 @@ namespace FluentHub.ViewModels.AppSettings
 
 		public ICommand CopyVersionCommand { get; }
 		public ICommand OpenLogsCommand { get; }
+		public ICommand ClearCacheCommand { get; }
 
-		public GeneralViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public GeneralViewModel(IFluentHubGitHubClient gitHub, ICacheService cache) : base(gitHub)
 		{
+			_cache = cache;
 			InitializeDefaultValues();
 
 			LoadGeneralPageCommand = new AsyncRelayCommand(LoadGeneralPageAsync);
 			CopyVersionCommand = new RelayCommand(ExecuteCopyVersion);
 			OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsAsync);
+			ClearCacheCommand = new AsyncRelayCommand(ExecuteClearCacheAsync);
 		}
 
 		private async Task LoadGeneralPageAsync()
@@ -94,6 +103,8 @@ namespace FluentHub.ViewModels.AppSettings
 
 			try
 			{
+				await RefreshCacheSizeAsync();
+
 				_currentTaskingMethodName = nameof(LoadUserAsync);
 				await LoadUserAsync();
 
@@ -160,6 +171,19 @@ namespace FluentHub.ViewModels.AppSettings
 			string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs");
 			var result = await Windows.System.Launcher.LaunchFolderPathAsync(logsFolder);
 			_logger?.Info("Open logs folder result: {0}", result);
+		}
+
+		private async Task ExecuteClearCacheAsync()
+		{
+			await _cache.ClearAsync();
+			await RefreshCacheSizeAsync();
+			_logger?.Info("GitHub image and data cache cleared");
+		}
+
+		private async Task RefreshCacheSizeAsync()
+		{
+			var size = await _cache.GetSizeAsync();
+			CacheSizeText = $"GitHub images and data · {HumanReadableFormatter.FormatFileSize(size)}";
 		}
 
 		private void InitializeDefaultValues()

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
 
@@ -12,10 +13,14 @@ namespace FluentHub.Core.Clients
 		private readonly Lock _syncRoot = new();
 		private readonly List<GitHubSession> _sessions = [];
 		private GitHubSession? _current;
+		private string _cachePartition = "anonymous";
 		private bool _disposed;
 
 		public bool IsAuthenticated
 			=> Volatile.Read(ref _current) is not null;
+
+		internal string CachePartition
+			=> Volatile.Read(ref _cachePartition);
 
 		public void SwitchAccount(string accessToken)
 		{
@@ -33,6 +38,7 @@ namespace FluentHub.Core.Clients
 
 				_sessions.Add(session);
 				Volatile.Write(ref _current, session);
+				Volatile.Write(ref _cachePartition, CreateCachePartition(accessToken));
 			}
 		}
 
@@ -49,12 +55,19 @@ namespace FluentHub.Core.Clients
 
 				_disposed = true;
 				Volatile.Write(ref _current, null);
+				Volatile.Write(ref _cachePartition, "anonymous");
 
 				foreach (var session in _sessions)
 					session.Dispose();
 
 				_sessions.Clear();
 			}
+		}
+
+		private static string CreateCachePartition(string accessToken)
+		{
+			var hash = SHA256.HashData(Encoding.UTF8.GetBytes(accessToken));
+			return "account-" + Convert.ToHexString(hash.AsSpan(0, 8)).ToLowerInvariant();
 		}
 
 		internal sealed class GitHubSession : IDisposable

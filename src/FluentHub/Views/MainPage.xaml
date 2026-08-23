@@ -257,7 +257,7 @@
 										FontSize="14"
 										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 										Glyph="&#xE77B;" />
-									<Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+									<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
 								</Grid>
 								<Button.Flyout>
 									<MenuBarItemFlyout

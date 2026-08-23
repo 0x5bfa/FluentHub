@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.BlockButtons"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
@@ -45,7 +46,7 @@
 				Height="32"
 				Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 				CornerRadius="6">
-				<Image Source="{x:Bind ViewModel.OrgItem.AvatarUrl, Mode=OneWay}" />
+				<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.OrgItem.AvatarUrl, Mode=OneWay}" />
 			</Border>
 
 			<Grid Grid.Column="1">

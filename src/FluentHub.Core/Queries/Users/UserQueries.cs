@@ -1,14 +1,36 @@
 using FluentHub.Core.Clients;
+using FluentHub.Core.Caching;
 
 namespace FluentHub.Core.Queries.Users
 {
 	public class UserQueries
 	{
 		private readonly IGitHubApiClient _gitHub;
+		private readonly ICacheService? _cache;
 
-		public UserQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
-		public async Task<User> GetAsync(string login, CancellationToken cancellationToken = default)
+		public UserQueries(IGitHubApiClient gitHub, ICacheService? cache = null)
+		{
+			_gitHub = gitHub;
+			_cache = cache;
+		}
+
+		public Task<User> GetAsync(string login, CancellationToken cancellationToken = default)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+
+			if (_cache is null)
+				return GetUncachedAsync(login, cancellationToken);
+
+			var key = CacheKey.ForAccount(_gitHub.CachePartition, "users", login.Trim().ToLowerInvariant());
+			return _cache.GetOrCreateAsync(
+				key,
+				CachePolicies.User,
+				GitHubCacheSerializers.User,
+				token => GetUncachedAsync(login, token),
+				cancellationToken);
+		}
+
+		private async Task<User> GetUncachedAsync(string login, CancellationToken cancellationToken)
 		{
 			var query = new Query()
 				.User(login)
@@ -59,6 +81,20 @@ namespace FluentHub.Core.Queries.Users
 		}
 
 		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)
+		{
+			if (_cache is null)
+				return await GetViewerLoginUncachedAsync(cancellationToken);
+
+			var key = CacheKey.ForAccount(_gitHub.CachePartition, "users", "viewer-login");
+			return await _cache.GetOrCreateAsync(
+				key,
+				CachePolicies.User,
+				CacheSerializers.String,
+				GetViewerLoginUncachedAsync,
+				cancellationToken);
+		}
+
+		private async Task<string> GetViewerLoginUncachedAsync(CancellationToken cancellationToken)
 		{
 			var query = new Query()
 				.Viewer

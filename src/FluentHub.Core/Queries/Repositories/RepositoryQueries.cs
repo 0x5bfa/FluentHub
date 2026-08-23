@@ -1,14 +1,34 @@
 using FluentHub.Core.Clients;
+using FluentHub.Core.Caching;
 
 namespace FluentHub.Core.Queries.Repositories
 {
 	public class RepositoryQueries
 	{
 		private readonly IGitHubApiClient _gitHub;
+		private readonly ICacheService? _cache;
 
-		public RepositoryQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
-		public async Task<Repository> GetAsync(string owner, string name, CancellationToken cancellationToken = default)
+		public RepositoryQueries(IGitHubApiClient gitHub, ICacheService? cache = null)
+		{
+			_gitHub = gitHub;
+			_cache = cache;
+		}
+
+		public Task<Repository> GetAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetUncachedAsync(owner, name, cancellationToken);
+
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey("repositories", owner, name),
+				CachePolicies.Repository,
+				GitHubCacheSerializers.Repository,
+				token => GetUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		private async Task<Repository> GetUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -72,7 +92,32 @@ namespace FluentHub.Core.Queries.Repositories
 			return response;
 		}
 
-		public async Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
+		public Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetDetailsUncachedAsync(owner, name, cancellationToken);
+
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey("repository-details", owner, name),
+				CachePolicies.Repository,
+				GitHubCacheSerializers.Repository,
+				token => GetDetailsUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		public Task InvalidateAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return Task.CompletedTask;
+
+			return Task.WhenAll(
+				_cache.RemoveAsync(CreateRepositoryKey("repositories", owner, name), cancellationToken),
+				_cache.RemoveAsync(CreateRepositoryKey("repository-details", owner, name), cancellationToken));
+		}
+
+		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -431,6 +476,18 @@ namespace FluentHub.Core.Queries.Repositories
 			{
 				return null;
 			}
+		}
+
+		private CacheKey CreateRepositoryKey(string category, string owner, string name)
+			=> CacheKey.ForAccount(
+				_gitHub.CachePartition,
+				category,
+				$"{owner.Trim().ToLowerInvariant()}/{name.Trim().ToLowerInvariant()}");
+
+		private static void ValidateRepository(string owner, string name)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(owner);
+			ArgumentException.ThrowIfNullOrWhiteSpace(name);
 		}
 	}
 }

@@ -13,6 +13,9 @@ namespace FluentHub.Core.Clients
 		public GitHubApiClient(GitHubSessionManager sessionManager)
 			=> _sessionManager = sessionManager;
 
+		public string CachePartition
+			=> _sessionManager.CachePartition;
+
 		public async Task<T> RunRestAsync<T>(
 			Func<OctokitV3.IGitHubClient, Task<T>> operation,
 			CancellationToken cancellationToken = default)

@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.Overview"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
@@ -41,7 +42,7 @@
 				Width="96"
 				Height="96"
 				CornerRadius="8">
-				<Image Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
+				<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
 			</Grid>
 
 			<StackPanel

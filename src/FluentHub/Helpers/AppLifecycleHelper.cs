@@ -7,6 +7,7 @@ using FluentHub.ViewModels;
 using FluentHub.Core.Application;
 using FluentHub.Core.Authorization;
 using FluentHub.Core.Clients;
+using FluentHub.Core.Caching;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
@@ -43,6 +44,8 @@ namespace FluentHub.Helpers
 						Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs", "Log.log")))
 					.AddSingleton<ToastService>()
 					.AddSingleton<MarkdownApiHandler>()
+					.AddSingleton<ICacheService>(_ => new FileCacheService(
+						Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "FluentHub.Cache", "v1")))
 					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
 					// Application services
 					.AddSingleton<IAccountStore>(_ => App.AppSettings)

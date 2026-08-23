@@ -91,7 +91,7 @@
 														BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 														BorderThickness="1"
 														CornerRadius="4">
-														<Image Source="{x:Bind App.LogoUrl}" />
+												<Image helpers:GitHubImageCache.Source="{x:Bind App.LogoUrl}" />
 													</Border>
 													<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind App.Name}" />
 													<TextBlock
