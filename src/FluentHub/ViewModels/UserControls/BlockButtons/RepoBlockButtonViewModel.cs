@@ -5,6 +5,7 @@ using FluentHub.Models;
 using FluentHub.Core.Mutations;
 using System.Windows.Input;
 using FluentHub.Core.Contracts;
+using FluentHub.Utils;
 
 namespace FluentHub.ViewModels.UserControls.BlockButtons
 {
@@ -13,7 +14,21 @@ namespace FluentHub.ViewModels.UserControls.BlockButtons
 		private readonly IFluentHubGitHubClient _gitHub;
 
 		private Repository _item = default!;
-		public Repository Repository { get => _item; set => SetProperty(ref _item, value); }
+		public Repository Repository
+		{
+			get => _item;
+			set
+			{
+				if (SetProperty(ref _item, value))
+					NotifyStarStateChanged();
+			}
+		}
+
+		public bool ViewerHasStarred
+			=> Repository?.ViewerHasStarred ?? false;
+
+		public int StargazerCount
+			=> Repository?.StargazerCount ?? 0;
 
 		private bool _displayDetails;
 		public bool DisplayDetails { get => _displayDetails; set => SetProperty(ref _displayDetails, value); }
@@ -52,7 +67,8 @@ namespace FluentHub.ViewModels.UserControls.BlockButtons
 		{
 			try
 			{
-				if (Repository.ViewerHasStarred)
+				var wasStarred = Repository.ViewerHasStarred;
+				if (wasStarred)
 				{
 					// Remove star
 					var removeStarMutation = _gitHub.Mutations.RemoveStar;
@@ -67,13 +83,38 @@ namespace FluentHub.ViewModels.UserControls.BlockButtons
 					await addStarMutation.ExecuteAsync(Repository.Id);
 				}
 
-				Repository.ViewerHasStarred = !Repository.ViewerHasStarred;
+				Repository.ViewerHasStarred = !wasStarred;
+				Repository.StargazerCount = Math.Max(0, Repository.StargazerCount + (wasStarred ? -1 : 1));
+				NotifyStarStateChanged();
+				await InvalidateRepositoryCacheAsync();
 			}
 			catch (Exception ex)
 			{
 				var messenger = Ioc.Default.GetRequiredService<IMessenger>();
 				messenger.Send(new UserNotificationMessage("Something went wrong", ex.Message, UserNotificationType.Error));
 			}
+		}
+
+		private async Task InvalidateRepositoryCacheAsync()
+		{
+			try
+			{
+				await _gitHub.Repositories.Repositories.InvalidateAsync(
+					Repository.Owner.Login,
+					Repository.Name);
+			}
+			catch (Exception ex)
+			{
+				Ioc.Default.GetService<ILogger>()?.Warn(
+					"Failed to invalidate repository cache: {0}",
+					ex.Message);
+			}
+		}
+
+		private void NotifyStarStateChanged()
+		{
+			OnPropertyChanged(nameof(ViewerHasStarred));
+			OnPropertyChanged(nameof(StargazerCount));
 		}
 	}
 }

@@ -155,6 +155,7 @@ namespace FluentHub.Core.Clients
 		internal MutationApiClient(IGitHubApiClient apiClient)
 		{
 			AddStar = new(apiClient);
+			ForkRepository = new(apiClient);
 			Issues = new(apiClient);
 			PullRequests = new(apiClient);
 			Reactions = new(apiClient);
@@ -163,6 +164,7 @@ namespace FluentHub.Core.Clients
 		}
 
 		public Mutations.AddStarMutation AddStar { get; }
+		public Mutations.ForkRepositoryMutation ForkRepository { get; }
 		public Mutations.IssueMutations Issues { get; }
 		public Mutations.PullRequestMutations PullRequests { get; }
 		public Mutations.ReactionMutations Reactions { get; }

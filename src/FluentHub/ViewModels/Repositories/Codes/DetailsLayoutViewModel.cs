@@ -28,6 +28,20 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
 		public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
+		public IAsyncRelayCommand ForkRepositoryCommand { get; }
+		public IAsyncRelayCommand ToggleStarCommand { get; }
+
+		public bool ViewerHasStarred
+			=> Repository?.ViewerHasStarred ?? false;
+
+		public int StargazerCount
+			=> Repository?.StargazerCount ?? 0;
+
+		public int ForkCount
+			=> Repository?.ForkCount ?? 0;
+
+		public bool CanFork
+			=> Repository?.ForkingAllowed ?? false;
 
 		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
@@ -41,6 +55,8 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			Items = new(_items);
 
 			LoadDetailsViewPageCommand = new AsyncRelayCommand(LoadDetailsViewPageAsync);
+			ForkRepositoryCommand = new AsyncRelayCommand(ForkRepositoryAsync, () => CanFork);
+			ToggleStarCommand = new AsyncRelayCommand(ToggleStarAsync, () => Repository is not null);
 		}
 
 		private async Task LoadDetailsViewPageAsync()
@@ -123,6 +139,83 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		{
 			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
+			NotifyRepositoryActionsChanged();
+		}
+
+		private async Task ForkRepositoryAsync()
+		{
+			try
+			{
+				var fork = await _gitHub.Mutations.ForkRepository.ExecuteAsync(
+					Repository.Owner.Login,
+					Repository.Name);
+
+				Repository.ForkCount++;
+				NotifyRepositoryActionsChanged();
+				await InvalidateRepositoryCacheAsync();
+
+				_messenger.Send(new UserNotificationMessage(
+					"Repository forked",
+					$"Created {fork.FullName}.",
+					UserNotificationType.Success));
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(nameof(ForkRepositoryAsync), ex);
+				_messenger.Send(new UserNotificationMessage(
+					"Could not fork repository",
+					ex.Message,
+					UserNotificationType.Error));
+			}
+		}
+
+		private async Task ToggleStarAsync()
+		{
+			try
+			{
+				var wasStarred = Repository.ViewerHasStarred;
+				if (wasStarred)
+					await _gitHub.Mutations.RemoveStar.ExecuteAsync(Repository.Id);
+				else
+					await _gitHub.Mutations.AddStar.ExecuteAsync(Repository.Id);
+
+				Repository.ViewerHasStarred = !wasStarred;
+				Repository.StargazerCount = Math.Max(0, Repository.StargazerCount + (wasStarred ? -1 : 1));
+				NotifyRepositoryActionsChanged();
+				await InvalidateRepositoryCacheAsync();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(nameof(ToggleStarAsync), ex);
+				_messenger.Send(new UserNotificationMessage(
+					"Could not update star",
+					ex.Message,
+					UserNotificationType.Error));
+			}
+		}
+
+		private async Task InvalidateRepositoryCacheAsync()
+		{
+			try
+			{
+				await _gitHub.Repositories.Repositories.InvalidateAsync(
+					Repository.Owner.Login,
+					Repository.Name);
+			}
+			catch (Exception ex)
+			{
+				_logger.Warn("Failed to invalidate repository cache: {0}", ex.Message);
+			}
+		}
+
+		private void NotifyRepositoryActionsChanged()
+		{
+			OnPropertyChanged(nameof(ViewerHasStarred));
+			OnPropertyChanged(nameof(StargazerCount));
+			OnPropertyChanged(nameof(ForkCount));
+			OnPropertyChanged(nameof(CanFork));
+			ForkRepositoryCommand.NotifyCanExecuteChanged();
+			ToggleStarCommand.NotifyCanExecuteChanged();
 		}
 
 		private void InitializeRepositoryContext(string owner, string name, string path)
