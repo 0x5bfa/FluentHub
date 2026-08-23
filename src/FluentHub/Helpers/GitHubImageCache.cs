@@ -13,6 +13,14 @@ using Windows.Storage.Streams;
 
 namespace FluentHub.Helpers
 {
+	public enum GitHubImageLoadStatus
+	{
+		Empty,
+		Loading,
+		Loaded,
+		Failed,
+	}
+
 	public static class GitHubImageCache
 	{
 		private const int MaximumImageSize = 20 * 1024 * 1024;
@@ -26,11 +34,23 @@ namespace FluentHub.Helpers
 			typeof(GitHubImageCache),
 			new PropertyMetadata(null, OnSourceChanged));
 
+		public static readonly DependencyProperty LoadStatusProperty = DependencyProperty.RegisterAttached(
+			"LoadStatus",
+			typeof(GitHubImageLoadStatus),
+			typeof(GitHubImageCache),
+			new PropertyMetadata(GitHubImageLoadStatus.Empty));
+
 		public static string? GetSource(DependencyObject dependencyObject)
 			=> (string?)dependencyObject.GetValue(SourceProperty);
 
 		public static void SetSource(DependencyObject dependencyObject, string? value)
 			=> dependencyObject.SetValue(SourceProperty, value);
+
+		public static GitHubImageLoadStatus GetLoadStatus(DependencyObject dependencyObject)
+			=> (GitHubImageLoadStatus)dependencyObject.GetValue(LoadStatusProperty);
+
+		private static void SetLoadStatus(DependencyObject dependencyObject, GitHubImageLoadStatus value)
+			=> dependencyObject.SetValue(LoadStatusProperty, value);
 
 		internal static bool IsGitHubHosted(Uri uri)
 		{
@@ -122,18 +142,23 @@ namespace FluentHub.Helpers
 				_image = image;
 				_image.Loaded += OnLoaded;
 				_image.Unloaded += OnUnloaded;
+				_image.ImageOpened += OnImageOpened;
+				_image.ImageFailed += OnImageFailed;
 			}
 
 			public void SetSource(string? source)
 			{
 				_source = source;
 				CancelCurrentLoad();
+				_image.Source = null;
 
 				if (string.IsNullOrWhiteSpace(source))
 				{
-					_image.Source = null;
+					SetLoadStatus(_image, GitHubImageLoadStatus.Empty);
 					return;
 				}
+
+				SetLoadStatus(_image, GitHubImageLoadStatus.Loading);
 
 				if (_image.IsLoaded)
 					StartLoad();
@@ -148,12 +173,27 @@ namespace FluentHub.Helpers
 			private void OnUnloaded(object sender, RoutedEventArgs args)
 				=> CancelCurrentLoad();
 
+			private void OnImageOpened(object sender, RoutedEventArgs args)
+			{
+				if (_image.Source is not null)
+					SetLoadStatus(_image, GitHubImageLoadStatus.Loaded);
+			}
+
+			private void OnImageFailed(object sender, ExceptionRoutedEventArgs args)
+			{
+				if (_image.Source is not null)
+					SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
+			}
+
 			private void StartLoad()
 			{
 				CancelCurrentLoad();
 				var source = _source;
 				if (string.IsNullOrWhiteSpace(source))
 					return;
+
+				_image.Source = null;
+				SetLoadStatus(_image, GitHubImageLoadStatus.Loading);
 
 				var version = ++_version;
 				_cancellationTokenSource = new CancellationTokenSource();
@@ -165,7 +205,16 @@ namespace FluentHub.Helpers
 				if (!Uri.TryCreate(source, UriKind.Absolute, out var uri))
 				{
 					if (version == _version)
-						_image.Source = new BitmapImage(new Uri(source, UriKind.RelativeOrAbsolute));
+					{
+						try
+						{
+							_image.Source = new BitmapImage(new Uri(source, UriKind.RelativeOrAbsolute));
+						}
+						catch
+						{
+							SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
+						}
+					}
 					return;
 				}
 
@@ -189,7 +238,10 @@ namespace FluentHub.Helpers
 					var bitmap = await CreateBitmapAsync(bytes, cancellationToken);
 
 					if (version == _version && !cancellationToken.IsCancellationRequested)
+					{
 						_image.Source = bitmap;
+						SetLoadStatus(_image, GitHubImageLoadStatus.Loaded);
+					}
 				}
 				catch (OperationCanceledException)
 				{
@@ -197,7 +249,16 @@ namespace FluentHub.Helpers
 				catch
 				{
 					if (version == _version)
-						_image.Source = new BitmapImage(uri);
+					{
+						try
+						{
+							_image.Source = new BitmapImage(uri);
+						}
+						catch
+						{
+							SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
+						}
+					}
 				}
 			}
 

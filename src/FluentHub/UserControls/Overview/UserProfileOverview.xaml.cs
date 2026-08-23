@@ -1,3 +1,4 @@
+using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.Overview;
@@ -13,7 +14,7 @@ namespace FluentHub.UserControls.Overview
 			DependencyProperty.Register(
 				nameof(ViewModel),
 				typeof(UserProfileOverviewViewModel),
-				typeof(UserProfileOverviewViewModel),
+				typeof(UserProfileOverview),
 				new PropertyMetadata(null));
 
 		public UserProfileOverviewViewModel ViewModel
@@ -26,10 +27,31 @@ namespace FluentHub.UserControls.Overview
 		public UserProfileOverview()
 		{
 			InitializeComponent();
+			AvatarImage.RegisterPropertyChangedCallback(
+				GitHubImageCache.LoadStatusProperty,
+				OnAvatarLoadStatusChanged);
+			UpdateAvatarState();
 			navService = Ioc.Default.GetRequiredService<INavigationService>();
 		}
 
 		private readonly INavigationService navService;
+
+		private void OnAvatarLoadStatusChanged(DependencyObject sender, DependencyProperty dependencyProperty)
+			=> UpdateAvatarState();
+
+		private void UpdateAvatarState()
+		{
+			var status = GitHubImageCache.GetLoadStatus(AvatarImage);
+			var isLoading = status == GitHubImageLoadStatus.Loading;
+			var isLoaded = status == GitHubImageLoadStatus.Loaded;
+
+			AvatarShimmer.IsActive = isLoading;
+			AvatarShimmer.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+			AvatarFallback.Visibility = status is GitHubImageLoadStatus.Empty or GitHubImageLoadStatus.Failed
+				? Visibility.Visible
+				: Visibility.Collapsed;
+			AvatarImage.Opacity = isLoaded ? 1 : 0;
+		}
 
 		private void OnUserFollowersButtonClick(object sender, RoutedEventArgs e)
 		{
