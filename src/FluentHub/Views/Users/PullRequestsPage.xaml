@@ -72,22 +72,6 @@
 							</ListView>
 
 							<StackPanel
-								x:Name="PageLoadingPanel"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
-								Spacing="12">
-								<ProgressRing
-									Width="32"
-									Height="32"
-									IsIndeterminate="True" />
-								<TextBlock
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="Loading..."
-									TextAlignment="Center" />
-							</StackPanel>
-
-							<StackPanel
 								x:Name="NoItemsPanel"
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
