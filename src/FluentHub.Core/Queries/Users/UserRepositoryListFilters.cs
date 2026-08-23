@@ -52,8 +52,17 @@ namespace FluentHub.Core.Queries.Users
 	internal static class UserRepositorySearchQueryBuilder
 	{
 		public static string Build(string login, UserRepositoryListFilters filters)
+			=> BuildForOwner("user", login, filters);
+
+		public static string BuildForOrganization(string organization, UserRepositoryListFilters filters)
+			=> BuildForOwner("org", organization, filters);
+
+		private static string BuildForOwner(
+			string ownerQualifier,
+			string owner,
+			UserRepositoryListFilters filters)
 		{
-			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+			ArgumentException.ThrowIfNullOrWhiteSpace(owner);
 			ArgumentNullException.ThrowIfNull(filters);
 
 			var terms = new List<string>();
@@ -63,7 +72,7 @@ namespace FluentHub.Core.Queries.Users
 				terms.Add("in:name");
 			}
 
-			terms.Add($"user:{Quote(login.Trim())}");
+			terms.Add($"{ownerQualifier}:{Quote(owner.Trim())}");
 
 			var typeQualifier = filters.Type switch
 			{

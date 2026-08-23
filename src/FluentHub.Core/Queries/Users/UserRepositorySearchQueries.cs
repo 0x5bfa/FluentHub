@@ -46,8 +46,25 @@ namespace FluentHub.Core.Queries.Users
 			string login,
 			UserRepositoryListFilters filters,
 			CancellationToken cancellationToken)
+			=> await GetAllForSearchAsync(
+				UserRepositorySearchQueryBuilder.Build(login, filters),
+				filters,
+				cancellationToken);
+
+		public async Task<IReadOnlyList<Repository>> GetOrganizationAllAsync(
+			string organization,
+			UserRepositoryListFilters filters,
+			CancellationToken cancellationToken)
+			=> await GetAllForSearchAsync(
+				UserRepositorySearchQueryBuilder.BuildForOrganization(organization, filters),
+				filters,
+				cancellationToken);
+
+		private async Task<IReadOnlyList<Repository>> GetAllForSearchAsync(
+			string searchText,
+			UserRepositoryListFilters filters,
+			CancellationToken cancellationToken)
 		{
-			var searchText = UserRepositorySearchQueryBuilder.Build(login, filters);
 			var repositories = new List<Repository>();
 			string? cursor = null;
 

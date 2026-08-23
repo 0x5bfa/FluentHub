@@ -36,6 +36,24 @@ public sealed class UserRepositoryListFiltersTests
 	}
 
 	[TestMethod]
+	public void OrganizationSearchUsesOrganizationScope()
+	{
+		var query = UserRepositorySearchQueryBuilder.BuildForOrganization(
+			"github",
+			new UserRepositoryListFilters
+			{
+				SearchText = "desktop",
+				Language = "C#",
+				Type = UserRepositoryTypeFilter.Sources,
+				Sort = UserRepositorySort.Name,
+			});
+
+		Assert.AreEqual(
+			"\"desktop\" in:name org:\"github\" language:\"C#\"",
+			query);
+	}
+
+	[TestMethod]
 	public void SearchQueryUsesGitHubRepositoryTypeQualifiers()
 	{
 		Assert.IsTrue(Build(UserRepositoryTypeFilter.All).Contains("fork:true", StringComparison.Ordinal));
