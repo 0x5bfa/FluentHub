@@ -5,7 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
 using OrganizationProjectV2Queries = FluentHub.Core.Queries.Organizations.ProjectV2Queries;
 using RepositoryIssueQueries = FluentHub.Core.Queries.Repositories.IssueQueries;
+using RepositoryIssueEventQueries = FluentHub.Core.Queries.Repositories.IssueEventQueries;
 using RepositoryProjectV2Queries = FluentHub.Core.Queries.Repositories.ProjectV2Queries;
+using RepositoryPullRequestEventQueries = FluentHub.Core.Queries.Repositories.PullRequestEventQueries;
 using RepositoryPullRequestQueries = FluentHub.Core.Queries.Repositories.PullRequestQueries;
 using UserActivityQueries = FluentHub.Core.Queries.Users.ActivityQueries;
 using UserProjectV2Queries = FluentHub.Core.Queries.Users.ProjectV2Queries;
@@ -88,6 +90,31 @@ public sealed class GitHubApiCompatibilityTests
 			Assert.IsFalse(
 				query.Contains("projectCards", StringComparison.OrdinalIgnoreCase),
 				$"The query still requests Projects Classic data:{Environment.NewLine}{query}");
+			Assert.IsTrue(query.Contains("authorAssociation", StringComparison.Ordinal));
+			Assert.IsTrue(query.Contains("reactionGroups", StringComparison.Ordinal));
+			Assert.IsTrue(query.Contains("viewerPermission", StringComparison.Ordinal));
+			Assert.IsFalse(query.Contains("reactions(", StringComparison.Ordinal));
+		}
+	}
+
+	[TestMethod]
+	public async Task TimelineQueriesUseReactionSummariesWithoutReactionNodes()
+	{
+		var api = new FakeGitHubApiClient([])
+		{
+			ThrowAfterGraphQLCompilation = true,
+		};
+
+		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+			() => new RepositoryIssueEventQueries(api).GetAllAsync("owner", "repository", 1));
+		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+			() => new RepositoryPullRequestEventQueries(api).GetAllAsync("owner", "repository", 1));
+
+		Assert.AreEqual(2, api.GraphQLQueries.Count);
+		foreach (var query in api.GraphQLQueries)
+		{
+			Assert.IsTrue(query.Contains("reactionGroups", StringComparison.Ordinal));
+			Assert.IsFalse(query.Contains("reactions(", StringComparison.Ordinal));
 		}
 	}
 

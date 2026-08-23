@@ -455,7 +455,6 @@ namespace FluentHub.Core.Queries.Repositories
 				{
 					AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
 					Body = y.Body,
-					BodyHTML = y.BodyHTML,
 					CreatedAt = y.CreatedAt,
 					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),
 					Id = y.Id,
@@ -475,22 +474,6 @@ namespace FluentHub.Core.Queries.Repositories
 					{
 						AvatarUrl = author.AvatarUrl(500),
 						Login = author.Login,
-					})
-					.SingleOrDefault(),
-
-					Reactions = y.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
-					{
-						Nodes = reactions.Nodes.Select(reaction => (Reaction?)new Reaction
-						{
-							Content = (ReactionContent)reaction.Content,
-
-							User = reaction.User.Select(user => new User
-							{
-								Login = user.Login,
-							})
-							.SingleOrDefault(),
-						})
-						.ToList(),
 					})
 					.SingleOrDefault(),
 
@@ -584,7 +567,7 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.SingleOrDefault(),
 				})
-				.MentionedEvent(y => new  MentionedEvent
+				.MentionedEvent(y => new MentionedEvent
 				{
 					CreatedAt = y.CreatedAt,
 					CreatedAtHumanized = y.CreatedAt.ToRelativeTime(),

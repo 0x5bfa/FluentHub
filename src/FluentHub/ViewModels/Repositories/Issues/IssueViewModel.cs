@@ -121,9 +121,6 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
-				await LoadRepositoryAsync(Login, Name);
-
 				_currentTaskingMethodName = nameof(LoadRepositoryOneIssueAsync);
 				await LoadRepositoryOneIssueAsync(Login, Name);
 
@@ -143,27 +140,43 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		private async Task LoadRepositoryOneIssueAsync(string owner, string name)
 		{
 			var issueQueries = _gitHub.Repositories.Issues;
-			var queries = _gitHub.Repositories.IssueEvents;
+			var issueTask = issueQueries.GetAsync(owner, name, Number);
+			var issueEventsTask = _gitHub.Repositories.IssueEvents.GetAllAsync(owner, name, Number);
 			_timelineItems.Clear();
 
-			IssueItem = await issueQueries.GetAsync(owner, name, Number);
+			var issue = await issueTask;
+			Repository = issue.Repository;
+			IssueItem = issue;
 
-			_bodyComment = await issueQueries.GetBodyAsync(owner, name, Number);
+			_bodyComment = CreateBodyComment(issue);
 			// The issue body uses the issue node ID, so it must be edited through UpdateIssue.
 			_bodyComment.ViewerCanUpdate = false;
 			_bodyComment.ViewerCanDelete = false;
 			_timelineItems.Add(_bodyComment);
 
-			var issueEvents = await queries.GetAllAsync(owner, name, Number);
+			var issueEvents = await issueEventsTask;
 			foreach (var item in issueEvents)
 				_timelineItems.Add(item);
 		}
 
-		private async Task LoadRepositoryAsync(string owner, string name)
-		{
-			var queries = _gitHub.Repositories.Repositories;
-			Repository = await queries.GetDetailsAsync(owner, name);
-		}
+		private static IssueComment CreateBodyComment(Issue issue)
+			=> new()
+			{
+				Author = issue.Author,
+				AuthorAssociation = issue.AuthorAssociation,
+				Body = issue.Body,
+				CreatedAt = issue.CreatedAt,
+				CreatedAtHumanized = issue.CreatedAtHumanized,
+				Id = issue.Id,
+				LastEditedAt = issue.LastEditedAt,
+				ReactionGroups = issue.ReactionGroups ?? [],
+				Reactions = new ReactionConnection { Nodes = [] },
+				UpdatedAt = issue.UpdatedAt,
+				UpdatedAtHumanized = issue.UpdatedAtHumanized,
+				Url = issue.Url,
+				ViewerCanReact = issue.ViewerCanReact,
+				ViewerDidAuthor = issue.ViewerDidAuthor,
+			};
 
 		private async Task AddIssueCommentAsync()
 		{

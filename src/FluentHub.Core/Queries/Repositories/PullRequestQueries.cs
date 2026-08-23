@@ -40,15 +40,19 @@ namespace FluentHub.Core.Queries.Repositories
 				.Select(x => new PullRequest
 				{
 					Additions = x.Additions,
+					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					BaseRefName = x.BaseRefName,
 					Body = x.Body,
 					ChangedFiles = x.ChangedFiles,
 					Closed = x.Closed,
+					CreatedAt = x.CreatedAt,
+					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Deletions = x.Deletions,
 					HeadRefName = x.HeadRefName,
 					HeadRefOid = x.HeadRefOid,
 					Id = x.Id,
 					IsDraft = x.IsDraft,
+					LastEditedAt = x.LastEditedAt,
 					Mergeable = (MergeableState)x.Mergeable,
 					Merged = x.Merged,
 					Number = x.Number,
@@ -56,14 +60,24 @@ namespace FluentHub.Core.Queries.Repositories
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
 					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
+					Url = x.Url,
 					ViewerCanClose = x.ViewerCanUpdate,
 					ViewerCanMergeAsAdmin = x.ViewerCanMergeAsAdmin,
+					ViewerCanReact = x.ViewerCanReact,
 					ViewerCanReopen = x.ViewerCanUpdate,
 					ViewerCanSubscribe = x.ViewerCanSubscribe,
 					ViewerCanUpdate = x.ViewerCanUpdate,
+					ViewerDidAuthor = x.ViewerDidAuthor,
 					ViewerSubscription = x.ViewerSubscription == null
 						? null
 						: (SubscriptionState?)x.ViewerSubscription.Value,
+
+					Author = x.Author.Select(author => new Actor
+					{
+						AvatarUrl = author.AvatarUrl(500),
+						Login = author.Login,
+					})
+					.SingleOrDefault(),
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
@@ -160,9 +174,22 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.SingleOrDefault(),
 
+					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
+
 					Repository = x.Repository.Select(repo => new Repository
 					{
 						Name = repo.Name,
+						ViewerPermission = repo.ViewerPermission == null
+							? null
+							: (RepositoryPermission?)repo.ViewerPermission.Value,
 
 						Owner = repo.Owner.Select(owner => new RepositoryOwner
 						{
@@ -219,7 +246,6 @@ namespace FluentHub.Core.Queries.Repositories
 				{
 					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					Body = x.Body,
-					BodyHTML = x.BodyHTML,
 					CreatedAt = x.CreatedAt,
 					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Id = x.Id,
@@ -235,22 +261,6 @@ namespace FluentHub.Core.Queries.Repositories
 					{
 						Login = author.Login,
 						AvatarUrl = author.AvatarUrl(500),
-					})
-					.SingleOrDefault(),
-
-					Reactions = x.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
-					{
-						Nodes = reactions.Nodes.Select(reaction => (Reaction?)new Reaction
-						{
-							Content = (ReactionContent)reaction.Content,
-
-							User = reaction.User.Select(user => new User
-							{
-								Login = user.Login,
-							})
-							.SingleOrDefault(),
-						})
-						.ToList(),
 					})
 					.SingleOrDefault(),
 
