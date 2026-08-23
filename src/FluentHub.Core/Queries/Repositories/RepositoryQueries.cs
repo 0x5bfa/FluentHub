@@ -432,6 +432,52 @@ namespace FluentHub.Core.Queries.Repositories
 			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
 		}
 
+		public async Task<Repository> GetIssueListOptionsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+		{
+			var query = new Query()
+				.Repository(name, owner)
+				.Select(repository => new Repository
+				{
+					AssignableUsers = repository.AssignableUsers(100, null, null, null, null).Select(users => new UserConnection
+					{
+						Nodes = users.Nodes.Select(user => (User?)new User
+						{
+							AvatarUrl = user.AvatarUrl(500),
+							Id = user.Id,
+							Login = user.Login,
+							Name = user.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Labels = repository.Labels(100, null, null, null, null, null).Select(labels => new LabelConnection
+					{
+						Nodes = labels.Nodes.Select(label => (Label?)new Label
+						{
+							Color = label.Color,
+							Description = label.Description,
+							Id = label.Id,
+							Name = label.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Milestones = repository.Milestones(100, null, null, null, null, null, null!).Select(milestones => new MilestoneConnection
+					{
+						Nodes = milestones.Nodes.Select(milestone => (Milestone?)new Milestone
+						{
+							Id = milestone.Id,
+							ProgressPercentage = milestone.ProgressPercentage,
+							Title = milestone.Title,
+						}).ToList(),
+					}).SingleOrDefault(),
+				})
+				.Compile();
+
+			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
+		}
+
 		public async Task<(IReadOnlyList<string> Branches, IReadOnlyList<string> Tags)> GetBranchAndTagNamesAsync(
 			string owner,
 			string name,

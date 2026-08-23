@@ -26,10 +26,11 @@ namespace FluentHub.Core.Queries.Users
 				Direction = OctokitGraphQLModel.OrderDirection.Desc,
 				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
 			};
+			states ??= [OctokitGraphQLModel.IssueState.Open];
 
 			var query = new Query()
 				.User(login)
-				.Issues(page.First, page.After, page.Last, page.Before, filterBy, labels is null ? null! : new Arg<IEnumerable<string>>(labels), orderBy, states is null ? null! : new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
+				.Issues(page.First, page.After, page.Last, page.Before, filterBy, labels is null ? null! : new Arg<IEnumerable<string>>(labels), orderBy, new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
 				.Select(connection => new IssueConnection
 				{
 					Edges = connection.Edges.Select(edge => (IssueEdge?)new IssueEdge

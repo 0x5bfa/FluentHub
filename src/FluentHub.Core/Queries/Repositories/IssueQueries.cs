@@ -8,95 +8,38 @@ namespace FluentHub.Core.Queries.Repositories
 
 		public IssueQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<PageResult<Issue>> GetPageAsync(
+
+		public Task<PageResult<Issue>> GetPageAsync(
 			string owner,
 			string name,
 			PageRequest page,
-			OctokitGraphQLModel.IssueFilters? filterBy = null,
-			IEnumerable<string>? labels = null,
-			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.IssueState>? states = null,
+			RepositoryItemListFilters? filters = null,
 			CancellationToken cancellationToken = default)
-		{
-			ArgumentNullException.ThrowIfNull(page);
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssuePageAsync(
+				owner,
+				name,
+				page,
+				filters ?? new RepositoryItemListFilters(),
+				cancellationToken);
 
-			orderBy ??= new()
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
-			};
+		public Task<IReadOnlyList<string>> GetAuthorLoginsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetAuthorLoginsAsync(
+				owner,
+				name,
+				false,
+				cancellationToken);
 
-			var query = new Query()
-				.Repository(name, owner)
-				.Issues(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					filterBy,
-					labels is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(labels) : null!,
-					orderBy,
-					states is not null ? new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states) : null!)
-				.Select(connection => new IssueConnection
-				{
-					Edges = connection.Edges.Select(edge => (IssueEdge?)new IssueEdge
-					{
-						Node = edge.Node.Select(x => new Issue
-						{
-							Closed = x.Closed,
-							Number = x.Number,
-							Title = x.Title,
-							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-							{
-								TotalCount = comments.TotalCount,
-							}).SingleOrDefault(),
-
-							Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-							{
-								Nodes = labels.Nodes.Select(y => (Label?)new Label
-								{
-									Color = y.Color,
-									Description = y.Description,
-									Name = y.Name,
-								}).ToList(),
-							}).SingleOrDefault(),
-						}).Single(),
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Issue>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
-		}
+		public Task<IReadOnlyList<string>> GetIssueTypeNamesAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssueTypeNamesAsync(
+				owner,
+				name,
+				cancellationToken);
 
 		public async Task<Issue> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
