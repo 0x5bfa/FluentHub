@@ -47,11 +47,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
-				await LoadUserOrganizationsAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserOrganizationsAsync(Login));
 
 				SetTabInformation("Organizations", "Organizations");
 
@@ -92,7 +90,7 @@ namespace FluentHub.ViewModels.Users
 
 		private async Task LoadUserOrganizationsFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);

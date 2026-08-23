@@ -51,25 +51,14 @@
 
 						<Grid Grid.Row="1">
 
-							<ListView ItemsSource="{x:Bind ViewModel.Packages, Mode=OneWay}" SelectionMode="None">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel Orientation="Vertical" Spacing="4" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemContainerStyle>
-									<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-										<Setter Property="Margin" Value="0" />
-										<Setter Property="Padding" Value="0" />
-										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
+							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Packages, Mode=OneWay}" VerticalCacheLength="2">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
 									<DataTemplate x:DataType="bbvm:PackageBlockButtonViewModel">
 										<bbuc:PackageBlockButton ViewModel="{x:Bind}" />
 									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
+							</ItemsRepeater>
 
 							<StackPanel
 								x:Name="NoItemsPanel"

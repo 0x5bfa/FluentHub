@@ -47,11 +47,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserProjectsAsync);
-				await LoadUserProjectsAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserProjectsAsync(Login));
 
 				SetTabInformation("Projects", "Projects");
 
@@ -92,7 +90,7 @@ namespace FluentHub.ViewModels.Users
 
 		private async Task LoadUserProjectsFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);

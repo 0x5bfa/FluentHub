@@ -33,7 +33,8 @@ namespace FluentHub.Views.Users
 		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
 		{
 			var scrollViewer = (ScrollViewer)sender;
-			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset
+				<= Math.Max(200, scrollViewer.ViewportHeight / 2))
 			{
 				var command = ViewModel.LoadUserPullRequestsFurtherCommand;
 				if (command.CanExecute(null))

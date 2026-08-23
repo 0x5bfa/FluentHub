@@ -47,11 +47,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserFollowersAsync);
-				await LoadUserFollowersAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserFollowersAsync(Login));
 
 				SetTabInformation("Followers", "Followers");
 
@@ -92,7 +90,7 @@ namespace FluentHub.ViewModels.Users
 
 		private async Task LoadUserFollowersFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);

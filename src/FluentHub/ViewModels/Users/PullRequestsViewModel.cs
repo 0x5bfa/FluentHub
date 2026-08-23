@@ -47,11 +47,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserPullRequestsAsync);
-				await LoadUserPullRequestsAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserPullRequestsAsync(Login));
 
 				SetTabInformation("Pull Requests", "Pull Requests");
 
@@ -92,7 +90,7 @@ namespace FluentHub.ViewModels.Users
 
 		private async Task LoadUserPullRequestsFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);

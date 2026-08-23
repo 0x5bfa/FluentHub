@@ -34,7 +34,7 @@ namespace FluentHub.ViewModels.Users
 			FollowingItems = new(_followingItems);
 
 			LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
-			LoadUserFollowingFurtherCommand= new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
+			LoadUserFollowingFurtherCommand = new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
 		}
 
 		private async Task LoadUserFollowingPageAsync()
@@ -47,11 +47,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserFollowingAsync);
-				await LoadUserFollowingAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserFollowingAsync(Login));
 
 				SetTabInformation("Following", "Following");
 
@@ -92,7 +90,7 @@ namespace FluentHub.ViewModels.Users
 
 		private async Task LoadUserFollowingFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);

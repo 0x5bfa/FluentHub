@@ -43,11 +43,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserPinnableAndPinnedRepositoriesAsync);
-				await LoadUserPinnableAndPinnedRepositoriesAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserPinnableAndPinnedRepositoriesAsync(Login));
 
 				SetTabInformation("Overview", "Overview");
 			}
