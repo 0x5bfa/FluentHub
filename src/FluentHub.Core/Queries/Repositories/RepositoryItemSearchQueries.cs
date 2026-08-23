@@ -15,9 +15,12 @@ namespace FluentHub.Core.Queries.Repositories
 			    nodes {
 			      ... on Issue {
 			        author { avatarUrl(size: 500) login }
+			        assignees(first: 10) { nodes { login } }
 			        closed
 			        comments { totalCount }
+			        issueType { name }
 			        labels(first: 10) { nodes { color description name } }
+			        milestone { title }
 			        number
 			        repository { name owner { avatarUrl(size: 500) login } }
 			        title
@@ -35,10 +38,12 @@ namespace FluentHub.Core.Queries.Repositories
 			    nodes {
 			      ... on PullRequest {
 			        author { avatarUrl(size: 500) login }
+			        assignees(first: 10) { nodes { login } }
 			        closed
 			        comments { totalCount }
 			        isDraft
 			        labels(first: 10) { nodes { color description name } }
+			        milestone { title }
 			        merged
 			        number
 			        repository { name owner { avatarUrl(size: 500) login } }
@@ -85,6 +90,23 @@ namespace FluentHub.Core.Queries.Repositories
 				connection.PageInfo);
 		}
 
+		public async Task<PageResult<Issue>> GetUserIssuePageAsync(
+			string login,
+			PageRequest page,
+			RepositoryItemListFilters filters,
+			CancellationToken cancellationToken)
+		{
+			var connection = await SearchAsync<IssueSearchNode>(
+				IssueSearchQuery,
+				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, false, filters),
+				page,
+				cancellationToken);
+
+			return new PageResult<Issue>(
+				connection.Nodes.Where(node => node is not null).Select(node => MapIssue(node!)).ToList(),
+				connection.PageInfo);
+		}
+
 		public async Task<PageResult<PullRequest>> GetPullRequestPageAsync(
 			string owner,
 			string name,
@@ -101,6 +123,51 @@ namespace FluentHub.Core.Queries.Repositories
 			return new PageResult<PullRequest>(
 				connection.Nodes.Where(node => node is not null).Select(node => MapPullRequest(node!)).ToList(),
 				connection.PageInfo);
+		}
+
+		public async Task<PageResult<PullRequest>> GetUserPullRequestPageAsync(
+			string login,
+			PageRequest page,
+			RepositoryItemListFilters filters,
+			CancellationToken cancellationToken)
+		{
+			var connection = await SearchAsync<PullRequestSearchNode>(
+				PullRequestSearchQuery,
+				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, true, filters),
+				page,
+				cancellationToken);
+
+			return new PageResult<PullRequest>(
+				connection.Nodes.Where(node => node is not null).Select(node => MapPullRequest(node!)).ToList(),
+				connection.PageInfo);
+		}
+
+		public async Task<RepositoryItemFilterOptions> GetUserFilterOptionsAsync(
+			string login,
+			bool isPullRequest,
+			CancellationToken cancellationToken)
+		{
+			var filters = new RepositoryItemListFilters
+			{
+				State = RepositoryItemStateFilter.All,
+				Sort = RepositoryItemSort.BestMatch,
+			};
+			if (isPullRequest)
+			{
+				var pullRequests = await SearchAsync<PullRequestSearchNode>(
+					PullRequestSearchQuery,
+					RepositoryItemSearchQueryBuilder.BuildForAuthor(login, true, filters),
+					PageRequest.Forward(100),
+					cancellationToken);
+				return CreateFilterOptions(pullRequests.Nodes);
+			}
+
+			var issues = await SearchAsync<IssueSearchNode>(
+				IssueSearchQuery,
+				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, false, filters),
+				PageRequest.Forward(100),
+				cancellationToken);
+			return CreateFilterOptions(issues.Nodes);
 		}
 
 		public async Task<IReadOnlyList<string>> GetAuthorLoginsAsync(
@@ -197,6 +264,27 @@ namespace FluentHub.Core.Queries.Repositories
 			throw new InvalidOperationException(string.Join("; ", errors.Select(error => error.Message)));
 		}
 
+		private static RepositoryItemFilterOptions CreateFilterOptions<TNode>(IEnumerable<TNode?> nodes)
+			where TNode : IssueSearchNode
+		{
+			var items = nodes.Where(node => node is not null).Select(node => node!).ToList();
+			return new RepositoryItemFilterOptions
+			{
+				Labels = SortDistinct(items.SelectMany(item => item.Labels.Nodes).Select(label => label?.Name)),
+				IssueTypes = SortDistinct(items.Select(item => item.IssueType?.Name)),
+				Assignees = SortDistinct(items.SelectMany(item => item.Assignees.Nodes).Select(user => user?.Login)),
+				Milestones = SortDistinct(items.Select(item => item.Milestone?.Title)),
+			};
+		}
+
+		private static IReadOnlyList<string> SortDistinct(IEnumerable<string?> values)
+			=> values
+				.Where(value => !string.IsNullOrWhiteSpace(value))
+				.Select(value => value!)
+				.Distinct(StringComparer.OrdinalIgnoreCase)
+				.OrderBy(value => value, StringComparer.OrdinalIgnoreCase)
+				.ToList();
+
 		private static Issue MapIssue(IssueSearchNode node)
 			=> new()
 			{
@@ -282,11 +370,17 @@ namespace FluentHub.Core.Queries.Repositories
 		{
 			public ActorNode? Author { get; set; }
 
+			public UserConnectionNode Assignees { get; set; } = new();
+
 			public bool Closed { get; set; }
 
 			public CountNode Comments { get; set; } = new();
 
+			public IssueTypeNode? IssueType { get; set; }
+
 			public LabelConnectionNode Labels { get; set; } = new();
+
+			public MilestoneNode? Milestone { get; set; }
 
 			public int Number { get; set; }
 
@@ -342,6 +436,26 @@ namespace FluentHub.Core.Queries.Repositories
 			public string AvatarUrl { get; set; } = string.Empty;
 
 			public string Login { get; set; } = string.Empty;
+		}
+
+		private sealed class UserConnectionNode
+		{
+			public List<UserNode?> Nodes { get; set; } = [];
+		}
+
+		private sealed class UserNode
+		{
+			public string Login { get; set; } = string.Empty;
+		}
+
+		private sealed class IssueTypeNode
+		{
+			public string Name { get; set; } = string.Empty;
+		}
+
+		private sealed class MilestoneNode
+		{
+			public string Title { get; set; } = string.Empty;
 		}
 	}
 }

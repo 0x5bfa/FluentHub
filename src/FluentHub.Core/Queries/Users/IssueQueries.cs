@@ -1,6 +1,7 @@
 using Octokit.GraphQL.Core;
 
 using FluentHub.Core.Clients;
+using FluentHub.Core.Queries.Repositories;
 
 namespace FluentHub.Core.Queries.Users
 {
@@ -10,6 +11,26 @@ namespace FluentHub.Core.Queries.Users
 
 		public IssueQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
+
+		public Task<PageResult<Issue>> GetPageAsync(
+			string login,
+			PageRequest page,
+			RepositoryItemListFilters filters,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserIssuePageAsync(
+				login,
+				page,
+				filters,
+				cancellationToken);
+
+		public Task<RepositoryItemFilterOptions> GetFilterOptionsAsync(
+			string login,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(
+				login,
+				false,
+				cancellationToken);
+
 		public async Task<PageResult<Issue>> GetPageAsync(
 			string login,
 			PageRequest page,

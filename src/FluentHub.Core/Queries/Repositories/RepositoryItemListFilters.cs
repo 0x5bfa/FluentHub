@@ -53,6 +53,17 @@ namespace FluentHub.Core.Queries.Repositories
 		public bool HasNoMilestone { get; init; }
 	}
 
+	public sealed record RepositoryItemFilterOptions
+	{
+		public IReadOnlyList<string> Labels { get; init; } = [];
+
+		public IReadOnlyList<string> IssueTypes { get; init; } = [];
+
+		public IReadOnlyList<string> Assignees { get; init; } = [];
+
+		public IReadOnlyList<string> Milestones { get; init; } = [];
+	}
+
 	internal static class RepositoryItemSearchQueryBuilder
 	{
 		public static string Build(
@@ -63,13 +74,31 @@ namespace FluentHub.Core.Queries.Repositories
 		{
 			ArgumentException.ThrowIfNullOrWhiteSpace(owner);
 			ArgumentException.ThrowIfNullOrWhiteSpace(name);
-			ArgumentNullException.ThrowIfNull(filters);
+			return Build(
+				[$"repo:{owner.Trim()}/{name.Trim()}", isPullRequest ? "is:pr" : "is:issue"],
+				isPullRequest,
+				filters);
+		}
 
-			var terms = new List<string>
-			{
-				$"repo:{owner.Trim()}/{name.Trim()}",
-				isPullRequest ? "is:pr" : "is:issue",
-			};
+		public static string BuildForAuthor(
+			string login,
+			bool isPullRequest,
+			RepositoryItemListFilters filters)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+
+			return Build(
+				[$"author:{Quote(login.Trim())}", isPullRequest ? "is:pr" : "is:issue"],
+				isPullRequest,
+				filters);
+		}
+
+		private static string Build(
+			List<string> terms,
+			bool isPullRequest,
+			RepositoryItemListFilters filters)
+		{
+			ArgumentNullException.ThrowIfNull(filters);
 
 			if (!string.IsNullOrWhiteSpace(filters.SearchText))
 				terms.Add(Quote(filters.SearchText.Trim()));

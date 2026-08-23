@@ -31,6 +31,9 @@ namespace FluentHub.Views.Users
 				command.Execute(null);
 		}
 
+		private async void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+			=> await ViewModel.ApplySearchAsync(sender.Text);
+
 		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
 		{
 			var scrollViewer = (ScrollViewer)sender;

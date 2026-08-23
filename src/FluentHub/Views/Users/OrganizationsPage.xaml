@@ -42,12 +42,12 @@
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<TextBox
+						<AutoSuggestBox
 							x:Name="SearchOrganizationsTextBox"
 							Grid.Row="0"
 							Margin="0,8,0,16"
-							IsEnabled="False"
-							PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}" />
+							PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}"
+							QuerySubmitted="OnSearchQuerySubmitted" />
 
 						<Grid Grid.Row="1">
 

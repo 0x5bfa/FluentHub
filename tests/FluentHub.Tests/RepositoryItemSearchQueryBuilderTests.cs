@@ -65,6 +65,24 @@ public sealed class RepositoryItemSearchQueryBuilderTests
 	}
 
 	[TestMethod]
+	public void UserQueryKeepsTheSelectedUserAsAuthor()
+	{
+		var query = RepositoryItemSearchQueryBuilder.BuildForAuthor(
+			"octocat",
+			true,
+			new RepositoryItemListFilters
+			{
+				SearchText = "performance",
+				State = RepositoryItemStateFilter.Closed,
+				Sort = RepositoryItemSort.RecentlyUpdated,
+			});
+
+		Assert.AreEqual(
+			"author:\"octocat\" is:pr \"performance\" is:closed sort:updated-desc",
+			query);
+	}
+
+	[TestMethod]
 	[DataRow(RepositoryItemSort.MostThumbsUp, "sort:reactions-+1-desc")]
 	[DataRow(RepositoryItemSort.MostThumbsDown, "sort:reactions--1-desc")]
 	[DataRow(RepositoryItemSort.MostLaugh, "sort:reactions-smile-desc")]
