@@ -20,9 +20,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		private readonly ObservableCollection<IssueBlockButtonViewModel> _issueItems;
 		public ReadOnlyObservableCollection<IssueBlockButtonViewModel> IssueItems { get; }
 
-		public IReadOnlyList<string> StateFilterOptions { get; } = ["Open", "Closed", "All"];
+		public ObservableCollection<string> StateFilterOptions { get; } = ["Open", "Closed", "All"];
 
-		public IReadOnlyList<string> SortFilterOptions { get; } =
+		public ObservableCollection<string> SortFilterOptions { get; } =
 		[
 			"Newest",
 			"Oldest",

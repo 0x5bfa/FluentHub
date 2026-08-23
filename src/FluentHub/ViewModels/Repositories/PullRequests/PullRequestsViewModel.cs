@@ -16,9 +16,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 		private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
 		public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
-		public IReadOnlyList<string> StateFilterOptions { get; } = ["Open", "Closed", "All"];
+		public ObservableCollection<string> StateFilterOptions { get; } = ["Open", "Closed", "All"];
 
-		public IReadOnlyList<string> SortFilterOptions { get; } =
+		public ObservableCollection<string> SortFilterOptions { get; } =
 		[
 			"Newest",
 			"Oldest",
