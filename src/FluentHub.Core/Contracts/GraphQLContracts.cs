@@ -845,6 +845,8 @@ namespace FluentHub.Core.Contracts
 
 		public bool HasProjectsEnabled { get; set; }
 
+		public bool HasSponsorshipsEnabled { get; set; }
+
 		public string? HomepageUrl { get; set; }
 
 		public bool IsArchived { get; set; }
@@ -852,6 +854,8 @@ namespace FluentHub.Core.Contracts
 		public bool IsFork { get; set; }
 
 		public bool IsInOrganization { get; set; }
+
+		public bool IsMirror { get; set; }
 
 		public bool IsPrivate { get; set; }
 
@@ -4626,6 +4630,8 @@ namespace FluentHub.Core.Contracts
 
 		public bool HasProjectsEnabled { get; set; }
 
+		public bool HasSponsorshipsEnabled { get; set; }
+
 		public string? HomepageUrl { get; set; }
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
@@ -4637,6 +4643,8 @@ namespace FluentHub.Core.Contracts
 		public bool IsFork { get; set; }
 
 		public bool IsInOrganization { get; set; }
+
+		public bool IsMirror { get; set; }
 
 		public bool IsPrivate { get; set; }
 
@@ -4687,6 +4695,8 @@ namespace FluentHub.Core.Contracts
 		public PullRequest? PullRequest { get; set; }
 
 		public PullRequestConnection PullRequests { get; set; } = default!;
+
+		public global::System.DateTimeOffset? PushedAt { get; set; }
 
 		public Ref? Ref { get; set; }
 
