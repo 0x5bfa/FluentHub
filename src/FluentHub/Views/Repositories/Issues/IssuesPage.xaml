@@ -30,25 +30,12 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<Grid Margin="0,0,0,16">
-						<TextBlock
-							VerticalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="Issues" />
-						<Button
-							HorizontalAlignment="Right"
-							Click="OnCreateIssueClicked"
-							Content="New issue"
-							IsEnabled="{x:Bind ViewModel.CanCreateIssue, Mode=OneWay}" />
-					</Grid>
-
 					<Grid
 						x:Name="PinnedIssuesBlock"
-						Grid.Row="1"
+						Grid.Row="0"
 						Margin="0,0,0,16"
 						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 						RowSpacing="12">
@@ -84,15 +71,30 @@
 
 					</Grid>
 
-					<AutoSuggestBox
-						x:Name="SearchIssuesBox"
-						Grid.Row="2"
+					<Grid
+						Grid.Row="1"
 						Margin="0,8,0,16"
-						PlaceholderText="Search issues"
-						QuerySubmitted="OnSearchQuerySubmitted" />
+						ColumnSpacing="8">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<AutoSuggestBox
+							x:Name="SearchIssuesBox"
+							PlaceholderText="Search issues"
+							QuerySubmitted="OnSearchQuerySubmitted" />
+
+						<Button
+							Grid.Column="1"
+							HorizontalAlignment="Right"
+							Click="OnCreateIssueClicked"
+							Content="New issue"
+							IsEnabled="{x:Bind ViewModel.CanCreateIssue, Mode=OneWay}" />
+					</Grid>
 
 					<ScrollViewer
-						Grid.Row="3"
+						Grid.Row="2"
 						Margin="0,0,0,16"
 						HorizontalScrollBarVisibility="Auto"
 						HorizontalScrollMode="Enabled"
@@ -151,7 +153,7 @@
 						</StackPanel>
 					</ScrollViewer>
 
-					<Grid Grid.Row="4">
+					<Grid Grid.Row="3">
 
 						<ListView ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}" SelectionMode="None">
 							<ListView.ItemsPanel>
