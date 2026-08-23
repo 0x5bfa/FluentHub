@@ -187,7 +187,7 @@
 								<Button
 									x:Name="ReleaseBlockButton"
 									Padding="16,12"
-									Command="{Binding ElementName=ReleaseItemsRepeater, Path=DataContext.GoToReleasePageCommand}"
+									Click="ReleaseBlockButton_Click"
 									CommandParameter="{x:Bind TagName}"
 									Style="{StaticResource ContentBlockButtonStyle}">
 
