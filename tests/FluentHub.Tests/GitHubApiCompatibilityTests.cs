@@ -37,6 +37,44 @@ public sealed class GitHubApiCompatibilityTests
 	}
 
 	[TestMethod]
+	public async Task ActivityQueriesSkipEventsWithMissingActor()
+	{
+		var activity = new global::Octokit.Activity(
+			"PushEvent",
+			true,
+			null!,
+			null!,
+			null!,
+			DateTimeOffset.UtcNow,
+			"event-id",
+			new global::Octokit.PushEventPayload());
+		var api = new FakeGitHubApiClient([activity]);
+
+		var activities = await new UserActivityQueries(api).GetAllAsync("user");
+
+		Assert.AreEqual(0, activities.Count);
+	}
+
+	[TestMethod]
+	public async Task ActivityQueriesSkipEventsWithIncompletePayload()
+	{
+		var activity = new global::Octokit.Activity(
+			"IssueEvent",
+			true,
+			null!,
+			new global::Octokit.User(),
+			null!,
+			DateTimeOffset.UtcNow,
+			"event-id",
+			new global::Octokit.IssueEventPayload());
+		var api = new FakeGitHubApiClient([activity]);
+
+		var activities = await new UserActivityQueries(api).GetAllAsync("user");
+
+		Assert.AreEqual(0, activities.Count);
+	}
+
+	[TestMethod]
 	public async Task DetailQueriesDoNotRequestClassicProjectCards()
 	{
 		var api = new FakeGitHubApiClient([]);
