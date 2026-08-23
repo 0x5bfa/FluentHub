@@ -1543,5 +1543,5 @@
 	<ItemsRepeater
 		ItemTemplate="{StaticResource TimelineItemSelector}"
 		ItemsSource="{Binding ItemsSource, ElementName=Root}"
-		VerticalCacheLength="256" />
+		VerticalCacheLength="2" />
 </UserControl>
