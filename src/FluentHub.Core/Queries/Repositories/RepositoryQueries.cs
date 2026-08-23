@@ -5,6 +5,8 @@ namespace FluentHub.Core.Queries.Repositories
 {
 	public class RepositoryQueries
 	{
+		private const string RepositoryDetailsCacheCategory = "repository-details-v2";
+
 		private readonly IGitHubApiClient _gitHub;
 		private readonly ICacheService? _cache;
 
@@ -99,7 +101,7 @@ namespace FluentHub.Core.Queries.Repositories
 				return GetDetailsUncachedAsync(owner, name, cancellationToken);
 
 			return _cache.GetOrCreateAsync(
-				CreateRepositoryKey("repository-details", owner, name),
+				CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name),
 				CachePolicies.Repository,
 				GitHubCacheSerializers.Repository,
 				token => GetDetailsUncachedAsync(owner, name, token),
@@ -114,7 +116,8 @@ namespace FluentHub.Core.Queries.Repositories
 
 			return Task.WhenAll(
 				_cache.RemoveAsync(CreateRepositoryKey("repositories", owner, name), cancellationToken),
-				_cache.RemoveAsync(CreateRepositoryKey("repository-details", owner, name), cancellationToken));
+				_cache.RemoveAsync(CreateRepositoryKey("repository-details", owner, name), cancellationToken),
+				_cache.RemoveAsync(CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name), cancellationToken));
 		}
 
 		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
@@ -198,7 +201,7 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.Single(),
 
-					LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+					LatestRelease = x.LatestRelease.Select(release => new Release
 					{
 						Description = release.Description,
 						DescriptionHTML = release.DescriptionHTML,
@@ -207,6 +210,7 @@ namespace FluentHub.Core.Queries.Repositories
 						IsPrerelease = release.IsPrerelease,
 						Name = release.Name,
 						PublishedAt = release.PublishedAt,
+						PublishedAtHumanized = release.PublishedAt.ToRelativeTime(),
 
 						Author = release.Author.Select(author => new User
 						{
@@ -215,7 +219,7 @@ namespace FluentHub.Core.Queries.Repositories
 						})
 						.Single(),
 					})
-					.ToList().FirstOrDefault(),
+					.SingleOrDefault(),
 
 					Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
 					{
@@ -428,33 +432,37 @@ namespace FluentHub.Core.Queries.Repositories
 			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
 		}
 
-		public async Task<List<string>> GetBranchNameAllAsync(string owner, string name, CancellationToken cancellationToken = default)
+		public async Task<(IReadOnlyList<string> Branches, IReadOnlyList<string> Tags)> GetBranchAndTagNamesAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
 		{
-			#region query
-			var query = new Query()
-				.Repository(name, owner)
-				.Refs(refPrefix: "refs/", first: 30, query: "heads/")
-				.Select(x => new
-				{
-					BranchNames = x.Nodes.Select(y => new
-					{
-						y.Name,
-					})
-					.ToList()
-				})
-				.Compile();
-			#endregion
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			List<string> branchNames = new();
-			foreach (var branch in response.BranchNames)
+			ValidateRepository(owner, name);
+			var options = new OctokitV3.ApiOptions
 			{
-				// Delete "heads/"
-				branchNames.Add(branch.Name.Remove(0, 6));
-			}
+				PageCount = int.MaxValue,
+				PageSize = 100,
+				StartPage = 1,
+			};
 
-			return branchNames;
+			return await _gitHub.RunRestAsync(async client =>
+			{
+				var branchesTask = client.Repository.Branch.GetAll(owner, name, options);
+				var tagsTask = client.Repository.GetAllTags(owner, name, options);
+				await Task.WhenAll(branchesTask, tagsTask);
+
+				return (
+					Branches: (IReadOnlyList<string>)branchesTask.Result
+						.Select(branch => branch.Name)
+						.Where(branch => !string.IsNullOrWhiteSpace(branch))
+						.Distinct(StringComparer.Ordinal)
+						.ToList(),
+					Tags: (IReadOnlyList<string>)tagsTask.Result
+						.Select(tag => tag.Name)
+						.Where(tag => !string.IsNullOrWhiteSpace(tag))
+						.Distinct(StringComparer.Ordinal)
+						.ToList());
+			}, cancellationToken);
 		}
 
 		public Task<string> GetReadmeMarkdownAsync(string owner, string name, CancellationToken cancellationToken = default)

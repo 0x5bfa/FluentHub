@@ -25,31 +25,39 @@
 
 		<StackPanel Orientation="Horizontal" Spacing="8">
 
-			<ComboBox
+			<DropDownButton
 				x:Name="BranchNameSelector"
 				MinWidth="110"
-				MaxWidth="168"
-				IsEnabled="False"
-				ItemsSource="{x:Bind ViewModel.BranchNames, Mode=OneWay}"
-				SelectionChanged="OnBranchSelectorSelectionChanged">
-				<ComboBox.ItemTemplate>
-					<DataTemplate x:DataType="x:String">
-						<StackPanel Orientation="Horizontal" Spacing="6">
-							<FontIcon
-								FontFamily="{StaticResource Octicons}"
-								FontSize="14"
-								Foreground="{ThemeResource TextFillColorSecondary}"
-								Glyph="&#xE9B7;" />
-							<TextBlock Text="{x:Bind}" TextTrimming="CharacterEllipsis" />
-						</StackPanel>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
+				MaxWidth="200">
+				<DropDownButton.Content>
+					<StackPanel Orientation="Horizontal" Spacing="6">
+						<FontIcon
+							FontFamily="{StaticResource Octicons}"
+							FontSize="14"
+							Glyph="&#xE9B7;" />
+						<TextBlock
+							MaxWidth="140"
+							Text="{x:Bind ContextViewModel.BranchName, Mode=OneWay}"
+							TextTrimming="CharacterEllipsis" />
+					</StackPanel>
+				</DropDownButton.Content>
+				<DropDownButton.Flyout>
+					<MenuFlyout
+						x:Name="BranchSelectorFlyout"
+						Opening="OnBranchSelectorFlyoutOpening"
+						Placement="BottomEdgeAlignedLeft">
+						<MenuFlyoutSeparator x:Name="BranchSelectorSeparator" />
+						<MenuFlyoutItem
+							Click="OnViewAllBranchesClick"
+							Text="View all branches" />
+					</MenuFlyout>
+				</DropDownButton.Flyout>
+			</DropDownButton>
 
 			<Button
 				Padding="4"
 				Background="Transparent"
-				IsEnabled="False"
+				Click="OnBranchesClick"
 				Style="{ThemeResource LinkLikeButtonStyle}"
 				Visibility="{x:Bind ViewModel.ContextViewModel.IsRootDir, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 				<Button.Content>
@@ -72,7 +80,7 @@
 			<Button
 				Padding="4"
 				Background="Transparent"
-				IsEnabled="False"
+				Click="OnTagsClick"
 				Style="{ThemeResource LinkLikeButtonStyle}"
 				Visibility="{x:Bind ViewModel.ContextViewModel.IsRootDir, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 				<Button.Content>

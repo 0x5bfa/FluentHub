@@ -2,8 +2,6 @@ using FluentHub.Core.Queries.Repositories;
 using FluentHub.Models;
 using FluentHub.Utils;
 using FluentHub.ViewModels.UserControls.Overview;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.ViewModels.Repositories.Codes
 {
@@ -21,14 +19,11 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		private int _tagsTotalCount;
 		public int TagsTotalCount { get => _tagsTotalCount; set => SetProperty(ref _tagsTotalCount, value); }
 
-		public static int StaticBranchesTotalCount;
-		public static int StaticTagsTotalCount;
-
 		private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
 		public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
+		private bool _isForking;
 
 		public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
-		public IAsyncRelayCommand ForkRepositoryCommand { get; }
 		public IAsyncRelayCommand ToggleStarCommand { get; }
 
 		public bool ViewerHasStarred
@@ -41,7 +36,7 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			=> Repository?.ForkCount ?? 0;
 
 		public bool CanFork
-			=> Repository?.ForkingAllowed ?? false;
+			=> !_isForking && (Repository?.ForkingAllowed ?? false);
 
 		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
 		{
@@ -55,7 +50,6 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			Items = new(_items);
 
 			LoadDetailsViewPageCommand = new AsyncRelayCommand(LoadDetailsViewPageAsync);
-			ForkRepositoryCommand = new AsyncRelayCommand(ForkRepositoryAsync, () => CanFork);
 			ToggleStarCommand = new AsyncRelayCommand(ToggleStarAsync, () => Repository is not null);
 		}
 
@@ -138,17 +132,53 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		private async Task LoadRepositoryAsync(string owner, string name)
 		{
 			var queries = _gitHub.Repositories.Repositories;
-			Repository = await queries.GetDetailsAsync(owner, name);
+			var repositoryTask = queries.GetDetailsAsync(owner, name);
+			var referenceCountsTask = queries.GetBranchAndTagCountAsync(owner, name);
+			await Task.WhenAll(repositoryTask, referenceCountsTask);
+
+			Repository = repositoryTask.Result;
+			(BranchesTotalCount, TagsTotalCount) = referenceCountsTask.Result;
 			NotifyRepositoryActionsChanged();
 		}
 
-		private async Task ForkRepositoryAsync()
+		public async Task<IReadOnlyList<ForkOwner>> GetAvailableForkOwnersAsync()
 		{
 			try
 			{
+				return await _gitHub.Mutations.ForkRepository.GetAvailableOwnersAsync();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(nameof(GetAvailableForkOwnersAsync), ex);
+				_messenger.Send(new UserNotificationMessage(
+					"Could not load fork destinations",
+					ex.Message,
+					UserNotificationType.Error));
+				return [];
+			}
+		}
+
+		public async Task<CreateForkResult?> ForkRepositoryAsync(
+			ForkOwner destinationOwner,
+			string repositoryName,
+			string? description,
+			bool defaultBranchOnly)
+		{
+			_isForking = true;
+			NotifyRepositoryActionsChanged();
+
+			try
+			{
 				var fork = await _gitHub.Mutations.ForkRepository.ExecuteAsync(
-					Repository.Owner.Login,
-					Repository.Name);
+					new CreateForkRequest
+					{
+						DefaultBranchOnly = defaultBranchOnly,
+						Description = description,
+						DestinationOwner = destinationOwner,
+						RepositoryName = repositoryName,
+						SourceName = Repository.Name,
+						SourceOwner = Repository.Owner.Login,
+					});
 
 				Repository.ForkCount++;
 				NotifyRepositoryActionsChanged();
@@ -158,6 +188,7 @@ namespace FluentHub.ViewModels.Repositories.Codes
 					"Repository forked",
 					$"Created {fork.FullName}.",
 					UserNotificationType.Success));
+				return fork;
 			}
 			catch (Exception ex)
 			{
@@ -166,6 +197,12 @@ namespace FluentHub.ViewModels.Repositories.Codes
 					"Could not fork repository",
 					ex.Message,
 					UserNotificationType.Error));
+				return null;
+			}
+			finally
+			{
+				_isForking = false;
+				NotifyRepositoryActionsChanged();
 			}
 		}
 
@@ -214,7 +251,6 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			OnPropertyChanged(nameof(StargazerCount));
 			OnPropertyChanged(nameof(ForkCount));
 			OnPropertyChanged(nameof(CanFork));
-			ForkRepositoryCommand.NotifyCanExecuteChanged();
 			ToggleStarCommand.NotifyCanExecuteChanged();
 		}
 
@@ -238,7 +274,7 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			else if (pathItems.Count == 2)
 			{
 				isDir = isRootDir = true;
-				branchName = pathItems.ElementAt(1);
+				branchName = Uri.UnescapeDataString(pathItems.ElementAt(1));
 
 				pathItems.RemoveRange(0, 2);
 				actualPath = string.Join("/", pathItems);
@@ -247,7 +283,7 @@ namespace FluentHub.ViewModels.Repositories.Codes
 			else if (pathItems.Count > 2)
 			{
 				isRootDir = false;
-				branchName = pathItems.ElementAt(1);
+				branchName = Uri.UnescapeDataString(pathItems.ElementAt(1));
 
 				isFile = pathItems.ElementAt(0).ToLower() == "blob" ? true : false;
 				isSubDir = isDir = pathItems.ElementAt(0).ToLower() == "tree";
