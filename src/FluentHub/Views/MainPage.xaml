@@ -6,7 +6,6 @@
 	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:dataitems="using:FluentHub.Data.Items"
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.Models"
@@ -258,7 +257,7 @@
 										FontSize="14"
 										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 										Glyph="&#xE77B;" />
-									<Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+									<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
 								</Grid>
 								<Button.Flyout>
 									<MenuBarItemFlyout
@@ -315,32 +314,12 @@
 
 					</Grid>
 
-					<NavigationView
-						x:Name="NavigationBarNavigationView"
+					<uc:SelectorBarEx
 						Grid.Row="1"
-						Margin="0,-4,0,-12"
-						x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.IsNavigationBarShown, Mode=OneWay}"
-						IsBackButtonVisible="Collapsed"
-						IsPaneToggleButtonVisible="False"
-						IsSettingsVisible="False"
-						MenuItemsSource="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
-						PaneDisplayMode="Top"
-						SelectedItem="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
-						<NavigationView.MenuItemTemplate>
-							<DataTemplate x:DataType="dataitems:NavigationBarItem">
-								<StackPanel
-									Margin="-8,0"
-									Orientation="Horizontal"
-									Spacing="8">
-									<FontIcon
-										FontFamily="{StaticResource Octicons}"
-										FontSize="14"
-										Glyph="{x:Bind Glyph, Mode=OneWay}" />
-									<TextBlock Text="{x:Bind Text}" />
-								</StackPanel>
-							</DataTemplate>
-						</NavigationView.MenuItemTemplate>
-					</NavigationView>
+						Margin="0,0,0,-16"
+						ItemsSource="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
+						SelectedValue="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}"
+						Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.IsNavigationBarShown, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 				</Grid>
 
 			</Grid>

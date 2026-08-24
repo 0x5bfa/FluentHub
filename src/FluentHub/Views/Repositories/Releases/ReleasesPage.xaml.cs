@@ -18,10 +18,10 @@ namespace FluentHub.Views.Repositories.Releases
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<ReleasesViewModel>();
-            _pageLoadCommand = ViewModel.LoadRepositoryReleasesFurtherCommand;
-        }
+			_pageLoadCommand = ViewModel.LoadRepositoryReleasesFurtherCommand;
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
 			var command = ViewModel.LoadRepositoryReleasesPageCommand;
 			if (command.CanExecute(null))
@@ -37,6 +37,16 @@ namespace FluentHub.Views.Repositories.Releases
 				if (command.CanExecute(null))
 					command.Execute(null);
 			}
+		}
+
+		private void ReleaseBlockButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is not Button { CommandParameter: string tag })
+				return;
+
+			var command = ViewModel.GoToReleasePageCommand;
+			if (command.CanExecute(tag))
+				command.Execute(tag);
 		}
 	}
 }

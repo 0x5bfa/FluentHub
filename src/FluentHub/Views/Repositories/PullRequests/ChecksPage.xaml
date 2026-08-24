@@ -91,7 +91,7 @@
 														BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 														BorderThickness="1"
 														CornerRadius="4">
-														<Image Source="{x:Bind App.LogoUrl}" />
+												<Image helpers:GitHubImageCache.Source="{x:Bind App.LogoUrl}" />
 													</Border>
 													<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind App.Name}" />
 													<TextBlock
@@ -128,14 +128,14 @@
 																		<FontIcon
 																			FontFamily="{StaticResource Octicons}"
 																			FontSize="14"
-																			Foreground="{ThemeResource PrimerAttentionEmphasis}"
+																			Foreground="{ThemeResource SystemFillColorCautionBrush}"
 																			Glyph="&#xE984;" />
 																	</toolkit:Case>
 																	<toolkit:Case Value="InProgress">
 																		<FontIcon
 																			FontFamily="{StaticResource Octicons}"
 																			FontSize="14"
-																			Foreground="{ThemeResource PrimerAttentionEmphasis}"
+																			Foreground="{ThemeResource SystemFillColorCautionBrush}"
 																			Glyph="&#xE984;" />
 																	</toolkit:Case>
 																	<toolkit:Case Value="Completed">
@@ -149,63 +149,63 @@
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerDangerForeground}"
+																						Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 																						Glyph="&#xEAD4;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="TimedOut">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerDangerForeground}"
+																						Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 																						Glyph="&#xEAD4;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Cancelled">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerForegroundMuted}"
+																						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 																						Glyph="&#xEA98;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Failure">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="16"
-																						Foreground="{ThemeResource PrimerDangerForeground}"
+																						Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 																						Glyph="&#xEAD4;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Success">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerSuccessForeground}"
+																						Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 																						Glyph="&#xE934;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Neutral">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerForegroundMuted}"
+																						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 																						Glyph="&#xEA8E;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Skipped">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerForegroundMuted}"
+																						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 																						Glyph="&#xEA84;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="StartupFailure">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerDangerForeground}"
+																						Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 																						Glyph="&#xEAD4;" />
 																				</toolkit:Case>
 																				<toolkit:Case Value="Stale">
 																					<FontIcon
 																						FontFamily="{StaticResource Octicons}"
 																						FontSize="14"
-																						Foreground="{ThemeResource PrimerForegroundMuted}"
+																						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 																						Glyph="&#xE9EC;" />
 																				</toolkit:Case>
 																			</toolkit:SwitchPresenter>

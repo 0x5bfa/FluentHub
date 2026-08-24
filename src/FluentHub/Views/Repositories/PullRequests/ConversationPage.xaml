@@ -54,7 +54,7 @@
 								Height="16"
 								Margin="36,0,0,0"
 								HorizontalAlignment="Left"
-								Background="{ThemeResource PrimerBorderMuted}" />
+								Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 							<uc:TimelineList ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
 
@@ -63,7 +63,7 @@
 								Height="16"
 								Margin="36,0,0,0"
 								HorizontalAlignment="Left"
-								Background="{ThemeResource PrimerBorderMuted}" />
+								Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 						</StackPanel>
 

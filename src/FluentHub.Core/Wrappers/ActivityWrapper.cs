@@ -16,7 +16,10 @@ namespace FluentHub.Core.Wrappers
 
 			foreach (var item in response)
 			{
-				var repoNameParts = item.Repo?.Name.Split('/');
+				if (item?.Actor is not { } actor)
+					continue;
+
+				var repoNameParts = item.Repo?.Name?.Split('/');
 				Repository itemRep = new()
 				{
 					Name = repoNameParts?.ElementAtOrDefault(1) ?? string.Empty,
@@ -29,9 +32,9 @@ namespace FluentHub.Core.Wrappers
 
 				User itemUser = new()
 				{
-					AvatarUrl = item.Actor.AvatarUrl,
-					Login = item.Actor.Login,
-					Name = item.Actor.Name,
+					AvatarUrl = actor.AvatarUrl ?? string.Empty,
+					Login = actor.Login ?? string.Empty,
+					Name = actor.Name ?? string.Empty,
 				};
 
 				Organization itemOrganization = new()
@@ -71,8 +74,10 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "CreateEvent":
 						{
+							if (item.Payload is not OctokitV3.CreateEventPayload createEventPayload)
+								continue;
+
 							indivisual.Type = ActivityKind.CreateEvent;
-							var createEventPayload = (OctokitV3.CreateEventPayload)item.Payload;
 							indivisual.Details.CreateEvent = new()
 							{
 								Description = createEventPayload.Description,
@@ -83,8 +88,10 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "DeleteEvent":
 						{
+							if (item.Payload is not OctokitV3.DeleteEventPayload deleteEventPayload)
+								continue;
+
 							indivisual.Type = ActivityKind.DeleteEvent;
-							var deleteEventPayload = (OctokitV3.DeleteEventPayload)item.Payload;
 							indivisual.Details.DeleteEvent = new()
 							{
 								Ref = deleteEventPayload.Ref,
@@ -93,17 +100,20 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "ForkEvent":
 						{
+							if (item.Payload is not OctokitV3.ForkEventPayload forkEventPayload ||
+								forkEventPayload.Forkee?.Owner is not { } forkeeOwner)
+								continue;
+
 							indivisual.Type = ActivityKind.ForkEvent;
-							var forkEventPayload = (OctokitV3.ForkEventPayload)item.Payload;
 							indivisual.Details.ForkEvent = new()
 							{
 								Forkee = new()
 								{
-									Name = forkEventPayload.Forkee.Name,
+									Name = forkEventPayload.Forkee.Name ?? string.Empty,
 									Owner = new RepositoryOwner()
 									{
-										AvatarUrl = forkEventPayload.Forkee.Owner.AvatarUrl,
-										Login = forkEventPayload.Forkee.Owner.Login,
+										AvatarUrl = forkeeOwner.AvatarUrl ?? string.Empty,
+										Login = forkeeOwner.Login ?? string.Empty,
 									},
 								},
 							};
@@ -111,36 +121,43 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "IssueCommentEvent":
 						{
+							if (item.Payload is not OctokitV3.IssueCommentPayload issueCommentPayload ||
+								issueCommentPayload.Comment is not { } issueComment ||
+								issueCommentPayload.Issue is not { } commentedIssue)
+								continue;
+
 							indivisual.Type = ActivityKind.IssueCommentEvent;
-							var issueCommentPayload = (OctokitV3.IssueCommentPayload)item.Payload;
 							indivisual.Details.IssueCommentEvent = new()
 							{
 								Action = issueCommentPayload.Action,
 								Comment = new()
 								{
-									Body = issueCommentPayload.Comment.Body,
+									Body = issueComment.Body,
 								},
 								Issue = new()
 								{
-									Number = issueCommentPayload.Issue.Number,
+									Number = commentedIssue.Number,
 								}
 							};
 						}
 						break;
 					case "IssueEvent":
 						{
+							if (item.Payload is not OctokitV3.IssueEventPayload issueEventPayload ||
+								issueEventPayload.Issue is not { } issue)
+								continue;
+
 							indivisual.Type = ActivityKind.IssueEvent;
-							var issueEventPayload = (OctokitV3.IssueEventPayload)item.Payload;
 							indivisual.Details.IssueEvent = new()
 							{
 								Action = issueEventPayload.Action,
 								Issue = new()
 								{
-									Closed = issueEventPayload.Issue.ClosedAt is not null,
-									Number = issueEventPayload.Issue.Number,
-									Title = issueEventPayload.Issue.Title,
-									UpdatedAt = issueEventPayload.Issue.UpdatedAt.GetValueOrDefault(),
-									UpdatedAtHumanized = issueEventPayload.Issue.UpdatedAt.ToRelativeTime(),
+									Closed = issue.ClosedAt is not null,
+									Number = issue.Number,
+									Title = issue.Title,
+									UpdatedAt = issue.UpdatedAt.GetValueOrDefault(),
+									UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
 
 									Repository = itemRep,
 								},
@@ -149,34 +166,40 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "PullRequestComment":
 						{
+							if (item.Payload is not OctokitV3.PullRequestCommentPayload pullRequestCommentPayload ||
+								pullRequestCommentPayload.PullRequest is not { } commentedPullRequest)
+								continue;
+
 							indivisual.Type = ActivityKind.PullRequestComment;
-							var pullRequestCommentPayload = (OctokitV3.PullRequestCommentPayload)item.Payload;
 							indivisual.Details.PullRequestCommentEvent = new()
 							{
 								Action = pullRequestCommentPayload.Action,
 								PullRequest = new()
 								{
-									Number = pullRequestCommentPayload.PullRequest.Number,
+									Number = commentedPullRequest.Number,
 								},
 							};
 						}
 						break;
 					case "PullRequestEvent":
 						{
+							if (item.Payload is not OctokitV3.PullRequestEventPayload pullRequestPayload ||
+								pullRequestPayload.PullRequest is not { } pullRequest)
+								continue;
+
 							indivisual.Type = ActivityKind.PullRequestEvent;
-							var pullRequestPayload = (OctokitV3.PullRequestEventPayload)item.Payload;
 							indivisual.Details.PullRequestEvent = new()
 							{
 								Action = pullRequestPayload.Action,
 								PullRequest = new()
 								{
-									Closed = pullRequestPayload.PullRequest.ClosedAt is not null,
-									Number = pullRequestPayload.PullRequest.Number,
-									Title = pullRequestPayload.PullRequest.Title,
-									UpdatedAt = pullRequestPayload.PullRequest.UpdatedAt,
-									UpdatedAtHumanized = pullRequestPayload.PullRequest.UpdatedAt.ToRelativeTime(),
-									IsDraft = pullRequestPayload.PullRequest.Draft,
-									Merged = pullRequestPayload.PullRequest.Merged,
+									Closed = pullRequest.ClosedAt is not null,
+									Number = pullRequest.Number,
+									Title = pullRequest.Title,
+									UpdatedAt = pullRequest.UpdatedAt,
+									UpdatedAtHumanized = pullRequest.UpdatedAt.ToRelativeTime(),
+									IsDraft = pullRequest.Draft,
+									Merged = pullRequest.Merged,
 
 									Repository = itemRep,
 								},
@@ -190,15 +213,18 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "PushEvent":
 						{
+							if (item.Payload is not OctokitV3.PushEventPayload pushEventPayload)
+								continue;
+
 							indivisual.Type = ActivityKind.PushEvent;
-							var pushEventPayload = (OctokitV3.PushEventPayload)item.Payload;
 							indivisual.Details.PushEvent = new()
 							{
 								Commits = pushEventPayload.Commits?
+									.Where(commit => commit is not null)
 									.Select(commit => new ActivityCommit
 									{
-										Message = commit.Message,
-										Sha = commit.Sha,
+										Message = commit.Message ?? string.Empty,
+										Sha = commit.Sha ?? string.Empty,
 										User = new()
 										{
 											AvatarUrl = commit.User?.AvatarUrl ?? string.Empty,
@@ -215,15 +241,18 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "ReleaseEvent":
 						{
+							if (item.Payload is not OctokitV3.ReleaseEventPayload releaseEventPayload ||
+								releaseEventPayload.Release is not { } release)
+								continue;
+
 							indivisual.Type = ActivityKind.ReleaseEvent;
-							var releaseEventPayload = (OctokitV3.ReleaseEventPayload)item.Payload;
 							indivisual.Details.ReleaseEvent = new()
 							{
 								Action = releaseEventPayload.Action,
 								Release = new()
 								{
-									Name = releaseEventPayload.Release.Name,
-									Description = releaseEventPayload.Release.Body,
+									Name = release.Name,
+									Description = release.Body,
 								},
 								Sender = itemUser,
 							};
@@ -231,8 +260,10 @@ namespace FluentHub.Core.Wrappers
 						break;
 					case "WatchEvent":
 						{
+							if (item.Payload is not OctokitV3.StarredEventPayload watchEventPayload)
+								continue;
+
 							indivisual.Type = ActivityKind.WatchEvent;
-							var watchEventPayload = (OctokitV3.StarredEventPayload)item.Payload;
 							indivisual.Details.StarredEvent = new()
 							{
 								Action = watchEventPayload.Action,

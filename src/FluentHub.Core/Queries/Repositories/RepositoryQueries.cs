@@ -1,14 +1,36 @@
 using FluentHub.Core.Clients;
+using FluentHub.Core.Caching;
 
 namespace FluentHub.Core.Queries.Repositories
 {
 	public class RepositoryQueries
 	{
-		private readonly IGitHubApiClient _gitHub;
+		private const string RepositoryDetailsCacheCategory = "repository-details-v2";
 
-		public RepositoryQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
-		public async Task<Repository> GetAsync(string owner, string name, CancellationToken cancellationToken = default)
+		private readonly IGitHubApiClient _gitHub;
+		private readonly ICacheService? _cache;
+
+		public RepositoryQueries(IGitHubApiClient gitHub, ICacheService? cache = null)
+		{
+			_gitHub = gitHub;
+			_cache = cache;
+		}
+
+		public Task<Repository> GetAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetUncachedAsync(owner, name, cancellationToken);
+
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey("repositories", owner, name),
+				CachePolicies.Repository,
+				GitHubCacheSerializers.Repository,
+				token => GetUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		private async Task<Repository> GetUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -72,7 +94,33 @@ namespace FluentHub.Core.Queries.Repositories
 			return response;
 		}
 
-		public async Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
+		public Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetDetailsUncachedAsync(owner, name, cancellationToken);
+
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name),
+				CachePolicies.Repository,
+				GitHubCacheSerializers.Repository,
+				token => GetDetailsUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		public Task InvalidateAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return Task.CompletedTask;
+
+			return Task.WhenAll(
+				_cache.RemoveAsync(CreateRepositoryKey("repositories", owner, name), cancellationToken),
+				_cache.RemoveAsync(CreateRepositoryKey("repository-details", owner, name), cancellationToken),
+				_cache.RemoveAsync(CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name), cancellationToken));
+		}
+
+		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
 			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
 				new(new OctokitGraphQLModel.IssueState[] {
@@ -153,14 +201,16 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.Single(),
 
-					LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+					LatestRelease = x.LatestRelease.Select(release => new Release
 					{
+						Description = release.Description,
 						DescriptionHTML = release.DescriptionHTML,
 						IsDraft = release.IsDraft,
 						IsLatest = release.IsLatest,
 						IsPrerelease = release.IsPrerelease,
 						Name = release.Name,
 						PublishedAt = release.PublishedAt,
+						PublishedAtHumanized = release.PublishedAt.ToRelativeTime(),
 
 						Author = release.Author.Select(author => new User
 						{
@@ -169,7 +219,7 @@ namespace FluentHub.Core.Queries.Repositories
 						})
 						.Single(),
 					})
-					.ToList().FirstOrDefault(),
+					.SingleOrDefault(),
 
 					Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
 					{
@@ -269,6 +319,7 @@ namespace FluentHub.Core.Queries.Repositories
 
 						LatestRelease = x.LatestRelease.Select(release => new Release
 						{
+							Description = release.Description,
 							DescriptionHTML = release.DescriptionHTML,
 							IsDraft = release.IsDraft,
 							IsLatest = release.IsLatest,
@@ -381,56 +432,124 @@ namespace FluentHub.Core.Queries.Repositories
 			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
 		}
 
-		public async Task<List<string>> GetBranchNameAllAsync(string owner, string name, CancellationToken cancellationToken = default)
+		public async Task<Repository> GetIssueListOptionsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
 		{
-			#region query
 			var query = new Query()
 				.Repository(name, owner)
-				.Refs(refPrefix: "refs/", first: 30, query: "heads/")
-				.Select(x => new
+				.Select(repository => new Repository
 				{
-					BranchNames = x.Nodes.Select(y => new
+					AssignableUsers = repository.AssignableUsers(100, null, null, null, null).Select(users => new UserConnection
 					{
-						y.Name,
-					})
-					.ToList()
+						Nodes = users.Nodes.Select(user => (User?)new User
+						{
+							AvatarUrl = user.AvatarUrl(500),
+							Id = user.Id,
+							Login = user.Login,
+							Name = user.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Labels = repository.Labels(100, null, null, null, null, null).Select(labels => new LabelConnection
+					{
+						Nodes = labels.Nodes.Select(label => (Label?)new Label
+						{
+							Color = label.Color,
+							Description = label.Description,
+							Id = label.Id,
+							Name = label.Name,
+						}).ToList(),
+					}).SingleOrDefault(),
+
+					Milestones = repository.Milestones(100, null, null, null, null, null, null!).Select(milestones => new MilestoneConnection
+					{
+						Nodes = milestones.Nodes.Select(milestone => (Milestone?)new Milestone
+						{
+							Id = milestone.Id,
+							ProgressPercentage = milestone.ProgressPercentage,
+							Title = milestone.Title,
+						}).ToList(),
+					}).SingleOrDefault(),
 				})
 				.Compile();
-			#endregion
 
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			List<string> branchNames = new();
-			foreach (var branch in response.BranchNames)
-			{
-				// Delete "heads/"
-				branchNames.Add(branch.Name.Remove(0, 6));
-			}
-
-			return branchNames;
+			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
 		}
 
-		public async Task<string?> GetReadmeHtmlAsync(string owner, string name, string branch, string theme, string index, CancellationToken cancellationToken = default)
+		public async Task<(IReadOnlyList<string> Branches, IReadOnlyList<string> Tags)> GetBranchAndTagNamesAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
 		{
-			string bodyHtml;
+			ValidateRepository(owner, name);
+			var options = new OctokitV3.ApiOptions
+			{
+				PageCount = int.MaxValue,
+				PageSize = 100,
+				StartPage = 1,
+			};
 
+			return await _gitHub.RunRestAsync(async client =>
+			{
+				var branchesTask = client.Repository.Branch.GetAll(owner, name, options);
+				var tagsTask = client.Repository.GetAllTags(owner, name, options);
+				await Task.WhenAll(branchesTask, tagsTask);
+
+				return (
+					Branches: (IReadOnlyList<string>)branchesTask.Result
+						.Select(branch => branch.Name)
+						.Where(branch => !string.IsNullOrWhiteSpace(branch))
+						.Distinct(StringComparer.Ordinal)
+						.ToList(),
+					Tags: (IReadOnlyList<string>)tagsTask.Result
+						.Select(tag => tag.Name)
+						.Where(tag => !string.IsNullOrWhiteSpace(tag))
+						.Distinct(StringComparer.Ordinal)
+						.ToList());
+			}, cancellationToken);
+		}
+
+		public Task<string> GetReadmeMarkdownAsync(string owner, string name, CancellationToken cancellationToken = default)
+		{
+			ValidateRepository(owner, name);
+			if (_cache is null)
+				return GetReadmeMarkdownUncachedAsync(owner, name, cancellationToken);
+
+			return _cache.GetOrCreateAsync(
+				CreateRepositoryKey("repository-readme", owner, name),
+				CachePolicies.Repository,
+				CacheSerializers.String,
+				token => GetReadmeMarkdownUncachedAsync(owner, name, token),
+				cancellationToken);
+		}
+
+		private async Task<string> GetReadmeMarkdownUncachedAsync(string owner, string name, CancellationToken cancellationToken)
+		{
 			try
 			{
-				bodyHtml = await _gitHub.RunRestAsync(
-					client => client.Repository.Content.GetReadmeHtml(owner, name),
+				var readme = await _gitHub.RunRestAsync(
+					client => client.Repository.Content.GetReadme(owner, name),
 					cancellationToken);
-
-				string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
-
-				var markdown = new MarkdownQueries(_gitHub);
-				var html = await markdown.GetHtmlAsync(index, bodyHtml, missedPath, theme, true, cancellationToken);
-
-				return html;
+				return readme.Content;
 			}
 			catch (global::Octokit.NotFoundException)
 			{
-				return null;
+				return string.Empty;
 			}
+		}
+
+		private CacheKey CreateRepositoryKey(string category, string owner, string name)
+			=> CacheKey.ForAccount(
+				_gitHub.CachePartition,
+				category,
+				$"{owner.Trim().ToLowerInvariant()}/{name.Trim().ToLowerInvariant()}");
+
+		private static void ValidateRepository(string owner, string name)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(owner);
+			ArgumentException.ThrowIfNullOrWhiteSpace(name);
 		}
 	}
 }

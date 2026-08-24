@@ -7,8 +7,6 @@ namespace FluentHub.Data.Items
 	{
 		public string? Text{ get; set; }
 
-		public string? Glyph { get; set; }
-
 		public Type PageToNavigate { get; set; } = typeof(Views.Viewers.DashBoardPage);
 
 		public NavigationPageKind PageKind { get; set; }

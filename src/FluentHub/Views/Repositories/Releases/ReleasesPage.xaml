@@ -120,15 +120,22 @@
 							</StackPanel>
 						</StackPanel>
 
-						<Grid Grid.Row="1">
+						<Grid Grid.Row="1" MaxHeight="240">
 
+							<uc:GitHubMarkdownTextBlock
+								Margin="16,0,16,16"
+								Text="{x:Bind ViewModel.LatestRelease.Description, Mode=OneWay}"
+								Visibility="{x:Bind ViewModel.LatestRelease.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 							<TextBlock
 								HorizontalAlignment="Center"
 								VerticalAlignment="Center"
-								Text="No contents available here for now." />
+								FontStyle="Italic"
+								Text="No release notes provided."
+								Visibility="{x:Bind ViewModel.LatestRelease.Description, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
 							<Border
 								Height="96"
 								HorizontalAlignment="Stretch"
+								IsHitTestVisible="False"
 								VerticalAlignment="Bottom">
 								<Border.Background>
 									<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -187,7 +194,7 @@
 								<Button
 									x:Name="ReleaseBlockButton"
 									Padding="16,12"
-									Command="{Binding ElementName=ReleaseItemsRepeater, Path=DataContext.GoToReleasePageCommand}"
+									Click="ReleaseBlockButton_Click"
 									CommandParameter="{x:Bind TagName}"
 									Style="{StaticResource ContentBlockButtonStyle}">
 
@@ -212,7 +219,7 @@
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="·" />
 												<TextBlock
-													Foreground="{ThemeResource PrimerSuccessForeground}"
+													Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="Latest" />
 											</StackPanel>
@@ -227,7 +234,7 @@
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="·" />
 												<TextBlock
-													Foreground="{ThemeResource PrimerAttentionForeground}"
+													Foreground="{ThemeResource SystemFillColorCautionBrush}"
 													Style="{StaticResource BodyTextBlockStyle}"
 													Text="Pre-release" />
 											</StackPanel>

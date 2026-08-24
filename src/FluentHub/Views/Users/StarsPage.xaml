@@ -39,53 +39,62 @@
 					<Grid Margin="32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<TextBox
+						<AutoSuggestBox
 							x:Name="SearchStarsTextBox"
 							Grid.Row="0"
 							Margin="0,8,0,16"
-							IsEnabled="False"
-							PlaceholderText="{helpers:ResourceString Name=SearchStarsTextBox/PlaceholderText}" />
+							PlaceholderText="{helpers:ResourceString Name=SearchStarsTextBox/PlaceholderText}"
+							QuerySubmitted="OnSearchQuerySubmitted" />
 
-						<Grid Grid.Row="1">
-
-							<ListView ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}" SelectionMode="None">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel Orientation="Vertical" Spacing="4" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemContainerStyle>
-									<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-										<Setter Property="Margin" Value="0" />
-										<Setter Property="Padding" Value="0" />
-										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
-									<DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
-										<bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-
-							<StackPanel
-								x:Name="PageLoadingPanel"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
-								Spacing="12">
-								<ProgressRing
-									Width="32"
-									Height="32"
-									IsIndeterminate="True" />
-								<TextBlock
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="Loading..."
-									TextAlignment="Center" />
+						<ScrollViewer
+							Grid.Row="1"
+							Margin="0,0,0,16"
+							HorizontalScrollBarVisibility="Auto"
+							HorizontalScrollMode="Enabled"
+							VerticalScrollBarVisibility="Disabled"
+							VerticalScrollMode="Disabled">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<ComboBox
+									x:Name="TypeFilterBox"
+									MinWidth="160"
+									Header="Type"
+									ItemsSource="{x:Bind ViewModel.TypeFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="LanguageFilterBox"
+									MinWidth="160"
+									Header="Language"
+									DropDownOpened="OnLanguageDropDownOpened"
+									ItemsSource="{x:Bind ViewModel.LanguageFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="SortFilterBox"
+									MinWidth="180"
+									Header="Sort"
+									ItemsSource="{x:Bind ViewModel.SortFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
 							</StackPanel>
+						</ScrollViewer>
+
+						<Grid Grid.Row="2">
+
+							<ItemsRepeater
+								ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}"
+								VerticalCacheLength="2">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
+								<DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
+									<bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+								</DataTemplate>
+							</ItemsRepeater>
 
 							<StackPanel
 								x:Name="NoItemsPanel"

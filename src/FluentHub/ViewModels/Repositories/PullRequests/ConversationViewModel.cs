@@ -118,14 +118,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
-				await LoadRepositoryAsync(Login, Name);
-
-				_currentTaskingMethodName = nameof(LoadPullRequestAsync);
-				await LoadPullRequestAsync(Login, Name);
-
-				_currentTaskingMethodName = nameof(LoadRepositoryPullRequestCommentsAsync);
-				await LoadRepositoryPullRequestCommentsAsync(Login, Name);
+				_currentTaskingMethodName = nameof(LoadPullRequestConversationAsync);
+				await LoadPullRequestConversationAsync(Login, Name);
 
 				SetTabInformation($"{PullItem.Title}", $"{PullItem.Title}");
 			}
@@ -137,46 +131,55 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 			finally
 			{
 				SetLoadingProgress(false);
-				PullRequestOverviewViewModel.Loaded = true;
 			}
 		}
 
-		private async Task LoadRepositoryPullRequestCommentsAsync(string owner, string name)
+		private async Task LoadPullRequestConversationAsync(string owner, string name)
 		{
 			var pullRequestQueries = _gitHub.Repositories.PullRequests;
-			var queries = _gitHub.Repositories.PullRequestEvents;
+			var pullRequestTask = pullRequestQueries.GetAsync(owner, name, Number);
+			var pullEventsTask = _gitHub.Repositories.PullRequestEvents.GetAllAsync(owner, name, Number);
 			_timelineItems.Clear();
 
-			// Get pull request body comment
-			_bodyComment = await pullRequestQueries.GetBodyAsync(owner, name, Number);
+			var pullRequest = await pullRequestTask;
+			Repository = pullRequest.Repository;
+			PullItem = pullRequest;
+			PullRequestOverviewViewModel = new()
+			{
+				PullRequest = PullItem,
+				SelectedTag = "conversation",
+				Loaded = true,
+			};
+
+			_bodyComment = CreateBodyComment(pullRequest);
 			// The pull request body uses the pull request node ID and is edited separately.
 			_bodyComment.ViewerCanUpdate = false;
 			_bodyComment.ViewerCanDelete = false;
 			_timelineItems.Add(_bodyComment);
 
-			// Get all pull request event timeline items
-			var pullEvents = await queries.GetAllAsync(owner, name, Number);
+			var pullEvents = await pullEventsTask;
 			foreach (var item in pullEvents)
 				_timelineItems.Add(item);
 		}
 
-		private async Task LoadPullRequestAsync(string owner, string name)
-		{
-			var queries = _gitHub.Repositories.PullRequests;
-			PullItem = await queries.GetAsync(owner, name, Number);
-
-			PullRequestOverviewViewModel = new()
+		private static IssueComment CreateBodyComment(PullRequest pullRequest)
+			=> new()
 			{
-				PullRequest = PullItem,
-				SelectedTag = "conversation",
+				Author = pullRequest.Author,
+				AuthorAssociation = pullRequest.AuthorAssociation,
+				Body = pullRequest.Body,
+				CreatedAt = pullRequest.CreatedAt,
+				CreatedAtHumanized = pullRequest.CreatedAtHumanized,
+				Id = pullRequest.Id,
+				LastEditedAt = pullRequest.LastEditedAt,
+				ReactionGroups = pullRequest.ReactionGroups ?? [],
+				Reactions = new ReactionConnection { Nodes = [] },
+				UpdatedAt = pullRequest.UpdatedAt,
+				UpdatedAtHumanized = pullRequest.UpdatedAtHumanized,
+				Url = pullRequest.Url,
+				ViewerCanReact = pullRequest.ViewerCanReact,
+				ViewerDidAuthor = pullRequest.ViewerDidAuthor,
 			};
-		}
-
-		private async Task LoadRepositoryAsync(string owner, string name)
-		{
-			var queries = _gitHub.Repositories.Repositories;
-			Repository = await queries.GetDetailsAsync(owner, name);
-		}
 
 		private async Task AddCommentAsync()
 		{

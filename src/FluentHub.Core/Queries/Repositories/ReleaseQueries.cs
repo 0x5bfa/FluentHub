@@ -37,6 +37,7 @@ namespace FluentHub.Core.Queries.Repositories
 								AvatarUrl = author.AvatarUrl(500),
 							}).Single(),
 
+							Description = x.Description,
 							DescriptionHTML = x.DescriptionHTML,
 							IsDraft = x.IsDraft,
 							IsLatest = x.IsLatest,
@@ -75,6 +76,7 @@ namespace FluentHub.Core.Queries.Repositories
 				.Release(tagName)
 				.Select(x => new Release
 				{
+					Description = x.Description,
 					DescriptionHTML = x.DescriptionHTML,
 					IsDraft = x.IsDraft,
 					IsLatest = x.IsLatest,

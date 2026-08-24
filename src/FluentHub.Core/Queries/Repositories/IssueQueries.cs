@@ -8,95 +8,38 @@ namespace FluentHub.Core.Queries.Repositories
 
 		public IssueQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<PageResult<Issue>> GetPageAsync(
+
+		public Task<PageResult<Issue>> GetPageAsync(
 			string owner,
 			string name,
 			PageRequest page,
-			OctokitGraphQLModel.IssueFilters? filterBy = null,
-			IEnumerable<string>? labels = null,
-			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.IssueState>? states = null,
+			RepositoryItemListFilters? filters = null,
 			CancellationToken cancellationToken = default)
-		{
-			ArgumentNullException.ThrowIfNull(page);
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssuePageAsync(
+				owner,
+				name,
+				page,
+				filters ?? new RepositoryItemListFilters(),
+				cancellationToken);
 
-			orderBy ??= new()
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
-			};
+		public Task<IReadOnlyList<string>> GetAuthorLoginsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetAuthorLoginsAsync(
+				owner,
+				name,
+				false,
+				cancellationToken);
 
-			var query = new Query()
-				.Repository(name, owner)
-				.Issues(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					filterBy,
-					labels is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(labels) : null!,
-					orderBy,
-					states is not null ? new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states) : null!)
-				.Select(connection => new IssueConnection
-				{
-					Edges = connection.Edges.Select(edge => (IssueEdge?)new IssueEdge
-					{
-						Node = edge.Node.Select(x => new Issue
-						{
-							Closed = x.Closed,
-							Number = x.Number,
-							Title = x.Title,
-							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-							{
-								TotalCount = comments.TotalCount,
-							}).SingleOrDefault(),
-
-							Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-							{
-								Nodes = labels.Nodes.Select(y => (Label?)new Label
-								{
-									Color = y.Color,
-									Description = y.Description,
-									Name = y.Name,
-								}).ToList(),
-							}).SingleOrDefault(),
-						}).Single(),
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Issue>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
-		}
+		public Task<IReadOnlyList<string>> GetIssueTypeNamesAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssueTypeNamesAsync(
+				owner,
+				name,
+				cancellationToken);
 
 		public async Task<Issue> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
@@ -105,22 +48,37 @@ namespace FluentHub.Core.Queries.Repositories
 				.Issue(number)
 				.Select(x => new Issue
 				{
+					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					Body = x.Body,
 					Closed = x.Closed,
+					CreatedAt = x.CreatedAt,
+					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Id = x.Id,
+					LastEditedAt = x.LastEditedAt,
 					Number = x.Number,
 					State = (IssueState)x.State,
 					StateReason = x.StateReason == null ? null : (IssueStateReason?)x.StateReason.Value,
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
+					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
+					Url = x.Url,
 					ViewerCanClose = x.ViewerCanUpdate,
 					ViewerCanLabel = x.ViewerCanUpdate,
+					ViewerCanReact = x.ViewerCanReact,
 					ViewerCanReopen = x.ViewerCanUpdate,
 					ViewerCanSubscribe = x.ViewerCanSubscribe,
 					ViewerCanUpdate = x.ViewerCanUpdate,
+					ViewerDidAuthor = x.ViewerDidAuthor,
 					ViewerSubscription = x.ViewerSubscription == null
 						? null
 						: (SubscriptionState?)x.ViewerSubscription.Value,
+
+					Author = x.Author.Select(author => new Actor
+					{
+						AvatarUrl = author.AvatarUrl(500),
+						Login = author.Login,
+					})
+					.SingleOrDefault(),
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
@@ -172,9 +130,22 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.SingleOrDefault(),
 
+					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
+
 					Repository = x.Repository.Select(repo => new Repository
 					{
 						Name = repo.Name,
+						ViewerPermission = repo.ViewerPermission == null
+							? null
+							: (RepositoryPermission?)repo.ViewerPermission.Value,
 
 						Owner = repo.Owner.Select(owner => new RepositoryOwner
 						{
@@ -202,7 +173,6 @@ namespace FluentHub.Core.Queries.Repositories
 				{
 					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					Body = x.Body,
-					BodyHTML = x.BodyHTML,
 					CreatedAt = x.CreatedAt,
 					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Id = x.Id,
@@ -218,22 +188,6 @@ namespace FluentHub.Core.Queries.Repositories
 					{
 						Login = author.Login,
 						AvatarUrl = author.AvatarUrl(500),
-					})
-					.SingleOrDefault(),
-
-					Reactions = x.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
-					{
-						Nodes = reactions.Nodes.Select(reaction => (Reaction?)new Reaction
-						{
-							Content = (ReactionContent)reaction.Content,
-
-							User = reaction.User.Select(user => new User
-							{
-								Login = user.Login,
-							})
-							.SingleOrDefault(),
-						})
-						.ToList(),
 					})
 					.SingleOrDefault(),
 

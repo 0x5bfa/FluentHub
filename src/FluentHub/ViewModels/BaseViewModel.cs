@@ -133,10 +133,10 @@ namespace FluentHub.ViewModels
 			}
 		}
 
-		protected async Task LoadUserAsync(string login)
+		protected async Task LoadUserAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var queries = _gitHub.Users.Users;
-			var response = await queries.GetAsync(login);
+			var response = await queries.GetAsync(login, cancellationToken);
 
 			User = response ?? new();
 

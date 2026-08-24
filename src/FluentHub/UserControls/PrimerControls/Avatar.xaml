@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.PrimerControls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
@@ -38,14 +39,10 @@
 							Height="{x:Bind Size, Mode=OneWay}"
 							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 							CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
-							<Image x:Name="ButtonAvatarImage1" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-								<Image.Source>
-									<BitmapImage
-										DecodePixelHeight="128"
-										DecodePixelWidth="128"
-										UriSource="{x:Bind Source, Mode=OneWay}" />
-								</Image.Source>
-							</Image>
+							<Image
+								x:Name="ButtonAvatarImage1"
+								x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+								helpers:GitHubImageCache.Source="{x:Bind Source, Mode=OneWay}" />
 						</Grid>
 					</toolkit:Case>
 					<toolkit:Case Value="False">
@@ -54,14 +51,10 @@
 							Height="{x:Bind Size, Mode=OneWay}"
 							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 							CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
-							<Image x:Name="ButtonAvatarImage2" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-								<Image.Source>
-									<BitmapImage
-										DecodePixelHeight="128"
-										DecodePixelWidth="128"
-										UriSource="{x:Bind Source, Mode=OneWay}" />
-								</Image.Source>
-							</Image>
+							<Image
+								x:Name="ButtonAvatarImage2"
+								x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+								helpers:GitHubImageCache.Source="{x:Bind Source, Mode=OneWay}" />
 						</Grid>
 					</toolkit:Case>
 
@@ -94,14 +87,10 @@
 						Height="{x:Bind Size, Mode=OneWay}"
 						Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 						CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
-						<Image x:Name="StaticAvatarImage1" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-							<Image.Source>
-								<BitmapImage
-									DecodePixelHeight="128"
-									DecodePixelWidth="128"
-									UriSource="{x:Bind Source, Mode=OneWay}" />
-							</Image.Source>
-						</Image>
+						<Image
+							x:Name="StaticAvatarImage1"
+							x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							helpers:GitHubImageCache.Source="{x:Bind Source, Mode=OneWay}" />
 					</Grid>
 				</toolkit:Case>
 				<toolkit:Case Value="False">
@@ -110,14 +99,10 @@
 						Height="{x:Bind Size, Mode=OneWay}"
 						Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 						CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
-						<Image x:Name="StaticAvatarImage2" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-							<Image.Source>
-								<BitmapImage
-									DecodePixelHeight="128"
-									DecodePixelWidth="128"
-									UriSource="{x:Bind Source, Mode=OneWay}" />
-							</Image.Source>
-						</Image>
+						<Image
+							x:Name="StaticAvatarImage2"
+							x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							helpers:GitHubImageCache.Source="{x:Bind Source, Mode=OneWay}" />
 					</Grid>
 				</toolkit:Case>
 

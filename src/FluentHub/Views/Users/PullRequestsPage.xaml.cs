@@ -7,12 +7,16 @@ using FluentHub.ViewModels.Users;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using FluentHub.Core.Queries.Repositories;
 
 namespace FluentHub.Views.Users
 {
 	public sealed partial class PullRequestsPage : LocatablePage
 	{
 		public PullRequestsViewModel ViewModel { get; }
+		private bool _filtersReady;
+		private bool _isApplyingFilters;
+		private bool _filterChangePending;
 
 		public PullRequestsPage()
 			: base(NavigationPageKind.User, NavigationPageKey.PullRequests)
@@ -23,17 +27,91 @@ namespace FluentHub.Views.Users
 			_pageLoadCommand = ViewModel.LoadUserPullRequestsPageCommand;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
+			_filtersReady = false;
 			var command = ViewModel.LoadUserPullRequestsPageCommand;
 			if (command.CanExecute(null))
-				command.Execute(null);
+				await command.ExecuteAsync(null);
+
+			ResetFilterSelections();
+			_filtersReady = true;
+		}
+
+		private void OnFilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+			=> _ = ApplySelectedFiltersAsync();
+
+		private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+			=> _ = ApplySelectedFiltersAsync();
+
+		private async Task ApplySelectedFiltersAsync()
+		{
+			if (!_filtersReady)
+				return;
+
+			if (_isApplyingFilters)
+			{
+				_filterChangePending = true;
+				return;
+			}
+
+			_isApplyingFilters = true;
+			try
+			{
+				do
+				{
+					_filterChangePending = false;
+					await ViewModel.ApplyFiltersAsync(CreateFilters());
+				}
+				while (_filterChangePending);
+			}
+			finally
+			{
+				_isApplyingFilters = false;
+			}
+		}
+
+		private RepositoryItemListFilters CreateFilters()
+			=> new()
+			{
+				SearchText = SearchPullRequestsBox.Text,
+				State = StateFilterBox.SelectedIndex switch
+				{
+					1 => RepositoryItemStateFilter.Closed,
+					2 => RepositoryItemStateFilter.All,
+					_ => RepositoryItemStateFilter.Open,
+				},
+				Label = GetSelectedValue(LabelFilterBox, 2),
+				HasNoLabels = LabelFilterBox.SelectedIndex == 1,
+				Assignee = GetSelectedValue(AssigneeFilterBox, 2),
+				HasNoAssignee = AssigneeFilterBox.SelectedIndex == 1,
+				Milestone = GetSelectedValue(MilestoneFilterBox, 2),
+				HasNoMilestone = MilestoneFilterBox.SelectedIndex == 1,
+				Sort = SortFilterBox.SelectedIndex is >= 0 and <= (int)RepositoryItemSort.MostEyes
+					? (RepositoryItemSort)SortFilterBox.SelectedIndex
+					: RepositoryItemSort.Newest,
+			};
+
+		private static string? GetSelectedValue(ComboBox comboBox, int firstValueIndex)
+			=> comboBox.SelectedIndex >= firstValueIndex
+				? comboBox.SelectedItem as string
+				: null;
+
+		private void ResetFilterSelections()
+		{
+			SearchPullRequestsBox.Text = string.Empty;
+			StateFilterBox.SelectedIndex = 0;
+			LabelFilterBox.SelectedIndex = 0;
+			AssigneeFilterBox.SelectedIndex = 0;
+			MilestoneFilterBox.SelectedIndex = 0;
+			SortFilterBox.SelectedIndex = 0;
 		}
 
 		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
 		{
 			var scrollViewer = (ScrollViewer)sender;
-			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset
+				<= Math.Max(200, scrollViewer.ViewportHeight / 2))
 			{
 				var command = ViewModel.LoadUserPullRequestsFurtherCommand;
 				if (command.CanExecute(null))

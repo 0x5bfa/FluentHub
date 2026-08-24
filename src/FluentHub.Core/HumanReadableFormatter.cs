@@ -6,7 +6,7 @@ namespace FluentHub.Core
 	public static class HumanReadableFormatter
 	{
 		private static readonly string[] ByteUnits = ["B", "KB", "MB", "GB", "TB", "PB"];
-		private static readonly string[] MetricPrefixes = ["", "kilo", "mega", "giga", "tera", "peta", "exa"];
+		private static readonly string[] MetricPrefixes = ["", "k", "M", "G", "T", "P", "E"];
 
 		public static string FormatRelativeTime(DateTime value, DateTime referenceTime)
 			=> FormatRelativeTime(value - referenceTime);

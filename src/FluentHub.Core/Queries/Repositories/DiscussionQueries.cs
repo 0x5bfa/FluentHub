@@ -1,4 +1,5 @@
 using FluentHub.Core.Clients;
+using FluentHub.Core.Queries.Discussions;
 
 namespace FluentHub.Core.Queries.Repositories
 {
@@ -8,6 +9,29 @@ namespace FluentHub.Core.Queries.Repositories
 
 		public DiscussionQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
+
+		public Task<PageResult<Discussion>> GetPageAsync(
+			string owner,
+			string name,
+			PageRequest page,
+			DiscussionListFilters filters,
+			CancellationToken cancellationToken = default)
+			=> new DiscussionSearchQueries(_gitHub).GetRepositoryPageAsync(
+				owner,
+				name,
+				page,
+				filters,
+				cancellationToken);
+
+		public Task<IReadOnlyList<string>> GetLabelNamesAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new DiscussionSearchQueries(_gitHub).GetRepositoryLabelNamesAsync(
+				owner,
+				name,
+				cancellationToken);
+
 		public async Task<PageResult<Discussion>> GetPageAsync(
 			string owner,
 			string name,

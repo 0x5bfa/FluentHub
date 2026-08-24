@@ -29,7 +29,7 @@ namespace FluentHub.UserControls.PrimerControls
 				nameof(BadgeBackground),
 				typeof(SolidColorBrush),
 				typeof(Timeline),
-				new PropertyMetadata((SolidColorBrush)App.Current.Resources["PrimerBorderMuted"])
+				new PropertyMetadata((SolidColorBrush)App.Current.Resources["DividerStrokeColorDefaultBrush"])
 				);
 
 		public SolidColorBrush BadgeBackground

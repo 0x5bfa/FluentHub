@@ -8,6 +8,8 @@ namespace FluentHub.Core.Clients
 {
 	public interface IGitHubApiClient
 	{
+		string CachePartition => "anonymous";
+
 		Task<T> RunRestAsync<T>(
 			Func<OctokitV3.IGitHubClient, Task<T>> operation,
 			CancellationToken cancellationToken = default);

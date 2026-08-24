@@ -55,7 +55,7 @@
 								x:Name="AppSignedInUserAvatar"
 								Width="60"
 								Height="60"
-								Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
+								helpers:GitHubImageCache.Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
 						</Grid>
 
 						<StackPanel Grid.Column="1" VerticalAlignment="Center">

@@ -15,6 +15,8 @@ namespace FluentHub.ViewModels.Users
 
 		private readonly ObservableCollection<UserBlockButtonViewModel> _followingItems;
 		public ReadOnlyObservableCollection<UserBlockButtonViewModel> FollowingItems { get; }
+		private readonly List<User> _loadedFollowing = [];
+		private string? _searchText;
 
 		public IAsyncRelayCommand LoadUserFollowingPageCommand { get; }
 		public IAsyncRelayCommand LoadUserFollowingFurtherCommand { get; }
@@ -34,7 +36,7 @@ namespace FluentHub.ViewModels.Users
 			FollowingItems = new(_followingItems);
 
 			LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
-			LoadUserFollowingFurtherCommand= new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
+			LoadUserFollowingFurtherCommand = new AsyncRelayCommand(LoadUserFollowingFurtherAsync);
 		}
 
 		private async Task LoadUserFollowingPageAsync()
@@ -47,11 +49,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserFollowingAsync);
-				await LoadUserFollowingAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserFollowingAsync(Login));
 
 				SetTabInformation("Following", "Following");
 
@@ -78,43 +78,27 @@ namespace FluentHub.ViewModels.Users
 			_lastPageInfo = result.PageInfo;
 			var items = result.Items;
 
-			_followingItems.Clear();
-			foreach (var item in items)
-			{
-				UserBlockButtonViewModel viewModel = new()
-				{
-					User = item,
-				};
-
-				_followingItems.Add(viewModel);
-			}
+			_loadedFollowing.Clear();
+			_loadedFollowing.AddRange(items);
+			_searchText = null;
+			RebuildVisibleItems();
 		}
 
-		private async Task LoadUserFollowingFurtherAsync()
+		public async Task ApplySearchAsync(string? searchText)
 		{
-			if (!_lastPageInfo.HasNextPage)
-				return;
-
+			_searchText = searchText?.Trim();
 			SetLoadingProgress(true);
 
 			try
 			{
-				var queries = _gitHub.Users.Following;
-
-				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
-
-				_lastPageInfo = result.PageInfo;
-				var items = result.Items;
-
-				foreach (var item in items)
+				RebuildVisibleItems();
+				while (!string.IsNullOrWhiteSpace(_searchText)
+					&& _followingItems.Count < 20
+					&& _lastPageInfo is { HasNextPage: true })
 				{
-					UserBlockButtonViewModel viewmodel = new()
-					{
-						User = item,
-					};
-
-					_followingItems.Add(viewmodel);
+					await LoadNextPageAsync();
 				}
+				IsEmpty = _followingItems.Count == 0;
 			}
 			catch (Exception ex)
 			{
@@ -125,6 +109,53 @@ namespace FluentHub.ViewModels.Users
 			{
 				SetLoadingProgress(false);
 			}
+		}
+
+		private async Task LoadUserFollowingFurtherAsync()
+		{
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				await LoadNextPageAsync();
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
+		}
+
+		private async Task LoadNextPageAsync()
+		{
+			if (_lastPageInfo is not { HasNextPage: true })
+				return;
+
+			var result = await _gitHub.Users.Following.GetPageAsync(
+				Login,
+				PageRequest.Forward(100, _lastPageInfo.EndCursor));
+			_lastPageInfo = result.PageInfo;
+			_loadedFollowing.AddRange(result.Items);
+			AppendVisibleItems(result.Items);
+		}
+
+		private void RebuildVisibleItems()
+		{
+			_followingItems.Clear();
+			AppendVisibleItems(_loadedFollowing);
+		}
+
+		private void AppendVisibleItems(IEnumerable<User> users)
+		{
+			foreach (var user in users.Where(user => UserProfileListSearch.Matches(user, _searchText)))
+				_followingItems.Add(new UserBlockButtonViewModel { User = user });
 		}
 	}
 }

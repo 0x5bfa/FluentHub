@@ -32,11 +32,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserDiscussionsAsync);
-				await LoadUserDiscussionsAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserDiscussionsAsync(Login));
 
 				SetTabInformation("Contributions", "Contributions");
 			}

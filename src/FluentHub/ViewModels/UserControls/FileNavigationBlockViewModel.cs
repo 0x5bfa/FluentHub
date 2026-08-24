@@ -17,51 +17,66 @@ namespace FluentHub.ViewModels.UserControls
 			_logger = logger;
 
 			BranchNames = new();
-
-			LoadBranchNameAllCommand = new AsyncRelayCommand(LoadRepositoryBranchsAsync);
+			TagNames = new();
 		}
 
 		#region Fields and Properties
 		private readonly ILogger? _logger;
 		private readonly IMessenger? _messenger;
 
-		public ObservableCollection<string> BranchNames;
+		public ObservableCollection<string> BranchNames { get; }
+		public ObservableCollection<string> TagNames { get; }
 
 		private RepoContextViewModel contextViewModel = default!;
-		public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+		public RepoContextViewModel ContextViewModel
+		{
+			get => contextViewModel;
+			set
+			{
+				if (!SetProperty(ref contextViewModel, value))
+					return;
 
-		public IAsyncRelayCommand LoadBranchNameAllCommand { get; }
+				_loadReferencesTask = null;
+				BranchNames.Clear();
+				TagNames.Clear();
+			}
+		}
+
+		private Task? _loadReferencesTask;
 		#endregion
 
-		public async Task LoadRepositoryBranchsAsync()
+		public Task EnsureReferencesLoadedAsync()
+		{
+			if (_loadReferencesTask is null || _loadReferencesTask.IsFaulted || _loadReferencesTask.IsCanceled)
+				_loadReferencesTask = LoadReferencesAsync();
+
+			return _loadReferencesTask;
+		}
+
+		private async Task LoadReferencesAsync()
 		{
 			try
 			{
 				var queries = _gitHub.Repositories.Repositories;
+				var references = await queries.GetBranchAndTagNamesAsync(
+					contextViewModel.Repository.Owner.Login,
+					contextViewModel.Repository.Name);
 
-				// temp workaround
-				var branchNames = await queries.GetBranchNameAllAsync(contextViewModel.Repository.Owner.Login, contextViewModel.Repository.Name);
-
-				// Reorder
-				var alphabetic = new ObservableCollection<string>(branchNames.OrderBy(x => x));
-				branchNames.Clear();
-				foreach (var orderedItem in alphabetic)
+				BranchNames.Clear();
+				foreach (var branch in references.Branches
+					.OrderBy(branch => branch.Equals(contextViewModel.BranchName, StringComparison.Ordinal) ? 0 : 1)
+					.ThenBy(branch => branch, StringComparer.OrdinalIgnoreCase))
 				{
-					if (contextViewModel.BranchName == orderedItem)
-					{
-						branchNames.Insert(0, orderedItem);
-					}
-					else
-					{
-						branchNames.Add(orderedItem);
-					}
+					BranchNames.Add(branch);
 				}
 
-				foreach (var branch in branchNames) BranchNames.Add(branch);
+				TagNames.Clear();
+				foreach (var tag in references.Tags)
+					TagNames.Add(tag);
 			}
 			catch (Exception ex)
 			{
-				_logger?.Error(nameof(LoadRepositoryBranchsAsync), ex);
+				_logger?.Error(nameof(LoadReferencesAsync), ex);
 				if (_messenger != null)
 				{
 					UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

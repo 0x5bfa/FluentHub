@@ -31,7 +31,9 @@ public sealed class HumanReadableFormatterTests
 	[TestMethod]
 	public void FormatMetric_UsesMetricPrefix()
 	{
-		Assert.AreEqual("1.5kilo", HumanReadableFormatter.FormatMetric(1500, CultureInfo.InvariantCulture));
+		Assert.AreEqual("999", HumanReadableFormatter.FormatMetric(999, CultureInfo.InvariantCulture));
+		Assert.AreEqual("1.2k", HumanReadableFormatter.FormatMetric(1200, CultureInfo.InvariantCulture));
+		Assert.AreEqual("1.5M", HumanReadableFormatter.FormatMetric(1_500_000, CultureInfo.InvariantCulture));
 	}
 
 	[TestMethod]

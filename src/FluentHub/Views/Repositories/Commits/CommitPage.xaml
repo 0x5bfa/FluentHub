@@ -156,20 +156,20 @@
 								<Run Text="with" />
 								<Run
 									FontWeight="SemiBold"
-									Foreground="{ThemeResource PrimerSuccessForeground}"
+									Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 									Text="{x:Bind ViewModel.CommitItem.Additions, Mode=OneWay}" />
 								<Run
 									FontWeight="SemiBold"
-									Foreground="{ThemeResource PrimerSuccessForeground}"
+									Foreground="{ThemeResource SystemFillColorSuccessBrush}"
 									Text="additions" />
 								<Run Text="and" />
 								<Run
 									FontWeight="SemiBold"
-									Foreground="{ThemeResource PrimerDangerForeground}"
+									Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 									Text="{x:Bind ViewModel.CommitItem.Deletions, Mode=OneWay}" />
 								<Run
 									FontWeight="SemiBold"
-									Foreground="{ThemeResource PrimerDangerForeground}"
+									Foreground="{ThemeResource SystemFillColorCriticalBrush}"
 									Text="deletions" />
 							</TextBlock>
 

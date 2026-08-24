@@ -15,6 +15,8 @@ namespace FluentHub.ViewModels.Users
 
 		private readonly ObservableCollection<OrgBlockButtonViewModel> _organizations;
 		public ReadOnlyObservableCollection<OrgBlockButtonViewModel> Organizations { get; }
+		private readonly List<Organization> _loadedOrganizations = [];
+		private string? _searchText;
 
 		public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserOrganizationsFurtherCommand { get; }
@@ -47,11 +49,9 @@ namespace FluentHub.ViewModels.Users
 
 			try
 			{
-				_currentTaskingMethodName = nameof(LoadUserAsync);
-				await LoadUserAsync(Login);
-
-				_currentTaskingMethodName = nameof(LoadUserOrganizationsAsync);
-				await LoadUserOrganizationsAsync(Login);
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserOrganizationsAsync(Login));
 
 				SetTabInformation("Organizations", "Organizations");
 
@@ -78,43 +78,27 @@ namespace FluentHub.ViewModels.Users
 			_lastPageInfo = result.PageInfo;
 			var items = result.Items;
 
-			_organizations.Clear();
-			foreach (var item in items)
-			{
-				OrgBlockButtonViewModel viewModel = new()
-				{
-					OrgItem = item
-				};
-
-				_organizations.Add(viewModel);
-			}
+			_loadedOrganizations.Clear();
+			_loadedOrganizations.AddRange(items);
+			_searchText = null;
+			RebuildVisibleItems();
 		}
 
-		private async Task LoadUserOrganizationsFurtherAsync()
+		public async Task ApplySearchAsync(string? searchText)
 		{
-			if (!_lastPageInfo.HasNextPage)
-				return;
-
+			_searchText = searchText?.Trim();
 			SetLoadingProgress(true);
 
 			try
 			{
-				var queries = _gitHub.Users.Organizations;
-
-				var result = await queries.GetPageAsync(Login, PageRequest.Forward(20, _lastPageInfo.EndCursor));
-
-				_lastPageInfo = result.PageInfo;
-				var items = result.Items;
-
-				foreach (var item in items)
+				RebuildVisibleItems();
+				while (!string.IsNullOrWhiteSpace(_searchText)
+					&& _organizations.Count < 20
+					&& _lastPageInfo is { HasNextPage: true })
 				{
-					OrgBlockButtonViewModel viewmodel = new()
-					{
-						OrgItem = item
-					};
-
-					_organizations.Add(viewmodel);
+					await LoadNextPageAsync();
 				}
+				IsEmpty = _organizations.Count == 0;
 			}
 			catch (Exception ex)
 			{
@@ -125,6 +109,53 @@ namespace FluentHub.ViewModels.Users
 			{
 				SetLoadingProgress(false);
 			}
+		}
+
+		private async Task LoadUserOrganizationsFurtherAsync()
+		{
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
+				return;
+
+			SetLoadingProgress(true);
+
+			try
+			{
+				await LoadNextPageAsync();
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
+		}
+
+		private async Task LoadNextPageAsync()
+		{
+			if (_lastPageInfo is not { HasNextPage: true })
+				return;
+
+			var result = await _gitHub.Users.Organizations.GetPageAsync(
+				Login,
+				PageRequest.Forward(100, _lastPageInfo.EndCursor));
+			_lastPageInfo = result.PageInfo;
+			_loadedOrganizations.AddRange(result.Items);
+			AppendVisibleItems(result.Items);
+		}
+
+		private void RebuildVisibleItems()
+		{
+			_organizations.Clear();
+			AppendVisibleItems(_loadedOrganizations);
+		}
+
+		private void AppendVisibleItems(IEnumerable<Organization> organizations)
+		{
+			foreach (var organization in organizations.Where(item => UserProfileListSearch.Matches(item, _searchText)))
+				_organizations.Add(new OrgBlockButtonViewModel { OrgItem = organization });
 		}
 	}
 }

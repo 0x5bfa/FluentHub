@@ -87,13 +87,13 @@
 							HorizontalAlignment="Center"
 							VerticalAlignment="Center"
 							TargetType="x:Boolean"
-							Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+							Value="{x:Bind ViewModel.ViewerHasStarred, Mode=OneWay}">
 
 							<toolkit:Case Value="True">
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
 									FontSize="16"
-									Foreground="{StaticResource PrimerScaleYellow2}"
+									Foreground="{StaticResource SystemFillColorCautionBrush}"
 									Glyph="&#xEA96;" />
 
 							</toolkit:Case>
@@ -106,7 +106,7 @@
 							</toolkit:Case>
 						</toolkit:SwitchPresenter>
 
-						<TextBlock Text="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
+						<TextBlock Text="{x:Bind ViewModel.StargazerCount, Mode=OneWay}" />
 
 					</StackPanel>
 
@@ -232,14 +232,14 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						TargetType="x:Boolean"
-						Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+						Value="{x:Bind ViewModel.ViewerHasStarred, Mode=OneWay}">
 
 						<toolkit:Case Value="True">
 							<StackPanel Orientation="Horizontal" Spacing="6">
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
 									FontSize="16"
-									Foreground="{StaticResource PrimerScaleYellow2}"
+									Foreground="{StaticResource SystemFillColorCautionBrush}"
 									Glyph="&#xEA96;" />
 								<TextBlock Text="Unstar" />
 							</StackPanel>

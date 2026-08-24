@@ -12,6 +12,7 @@ namespace FluentHub.Core.Queries.Users
 			string login,
 			PageRequest page,
 			IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>? affiliations = null,
+			bool? isArchived = null,
 			bool? isFork = null,
 			bool? isLocked = null,
 			OctokitGraphQLModel.RepositoryOrder? orderBy = null,
@@ -41,6 +42,7 @@ namespace FluentHub.Core.Queries.Users
 					last: page.Last,
 					before: page.Before,
 					affiliations: affiliations is null ? null! : new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.RepositoryAffiliation?>>(affiliations),
+					isArchived: isArchived,
 					isFork: isFork,
 					isLocked: isLocked,
 					orderBy: orderBy,
@@ -56,10 +58,15 @@ namespace FluentHub.Core.Queries.Users
 							Description = x.Description,
 							StargazerCount = x.StargazerCount,
 							ForkCount = x.ForkCount,
+							HasSponsorshipsEnabled = x.HasSponsorshipsEnabled,
 							Id = x.Id,
+							IsArchived = x.IsArchived,
 							IsFork = x.IsFork,
 							IsPrivate = x.IsPrivate,
 							IsInOrganization = x.IsInOrganization,
+							IsMirror = x.IsMirror,
+							IsTemplate = x.IsTemplate,
+							PushedAt = x.PushedAt,
 							ViewerHasStarred = x.ViewerHasStarred,
 							UpdatedAt = x.UpdatedAt,
 							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
@@ -117,6 +124,59 @@ namespace FluentHub.Core.Queries.Users
 					.Select(x => x!.Node!)
 					.ToList() ?? [],
 				response.PageInfo);
+		}
+
+		public Task<IReadOnlyList<Repository>> SearchAllAsync(
+			string login,
+			UserRepositoryListFilters filters,
+			CancellationToken cancellationToken = default)
+			=> new UserRepositorySearchQueries(_gitHub).GetAllAsync(login, filters, cancellationToken);
+
+		public async Task<IReadOnlyList<string>> GetLanguagesAsync(
+			string login,
+			CancellationToken cancellationToken = default)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+
+			var languages = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			string? cursor = null;
+			do
+			{
+				var query = new Query()
+					.User(login)
+					.Repositories(first: 100, after: cursor)
+					.Select(connection => new RepositoryConnection
+					{
+						Nodes = connection.Nodes.Select(node => (Repository?)new Repository
+						{
+							PrimaryLanguage = node.PrimaryLanguage.Select(language => new Language
+							{
+								Name = language.Name,
+							})
+							.SingleOrDefault(),
+						}).ToList(),
+						PageInfo = new PageInfo
+						{
+							EndCursor = connection.PageInfo.EndCursor,
+							HasNextPage = connection.PageInfo.HasNextPage,
+						},
+					})
+					.Compile();
+				var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
+				foreach (var language in response.Nodes?
+					.Select(repository => repository?.PrimaryLanguage?.Name)
+					.Where(name => !string.IsNullOrWhiteSpace(name)) ?? [])
+				{
+					languages.Add(language!);
+				}
+
+				cursor = response.PageInfo.HasNextPage
+					? response.PageInfo.EndCursor
+					: null;
+			}
+			while (cursor is not null);
+
+			return languages.OrderBy(language => language, StringComparer.OrdinalIgnoreCase).ToList();
 		}
 	}
 }

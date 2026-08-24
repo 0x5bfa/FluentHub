@@ -5,7 +5,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.Views.Repositories.Settings"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:uc="using:FluentHub.UserControls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	mc:Ignorable="d">
 
 	<ScrollViewer Padding="12">
@@ -69,33 +69,33 @@
 
 			<MenuFlyoutSeparator />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Margin="0,12,0,0"
@@ -109,44 +109,44 @@
 				Style="{StaticResource CaptionTextBlockStyle}"
 				Text="When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled. If you have linear history requirement enabled on any protected branch, you must enable squashing or rebasing." />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Foreground="{ThemeResource TextFillColorSecondary}"
 				Style="{StaticResource CaptionTextBlockStyle}"
 				Text="Control how and when users are prompted to update their branches if there are new changes available in the base branch." />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Foreground="{ThemeResource TextFillColorSecondary}"
 				Style="{StaticResource CaptionTextBlockStyle}"
 				Text="You can allow setting pull requests to merge automatically once all required reviews and status checks have passed." />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Foreground="{ThemeResource TextFillColorSecondary}"
 				Style="{StaticResource CaptionTextBlockStyle}"
 				Text="After pull requests are merged, you can have head branches deleted automatically." />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Margin="0,12,0,0"
@@ -160,9 +160,9 @@
 				Style="{StaticResource CaptionTextBlockStyle}"
 				Text="When creating source code archives, you can choose to include files stored using Git LFS in the archive." />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 			<TextBlock
 				Margin="0,12,0,0"
@@ -171,21 +171,21 @@
 
 			<MenuFlyoutSeparator />
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
-			<uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+			<toolkit:SettingsCard Header="Discussions " Description="Wikis host documentation for your repository.">
 				<ToggleSwitch />
-			</uc:SettingsBlockControl>
+			</toolkit:SettingsCard>
 
 		</StackPanel>
 	</ScrollViewer>

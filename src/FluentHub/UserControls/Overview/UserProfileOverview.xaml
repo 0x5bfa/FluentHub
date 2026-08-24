@@ -45,18 +45,27 @@
 				Width="260"
 				Height="260"
 				CornerRadius="300">
+				<uc:Shimmer
+					x:Name="AvatarShimmer"
+					Width="260"
+					Height="260"
+					CornerRadius="130" />
 				<Grid
-					x:Name="AvatarPlaceholder"
+					x:Name="AvatarFallback"
 					Width="260"
 					Height="260"
 					Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
-					CornerRadius="300">
+					CornerRadius="300"
+					Visibility="Collapsed">
 					<FontIcon
 						FontSize="84"
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Glyph="&#xE77B;" />
 				</Grid>
-				<Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
+				<Image
+					x:Name="AvatarImage"
+					helpers:GitHubImageCache.Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+					Opacity="0" />
 			</Grid>
 
 			<Grid
@@ -145,7 +154,7 @@
 								VerticalAlignment="Center"
 								x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
 								FontFamily="Segoe Fluent Icons"
-								Foreground="{ThemeResource PrimerAttentionForeground}"
+								Foreground="{ThemeResource SystemFillColorCautionBrush}"
 								Style="{StaticResource BodyTextBlockStyle}"
 								Text="&#xE946;">
 								<ToolTipService.ToolTip>
@@ -161,10 +170,10 @@
 										<toolkittriggers:IsEqualStateTrigger Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}" To="True" />
 									</VisualState.StateTriggers>
 									<VisualState.Setters>
-										<Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
-										<Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
-										<Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
-										<Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+										<Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource SystemFillColorCautionBackgroundBrush}" />
+										<Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource SystemFillColorCautionBackgroundBrush}" />
+										<Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource SystemFillColorCautionBrush}" />
+										<Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource SystemFillColorCautionBrush}" />
 									</VisualState.Setters>
 								</VisualState>
 							</VisualStateGroup>

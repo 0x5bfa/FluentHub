@@ -31,10 +31,14 @@ namespace FluentHub.Views.Users
 				command.Execute(null);
 		}
 
+		private async void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+			=> await ViewModel.ApplySearchAsync(sender.Text);
+
 		private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
 		{
 			var scrollViewer = (ScrollViewer)sender;
-			if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+			if (scrollViewer.ScrollableHeight - scrollViewer.VerticalOffset
+				<= Math.Max(200, scrollViewer.ViewportHeight / 2))
 			{
 				var command = ViewModel.LoadUserOrganizationsFurtherCommand;
 				if (command.CanExecute(null))

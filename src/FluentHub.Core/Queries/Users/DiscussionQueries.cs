@@ -1,4 +1,5 @@
 using FluentHub.Core.Clients;
+using FluentHub.Core.Queries.Discussions;
 
 namespace FluentHub.Core.Queries.Users
 {
@@ -8,6 +9,25 @@ namespace FluentHub.Core.Queries.Users
 
 		public DiscussionQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
+
+		public Task<PageResult<Discussion>> GetPageAsync(
+			string login,
+			PageRequest page,
+			DiscussionListFilters filters,
+			CancellationToken cancellationToken = default)
+			=> new DiscussionSearchQueries(_gitHub).GetAuthorPageAsync(
+				login,
+				page,
+				filters,
+				cancellationToken);
+
+		public Task<IReadOnlyList<string>> GetLabelNamesAsync(
+			string login,
+			CancellationToken cancellationToken = default)
+			=> new DiscussionSearchQueries(_gitHub).GetAuthorLabelNamesAsync(
+				login,
+				cancellationToken);
+
 		public async Task<PageResult<Discussion>> GetPageAsync(
 			string login,
 			PageRequest page,

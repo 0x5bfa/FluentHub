@@ -39,7 +39,7 @@
 							<Border
 								Width="24"
 								Height="24"
-								Background="{ThemeResource PrimerOpenEmphasis}"
+								Background="{ThemeResource SystemFillColorSuccessBrush}"
 								CornerRadius="4">
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
@@ -58,7 +58,7 @@
 										<Border
 											Width="24"
 											Height="24"
-											Background="{ThemeResource PrimerNeutralEmphasis}"
+											Background="{ThemeResource SystemFillColorNeutralBrush}"
 											CornerRadius="4">
 											<FontIcon
 												FontFamily="{StaticResource Octicons}"
@@ -70,7 +70,7 @@
 										<Border
 											Width="24"
 											Height="24"
-											Background="{ThemeResource PrimerDoneEmphasis}"
+											Background="{ThemeResource AccentFillColorDefaultBrush}"
 											CornerRadius="4">
 											<FontIcon
 												FontFamily="{StaticResource Octicons}"
@@ -91,7 +91,7 @@
 							<Border
 								Width="24"
 								Height="24"
-								Background="{ThemeResource PrimerNeutralEmphasis}"
+								Background="{ThemeResource SystemFillColorNeutralBrush}"
 								CornerRadius="4">
 								<FontIcon
 									FontFamily="{StaticResource Octicons}"
@@ -110,7 +110,7 @@
 										<Border
 											Width="24"
 											Height="24"
-											Background="{ThemeResource PrimerOpenEmphasis}"
+											Background="{ThemeResource SystemFillColorSuccessBrush}"
 											CornerRadius="4">
 											<FontIcon
 												FontFamily="{StaticResource Octicons}"
@@ -122,7 +122,7 @@
 										<Border
 											Width="24"
 											Height="24"
-											Background="{ThemeResource PrimerDangerEmphasis}"
+											Background="{ThemeResource SystemFillColorCriticalBrush}"
 											CornerRadius="4">
 											<FontIcon
 												FontFamily="{StaticResource Octicons}"
@@ -134,7 +134,7 @@
 										<Border
 											Width="24"
 											Height="24"
-											Background="{ThemeResource PrimerDoneEmphasis}"
+											Background="{ThemeResource AccentFillColorDefaultBrush}"
 											CornerRadius="4">
 											<FontIcon
 												FontFamily="{StaticResource Octicons}"

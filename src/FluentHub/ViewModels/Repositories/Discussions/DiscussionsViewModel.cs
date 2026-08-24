@@ -8,6 +8,7 @@ using FluentHub.ViewModels.UserControls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using FluentHub.Core.Contracts;
+using FluentHub.Core.Queries.Discussions;
 
 namespace FluentHub.ViewModels.Repositories.Discussions
 {
@@ -15,6 +16,33 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 	{
 		private readonly ObservableCollection<DiscussionBlockButtonViewModel> _items;
 		public ReadOnlyObservableCollection<DiscussionBlockButtonViewModel> Items { get; }
+
+		public ObservableCollection<string> StateFilterOptions { get; } =
+		[
+			"Open",
+			"Closed",
+			"Locked",
+			"Unlocked",
+			"Answered",
+			"Unanswered",
+			"Verified",
+			"All",
+		];
+
+		public ObservableCollection<string> LabelFilterOptions { get; } = ["All labels"];
+
+		public ObservableCollection<string> SortFilterOptions { get; } =
+		[
+			"Latest activity",
+			"Date created",
+			"Top: Past day",
+			"Top: Past week",
+			"Top: Past month",
+			"Top: Past year",
+			"Top: All time",
+		];
+
+		private DiscussionListFilters _filters = new();
 
 		public IAsyncRelayCommand LoadRepositoryDiscussionsPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryDiscussionsFurtherCommand { get; }
@@ -33,6 +61,7 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 			SetTabInformation("Discussions", "Discussions", "Discussions");
 			SetLoadingProgress(true);
 			InitializeNodePagingInfo();
+			_filters = new DiscussionListFilters();
 
 			_currentTaskingMethodName = nameof(LoadRepositoryDiscussionsPageAsync);
 
@@ -41,13 +70,19 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
 				await LoadRepositoryAsync(Login, Name);
 
+				var owner = Repository.Owner.Login;
+				var name = Repository.Name;
+
+				_currentTaskingMethodName = nameof(LoadFilterOptionsAsync);
+				var filterOptionsTask = LoadFilterOptionsAsync(owner, name);
+
 				_currentTaskingMethodName = nameof(LoadRepositoryDiscussionsAsync);
-				await LoadRepositoryDiscussionsAsync(Login, Name);
+				var discussionsTask = LoadRepositoryDiscussionsAsync(owner, name);
+				await Task.WhenAll(filterOptionsTask, discussionsTask);
 
 				SetTabInformation($"Discussions \u2022 {Login}/{Name}", $"Discussions \u2022 {Login}/{Name}");
 
-				if (Items.Count == 0)
-					IsEmpty = true;
+				IsEmpty = Items.Count == 0;
 			}
 			catch (Exception ex)
 			{
@@ -64,26 +99,56 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 		{
 			var queries = _gitHub.Repositories.Discussions;
 
-			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20));
+			var result = await queries.GetPageAsync(owner, name, PageRequest.Forward(20), _filters);
 
 			_lastPageInfo = result.PageInfo;
 			var items = result.Items;
 
-			_items.Clear();
-			foreach (var item in items)
-			{
-				DiscussionBlockButtonViewModel viewModel = new()
-				{
-					Item = item,
-				};
+			ReplaceItems(items);
+		}
 
-				_items.Add(viewModel);
+		private async Task LoadFilterOptionsAsync(string owner, string name)
+		{
+			var labels = await _gitHub.Repositories.Discussions.GetLabelNamesAsync(owner, name);
+			var options = new[] { "All labels" }.Concat(labels)
+				.Distinct(StringComparer.OrdinalIgnoreCase)
+				.ToList();
+			if (LabelFilterOptions.SequenceEqual(options, StringComparer.Ordinal))
+				return;
+
+			LabelFilterOptions.Clear();
+			foreach (var label in options)
+				LabelFilterOptions.Add(label);
+		}
+
+		public async Task ApplyFiltersAsync(DiscussionListFilters filters)
+		{
+			ArgumentNullException.ThrowIfNull(filters);
+
+			_filters = filters;
+			InitializeNodePagingInfo();
+			SetLoadingProgress(true);
+			_currentTaskingMethodName = nameof(ApplyFiltersAsync);
+
+			try
+			{
+				await LoadRepositoryDiscussionsAsync(Repository.Owner.Login, Repository.Name);
+				IsEmpty = Items.Count == 0;
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
 			}
 		}
 
 		private async Task LoadRepositoryDiscussionsFurtherAsync()
 		{
-			if (!_lastPageInfo.HasNextPage)
+			if (IsTaskLoading || _lastPageInfo is null || !_lastPageInfo.HasNextPage)
 				return;
 
 			SetLoadingProgress(true);
@@ -93,22 +158,15 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 				var queries = _gitHub.Repositories.Discussions;
 
 				var result = await queries.GetPageAsync(
-					Login,
-					Name,
-					PageRequest.Forward(20, _lastPageInfo.EndCursor));
+					Repository.Owner.Login,
+					Repository.Name,
+					PageRequest.Forward(20, _lastPageInfo.EndCursor),
+					_filters);
 
 				_lastPageInfo = result.PageInfo;
 				var items = result.Items;
 
-				foreach (var item in items)
-				{
-					DiscussionBlockButtonViewModel viewModel = new()
-					{
-						Item = item,
-					};
-
-					_items.Add(viewModel);
-				}
+				AppendItems(items);
 			}
 			catch (Exception ex)
 			{
@@ -125,6 +183,18 @@ namespace FluentHub.ViewModels.Repositories.Discussions
 		{
 			var queries = _gitHub.Repositories.Repositories;
 			Repository = await queries.GetDetailsAsync(owner, name);
+		}
+
+		private void ReplaceItems(IEnumerable<Discussion> discussions)
+		{
+			_items.Clear();
+			AppendItems(discussions);
+		}
+
+		private void AppendItems(IEnumerable<Discussion> discussions)
+		{
+			foreach (var discussion in discussions)
+				_items.Add(new DiscussionBlockButtonViewModel { Item = discussion });
 		}
 	}
 }

@@ -24,7 +24,6 @@
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-			<converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
 		</ResourceDictionary>
 	</UserControl.Resources>
 
@@ -153,7 +152,7 @@
 
 							</toolkit:SwitchPresenter>
 
-							<primer:CounterLabel x:Name="WatchersCounter" Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+							<InfoBadge x:Name="WatchersCounter" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
 						</StackPanel>
 					</DropDownButton.Content>
 				</DropDownButton>
@@ -169,7 +168,7 @@
 
 							<TextBlock Text="Fork" />
 
-							<primer:CounterLabel x:Name="ForksCounter" Text="{x:Bind ViewModel.Repository.ForkCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+							<InfoBadge x:Name="ForksCounter" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
 						</StackPanel>
 					</Button.Content>
 				</Button>
@@ -208,7 +207,7 @@
 
 							</toolkit:SwitchPresenter>
 
-							<primer:CounterLabel x:Name="StargazersCounter" Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+							<InfoBadge x:Name="StargazersCounter" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
 						</StackPanel>
 					</SplitButton.Content>
 				</SplitButton>
@@ -247,10 +246,10 @@
 
 								<TextBlock Text="Issues" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="IssuesCounter"
 									x:Load="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.Repository.Issues.TotalCount, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>
@@ -267,10 +266,10 @@
 
 								<TextBlock Text="Pull Requests" />
 
-								<primer:CounterLabel
+								<InfoBadge
 									x:Name="PullRequestsCounter"
 									x:Load="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-									Text="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+									Value="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Mode=OneWay}" />
 
 							</StackPanel>
 						</NavigationViewItem.Content>

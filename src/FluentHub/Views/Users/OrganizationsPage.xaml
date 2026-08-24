@@ -42,50 +42,23 @@
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<TextBox
+						<AutoSuggestBox
 							x:Name="SearchOrganizationsTextBox"
 							Grid.Row="0"
 							Margin="0,8,0,16"
-							IsEnabled="False"
-							PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}" />
+							PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}"
+							QuerySubmitted="OnSearchQuerySubmitted" />
 
 						<Grid Grid.Row="1">
 
-							<ListView ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}" SelectionMode="None">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel Orientation="Vertical" Spacing="4" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemContainerStyle>
-									<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-										<Setter Property="Margin" Value="0" />
-										<Setter Property="Padding" Value="0" />
-										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
+							<ItemsRepeater ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}" VerticalCacheLength="2">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
 									<DataTemplate x:DataType="bbvm:OrgBlockButtonViewModel">
 										<bbuc:OrgBlockButton ViewModel="{x:Bind}" />
 									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-
-							<StackPanel
-								x:Name="PageLoadingPanel"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
-								Spacing="12">
-								<ProgressRing
-									Width="32"
-									Height="32"
-									IsIndeterminate="True" />
-								<TextBlock
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="Loading..."
-									TextAlignment="Center" />
-							</StackPanel>
+							</ItemsRepeater>
 
 							<StackPanel
 								x:Name="NoItemsPanel"

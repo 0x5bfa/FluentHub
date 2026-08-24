@@ -33,21 +33,9 @@
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<Grid Margin="0,0,0,16">
-						<TextBlock
-							VerticalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="Issues" />
-						<Button
-							HorizontalAlignment="Right"
-							Click="OnCreateIssueClicked"
-							Content="New issue"
-							IsEnabled="{x:Bind ViewModel.CanCreateIssue, Mode=OneWay}" />
-					</Grid>
-
 					<Grid
 						x:Name="PinnedIssuesBlock"
-						Grid.Row="1"
+						Grid.Row="0"
 						Margin="0,0,0,16"
 						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 						RowSpacing="12">
@@ -83,11 +71,87 @@
 
 					</Grid>
 
-					<TextBox
-						Grid.Row="2"
+					<Grid
+						Grid.Row="1"
 						Margin="0,8,0,16"
-						IsEnabled="False"
-						PlaceholderText="Search issues" />
+						ColumnSpacing="8">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<AutoSuggestBox
+							x:Name="SearchIssuesBox"
+							PlaceholderText="Search issues"
+							QuerySubmitted="OnSearchQuerySubmitted" />
+
+						<Button
+							Grid.Column="1"
+							HorizontalAlignment="Right"
+							Click="OnCreateIssueClicked"
+							Content="New issue"
+							IsEnabled="{x:Bind ViewModel.CanCreateIssue, Mode=OneWay}" />
+					</Grid>
+
+					<ScrollViewer
+						Grid.Row="2"
+						Margin="0,0,0,16"
+						HorizontalScrollBarVisibility="Auto"
+						HorizontalScrollMode="Enabled"
+						VerticalScrollBarVisibility="Disabled"
+						VerticalScrollMode="Disabled">
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<ComboBox
+								x:Name="StateFilterBox"
+								MinWidth="120"
+								Header="State"
+								ItemsSource="{x:Bind ViewModel.StateFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="LabelFilterBox"
+								MinWidth="180"
+								Header="Labels"
+								ItemsSource="{x:Bind ViewModel.LabelFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="IssueTypeFilterBox"
+								MinWidth="160"
+								Header="Issue type"
+								ItemsSource="{x:Bind ViewModel.IssueTypeFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="AuthorFilterBox"
+								MinWidth="160"
+								Header="Author"
+								ItemsSource="{x:Bind ViewModel.AuthorFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="AssigneeFilterBox"
+								MinWidth="180"
+								Header="Assignee"
+								ItemsSource="{x:Bind ViewModel.AssigneeFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="MilestoneFilterBox"
+								MinWidth="180"
+								Header="Milestone"
+								ItemsSource="{x:Bind ViewModel.MilestoneFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+							<ComboBox
+								x:Name="SortFilterBox"
+								MinWidth="210"
+								Header="Sort"
+								ItemsSource="{x:Bind ViewModel.SortFilterOptions, Mode=OneWay}"
+								SelectedIndex="0"
+								SelectionChanged="OnFilterSelectionChanged" />
+						</StackPanel>
+					</ScrollViewer>
 
 					<Grid Grid.Row="3">
 
@@ -110,22 +174,6 @@
 								</DataTemplate>
 							</ListView.ItemTemplate>
 						</ListView>
-
-						<StackPanel
-							x:Name="PageLoadingPanel"
-							HorizontalAlignment="Center"
-							VerticalAlignment="Center"
-							x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
-							Spacing="12">
-							<ProgressRing
-								Width="32"
-								Height="32"
-								IsIndeterminate="True" />
-							<TextBlock
-								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="Loading..."
-								TextAlignment="Center" />
-						</StackPanel>
 
 						<StackPanel
 							x:Name="NoItemsPanel"

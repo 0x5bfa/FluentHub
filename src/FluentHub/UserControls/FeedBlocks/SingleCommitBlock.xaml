@@ -44,7 +44,7 @@
 							<Image
 								Width="20"
 								Height="20"
-								Source="{x:Bind User.AvatarUrl, Mode=OneWay}" />
+								helpers:GitHubImageCache.Source="{x:Bind User.AvatarUrl, Mode=OneWay}" />
 						</Border>
 
 						<Button

@@ -6,10 +6,8 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="using:FluentHub.UserControls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
-	Unloaded="OnUserControlUnloaded"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -64,11 +62,9 @@
 				Padding="20"
 				Background="{ThemeResource SolidBackgroundFillColorBase}"
 				CornerRadius="8">
-				<WebView2
-					x:Name="ReadmeContentWebView2"
-					DefaultBackgroundColor="Transparent"
-					NavigationCompleted="OnReadmeContentWebView2NavigationCompleted"
-					SizeChanged="OnReadmeContentWebView2SizeChanged" />
+				<local:GitHubMarkdownTextBlock
+					BaseUrl="{x:Bind ViewModel.BaseUrl, Mode=OneWay}"
+					Text="{x:Bind ViewModel.Markdown, Mode=OneWay}" />
 			</Grid>
 
 		</Grid>

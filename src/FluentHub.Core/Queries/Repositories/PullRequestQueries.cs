@@ -8,134 +8,29 @@ namespace FluentHub.Core.Queries.Repositories
 
 		public PullRequestQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<PageResult<PullRequest>> GetPageAsync(
+
+		public Task<PageResult<PullRequest>> GetPageAsync(
 			string owner,
 			string name,
 			PageRequest page,
-			string? baseRefName = null,
-			string? headRefName = null,
-			IEnumerable<string>? labels = null,
-			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.PullRequestState>? states = null,
+			RepositoryItemListFilters? filters = null,
 			CancellationToken cancellationToken = default)
-		{
-			ArgumentNullException.ThrowIfNull(page);
+			=> new RepositoryItemSearchQueries(_gitHub).GetPullRequestPageAsync(
+				owner,
+				name,
+				page,
+				filters ?? new RepositoryItemListFilters(),
+				cancellationToken);
 
-			orderBy ??= new()
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
-			};
-
-			var query = new Query()
-				.Repository(name, owner)
-				.PullRequests(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					baseRefName,
-					headRefName,
-					labels is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(labels) : null!,
-					orderBy,
-					states is not null ? new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>>(states) : null!)
-				.Select(connection => new PullRequestConnection
-				{
-					Edges = connection.Edges.Select(edge => (PullRequestEdge?)new PullRequestEdge
-					{
-						Node = edge.Node.Select(x => new PullRequest
-						{
-							BaseRefName = x.BaseRefName,
-							Closed = x.Closed,
-							HeadRefName = x.HeadRefName,
-							IsDraft = x.IsDraft,
-							Merged = x.Merged,
-							Number = x.Number,
-							Title = x.Title,
-							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							HeadRepository = x.HeadRepository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-							{
-								TotalCount = comments.TotalCount,
-							}).SingleOrDefault(),
-
-							Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-							{
-								Nodes = labels.Nodes.Select(y => (Label?)new Label
-								{
-									Color = y.Color,
-									Description = y.Description,
-									Name = y.Name,
-								}).ToList(),
-							}).SingleOrDefault(),
-
-							Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
-							{
-								Nodes = reviews.Nodes.Select(y => (PullRequestReview?)new PullRequestReview
-								{
-									State = (PullRequestReviewState)y.State,
-								}).ToList().DefaultIfEmpty().ToList(),
-							}).SingleOrDefault(),
-
-							Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
-							{
-								Nodes = commits.Nodes.Select(y => (PullRequestCommit?)new PullRequestCommit
-								{
-									Commit = y.Commit.Select(commit => new Commit
-									{
-										StatusCheckRollup = commit.StatusCheckRollup.Select(rollup => new StatusCheckRollup
-										{
-											State = (StatusState)rollup.State,
-										}).SingleOrDefault(),
-									}).SingleOrDefault(),
-								}).ToList().DefaultIfEmpty().ToList(),
-							}).SingleOrDefault(),
-						}).Single(),
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<PullRequest>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
-		}
+		public Task<IReadOnlyList<string>> GetAuthorLoginsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetAuthorLoginsAsync(
+				owner,
+				name,
+				true,
+				cancellationToken);
 
 		public async Task<PullRequest> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
 		{
@@ -145,15 +40,19 @@ namespace FluentHub.Core.Queries.Repositories
 				.Select(x => new PullRequest
 				{
 					Additions = x.Additions,
+					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					BaseRefName = x.BaseRefName,
 					Body = x.Body,
 					ChangedFiles = x.ChangedFiles,
 					Closed = x.Closed,
+					CreatedAt = x.CreatedAt,
+					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Deletions = x.Deletions,
 					HeadRefName = x.HeadRefName,
 					HeadRefOid = x.HeadRefOid,
 					Id = x.Id,
 					IsDraft = x.IsDraft,
+					LastEditedAt = x.LastEditedAt,
 					Mergeable = (MergeableState)x.Mergeable,
 					Merged = x.Merged,
 					Number = x.Number,
@@ -161,14 +60,24 @@ namespace FluentHub.Core.Queries.Repositories
 					Title = x.Title,
 					UpdatedAt = x.UpdatedAt,
 					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
+					Url = x.Url,
 					ViewerCanClose = x.ViewerCanUpdate,
 					ViewerCanMergeAsAdmin = x.ViewerCanMergeAsAdmin,
+					ViewerCanReact = x.ViewerCanReact,
 					ViewerCanReopen = x.ViewerCanUpdate,
 					ViewerCanSubscribe = x.ViewerCanSubscribe,
 					ViewerCanUpdate = x.ViewerCanUpdate,
+					ViewerDidAuthor = x.ViewerDidAuthor,
 					ViewerSubscription = x.ViewerSubscription == null
 						? null
 						: (SubscriptionState?)x.ViewerSubscription.Value,
+
+					Author = x.Author.Select(author => new Actor
+					{
+						AvatarUrl = author.AvatarUrl(500),
+						Login = author.Login,
+					})
+					.SingleOrDefault(),
 
 					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
 					{
@@ -265,9 +174,22 @@ namespace FluentHub.Core.Queries.Repositories
 					})
 					.SingleOrDefault(),
 
+					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
+					{
+						Content = (ReactionContent)group.Content,
+						ViewerHasReacted = group.ViewerHasReacted,
+						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
+						{
+							TotalCount = reactors.TotalCount,
+						}).SingleOrDefault(),
+					}).ToList(),
+
 					Repository = x.Repository.Select(repo => new Repository
 					{
 						Name = repo.Name,
+						ViewerPermission = repo.ViewerPermission == null
+							? null
+							: (RepositoryPermission?)repo.ViewerPermission.Value,
 
 						Owner = repo.Owner.Select(owner => new RepositoryOwner
 						{
@@ -324,7 +246,6 @@ namespace FluentHub.Core.Queries.Repositories
 				{
 					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
 					Body = x.Body,
-					BodyHTML = x.BodyHTML,
 					CreatedAt = x.CreatedAt,
 					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
 					Id = x.Id,
@@ -340,22 +261,6 @@ namespace FluentHub.Core.Queries.Repositories
 					{
 						Login = author.Login,
 						AvatarUrl = author.AvatarUrl(500),
-					})
-					.SingleOrDefault(),
-
-					Reactions = x.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
-					{
-						Nodes = reactions.Nodes.Select(reaction => (Reaction?)new Reaction
-						{
-							Content = (ReactionContent)reaction.Content,
-
-							User = reaction.User.Select(user => new User
-							{
-								Login = user.Login,
-							})
-							.SingleOrDefault(),
-						})
-						.ToList(),
 					})
 					.SingleOrDefault(),
 

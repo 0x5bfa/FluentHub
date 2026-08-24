@@ -20,18 +20,18 @@
 
 			<ResourceDictionary.ThemeDictionaries>
 				<ResourceDictionary x:Key="Light">
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayBackground" Color="#ebedf0" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#9be9a8" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#40c463" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#30a14e" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#216e39" />
+					<SolidColorBrush x:Key="ContributionGraphDayBackground" Color="#ebedf0" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel1Background" Color="#9be9a8" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel2Background" Color="#40c463" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel3Background" Color="#30a14e" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel4Background" Color="#216e39" />
 				</ResourceDictionary>
 				<ResourceDictionary x:Key="Dark">
-					<StaticResource x:Key="PrimerColorCalendarGraphDayBackground" ResourceKey="PrimerScaleGray8" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#0e4429" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#006d32" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#26a641" />
-					<SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#39d353" />
+					<StaticResource x:Key="ContributionGraphDayBackground" ResourceKey="CardBackgroundFillColorSecondaryBrush" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel1Background" Color="#0e4429" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel2Background" Color="#006d32" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel3Background" Color="#26a641" />
+					<SolidColorBrush x:Key="ContributionGraphDayLevel4Background" Color="#39d353" />
 				</ResourceDictionary>
 			</ResourceDictionary.ThemeDictionaries>
 		</ResourceDictionary>
@@ -185,7 +185,7 @@
 				<Border
 					Width="14"
 					Height="14"
-					Background="{ThemeResource PrimerColorCalendarGraphDayBackground}"
+					Background="{ThemeResource ContributionGraphDayBackground}"
 					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 					BorderThickness="1"
 					CornerRadius="4" />
@@ -193,7 +193,7 @@
 				<Border
 					Width="14"
 					Height="14"
-					Background="{ThemeResource PrimerColorCalendarGraphDayLevel1Background}"
+					Background="{ThemeResource ContributionGraphDayLevel1Background}"
 					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 					BorderThickness="1"
 					CornerRadius="4" />
@@ -201,7 +201,7 @@
 				<Border
 					Width="14"
 					Height="14"
-					Background="{ThemeResource PrimerColorCalendarGraphDayLevel2Background}"
+					Background="{ThemeResource ContributionGraphDayLevel2Background}"
 					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 					BorderThickness="1"
 					CornerRadius="4" />
@@ -209,7 +209,7 @@
 				<Border
 					Width="14"
 					Height="14"
-					Background="{ThemeResource PrimerColorCalendarGraphDayLevel3Background}"
+					Background="{ThemeResource ContributionGraphDayLevel3Background}"
 					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 					BorderThickness="1"
 					CornerRadius="4" />
@@ -217,7 +217,7 @@
 				<Border
 					Width="14"
 					Height="14"
-					Background="{ThemeResource PrimerColorCalendarGraphDayLevel4Background}"
+					Background="{ThemeResource ContributionGraphDayLevel4Background}"
 					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 					BorderThickness="1"
 					CornerRadius="4" />

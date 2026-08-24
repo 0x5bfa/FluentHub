@@ -6,6 +6,7 @@
 	xmlns:local="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
+	xmlns:uc="using:FluentHub.UserControls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
@@ -28,11 +29,10 @@
 			Grid.Row="1"
 			Height="1"
 			Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />-->
-		<TextBlock
+		<uc:GitHubMarkdownTextBlock
 			Grid.Row="2"
 			Margin="16,16"
-			IsTextSelectionEnabled="True"
-			MaxLines="6"
+			MaxHeight="160"
 			Text="{x:Bind ViewModel.Details.Release.Description, Mode=OneWay}" />
 	</Grid>
 </UserControl>

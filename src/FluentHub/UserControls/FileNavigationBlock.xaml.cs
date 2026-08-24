@@ -1,3 +1,4 @@
+using FluentHub.Dialogs;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
@@ -16,17 +17,12 @@ namespace FluentHub.UserControls
 				nameof(ContextViewModel),
 				typeof(RepoContextViewModel),
 				typeof(FileNavigationBlock),
-				new PropertyMetadata(null));
+				new PropertyMetadata(null, OnContextViewModelChanged));
 
 		public RepoContextViewModel ContextViewModel
 		{
 			get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-			set
-			{
-				SetValue(ContextViewModelProperty, value);
-				if (ContextViewModel is not null)
-					ViewModel.ContextViewModel = ContextViewModel;
-			}
+			set => SetValue(ContextViewModelProperty, value);
 		}
 
 		public static readonly DependencyProperty BranchesTotalCountProperty =
@@ -64,15 +60,19 @@ namespace FluentHub.UserControls
 
 		public FileNavigationBlock()
 		{
-			InitializeComponent();
-
 			ViewModel = Ioc.Default.GetRequiredService<FileNavigationBlockViewModel>();
 			navService = Ioc.Default.GetRequiredService<INavigationService>();
+			InitializeComponent();
 		}
 
 		private readonly INavigationService navService;
 		public FileNavigationBlockViewModel ViewModel { get; }
-		private bool FirstSelectionComplete { get; set; }
+
+		private static void OnContextViewModelChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+		{
+			if (sender is FileNavigationBlock control && args.NewValue is RepoContextViewModel context)
+				control.ViewModel.ContextViewModel = context;
+		}
 
 		#region Chevron Amination
 		private void OnCloneButtonLoaded(object sender, RoutedEventArgs e)
@@ -97,36 +97,129 @@ namespace FluentHub.UserControls
 		}
 		#endregion
 
-		private void OnFileNavigationBlockLoaded(object sender, RoutedEventArgs e)
+		private async void OnFileNavigationBlockLoaded(object sender, RoutedEventArgs e)
 		{
-			var command = ViewModel.LoadBranchNameAllCommand;
-			if (command.CanExecute(null))
-				command.Execute(null);
-
-			// Default selected branch name is current branch
-			BranchNameSelector.SelectedIndex = 0;
+			if (await EnsureReferencesLoadedAsync())
+				PopulateBranchSelector();
 		}
 
-		private void OnBranchSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
+		private async void OnBranchSelectorFlyoutOpening(object sender, object args)
 		{
-			if (FirstSelectionComplete == false)
+			if (await EnsureReferencesLoadedAsync())
+				PopulateBranchSelector();
+		}
+
+		private async Task<bool> EnsureReferencesLoadedAsync()
+		{
+			if (GetValue(ContextViewModelProperty) is not RepoContextViewModel)
+				return false;
+
+			try
 			{
-				FirstSelectionComplete = true;
+				await ViewModel.EnsureReferencesLoadedAsync();
+				BranchesTotalCount = ViewModel.BranchNames.Count;
+				TagsTotalCount = ViewModel.TagNames.Count;
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		private void PopulateBranchSelector()
+		{
+			var separatorIndex = BranchSelectorFlyout.Items.IndexOf(BranchSelectorSeparator);
+			while (separatorIndex > 0)
+			{
+				BranchSelectorFlyout.Items.RemoveAt(0);
+				separatorIndex--;
+			}
+
+			if (ViewModel.BranchNames.Count == 0)
+			{
+				BranchSelectorFlyout.Items.Insert(0, new MenuFlyoutItem
+				{
+					IsEnabled = false,
+					Text = "No branches found",
+				});
 				return;
 			}
 
-			ViewModel.ContextViewModel.BranchName = ContextViewModel.BranchName = BranchNameSelector.SelectedItem as string ?? string.Empty;
+			var index = 0;
+			foreach (var branch in ViewModel.BranchNames.Take(10))
+			{
+				var item = new MenuFlyoutItem
+				{
+					Tag = branch,
+					Text = branch,
+				};
+				item.Click += OnBranchMenuItemClick;
+				BranchSelectorFlyout.Items.Insert(index++, item);
+			}
+		}
+
+		private void OnBranchMenuItemClick(object sender, RoutedEventArgs args)
+		{
+			if (sender is MenuFlyoutItem { Tag: string branch })
+				NavigateToReference(branch);
+		}
+
+		private async void OnViewAllBranchesClick(object sender, RoutedEventArgs args)
+		{
+			await Task.Yield();
+			await ShowReferencesDialogAsync(RepositoryReferenceKind.Branch);
+		}
+
+		private async void OnBranchesClick(object sender, RoutedEventArgs args)
+			=> await ShowReferencesDialogAsync(RepositoryReferenceKind.Branch);
+
+		private async void OnTagsClick(object sender, RoutedEventArgs args)
+			=> await ShowReferencesDialogAsync(RepositoryReferenceKind.Tag);
+
+		private async Task ShowReferencesDialogAsync(RepositoryReferenceKind initialKind)
+		{
+			if (!await EnsureReferencesLoadedAsync())
+				return;
+
+			var dialog = new RepositoryRefsDialog(
+				ViewModel.BranchNames,
+				ViewModel.TagNames,
+				ContextViewModel.BranchName,
+				initialKind)
+			{
+				XamlRoot = XamlRoot,
+			};
+
+			if (await dialog.ShowAsync() == ContentDialogResult.Primary &&
+				dialog.SelectedReference is { } reference)
+			{
+				NavigateToReference(reference);
+			}
+		}
+
+		private void NavigateToReference(string reference)
+		{
+			if (string.IsNullOrWhiteSpace(reference) ||
+				reference.Equals(ContextViewModel.BranchName, StringComparison.Ordinal))
+			{
+				return;
+			}
+
+			ViewModel.ContextViewModel.BranchName = ContextViewModel.BranchName = reference;
 
 			var objType = ViewModel.ContextViewModel.IsFile ? "blob" : "tree";
-			var path = string.IsNullOrEmpty(ViewModel.ContextViewModel.Path) ? $"{ViewModel.ContextViewModel.Path}" : $"/{ViewModel.ContextViewModel.Path}";
+			var path = string.IsNullOrEmpty(ViewModel.ContextViewModel.Path)
+				? string.Empty
+				: $"/{ViewModel.ContextViewModel.Path.TrimStart('/')}";
 
-			var param = $"{objType}/{ViewModel.ContextViewModel.BranchName}{path}";
+			var param = $"{objType}/{Uri.EscapeDataString(reference)}{path}";
 
 			navService.TabView.SelectedItem.NavigationBar.Context = new()
 			{
 				PrimaryText = ViewModel.ContextViewModel.Repository.Owner.Login,
 				SecondaryText = ViewModel.ContextViewModel.Repository.Name,
-				Parameters = param
+				Parameters = param,
 			};
 
 			navService.Navigate<Views.Repositories.Code.DetailsLayoutView>();

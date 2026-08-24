@@ -6,6 +6,7 @@
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:fbuc="using:FluentHub.UserControls.FeedBlocks"
+	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.UserControls.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
@@ -41,7 +42,7 @@
 				<Image
 					Width="20"
 					Height="20"
-					Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
+					helpers:GitHubImageCache.Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
 			</Border>
 
 			<Button Grid.Column="1" Style="{StaticResource LinkLikeButtonStyle}">

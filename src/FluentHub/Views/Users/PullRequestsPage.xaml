@@ -39,53 +39,73 @@
 					<Grid Padding="32,32,32,32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<TextBox
-							x:Name="SearchPullRequestsTextBox"
+						<AutoSuggestBox
+							x:Name="SearchPullRequestsBox"
 							Grid.Row="0"
 							Margin="0,8,0,16"
-							IsEnabled="False"
-							PlaceholderText="{helpers:ResourceString Name=SearchPullRequestsTextBox/PlaceholderText}" />
+							PlaceholderText="{helpers:ResourceString Name=SearchPullRequestsTextBox/PlaceholderText}"
+							QuerySubmitted="OnSearchQuerySubmitted" />
 
-						<Grid Grid.Row="1">
+						<ScrollViewer
+							Grid.Row="1"
+							Margin="0,0,0,16"
+							HorizontalScrollBarVisibility="Auto"
+							HorizontalScrollMode="Enabled"
+							VerticalScrollBarVisibility="Disabled"
+							VerticalScrollMode="Disabled">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<ComboBox
+									x:Name="StateFilterBox"
+									MinWidth="120"
+									Header="State"
+									ItemsSource="{x:Bind ViewModel.StateFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="LabelFilterBox"
+									MinWidth="180"
+									Header="Labels"
+									ItemsSource="{x:Bind ViewModel.LabelFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="AssigneeFilterBox"
+									MinWidth="180"
+									Header="Assignee"
+									ItemsSource="{x:Bind ViewModel.AssigneeFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="MilestoneFilterBox"
+									MinWidth="180"
+									Header="Milestone"
+									ItemsSource="{x:Bind ViewModel.MilestoneFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+								<ComboBox
+									x:Name="SortFilterBox"
+									MinWidth="210"
+									Header="Sort"
+									ItemsSource="{x:Bind ViewModel.SortFilterOptions, Mode=OneWay}"
+									SelectedIndex="0"
+									SelectionChanged="OnFilterSelectionChanged" />
+							</StackPanel>
+						</ScrollViewer>
 
-							<ListView ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}" SelectionMode="None">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<StackPanel Orientation="Vertical" Spacing="4" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemContainerStyle>
-									<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-										<Setter Property="Margin" Value="0" />
-										<Setter Property="Padding" Value="0" />
-										<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-									</Style>
-								</ListView.ItemContainerStyle>
-								<ListView.ItemTemplate>
+						<Grid Grid.Row="2">
+
+							<ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}" VerticalCacheLength="2">
+								<ItemsRepeater.Layout>
+									<StackLayout Orientation="Vertical" Spacing="4" />
+								</ItemsRepeater.Layout>
 									<DataTemplate x:DataType="bbvm:PullBlockButtonViewModel">
 										<bbuc:PullBlockButton ViewModel="{x:Bind}" />
 									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-
-							<StackPanel
-								x:Name="PageLoadingPanel"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								x:Load="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}"
-								Spacing="12">
-								<ProgressRing
-									Width="32"
-									Height="32"
-									IsIndeterminate="True" />
-								<TextBlock
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="Loading..."
-									TextAlignment="Center" />
-							</StackPanel>
+							</ItemsRepeater>
 
 							<StackPanel
 								x:Name="NoItemsPanel"

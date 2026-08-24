@@ -1,6 +1,7 @@
 using Octokit.GraphQL.Core;
 
 using FluentHub.Core.Clients;
+using FluentHub.Core.Queries.Repositories;
 
 namespace FluentHub.Core.Queries.Users
 {
@@ -10,6 +11,26 @@ namespace FluentHub.Core.Queries.Users
 
 		public PullRequestQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
+
+		public Task<PageResult<PullRequest>> GetPageAsync(
+			string login,
+			PageRequest page,
+			RepositoryItemListFilters filters,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserPullRequestPageAsync(
+				login,
+				page,
+				filters,
+				cancellationToken);
+
+		public Task<RepositoryItemFilterOptions> GetFilterOptionsAsync(
+			string login,
+			CancellationToken cancellationToken = default)
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(
+				login,
+				true,
+				cancellationToken);
+
 		public async Task<PageResult<PullRequest>> GetPageAsync(
 			string login,
 			PageRequest page,
@@ -27,6 +48,7 @@ namespace FluentHub.Core.Queries.Users
 				Direction = OctokitGraphQLModel.OrderDirection.Desc,
 				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
 			};
+			states ??= [OctokitGraphQLModel.PullRequestState.Open];
 
 			var query = new Query()
 				.User(login)
@@ -39,7 +61,7 @@ namespace FluentHub.Core.Queries.Users
 					headRefName,
 					labels is null ? null! : new Arg<IEnumerable<string>>(labels),
 					orderBy,
-					states is null ? null! : new Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>>(states))
+					new Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>>(states))
 				.Select(connection => new PullRequestConnection
 				{
 					Edges = connection.Edges.Select(edge => (PullRequestEdge?)new PullRequestEdge
