@@ -24,12 +24,6 @@ namespace FluentHub.ViewModels
 		private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
 		#region Sign in
-		public string AccessToken
-		{
-			get => Get("");
-			set => Set(value);
-		}
-
 		public bool SetupCompleted
 		{
 			get => Get(false);

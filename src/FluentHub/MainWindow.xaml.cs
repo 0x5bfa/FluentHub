@@ -3,6 +3,7 @@
 
 using FluentHub.Models;
 using FluentHub.Core.Clients;
+using FluentHub.Services;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
@@ -67,12 +68,8 @@ namespace FluentHub
 					{
 						if (rootFrame.Content == null)
 						{
-							if (App.AppSettings.SetupCompleted == true)
+							if (App.AppSettings.SetupCompleted && TryRestoreGitHubSession(logger))
 							{
-								// Initialize API connection
-								Ioc.Default.GetRequiredService<IGitHubSessionManager>()
-									.SwitchAccount(App.AppSettings.AccessToken);
-
 								rootFrame.Navigate(typeof(Views.MainPage));
 								pageType = typeof(Views.MainPage);
 							}
@@ -104,6 +101,29 @@ namespace FluentHub
 			else if (rootFrame.Content is Views.MainPage mainPage && pageType == typeof(Views.MainPage))
 			{
 				mainPage.Loaded += (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
+			}
+		}
+
+		private static bool TryRestoreGitHubSession(Utils.ILogger? logger)
+		{
+			try
+			{
+				var accessToken = Ioc.Default.GetRequiredService<GitHubTokenStore>()
+					.GetToken(App.AppSettings.SignedInUserName);
+
+				if (string.IsNullOrWhiteSpace(accessToken))
+				{
+					logger?.Warn("No secured GitHub access token was found for the signed-in account.");
+					return false;
+				}
+
+				Ioc.Default.GetRequiredService<IGitHubSessionManager>().SwitchAccount(accessToken);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				logger?.Error("Failed to restore the secured GitHub access token.", ex);
+				return false;
 			}
 		}
 

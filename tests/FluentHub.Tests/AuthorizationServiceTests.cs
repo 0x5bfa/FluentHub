@@ -10,7 +10,6 @@ public sealed class AuthorizationServiceTests
 	public async Task WaitForDeviceAccessTokenRejectsExpiredAuthorizationWithoutNetworkAccess()
 	{
 		var service = new AuthorizationService();
-		var secrets = new OctokitSecrets { ClientId = "client-id" };
 		var authorization = new DeviceAuthorizationResponse
 		{
 			DeviceCode = "device-code",
@@ -18,6 +17,6 @@ public sealed class AuthorizationServiceTests
 		};
 
 		await Assert.ThrowsExactlyAsync<TimeoutException>(() =>
-			service.WaitForDeviceAccessTokenAsync(secrets, authorization));
+			service.WaitForDeviceAccessTokenAsync(authorization));
 	}
 }

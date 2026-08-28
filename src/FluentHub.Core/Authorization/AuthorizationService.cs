@@ -8,6 +8,8 @@ namespace FluentHub.Core.Authorization
 {
 	public class AuthorizationService
 	{
+		// OAuth client IDs are public identifiers. Device Flow does not use a client secret.
+		private const string ClientId = "fb52c41fe979fd9d989d";
 		private const string DeviceCodeEndpoint = "https://github.com/login/device/code";
 		private const string AccessTokenEndpoint = "https://github.com/login/oauth/access_token";
 		private const string DeviceCodeGrantType = "urn:ietf:params:oauth:grant-type:device_code";
@@ -15,6 +17,7 @@ namespace FluentHub.Core.Authorization
 		[
 			"repo",
 			"workflow",
+			"read:packages",
 			"write:packages",
 			"delete:packages",
 			"admin:org",
@@ -26,6 +29,7 @@ namespace FluentHub.Core.Authorization
 			"user",
 			"delete_repo",
 			"write:discussion",
+			"read:project",
 			"admin:enterprise",
 			"admin:gpg_key",
 		];
@@ -33,14 +37,11 @@ namespace FluentHub.Core.Authorization
 		private static readonly HttpClient HttpClient = new();
 
 		public async Task<DeviceAuthorizationResponse> RequestDeviceAuthorizationAsync(
-			OctokitSecrets secrets,
 			CancellationToken cancellationToken = default)
 		{
-			var clientId = secrets.ClientId ?? throw new InvalidOperationException("GitHub OAuth client id is not configured.");
-
 			using FormUrlEncodedContent content = new(new Dictionary<string, string>
 			{
-				["client_id"] = clientId,
+				["client_id"] = ClientId,
 				["scope"] = string.Join(" ", Scopes),
 			});
 
@@ -67,14 +68,11 @@ namespace FluentHub.Core.Authorization
 
 		public async Task<string> RequestDeviceAccessTokenAsync(
 			string deviceCode,
-			OctokitSecrets secrets,
 			CancellationToken cancellationToken = default)
 		{
-			var clientId = secrets.ClientId ?? throw new InvalidOperationException("GitHub OAuth client id is not configured.");
-
 			using FormUrlEncodedContent content = new(new Dictionary<string, string>
 			{
-				["client_id"] = clientId,
+				["client_id"] = ClientId,
 				["device_code"] = deviceCode,
 				["grant_type"] = DeviceCodeGrantType,
 			});
@@ -104,12 +102,10 @@ namespace FluentHub.Core.Authorization
 		}
 
 		public async Task<string> WaitForDeviceAccessTokenAsync(
-			OctokitSecrets secrets,
 			DeviceAuthorizationResponse deviceAuthorization,
 			IProgress<DeviceAuthorizationPollingStatus>? progress = null,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(secrets);
 			ArgumentNullException.ThrowIfNull(deviceAuthorization);
 
 			var interval = Math.Max(deviceAuthorization.Interval ?? 5, 5);
@@ -123,7 +119,6 @@ namespace FluentHub.Core.Authorization
 				{
 					return await RequestDeviceAccessTokenAsync(
 						deviceAuthorization.DeviceCode,
-						secrets,
 						cancellationToken);
 				}
 				catch (DeviceAuthorizationPendingException)

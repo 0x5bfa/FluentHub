@@ -10,7 +10,7 @@
 - Follow existing naming and style in each project; keep changes minimal and focused.
 - Save text files as UTF-8 with CRLF line endings; keep `*.csproj` files as UTF-8 with BOM.
 - Prefer async/await end-to-end for I/O and network flows; avoid blocking calls on UI paths.
-- Do not commit secrets, tokens, or machine-local credentials (for example `AppCredentials.config` values).
+- Do not commit secrets, access tokens, refresh tokens, or machine-local credentials. OAuth client IDs are public identifiers.
 - Add or update concise comments only where behavior is non-obvious.
 
 ## Build & Validation

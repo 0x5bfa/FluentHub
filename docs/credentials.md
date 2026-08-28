@@ -1,41 +1,14 @@
-# Prepare OAuth credentials
+# GitHub authentication
 
-This application uses GitHub OAuth Device Flow. You must independently get a client ID from an OAuth app in your account.
+FluentHub uses the GitHub OAuth Device Flow. Contributors do not need to create an OAuth app or configure local credentials before building the application.
 
- 1.  Set some values on [your OAuth app settings](https://github.com/settings/developers):
+The OAuth client ID is embedded in `AuthorizationService` because client IDs are public identifiers. Device Flow does not use a client secret, and no client secret should be added to the application or its package.
 
-		![image](https://user-images.githubusercontent.com/62196528/161755644-1de8e2ec-ddea-4b47-ae14-bc3c326a33f8.png)
+After GitHub authorizes a user, FluentHub validates the returned access token by resolving the signed-in identity. The token is then stored under that GitHub login in Windows Credential Locker. It is never stored in application settings or source-controlled files.
 
-		|Name|Value|Required|
-		|-|-|-|
-		|Application name|`FluentHub`|True|
-		|Homepage URL|`https://github.com/FluentHub/FluentHub`|True|
-		|Application description|A fluent GitHub app for Windows|False|
-		|Authorization callback URL|`http://127.0.0.1`|True|
-		|Application logo|Use [this](https://user-images.githubusercontent.com/62196528/181265200-0f331fd0-e0b3-4896-8c6c-8468c8fd714f.png)|True|
-		|Badge background color|`#FFFFFF`|True (whatever)|
+Existing installs that stored an access token in application settings migrate it to Windows Credential Locker on first launch and remove the plaintext setting after the secure write succeeds.
 
- 2.  Enable Device Flow in the OAuth app settings.
- 3.  Open `src/FluentHub/AppCredentials.config` and replace the placeholder client ID. The client secret can be empty because Device Flow does not use it.
+For more information, see:
 
-		```xml
-		<?xml version="1.0" encoding="utf-8" ?>
-		<configuration>
-		    <client>
-		        <type key="id" value="YOUR_OAUTH_APP_CLIENT_ID"/>
-		        <type key="secret" value="YOUR_OAUTH_APP_CLIENT_SECRET"/>
-		    </client>
-		</configuration>
-		```
-
- 4.  To keep your local credentials out of normal Git status output, mark the tracked file as `skip-worktree`:
-
-		```powershell
-		git update-index --skip-worktree src/FluentHub/AppCredentials.config
-		```
-
-	To receive future repository updates to the placeholder file, clear the local flag first with `git update-index --no-skip-worktree src/FluentHub/AppCredentials.config`.
-
-		![image](https://user-images.githubusercontent.com/62196528/161758514-350c2d44-8ffc-402a-b67e-4ccc48c706df.png)
-
-		![image](https://user-images.githubusercontent.com/62196528/161756202-8c269cc3-a955-402e-a40e-f143b6b36fc6.png)	
+- [Authorizing OAuth apps with Device Flow](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#device-flow)
+- [Credential Locker for Windows apps](https://learn.microsoft.com/windows/apps/develop/security/credential-locker)

@@ -51,15 +51,11 @@ Your dashboard|Your repos|User profile page
 git clone https://github.com/FluentHub/FluentHub
 ```
 
-### 2. Prepare OAuth credentials
+### 2. GitHub authentication
 
-See [the documentation](../docs/credentials.md).
+No local OAuth credentials are required. FluentHub uses GitHub Device Flow with its public client ID and stores user access tokens in Windows Credential Locker.
 
-Every app build validates the tracked `AppCredentials.config`. Replace its placeholder client ID before building. You can hide your local credential changes with Git's local `skip-worktree` flag:
-
-```powershell
-git update-index --skip-worktree src/FluentHub/AppCredentials.config
-```
+See [the authentication documentation](../docs/credentials.md) for details.
 
 ### 3. Build the project
 

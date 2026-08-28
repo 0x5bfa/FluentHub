@@ -17,6 +17,7 @@ namespace FluentHub.ViewModels.SignIn
 		private readonly IGitHubSessionManager _sessionManager;
 		private readonly AuthorizationService _authorizationService;
 		private readonly AccountService _accountService;
+		private readonly GitHubTokenStore _tokenStore;
 		private readonly ILogger _logger;
 		private readonly IMessenger _messenger;
 		private CancellationTokenSource _deviceAuthorizationCancellationTokenSource = default!;
@@ -96,6 +97,7 @@ namespace FluentHub.ViewModels.SignIn
 			IGitHubSessionManager sessionManager,
 			AuthorizationService authorizationService,
 			AccountService accountService,
+			GitHubTokenStore tokenStore,
 			ILogger logger,
 			IMessenger messenger)
 		{
@@ -103,6 +105,7 @@ namespace FluentHub.ViewModels.SignIn
 			_sessionManager = sessionManager;
 			_authorizationService = authorizationService;
 			_accountService = accountService;
+			_tokenStore = tokenStore;
 			_logger = logger;
 			_messenger = messenger;
 
@@ -125,22 +128,7 @@ namespace FluentHub.ViewModels.SignIn
 				DeviceVerificationUri = string.Empty;
 				DeviceAuthorizationStatus = "Requesting a GitHub device code...";
 
-				var secrets = await OctokitSecretsService.LoadOctokitSecretsAsync();
-
-				if (secrets is null)
-				{
-					// Show error
-					TaskException = new NullReferenceException(
-						$"Please set values in AppCredentials.config\r\n" +
-						$"For more information, visit our GitHub link below.");
-
-					App.AppSettings.SetupProgress = false;
-					_logger?.Error(nameof(AuthorizeWithBrowserAsync), TaskException);
-					return;
-				}
-
 				var deviceAuthorization = await _authorizationService.RequestDeviceAuthorizationAsync(
-					secrets,
 					cancellationToken);
 
 				DeviceUserCode = deviceAuthorization.UserCode;
@@ -161,7 +149,6 @@ namespace FluentHub.ViewModels.SignIn
 						_ => DeviceAuthorizationStatus,
 					});
 				var accessToken = await _authorizationService.WaitForDeviceAccessTokenAsync(
-					secrets,
 					deviceAuthorization,
 					progress,
 					cancellationToken);
@@ -213,7 +200,7 @@ namespace FluentHub.ViewModels.SignIn
 			var queries = _gitHub.Users.Users;
 			string login = await queries.GetViewerLoginAsync(cancellationToken);
 
-			App.AppSettings.AccessToken = accessToken;
+			_tokenStore.SaveToken(login, accessToken);
 			App.AppSettings.SignedInUserName = login;
 			_accountService.AddAccount(login);
 		}

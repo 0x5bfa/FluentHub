@@ -49,6 +49,7 @@ namespace FluentHub.Helpers
 					// Application services
 					.AddSingleton<IAccountStore>(_ => App.AppSettings)
 					.AddSingleton<AccountService>()
+					.AddSingleton<GitHubTokenStore>()
 					// GitHub API
 					.AddSingleton<GitHubSessionManager>()
 					.AddSingleton<IGitHubSessionManager>(services => services.GetRequiredService<GitHubSessionManager>())
