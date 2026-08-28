@@ -1,0 +1,73 @@
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.Helpers;
+using FluentHub.Models;
+using FluentHub.Services;
+using FluentHub.Utils;
+using FluentHub.Shared.Controls.ViewModels.Overview;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.Core.Application.Models;
+
+namespace FluentHub.Features.Repositories.ViewModels.Discussions
+{
+	public class DiscussionViewModel : BaseViewModel
+	{
+		private Discussion _discussion = default!;
+		public Discussion Discussion { get => _discussion; set => SetProperty(ref _discussion, value); }
+
+		public IAsyncRelayCommand LoadRepositoryDiscussionPageCommand { get; }
+
+		public DiscussionViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
+		{
+			LoadRepositoryDiscussionPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionPageAsync);
+		}
+
+		private async Task LoadRepositoryDiscussionPageAsync()
+		{
+			SetTabInformation("Discussion", "Discussion", "Discussions");
+			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
+
+			_currentTaskingMethodName = nameof(LoadRepositoryDiscussionPageAsync);
+
+			try
+			{
+				_currentTaskingMethodName = nameof(LoadRepositoryAsync);
+				await LoadRepositoryAsync(Login, Name);
+
+				_currentTaskingMethodName = nameof(LoadRepositoryOneDiscussionAsync);
+				await LoadRepositoryOneDiscussionAsync(Login, Name);
+
+				SetTabInformation($"{Discussion.Title}", $"{Discussion.Title}");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+
+				_logger?.Error(_currentTaskingMethodName, ex);
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
+		}
+
+		private async Task LoadRepositoryOneDiscussionAsync(string owner, string name)
+		{
+			var queries = _gitHub.Repositories.Discussions;
+			var response = await queries.GetAsync(owner, name, Number);
+
+			if (response == null)
+				return;
+
+			Discussion = response;
+		}
+
+		private async Task LoadRepositoryAsync(string owner, string name)
+		{
+			var queries = _gitHub.Repositories.Repositories;
+			Repository = await queries.GetDetailsAsync(owner, name);
+		}
+	}
+}

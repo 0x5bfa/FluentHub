@@ -1,0 +1,111 @@
+// Copyright (c) 2022-2024 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
+using FluentHub.Features.Repositories.ViewModels;
+using FluentHub.Shared.Controls.ViewModels.BlockButtons;
+
+namespace FluentHub.Features.Users.ViewModels
+{
+	public class OverviewViewModel : BaseViewModel
+	{
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedRepositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedRepositories { get; }
+
+		private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnableRepositories;
+		public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnableRepositories { get; }
+
+		private RepoContextViewModel _contextViewModel = default!;
+		public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
+
+		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
+		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
+
+		public OverviewViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
+		{
+			_pinnedRepositories = new();
+			PinnedRepositories = new(_pinnedRepositories);
+
+			_pinnableRepositories = new();
+			PinnableRepositories = new(_pinnableRepositories);
+
+			LoadUserOverviewCommand = new AsyncRelayCommand(LoadUserOverviewAsync);
+			ShowPinnedRepositoriesEditorDialogCommand = new AsyncRelayCommand(ShowPinnedRepositoriesEditorDialogAsync);
+		}
+
+		private async Task LoadUserOverviewAsync()
+		{
+			SetTabInformation("Overview", "Overview", "Profile");
+			SetLoadingProgress(true);
+			InitializeNodePagingInfo();
+
+			_currentTaskingMethodName = nameof(LoadUserOverviewAsync);
+
+			try
+			{
+				await Task.WhenAll(
+					LoadUserAsync(Login),
+					LoadUserPinnableAndPinnedRepositoriesAsync(Login));
+
+				SetTabInformation("Overview", "Overview");
+			}
+			catch (Exception ex)
+			{
+				TaskException = ex;
+				IsTaskFaulted = true;
+			}
+			finally
+			{
+				SetLoadingProgress(false);
+			}
+		}
+
+		private async Task LoadUserPinnableAndPinnedRepositoriesAsync(string login)
+		{
+			_pinnableRepositories.Clear();
+			_pinnedRepositories.Clear();
+
+			var queries = _gitHub.Users.PinnedItems;
+			var pinnedItemsRes = await queries.GetAllAsync(login);
+			if (pinnedItemsRes == null) return;
+
+			if (pinnedItemsRes.Count == 0)
+			{
+				var pinnableItemsRes = await queries.GetAllPinnableItemsAsync(login);
+				if (pinnableItemsRes == null) return;
+
+				foreach (var item in pinnableItemsRes)
+				{
+					RepoBlockButtonViewModel viewModel = new(_gitHub)
+					{
+						Repository = item,
+						DisplayDetails = false,
+						DisplayStarButton = false,
+					};
+
+					_pinnableRepositories.Add(viewModel);
+				}
+			}
+			else
+			{
+				foreach (var item in pinnedItemsRes)
+				{
+					RepoBlockButtonViewModel viewModel = new(_gitHub)
+					{
+						Repository = item,
+						DisplayDetails = false,
+						DisplayStarButton = false,
+					};
+
+					_pinnedRepositories.Add(viewModel);
+				}
+			}
+		}
+
+		private async Task ShowPinnedRepositoriesEditorDialogAsync()
+		{
+			var dialogs = new global::FluentHub.Shared.Dialogs.Views.EditPinnedRepositoriesDialog(Login);
+			_ = await dialogs.ShowAsync();
+		}
+	}
+}

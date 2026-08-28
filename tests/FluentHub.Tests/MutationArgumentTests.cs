@@ -1,7 +1,7 @@
-using FluentHub.Core.Clients;
-using FluentHub.Core.Contracts;
-using FluentHub.Core.Mutations;
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Application.Models;
+using FluentHub.Core.Infrastructure.GitHub.Mutations;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

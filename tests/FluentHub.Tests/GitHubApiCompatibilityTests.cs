@@ -1,18 +1,18 @@
-using FluentHub.Core.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Clients;
 using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
-using OrganizationProjectV2Queries = FluentHub.Core.Queries.Organizations.ProjectV2Queries;
-using RepositoryIssueQueries = FluentHub.Core.Queries.Repositories.IssueQueries;
-using RepositoryIssueEventQueries = FluentHub.Core.Queries.Repositories.IssueEventQueries;
-using RepositoryProjectV2Queries = FluentHub.Core.Queries.Repositories.ProjectV2Queries;
-using RepositoryPullRequestEventQueries = FluentHub.Core.Queries.Repositories.PullRequestEventQueries;
-using RepositoryPullRequestQueries = FluentHub.Core.Queries.Repositories.PullRequestQueries;
-using UserActivityQueries = FluentHub.Core.Queries.Users.ActivityQueries;
-using UserProjectV2Queries = FluentHub.Core.Queries.Users.ProjectV2Queries;
-using UserRepositoryQueries = FluentHub.Core.Queries.Users.RepositoryQueries;
-using UserStarredRepositoryQueries = FluentHub.Core.Queries.Users.StarredRepoQueries;
+using OrganizationProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Organizations.ProjectV2Queries;
+using RepositoryIssueQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueQueries;
+using RepositoryIssueEventQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueEventQueries;
+using RepositoryProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.ProjectV2Queries;
+using RepositoryPullRequestEventQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.PullRequestEventQueries;
+using RepositoryPullRequestQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.PullRequestQueries;
+using UserActivityQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.ActivityQueries;
+using UserProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.ProjectV2Queries;
+using UserRepositoryQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.RepositoryQueries;
+using UserStarredRepositoryQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.StarredRepoQueries;
 
 namespace FluentHub.Tests;
 
@@ -145,7 +145,7 @@ public sealed class GitHubApiCompatibilityTests
 		var api = new FakeGitHubApiClient([]);
 		await Assert.ThrowsExactlyAsync<InvalidDataException>(() => new UserRepositoryQueries(api).SearchAllAsync(
 			"octocat",
-			new FluentHub.Core.Queries.Users.UserRepositoryListFilters()));
+			new FluentHub.Core.Infrastructure.GitHub.Queries.Users.UserRepositoryListFilters()));
 
 		Assert.HasCount(1, api.RawGraphQLQueries);
 		var query = api.RawGraphQLQueries[0];

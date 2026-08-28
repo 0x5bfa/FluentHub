@@ -1,4 +1,4 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;

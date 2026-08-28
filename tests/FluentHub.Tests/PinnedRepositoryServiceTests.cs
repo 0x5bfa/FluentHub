@@ -1,5 +1,5 @@
 using FluentHub.Core.Application;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;

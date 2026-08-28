@@ -1,0 +1,70 @@
+<ContentDialog
+	x:Class="FluentHub.Shared.Dialogs.Views.RepositoryRefsDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	CloseButtonText="Close"
+	DefaultButton="Primary"
+	PrimaryButtonText="Switch"
+	Style="{StaticResource DefaultContentDialogStyle}"
+	Title="Switch branches/tags"
+	mc:Ignorable="d">
+
+	<ContentDialog.Resources>
+		<x:Double x:Key="ContentDialogMaxWidth">640</x:Double>
+	</ContentDialog.Resources>
+
+	<Grid
+		MinWidth="480"
+		MinHeight="360"
+		RowSpacing="12">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<TextBox
+			x:Name="SearchBox"
+			PlaceholderText="Filter branches or tags"
+			TextChanged="OnSearchTextChanged">
+			<TextBox.Header>
+				<TextBlock Text="Find a branch or tag" />
+			</TextBox.Header>
+		</TextBox>
+
+		<SelectorBar
+			x:Name="ReferenceTypeSelector"
+			Grid.Row="1"
+			SelectionChanged="OnReferenceTypeSelectionChanged">
+			<SelectorBarItem x:Name="BranchesSelectorItem" Text="{x:Bind BranchesHeader}" />
+			<SelectorBarItem x:Name="TagsSelectorItem" Text="{x:Bind TagsHeader}" />
+		</SelectorBar>
+
+		<Grid Grid.Row="2">
+			<ListView
+				x:Name="ReferencesList"
+				ItemsSource="{x:Bind FilteredReferences, Mode=OneWay}"
+				SelectionChanged="OnReferenceSelectionChanged"
+				SelectionMode="Single">
+				<ListView.ItemTemplate>
+					<DataTemplate x:DataType="x:String">
+						<TextBlock
+							Padding="4,2"
+							Text="{x:Bind}"
+							TextTrimming="CharacterEllipsis" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<TextBlock
+				x:Name="EmptyStateText"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Text="No matching references"
+				Visibility="Collapsed" />
+		</Grid>
+	</Grid>
+</ContentDialog>

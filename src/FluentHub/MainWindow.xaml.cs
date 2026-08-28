@@ -6,10 +6,7 @@ using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using System.IO;
 using WinUIEx;
 
@@ -18,6 +15,7 @@ namespace FluentHub
 	public sealed class MainWindow : WindowEx
 	{
 		private static MainWindow? _Instance;
+		private Shell.Views.MainPage? _rootView;
 		public static MainWindow Instance => _Instance ??= new();
 
 		public IntPtr WindowHandle { get; }
@@ -47,26 +45,32 @@ namespace FluentHub
 			//InteropHelpers.SetPropW(WindowHandle, "NonRudeHWND", new IntPtr(1));
 		}
 
-		public void InitializeApplication(object? activatedEventArgs, bool forceReload = false)
+		public async void InitializeApplication(object? activatedEventArgs, bool forceReload = false)
 		{
-			Frame rootFrame = EnsureWindowIsInitialized();
 			_ = activatedEventArgs;
 
-			if (forceReload || rootFrame.Content is null)
+			if (forceReload && _rootView is not null)
 			{
-				rootFrame.Navigate(typeof(Views.MainPage), null, new SuppressNavigationTransitionInfo());
-				rootFrame.BackStack.Clear();
+				await _rootView.ShutdownAsync();
+				_rootView = null;
 			}
 
-			if (rootFrame.Content is FrameworkElement content && !content.IsLoaded)
+			if (_rootView is null)
+			{
+				_rootView = new Shell.Views.MainPage();
+				Content = _rootView;
+				await _rootView.InitializeAsync();
+			}
+
+			if (!_rootView.IsLoaded)
 			{
 				RoutedEventHandler? loaded = null;
 				loaded = (sender, args) =>
 				{
-					content.Loaded -= loaded;
+					_rootView.Loaded -= loaded;
 					DispatcherQueue.TryEnqueue(Activate);
 				};
-				content.Loaded += loaded;
+				_rootView.Loaded += loaded;
 			}
 			else
 			{
@@ -74,24 +78,5 @@ namespace FluentHub
 			}
 		}
 
-		private Frame EnsureWindowIsInitialized()
-		{
-			// Do not repeat app initialization when the Window already has content,
-			// just ensure that the window is active
-			if (MainWindow.Instance.Content is not Frame rootFrame)
-			{
-				// Create a Frame to act as the navigation context and navigate to the first page
-				rootFrame = new() { CacheSize = 1 };
-				rootFrame.NavigationFailed += OnNavigationFailed;
-
-				// Place the frame in the current Window
-				MainWindow.Instance.Content = rootFrame;
-			}
-
-			return rootFrame;
-		}
-
-		private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-			=> throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 	}
 }

@@ -1,4 +1,4 @@
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;
@@ -6,7 +6,7 @@ namespace FluentHub.Tests;
 [TestClass]
 public sealed class ContractArchitectureTests
 {
-	private const string ContractNamespace = "FluentHub.Core.Contracts";
+	private const string ContractNamespace = "FluentHub.Core.Application.Models";
 	private const string LegacyOctokitNamespace = "FluentHub.Octokit";
 	private const string LegacyRestModelNamespace = "FluentHub.Core.Models.v3";
 	private const string RestTransportModelNamespace = "Octokit";

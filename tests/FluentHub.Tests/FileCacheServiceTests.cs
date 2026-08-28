@@ -1,5 +1,6 @@
-using FluentHub.Core.Caching;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Abstractions.Caching;
+using FluentHub.Core.Infrastructure.Caching;
+using FluentHub.Core.Application.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
 

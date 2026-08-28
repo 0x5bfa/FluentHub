@@ -3,7 +3,7 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Models
 {

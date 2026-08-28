@@ -3,17 +3,17 @@
 
 using FluentHub.Utils;
 using FluentHub.Services;
-using FluentHub.ViewModels;
+using FluentHub.Features.AppSettings.ViewModels;
+using FluentHub.Core.Application.Abstractions.Authentication;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
-using FluentHub.ViewModels.Repositories.Codes;
+using FluentHub.Features.Repositories.ViewModels.Codes;
 using WinUIEx;
 
 namespace FluentHub
@@ -161,7 +161,7 @@ namespace FluentHub
 					return false;
 				}
 
-				Ioc.Default.GetRequiredService<IGitHubSessionManager>().SwitchAccount(accessToken);
+				Ioc.Default.GetRequiredService<IUserSession>().SwitchAccount(accessToken);
 				return true;
 			}
 			catch (Exception ex)
@@ -179,9 +179,6 @@ namespace FluentHub
 				ApplicationData.Current.LocalSettings.Values["INSTANCE_ACTIVE"] = -System.Diagnostics.Process.GetCurrentProcess().Id;
 			}
 		}
-
-		void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-			=> throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
 		private void OnSuspending(object sender, SuspendingEventArgs e)
 		{

@@ -1,0 +1,17 @@
+<UserControl
+	x:Class="FluentHub.Shared.Controls.Views.FeedBlocks.SingleCommentBlock"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:uc="using:FluentHub.Shared.Controls.Views"
+	d:DesignHeight="300"
+	d:DesignWidth="400"
+	mc:Ignorable="d">
+
+	<Grid Padding="16,12">
+		<uc:GitHubMarkdownTextBlock
+			MaxHeight="160"
+			Text="{x:Bind ViewModel.Details.Comment.Body, Mode=OneWay}" />
+	</Grid>
+</UserControl>

@@ -20,14 +20,14 @@ global using global::CommunityToolkit.Mvvm.Input;
 global using global::CommunityToolkit.Mvvm.Messaging;
 
 // FluentHub
-global using global::FluentHub.Data.EventArgs;
-global using global::FluentHub.Data.Factories;
-global using global::FluentHub.Data.Items;
 //global using global::FluentHub.Data.Models;
-global using global::FluentHub.Data.Parameters;
 global using global::FluentHub.Helpers;
 global using global::FluentHub.Services;
+global using global::FluentHub.Shared.Presentation;
+global using global::FluentHub.Shell.Chrome;
+global using global::FluentHub.Shell.Navigation;
+global using global::FluentHub.Shell.Tabs;
 global using global::FluentHub.Core;
-global using global::FluentHub.Core.Data.Enums;
-global using global::FluentHub.Core.Clients;
-global using global::FluentHub.Core.Contracts;
+global using global::FluentHub.Core.Application.Navigation;
+global using global::FluentHub.Core.Infrastructure.GitHub.Clients;
+global using global::FluentHub.Core.Application.Models;

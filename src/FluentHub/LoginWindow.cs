@@ -3,9 +3,7 @@
 
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System.IO;
 using WinUIEx;
 
@@ -13,7 +11,7 @@ namespace FluentHub
 {
 	public sealed class LoginWindow : WindowEx
 	{
-		private readonly Frame _rootFrame;
+		private readonly Features.SignIn.Views.IntroPage _rootView;
 
 		public LoginWindow()
 		{
@@ -35,21 +33,16 @@ namespace FluentHub
 			MaxHeight = 960;
 			IsMaximizable = false;
 
-			_rootFrame = new Frame { CacheSize = 1 };
-			_rootFrame.NavigationFailed += OnNavigationFailed;
-			Content = _rootFrame;
+			_rootView = new Features.SignIn.Views.IntroPage();
+			Content = _rootView;
 		}
 
-		public void Initialize()
+		public async void Initialize()
 		{
-			if (_rootFrame.Content is null)
-				_rootFrame.Navigate(typeof(Views.SignIn.IntroPage));
+			await _rootView.ActivateAsync(new SignInRoute(), CancellationToken.None);
 
 			Activate();
 			this.CenterOnScreen();
 		}
-
-		private static void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-			=> throw new Exception("Failed to load page " + e.SourcePageType.FullName);
 	}
 }

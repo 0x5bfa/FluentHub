@@ -1,4 +1,4 @@
-using FluentHub.Core.Authorization;
+using FluentHub.Core.Infrastructure.GitHub.Authorization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentHub.Tests;

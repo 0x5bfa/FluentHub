@@ -1,0 +1,41 @@
+// Copyright (c) 2022-2024 0x5BFA
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.Services;
+using FluentHub.Features.Repositories.ViewModels.PullRequests;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.Core.Application.Models;
+
+namespace FluentHub.Features.Repositories.Views.PullRequests
+{
+	public sealed partial class ChecksPage : NavigableView
+	{
+		public ChecksViewModel ViewModel;
+
+		public ChecksPage()
+			: base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
+		{
+			InitializeComponent();
+
+			ViewModel = GetRequiredService<ChecksViewModel>();
+			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
+			_screenViewModel = ViewModel;
+		}
+
+		protected override void OnActivated(AppRoute route)
+		{
+			var command = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+
+		private void OnCheckRunItemButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (sender is Button { Tag: CheckRun checkRun })
+				ViewModel.SelectedCheckRun = checkRun;
+		}
+	}
+}
