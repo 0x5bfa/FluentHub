@@ -209,8 +209,7 @@ namespace FluentHub.Views
 					NavigationService.Navigate<AppSettings.GeneralPage>();
 					break;
 				case "AppSignOut":
-					// Sign out here
-					NavigationService.Navigate<SignIn.IntroPage>();
+					App.Current.SignOut();
 					break;
 			}
 		}

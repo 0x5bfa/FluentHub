@@ -5,7 +5,7 @@ using FluentHub.ViewModels.SignIn;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.System;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace FluentHub.Views.SignIn
 {
@@ -16,33 +16,25 @@ namespace FluentHub.Views.SignIn
 			InitializeComponent();
 
 			ViewModel = Ioc.Default.GetRequiredService<IntroViewModel>();
+			Unloaded += (_, _) => ViewModel.CancelAuthorization();
 		}
 
 		public IntroViewModel ViewModel { get; }
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
-			=> MainWindow.Instance.SetTitleBar(AppTitleBar);
+			=> App.Current.SignInWindow?.SetTitleBar(AppTitleBar);
 
-		private void OnGoToMainPageButtonWhenAuthorizedClick(object sender, RoutedEventArgs e)
+		private void OnContinueButtonClick(object sender, RoutedEventArgs e)
+			=> App.Current.CompleteSignIn();
+
+		private void OnCopyDeviceCodeButtonClick(object sender, RoutedEventArgs e)
 		{
-			this.Frame.Navigate(typeof(Views.MainPage));
-		}
+			if (string.IsNullOrWhiteSpace(ViewModel.DeviceUserCode))
+				return;
 
-		private async void OnReportExceptionButtonClick(object sender, RoutedEventArgs e)
-		{
-			// Load the URL in user's browser
-			await Launcher.LaunchUriAsync(new Uri("https://github.com/FluentHub/FluentHub/issues/new?template=bug_report.yml"));
-		}
-
-		private async void OnSeeExceptionLogDetailsButtonClick(object sender, RoutedEventArgs e)
-		{
-
-			var dialog = new Dialogs.ExceptionStackTraceDialog(ViewModel.TaskException);
-
-			// https://github.com/microsoft/microsoft-ui-xaml/issues/2504
-			dialog.XamlRoot = this.Content.XamlRoot;
-
-			_ = await dialog.ShowAsync();
+			var dataPackage = new DataPackage();
+			dataPackage.SetText(ViewModel.DeviceUserCode);
+			Clipboard.SetContent(dataPackage);
 		}
 	}
 }

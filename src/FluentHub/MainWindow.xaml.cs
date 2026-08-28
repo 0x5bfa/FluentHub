@@ -2,17 +2,15 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Models;
-using FluentHub.Core.Clients;
-using FluentHub.Services;
 using Microsoft.UI;
 using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System.IO;
-using Windows.ApplicationModel.Activation;
 using WinUIEx;
 
 namespace FluentHub
@@ -49,81 +47,30 @@ namespace FluentHub
 			//InteropHelpers.SetPropW(WindowHandle, "NonRudeHWND", new IntPtr(1));
 		}
 
-		public void InitializeApplication(object activatedEventArgs)
+		public void InitializeApplication(object? activatedEventArgs, bool forceReload = false)
 		{
-			var logger = Ioc.Default.GetService<Utils.ILogger>();
-			var messenger = Ioc.Default.GetService<IMessenger>();
-
 			Frame rootFrame = EnsureWindowIsInitialized();
-			if (rootFrame is null)
-				return;
+			_ = activatedEventArgs;
 
-			Type pageType = typeof(Views.MainPage);
-
-			switch (activatedEventArgs)
-			{
-				// Launched the app with system activation
-				// Usually the users launch from start menu or taskbar
-				case ILaunchActivatedEventArgs launchArgs:
-					{
-						if (rootFrame.Content == null)
-						{
-							if (App.AppSettings.SetupCompleted && TryRestoreGitHubSession(logger))
-							{
-								rootFrame.Navigate(typeof(Views.MainPage));
-								pageType = typeof(Views.MainPage);
-							}
-							else
-							{
-								// Reset authorization setup status
-								App.AppSettings.SetupProgress = false;
-								App.AppSettings.SetupCompleted = false;
-
-								rootFrame.Navigate(typeof(Views.SignIn.IntroPage));
-								pageType = typeof(Views.SignIn.IntroPage);
-							}
-						}
-
-						break;
-					}
-			}
-
-			if (rootFrame.Content == null)
+			if (forceReload || rootFrame.Content is null)
 			{
 				rootFrame.Navigate(typeof(Views.MainPage), null, new SuppressNavigationTransitionInfo());
-				pageType = typeof(Views.MainPage);
+				rootFrame.BackStack.Clear();
 			}
 
-			if (rootFrame.Content is Views.SignIn.IntroPage introPage && pageType == typeof(Views.SignIn.IntroPage))
+			if (rootFrame.Content is FrameworkElement content && !content.IsLoaded)
 			{
-				introPage.Loaded += (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
-			}
-			else if (rootFrame.Content is Views.MainPage mainPage && pageType == typeof(Views.MainPage))
-			{
-				mainPage.Loaded += (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
-			}
-		}
-
-		private static bool TryRestoreGitHubSession(Utils.ILogger? logger)
-		{
-			try
-			{
-				var accessToken = Ioc.Default.GetRequiredService<GitHubTokenStore>()
-					.GetToken(App.AppSettings.SignedInUserName);
-
-				if (string.IsNullOrWhiteSpace(accessToken))
+				RoutedEventHandler? loaded = null;
+				loaded = (sender, args) =>
 				{
-					logger?.Warn("No secured GitHub access token was found for the signed-in account.");
-					return false;
-				}
-
-				Ioc.Default.GetRequiredService<IGitHubSessionManager>().SwitchAccount(accessToken);
-				return true;
+					content.Loaded -= loaded;
+					DispatcherQueue.TryEnqueue(Activate);
+				};
+				content.Loaded += loaded;
 			}
-			catch (Exception ex)
+			else
 			{
-				logger?.Error("Failed to restore the secured GitHub access token.", ex);
-				return false;
+				Activate();
 			}
 		}
 
@@ -145,6 +92,6 @@ namespace FluentHub
 		}
 
 		private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-			=> new Exception("Failed to load Page " + e.SourcePageType.FullName);
+			=> throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 	}
 }

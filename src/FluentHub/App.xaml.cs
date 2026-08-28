@@ -14,17 +14,22 @@ using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
 using FluentHub.ViewModels.Repositories.Codes;
+using WinUIEx;
 
 namespace FluentHub
 {
 	public partial class App : Application
 	{
 		private readonly IHost _host;
+		private object? _pendingActivationData;
+		private bool _mainWindowInitialized;
+		private bool _mainWindowVisible;
 
 		public new static App Current
 			=> (App)Application.Current;
 
 		public static SettingsViewModel AppSettings { get; set; } = default!;
+		public LoginWindow? SignInWindow { get; private set; }
 
 		public static string AppVersion =
 			$"{Windows.ApplicationModel.Package.Current.Id.Version.Major}." +
@@ -48,26 +53,122 @@ namespace FluentHub
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
 			var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
+			_pendingActivationData = activatedEventArgs.Data;
 
-			// Initialize MainWindow here
-			EnsureWindowIsInitialized();
-
-			// Initialize Window
-			MainWindow.Instance.InitializeApplication(activatedEventArgs.Data);
+			if (AppSettings.SetupCompleted && TryRestoreGitHubSession())
+			{
+				ShowMainWindow(activatedEventArgs.Data);
+			}
+			else
+			{
+				AppSettings.SetupProgress = false;
+				AppSettings.SetupCompleted = false;
+				ShowSignInWindow();
+			}
 		}
 
 		public void OnActivated(AppActivationArguments activatedEventArgs)
 		{
-			// Called from Program class
+			_pendingActivationData = activatedEventArgs.Data;
 
-			// Initialize Window
-			_ = MainWindow.Instance.DispatcherQueue.EnqueueAsync(() => MainWindow.Instance.InitializeApplication(activatedEventArgs.Data));
+			if (SignInWindow is not null)
+			{
+				_ = SignInWindow.DispatcherQueue.EnqueueAsync(SignInWindow.Activate);
+			}
+			else if (_mainWindowInitialized)
+			{
+				_ = MainWindow.Instance.DispatcherQueue.EnqueueAsync(
+					() => MainWindow.Instance.InitializeApplication(activatedEventArgs.Data));
+			}
 		}
 
-		private void EnsureWindowIsInitialized()
+		public void CompleteSignIn()
 		{
+			if (!AppSettings.SetupCompleted)
+				return;
+
+			var signInWindow = SignInWindow;
+			ShowMainWindow(_pendingActivationData, forceReload: _mainWindowInitialized);
+			signInWindow?.Close();
+		}
+
+		public void SignOut()
+		{
+			Ioc.Default.GetRequiredService<GitHubTokenStore>()
+				.RemoveToken(AppSettings.SignedInUserName);
+
+			AppSettings.SetupProgress = false;
+			AppSettings.SetupCompleted = false;
+			_mainWindowVisible = false;
+			MainWindow.Instance.Hide();
+			ShowSignInWindow();
+		}
+
+		private void ShowMainWindow(object? activatedEventArgs, bool forceReload = false)
+		{
+			EnsureMainWindowIsInitialized();
+			MainWindow.Instance.InitializeApplication(activatedEventArgs, forceReload);
+			_mainWindowVisible = true;
+		}
+
+		private void ShowSignInWindow()
+		{
+			if (SignInWindow is null)
+			{
+				SignInWindow = new LoginWindow();
+				SignInWindow.Activated += Window_Activated;
+				SignInWindow.Closed += SignInWindow_Closed;
+			}
+
+			SignInWindow.Initialize();
+		}
+
+		private void EnsureMainWindowIsInitialized()
+		{
+			if (_mainWindowInitialized)
+				return;
+
 			MainWindow.Instance.Activated += Window_Activated;
 			MainWindow.Instance.Closed += (_, _) => _host.Dispose();
+			_mainWindowInitialized = true;
+		}
+
+		private void SignInWindow_Closed(object sender, WindowEventArgs args)
+		{
+			SignInWindow = null;
+
+			if (_mainWindowVisible)
+				return;
+
+			if (_mainWindowInitialized)
+				MainWindow.Instance.Close();
+			else
+				_host.Dispose();
+		}
+
+		private static bool TryRestoreGitHubSession()
+		{
+			var logger = Ioc.Default.GetService<Utils.ILogger>();
+
+			try
+			{
+				var accessToken = Ioc.Default.GetRequiredService<GitHubTokenStore>()
+					.GetToken(AppSettings.SignedInUserName);
+
+				if (string.IsNullOrWhiteSpace(accessToken))
+				{
+					logger?.Warn("No secured GitHub access token was found for the signed-in account.");
+					return false;
+				}
+
+				Ioc.Default.GetRequiredService<IGitHubSessionManager>().SwitchAccount(accessToken);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				logger?.Error("Failed to restore the secured GitHub access token.", ex);
+				return false;
+			}
 		}
 
 		private void Window_Activated(object sender, WindowActivatedEventArgs args)

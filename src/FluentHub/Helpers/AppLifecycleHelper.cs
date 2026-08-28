@@ -24,7 +24,10 @@ namespace FluentHub.Helpers
 	{
 		internal static void CloseApp()
 		{
-			MainWindow.Instance.Close();
+			if (App.Current.SignInWindow is not null)
+				App.Current.SignInWindow.Close();
+			else
+				MainWindow.Instance.Close();
 		}
 
 		internal static AppWindow GetAppWindow(Window w)
@@ -58,7 +61,7 @@ namespace FluentHub.Helpers
 					.AddSingleton<AuthorizationService>()
 					// ViewModels
 					.AddSingleton<MainPageViewModel>()
-					.AddSingleton<ViewModels.SignIn.IntroViewModel>()
+					.AddTransient<ViewModels.SignIn.IntroViewModel>()
 					.AddTransient<ViewModels.AppSettings.GeneralViewModel>()
 					.AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
 					.AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
