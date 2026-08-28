@@ -79,7 +79,6 @@ internal static class ServiceCollectionExtensions
 			.AddTransient<ViewModels.Controls.FileContentBlockViewModel>()
 			.AddTransient<ViewModels.Controls.FileNavigationBlockViewModel>()
 			.AddTransient<ViewModels.Controls.IssueCommentBlockViewModel>()
-			.AddTransient<ViewModels.Controls.ReadmeContentBlockViewModel>()
 			.AddTransient<ViewModels.Controls.LatestCommitBlockViewModel>()
 			.AddTransient<ViewModels.Controls.UserContributionGraphViewModel>()
 			.AddTransient<ViewModels.Users.ContributionsViewModel>()

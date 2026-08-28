@@ -1,6 +1,3 @@
-using FluentHub.Services;
-using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -8,39 +5,33 @@ namespace FluentHub.Controls
 {
 	public sealed partial class ReadmeContentBlock : UserControl
 	{
-		#region propdp
-		public static readonly DependencyProperty ContextViewModelProperty =
+		public static readonly DependencyProperty BaseUrlProperty =
 			DependencyProperty.Register(
-				nameof(ContextViewModel),
-				typeof(RepoContextViewModel),
+				nameof(BaseUrl),
+				typeof(string),
 				typeof(ReadmeContentBlock),
-				new PropertyMetadata(null, OnContextViewModelChanged));
+				new PropertyMetadata(null));
 
-		public RepoContextViewModel? ContextViewModel
+		public static readonly DependencyProperty MarkdownProperty =
+			DependencyProperty.Register(
+				nameof(Markdown),
+				typeof(string),
+				typeof(ReadmeContentBlock),
+				new PropertyMetadata(string.Empty));
+
+		public string? BaseUrl
 		{
-			get => (RepoContextViewModel?)GetValue(ContextViewModelProperty);
-			set => SetValue(ContextViewModelProperty, value);
+			get => (string?)GetValue(BaseUrlProperty);
+			set => SetValue(BaseUrlProperty, value);
 		}
 
-		private static async void OnContextViewModelChanged(
-			DependencyObject sender,
-			DependencyPropertyChangedEventArgs args)
+		public string Markdown
 		{
-			if (sender is not ReadmeContentBlock control || args.NewValue is not RepoContextViewModel context)
-				return;
-
-			control.ViewModel.ContextViewModel = context;
-			await control.ViewModel.LoadRepositoryReadmeAsync();
+			get => (string)GetValue(MarkdownProperty);
+			set => SetValue(MarkdownProperty, value);
 		}
-		#endregion
 
 		public ReadmeContentBlock()
-		{
-			InitializeComponent();
-
-			ViewModel = Ioc.Default.GetRequiredService<ReadmeContentBlockViewModel>();
-		}
-
-		public ReadmeContentBlockViewModel ViewModel { get; }
+			=> InitializeComponent();
 	}
 }

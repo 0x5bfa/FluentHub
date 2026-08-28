@@ -18,6 +18,12 @@ namespace FluentHub.ViewModels.Users
 		private RepoContextViewModel _contextViewModel = default!;
 		public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
+		private string? _profileReadmeBaseUrl;
+		public string? ProfileReadmeBaseUrl { get => _profileReadmeBaseUrl; set => SetProperty(ref _profileReadmeBaseUrl, value); }
+
+		private string _profileReadmeMarkdown = string.Empty;
+		public string ProfileReadmeMarkdown { get => _profileReadmeMarkdown; set => SetProperty(ref _profileReadmeMarkdown, value); }
+
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
 
@@ -45,7 +51,8 @@ namespace FluentHub.ViewModels.Users
 			{
 				await Task.WhenAll(
 					LoadUserAsync(Login),
-					LoadUserPinnableAndPinnedRepositoriesAsync(Login));
+					LoadUserPinnableAndPinnedRepositoriesAsync(Login),
+					LoadProfileReadmeAsync(Login));
 
 				SetTabInformation("Overview", "Overview");
 			}
@@ -58,6 +65,19 @@ namespace FluentHub.ViewModels.Users
 			{
 				SetLoadingProgress(false);
 			}
+		}
+
+		private async Task LoadProfileReadmeAsync(string login)
+		{
+			ProfileReadmeBaseUrl = null;
+			ProfileReadmeMarkdown = string.Empty;
+
+			var markdown = await _gitHub.Users.Users.GetProfileReadmeMarkdownAsync(login);
+			if (string.IsNullOrWhiteSpace(markdown))
+				return;
+
+			ProfileReadmeBaseUrl = $"https://raw.githubusercontent.com/{login}/{login}/HEAD/";
+			ProfileReadmeMarkdown = markdown;
 		}
 
 		private async Task LoadUserPinnableAndPinnedRepositoriesAsync(string login)

@@ -39,6 +39,10 @@
 				<ScrollViewer Grid.Column="1">
 					<StackPanel Padding="32" Spacing="8">
 
+						<uc:ReadmeContentBlock
+							BaseUrl="{x:Bind ViewModel.ProfileReadmeBaseUrl, Mode=OneWay}"
+							Markdown="{x:Bind ViewModel.ProfileReadmeMarkdown, Mode=OneWay}" />
+
 						<Grid
 							x:Name="PinnedRepositoriesGrid"
 							x:Load="{x:Bind ViewModel.PinnedRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"

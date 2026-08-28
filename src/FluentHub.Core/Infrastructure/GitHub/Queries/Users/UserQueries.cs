@@ -81,6 +81,45 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			return response;
 		}
 
+		public Task<string> GetProfileReadmeMarkdownAsync(string login, CancellationToken cancellationToken = default)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+
+			if (_cache is null)
+				return GetProfileReadmeMarkdownUncachedAsync(login, cancellationToken);
+
+			var key = CacheKey.ForAccount(_gitHub.CachePartition, "profile-readmes", login.Trim().ToLowerInvariant());
+			return _cache.GetOrCreateAsync(
+				key,
+				CachePolicies.User,
+				CacheSerializers.String,
+				token => GetProfileReadmeMarkdownUncachedAsync(login, token),
+				cancellationToken);
+		}
+
+		private async Task<string> GetProfileReadmeMarkdownUncachedAsync(
+			string login,
+			CancellationToken cancellationToken)
+		{
+			var query = new Query()
+				.Repository(name: login, owner: login)
+				.Select(repository => new
+				{
+					repository.IsPrivate,
+					Markdown = repository.Object(expression: "HEAD:README.md")
+						.Cast<OctokitGraphQLModel.Blob>()
+						.Select(blob => blob.Text)
+						.SingleOrDefault(),
+				})
+				.Compile();
+
+			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
+
+			return response is null || response.IsPrivate
+				? string.Empty
+				: response.Markdown ?? string.Empty;
+		}
+
 		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)
 		{
 			if (_cache is null)

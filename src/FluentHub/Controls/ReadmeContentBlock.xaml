@@ -22,7 +22,7 @@
 		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 		BorderThickness="1"
 		CornerRadius="8"
-		Visibility="{x:Bind ViewModel.ManagedToLoadReadmeContents, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+		Visibility="{x:Bind Markdown, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -63,8 +63,8 @@
 				Background="{ThemeResource SolidBackgroundFillColorBase}"
 				CornerRadius="8">
 				<local:GitHubMarkdownTextBlock
-					BaseUrl="{x:Bind ViewModel.BaseUrl, Mode=OneWay}"
-					Text="{x:Bind ViewModel.Markdown, Mode=OneWay}" />
+					BaseUrl="{x:Bind BaseUrl, Mode=OneWay}"
+					Text="{x:Bind Markdown, Mode=OneWay}" />
 			</Grid>
 
 		</Grid>

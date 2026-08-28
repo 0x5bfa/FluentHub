@@ -13,6 +13,7 @@ using UserActivityQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.A
 using UserProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.ProjectV2Queries;
 using UserRepositoryQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.RepositoryQueries;
 using UserStarredRepositoryQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.StarredRepoQueries;
+using UserQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Users.UserQueries;
 
 namespace FluentHub.Tests;
 
@@ -175,6 +176,26 @@ public sealed class GitHubApiCompatibilityTests
 			Assert.IsFalse(query.Contains("issues(", StringComparison.Ordinal));
 			Assert.IsFalse(query.Contains("pullRequests(", StringComparison.Ordinal));
 		}
+	}
+
+	[TestMethod]
+	public async Task ProfileReadmeQueryRequestsVisibilityAndRootReadme()
+	{
+		var api = new FakeGitHubApiClient([])
+		{
+			ThrowAfterGraphQLCompilation = true,
+		};
+
+		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+			() => new UserQueries(api).GetProfileReadmeMarkdownAsync("octocat"));
+
+		Assert.HasCount(1, api.GraphQLQueries);
+		var query = api.GraphQLQueries[0];
+		Assert.IsTrue(query.Contains("repository(", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("isPrivate", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("object(", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("... on Blob", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("text", StringComparison.Ordinal));
 	}
 
 	private sealed class FakeGitHubApiClient(IReadOnlyList<global::Octokit.Activity> activities) : IGitHubApiClient
