@@ -1,4 +1,4 @@
-<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
 <navigation:NavigableView
 	x:Class="FluentHub.Views.Viewers.NotificationsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

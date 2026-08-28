@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Helpers;
