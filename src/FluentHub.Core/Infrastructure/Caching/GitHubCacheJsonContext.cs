@@ -14,6 +14,7 @@ namespace FluentHub.Core.Infrastructure.Caching
 	[JsonSerializable(typeof(CachedUserSummary))]
 	[JsonSerializable(typeof(CachedRepositorySummary))]
 	[JsonSerializable(typeof(CachedOrganizationSummary))]
+	[JsonSerializable(typeof(ProfileReadme))]
 	internal sealed partial class GitHubCacheJsonContext : JsonSerializerContext
 	{
 	}
@@ -40,6 +41,9 @@ namespace FluentHub.Core.Infrastructure.Caching
 				GitHubCacheJsonContext.Default.CachedOrganizationSummary),
 			static bytes => SystemTextJsonSerializer.Deserialize(bytes, GitHubCacheJsonContext.Default.CachedOrganizationSummary)?.ToContract()
 				?? throw new SystemTextJsonException("Cached organization was null."));
+
+		public static CacheSerializer<ProfileReadme> ProfileReadme { get; } =
+			CacheSerializer<ProfileReadme>.FromJsonTypeInfo(GitHubCacheJsonContext.Default.ProfileReadme);
 	}
 
 	internal sealed class CachedUserSummary

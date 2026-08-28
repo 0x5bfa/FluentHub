@@ -81,23 +81,23 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			return response;
 		}
 
-		public Task<string> GetProfileReadmeMarkdownAsync(string login, CancellationToken cancellationToken = default)
+		public Task<ProfileReadme> GetProfileReadmeAsync(string login, CancellationToken cancellationToken = default)
 		{
 			ArgumentException.ThrowIfNullOrWhiteSpace(login);
 
 			if (_cache is null)
-				return GetProfileReadmeMarkdownUncachedAsync(login, cancellationToken);
+				return GetProfileReadmeUncachedAsync(login, cancellationToken);
 
-			var key = CacheKey.ForAccount(_gitHub.CachePartition, "profile-readmes", login.Trim().ToLowerInvariant());
+			var key = CacheKey.ForAccount(_gitHub.CachePartition, "profile-readmes-v2", login.Trim().ToLowerInvariant());
 			return _cache.GetOrCreateAsync(
 				key,
 				CachePolicies.User,
-				CacheSerializers.String,
-				token => GetProfileReadmeMarkdownUncachedAsync(login, token),
+				GitHubCacheSerializers.ProfileReadme,
+				token => GetProfileReadmeUncachedAsync(login, token),
 				cancellationToken);
 		}
 
-		private async Task<string> GetProfileReadmeMarkdownUncachedAsync(
+		private async Task<ProfileReadme> GetProfileReadmeUncachedAsync(
 			string login,
 			CancellationToken cancellationToken)
 		{
@@ -106,6 +106,13 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 				.Select(repository => new
 				{
 					repository.IsPrivate,
+					repository.Name,
+					DefaultBranchName = repository.DefaultBranchRef
+						.Select(reference => reference.Name)
+						.SingleOrDefault(),
+					OwnerLogin = repository.Owner
+						.Select(owner => owner.Login)
+						.Single(),
 					Markdown = repository.Object(expression: "HEAD:README.md")
 						.Cast<OctokitGraphQLModel.Blob>()
 						.Select(blob => blob.Text)
@@ -115,9 +122,23 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
 
-			return response is null || response.IsPrivate
-				? string.Empty
-				: response.Markdown ?? string.Empty;
+			if (response is null
+				|| response.IsPrivate
+				|| string.IsNullOrWhiteSpace(response.DefaultBranchName)
+				|| string.IsNullOrWhiteSpace(response.Markdown)
+				|| string.IsNullOrWhiteSpace(response.Name)
+				|| string.IsNullOrWhiteSpace(response.OwnerLogin))
+			{
+				return new();
+			}
+
+			return new()
+			{
+				DefaultBranchName = response.DefaultBranchName,
+				Markdown = response.Markdown,
+				OwnerLogin = response.OwnerLogin,
+				RepositoryName = response.Name,
+			};
 		}
 
 		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)

@@ -210,6 +210,26 @@ public sealed class FileCacheServiceTests
 		Assert.AreEqual("Open source organization", restoredOrganization.Description);
 	}
 
+	[TestMethod]
+	public void ProfileReadmeSerializerPreservesMarkdownAndDefaultBranch()
+	{
+		var profileReadme = new ProfileReadme
+		{
+			DefaultBranchName = "main",
+			Markdown = "# Hello",
+			OwnerLogin = "octocat",
+			RepositoryName = "Octocat",
+		};
+
+		var restored = GitHubCacheSerializers.ProfileReadme.Deserialize(
+			GitHubCacheSerializers.ProfileReadme.Serialize(profileReadme));
+
+		Assert.AreEqual("main", restored.DefaultBranchName);
+		Assert.AreEqual("# Hello", restored.Markdown);
+		Assert.AreEqual("octocat", restored.OwnerLogin);
+		Assert.AreEqual("Octocat", restored.RepositoryName);
+	}
+
 	private sealed class ManualTimeProvider(DateTimeOffset now) : TimeProvider
 	{
 		private DateTimeOffset _now = now;

@@ -21,7 +21,7 @@
 		Background="{ThemeResource LayerFillColorDefaultBrush}"
 		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 		BorderThickness="1"
-		CornerRadius="8"
+		CornerRadius="{StaticResource OverlayCornerRadius}"
 		Visibility="{x:Bind Markdown, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
 		<Grid.RowDefinitions>
@@ -30,7 +30,7 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Padding="32,16">
+		<Grid Padding="16,8,16,4">
 
 			<TextBlock
 				VerticalAlignment="Center"
@@ -38,36 +38,30 @@
 				Text="README" />
 
 			<Button
-				Width="32"
 				Height="32"
 				HorizontalAlignment="Right"
 				Background="Transparent"
-				IsEnabled="False"
-				Style="{StaticResource ClearButtonStyle}"
-				Visibility="Collapsed">
-				<FontIcon
-					FontSize="14"
-					Foreground="{ThemeResource TextFillColorSecondary}"
-					Glyph="&#xe70f;" />
+				BorderThickness="0"
+				Click="OnEditButtonClick"
+				Visibility="{x:Bind EditUri, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+				<StackPanel Orientation="Horizontal" Spacing="6">
+					<FontIcon
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondary}"
+						Glyph="&#xE70F;" />
+					<TextBlock Foreground="{ThemeResource TextFillColorSecondary}" Text="Edit" />
+				</StackPanel>
 			</Button>
 
 		</Grid>
 
 		<MenuFlyoutSeparator Grid.Row="1" />
 
-		<Grid Grid.Row="2">
-
-			<Grid
-				Margin="12"
-				Padding="20"
-				Background="{ThemeResource SolidBackgroundFillColorBase}"
-				CornerRadius="8">
-				<local:GitHubMarkdownTextBlock
-					BaseUrl="{x:Bind BaseUrl, Mode=OneWay}"
-					Text="{x:Bind Markdown, Mode=OneWay}" />
-			</Grid>
-
-		</Grid>
+		<local:GitHubMarkdownTextBlock
+			Grid.Row="2"
+			Margin="16,8,16,16"
+			BaseUrl="{x:Bind BaseUrl, Mode=OneWay}"
+			Text="{x:Bind Markdown, Mode=OneWay}" />
 
 	</Grid>
 </UserControl>

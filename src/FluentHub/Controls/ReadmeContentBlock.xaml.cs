@@ -19,6 +19,13 @@ namespace FluentHub.Controls
 				typeof(ReadmeContentBlock),
 				new PropertyMetadata(string.Empty));
 
+		public static readonly DependencyProperty EditUriProperty =
+			DependencyProperty.Register(
+				nameof(EditUri),
+				typeof(Uri),
+				typeof(ReadmeContentBlock),
+				new PropertyMetadata(null));
+
 		public string? BaseUrl
 		{
 			get => (string?)GetValue(BaseUrlProperty);
@@ -31,7 +38,19 @@ namespace FluentHub.Controls
 			set => SetValue(MarkdownProperty, value);
 		}
 
+		public Uri? EditUri
+		{
+			get => (Uri?)GetValue(EditUriProperty);
+			set => SetValue(EditUriProperty, value);
+		}
+
 		public ReadmeContentBlock()
 			=> InitializeComponent();
+
+		private async void OnEditButtonClick(object sender, RoutedEventArgs e)
+		{
+			if (EditUri is not null)
+				_ = await Windows.System.Launcher.LaunchUriAsync(EditUri);
+		}
 	}
 }

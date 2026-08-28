@@ -187,12 +187,13 @@ public sealed class GitHubApiCompatibilityTests
 		};
 
 		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
-			() => new UserQueries(api).GetProfileReadmeMarkdownAsync("octocat"));
+			() => new UserQueries(api).GetProfileReadmeAsync("octocat"));
 
 		Assert.HasCount(1, api.GraphQLQueries);
 		var query = api.GraphQLQueries[0];
 		Assert.IsTrue(query.Contains("repository(", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("isPrivate", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("defaultBranchRef", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("object(", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("... on Blob", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("text", StringComparison.Ordinal));

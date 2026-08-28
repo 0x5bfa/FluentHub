@@ -41,6 +41,7 @@
 
 						<uc:ReadmeContentBlock
 							BaseUrl="{x:Bind ViewModel.ProfileReadmeBaseUrl, Mode=OneWay}"
+							EditUri="{x:Bind ViewModel.ProfileReadmeEditUri, Mode=OneWay}"
 							Markdown="{x:Bind ViewModel.ProfileReadmeMarkdown, Mode=OneWay}" />
 
 						<Grid
