@@ -3,7 +3,7 @@
 
 using FluentHub.Utils;
 using FluentHub.Services;
-using FluentHub.Features.AppSettings.ViewModels;
+using FluentHub.ViewModels.AppSettings;
 using FluentHub.Core.Application.Abstractions.Authentication;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
@@ -13,7 +13,7 @@ using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
-using FluentHub.Features.Repositories.ViewModels.Codes;
+using FluentHub.ViewModels.Repositories.Codes;
 using WinUIEx;
 
 namespace FluentHub

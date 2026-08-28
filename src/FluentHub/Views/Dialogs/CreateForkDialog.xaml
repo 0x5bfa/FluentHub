@@ -1,0 +1,108 @@
+<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<ContentDialog
+	x:Class="FluentHub.Views.Dialogs.CreateForkDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:contracts="using:FluentHub.Core.Application.Models"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:primer="using:FluentHub.Controls.PrimerControls"
+	CloseButtonText="Cancel"
+	DefaultButton="Primary"
+	PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
+	PrimaryButtonText="Create fork"
+	Style="{StaticResource DefaultContentDialogStyle}"
+	Title="Create a new fork"
+	mc:Ignorable="d">
+
+	<ContentDialog.Resources>
+		<x:Double x:Key="ContentDialogMaxWidth">720</x:Double>
+	</ContentDialog.Resources>
+
+	<ScrollViewer MaxHeight="620" VerticalScrollBarVisibility="Auto">
+		<StackPanel MinWidth="540" MaxWidth="680" Spacing="16">
+			<TextBlock
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Text="A fork is a copy of a repository. Forking lets you experiment with changes without affecting the original project."
+				TextWrapping="Wrap" />
+
+			<TextBlock
+				FontStyle="Italic"
+				Text="Required fields are marked with an asterisk (*)." />
+
+			<Grid ColumnSpacing="8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="220" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<StackPanel Spacing="4">
+					<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Owner *" />
+					<ComboBox
+						x:Name="OwnerComboBox"
+						HorizontalAlignment="Stretch"
+						ItemsSource="{x:Bind Owners, Mode=OneTime}"
+						SelectedIndex="0"
+						SelectionChanged="OnInputChanged">
+						<ComboBox.ItemTemplate>
+							<DataTemplate x:DataType="contracts:ForkOwner">
+								<StackPanel Orientation="Horizontal" Spacing="8">
+									<primer:EntityAvatar Size="20" Source="{x:Bind AvatarUrl}" />
+									<TextBlock VerticalAlignment="Center" Text="{x:Bind Login}" />
+								</StackPanel>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</StackPanel>
+
+				<TextBlock
+					Grid.Column="1"
+					Margin="0,30,0,0"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="/" />
+
+				<StackPanel Grid.Column="2" Spacing="4">
+					<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Repository name *" />
+					<TextBox
+						x:Name="RepositoryNameTextBox"
+						MaxLength="100"
+						TextChanged="OnInputChanged" />
+				</StackPanel>
+			</Grid>
+
+			<TextBlock
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Text="By default, forks use the upstream repository name. Choose another name to distinguish this fork."
+				TextWrapping="Wrap" />
+
+			<StackPanel Spacing="4">
+				<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Description" />
+				<TextBox
+					x:Name="DescriptionTextBox"
+					MaxLength="350"
+					PlaceholderText="Description (optional)"
+					TextChanged="OnDescriptionTextChanged" />
+				<TextBlock
+					x:Name="DescriptionLengthTextBlock"
+					HorizontalAlignment="Right"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Style="{StaticResource CaptionTextBlockStyle}" />
+			</StackPanel>
+
+			<Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+			<StackPanel Spacing="2">
+				<CheckBox
+					x:Name="DefaultBranchOnlyCheckBox"
+					Content="Copy the default branch only"
+					IsChecked="True" />
+				<TextBlock
+					Margin="32,0,0,0"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="{x:Bind DefaultBranchDescription, Mode=OneTime}"
+					TextWrapping="Wrap" />
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+</ContentDialog>

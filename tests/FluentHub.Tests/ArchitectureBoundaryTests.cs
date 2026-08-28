@@ -69,15 +69,57 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
+	public void MainProjectCodeUsesOnlyApprovedFolders()
+	{
+		var root = FindRepositoryRoot();
+		var allowedFolders = new HashSet<string>(StringComparer.Ordinal)
+		{
+			"Converters",
+			"Controls",
+			"Data",
+			"Extensions",
+			"Helpers",
+			"Services",
+			"Utils",
+			"ViewModels",
+			"Views",
+		};
+		var allowedRootFiles = new HashSet<string>(StringComparer.Ordinal)
+		{
+			"App.xaml",
+			"App.xaml.cs",
+			"GlobalUsings.cs",
+			"Program.cs",
+		};
+		var violations = new List<string>();
+
+		var projectRoot = Path.Combine(root, "src", "FluentHub");
+		foreach (var path in Directory.EnumerateFiles(projectRoot, "*", SearchOption.AllDirectories)
+			.Where(path => Path.GetExtension(path) is ".cs" or ".xaml")
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin")))
+		{
+			var relativePath = Path.GetRelativePath(projectRoot, path);
+			var segments = relativePath.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+			if (segments.Length == 1
+				? !allowedRootFiles.Contains(relativePath)
+				: !allowedFolders.Contains(segments[0]))
+			{
+				violations.Add(Path.GetRelativePath(root, path));
+			}
+		}
+
+		Assert.AreEqual(0, violations.Count,
+			$"Main project code exists outside the approved folders:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
 	public void PersonPictureIsCentralizedInUserAvatar()
 	{
 		var root = FindRepositoryRoot();
 		var presentationRoot = Path.Combine(root, "src", "FluentHub");
 		var userAvatarPath = Path.Combine(
 			presentationRoot,
-			"Shared",
 			"Controls",
-			"Views",
 			"UserAvatar.cs");
 		var violations = Directory.EnumerateFiles(presentationRoot, "*", SearchOption.AllDirectories)
 			.Where(path => Path.GetExtension(path) is ".cs" or ".xaml")

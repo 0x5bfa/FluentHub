@@ -11,7 +11,7 @@ namespace FluentHub.Converters
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
-			var issueCommentBlockViewModel = Ioc.Default.GetRequiredService<Shared.Controls.ViewModels.IssueCommentBlockViewModel>();
+			var issueCommentBlockViewModel = Ioc.Default.GetRequiredService<ViewModels.Controls.IssueCommentBlockViewModel>();
 			if (value is IssueComment issueComment)
 				issueCommentBlockViewModel.IssueComment = issueComment;
 

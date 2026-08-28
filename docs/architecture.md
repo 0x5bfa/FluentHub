@@ -13,15 +13,15 @@ FluentHub uses two production projects. The project boundary is the dependency b
 
 ```text
 src/FluentHub
-  Bootstrap/DependencyInjection   Application composition root
-  Features/<Feature>/Views       UserControl-based screens
-  Features/<Feature>/ViewModels  Presentation state and commands
-  Shell/Chrome                   Screen title and navigation-bar state
-  Shell/Navigation               Screen factory, lifecycle, and navigation service
-  Shell/Tabs                     Tab state and per-tab journals
-  Shared/Controls                Reusable views and view models
-  Shared/Dialogs                 Reusable dialogs and view models
-  Shared/Presentation            Common presentation abstractions
+  Views/<Area>                    UserControl-based screens, windows, and dialogs
+  ViewModels/<Area>               Presentation state, commands, and screen lifecycle
+  Extensions                     Extension methods and dependency-injection registration
+  Utils                          Small reusable utilities and logging
+  Controls                       Reusable UI controls and control resource dictionaries
+  Helpers                        Platform and application-lifecycle helpers
+  Data                           Presentation models, navigation/tab state, and serialization
+  Converters                     XAML value converters
+  Services                       Navigation and Windows-specific application services
 
 src/FluentHub.Core
   Application/Abstractions       UI-independent ports
@@ -34,6 +34,8 @@ src/FluentHub.Core
   Infrastructure/GitHub          GitHub clients, transport models, queries, and mutations
 ```
 
+The folders listed for `FluentHub` are the only logical code folders in the presentation project. Packaging and tooling directories such as `Assets`, `Strings`, and `Properties` remain separate because WinUI and MSIX consume their paths directly.
+
 ## Navigation and screen lifetime
 
 Navigation uses immutable `AppRoute` records. Routes contain stable identifiers such as owner, repository, number, SHA, tag, ref, and path; they do not contain WinUI types or GitHub response objects.
@@ -45,7 +47,7 @@ Each tab owns a `NavigationJournal<AppRoute>`. Back and forward navigation there
 To add a screen:
 
 1. Add or extend an `AppRoute` in Core using identifiers only.
-2. Create a `ScreenView` or `NavigableView` under the feature's `Views` folder.
+2. Create a `ScreenView` or `NavigableView` under `Views/<Area>`.
 3. Implement the route-aware view-model lifecycle through `IScreenViewModel<AppRoute>`.
 4. Register the view model in the FluentHub composition root.
 5. Add the route mapping to `ScreenFactory`.

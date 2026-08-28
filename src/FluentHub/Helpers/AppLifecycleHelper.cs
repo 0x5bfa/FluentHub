@@ -1,7 +1,7 @@
 // Copyright (c) 2022-2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Bootstrap.DependencyInjection;
+using FluentHub.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
