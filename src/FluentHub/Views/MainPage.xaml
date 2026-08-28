@@ -19,12 +19,30 @@
 	mc:Ignorable="d">
 
 	<Page.KeyboardAccelerators>
-		<KeyboardAccelerator Invoked="OnAddNewTabAcceleratorInvoked" Key="T" Modifiers="Control" />
-		<KeyboardAccelerator Invoked="OnCloseTabAcceleratorInvoked" Key="W" Modifiers="Control" />
-		<KeyboardAccelerator Invoked="OnNextTabAcceleratorInvoked" Key="Tab" Modifiers="Control" />
-		<KeyboardAccelerator Invoked="OnPreviousTabAcceleratorInvoked" Key="Tab" Modifiers="Control,Shift" />
-		<KeyboardAccelerator Invoked="OnGoBackAcceleratorInvoked" Key="Left" Modifiers="Menu" />
-		<KeyboardAccelerator Invoked="OnGoForwardAcceleratorInvoked" Key="Right" Modifiers="Menu" />
+		<KeyboardAccelerator
+			Key="T"
+			Invoked="OnAddNewTabAcceleratorInvoked"
+			Modifiers="Control" />
+		<KeyboardAccelerator
+			Key="W"
+			Invoked="OnCloseTabAcceleratorInvoked"
+			Modifiers="Control" />
+		<KeyboardAccelerator
+			Key="Tab"
+			Invoked="OnNextTabAcceleratorInvoked"
+			Modifiers="Control" />
+		<KeyboardAccelerator
+			Key="Tab"
+			Invoked="OnPreviousTabAcceleratorInvoked"
+			Modifiers="Control,Shift" />
+		<KeyboardAccelerator
+			Key="Left"
+			Invoked="OnGoBackAcceleratorInvoked"
+			Modifiers="Menu" />
+		<KeyboardAccelerator
+			Key="Right"
+			Invoked="OnGoForwardAcceleratorInvoked"
+			Modifiers="Menu" />
 	</Page.KeyboardAccelerators>
 
 	<Page.Resources>
@@ -40,6 +58,58 @@
 			</ResourceDictionary.MergedDictionaries>
 
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+			<Style x:Key="MeControlButtonStyle" TargetType="Button">
+				<Setter Property="VerticalAlignment" Value="Center" />
+				<Setter Property="HorizontalAlignment" Value="Center" />
+				<Setter Property="UseSystemFocusVisuals" Value="True" />
+				<Setter Property="CornerRadius" Value="16" />
+				<Setter Property="FocusVisualMargin" Value="-3,-3,-3,-3" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="Button">
+							<ContentPresenter
+								x:Name="ContentPresenter"
+								HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalAlignment}"
+								AutomationProperties.AccessibilityView="Raw"
+								Content="{TemplateBinding Content}"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								ContentTransitions="{TemplateBinding ContentTransitions}"
+								RenderTransformOrigin="0.5,0.5">
+								<ContentPresenter.RenderTransform>
+									<CompositeTransform />
+								</ContentPresenter.RenderTransform>
+								<VisualStateManager.VisualStateGroups>
+									<VisualStateGroup x:Name="CommonStates">
+										<VisualStateGroup.Transitions>
+											<VisualTransition GeneratedDuration="0:0:0.2">
+												<VisualTransition.GeneratedEasingFunction>
+													<CubicEase EasingMode="EaseOut" />
+												</VisualTransition.GeneratedEasingFunction>
+											</VisualTransition>
+										</VisualStateGroup.Transitions>
+										<VisualState x:Name="Normal" />
+										<VisualState x:Name="PointerOver">
+											<VisualState.Setters>
+												<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0.94" />
+												<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0.94" />
+											</VisualState.Setters>
+										</VisualState>
+										<VisualState x:Name="Pressed">
+											<VisualState.Setters>
+												<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0.84" />
+												<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0.84" />
+											</VisualState.Setters>
+										</VisualState>
+										<VisualState x:Name="Disabled" />
+									</VisualStateGroup>
+								</VisualStateManager.VisualStateGroups>
+							</ContentPresenter>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 
 		</ResourceDictionary>
 	</Page.Resources>
@@ -127,7 +197,6 @@
 								Height="32"
 								Padding="0"
 								Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
-								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
 									<AnimatedIcon>
@@ -143,11 +212,10 @@
 
 							<!--  Forward  -->
 							<Button
-								x:Name="ContentFrameForewardNavigationButton"
+								x:Name="ContentFrameForwardNavigationButton"
 								Width="32"
 								Height="32"
 								Padding="0"
-								x:Load="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
 								Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
 								ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/ToolTipService/Tooltip}">
 								<Viewbox Width="16">
@@ -172,7 +240,6 @@
 								Height="32"
 								Padding="0"
 								Command="{x:Bind ViewModel.ReloadCommand, Mode=OneWay}"
-								IsEnabled="{x:Bind CustomCustomTabView.SelectedItem.NavigationHistory.CanReload, Mode=OneWay}"
 								ToolTipService.ToolTip="Refresh">
 								<FontIcon FontSize="14" Glyph="&#xE72C;" />
 							</Button>
@@ -180,6 +247,7 @@
 
 						<StackPanel Grid.Column="1" Orientation="Horizontal">
 							<Button
+								Height="32"
 								Background="Transparent"
 								BorderThickness="0"
 								Visibility="{x:Bind CustomCustomTabView.SelectedItem.NavigationBar.Context.SecondaryText, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
@@ -241,24 +309,26 @@
 								<FontIcon FontSize="16" Glyph="&#xEA8F;" />
 							</Button>
 
-							<!--  User Icon  -->
+							<!--  Account  -->
 							<Button
+								x:Name="ProfileButton"
 								Width="36"
 								Height="36"
-								Padding="0"
-								Background="Transparent"
-								CornerRadius="18">
-								<Grid
-									Width="36"
-									Height="36"
-									Margin="-1"
-									Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}">
-									<FontIcon
-										FontSize="14"
-										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-										Glyph="&#xE77B;" />
-									<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
-								</Grid>
+								AutomationProperties.Name="Account menu"
+								Style="{StaticResource MeControlButtonStyle}"
+								ToolTipService.ToolTip="Account">
+								<Border
+									Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+									BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"
+									BorderThickness="1"
+									CornerRadius="14">
+									<PersonPicture
+										Width="28"
+										Height="28"
+										helpers:GitHubImageCache.Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}"
+										AutomationProperties.AccessibilityView="Raw"
+										DisplayName="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
+								</Border>
 								<Button.Flyout>
 									<MenuBarItemFlyout
 										x:Name="LeftSideViewerIconMenuFlyout"

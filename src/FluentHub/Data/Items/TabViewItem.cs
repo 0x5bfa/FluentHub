@@ -10,6 +10,7 @@ namespace FluentHub.Data.Items
 	public class TabViewItem : ObservableObject, ITabViewItem
 	{
 		private readonly ILogger _logger;
+		private NavigationHistorySnapshot? _pendingNavigation;
 
 		public Guid Guid { get; }
 
@@ -27,29 +28,60 @@ namespace FluentHub.Data.Items
 			// Initialize
 			Guid = Guid.NewGuid();
 			Frame = new();
-			NavigationHistory = new();
 			NavigationBar = new();
 			NavigationBar.NavigationBarItems = new();
+			NavigationHistory = new(NavigationBar);
 
 			Frame.Navigating += OnFrameNavigating;
+			Frame.Navigated += OnFrameNavigated;
+			Frame.NavigationFailed += OnFrameNavigationFailed;
+			Frame.NavigationStopped += OnFrameNavigationStopped;
 		}
 
 		private void OnFrameNavigating(object sender, NavigatingCancelEventArgs e)
 		{
-			switch (e.NavigationMode)
+			_pendingNavigation = NavigationHistory.CaptureSnapshot();
+
+			try
 			{
-				case NavigationMode.New:
-					NavigationHistory.NavigateTo(new NavigationHistoryItem(), NavigationHistory.CurrentItemIndex + 1);
-					break;
-				case NavigationMode.Back:
-					NavigationHistory.GoBack();
-					break;
-				case NavigationMode.Forward:
-					NavigationHistory.GoForward();
-					break;
+				switch (e.NavigationMode)
+				{
+					case NavigationMode.New:
+						NavigationHistory.NavigateTo(new NavigationHistoryItem(), NavigationHistory.CurrentItemIndex + 1);
+						break;
+					case NavigationMode.Back:
+						NavigationHistory.GoBack();
+						break;
+					case NavigationMode.Forward:
+						NavigationHistory.GoForward();
+						break;
+				}
+			}
+			catch
+			{
+				RollbackPendingNavigation();
+				throw;
 			}
 
 			_logger?.Info("ITabViewItem.OnFrameNavigating [Page: {0}, Parameter: {1}, NavigationMode: {2}]", e.SourcePageType, e.Parameter, e.NavigationMode);
+		}
+
+		private void OnFrameNavigated(object sender, NavigationEventArgs e)
+			=> _pendingNavigation = null;
+
+		private void OnFrameNavigationFailed(object sender, NavigationFailedEventArgs e)
+			=> RollbackPendingNavigation();
+
+		private void OnFrameNavigationStopped(object sender, NavigationEventArgs e)
+			=> RollbackPendingNavigation();
+
+		private void RollbackPendingNavigation()
+		{
+			if (_pendingNavigation is null)
+				return;
+
+			NavigationHistory.RestoreSnapshot(_pendingNavigation);
+			_pendingNavigation = null;
 		}
 	}
 }

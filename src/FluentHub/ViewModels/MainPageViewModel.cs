@@ -56,9 +56,12 @@ namespace FluentHub.ViewModels
 		public ICommand GoToNextTabAcceleratorCommand { get; }
 		public ICommand GoToPreviousTabAcceleratorCommand { get; }
 
-		public ICommand GoBackCommand { get; private set; }
-		public ICommand GoForwardCommand { get; private set; }
-		public ICommand ReloadCommand { get; private set; }
+		private readonly RelayCommand _goBackCommand;
+		private readonly RelayCommand _goForwardCommand;
+		private readonly RelayCommand _reloadCommand;
+		public ICommand GoBackCommand => _goBackCommand;
+		public ICommand GoForwardCommand => _goForwardCommand;
+		public ICommand ReloadCommand => _reloadCommand;
 
 		public ICommand GoHomeCommand { get; private set; } = default!;
 		public ICommand GoNotificationsCommand { get; private set; } = default!;
@@ -96,9 +99,10 @@ namespace FluentHub.ViewModels
 			CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
 			GoToNextTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToNextTabAccelerator);
 			GoToPreviousTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToPreviousTabAccelerator);
-			GoBackCommand = new RelayCommand(GoBack);
-			GoForwardCommand = new RelayCommand(GoForward);
-			ReloadCommand = new RelayCommand(Reload);
+			_goBackCommand = new RelayCommand(GoBack, () => _navigationService.CanGoBack);
+			_goForwardCommand = new RelayCommand(GoForward, () => _navigationService.CanGoForward);
+			_reloadCommand = new RelayCommand(Reload, () => _navigationService.CanReload);
+			_navigationService.NavigationStateChanged += OnNavigationStateChanged;
 
 			LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
 		}
@@ -154,17 +158,24 @@ namespace FluentHub.ViewModels
 
 		private void GoBack()
 		{
-			_navigationService.GoBack();
+			_navigationService.TryGoBack();
 		}
 
 		private void GoForward()
 		{
-			_navigationService.GoForward();
+			_navigationService.TryGoForward();
 		}
 
 		private void Reload()
 		{
-			_navigationService.Reload();
+			_navigationService.TryReload();
+		}
+
+		private void OnNavigationStateChanged(object? sender, System.EventArgs args)
+		{
+			_goBackCommand.NotifyCanExecuteChanged();
+			_goForwardCommand.NotifyCanExecuteChanged();
+			_reloadCommand.NotifyCanExecuteChanged();
 		}
 
 		private async Task LoadSignedInUserAsync()
@@ -173,15 +184,14 @@ namespace FluentHub.ViewModels
 
 			try
 			{
-				var queries = _gitHub.Users.Users;
-				var user = await queries.GetAsync(App.AppSettings.SignedInUserName);
+				var userTask = _gitHub.Users.Users.GetAsync(App.AppSettings.SignedInUserName);
+				var unreadCountTask = _gitHub.Users.Notifications.GetUnreadCountAsync();
+				await Task.WhenAll(userTask, unreadCountTask);
 
+				var user = await userTask;
 				SignedInUser = user ?? new();
 
-				var notificationQueries = _gitHub.Users.Notifications;
-				var count = await notificationQueries.GetUnreadCountAsync();
-
-				UnreadCount = count;
+				UnreadCount = await unreadCountTask;
 				_toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
 
 				FailedToLoadUserAvatar = false;

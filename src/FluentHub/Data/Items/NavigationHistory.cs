@@ -5,19 +5,7 @@ namespace FluentHub.Data.Items
 {
 	public class NavigationHistory : ObservableObject
 	{
-		private bool _CanGoBack;
-		public bool CanGoBack
-		{
-			get => _CanGoBack;
-			private set => SetProperty(ref _CanGoBack, value);
-		}
-
-		private bool _CanGoForward;
-		public bool CanGoForward
-		{
-			get => _CanGoForward;
-			private set => SetProperty(ref _CanGoForward, value);
-		}
+		private readonly NavigationBarModel _navigationBar;
 
 		private bool _CanReload;
 		public bool CanReload
@@ -44,26 +32,24 @@ namespace FluentHub.Data.Items
 			{
 				if (value == -1)
 					CurrentItem = default;
-				else if (value >= 0 && value <= _Items.Count)
+				else if (value >= 0 && value < _Items.Count)
 					CurrentItem = _Items[value];
 				else
 					throw new ArgumentOutOfRangeException(nameof(value));
 
 				SetProperty(ref _CurrentItemIndex, value);
-				Update();
 			}
 		}
 
 		public NavigationHistoryItem this[int index]
 			=> Items[index];
 
-		public NavigationHistory()
+		public NavigationHistory(NavigationBarModel navigationBar)
 		{
+			_navigationBar = navigationBar;
 			_Items = new();
 			Items = new(_Items);
 
-			_CanGoBack = false;
-			_CanGoForward = false;
 			_CanReload = false;
 
 			_CurrentItem = default;
@@ -72,36 +58,22 @@ namespace FluentHub.Data.Items
 
 		public bool GoBack()
 		{
-			if (CanGoBack)
-			{
-				CurrentItemIndex--;
+			if (CurrentItemIndex <= 0)
+				return false;
 
-				// Update NavigationBar
-				UpdateNavigationBar(true);
-
-				Update();
-
-				return true;
-			}
-
-			return false;
+			CurrentItemIndex--;
+			ApplyCurrentItemToNavigationBar();
+			return true;
 		}
 
 		public bool GoForward()
 		{
-			if (CanGoForward)
-			{
-				CurrentItemIndex++;
+			if (CurrentItemIndex >= _Items.Count - 1)
+				return false;
 
-				// Update NavigationBar
-				UpdateNavigationBar(false);
-
-				Update();
-
-				return true;
-			}
-
-			return false;
+			CurrentItemIndex++;
+			ApplyCurrentItemToNavigationBar();
+			return true;
 		}
 
 		public void NavigateTo(NavigationHistoryItem item)
@@ -109,8 +81,6 @@ namespace FluentHub.Data.Items
 			_Items.Add(item);
 
 			CurrentItemIndex = _Items.Count - 1;
-
-			Update();
 		}
 
 		public void NavigateTo(NavigationHistoryItem item, int index)
@@ -137,48 +107,51 @@ namespace FluentHub.Data.Items
 			_Items.Clear();
 
 			CurrentItemIndex = -1;
-
-			Update();
 		}
 
-		private void Update()
+		internal NavigationHistorySnapshot CaptureSnapshot()
+			=> new(_Items.ToArray(), CurrentItemIndex);
+
+		internal void RestoreSnapshot(NavigationHistorySnapshot snapshot)
 		{
-			CanGoBack = CurrentItemIndex > 0;
-			CanGoForward = CurrentItemIndex < _Items.Count - 1;
+			_Items.Clear();
+
+			foreach (var item in snapshot.Items)
+				_Items.Add(item);
+
+			CurrentItemIndex = snapshot.CurrentItemIndex;
+			ApplyCurrentItemToNavigationBar();
 		}
 
-		private void UpdateNavigationBar(bool isBackNavigation = false)
+		private void ApplyCurrentItemToNavigationBar()
 		{
 			var currentItem = CurrentItem;
 			if (currentItem is null)
+			{
+				_navigationBar.PageKind = NavigationPageKind.None;
+				_navigationBar.NavigationBarItems.Clear();
+				_navigationBar.SelectWithoutNavigation(null);
 				return;
-
-			var previousItem = isBackNavigation ? Items[CurrentItemIndex + 1] : Items[CurrentItemIndex - 1];
-
-			var _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
-			if (currentTabNavigationBar is null)
-				return;
+			}
 
 			if (currentItem.PageKind is NavigationPageKind.None)
 			{
-				currentTabNavigationBar.NavigationBarItems = new();
-				currentTabNavigationBar.PageKind = currentItem.PageKind;
-				currentTabNavigationBar.Context = currentItem.Context ?? new();
+				_navigationBar.NavigationBarItems.Clear();
+				_navigationBar.PageKind = currentItem.PageKind;
+				_navigationBar.Context = currentItem.Context ?? new();
+				_navigationBar.SelectWithoutNavigation(null);
 
 				return;
 			}
 
-			currentTabNavigationBar.Context = currentItem.Context ?? new();
+			_navigationBar.Context = currentItem.Context ?? new();
 
 			// Generate new navigation bar items
-			if (previousItem.PageKind != currentItem.PageKind)
+			if (_navigationBar.PageKind != currentItem.PageKind)
 			{
-				currentTabNavigationBar.PageKind = currentItem.PageKind;
+				_navigationBar.PageKind = currentItem.PageKind;
 
-				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
-					currentTabNavigationBar.NavigationBarItems.Clear();
+				_navigationBar.NavigationBarItems.Clear();
 
 				// Generate items
 				var items = currentItem.PageKind switch
@@ -191,24 +164,23 @@ namespace FluentHub.Data.Items
 
 				// Add generated items
 				foreach (var item in items)
-					currentTabNavigationBar.NavigationBarItems.Add(item);
+					_navigationBar.NavigationBarItems.Add(item);
 			}
 
 			if (currentItem.PageKey is NavigationPageKey.None)
 			{
-				currentTabNavigationBar.SelectedNavigationBarItem = null;
+				_navigationBar.SelectWithoutNavigation(null);
 			}
 			else
 			{
-				foreach (var item in currentTabNavigationBar.NavigationBarItems)
-				{
-					if (item.PageItemKey == currentItem.PageKey)
-					{
-						currentTabNavigationBar.SelectedNavigationBarItem = item;
-						break;
-					}
-				}
+				var item = _navigationBar.NavigationBarItems
+					.FirstOrDefault(candidate => candidate.PageItemKey == currentItem.PageKey);
+				_navigationBar.SelectWithoutNavigation(item);
 			}
 		}
 	}
+
+	internal sealed record NavigationHistorySnapshot(
+		IReadOnlyList<NavigationHistoryItem> Items,
+		int CurrentItemIndex);
 }

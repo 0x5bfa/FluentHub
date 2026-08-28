@@ -5,6 +5,8 @@ using FluentHub.Utils;
 using FluentHub.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Navigation;
+using System.ComponentModel;
 
 namespace FluentHub.Services
 {
@@ -19,16 +21,33 @@ namespace FluentHub.Services
 
 		private static readonly SuppressNavigationTransitionInfo _navigationMode = new();
 
-		public Type CurrentPage { get; set; } = default!;
+		private ITabViewItem? _observedTab;
 
 		public ITabView TabView { get; private set; } = default!;
 
 		public bool IsConfigured { get; private set; }
 
+		public bool CanGoBack
+			=> _observedTab?.Frame.CanGoBack is true;
+
+		public bool CanGoForward
+			=> _observedTab?.Frame.CanGoForward is true;
+
+		public bool CanReload
+			=> _observedTab?.Frame.Content is LocatablePage &&
+				_observedTab.NavigationHistory.CanReload;
+
+		public event EventHandler? NavigationStateChanged;
+
 		public void Configure(ITabView tabView)
 		{
+			if (IsConfigured)
+				Disconnect();
+
 			TabView = tabView;
+			TabView.SelectionChanged += OnTabSelectionChanged;
 			IsConfigured = true;
+			ObserveTab(TabView.SelectedItem);
 			_logger?.Info("NavigationService configured");
 		}
 
@@ -42,8 +61,6 @@ namespace FluentHub.Services
 				TabView.OpenTab(page, parameter, true);
 			else
 				tab.Frame.Navigate(page, parameter, transitionInfo);
-
-			CurrentPage = page;
 		}
 
 		public void Navigate<T>(object? parameter = null, NavigationTransitionInfo? transitionInfo = null) where T : Page
@@ -67,6 +84,8 @@ namespace FluentHub.Services
 
 		public void GoToTab(Guid tabId)
 		{
+			EnsureConfigured();
+
 			var tab = TabView.TabItems.FirstOrDefault(x => x.Guid == tabId);
 			if (tab != null)
 				TabView.SelectedItem = tab;
@@ -74,37 +93,81 @@ namespace FluentHub.Services
 
 		public void CloseTab(Guid tabId)
 		{
+			EnsureConfigured();
 			TabView.CloseTab(tabId);
 		}
 
-		public void GoBack()
+		public bool TryGoBack()
 		{
-			EnsureConfigured();
+			if (!CanGoBack || _observedTab is null)
+				return false;
 
-			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
-
-			tab.Frame.GoBack();
+			_observedTab.Frame.GoBack();
+			return true;
 		}
 
-		public void GoForward()
+		public bool TryGoForward()
 		{
-			EnsureConfigured();
+			if (!CanGoForward || _observedTab is null)
+				return false;
 
-			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
-
-			tab.Frame.GoForward();
+			_observedTab.Frame.GoForward();
+			return true;
 		}
 
-		public void Reload()
+		public bool TryReload()
 		{
-			EnsureConfigured();
+			if (!CanReload || _observedTab?.Frame.Content is not LocatablePage locatablePage)
+				return false;
 
-			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
+			locatablePage.ReloadPage();
+			return true;
+		}
 
-			if (tab.Frame.Content is LocatablePage locatablePage)
-				locatablePage.ReloadPage();
-			else
-				throw new InvalidOperationException("Current page is not reloadable page");
+		private void OnTabSelectionChanged(object? sender, TabViewSelectionChangedEventArgs args)
+			=> ObserveTab(args.NewSelectedItem);
+
+		private void ObserveTab(ITabViewItem? tab)
+		{
+			if (_observedTab is not null)
+			{
+				_observedTab.Frame.Navigated -= OnFrameNavigationCompleted;
+				_observedTab.Frame.NavigationFailed -= OnFrameNavigationFailed;
+				_observedTab.Frame.NavigationStopped -= OnFrameNavigationCompleted;
+				_observedTab.NavigationHistory.PropertyChanged -= OnNavigationHistoryPropertyChanged;
+			}
+
+			_observedTab = tab;
+
+			if (_observedTab is not null)
+			{
+				_observedTab.Frame.Navigated += OnFrameNavigationCompleted;
+				_observedTab.Frame.NavigationFailed += OnFrameNavigationFailed;
+				_observedTab.Frame.NavigationStopped += OnFrameNavigationCompleted;
+				_observedTab.NavigationHistory.PropertyChanged += OnNavigationHistoryPropertyChanged;
+			}
+
+			RaiseNavigationStateChanged();
+		}
+
+		private void OnFrameNavigationCompleted(object sender, NavigationEventArgs args)
+			=> RaiseNavigationStateChanged();
+
+		private void OnFrameNavigationFailed(object sender, NavigationFailedEventArgs args)
+			=> RaiseNavigationStateChanged();
+
+		private void OnNavigationHistoryPropertyChanged(object? sender, PropertyChangedEventArgs args)
+		{
+			if (args.PropertyName == nameof(NavigationHistory.CanReload))
+				RaiseNavigationStateChanged();
+		}
+
+		private void RaiseNavigationStateChanged()
+		{
+			OnPropertyChanged(nameof(CanGoBack));
+			OnPropertyChanged(nameof(CanGoForward));
+			OnPropertyChanged(nameof(CanReload));
+			NavigationStateChanged?.Invoke(this, System.EventArgs.Empty);
 		}
 
 		private void EnsureConfigured()
@@ -120,6 +183,11 @@ namespace FluentHub.Services
 
 		public void Disconnect()
 		{
+			if (!IsConfigured)
+				return;
+
+			TabView.SelectionChanged -= OnTabSelectionChanged;
+			ObserveTab(null);
 			TabView = default!;
 			IsConfigured = false;
 			_logger?.Info("NavigationService disconnected");

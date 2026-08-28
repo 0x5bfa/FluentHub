@@ -49,6 +49,7 @@ namespace FluentHub.Views
 			{
 				currentTabNavigationBar.PageKind = _currentPageKind;
 				currentTabNavigationBar.NavigationBarItems = new();
+				currentTabNavigationBar.SelectWithoutNavigation(null);
 
 				return;
 			}
@@ -86,14 +87,14 @@ namespace FluentHub.Views
 			{
 				if (item.PageItemKey == _currentPageItemKey)
 				{
-					currentTabNavigationBar.SelectedNavigationBarItem = item;
+					currentTabNavigationBar.SelectWithoutNavigation(item);
 					selectedCorrectOne = true;
 					break;
 				}
 			}
 
 			if (!selectedCorrectOne)
-				currentTabNavigationBar.SelectedNavigationBarItem = null;
+				currentTabNavigationBar.SelectWithoutNavigation(null);
 		}
 
 		public void ReloadPage()

@@ -70,10 +70,20 @@ namespace FluentHub.ViewModels.Viewers
 
 		private async Task LoadHomeContentsAsync()
 		{
-			var repositoryQueries = _gitHub.Users.Repositories;
+			var login = App.AppSettings.SignedInUserName;
+			var repositoryTask = _gitHub.Users.Repositories.GetPageAsync(login, PageRequest.Forward(20));
+			var notificationTask = _gitHub.Users.Notifications.GetAllAsync(
+				new() { All = true },
+				new()
+				{
+					PageCount = 1, // Constant
+					PageSize = 30,
+					StartPage = 1,
+				});
+			var activityTask = _gitHub.Users.Activities.GetAllAsync(login);
+			await Task.WhenAll(repositoryTask, notificationTask, activityTask);
 
-			var repositoryResult = await repositoryQueries.GetPageAsync(App.AppSettings.SignedInUserName, PageRequest.Forward(20));
-
+			var repositoryResult = await repositoryTask;
 			var items = repositoryResult.Items;
 
 			_TopRepositories.Clear();
@@ -89,15 +99,7 @@ namespace FluentHub.ViewModels.Viewers
 					_TopRepositories.Add(item);
 			}
 
-			var notificationQueries = _gitHub.Users.Notifications;
-			var notificationResponse = await notificationQueries.GetAllAsync(
-				new() { All = true },
-				new()
-				{
-					PageCount = 1, // Constant
-					PageSize = 30,
-					StartPage = 1,
-				});
+			var notificationResponse = await notificationTask;
 
 			// Filter the notifications; remove closed Issue & Pull Requests
 			notificationResponse.RemoveAll(x =>
@@ -117,9 +119,7 @@ namespace FluentHub.ViewModels.Viewers
 					_RecentActivities.Add(item);
 			}
 
-			var activityQueries = _gitHub.Users.Activities;
-
-			var activityResponse = await activityQueries.GetAllAsync(App.AppSettings.SignedInUserName);
+			var activityResponse = await activityTask;
 			if (activityResponse == null)
 				return;
 

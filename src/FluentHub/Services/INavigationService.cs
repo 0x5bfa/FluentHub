@@ -8,11 +8,17 @@ namespace FluentHub.Services
 {
 	public interface INavigationService
 	{
-		Type CurrentPage { get; set; }
-
 		ITabView TabView { get; }
 
 		bool IsConfigured { get; }
+
+		bool CanGoBack { get; }
+
+		bool CanGoForward { get; }
+
+		bool CanReload { get; }
+
+		event EventHandler? NavigationStateChanged;
 
 		void Configure(ITabView tabView);
 
@@ -30,10 +36,10 @@ namespace FluentHub.Services
 
 		void GoToTab(Guid tabId);
 
-		void GoBack();
+		bool TryGoBack();
 
-		void GoForward();
+		bool TryGoForward();
 
-		void Reload();
+		bool TryReload();
 	}
 }

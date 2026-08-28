@@ -7,6 +7,8 @@ namespace FluentHub.Data.Items
 {
 	public class NavigationBarModel : ObservableObject
 	{
+		private bool _isNavigationSuppressed;
+
 		private ObservableCollection<NavigationBarItem> _NavigationBarItems = new();
 		public ObservableCollection<NavigationBarItem> NavigationBarItems
 		{
@@ -20,24 +22,40 @@ namespace FluentHub.Data.Items
 			get => _SelectedNavigationBarItem;
 			set
 			{
-				if (value is not null && SetProperty(ref _SelectedNavigationBarItem, value))
+				if (!SetProperty(ref _SelectedNavigationBarItem, value) ||
+					_isNavigationSuppressed ||
+					value is null)
+					return;
+
+				// Parameters validation
+				if ((value.PageKind == NavigationPageKind.User && Context.PrimaryText is not null) ||
+					(value.PageKind == NavigationPageKind.Repository && Context.SecondaryText is not null) ||
+					(value.PageKind == NavigationPageKind.Organization && Context.PrimaryText is not null))
 				{
-					// Parameters validation
-					if ((value.PageKind == NavigationPageKind.User && Context?.PrimaryText is not null) ||
-						(value.PageKind == NavigationPageKind.Repository && Context?.SecondaryText is not null) ||
-						(value.PageKind == NavigationPageKind.Organization && Context?.PrimaryText is not null))
-					{
-						var service = Ioc.Default.GetRequiredService<INavigationService>();
-						service.Navigate(
-							value.PageToNavigate,
-							new FrameNavigationParameter()
-							{
-								PrimaryText = Context.PrimaryText,
-								SecondaryText = Context.SecondaryText,
-							},
-							new SuppressNavigationTransitionInfo());
-					}
+					var service = Ioc.Default.GetRequiredService<INavigationService>();
+					service.Navigate(
+						value.PageToNavigate,
+						new FrameNavigationParameter()
+						{
+							PrimaryText = Context.PrimaryText,
+							SecondaryText = Context.SecondaryText,
+						},
+						new SuppressNavigationTransitionInfo());
 				}
+			}
+		}
+
+		public void SelectWithoutNavigation(NavigationBarItem? item)
+		{
+			_isNavigationSuppressed = true;
+
+			try
+			{
+				SelectedNavigationBarItem = item;
+			}
+			finally
+			{
+				_isNavigationSuppressed = false;
 			}
 		}
 

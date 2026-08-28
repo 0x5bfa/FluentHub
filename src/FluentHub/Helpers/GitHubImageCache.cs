@@ -25,7 +25,7 @@ namespace FluentHub.Helpers
 	{
 		private const int MaximumImageSize = 20 * 1024 * 1024;
 
-		private static readonly ConditionalWeakTable<Image, ImageLoadState> ImageStates = new();
+		private static readonly ConditionalWeakTable<FrameworkElement, ImageLoadState> ImageStates = new();
 		private static readonly HttpClient HttpClient = CreateHttpClient();
 
 		public static readonly DependencyProperty SourceProperty = DependencyProperty.RegisterAttached(
@@ -68,10 +68,11 @@ namespace FluentHub.Helpers
 
 		private static void OnSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
 		{
-			if (dependencyObject is not Image image)
-				throw new ArgumentException("GitHubImageCache.Source can only be used on Image controls.");
+			if (dependencyObject is not Image and not PersonPicture)
+				throw new ArgumentException("GitHubImageCache.Source can only be used on Image or PersonPicture controls.");
 
-			ImageStates.GetValue(image, static value => new ImageLoadState(value))
+			var target = (FrameworkElement)dependencyObject;
+			ImageStates.GetValue(target, static value => new ImageLoadState(value))
 				.SetSource(args.NewValue as string);
 		}
 
@@ -132,35 +133,34 @@ namespace FluentHub.Helpers
 
 		private sealed class ImageLoadState
 		{
-			private readonly Image _image;
+			private readonly FrameworkElement _target;
 			private CancellationTokenSource? _cancellationTokenSource;
+			private BitmapImage? _trackedBitmap;
 			private string? _source;
 			private long _version;
 
-			public ImageLoadState(Image image)
+			public ImageLoadState(FrameworkElement target)
 			{
-				_image = image;
-				_image.Loaded += OnLoaded;
-				_image.Unloaded += OnUnloaded;
-				_image.ImageOpened += OnImageOpened;
-				_image.ImageFailed += OnImageFailed;
+				_target = target;
+				_target.Loaded += OnLoaded;
+				_target.Unloaded += OnUnloaded;
 			}
 
 			public void SetSource(string? source)
 			{
 				_source = source;
 				CancelCurrentLoad();
-				_image.Source = null;
+				SetTargetSource(null);
 
 				if (string.IsNullOrWhiteSpace(source))
 				{
-					SetLoadStatus(_image, GitHubImageLoadStatus.Empty);
+					SetLoadStatus(_target, GitHubImageLoadStatus.Empty);
 					return;
 				}
 
-				SetLoadStatus(_image, GitHubImageLoadStatus.Loading);
+				SetLoadStatus(_target, GitHubImageLoadStatus.Loading);
 
-				if (_image.IsLoaded)
+				if (_target.IsLoaded)
 					StartLoad();
 			}
 
@@ -173,16 +173,23 @@ namespace FluentHub.Helpers
 			private void OnUnloaded(object sender, RoutedEventArgs args)
 				=> CancelCurrentLoad();
 
-			private void OnImageOpened(object sender, RoutedEventArgs args)
+			private void OnBitmapOpened(object sender, RoutedEventArgs args)
 			{
-				if (_image.Source is not null)
-					SetLoadStatus(_image, GitHubImageLoadStatus.Loaded);
+				if (ReferenceEquals(sender, _trackedBitmap))
+				{
+					SetLoadStatus(_target, GitHubImageLoadStatus.Loaded);
+					StopTrackingBitmap();
+				}
 			}
 
-			private void OnImageFailed(object sender, ExceptionRoutedEventArgs args)
+			private void OnBitmapFailed(object sender, ExceptionRoutedEventArgs args)
 			{
-				if (_image.Source is not null)
-					SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
+				if (ReferenceEquals(sender, _trackedBitmap))
+				{
+					SetTargetSource(null);
+					SetLoadStatus(_target, GitHubImageLoadStatus.Failed);
+					StopTrackingBitmap();
+				}
 			}
 
 			private void StartLoad()
@@ -192,8 +199,8 @@ namespace FluentHub.Helpers
 				if (string.IsNullOrWhiteSpace(source))
 					return;
 
-				_image.Source = null;
-				SetLoadStatus(_image, GitHubImageLoadStatus.Loading);
+				SetTargetSource(null);
+				SetLoadStatus(_target, GitHubImageLoadStatus.Loading);
 
 				var version = ++_version;
 				_cancellationTokenSource = new CancellationTokenSource();
@@ -202,26 +209,17 @@ namespace FluentHub.Helpers
 
 			private async Task LoadAsync(string source, long version, CancellationToken cancellationToken)
 			{
-				if (!Uri.TryCreate(source, UriKind.Absolute, out var uri))
+				if (!Uri.TryCreate(source, UriKind.RelativeOrAbsolute, out var uri))
 				{
 					if (version == _version)
-					{
-						try
-						{
-							_image.Source = new BitmapImage(new Uri(source, UriKind.RelativeOrAbsolute));
-						}
-						catch
-						{
-							SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
-						}
-					}
+						SetLoadStatus(_target, GitHubImageLoadStatus.Failed);
 					return;
 				}
 
-				if (!IsGitHubHosted(uri))
+				if (!uri.IsAbsoluteUri || !IsGitHubHosted(uri))
 				{
 					if (version == _version)
-						_image.Source = new BitmapImage(uri);
+						SetUriSource(uri);
 					return;
 				}
 
@@ -239,8 +237,8 @@ namespace FluentHub.Helpers
 
 					if (version == _version && !cancellationToken.IsCancellationRequested)
 					{
-						_image.Source = bitmap;
-						SetLoadStatus(_image, GitHubImageLoadStatus.Loaded);
+						SetTargetSource(bitmap);
+						SetLoadStatus(_target, GitHubImageLoadStatus.Loaded);
 					}
 				}
 				catch (OperationCanceledException)
@@ -249,17 +247,51 @@ namespace FluentHub.Helpers
 				catch
 				{
 					if (version == _version)
-					{
-						try
-						{
-							_image.Source = new BitmapImage(uri);
-						}
-						catch
-						{
-							SetLoadStatus(_image, GitHubImageLoadStatus.Failed);
-						}
-					}
+						SetUriSource(uri);
 				}
+			}
+
+			private void SetUriSource(Uri uri)
+			{
+				StopTrackingBitmap();
+				try
+				{
+					var bitmap = new BitmapImage();
+					bitmap.ImageOpened += OnBitmapOpened;
+					bitmap.ImageFailed += OnBitmapFailed;
+					_trackedBitmap = bitmap;
+					SetTargetSource(bitmap);
+					bitmap.UriSource = uri;
+				}
+				catch
+				{
+					StopTrackingBitmap();
+					SetTargetSource(null);
+					SetLoadStatus(_target, GitHubImageLoadStatus.Failed);
+				}
+			}
+
+			private void SetTargetSource(BitmapImage? source)
+			{
+				switch (_target)
+				{
+					case Image image:
+						image.Source = source;
+						break;
+					case PersonPicture personPicture:
+						personPicture.ProfilePicture = source;
+						break;
+				}
+			}
+
+			private void StopTrackingBitmap()
+			{
+				if (_trackedBitmap is null)
+					return;
+
+				_trackedBitmap.ImageOpened -= OnBitmapOpened;
+				_trackedBitmap.ImageFailed -= OnBitmapFailed;
+				_trackedBitmap = null;
 			}
 
 			private void CancelCurrentLoad()
@@ -268,6 +300,7 @@ namespace FluentHub.Helpers
 				_cancellationTokenSource?.Cancel();
 				_cancellationTokenSource?.Dispose();
 				_cancellationTokenSource = null;
+				StopTrackingBitmap();
 			}
 		}
 	}

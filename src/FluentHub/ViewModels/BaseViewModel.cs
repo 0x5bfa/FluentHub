@@ -20,6 +20,7 @@ namespace FluentHub.ViewModels
 		protected readonly ILogger _logger;
 		protected readonly INavigationService _navigation;
 		protected readonly IFluentHubGitHubClient _gitHub;
+		private readonly ITabViewItem _tabViewItem;
 
 		// Provided for v3 API response
 		protected int _loadedItemCount = 0;
@@ -33,7 +34,7 @@ namespace FluentHub.ViewModels
 		protected string _currentTaskingMethodName = default!;
 
 		protected ITabViewItem SelectedTabViewItem
-			=> _navigation.TabView.SelectedItem;
+			=> _tabViewItem;
 
 		protected string _login = default!;
 		public string Login { get => _login; set => SetProperty(ref _login, value); }
@@ -79,8 +80,9 @@ namespace FluentHub.ViewModels
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
 			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			_tabViewItem = _navigation.TabView.SelectedItem;
 
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
+			var parameter = _tabViewItem.NavigationBar.Context;
 			Login = parameter.PrimaryText ?? string.Empty;
 			Name = parameter.SecondaryText ?? string.Empty;
 			Number = parameter.Number;
@@ -91,7 +93,7 @@ namespace FluentHub.ViewModels
 			string? description = null,
 			string? imageIconSourceSimplified = null)
 		{
-			var currentItem = _navigation.TabView.SelectedItem.NavigationHistory.CurrentItem;
+			var currentItem = _tabViewItem.NavigationHistory.CurrentItem;
 			if (currentItem is null)
 				return;
 
@@ -117,12 +119,12 @@ namespace FluentHub.ViewModels
 				IsTaskFaulted = false;
 				IsTaskLoading = true;
 				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-				_navigation.TabView.SelectedItem.NavigationHistory.CanReload = false;
+				_tabViewItem.NavigationHistory.CanReload = false;
 			}
 			else
 			{
 				IsTaskLoading = false;
-				_navigation.TabView.SelectedItem.NavigationHistory.CanReload = true;
+				_tabViewItem.NavigationHistory.CanReload = true;
 
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 
