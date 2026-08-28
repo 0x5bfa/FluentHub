@@ -12,12 +12,13 @@ namespace FluentHub.Controls
 				nameof(Calendar),
 				typeof(ContributionCalendar),
 				typeof(UserContributionGraph),
-				new PropertyMetadata(null));
+				new PropertyMetadata(null, OnCalendarChanged));
 
+		// ItemsRepeater requires WinRT-projectable vectors at the XAML ABI boundary.
 		public static readonly DependencyProperty ItemsProperty =
 			DependencyProperty.Register(
 				nameof(Items),
-				typeof(IReadOnlyList<ContributionCalendarItem>),
+				typeof(object),
 				typeof(UserContributionGraph),
 				new PropertyMetadata(null));
 
@@ -27,11 +28,13 @@ namespace FluentHub.Controls
 			set => SetValue(CalendarProperty, value);
 		}
 
-		public IReadOnlyList<ContributionCalendarItem>? Items
+		public object? Items
 		{
-			get => (IReadOnlyList<ContributionCalendarItem>?)GetValue(ItemsProperty);
+			get => GetValue(ItemsProperty);
 			set => SetValue(ItemsProperty, value);
 		}
+
+		public ObservableCollection<object> MonthItems { get; } = [];
 
 		public UserContributionGraph()
 		{
@@ -46,6 +49,19 @@ namespace FluentHub.Controls
 
 		private void OnActualThemeChanged(FrameworkElement sender, object args)
 			=> RefreshContributionDayColors();
+
+		private static void OnCalendarChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+		{
+			if (sender is not UserContributionGraph graph)
+				return;
+
+			graph.MonthItems.Clear();
+			if (args.NewValue is not ContributionCalendar calendar)
+				return;
+
+			foreach (var month in calendar.Months)
+				graph.MonthItems.Add(month);
+		}
 
 		private void RefreshContributionDayColors()
 		{

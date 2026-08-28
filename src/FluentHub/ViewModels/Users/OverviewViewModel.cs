@@ -30,8 +30,8 @@ namespace FluentHub.ViewModels.Users
 		private ContributionCalendar? _contributionCalendar;
 		public ContributionCalendar? ContributionCalendar { get => _contributionCalendar; set => SetProperty(ref _contributionCalendar, value); }
 
-		private IReadOnlyList<ContributionCalendarItem> _contributionCalendarItems = [];
-		public IReadOnlyList<ContributionCalendarItem> ContributionCalendarItems { get => _contributionCalendarItems; set => SetProperty(ref _contributionCalendarItems, value); }
+		private ObservableCollection<object> _contributionCalendarItems = [];
+		public ObservableCollection<object> ContributionCalendarItems { get => _contributionCalendarItems; set => SetProperty(ref _contributionCalendarItems, value); }
 
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
@@ -120,7 +120,7 @@ namespace FluentHub.ViewModels.Users
 				if (items.Count == 0)
 					return;
 
-				ContributionCalendarItems = items;
+				ContributionCalendarItems = new(items);
 				ContributionCalendar = calendar;
 			}
 			catch (Exception ex)
