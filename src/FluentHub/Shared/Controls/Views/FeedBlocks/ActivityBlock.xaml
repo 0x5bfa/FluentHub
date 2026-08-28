@@ -6,10 +6,10 @@
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:fbuc="using:FluentHub.Shared.Controls.Views.FeedBlocks"
-	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Shared.Controls.Views.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+	xmlns:uc="using:FluentHub.Shared.Controls.Views"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
@@ -34,16 +34,10 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<Border
-				Width="20"
-				Height="20"
-				Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-				CornerRadius="12">
-				<Image
-					Width="20"
-					Height="20"
-					helpers:GitHubImageCache.Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
-			</Border>
+			<uc:UserAvatar
+				AvatarUrl="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}"
+				DisplayName="{x:Bind ViewModel.Payload.Actor.Login, Mode=OneWay}"
+				Size="20" />
 
 			<Button Grid.Column="1" Style="{StaticResource LinkLikeButtonStyle}">
 				<TextBlock

@@ -68,6 +68,30 @@ public sealed partial class ArchitectureBoundaryTests
 			projects);
 	}
 
+	[TestMethod]
+	public void PersonPictureIsCentralizedInUserAvatar()
+	{
+		var root = FindRepositoryRoot();
+		var presentationRoot = Path.Combine(root, "src", "FluentHub");
+		var userAvatarPath = Path.Combine(
+			presentationRoot,
+			"Shared",
+			"Controls",
+			"Views",
+			"UserAvatar.cs");
+		var violations = Directory.EnumerateFiles(presentationRoot, "*", SearchOption.AllDirectories)
+			.Where(path => Path.GetExtension(path) is ".cs" or ".xaml")
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.Where(path => !string.Equals(path, userAvatarPath, StringComparison.OrdinalIgnoreCase))
+			.SelectMany(path => DirectPersonPictureRegex().Matches(File.ReadAllText(path))
+				.Select(match => $"{Path.GetRelativePath(root, path)}: {match.Value}"))
+			.ToList();
+
+		Assert.AreEqual(0, violations.Count,
+			$"User avatars bypass the shared control:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+		StringAssert.Contains(File.ReadAllText(userAvatarPath), "new PersonPicture");
+	}
+
 	private static string FindRepositoryRoot()
 	{
 		for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
@@ -105,4 +129,7 @@ public sealed partial class ArchitectureBoundaryTests
 
 	[GeneratedRegex(@"<\s*(?:Frame|Page)\b|:\s*Page\b|\bMicrosoft\.UI\.Xaml\.Navigation\b|\bFrameNavigationParameter\b", RegexOptions.CultureInvariant)]
 	private static partial Regex ForbiddenNavigationPrimitiveRegex();
+
+	[GeneratedRegex(@"<\s*(?:PersonPicture|primer:Avatar)\b|new\s+PersonPicture\b", RegexOptions.CultureInvariant)]
+	private static partial Regex DirectPersonPictureRegex();
 }

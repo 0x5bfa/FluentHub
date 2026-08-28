@@ -166,10 +166,10 @@
 											<StackLayout Orientation="Vertical" Spacing="6" />
 										</ItemsRepeater.Layout>
 										<DataTemplate x:DataType="modelsV4:User">
-											<primer:Avatar
+											<uc:UserAvatar
 												HorizontalAlignment="Left"
 												Label="{x:Bind Login, Mode=OneWay}"
-												Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+												AvatarUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
 										</DataTemplate>
 									</ItemsRepeater>
 
@@ -346,10 +346,11 @@
 											<StackLayout Orientation="Horizontal" Spacing="8" />
 										</ItemsRepeater.Layout>
 										<DataTemplate x:DataType="modelsV4:User">
-											<primer:Avatar
+											<uc:UserAvatar
 												HorizontalAlignment="Left"
+												DisplayName="{x:Bind Login, Mode=OneWay}"
 												Size="28"
-												Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+												AvatarUrl="{x:Bind AvatarUrl, Mode=OneWay}" />
 										</DataTemplate>
 									</ItemsRepeater>
 

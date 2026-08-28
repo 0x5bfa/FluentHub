@@ -4,12 +4,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Shared.Controls.Views.FeedBlocks"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:contracts="using:FluentHub.Core.Application.Models"
 	xmlns:primer="using:FluentHub.Shared.Controls.Views.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+	xmlns:uc="using:FluentHub.Shared.Controls.Views"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
@@ -35,17 +35,11 @@
 				</ItemsRepeater.Layout>
 				<DataTemplate x:DataType="contracts:ActivityCommit">
 					<StackPanel Orientation="Horizontal" Spacing="4">
-						<Border
-							Width="20"
-							Height="20"
+						<uc:UserAvatar
 							HorizontalAlignment="Left"
-							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-							CornerRadius="10">
-							<Image
-								Width="20"
-								Height="20"
-								helpers:GitHubImageCache.Source="{x:Bind User.AvatarUrl, Mode=OneWay}" />
-						</Border>
+							AvatarUrl="{x:Bind User.AvatarUrl, Mode=OneWay}"
+							DisplayName="{x:Bind User.Login, Mode=OneWay}"
+							Size="20" />
 
 						<Button
 							VerticalAlignment="Center"

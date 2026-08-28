@@ -142,7 +142,7 @@
 									Click="SidebarRepositoryItemButton_Click"
 									DataContext="{x:Bind Mode=OneWay}">
 									<StackPanel Orientation="Horizontal">
-										<primer:Avatar
+										<primer:EntityAvatar
 											Margin="0,0,8,0"
 											IsSquare="{x:Bind IsInOrganization}"
 											Size="16"

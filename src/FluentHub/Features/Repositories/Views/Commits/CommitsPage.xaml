@@ -33,7 +33,7 @@
 					</Grid.RowDefinitions>
 
 					<StackPanel Orientation="Horizontal" Spacing="8">
-						<primer:Avatar
+						<primer:EntityAvatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"

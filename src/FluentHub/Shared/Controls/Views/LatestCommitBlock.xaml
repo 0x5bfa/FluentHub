@@ -32,7 +32,7 @@
 			</Grid.ColumnDefinitions>
 
 			<StackPanel Padding="18,12,0,12" Orientation="Horizontal">
-				<primer:Avatar Label="{x:Bind ViewModel.LatestCommit.Author.User.Login, Mode=OneWay}" Source="{x:Bind ViewModel.LatestCommit.Author.AvatarUrl, Mode=OneWay}" />
+				<uc:UserAvatar Label="{x:Bind ViewModel.LatestCommit.Author.User.Login, Mode=OneWay}" AvatarUrl="{x:Bind ViewModel.LatestCommit.Author.AvatarUrl, Mode=OneWay}" />
 			</StackPanel>
 
 			<Button

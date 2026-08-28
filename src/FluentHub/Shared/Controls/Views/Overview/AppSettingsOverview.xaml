@@ -4,11 +4,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Shared.Controls.Views.Overview"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:primer="using:FluentHub.Shared.Controls.Views.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+	xmlns:uc="using:FluentHub.Shared.Controls.Views"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
@@ -45,18 +45,12 @@
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
 
-						<Grid
-							Width="60"
-							Height="60"
+						<uc:UserAvatar
+							x:Name="AppSignedInUserAvatar"
 							HorizontalAlignment="Left"
-							Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-							CornerRadius="30">
-							<Image
-								x:Name="AppSignedInUserAvatar"
-								Width="60"
-								Height="60"
-								helpers:GitHubImageCache.Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
-						</Grid>
+							AvatarUrl="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+							DisplayName="{x:Bind ViewModel.User.Login, Mode=OneWay}"
+							Size="60" />
 
 						<StackPanel Grid.Column="1" VerticalAlignment="Center">
 							<TextBlock

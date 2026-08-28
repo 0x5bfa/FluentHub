@@ -38,12 +38,10 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
-			<Grid
-				Width="96"
-				Height="96"
-				CornerRadius="8">
-				<Image helpers:GitHubImageCache.Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
-			</Grid>
+			<primer:EntityAvatar
+				IsSquare="True"
+				Size="96"
+				Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
 
 			<StackPanel
 				Grid.Column="1"

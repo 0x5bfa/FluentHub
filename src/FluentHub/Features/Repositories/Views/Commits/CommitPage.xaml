@@ -32,7 +32,7 @@
 					</Grid.RowDefinitions>
 
 					<StackPanel Orientation="Horizontal" Spacing="8">
-						<primer:Avatar
+						<primer:EntityAvatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
@@ -96,7 +96,7 @@
 							<Grid Grid.Row="3" Margin="0,12,0,0">
 								<StackPanel Orientation="Horizontal" Spacing="4">
 
-									<primer:Avatar Label="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
+									<uc:UserAvatar Label="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
 
 									<TextBlock
 										VerticalAlignment="Center"

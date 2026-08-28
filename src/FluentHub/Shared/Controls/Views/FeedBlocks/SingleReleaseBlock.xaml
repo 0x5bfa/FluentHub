@@ -18,12 +18,10 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<!--<Grid Padding="16,8">
-			<primer:Avatar
-				Width="32"
-				Height="32"
+			<uc:UserAvatar Size="32"
 				HorizontalAlignment="Left"
 				Label="{x:Bind ViewModel.Details.Sender.Login}"
-				Source="{x:Bind ViewModel.Details.Sender.AvatarUrl}" />
+				AvatarUrl="{x:Bind ViewModel.Details.Sender.AvatarUrl}" />
 		</Grid>
 		<Rectangle
 			Grid.Row="1"

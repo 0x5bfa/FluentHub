@@ -39,7 +39,7 @@
 					</Grid.RowDefinitions>
 
 					<StackPanel Orientation="Horizontal" Spacing="8">
-						<primer:Avatar
+						<primer:EntityAvatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
@@ -104,11 +104,11 @@
 								Margin="0,12,0,0"
 								Orientation="Horizontal"
 								Spacing="4">
-								<primer:Avatar
+								<uc:UserAvatar
 									x:Name="LatestReleaseAuthorAvator"
 									x:Load="{x:Bind ViewModel.LatestRelease, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 									Label="{x:Bind ViewModel.LatestRelease.Author.Login, Mode=OneWay}"
-									Source="{x:Bind ViewModel.LatestRelease.Author.AvatarUrl, Mode=OneWay}" />
+									AvatarUrl="{x:Bind ViewModel.LatestRelease.Author.AvatarUrl, Mode=OneWay}" />
 								<TextBlock
 									x:Name="LatestReleasePublishedAtTextBlock"
 									x:Load="{x:Bind ViewModel.LatestRelease, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"

@@ -322,12 +322,10 @@
 									BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"
 									BorderThickness="1"
 									CornerRadius="14">
-									<PersonPicture
-										Width="28"
-										Height="28"
-										helpers:GitHubImageCache.Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}"
-										AutomationProperties.AccessibilityView="Raw"
-										DisplayName="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
+									<uc:UserAvatar
+										AvatarUrl="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}"
+										DisplayName="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}"
+										Size="28" />
 								</Border>
 								<Button.Flyout>
 									<MenuBarItemFlyout

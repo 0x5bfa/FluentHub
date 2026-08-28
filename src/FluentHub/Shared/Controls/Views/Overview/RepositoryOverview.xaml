@@ -70,7 +70,7 @@
 					<StackPanel Orientation="Horizontal" Spacing="8">
 
 						<Grid>
-							<primer:Avatar IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}" Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
+							<primer:EntityAvatar IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}" Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
 						</Grid>
 
 						<TextBlock

@@ -35,11 +35,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -72,11 +72,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -113,11 +113,11 @@
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
-										<primer:Avatar
+										<uc:UserAvatar
 											VerticalAlignment="Top"
 											Label="{x:Bind Actor.Login}"
 											Size="20"
-											Source="{x:Bind Actor.AvatarUrl}" />
+											AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 										<TextBlock
 											Grid.Column="1"
 											VerticalAlignment="Center"
@@ -149,11 +149,11 @@
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
-										<primer:Avatar
+										<uc:UserAvatar
 											VerticalAlignment="Top"
 											Label="{x:Bind Actor.Login}"
 											Size="20"
-											Source="{x:Bind Actor.AvatarUrl}" />
+											AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 										<StackPanel
 											Grid.Column="1"
 											Orientation="Horizontal"
@@ -193,11 +193,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -234,11 +234,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -276,11 +276,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -315,11 +315,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -356,11 +356,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -566,11 +566,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -604,11 +604,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -666,11 +666,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -715,11 +715,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -761,11 +761,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -816,11 +816,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -850,11 +850,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -888,11 +888,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -925,11 +925,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -962,11 +962,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1002,11 +1002,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1039,11 +1039,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1080,11 +1080,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1121,11 +1121,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1155,11 +1155,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1210,11 +1210,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1252,11 +1252,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1301,11 +1301,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1338,11 +1338,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"
@@ -1393,11 +1393,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1430,11 +1430,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<TextBlock
 								Grid.Column="1"
 								VerticalAlignment="Center"
@@ -1467,11 +1467,11 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<primer:Avatar
+							<uc:UserAvatar
 								VerticalAlignment="Top"
 								Label="{x:Bind Actor.Login}"
 								Size="20"
-								Source="{x:Bind Actor.AvatarUrl}" />
+								AvatarUrl="{x:Bind Actor.AvatarUrl}" />
 							<StackPanel
 								Grid.Column="1"
 								Orientation="Horizontal"

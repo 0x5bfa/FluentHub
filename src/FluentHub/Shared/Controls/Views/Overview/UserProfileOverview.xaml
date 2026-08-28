@@ -50,21 +50,11 @@
 					Width="260"
 					Height="260"
 					CornerRadius="130" />
-				<Grid
-					x:Name="AvatarFallback"
-					Width="260"
-					Height="260"
-					Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
-					CornerRadius="300"
-					Visibility="Collapsed">
-					<FontIcon
-						FontSize="84"
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						Glyph="&#xE77B;" />
-				</Grid>
-				<Image
+				<uc:UserAvatar
 					x:Name="AvatarImage"
-					helpers:GitHubImageCache.Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+					AvatarUrl="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}"
+					DisplayName="{x:Bind ViewModel.User.Login, Mode=OneWay}"
+					Size="260"
 					Opacity="0" />
 			</Grid>
 

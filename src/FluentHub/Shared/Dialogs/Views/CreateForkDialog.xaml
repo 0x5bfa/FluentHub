@@ -5,8 +5,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:contracts="using:FluentHub.Core.Application.Models"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:primer="using:FluentHub.Shared.Controls.Views.PrimerControls"
 	CloseButtonText="Cancel"
 	DefaultButton="Primary"
 	PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
@@ -48,12 +48,7 @@
 						<ComboBox.ItemTemplate>
 							<DataTemplate x:DataType="contracts:ForkOwner">
 								<StackPanel Orientation="Horizontal" Spacing="8">
-									<Border
-										Width="20"
-										Height="20"
-										CornerRadius="10">
-										<Image helpers:GitHubImageCache.Source="{x:Bind AvatarUrl}" Stretch="UniformToFill" />
-									</Border>
+									<primer:EntityAvatar Size="20" Source="{x:Bind AvatarUrl}" />
 									<TextBlock VerticalAlignment="Center" Text="{x:Bind Login}" />
 								</StackPanel>
 							</DataTemplate>

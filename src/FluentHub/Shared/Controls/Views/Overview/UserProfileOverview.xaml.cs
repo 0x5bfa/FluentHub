@@ -27,7 +27,7 @@ namespace FluentHub.Shared.Controls.Views.Overview
 		public UserProfileOverview()
 		{
 			InitializeComponent();
-			AvatarImage.RegisterPropertyChangedCallback(
+			AvatarImage.Picture.RegisterPropertyChangedCallback(
 				GitHubImageCache.LoadStatusProperty,
 				OnAvatarLoadStatusChanged);
 			UpdateAvatarState();
@@ -41,16 +41,12 @@ namespace FluentHub.Shared.Controls.Views.Overview
 
 		private void UpdateAvatarState()
 		{
-			var status = GitHubImageCache.GetLoadStatus(AvatarImage);
+			var status = AvatarImage.LoadStatus;
 			var isLoading = status == GitHubImageLoadStatus.Loading;
-			var isLoaded = status == GitHubImageLoadStatus.Loaded;
 
 			AvatarShimmer.IsActive = isLoading;
 			AvatarShimmer.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-			AvatarFallback.Visibility = status is GitHubImageLoadStatus.Empty or GitHubImageLoadStatus.Failed
-				? Visibility.Visible
-				: Visibility.Collapsed;
-			AvatarImage.Opacity = isLoaded ? 1 : 0;
+			AvatarImage.Opacity = isLoading ? 0 : 1;
 		}
 
 		private async void OnUserFollowersButtonClick(object sender, RoutedEventArgs e)
