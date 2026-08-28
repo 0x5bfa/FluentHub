@@ -230,6 +230,52 @@ public sealed class FileCacheServiceTests
 		Assert.AreEqual("Octocat", restored.RepositoryName);
 	}
 
+	[TestMethod]
+	public void ContributionCalendarSerializerPreservesMonthsAndDayDates()
+	{
+		var calendar = new ContributionCalendar
+		{
+			Colors = ["#9BE9A8"],
+			Months =
+			[
+				new ContributionCalendarMonth
+				{
+					FirstDay = "2026-08-01",
+					Name = "Aug",
+					TotalWeeks = 5,
+					Year = 2026,
+				},
+			],
+			TotalContributions = 42,
+			Weeks =
+			[
+				new ContributionCalendarWeek
+				{
+					FirstDay = "2026-08-23",
+					ContributionDays =
+					[
+						new ContributionCalendarDay
+						{
+							ContributionCount = 3,
+							ContributionLevel = ContributionLevel.FirstQuartile,
+							Date = "2026-08-23",
+							Weekday = 0,
+						},
+					],
+				},
+			],
+		};
+
+		var restored = GitHubCacheSerializers.ContributionCalendar.Deserialize(
+			GitHubCacheSerializers.ContributionCalendar.Serialize(calendar));
+
+		Assert.AreEqual(42, restored.TotalContributions);
+		Assert.AreEqual("Aug", restored.Months[0].Name);
+		Assert.AreEqual(5, restored.Months[0].TotalWeeks);
+		Assert.AreEqual("2026-08-23", restored.Weeks[0].FirstDay);
+		Assert.AreEqual("2026-08-23", restored.Weeks[0].ContributionDays[0].Date);
+	}
+
 	private sealed class ManualTimeProvider(DateTimeOffset now) : TimeProvider
 	{
 		private DateTimeOffset _now = now;

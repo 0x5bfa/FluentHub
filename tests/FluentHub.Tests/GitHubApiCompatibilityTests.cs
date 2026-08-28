@@ -80,6 +80,26 @@ public sealed class GitHubApiCompatibilityTests
 	}
 
 	[TestMethod]
+	public async Task ContributionCalendarQueryRequestsDatesAndMonthMetadata()
+	{
+		var api = new FakeGitHubApiClient([])
+		{
+			ThrowAfterGraphQLCompilation = true,
+		};
+
+		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+			() => new UserActivityQueries(api).GetContributionCalendarAsync("octocat"));
+
+		Assert.HasCount(1, api.GraphQLQueries);
+		var query = api.GraphQLQueries[0];
+		Assert.IsTrue(query.Contains("contributionCalendar", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("months", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("firstDay", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("date", StringComparison.Ordinal));
+		Assert.IsTrue(query.Contains("contributionLevel", StringComparison.Ordinal));
+	}
+
+	[TestMethod]
 	public async Task DetailQueriesDoNotRequestClassicProjectCards()
 	{
 		var api = new FakeGitHubApiClient([]);

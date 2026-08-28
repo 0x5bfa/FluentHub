@@ -1,7 +1,7 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
+using FluentHub.Core.Application;
 using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.Controls.BlockButtons;
 
@@ -26,6 +26,12 @@ namespace FluentHub.ViewModels.Users
 
 		private Uri? _profileReadmeEditUri;
 		public Uri? ProfileReadmeEditUri { get => _profileReadmeEditUri; set => SetProperty(ref _profileReadmeEditUri, value); }
+
+		private ContributionCalendar? _contributionCalendar;
+		public ContributionCalendar? ContributionCalendar { get => _contributionCalendar; set => SetProperty(ref _contributionCalendar, value); }
+
+		private IReadOnlyList<ContributionCalendarItem> _contributionCalendarItems = [];
+		public IReadOnlyList<ContributionCalendarItem> ContributionCalendarItems { get => _contributionCalendarItems; set => SetProperty(ref _contributionCalendarItems, value); }
 
 		public IAsyncRelayCommand LoadUserOverviewCommand { get; }
 		public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
@@ -57,7 +63,8 @@ namespace FluentHub.ViewModels.Users
 				await Task.WhenAll(
 					LoadUserAsync(Login),
 					LoadUserPinnableAndPinnedRepositoriesAsync(Login),
-					profileReadmeTask);
+					profileReadmeTask,
+					LoadContributionCalendarAsync(Login));
 
 				var profileReadme = await profileReadmeTask;
 				if (User.IsViewer && !string.IsNullOrWhiteSpace(profileReadme.DefaultBranchName))
@@ -99,6 +106,27 @@ namespace FluentHub.ViewModels.Users
 			ProfileReadmeMarkdown = profileReadme.Markdown;
 
 			return profileReadme;
+		}
+
+		private async Task LoadContributionCalendarAsync(string login)
+		{
+			ContributionCalendar = null;
+			ContributionCalendarItems = [];
+
+			try
+			{
+				var calendar = await _gitHub.Users.Activities.GetContributionCalendarAsync(login);
+				var items = ContributionCalendarService.CreateItems(calendar);
+				if (items.Count == 0)
+					return;
+
+				ContributionCalendarItems = items;
+				ContributionCalendar = calendar;
+			}
+			catch (Exception ex)
+			{
+				_logger?.Error(nameof(LoadContributionCalendarAsync), ex);
+			}
 		}
 
 		private async Task LoadUserPinnableAndPinnedRepositoriesAsync(string login)

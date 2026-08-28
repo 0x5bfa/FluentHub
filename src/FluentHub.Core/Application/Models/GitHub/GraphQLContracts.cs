@@ -1685,11 +1685,13 @@ namespace FluentHub.Core.Application.Models
 
 	public class ContributionCalendar
 	{
-		public global::System.Collections.Generic.List<string> Colors { get; set; } = default!;
+		public global::System.Collections.Generic.List<string> Colors { get; set; } = [];
+
+		public global::System.Collections.Generic.List<ContributionCalendarMonth> Months { get; set; } = [];
 
 		public int TotalContributions { get; set; }
 
-		public global::System.Collections.Generic.List<ContributionCalendarWeek> Weeks { get; set; } = default!;
+		public global::System.Collections.Generic.List<ContributionCalendarWeek> Weeks { get; set; } = [];
 	}
 
 	public class ContributionCalendarDay
@@ -1700,12 +1702,27 @@ namespace FluentHub.Core.Application.Models
 
 		public ContributionLevel ContributionLevel { get; set; }
 
+		public string Date { get; set; } = string.Empty;
+
 		public int Weekday { get; set; }
+	}
+
+	public class ContributionCalendarMonth
+	{
+		public string FirstDay { get; set; } = string.Empty;
+
+		public string Name { get; set; } = string.Empty;
+
+		public int TotalWeeks { get; set; }
+
+		public int Year { get; set; }
 	}
 
 	public class ContributionCalendarWeek
 	{
-		public global::System.Collections.Generic.List<ContributionCalendarDay> ContributionDays { get; set; } = default!;
+		public global::System.Collections.Generic.List<ContributionCalendarDay> ContributionDays { get; set; } = [];
+
+		public string FirstDay { get; set; } = string.Empty;
 	}
 
 	public class ContributionsCollection

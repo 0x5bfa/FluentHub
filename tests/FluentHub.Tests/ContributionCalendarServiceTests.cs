@@ -23,6 +23,7 @@ public sealed class ContributionCalendarServiceTests
 							Color = "#123456",
 							ContributionCount = 4,
 							ContributionLevel = ContributionLevel.SecondQuartile,
+							Date = "2026-08-25",
 							Weekday = 2,
 						},
 					],
@@ -39,5 +40,7 @@ public sealed class ContributionCalendarServiceTests
 		Assert.IsFalse(items[1].IsValid);
 		Assert.IsTrue(items[2].IsValid);
 		Assert.AreEqual(4, items[2].ContributionCount);
+		Assert.AreEqual("2026-08-25", items[2].Date);
+		StringAssert.Contains(items[2].Description, "4 contributions");
 	}
 }

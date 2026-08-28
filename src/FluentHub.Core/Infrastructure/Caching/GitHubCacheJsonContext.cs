@@ -15,6 +15,7 @@ namespace FluentHub.Core.Infrastructure.Caching
 	[JsonSerializable(typeof(CachedRepositorySummary))]
 	[JsonSerializable(typeof(CachedOrganizationSummary))]
 	[JsonSerializable(typeof(ProfileReadme))]
+	[JsonSerializable(typeof(ContributionCalendar))]
 	internal sealed partial class GitHubCacheJsonContext : JsonSerializerContext
 	{
 	}
@@ -44,6 +45,9 @@ namespace FluentHub.Core.Infrastructure.Caching
 
 		public static CacheSerializer<ProfileReadme> ProfileReadme { get; } =
 			CacheSerializer<ProfileReadme>.FromJsonTypeInfo(GitHubCacheJsonContext.Default.ProfileReadme);
+
+		public static CacheSerializer<ContributionCalendar> ContributionCalendar { get; } =
+			CacheSerializer<ContributionCalendar>.FromJsonTypeInfo(GitHubCacheJsonContext.Default.ContributionCalendar);
 	}
 
 	internal sealed class CachedUserSummary

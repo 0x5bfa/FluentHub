@@ -94,7 +94,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 	{
 		internal UserApiClient(IGitHubApiClient apiClient, ICacheService? cache)
 		{
-			Activities = new(apiClient);
+			Activities = new(apiClient, cache);
 			Discussions = new(apiClient);
 			Followers = new(apiClient);
 			Following = new(apiClient);

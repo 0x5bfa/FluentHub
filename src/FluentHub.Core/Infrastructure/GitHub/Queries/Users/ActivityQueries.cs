@@ -1,3 +1,5 @@
+using FluentHub.Core.Application.Abstractions.Caching;
+using FluentHub.Core.Infrastructure.Caching;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
@@ -5,9 +7,14 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 	public class ActivityQueries
 	{
 		private readonly IGitHubApiClient _gitHub;
+		private readonly ICacheService? _cache;
 
-		public ActivityQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public ActivityQueries(IGitHubApiClient gitHub, ICacheService? cache = null)
+		{
+			_gitHub = gitHub;
+			_cache = cache;
+		}
+
 		public async Task<List<Activity>> GetAllAsync(string login, CancellationToken cancellationToken = default)
 		{
 			OctokitV3.ApiOptions options = new()
@@ -27,7 +34,30 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			return activities;
 		}
 
-		public async Task<ContributionCalendar> GetContributionCalendarAsync(string login, CancellationToken cancellationToken = default)
+		public Task<ContributionCalendar> GetContributionCalendarAsync(
+			string login,
+			CancellationToken cancellationToken = default)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(login);
+
+			if (_cache is null)
+				return GetContributionCalendarUncachedAsync(login, cancellationToken);
+
+			var key = CacheKey.ForAccount(
+				_gitHub.CachePartition,
+				"contribution-calendars-v2",
+				login.Trim().ToLowerInvariant());
+			return _cache.GetOrCreateAsync(
+				key,
+				CachePolicies.User,
+				GitHubCacheSerializers.ContributionCalendar,
+				token => GetContributionCalendarUncachedAsync(login, token),
+				cancellationToken);
+		}
+
+		private async Task<ContributionCalendar> GetContributionCalendarUncachedAsync(
+			string login,
+			CancellationToken cancellationToken)
 		{
 			var query = new Query()
 				.User(login)
@@ -35,15 +65,27 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 				.ContributionCalendar
 				.Select(x => new ContributionCalendar
 				{
+					Colors = x.Colors.ToList(),
 					TotalContributions = x.TotalContributions,
+
+					Months = x.Months.Select(month => new ContributionCalendarMonth
+					{
+						FirstDay = month.FirstDay,
+						Name = month.Name,
+						TotalWeeks = month.TotalWeeks,
+						Year = month.Year,
+					})
+					.ToList(),
 
 					Weeks = x.Weeks.Select(week => new ContributionCalendarWeek
 					{
+						FirstDay = week.FirstDay,
 						ContributionDays = week.ContributionDays.Select(day => new ContributionCalendarDay
 						{
 							Color = day.Color,
 							ContributionCount = day.ContributionCount,
 							ContributionLevel = (ContributionLevel)day.ContributionLevel,
+							Date = day.Date,
 							Weekday = day.Weekday,
 						})
 						.ToList(),

@@ -1,5 +1,4 @@
 using FluentHub.Core.Application.Models;
-using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Core.Application
 {
@@ -13,9 +12,9 @@ namespace FluentHub.Core.Application
 				.SelectMany(week => week.ContributionDays)
 				.Select(day => new ContributionCalendarItem
 				{
-					Color = day.Color,
 					ContributionCount = day.ContributionCount,
 					ContributionLevel = day.ContributionLevel,
+					Date = day.Date,
 					Weekday = day.Weekday,
 					IsValid = true,
 				})
@@ -31,7 +30,6 @@ namespace FluentHub.Core.Application
 			{
 				items.Insert(0, new ContributionCalendarItem
 				{
-					Color = string.Empty,
 					ContributionLevel = ContributionLevel.None,
 					Weekday = weekday,
 					IsValid = false,

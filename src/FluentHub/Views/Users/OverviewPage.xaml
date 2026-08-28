@@ -199,6 +199,10 @@
 							</Grid>
 						</Grid>
 
+						<uc:UserContributionGraph
+							Calendar="{x:Bind ViewModel.ContributionCalendar, Mode=OneWay}"
+							Items="{x:Bind ViewModel.ContributionCalendarItems, Mode=OneWay}" />
+
 					</StackPanel>
 				</ScrollViewer>
 
