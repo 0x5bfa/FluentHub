@@ -219,16 +219,61 @@ public sealed class GitHubApiCompatibilityTests
 		Assert.IsTrue(query.Contains("text", StringComparison.Ordinal));
 	}
 
+	[TestMethod]
+	public async Task ViewerLoginUsesAuthenticatedUserRestEndpoint()
+	{
+		var api = new FakeGitHubApiClient([])
+		{
+			AuthenticatedUser = CreateUser(" octocat "),
+		};
+
+		var login = await new UserQueries(api).GetViewerLoginAsync();
+
+		Assert.AreEqual("octocat", login);
+		Assert.AreEqual(1, api.RestCallCount);
+		Assert.IsEmpty(api.GraphQLQueries);
+	}
+
+	[TestMethod]
+	public async Task ViewerLoginRejectsMissingLogin()
+	{
+		var api = new FakeGitHubApiClient([])
+		{
+			AuthenticatedUser = new global::Octokit.User(),
+		};
+
+		var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+			() => new UserQueries(api).GetViewerLoginAsync());
+
+		Assert.AreEqual("GitHub did not return a login for the authenticated user.", exception.Message);
+	}
+
+	private static global::Octokit.User CreateUser(string login)
+	{
+		var user = new global::Octokit.User();
+		var loginProperty = typeof(global::Octokit.User).GetProperty(nameof(global::Octokit.User.Login))
+			?? throw new InvalidOperationException("Octokit.User.Login was not found.");
+		loginProperty.SetValue(user, login);
+		return user;
+	}
+
 	private sealed class FakeGitHubApiClient(IReadOnlyList<global::Octokit.Activity> activities) : IGitHubApiClient
 	{
 		public List<string> GraphQLQueries { get; } = [];
 		public List<string> RawGraphQLQueries { get; } = [];
+		public global::Octokit.User? AuthenticatedUser { get; init; }
+		public int RestCallCount { get; private set; }
 		public bool ThrowAfterGraphQLCompilation { get; init; }
 
 		public Task<T> RunRestAsync<T>(
 			Func<global::Octokit.IGitHubClient, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 		{
+			RestCallCount++;
+
+			if (AuthenticatedUser is T authenticatedUser)
+				return Task.FromResult(authenticatedUser);
+
 			if (activities is T response)
 				return Task.FromResult(response);
 

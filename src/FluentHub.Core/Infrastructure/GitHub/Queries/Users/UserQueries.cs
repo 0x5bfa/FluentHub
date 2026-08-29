@@ -143,31 +143,15 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)
 		{
-			if (_cache is null)
-				return await GetViewerLoginUncachedAsync(cancellationToken);
-
-			var key = CacheKey.ForAccount(_gitHub.CachePartition, "users", "viewer-login");
-			return await _cache.GetOrCreateAsync(
-				key,
-				CachePolicies.User,
-				CacheSerializers.String,
-				GetViewerLoginUncachedAsync,
+			var user = await _gitHub.RunRestAsync(
+				client => client.User.Current(),
 				cancellationToken);
-		}
+			var login = user.Login?.Trim();
 
-		private async Task<string> GetViewerLoginUncachedAsync(CancellationToken cancellationToken)
-		{
-			var query = new Query()
-				.Viewer
-				.Select(x => new
-				{
-					x.Login,
-				})
-				.Compile();
+			if (string.IsNullOrWhiteSpace(login))
+				throw new InvalidOperationException("GitHub did not return a login for the authenticated user.");
 
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response.Login;
+			return login;
 		}
 	}
 }
