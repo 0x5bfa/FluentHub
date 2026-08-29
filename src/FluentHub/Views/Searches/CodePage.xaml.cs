@@ -1,29 +1,29 @@
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Searches;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Searches
 {
-	public sealed partial class CodePage : Page
+	public sealed partial class CodePage : ScreenView
 	{
 		public CodePage()
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<CodeViewModel>();
+			ViewModel = GetRequiredService<CodeViewModel>();
+			_screenViewModel = ViewModel;
+			_screenLoadCommand = ViewModel.LoadSearchCodePageCommand;
 		}
 
 		public CodeViewModel ViewModel { get; }
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter { Parameters: string searchTerm })
+			if (route is not SearchRoute { Kind: SearchKind.Code } search)
 				return;
 
-			ViewModel.SearchTerm = searchTerm;
+			ViewModel.SearchTerm = search.Query;
 
 			var command = ViewModel.LoadSearchCodePageCommand;
 			if (command.CanExecute(null))

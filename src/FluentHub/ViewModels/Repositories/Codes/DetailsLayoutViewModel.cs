@@ -1,7 +1,7 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Models;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.Overview;
 
 namespace FluentHub.ViewModels.Repositories.Codes
 {
@@ -38,13 +38,11 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		public bool CanFork
 			=> !_isForking && (Repository?.ForkingAllowed ?? false);
 
-		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public DetailsLayoutViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText ?? string.Empty;
-			Name = parameter.SecondaryText ?? string.Empty;
-
-			CurrentPath = parameter.Parameters as string ?? string.Empty;
+			CurrentPath = CurrentRoute is RepositoryCodeRoute code
+				? code.Path ?? string.Empty
+				: string.Empty;
 
 			_items = new();
 			Items = new(_items);
@@ -256,41 +254,13 @@ namespace FluentHub.ViewModels.Repositories.Codes
 
 		private void InitializeRepositoryContext(string owner, string name, string path)
 		{
-			bool isRootDir = false;
-			bool isFile = false;
-			bool isSubDir = false;
-			bool isDir = false;
-			string actualPath = path;
-			var pathItems = string.IsNullOrEmpty(path) ? [] : path.Split("/").ToList();
-			string branchName = "";
-
-			// owner/name
-			if (pathItems.Count == 0)
-			{
-				isDir = isRootDir = true;
-				branchName = Repository.DefaultBranchRef?.Name ?? string.Empty;
-			}
-			// owner/name/tree/main
-			else if (pathItems.Count == 2)
-			{
-				isDir = isRootDir = true;
-				branchName = Uri.UnescapeDataString(pathItems.ElementAt(1));
-
-				pathItems.RemoveRange(0, 2);
-				actualPath = string.Join("/", pathItems);
-			}
-			// owner/name/(tree|blob)/main/path
-			else if (pathItems.Count > 2)
-			{
-				isRootDir = false;
-				branchName = Uri.UnescapeDataString(pathItems.ElementAt(1));
-
-				isFile = pathItems.ElementAt(0).ToLower() == "blob" ? true : false;
-				isSubDir = isDir = pathItems.ElementAt(0).ToLower() == "tree";
-
-				pathItems.RemoveRange(0, 2);
-				actualPath = string.Join("/", pathItems);
-			}
+			var codeRoute = CurrentRoute as RepositoryCodeRoute;
+			var actualPath = codeRoute?.Path ?? path;
+			var branchName = codeRoute?.GitRef ?? Repository.DefaultBranchRef?.Name ?? string.Empty;
+			var isRootDir = string.IsNullOrEmpty(actualPath);
+			var isFile = codeRoute?.Target == RepositoryCodeTarget.File;
+			var isDir = !isFile;
+			var isSubDir = isDir && !isRootDir;
 
 			ContextViewModel = new()
 			{

@@ -2,33 +2,34 @@ using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Insights
 {
-	public sealed partial class InsightsPage : Page
+	public sealed partial class InsightsPage : ScreenView
 	{
 		public InsightsPage()
 		{
 			InitializeComponent();
 
-			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			navigationService = GetRequiredService<INavigationService>();
 		}
 
 		private readonly INavigationService navigationService;
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			if (currentItem is null)
+			var chrome = navigationService.TabView.SelectedItem?.Chrome;
+			if (chrome is null)
 				return;
 
-			currentItem.Header = "Insights";
-			currentItem.Description = "Insights";
-			currentItem.Icon = new ImageIconSource
+			chrome.Header = "Insights";
+			chrome.Description = "Insights";
+			chrome.Icon = new ImageIconSource
 			{
 				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.png"))
 			};
+
+			OnInsightsNavViewItemSelected("overview");
 		}
 
 		private void OnInsightsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -45,19 +46,19 @@ namespace FluentHub.Views.Repositories.Insights
 			{
 				default:
 				case "overview":
-					InsightsNavViewFrame.Navigate(typeof(OverviewPage));
+					InsightsContentPresenter.Content = new OverviewPage();
 					break;
 				case "contributors":
-					InsightsNavViewFrame.Navigate(typeof(ContributorsPage));
+					InsightsContentPresenter.Content = new ContributorsPage();
 					break;
 				case "traffic":
-					InsightsNavViewFrame.Navigate(typeof(TrafficPage));
+					InsightsContentPresenter.Content = new TrafficPage();
 					break;
 				case "commits":
-					InsightsNavViewFrame.Navigate(typeof(CommitsPage));
+					InsightsContentPresenter.Content = new CommitsPage();
 					break;
 				case "codefrequency":
-					InsightsNavViewFrame.Navigate(typeof(CodeFrequencyPage));
+					InsightsContentPresenter.Content = new CodeFrequencyPage();
 					break;
 			}
 		}

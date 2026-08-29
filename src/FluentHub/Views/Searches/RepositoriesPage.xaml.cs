@@ -1,29 +1,29 @@
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Searches;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Searches
 {
-	public sealed partial class RepositoriesPage : Page
+	public sealed partial class RepositoriesPage : ScreenView
 	{
 		public RepositoriesPage()
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
+			ViewModel = GetRequiredService<RepositoriesViewModel>();
+			_screenViewModel = ViewModel;
+			_screenLoadCommand = ViewModel.LoadSearchRepositoriesPageCommand;
 		}
 
 		public RepositoriesViewModel ViewModel { get; }
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter { Parameters: string searchTerm })
+			if (route is not SearchRoute { Kind: SearchKind.Repositories } search)
 				return;
 
-			ViewModel.SearchTerm = searchTerm;
+			ViewModel.SearchTerm = search.Query;
 
 			var command = ViewModel.LoadSearchRepositoriesPageCommand;
 			if (command.CanExecute(null))

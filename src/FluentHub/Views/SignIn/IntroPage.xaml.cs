@@ -1,27 +1,26 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.ViewModels.SignIn;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using Windows.ApplicationModel.DataTransfer;
 
 namespace FluentHub.Views.SignIn
 {
-	public sealed partial class IntroPage : Page
+	public sealed partial class IntroPage : ScreenView
 	{
 		public IntroPage()
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<IntroViewModel>();
+			ViewModel = GetRequiredService<IntroViewModel>();
 			Unloaded += (_, _) => ViewModel.CancelAuthorization();
 		}
 
 		public IntroViewModel ViewModel { get; }
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 			=> App.Current.SignInWindow?.SetTitleBar(AppTitleBar);
 
 		private void OnContinueButtonClick(object sender, RoutedEventArgs e)

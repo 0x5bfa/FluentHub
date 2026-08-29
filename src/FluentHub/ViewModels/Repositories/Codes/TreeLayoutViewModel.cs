@@ -1,8 +1,8 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Models;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls;
+using FluentHub.ViewModels.Controls.Overview;
 
 namespace FluentHub.ViewModels.Repositories.Codes
 {
@@ -23,13 +23,35 @@ namespace FluentHub.ViewModels.Repositories.Codes
 		public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryCommand { get; }
 
-		public TreeLayoutViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public TreeLayoutViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_items = new();
 			Items = new(_items);
 
 			LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadRepositoryContentsAsync);
 			LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
+		}
+
+		public override async Task ActivateAsync(AppRoute route, CancellationToken cancellationToken)
+		{
+			await base.ActivateAsync(route, cancellationToken);
+			if (route is not RepositoryCodeRoute code)
+				return;
+
+			var queries = _gitHub.Repositories.Repositories;
+			Repository = await queries.GetDetailsAsync(
+				code.Repository.Owner,
+				code.Repository.Name,
+				cancellationToken);
+			ContextViewModel = new RepoContextViewModel
+			{
+				Repository = Repository,
+				BranchName = code.GitRef ?? Repository.DefaultBranchRef?.Name ?? string.Empty,
+				Path = code.Path ?? string.Empty,
+				IsFile = code.Target == RepositoryCodeTarget.File,
+				IsRootDir = string.IsNullOrEmpty(code.Path),
+				IsSubDir = !string.IsNullOrEmpty(code.Path) && code.Target == RepositoryCodeTarget.Directory,
+			};
 		}
 
 		private async Task LoadRepositoryContentsAsync(CancellationToken token)

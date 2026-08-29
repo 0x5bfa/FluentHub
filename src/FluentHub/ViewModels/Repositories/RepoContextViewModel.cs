@@ -1,4 +1,4 @@
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories
 {

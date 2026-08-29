@@ -1,11 +1,11 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.Models;
-using FluentHub.ViewModels.UserControls.BlockButtons;
-using FluentHub.Core.Contracts;
-using FluentHub.Core.Queries.Discussions;
+using FluentHub.ViewModels.Controls.BlockButtons;
+using FluentHub.Core.Application.Models;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Discussions;
 
 namespace FluentHub.ViewModels.Users
 {
@@ -47,16 +47,9 @@ namespace FluentHub.ViewModels.Users
 		public IAsyncRelayCommand LoadUserDiscussionsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserDiscussionsFurtherCommand { get; }
 
-		public DiscussionsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public DiscussionsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			if (parameter.AsViewer)
-			{
-				var currentTabItem = _navigation.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-
-				AsViewer = true;
-			}
+			AsViewer = CurrentRoute is UserRoute { AsViewer: true };
 
 			_discussions = new();
 			DiscussionItems = new(_discussions);

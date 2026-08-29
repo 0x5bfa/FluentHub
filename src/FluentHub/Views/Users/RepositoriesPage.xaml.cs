@@ -1,14 +1,13 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.ViewModels.Users;
-using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-	public sealed partial class RepositoriesPage : LocatablePage
+	public sealed partial class RepositoriesPage : NavigableView
 	{
 		public RepositoriesViewModel ViewModel { get; }
 		private bool _filtersReady;
@@ -20,11 +19,12 @@ namespace FluentHub.Views.Users
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
+			ViewModel = GetRequiredService<RepositoriesViewModel>();
 			_pageLoadCommand = ViewModel.LoadUserRepositoriesPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnActivated(AppRoute route)
 		{
 			_filtersReady = false;
 			var command = ViewModel.LoadUserRepositoriesPageCommand;

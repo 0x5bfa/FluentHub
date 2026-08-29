@@ -1,4 +1,4 @@
-<views:LocatablePage
+<navigation:NavigableView
 	x:Class="FluentHub.Views.Repositories.Commits.CommitPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,19 +7,19 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Views.Repositories.Commits"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ov="using:FluentHub.UserControls.Overview"
-	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
+	xmlns:ov="using:FluentHub.Controls.Overview"
+	xmlns:primer="using:FluentHub.Controls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-	xmlns:uc="using:FluentHub.UserControls"
-	xmlns:ucvm="using:FluentHub.ViewModels.UserControls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:uc="using:FluentHub.Controls"
+	xmlns:ucvm="using:FluentHub.ViewModels.Controls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	mc:Ignorable="d">
 
-	<views:LocatablePage.Resources>
+	<navigation:NavigableView.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 		</ResourceDictionary>
-	</views:LocatablePage.Resources>
+	</navigation:NavigableView.Resources>
 
 	<Grid>
 
@@ -32,7 +32,7 @@
 					</Grid.RowDefinitions>
 
 					<StackPanel Orientation="Horizontal" Spacing="8">
-						<primer:Avatar
+						<primer:EntityAvatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
@@ -96,7 +96,7 @@
 							<Grid Grid.Row="3" Margin="0,12,0,0">
 								<StackPanel Orientation="Horizontal" Spacing="4">
 
-									<primer:Avatar Label="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
+									<uc:UserAvatar Label="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
 
 									<TextBlock
 										VerticalAlignment="Center"
@@ -215,4 +215,4 @@
 		</Grid>
 
 	</Grid>
-</views:LocatablePage>
+</navigation:NavigableView>

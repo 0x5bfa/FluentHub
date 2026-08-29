@@ -1,4 +1,4 @@
-<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
 <Application
 	x:Class="FluentHub.App"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,8 +13,8 @@
 
 				<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
 
-				<ResourceDictionary Source="ms-appx:///Styles/CopyButton.xaml" />
-				<ResourceDictionary Source="ms-appx:///Styles/ShimmerStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Controls/Styles/CopyButton.xaml" />
+				<ResourceDictionary Source="ms-appx:///Controls/Styles/ShimmerStyles.xaml" />
 
 				<ResourceDictionary>
 					<ResourceDictionary.ThemeDictionaries>
@@ -59,8 +59,8 @@
 
 				</ResourceDictionary>
 
-				<ResourceDictionary Source="ms-appx:///Styles/CommonStyles.xaml" />
-				<ResourceDictionary Source="ms-appx:///Styles/TextBlockStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Controls/Styles/CommonStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Controls/Styles/TextBlockStyles.xaml" />
 
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

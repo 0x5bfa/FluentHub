@@ -1,26 +1,27 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.UserControls;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.ViewModels.Controls;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.ViewModels.Controls.BlockButtons;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Core.Queries.Users;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels
 {
-	public abstract class BaseViewModel : ObservableObject
+	public abstract class BaseViewModel : ObservableObject, IScreenViewModel<AppRoute>
 	{
 		protected readonly IMessenger _messenger;
 		protected readonly ILogger _logger;
 		protected readonly INavigationService _navigation;
 		protected readonly IFluentHubGitHubClient _gitHub;
 		private readonly ITabViewItem _tabViewItem;
+		protected AppRoute CurrentRoute { get; private set; }
 
 		// Provided for v3 API response
 		protected int _loadedItemCount = 0;
@@ -72,40 +73,56 @@ namespace FluentHub.ViewModels
 		protected bool _IsEmpty;
 		public bool IsEmpty { get => _IsEmpty; set => SetProperty(ref _IsEmpty, value); }
 
-		protected BaseViewModel(IFluentHubGitHubClient gitHub)
+		protected BaseViewModel(
+			IFluentHubGitHubClient gitHub,
+			ScreenViewModelDependencies dependencies)
 		{
 			_gitHub = gitHub;
 
-			// Dependency Injection
-			_logger = Ioc.Default.GetRequiredService<ILogger>();
-			_messenger = Ioc.Default.GetRequiredService<IMessenger>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-			_tabViewItem = _navigation.TabView.SelectedItem;
+			_logger = dependencies.Logger;
+			_messenger = dependencies.Messenger;
+			_navigation = dependencies.Navigation;
+			_tabViewItem = _navigation.TabView.SelectedItem
+				?? throw new InvalidOperationException("A screen view model requires an active tab.");
 
 			var parameter = _tabViewItem.NavigationBar.Context;
+			CurrentRoute = dependencies.CurrentRouteAccessor.Current ?? parameter.Route;
 			Login = parameter.PrimaryText ?? string.Empty;
 			Name = parameter.SecondaryText ?? string.Empty;
 			Number = parameter.Number;
 		}
+
+		public virtual Task ActivateAsync(AppRoute route, CancellationToken cancellationToken)
+		{
+			cancellationToken.ThrowIfCancellationRequested();
+			CurrentRoute = route;
+			var context = ScreenContext.FromRoute(route);
+			Login = context.PrimaryText ?? string.Empty;
+			Name = context.SecondaryText ?? string.Empty;
+			Number = context.Number;
+			return Task.CompletedTask;
+		}
+
+		public virtual Task ReloadAsync(CancellationToken cancellationToken)
+			=> Task.CompletedTask;
+
+		public virtual Task DeactivateAsync(CancellationToken cancellationToken)
+			=> Task.CompletedTask;
 
 		protected void SetTabInformation(
 			string? header = null,
 			string? description = null,
 			string? imageIconSourceSimplified = null)
 		{
-			var currentItem = _tabViewItem.NavigationHistory.CurrentItem;
-			if (currentItem is null)
-				return;
-
 			if (!string.IsNullOrEmpty(header))
-				currentItem.Header = header;
+				_tabViewItem.Chrome.Header = header;
 
 			if (!string.IsNullOrEmpty(description))
-				currentItem.Description = description;
+				_tabViewItem.Chrome.Description = description;
 
 			if (!string.IsNullOrEmpty(imageIconSourceSimplified))
 			{
-				currentItem.Icon = new ImageIconSource()
+				_tabViewItem.Chrome.Icon = new ImageIconSource()
 				{
 					ImageSource = new BitmapImage(new Uri($"ms-appx:///Assets/Icons/{imageIconSourceSimplified}.png"))
 				};
@@ -119,13 +136,10 @@ namespace FluentHub.ViewModels
 				IsTaskFaulted = false;
 				IsTaskLoading = true;
 				_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
-				_tabViewItem.NavigationHistory.CanReload = false;
 			}
 			else
 			{
 				IsTaskLoading = false;
-				_tabViewItem.NavigationHistory.CanReload = true;
-
 				_messenger?.Send(new TaskStateMessaging(IsTaskFaulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
 
 				if (IsTaskFaulted)

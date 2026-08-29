@@ -1,15 +1,15 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Extensions;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
 using FluentHub.Views.Repositories.Releases;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Windows.Input;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.Releases
 {
@@ -25,12 +25,8 @@ namespace FluentHub.ViewModels.Repositories.Releases
 		public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryReleasesFurtherCommand { get; }
 
-		public ReleasesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public ReleasesViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText ?? string.Empty;
-			Name = parameter.SecondaryText ?? string.Empty;
-
 			_items = new();
 			Items = new(_items);
 
@@ -128,14 +124,8 @@ namespace FluentHub.ViewModels.Repositories.Releases
 
 		private void ExecuteGoToReleasePageCommand(string? tag)
 		{
-			SelectedTabViewItem.NavigationBar.Context = new()
-			{
-				PrimaryText = Login,
-				SecondaryText = Name,
-				Parameters = tag ?? string.Empty
-			};
-
-			_navigation.Navigate<ReleasePage>();
+			_ = _navigation.NavigateAsync(
+				new RepositoryReleaseRoute(new RepositorySlug(Login, Name), tag ?? string.Empty));
 		}
 	}
 }

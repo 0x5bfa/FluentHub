@@ -1,11 +1,10 @@
 using FluentHub.Services;
 using FluentHub.ViewModels.AppSettings;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.AppSettings
 {
-	public sealed partial class GeneralPage : LocatablePage
+	public sealed partial class GeneralPage : NavigableView
 	{
 		public GeneralViewModel ViewModel { get; }
 
@@ -16,21 +15,13 @@ namespace FluentHub.Views.AppSettings
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<GeneralViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
-
-			var selectedItem = _navigation.TabView.SelectedItem;
-			var context = new FrameNavigationParameter
-				{
-					PrimaryText = "Settings"
-				};
-
-			selectedItem.NavigationBar.Context = context;
-			if (selectedItem.NavigationHistory.CurrentItem is { } currentItem)
-				currentItem.Context = context;
+			ViewModel = GetRequiredService<GeneralViewModel>();
+			_navigation = GetRequiredService<INavigationService>();
+			_screenViewModel = ViewModel;
+			_screenLoadCommand = ViewModel.LoadGeneralPageCommand;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadGeneralPageCommand;
 			if (command.CanExecute(null))

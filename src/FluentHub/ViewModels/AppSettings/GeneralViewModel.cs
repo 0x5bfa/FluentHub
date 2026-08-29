@@ -1,14 +1,14 @@
-using FluentHub.Core.Queries.Users;
-using FluentHub.Core.Caching;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
+using FluentHub.Core.Application.Abstractions.Caching;
 using FluentHub.Extensions;
 using FluentHub.Models;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.Overview;
 using Microsoft.UI.Xaml;
 using System.IO;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.AppSettings
 {
@@ -81,7 +81,7 @@ namespace FluentHub.ViewModels.AppSettings
 		public ICommand OpenLogsCommand { get; }
 		public ICommand ClearCacheCommand { get; }
 
-		public GeneralViewModel(IFluentHubGitHubClient gitHub, ICacheService cache) : base(gitHub)
+		public GeneralViewModel(IFluentHubGitHubClient gitHub, ICacheService cache, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_cache = cache;
 			InitializeDefaultValues();

@@ -1,13 +1,13 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Utils;
 using FluentHub.Services;
-using FluentHub.ViewModels;
+using FluentHub.ViewModels.AppSettings;
+using FluentHub.Core.Application.Abstractions.Authentication;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
@@ -161,7 +161,7 @@ namespace FluentHub
 					return false;
 				}
 
-				Ioc.Default.GetRequiredService<IGitHubSessionManager>().SwitchAccount(accessToken);
+				Ioc.Default.GetRequiredService<IUserSession>().SwitchAccount(accessToken);
 				return true;
 			}
 			catch (Exception ex)
@@ -179,9 +179,6 @@ namespace FluentHub
 				ApplicationData.Current.LocalSettings.Values["INSTANCE_ACTIVE"] = -System.Diagnostics.Process.GetCurrentProcess().Id;
 			}
 		}
-
-		void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-			=> throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
 		private void OnSuspending(object sender, SuspendingEventArgs e)
 		{

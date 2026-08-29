@@ -1,7 +1,7 @@
 using FluentHub.Utils;
 using FluentHub.Models;
-using FluentHub.Core.Queries.Users;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Dialogs
 {

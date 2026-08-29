@@ -1,13 +1,11 @@
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Projects;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Projects
 {
-	public sealed partial class ProjectsPage : LocatablePage
+	public sealed partial class ProjectsPage : NavigableView
 	{
 		public ProjectsViewModel ViewModel { get; }
 
@@ -16,11 +14,12 @@ namespace FluentHub.Views.Repositories.Projects
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
+			ViewModel = GetRequiredService<ProjectsViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryProjectsPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryProjectsPageCommand;
 			if (command.CanExecute(null))

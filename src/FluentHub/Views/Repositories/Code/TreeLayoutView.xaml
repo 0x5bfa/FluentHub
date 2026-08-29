@@ -1,4 +1,4 @@
-<views:LocatablePage
+<navigation:NavigableView
 	x:Class="FluentHub.Views.Repositories.Code.TreeLayoutView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,13 +8,13 @@
 	xmlns:local="using:FluentHub.Views.Repositories.Code"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.Models"
-	xmlns:ov="using:FluentHub.UserControls.Overview"
-	xmlns:uc="using:FluentHub.UserControls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:ov="using:FluentHub.Controls.Overview"
+	xmlns:uc="using:FluentHub.Controls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 
-	<views:LocatablePage.Resources>
+	<navigation:NavigableView.Resources>
 		<ResourceDictionary>
 
 			<DataTemplate x:Key="FolderTemplate" x:DataType="models:TreeLayoutPageModel">
@@ -81,10 +81,10 @@
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///Styles/DefaultGridSplitterStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Controls/Styles/DefaultGridSplitterStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</views:LocatablePage.Resources>
+	</navigation:NavigableView.Resources>
 
 	<Grid>
 		<Grid Margin="0,0,8,8" RowSpacing="8">
@@ -160,4 +160,4 @@
 			</Grid>
 		</Grid>
 	</Grid>
-</views:LocatablePage>
+</navigation:NavigableView>

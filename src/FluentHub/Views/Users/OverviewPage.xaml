@@ -1,26 +1,26 @@
-<views:LocatablePage
+<navigation:NavigableView
 	x:Class="FluentHub.Views.Users.OverviewPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-	xmlns:bbuc="using:FluentHub.UserControls.BlockButtons"
-	xmlns:bbvm="using:FluentHub.ViewModels.UserControls.BlockButtons"
+	xmlns:bbuc="using:FluentHub.Controls.BlockButtons"
+	xmlns:bbvm="using:FluentHub.ViewModels.Controls.BlockButtons"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Views.Users"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ov="using:FluentHub.UserControls.Overview"
+	xmlns:ov="using:FluentHub.Controls.Overview"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-	xmlns:uc="using:FluentHub.UserControls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:uc="using:FluentHub.Controls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	mc:Ignorable="d">
 
-	<views:LocatablePage.Resources>
+	<navigation:NavigableView.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 		</ResourceDictionary>
-	</views:LocatablePage.Resources>
+	</navigation:NavigableView.Resources>
 
 	<Grid>
 
@@ -38,6 +38,11 @@
 
 				<ScrollViewer Grid.Column="1">
 					<StackPanel Padding="32" Spacing="8">
+
+						<uc:ReadmeContentBlock
+							BaseUrl="{x:Bind ViewModel.ProfileReadmeBaseUrl, Mode=OneWay}"
+							EditUri="{x:Bind ViewModel.ProfileReadmeEditUri, Mode=OneWay}"
+							Markdown="{x:Bind ViewModel.ProfileReadmeMarkdown, Mode=OneWay}" />
 
 						<Grid
 							x:Name="PinnedRepositoriesGrid"
@@ -194,6 +199,10 @@
 							</Grid>
 						</Grid>
 
+						<uc:UserContributionGraph
+							Calendar="{x:Bind ViewModel.ContributionCalendar, Mode=OneWay}"
+							Items="{x:Bind ViewModel.ContributionCalendarItems, Mode=OneWay}" />
+
 					</StackPanel>
 				</ScrollViewer>
 
@@ -222,4 +231,4 @@
 		</Grid>
 
 	</Grid>
-</views:LocatablePage>
+</navigation:NavigableView>

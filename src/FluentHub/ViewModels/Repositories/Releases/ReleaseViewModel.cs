@@ -1,13 +1,13 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Extensions;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.Releases
 {
@@ -21,12 +21,11 @@ namespace FluentHub.ViewModels.Repositories.Releases
 
 		public IAsyncRelayCommand LoadRepositoryReleasePageCommand { get; }
 
-		public ReleaseViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public ReleaseViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText ?? string.Empty;
-			Name = parameter.SecondaryText ?? string.Empty;
-			TagName = parameter.Parameters as string ?? string.Empty;
+			TagName = CurrentRoute is RepositoryReleaseRoute release
+				? release.Tag
+				: string.Empty;
 
 			LoadRepositoryReleasePageCommand = new AsyncRelayCommand(LoadRepositoryReleasePageAsync);
 		}

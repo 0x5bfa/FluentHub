@@ -1,13 +1,13 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.ViewModels.Controls.BlockButtons;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.Commits
 {
@@ -22,7 +22,7 @@ namespace FluentHub.ViewModels.Repositories.Commits
 		public IAsyncRelayCommand LoadRepositoryCommitsPageCommand { get; }
 		public IAsyncRelayCommand LoadRepositoryCommitsFurtherCommand { get; }
 
-		public CommitsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public CommitsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_items = new();
 			Items = new(_items);

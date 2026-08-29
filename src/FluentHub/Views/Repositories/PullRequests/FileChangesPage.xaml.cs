@@ -1,17 +1,15 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
-	public sealed partial class FileChangesPage : LocatablePage
+	public sealed partial class FileChangesPage : NavigableView
 	{
 		public FileChangesViewModel ViewModel { get; }
 
@@ -20,11 +18,12 @@ namespace FluentHub.Views.Repositories.PullRequests
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<FileChangesViewModel>();
+			ViewModel = GetRequiredService<FileChangesViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestFileChangesPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryPullRequestFileChangesPageCommand;
 			if (command.CanExecute(null))

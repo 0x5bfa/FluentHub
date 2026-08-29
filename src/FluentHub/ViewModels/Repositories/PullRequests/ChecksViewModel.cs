@@ -1,9 +1,9 @@
 // Copyright (c) 2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Repositories;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {
@@ -23,7 +23,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestChecksPageCommand { get; }
 
-		public ChecksViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public ChecksViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_items = new();
 			Items = new(_items);

@@ -1,7 +1,7 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.ViewModels.Controls.BlockButtons;
 
 namespace FluentHub.ViewModels.Users
 {
@@ -15,7 +15,7 @@ namespace FluentHub.ViewModels.Users
 
 		public IAsyncRelayCommand LoadUserDiscussionsPageCommand { get; }
 
-		public ContributionsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public ContributionsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_discussions = new();
 			DiscussionItems = new(_discussions);

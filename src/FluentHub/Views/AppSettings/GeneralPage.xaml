@@ -1,4 +1,4 @@
-<views:LocatablePage
+<navigation:NavigableView
 	x:Class="FluentHub.Views.AppSettings.GeneralPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,7 +6,7 @@
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	mc:Ignorable="d">
 
 	<ScrollViewer>
@@ -225,4 +225,4 @@
 			</StackPanel>
 		</StackPanel>
 	</ScrollViewer>
-</views:LocatablePage>
+</navigation:NavigableView>

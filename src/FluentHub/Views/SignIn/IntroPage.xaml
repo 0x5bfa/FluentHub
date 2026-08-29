@@ -1,9 +1,10 @@
-<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
-<Page
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<navigation:ScreenView
 	x:Class="FluentHub.Views.SignIn.IntroPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:uc="using:FluentHub.UserControls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
+	xmlns:uc="using:FluentHub.Controls"
 	Background="Transparent">
 
 	<Grid>
@@ -187,6 +188,66 @@
 						<ProgressBar Margin="0,20,0,0" IsIndeterminate="True" />
 					</StackPanel>
 
+					<!--  Error  -->
+					<StackPanel
+						x:Name="ErrorPanel"
+						MaxWidth="420"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						x:Load="{x:Bind ViewModel.IsErrorStage, Mode=OneWay}"
+						Spacing="12">
+						<Border
+							Padding="20"
+							Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="{StaticResource OverlayCornerRadius}">
+							<StackPanel Spacing="10">
+								<SymbolIcon
+									HorizontalAlignment="Center"
+									Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+									Symbol="Important" />
+								<TextBlock
+									HorizontalAlignment="Center"
+									Style="{StaticResource TitleTextBlockStyle}"
+									Text="{x:Bind ViewModel.ErrorTitle, Mode=OneWay}"
+									TextAlignment="Center"
+									TextWrapping="Wrap" />
+								<TextBlock
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+									TextAlignment="Center"
+									TextWrapping="Wrap" />
+								<Border
+									Margin="0,8,0,0"
+									Padding="12"
+									Background="{ThemeResource SubtleFillColorSecondaryBrush}"
+									CornerRadius="6">
+									<StackPanel Spacing="6">
+										<TextBlock
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="Technical details" />
+										<TextBlock
+											FontFamily="Cascadia Mono"
+											FontSize="12"
+											IsTextSelectionEnabled="True"
+											Text="{x:Bind ViewModel.ErrorDetails, Mode=OneWay}"
+											TextWrapping="Wrap" />
+									</StackPanel>
+								</Border>
+							</StackPanel>
+						</Border>
+						<Button
+							HorizontalAlignment="Stretch"
+							Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
+							Content="Try again"
+							Style="{StaticResource AccentButtonStyle}" />
+						<Button
+							HorizontalAlignment="Stretch"
+							Command="{x:Bind ViewModel.ReturnToWelcomeCommand}"
+							Content="Back" />
+					</StackPanel>
+
 					<!--  Success  -->
 					<StackPanel
 						x:Name="SuccessPanel"
@@ -267,4 +328,4 @@
 			</Grid>
 		</ScrollViewer>
 	</Grid>
-</Page>
+</navigation:ScreenView>

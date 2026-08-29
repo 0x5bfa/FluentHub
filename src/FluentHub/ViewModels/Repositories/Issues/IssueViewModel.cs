@@ -1,13 +1,13 @@
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Core.Contracts;
-using FluentHub.Core.Mutations;
+using FluentHub.Core.Application.Models;
+using FluentHub.Core.Infrastructure.GitHub.Mutations;
 
 namespace FluentHub.ViewModels.Repositories.Issues
 {
@@ -100,7 +100,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
 		public IAsyncRelayCommand ToggleIssueStateCommand { get; }
 		public IAsyncRelayCommand ToggleSubscriptionCommand { get; }
 
-		public IssueViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public IssueViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_timelineItems = new();
 			TimelineItems = new(_timelineItems);

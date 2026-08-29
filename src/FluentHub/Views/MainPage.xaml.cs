@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Helpers;
@@ -10,12 +10,11 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using Windows.Graphics;
 
 namespace FluentHub.Views
 {
-	public sealed partial class MainPage : Page
+	public sealed partial class MainPage : UserControl
 	{
 		private readonly MainPageViewModel ViewModel;
 
@@ -79,7 +78,7 @@ namespace FluentHub.Views
 			};
 		}
 
-		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		public async Task InitializeAsync()
 		{
 			// Initialize the static theme helper to capture a reference to this window
 			// to handle theme changes without restarting the app
@@ -87,9 +86,8 @@ namespace FluentHub.Views
 
 			SubscribeEvents();
 
-			CustomCustomTabView.NewTabPage = typeof(Viewers.DashBoardPage);
 			NavigationService.Configure(CustomCustomTabView);
-			NavigationService.Navigate<Viewers.DashBoardPage>();
+			await NavigationService.NavigateAsync(new DashboardRoute());
 
 			var command = ViewModel.LoadSignedInUserCommand;
 			if (command.CanExecute(null))
@@ -99,10 +97,10 @@ namespace FluentHub.Views
 			await JumpListHelpers.ConfigureDefaultJumpListAsync();
 		}
 
-		protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+		public async Task ShutdownAsync()
 		{
 			UnsubscribeEvents();
-			NavigationService.Disconnect();
+			await NavigationService.DisconnectAsync();
 		}
 
 		private void OnCustomCustomTabViewLoaded(object sender, RoutedEventArgs e)
@@ -156,7 +154,7 @@ namespace FluentHub.Views
 
 		private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
 		{
-			RootFrameBorder.Content = e.NewSelectedItem?.Frame;
+			RootScreenPresenter.Content = e.NewSelectedItem?.CurrentScreen?.View;
 		}
 
 		private void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
@@ -170,43 +168,35 @@ namespace FluentHub.Views
 			LeftSideNavigationView.Visibility = Visibility.Collapsed;
 		}
 
-		private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
+		private async void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
 		{
-			NavigationService.Navigate<Viewers.NotificationsPage>();
+			await NavigationService.NavigateAsync(new NotificationsRoute());
 		}
 
-		private void LeftSideViewerIconMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+		private async void LeftSideViewerIconMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
 		{
 			var mfi = (MenuFlyoutItem)sender;
-
-			var parameter = NavigationService.TabView.SelectedItem.NavigationBar.Context;
-
-			var navBar = NavigationService.TabView.SelectedItem.NavigationBar;
-			navBar.Context = new()
-			{
-				PrimaryText = App.AppSettings.SignedInUserName,
-				AsViewer = false,
-			};
+			var login = App.AppSettings.SignedInUserName;
 
 			switch (mfi.Tag.ToString())
 			{
 				case "YourProfile":
-					NavigationService.Navigate<Users.OverviewPage>();
+					await NavigationService.NavigateAsync(new UserRoute(login));
 					break;
 				case "YourRepositories":
-					NavigationService.Navigate<Users.RepositoriesPage>();
+					await NavigationService.NavigateAsync(new UserRoute(login, UserSection.Repositories));
 					break;
 				case "YourProjects":
-					NavigationService.Navigate<Users.ProjectsPage>();
+					await NavigationService.NavigateAsync(new UserRoute(login, UserSection.Projects));
 					break;
 				case "YourOrganizations":
-					NavigationService.Navigate<Users.OrganizationsPage>();
+					await NavigationService.NavigateAsync(new UserRoute(login, UserSection.Organizations));
 					break;
 				case "YourStars":
-					NavigationService.Navigate<Users.StarsPage>();
+					await NavigationService.NavigateAsync(new UserRoute(login, UserSection.Stars));
 					break;
 				case "AppSettings":
-					NavigationService.Navigate<AppSettings.GeneralPage>();
+					await NavigationService.NavigateAsync(new AppSettingsRoute());
 					break;
 				case "AppSignOut":
 					App.Current.SignOut();

@@ -1,11 +1,11 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Dialogs;
-using FluentHub.ViewModels.UserControls.FeedBlocks;
-using FluentHub.Core.Queries.Users;
+using FluentHub.Views.Dialogs;
+using FluentHub.ViewModels.Controls.FeedBlocks;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using System.Windows.Input;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Viewers
 {
@@ -25,7 +25,7 @@ namespace FluentHub.ViewModels.Viewers
 		public ICommand GoToSidebarActivityCommand { get; }
 		public ICommand LoadUserHomePageCommand { get; }
 
-		public DashBoardViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public DashBoardViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_TopRepositories = new();
 			TopRepositories = new(_TopRepositories);
@@ -156,17 +156,11 @@ namespace FluentHub.ViewModels.Viewers
 			if (repo is null)
 				return;
 
-			var navBar = _navigation.TabView.SelectedItem.NavigationBar;
-			navBar.Context = new()
-			{
-				PrimaryText = repo.Owner.Login,
-				SecondaryText = repo.Name,
-			};
-
-			if (App.AppSettings.UseDetailsView)
-				_navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
-			else
-				_navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
+			var layout = App.AppSettings.UseDetailsView
+				? RepositoryCodeLayout.Details
+				: RepositoryCodeLayout.Tree;
+			_ = _navigation.NavigateAsync(
+				new RepositoryCodeRoute(new RepositorySlug(repo.Owner.Login, repo.Name), Layout: layout));
 		}
 
 		private void GoToSidebarActivity(Notification? notification)
@@ -174,26 +168,24 @@ namespace FluentHub.ViewModels.Viewers
 			if (notification?.Repository?.Owner is null || notification.Subject is null)
 				return;
 
-			var navBar = _navigation.TabView.SelectedItem.NavigationBar;
-			navBar.Context = new()
-			{
-				PrimaryText = notification.Repository.Owner.Login,
-				SecondaryText = notification.Repository.Name,
-				Number = notification.Subject.Number,
-			};
+			var repository = new RepositorySlug(
+				notification.Repository.Owner.Login,
+				notification.Repository.Name);
 
 			switch (notification.Subject.Type)
 			{
 				case NotificationSubjectType.IssueClosedAsCompleted:
 				case NotificationSubjectType.IssueClosedAsNotPlanned:
 				case NotificationSubjectType.IssueOpen:
-					_navigation.Navigate<Views.Repositories.Issues.IssuePage>();
+					_ = _navigation.NavigateAsync(
+						new RepositoryIssueRoute(repository, notification.Subject.Number));
 					break;
 				case NotificationSubjectType.PullRequestOpen:
 				case NotificationSubjectType.PullRequestClosed:
 				case NotificationSubjectType.PullRequestMerged:
 				case NotificationSubjectType.PullRequestDraft:
-					_navigation.Navigate<Views.Repositories.PullRequests.ConversationPage>();
+					_ = _navigation.NavigateAsync(
+						new RepositoryPullRequestRoute(repository, notification.Subject.Number));
 					break;
 			}
 		}

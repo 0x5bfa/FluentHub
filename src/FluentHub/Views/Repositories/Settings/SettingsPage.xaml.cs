@@ -2,30 +2,29 @@ using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Discussions;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Settings
 {
-	public sealed partial class SettingsPage : Page
+	public sealed partial class SettingsPage : ScreenView
 	{
 		public SettingsPage()
 		{
 			InitializeComponent();
 
-			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			navigationService = GetRequiredService<INavigationService>();
 		}
 
 		private readonly INavigationService navigationService;
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-			if (currentItem is null)
+			var chrome = navigationService.TabView.SelectedItem?.Chrome;
+			if (chrome is null)
 				return;
 
-			currentItem.Header = "Settings";
-			currentItem.Description = "Settings";
-			currentItem.Icon = new ImageIconSource
+			chrome.Header = "Settings";
+			chrome.Description = "Settings";
+			chrome.Icon = new ImageIconSource
 			{
 				ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
 			};

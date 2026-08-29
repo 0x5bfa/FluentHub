@@ -1,13 +1,11 @@
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Discussions;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Discussions
 {
-	public sealed partial class DiscussionPage : LocatablePage
+	public sealed partial class DiscussionPage : NavigableView
 	{
 		public DiscussionViewModel ViewModel;
 
@@ -16,18 +14,15 @@ namespace FluentHub.Views.Repositories.Discussions
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<DiscussionViewModel>();
+			ViewModel = GetRequiredService<DiscussionViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryDiscussionPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter param)
+			if (route is not RepositoryDiscussionRoute)
 				return;
-
-			ViewModel.Login = param.PrimaryText ?? string.Empty;
-			ViewModel.Name = param.SecondaryText ?? string.Empty;
-			ViewModel.Number = param.Number;
 
 			var command = ViewModel.LoadRepositoryDiscussionPageCommand;
 			if (command.CanExecute(null))

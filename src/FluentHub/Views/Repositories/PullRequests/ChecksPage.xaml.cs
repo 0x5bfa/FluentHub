@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Services;
@@ -6,14 +6,12 @@ using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Data.Parameters;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
-	public sealed partial class ChecksPage : LocatablePage
+	public sealed partial class ChecksPage : NavigableView
 	{
 		public ChecksViewModel ViewModel;
 
@@ -22,11 +20,12 @@ namespace FluentHub.Views.Repositories.PullRequests
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<ChecksViewModel>();
+			ViewModel = GetRequiredService<ChecksViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryPullRequestChecksPageCommand;
 			if (command.CanExecute(null))

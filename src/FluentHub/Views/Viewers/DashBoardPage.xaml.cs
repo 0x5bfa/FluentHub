@@ -1,15 +1,14 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.ViewModels.Viewers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Viewers
 {
-	public sealed partial class DashBoardPage : LocatablePage
+	public sealed partial class DashBoardPage : NavigableView
 	{
 		private readonly DashBoardViewModel ViewModel;
 
@@ -21,22 +20,14 @@ namespace FluentHub.Views.Viewers
 			InitializeComponent();
 
 			// Dependency injection
-			ViewModel = Ioc.Default.GetRequiredService<DashBoardViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = GetRequiredService<DashBoardViewModel>();
+			_navigation = GetRequiredService<INavigationService>();
 			_pageLoadCommand = ViewModel.LoadUserHomePageCommand;
+			_screenViewModel = ViewModel;
 
-			var selectedItem = _navigation.TabView.SelectedItem;
-			var context = new FrameNavigationParameter
-			{
-				PrimaryText = "Dashboard"
-			};
-
-			selectedItem.NavigationBar.Context = context;
-			if (selectedItem.NavigationHistory.CurrentItem is { } currentItem)
-				currentItem.Context = context;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadUserHomePageCommand;
 			if (command.CanExecute(null))

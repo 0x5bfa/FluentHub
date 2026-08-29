@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 // Default
@@ -20,14 +20,16 @@ global using global::CommunityToolkit.Mvvm.Input;
 global using global::CommunityToolkit.Mvvm.Messaging;
 
 // FluentHub
-global using global::FluentHub.Data.EventArgs;
-global using global::FluentHub.Data.Factories;
-global using global::FluentHub.Data.Items;
 //global using global::FluentHub.Data.Models;
-global using global::FluentHub.Data.Parameters;
 global using global::FluentHub.Helpers;
 global using global::FluentHub.Services;
+global using global::FluentHub.Controls.Navigation;
+global using global::FluentHub.ViewModels;
+global using global::FluentHub.Data.Navigation;
+global using global::FluentHub.Services.Navigation;
+global using global::FluentHub.Data.Tabs;
+global using global::FluentHub.Views;
 global using global::FluentHub.Core;
-global using global::FluentHub.Core.Data.Enums;
-global using global::FluentHub.Core.Clients;
-global using global::FluentHub.Core.Contracts;
+global using global::FluentHub.Core.Application.Navigation;
+global using global::FluentHub.Core.Infrastructure.GitHub.Clients;
+global using global::FluentHub.Core.Application.Models;

@@ -1,10 +1,10 @@
 // Copyright (c) 2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Repositories;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Core.Contracts;
-using FluentHub.Core.Mutations;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.Core.Application.Models;
+using FluentHub.Core.Infrastructure.GitHub.Mutations;
 using FluentHub.Helpers;
 using FluentHub.Models;
 
@@ -92,13 +92,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 		public IAsyncRelayCommand ToggleStateCommand { get; }
 		public IAsyncRelayCommand ToggleSubscriptionCommand { get; }
 
-		public ConversationViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public ConversationViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			Login = parameter.PrimaryText ?? string.Empty;
-			Name = parameter.SecondaryText ?? string.Empty;
-			Number = parameter.Number;
-
 			_timelineItems = new();
 			TimelineItems = new(_timelineItems);
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Services;
@@ -6,14 +6,12 @@ using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Data.Parameters;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
-	public sealed partial class CommitPage : LocatablePage
+	public sealed partial class CommitPage : NavigableView
 	{
 		public CommitViewModel ViewModel;
 
@@ -22,16 +20,17 @@ namespace FluentHub.Views.Repositories.PullRequests
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+			ViewModel = GetRequiredService<CommitViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter { Parameters: Commit commit })
+			if (route is not RepositoryPullRequestCommitRoute commit)
 				return;
 
-			ViewModel.CommitItem = commit;
+			ViewModel.CommitItem = new Commit { Oid = commit.Sha };
 
 			var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
 			if (command.CanExecute(null))

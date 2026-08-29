@@ -1,9 +1,9 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.Models;
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.ViewModels.Controls.BlockButtons;
 
 namespace FluentHub.ViewModels.Viewers
 {
@@ -20,7 +20,7 @@ namespace FluentHub.ViewModels.Viewers
 		public IAsyncRelayCommand LoadUserNotificationsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserNotificationsFurtherCommand { get; }
 
-		public NotificationsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public NotificationsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_toastService = Ioc.Default.GetRequiredService<ToastService>();
 

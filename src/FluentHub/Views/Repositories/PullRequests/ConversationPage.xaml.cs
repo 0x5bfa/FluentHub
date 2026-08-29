@@ -1,18 +1,16 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
-	public sealed partial class ConversationPage : LocatablePage
+	public sealed partial class ConversationPage : NavigableView
 	{
 		public ConversationViewModel ViewModel;
 
@@ -21,11 +19,12 @@ namespace FluentHub.Views.Repositories.PullRequests
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<ConversationViewModel>();
+			ViewModel = GetRequiredService<ConversationViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryPullRequestConversationPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryPullRequestConversationPageCommand;
 			if (command.CanExecute(null))

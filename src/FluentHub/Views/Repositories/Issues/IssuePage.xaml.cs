@@ -1,18 +1,16 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Issues;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Repositories.Issues
 {
-	public sealed partial class IssuePage : LocatablePage
+	public sealed partial class IssuePage : NavigableView
 	{
 		public IssueViewModel ViewModel;
 
@@ -21,11 +19,12 @@ namespace FluentHub.Views.Repositories.Issues
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<IssueViewModel>();
+			ViewModel = GetRequiredService<IssueViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryIssuePageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryIssuePageCommand;
 			if (command.CanExecute(null))

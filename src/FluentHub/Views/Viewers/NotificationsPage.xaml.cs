@@ -1,13 +1,12 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.ViewModels.Viewers;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Viewers
 {
-	public sealed partial class NotificationsPage : LocatablePage
+	public sealed partial class NotificationsPage : NavigableView
 	{
 		public NotificationsViewModel ViewModel { get; }
 
@@ -18,22 +17,14 @@ namespace FluentHub.Views.Viewers
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<NotificationsViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = GetRequiredService<NotificationsViewModel>();
+			_navigation = GetRequiredService<INavigationService>();
 			_pageLoadCommand = ViewModel.LoadUserNotificationsPageCommand;
+			_screenViewModel = ViewModel;
 
-			var selectedItem = _navigation.TabView.SelectedItem;
-			var context = new FrameNavigationParameter
-				{
-					PrimaryText = "Notifications"
-				};
-
-			selectedItem.NavigationBar.Context = context;
-			if (selectedItem.NavigationHistory.CurrentItem is { } currentItem)
-				currentItem.Context = context;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadUserNotificationsPageCommand;
 			if (command.CanExecute(null))

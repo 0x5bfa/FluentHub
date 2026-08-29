@@ -4,13 +4,11 @@ using FluentHub.ViewModels.Repositories.Commits;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Data.Parameters;
 
 namespace FluentHub.Views.Repositories.Commits
 {
-	public sealed partial class CommitsPage : LocatablePage
+	public sealed partial class CommitsPage : NavigableView
 	{
 		public CommitsViewModel ViewModel { get; }
 		private readonly INavigationService _navigation;
@@ -20,17 +18,22 @@ namespace FluentHub.Views.Repositories.Commits
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<CommitsViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = GetRequiredService<CommitsViewModel>();
+			_navigation = GetRequiredService<INavigationService>();
 			_pageLoadCommand = ViewModel.LoadRepositoryCommitsPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter { Parameters: RepoContextViewModel context })
+			if (route is not RepositoryCommitsRoute commits)
 				return;
 
-			ViewModel.ContextViewModel = context;
+			ViewModel.ContextViewModel = new RepoContextViewModel
+			{
+				BranchName = commits.GitRef ?? string.Empty,
+				Path = commits.Path ?? string.Empty,
+			};
 
 			var command = ViewModel.LoadRepositoryCommitsPageCommand;
 			if (command.CanExecute(null))

@@ -1,14 +1,12 @@
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Discussions;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using FluentHub.Core.Queries.Discussions;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Discussions;
 
 namespace FluentHub.Views.Repositories.Discussions
 {
-	public sealed partial class DiscussionsPage : LocatablePage
+	public sealed partial class DiscussionsPage : NavigableView
 	{
 		public DiscussionsViewModel ViewModel { get; }
 		private bool _filtersReady;
@@ -20,11 +18,12 @@ namespace FluentHub.Views.Repositories.Discussions
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
+			ViewModel = GetRequiredService<DiscussionsViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryDiscussionsPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnActivated(AppRoute route)
 		{
 			_filtersReady = false;
 			var command = ViewModel.LoadRepositoryDiscussionsPageCommand;

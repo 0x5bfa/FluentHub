@@ -1,10 +1,9 @@
 using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.Releases;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Releases
 {
-	public sealed partial class ReleasePage : LocatablePage
+	public sealed partial class ReleasePage : NavigableView
 	{
 		public ReleaseViewModel ViewModel;
 
@@ -13,11 +12,12 @@ namespace FluentHub.Views.Repositories.Releases
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
+			ViewModel = GetRequiredService<ReleaseViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryReleasePageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadRepositoryReleasePageCommand;
 			if (command.CanExecute(null))

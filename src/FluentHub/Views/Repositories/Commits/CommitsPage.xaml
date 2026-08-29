@@ -1,26 +1,26 @@
-<views:LocatablePage
+<navigation:NavigableView
 	x:Class="FluentHub.Views.Repositories.Commits.CommitsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:bb="using:FluentHub.UserControls.BlockButtons"
-	xmlns:bbvm="using:FluentHub.ViewModels.UserControls.BlockButtons"
+	xmlns:bb="using:FluentHub.Controls.BlockButtons"
+	xmlns:bbvm="using:FluentHub.ViewModels.Controls.BlockButtons"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:local="using:FluentHub.Views.Repositories.Commits"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ov="using:FluentHub.UserControls.Overview"
-	xmlns:primer="using:FluentHub.UserControls.PrimerControls"
+	xmlns:ov="using:FluentHub.Controls.Overview"
+	xmlns:primer="using:FluentHub.Controls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-	xmlns:uc="using:FluentHub.UserControls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:uc="using:FluentHub.Controls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	mc:Ignorable="d">
 
-	<views:LocatablePage.Resources>
+	<navigation:NavigableView.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 		</ResourceDictionary>
-	</views:LocatablePage.Resources>
+	</navigation:NavigableView.Resources>
 
 	<Grid>
 
@@ -33,7 +33,7 @@
 					</Grid.RowDefinitions>
 
 					<StackPanel Orientation="Horizontal" Spacing="8">
-						<primer:Avatar
+						<primer:EntityAvatar
 							x:Name="RepositoryOwnerAvatar"
 							x:Load="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 							IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
@@ -101,4 +101,4 @@
 		</Grid>
 
 	</Grid>
-</views:LocatablePage>
+</navigation:NavigableView>

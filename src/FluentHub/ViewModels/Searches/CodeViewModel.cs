@@ -1,10 +1,10 @@
-using FluentHub.Core.Searches;
+using FluentHub.Core.Infrastructure.GitHub.Searches;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
-using FluentHub.ViewModels.UserControls.BlockButtons;
-using FluentHub.ViewModels.UserControls.Overview;
+using FluentHub.ViewModels.Controls.BlockButtons;
+using FluentHub.ViewModels.Controls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 
@@ -20,7 +20,7 @@ namespace FluentHub.ViewModels.Searches
 
 		public IAsyncRelayCommand LoadSearchCodePageCommand { get; }
 
-		public CodeViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public CodeViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_resultItems = new();
 			ResultItems = new(_resultItems);

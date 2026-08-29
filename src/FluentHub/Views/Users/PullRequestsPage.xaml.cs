@@ -1,17 +1,15 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using FluentHub.Core.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 
 namespace FluentHub.Views.Users
 {
-	public sealed partial class PullRequestsPage : LocatablePage
+	public sealed partial class PullRequestsPage : NavigableView
 	{
 		public PullRequestsViewModel ViewModel { get; }
 		private bool _filtersReady;
@@ -23,11 +21,12 @@ namespace FluentHub.Views.Users
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<PullRequestsViewModel>();
+			ViewModel = GetRequiredService<PullRequestsViewModel>();
 			_pageLoadCommand = ViewModel.LoadUserPullRequestsPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnActivated(AppRoute route)
 		{
 			_filtersReady = false;
 			var command = ViewModel.LoadUserPullRequestsPageCommand;

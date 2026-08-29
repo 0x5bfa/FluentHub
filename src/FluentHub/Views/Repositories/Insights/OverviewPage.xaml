@@ -1,4 +1,4 @@
-<Page
+<UserControl
 	x:Class="FluentHub.Views.Repositories.Insights.OverviewPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -46,4 +46,4 @@
 			</CommandBar>-->
 		</StackPanel>
 	</Grid>
-</Page>
+</UserControl>

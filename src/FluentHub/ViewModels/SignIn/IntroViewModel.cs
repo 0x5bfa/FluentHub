@@ -1,8 +1,9 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Core.Application;
-using FluentHub.Core.Authorization;
+using FluentHub.Core.Application.Abstractions.Authentication;
+using FluentHub.Core.Infrastructure.GitHub.Authorization;
 using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Utils;
@@ -16,13 +17,23 @@ namespace FluentHub.ViewModels.SignIn
 		Welcome,
 		DeviceCode,
 		Syncing,
+		Error,
 		Success,
+	}
+
+	internal enum SignInOperation
+	{
+		RequestDeviceCode,
+		OpenBrowser,
+		WaitForAuthorization,
+		ResolveAccount,
+		SaveAccount,
 	}
 
 	public class IntroViewModel : ObservableObject
 	{
 		private readonly IFluentHubGitHubClient _gitHub;
-		private readonly IGitHubSessionManager _sessionManager;
+		private readonly IUserSession _sessionManager;
 		private readonly AuthorizationService _authorizationService;
 		private readonly AccountService _accountService;
 		private readonly GitHubTokenStore _tokenStore;
@@ -42,6 +53,7 @@ namespace FluentHub.ViewModels.SignIn
 				OnPropertyChanged(nameof(IsWelcomeStage));
 				OnPropertyChanged(nameof(IsDeviceCodeStage));
 				OnPropertyChanged(nameof(IsSyncingStage));
+				OnPropertyChanged(nameof(IsErrorStage));
 				OnPropertyChanged(nameof(IsSuccessStage));
 			}
 		}
@@ -49,6 +61,7 @@ namespace FluentHub.ViewModels.SignIn
 		public bool IsWelcomeStage => Stage == SignInFlowStage.Welcome;
 		public bool IsDeviceCodeStage => Stage == SignInFlowStage.DeviceCode;
 		public bool IsSyncingStage => Stage == SignInFlowStage.Syncing;
+		public bool IsErrorStage => Stage == SignInFlowStage.Error;
 		public bool IsSuccessStage => Stage == SignInFlowStage.Success;
 
 		private bool _authorizedSuccessfully;
@@ -118,6 +131,27 @@ namespace FluentHub.ViewModels.SignIn
 			private set => SetProperty(ref _signedInLogin, value);
 		}
 
+		private string _errorTitle = string.Empty;
+		public string ErrorTitle
+		{
+			get => _errorTitle;
+			private set => SetProperty(ref _errorTitle, value);
+		}
+
+		private string _errorMessage = string.Empty;
+		public string ErrorMessage
+		{
+			get => _errorMessage;
+			private set => SetProperty(ref _errorMessage, value);
+		}
+
+		private string _errorDetails = string.Empty;
+		public string ErrorDetails
+		{
+			get => _errorDetails;
+			private set => SetProperty(ref _errorDetails, value);
+		}
+
 		public bool IsDeviceAuthorizationAvailable
 			=> !string.IsNullOrEmpty(DeviceUserCode);
 
@@ -143,7 +177,7 @@ namespace FluentHub.ViewModels.SignIn
 
 		public IntroViewModel(
 			IFluentHubGitHubClient gitHub,
-			IGitHubSessionManager sessionManager,
+			IUserSession sessionManager,
 			AuthorizationService authorizationService,
 			AccountService accountService,
 			GitHubTokenStore tokenStore,
@@ -171,6 +205,7 @@ namespace FluentHub.ViewModels.SignIn
 			CancelAuthorization();
 			_deviceAuthorizationCancellationTokenSource = new CancellationTokenSource();
 			var cancellationToken = _deviceAuthorizationCancellationTokenSource.Token;
+			var operation = SignInOperation.RequestDeviceCode;
 
 			try
 			{
@@ -180,6 +215,9 @@ namespace FluentHub.ViewModels.SignIn
 				DeviceUserCode = string.Empty;
 				DeviceVerificationUri = string.Empty;
 				DeviceAuthorizationStatus = "Requesting a GitHub device code...";
+				ErrorTitle = string.Empty;
+				ErrorMessage = string.Empty;
+				ErrorDetails = string.Empty;
 				Stage = SignInFlowStage.DeviceCode;
 
 				var deviceAuthorization = await _authorizationService.RequestDeviceAuthorizationAsync(
@@ -189,6 +227,7 @@ namespace FluentHub.ViewModels.SignIn
 				DeviceVerificationUri = deviceAuthorization.VerificationUri;
 				DeviceAuthorizationStatus = "Waiting for authorization in your browser...";
 
+				operation = SignInOperation.OpenBrowser;
 				await OpenDeviceVerificationUriAsync();
 
 				App.AppSettings.SetupProgress = true;
@@ -201,6 +240,7 @@ namespace FluentHub.ViewModels.SignIn
 						DeviceAuthorizationPollingStatus.SlowedDown => "GitHub asked us to slow down. Still waiting...",
 						_ => DeviceAuthorizationStatus,
 					});
+				operation = SignInOperation.WaitForAuthorization;
 				var accessToken = await _authorizationService.WaitForDeviceAccessTokenAsync(
 					deviceAuthorization,
 					progress,
@@ -208,7 +248,12 @@ namespace FluentHub.ViewModels.SignIn
 
 				Stage = SignInFlowStage.Syncing;
 				DeviceAuthorizationStatus = "Securing your token and loading your account...";
-				await SetAccountInfoAsync(accessToken, cancellationToken);
+				operation = SignInOperation.ResolveAccount;
+				_sessionManager.SwitchAccount(accessToken);
+				string login = await _gitHub.Users.Users.GetViewerLoginAsync(cancellationToken);
+
+				operation = SignInOperation.SaveAccount;
+				SaveAccountInfo(login, accessToken);
 
 				_logger.Info("FluentHub is authorized successfully.");
 				AuthorizedSuccessfully = true;
@@ -224,12 +269,10 @@ namespace FluentHub.ViewModels.SignIn
 			}
 			catch (Exception ex)
 			{
-				TaskException = ex;
-				IsTaskFaulted = true;
-				DeviceAuthorizationStatus = ex.Message;
+				SetSignInError(operation, ex);
 				App.AppSettings.SetupProgress = false;
 
-				_logger.Error(nameof(AuthorizeWithBrowserAsync), ex);
+				_logger.Error($"{nameof(AuthorizeWithBrowserAsync)} failed during {operation}.", ex);
 			}
 			finally
 			{
@@ -247,28 +290,74 @@ namespace FluentHub.ViewModels.SignIn
 			DeviceVerificationUri = string.Empty;
 			DeviceAuthorizationStatus = string.Empty;
 			SignedInLogin = string.Empty;
+			ErrorTitle = string.Empty;
+			ErrorMessage = string.Empty;
+			ErrorDetails = string.Empty;
 			Stage = SignInFlowStage.Welcome;
 		}
 
 		private async Task OpenDeviceVerificationUriAsync()
 		{
-			if (Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
-				await Launcher.LaunchUriAsync(uri);
+			if (!Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
+				throw new InvalidOperationException("GitHub returned an invalid authorization URL.");
+
+			if (!await Launcher.LaunchUriAsync(uri))
+				throw new InvalidOperationException("Windows could not open the GitHub authorization page.");
 		}
 
-		private async Task SetAccountInfoAsync(
-			string accessToken,
-			CancellationToken cancellationToken)
+		private void SaveAccountInfo(string login, string accessToken)
 		{
-			_sessionManager.SwitchAccount(accessToken);
-
-			var queries = _gitHub.Users.Users;
-			string login = await queries.GetViewerLoginAsync(cancellationToken);
-
 			_tokenStore.SaveToken(login, accessToken);
 			App.AppSettings.SignedInUserName = login;
 			_accountService.AddAccount(login);
 			SignedInLogin = login;
+		}
+
+		private void SetSignInError(SignInOperation operation, Exception exception)
+		{
+			TaskException = exception;
+			IsTaskFaulted = true;
+			DeviceAuthorizationStatus = string.Empty;
+
+			(ErrorTitle, ErrorMessage) = exception switch
+			{
+				TimeoutException => (
+					"The GitHub sign-in code expired",
+					"The one-time code was not approved in time. Start the sign-in process again to get a new code."),
+				UnauthorizedAccessException => (
+					"GitHub authorization was not completed",
+					"The authorization request was canceled or denied. Try again and approve FluentHub on GitHub."),
+				global::System.Net.Http.HttpRequestException => (
+					"Couldn't connect to GitHub",
+					"Check your internet connection and GitHub's availability, then try again."),
+				_ => operation switch
+				{
+					SignInOperation.RequestDeviceCode => (
+						"Couldn't start GitHub sign-in",
+						"FluentHub could not request a one-time sign-in code from GitHub. Try again in a moment."),
+					SignInOperation.OpenBrowser => (
+						"Couldn't open GitHub in your browser",
+						"Windows could not open the GitHub authorization page. Check your default browser and try again."),
+					SignInOperation.WaitForAuthorization => (
+						"GitHub couldn't complete the authorization",
+						"FluentHub did not receive a usable access token from GitHub. Start the sign-in process again."),
+					SignInOperation.ResolveAccount => (
+						"Signed in, but couldn't load your GitHub account",
+						"GitHub authorized FluentHub, but the signed-in user could not be retrieved. Check your connection and try again."),
+					SignInOperation.SaveAccount => (
+						"Signed in, but couldn't save your account",
+						"GitHub authorized FluentHub, but Windows could not store the account securely. Try again or check Windows Credential Manager."),
+					_ => (
+						"Couldn't complete GitHub sign-in",
+						"An unexpected error interrupted the sign-in process. Try again."),
+				},
+			};
+
+			var details = string.IsNullOrWhiteSpace(exception.Message)
+				? exception.GetType().Name
+				: $"{exception.GetType().Name}: {exception.Message}";
+			ErrorDetails = $"Step: {operation}\r\n{details}";
+			Stage = SignInFlowStage.Error;
 		}
 	}
 }

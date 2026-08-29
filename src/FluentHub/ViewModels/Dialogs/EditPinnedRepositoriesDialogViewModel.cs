@@ -1,7 +1,7 @@
 using FluentHub.Utils;
 using FluentHub.Core.Application;
-using FluentHub.Core.Contracts;
-using FluentHub.Core.Models;
+using FluentHub.Core.Application.Models;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Dialogs
 {

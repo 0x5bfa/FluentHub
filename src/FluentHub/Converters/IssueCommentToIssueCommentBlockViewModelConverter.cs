@@ -1,8 +1,8 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using Microsoft.UI.Xaml.Data;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 using FluentHub.Services;
 
 namespace FluentHub.Converters
@@ -11,7 +11,7 @@ namespace FluentHub.Converters
 	{
 		public object Convert(object? value, Type targetType, object? parameter, string language)
 		{
-			var issueCommentBlockViewModel = Ioc.Default.GetRequiredService<ViewModels.UserControls.IssueCommentBlockViewModel>();
+			var issueCommentBlockViewModel = Ioc.Default.GetRequiredService<ViewModels.Controls.IssueCommentBlockViewModel>();
 			if (value is IssueComment issueComment)
 				issueCommentBlockViewModel.IssueComment = issueComment;
 

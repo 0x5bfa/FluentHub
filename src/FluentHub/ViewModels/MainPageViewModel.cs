@@ -1,17 +1,16 @@
 using CommunityToolkit.WinUI;
-using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.Helpers;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.ViewModels.Controls.BlockButtons;
 using FluentHub.Services;
 using FluentHub.Models;
 using FluentHub.Utils;
 using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
-using FluentHub.Data.Items;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels
 {
@@ -28,8 +27,8 @@ namespace FluentHub.ViewModels
 		private UserNotificationMessage _lastNotification = default!;
 		public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
 
-		private FluentHub.Core.Contracts.User _signedInUser = default!;
-		public FluentHub.Core.Contracts.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+		private FluentHub.Core.Application.Models.User _signedInUser = default!;
+		public FluentHub.Core.Application.Models.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
 		private bool _taskIsInProgress;
 		public bool TaskIsInProgress { get => _taskIsInProgress; private set => SetProperty(ref _taskIsInProgress, value); }
@@ -113,7 +112,7 @@ namespace FluentHub.ViewModels
 			if (e is null)
 				return;
 
-			_navigationService.OpenTab<Views.Viewers.DashBoardPage>();
+			_ = _navigationService.OpenTabAsync(new DashboardRoute());
 			e.Handled = true;
 		}
 
@@ -122,7 +121,8 @@ namespace FluentHub.ViewModels
 			if (e is null)
 				return;
 
-			_navigationService.CloseTab(_navigationService.TabView.SelectedItem.Guid);
+			if (_navigationService.TabView.SelectedItem is { } selectedTab)
+				_ = _navigationService.CloseTabAsync(selectedTab.Id);
 			e.Handled = true;
 		}
 
@@ -158,17 +158,17 @@ namespace FluentHub.ViewModels
 
 		private void GoBack()
 		{
-			_navigationService.TryGoBack();
+			_ = _navigationService.GoBackAsync();
 		}
 
 		private void GoForward()
 		{
-			_navigationService.TryGoForward();
+			_ = _navigationService.GoForwardAsync();
 		}
 
 		private void Reload()
 		{
-			_navigationService.TryReload();
+			_ = _navigationService.ReloadAsync();
 		}
 
 		private void OnNavigationStateChanged(object? sender, System.EventArgs args)

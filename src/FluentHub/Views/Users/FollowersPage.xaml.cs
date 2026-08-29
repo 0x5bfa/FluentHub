@@ -1,16 +1,14 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Data.Parameters;
 using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-	public sealed partial class FollowersPage : LocatablePage
+	public sealed partial class FollowersPage : NavigableView
 	{
 		public FollowersViewModel ViewModel { get; }
 
@@ -19,11 +17,12 @@ namespace FluentHub.Views.Users
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<FollowersViewModel>();
+			ViewModel = GetRequiredService<FollowersViewModel>();
 			_pageLoadCommand = ViewModel.LoadUserFollowersPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadUserFollowersPageCommand;
 			if (command.CanExecute(null))

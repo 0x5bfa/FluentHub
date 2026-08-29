@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Project Structure
-- `src/FluentHub`: WinUI 3 presentation layer and Windows-specific adapters (views, view models, navigation, app lifecycle, and platform services).
+- `src/FluentHub`: WinUI 3 presentation layer and Windows-specific adapters. Keep production code under `Views`, `ViewModels`, `Extensions`, `Utils`, `Controls`, `Helpers`, `Data`, `Converters`, or `Services`; resource and tooling folders are exempt.
 - `src/FluentHub.Core`: UI-independent application layer (GitHub API clients, queries, mutations, authorization, app-facing contracts, business services, and reusable utilities).
 - `docs`: contributor-facing setup and feature documentation.
 

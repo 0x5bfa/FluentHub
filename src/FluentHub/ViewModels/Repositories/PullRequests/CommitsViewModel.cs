@@ -1,10 +1,10 @@
 // Copyright (c) 2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Repositories;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.ViewModels.UserControls.BlockButtons;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.ViewModels.Controls.BlockButtons;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {
@@ -21,7 +21,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestCommitsPageCommand { get; }
 
-		public CommitsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public CommitsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_items = new();
 			Items = new(_items);

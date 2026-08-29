@@ -1,12 +1,11 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.ViewModels.Users;
-using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-	public sealed partial class OverviewPage : LocatablePage
+	public sealed partial class OverviewPage : NavigableView
 	{
 		public OverviewViewModel ViewModel { get; }
 
@@ -15,11 +14,12 @@ namespace FluentHub.Views.Users
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<OverviewViewModel>();
+			ViewModel = GetRequiredService<OverviewViewModel>();
 			_pageLoadCommand = ViewModel.LoadUserOverviewCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadUserOverviewCommand;
 			if (command.CanExecute(null))

@@ -1,17 +1,16 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Models;
-using FluentHub.Dialogs;
+using FluentHub.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using FluentHub.ViewModels.Repositories.Codes;
 
 namespace FluentHub.Views.Repositories.Code
 {
-	public sealed partial class DetailsLayoutView : LocatablePage
+	public sealed partial class DetailsLayoutView : NavigableView
 	{
 		public DetailsLayoutViewModel ViewModel { get; }
 
@@ -22,19 +21,20 @@ namespace FluentHub.Views.Repositories.Code
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<DetailsLayoutViewModel>();
-			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = GetRequiredService<DetailsLayoutViewModel>();
+			_navigation = GetRequiredService<INavigationService>();
 			_pageLoadCommand = ViewModel.LoadDetailsViewPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
 			var command = ViewModel.LoadDetailsViewPageCommand;
 			if (command.CanExecute(null))
 				command.Execute(null);
 		}
 
-		private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+		private async void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
 		{
 			if (DirListView.SelectedItem is not DetailsLayoutListViewModel item)
 				return;
@@ -46,21 +46,23 @@ namespace FluentHub.Views.Repositories.Code
 
 			path += item.Name;
 
-			string param = $"{item.Type}/{Uri.EscapeDataString(ViewModel.ContextViewModel.BranchName)}/{path}";
-
-			SelectedTabViewItem.NavigationBar.Context = new()
-			{
-				PrimaryText = ViewModel.Login,
-				SecondaryText = ViewModel.Name,
-				Parameters = param
-			};
-
-			_navigation.Navigate<DetailsLayoutView>();
+			var target = item.Type.Equals("blob", StringComparison.OrdinalIgnoreCase)
+				? RepositoryCodeTarget.File
+				: RepositoryCodeTarget.Directory;
+			await _navigation.NavigateAsync(
+				new RepositoryCodeRoute(
+					new RepositorySlug(ViewModel.Login, ViewModel.Name),
+					ViewModel.ContextViewModel.BranchName,
+					path,
+					Target: target));
 		}
 
-		private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
+		private async void OnLatestReleaseClick(object sender, RoutedEventArgs e)
 		{
-			_navigation.Navigate<Releases.ReleasesPage>();
+			await _navigation.NavigateAsync(
+				new RepositoryRoute(
+					new RepositorySlug(ViewModel.Login, ViewModel.Name),
+					RepositorySection.Releases));
 		}
 
 		private async void OnForkRepositoryClick(object sender, RoutedEventArgs e)
@@ -98,12 +100,8 @@ namespace FluentHub.Views.Repositories.Code
 				if (fork is null)
 					return;
 
-				SelectedTabViewItem.NavigationBar.Context = new()
-				{
-					PrimaryText = fork.Owner,
-					SecondaryText = fork.Name,
-				};
-				_navigation.Navigate<DetailsLayoutView>();
+				await _navigation.NavigateAsync(
+					new RepositoryCodeRoute(new RepositorySlug(fork.Owner, fork.Name)));
 			}
 			finally
 			{

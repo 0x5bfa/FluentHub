@@ -1,8 +1,8 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Organizations;
-using FluentHub.ViewModels.UserControls.BlockButtons;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Organizations;
+using FluentHub.ViewModels.Controls.BlockButtons;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.ViewModels.Organizations
@@ -20,7 +20,7 @@ namespace FluentHub.ViewModels.Organizations
 
 		public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
 
-		public OverviewViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public OverviewViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_pinnedItems = new();
 			PinnedItems = new(_pinnedItems);

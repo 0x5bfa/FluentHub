@@ -4,14 +4,12 @@ using FluentHub.ViewModels.Repositories.Commits;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using FluentHub.Data.Parameters;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.Views.Repositories.Commits
 {
-	public sealed partial class CommitPage : LocatablePage
+	public sealed partial class CommitPage : NavigableView
 	{
 		public CommitViewModel ViewModel { get; }
 
@@ -20,18 +18,17 @@ namespace FluentHub.Views.Repositories.Commits
 		{
 			InitializeComponent();
 
-			ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+			ViewModel = GetRequiredService<CommitViewModel>();
 			_pageLoadCommand = ViewModel.LoadRepositoryCommitPageCommand;
+			_screenViewModel = ViewModel;
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override void OnActivated(AppRoute route)
 		{
-			if (e.Parameter is not FrameNavigationParameter { Parameters: Commit commit } param)
+			if (route is not RepositoryCommitRoute commit)
 				return;
 
-			ViewModel.Login = param.PrimaryText ?? string.Empty;
-			ViewModel.Name = param.SecondaryText ?? string.Empty;
-			ViewModel.CommitItem = commit;
+			ViewModel.CommitItem = new Commit { Oid = commit.Sha };
 
 			var command = ViewModel.LoadRepositoryCommitPageCommand;
 			if (command.CanExecute(null))

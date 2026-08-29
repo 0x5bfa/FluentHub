@@ -1,10 +1,10 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Users;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.Models;
-using FluentHub.ViewModels.UserControls.BlockButtons;
-using FluentHub.Core.Contracts;
+using FluentHub.ViewModels.Controls.BlockButtons;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Users
 {
@@ -21,16 +21,9 @@ namespace FluentHub.ViewModels.Users
 		public IAsyncRelayCommand LoadUserOrganizationsPageCommand { get; }
 		public IAsyncRelayCommand LoadUserOrganizationsFurtherCommand { get; }
 
-		public OrganizationsViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public OrganizationsViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
-			var parameter = _navigation.TabView.SelectedItem.NavigationBar.Context;
-			if (parameter.AsViewer)
-			{
-				var currentTabItem = _navigation.TabView.SelectedItem;
-				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-
-				AsViewer = true;
-			}
+			AsViewer = CurrentRoute is UserRoute { AsViewer: true };
 
 			_organizations = new();
 			Organizations = new(_organizations);

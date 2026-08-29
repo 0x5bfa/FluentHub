@@ -1,22 +1,13 @@
-// Copyright (c) 2022-2024 0x5BFA
+// Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Utils;
-using FluentHub.Services;
-using FluentHub.ViewModels;
-using FluentHub.Core.Application;
-using FluentHub.Core.Authorization;
-using FluentHub.Core.Clients;
-using FluentHub.Core.Caching;
+using FluentHub.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
-using Windows.Storage;
-using System.IO;
 
 namespace FluentHub.Helpers
 {
@@ -39,77 +30,8 @@ namespace FluentHub.Helpers
 		}
 
 		internal static IHost ConfigureServices()
-		{
-			return Host.CreateDefaultBuilder()
-				.ConfigureServices(services => services
-					.AddSingleton<INavigationService, NavigationService>()
-					.AddSingleton<Utils.ILogger>(_ => new FileLogger(
-						Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs", "Log.log")))
-					.AddSingleton<ToastService>()
-					.AddSingleton<ICacheService>(_ => new FileCacheService(
-						Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, "FluentHub.Cache", "v1")))
-					.AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
-					// Application services
-					.AddSingleton<IAccountStore>(_ => App.AppSettings)
-					.AddSingleton<AccountService>()
-					.AddSingleton<GitHubTokenStore>()
-					// GitHub API
-					.AddSingleton<GitHubSessionManager>()
-					.AddSingleton<IGitHubSessionManager>(services => services.GetRequiredService<GitHubSessionManager>())
-					.AddSingleton<IGitHubApiClient, GitHubApiClient>()
-					.AddSingleton<IFluentHubGitHubClient, FluentHubGitHubClient>()
-					.AddSingleton<AuthorizationService>()
-					// ViewModels
-					.AddSingleton<MainPageViewModel>()
-					.AddTransient<ViewModels.SignIn.IntroViewModel>()
-					.AddTransient<ViewModels.AppSettings.GeneralViewModel>()
-					.AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
-					.AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
-					.AddTransient<ViewModels.Dialogs.EditUserProfileViewModel>()
-					.AddTransient<ViewModels.Viewers.DashBoardViewModel>()
-					.AddTransient<ViewModels.Viewers.NotificationsViewModel>()
-					.AddTransient<ViewModels.Organizations.OverviewViewModel>()
-					.AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
-					.AddTransient<ViewModels.Repositories.Codes.DetailsLayoutViewModel>()
-					.AddTransient<ViewModels.Repositories.Codes.TreeLayoutViewModel>()
-					.AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
-					.AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
-					.AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
-					.AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
-					.AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
-					.AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
-					.AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.ChecksViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
-					.AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
-					.AddTransient<ViewModels.Repositories.Releases.ReleasesViewModel>()
-					.AddTransient<ViewModels.Repositories.Releases.ReleaseViewModel>()
-					.AddTransient<ViewModels.Searches.CodeViewModel>()
-					.AddTransient<ViewModels.Searches.IssuesViewModel>()
-					.AddTransient<ViewModels.Searches.RepositoriesViewModel>()
-					.AddTransient<ViewModels.Searches.UsersViewModel>()
-					.AddTransient<ViewModels.UserControls.FileContentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
-					.AddTransient<ViewModels.UserControls.UserContributionGraphViewModel>()
-					.AddTransient<ViewModels.Users.ContributionsViewModel>()
-					.AddTransient<ViewModels.Users.DiscussionsViewModel>()
-					.AddTransient<ViewModels.Users.FollowersViewModel>()
-					.AddTransient<ViewModels.Users.FollowingViewModel>()
-					.AddTransient<ViewModels.Users.IssuesViewModel>()
-					.AddTransient<ViewModels.Users.OrganizationsViewModel>()
-					.AddTransient<ViewModels.Users.OverviewViewModel>()
-					.AddTransient<ViewModels.Users.PackagesViewModel>()
-					.AddTransient<ViewModels.Users.ProjectsViewModel>()
-					.AddTransient<ViewModels.Users.PullRequestsViewModel>()
-					.AddTransient<ViewModels.Users.RepositoriesViewModel>()
-					.AddTransient<ViewModels.Users.StarredReposViewModel>()
-				).Build();
-		}
+			=> Host.CreateDefaultBuilder()
+				.ConfigureServices(services => services.AddFluentHub())
+				.Build();
 	}
 }

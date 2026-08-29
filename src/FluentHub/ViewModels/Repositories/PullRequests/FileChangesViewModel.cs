@@ -1,10 +1,10 @@
 // Copyright (c) 2024 0x5BFA
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.Core.Queries.Repositories;
-using FluentHub.ViewModels.UserControls;
-using FluentHub.ViewModels.UserControls.Overview;
-using FluentHub.Core.Contracts;
+using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.ViewModels.Controls;
+using FluentHub.ViewModels.Controls.Overview;
+using FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {
@@ -21,7 +21,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
 		public IAsyncRelayCommand LoadRepositoryPullRequestFileChangesPageCommand { get; }
 
-		public FileChangesViewModel(IFluentHubGitHubClient gitHub) : base(gitHub)
+		public FileChangesViewModel(IFluentHubGitHubClient gitHub, ScreenViewModelDependencies dependencies) : base(gitHub, dependencies)
 		{
 			_diffViewModels = new();
 			DiffViewModels = new(_diffViewModels);

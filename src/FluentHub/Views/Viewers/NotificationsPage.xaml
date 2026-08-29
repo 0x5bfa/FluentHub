@@ -1,20 +1,20 @@
-<!--  Copyright (c) 2022-2024 0x5BFA. Licensed under the MIT License. See the LICENSE.  -->
-<views:LocatablePage
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<navigation:NavigableView
 	x:Class="FluentHub.Views.Viewers.NotificationsPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:bbuc="using:FluentHub.UserControls.BlockButtons"
-	xmlns:bbvm="using:FluentHub.ViewModels.UserControls.BlockButtons"
+	xmlns:bbuc="using:FluentHub.Controls.BlockButtons"
+	xmlns:bbvm="using:FluentHub.ViewModels.Controls.BlockButtons"
 	xmlns:converters="using:FluentHub.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helpers="using:FluentHub.Helpers"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
-	xmlns:uc="using:FluentHub.UserControls"
-	xmlns:views="using:FluentHub.Views"
+	xmlns:uc="using:FluentHub.Controls"
+	xmlns:navigation="using:FluentHub.Controls.Navigation"
 	mc:Ignorable="d">
 
-	<views:LocatablePage.Resources>
+	<navigation:NavigableView.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary>
@@ -22,7 +22,7 @@
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-	</views:LocatablePage.Resources>
+	</navigation:NavigableView.Resources>
 
 	<Grid>
 
@@ -104,4 +104,4 @@
 		</Grid>
 
 	</Grid>
-</views:LocatablePage>
+</navigation:NavigableView>
