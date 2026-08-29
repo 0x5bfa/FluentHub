@@ -1,74 +1,103 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public sealed class ReactionMutations
+	public sealed partial class ReactionMutations
 	{
+		private const string ReactionFields = """
+			clientMutationId
+			reactionGroups {
+			  content
+			  viewerHasReacted
+			  reactors { totalCount }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<AddReactionResult>>]
+		private const string AddReaction = """
+			mutation AddReaction($input: AddReactionInput!) {
+			  result: addReaction(input: $input) {
+			""" + ReactionFields + """
+			  }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<RemoveReactionResult>>]
+		private const string RemoveReaction = """
+			mutation RemoveReaction($input: RemoveReactionInput!) {
+			  result: removeReaction(input: $input) {
+			""" + ReactionFields + """
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public ReactionMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<AddReactionResult> AddAsync(
+		public async Task<AddReactionResult> AddAsync(
 			AddReactionRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.AddReaction(new(new OctokitGraphQLModel.AddReactionInput
-				{
-					SubjectId = request.SubjectId,
-					Content = (OctokitGraphQLModel.ReactionContent)request.Content,
-					ClientMutationId = request.ClientMutationId,
-				}))
-				.Select(x => new AddReactionResult
-				{
-					ClientMutationId = x.ClientMutationId,
-					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
-					{
-						Content = (ReactionContent)group.Content,
-						ViewerHasReacted = group.ViewerHasReacted,
-						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
-						{
-							TotalCount = reactors.TotalCount,
-						}).SingleOrDefault(),
-					}).ToList(),
-				})
-				.Compile();
+			var response = await _gitHub.RunGraphQLAsync(
+				AddReactionOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultAddReactionResult,
+				writer => WriteInput(writer, request.SubjectId, request.Content, request.ClientMutationId),
+				cancellationToken);
 
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete add-reaction response.");
 		}
 
-		public Task<RemoveReactionResult> RemoveAsync(
+		public async Task<RemoveReactionResult> RemoveAsync(
 			RemoveReactionRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.RemoveReaction(new(new OctokitGraphQLModel.RemoveReactionInput
-				{
-					SubjectId = request.SubjectId,
-					Content = (OctokitGraphQLModel.ReactionContent)request.Content,
-					ClientMutationId = request.ClientMutationId,
-				}))
-				.Select(x => new RemoveReactionResult
-				{
-					ClientMutationId = x.ClientMutationId,
-					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
-					{
-						Content = (ReactionContent)group.Content,
-						ViewerHasReacted = group.ViewerHasReacted,
-						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
-						{
-							TotalCount = reactors.TotalCount,
-						}).SingleOrDefault(),
-					}).ToList(),
-				})
-				.Compile();
+			var response = await _gitHub.RunGraphQLAsync(
+				RemoveReactionOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRemoveReactionResult,
+				writer => WriteInput(writer, request.SubjectId, request.Content, request.ClientMutationId),
+				cancellationToken);
 
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete remove-reaction response.");
 		}
+
+		private static void WriteInput(
+			System.Text.Json.Utf8JsonWriter writer,
+			ID subjectId,
+			ReactionContent content,
+			string? clientMutationId)
+		{
+			writer.WriteStartObject("input");
+			writer.WriteString("subjectId", subjectId.Value);
+			writer.WriteString("content", ToGraphQL(content));
+			GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", clientMutationId);
+			writer.WriteEndObject();
+		}
+
+		private static string ToGraphQL(ReactionContent content)
+			=> content switch
+			{
+				ReactionContent.ThumbsUp => "THUMBS_UP",
+				ReactionContent.ThumbsDown => "THUMBS_DOWN",
+				ReactionContent.Laugh => "LAUGH",
+				ReactionContent.Hooray => "HOORAY",
+				ReactionContent.Confused => "CONFUSED",
+				ReactionContent.Heart => "HEART",
+				ReactionContent.Rocket => "ROCKET",
+				ReactionContent.Eyes => "EYES",
+				_ => throw new ArgumentOutOfRangeException(nameof(content), content, "Unknown reaction content."),
+			};
 	}
 }

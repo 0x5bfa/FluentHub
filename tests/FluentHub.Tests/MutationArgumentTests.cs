@@ -2,10 +2,11 @@ using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Application.Models;
 using FluentHub.Core.Infrastructure.GitHub.Mutations;
 using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
-using GraphQL;
-using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
+using System.Buffers;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Tests;
 
@@ -13,51 +14,51 @@ namespace FluentHub.Tests;
 public sealed class MutationArgumentTests
 {
 	[TestMethod]
-	public void IssueMutationsRejectNullInputs()
+	public async Task IssueMutationsRejectNullInputs()
 	{
 		var mutations = new IssueMutations(null!);
 
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.CreateIssueAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.UpdateIssueAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.CloseIssueAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.ReopenIssueAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.AddCommentAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.UpdateIssueCommentAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.DeleteIssueCommentAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.CreateIssueAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.UpdateIssueAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.CloseIssueAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.ReopenIssueAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.AddCommentAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.UpdateIssueCommentAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.DeleteIssueCommentAsync(null!));
 	}
 
 	[TestMethod]
-	public void PullRequestMutationsRejectNullInputs()
+	public async Task PullRequestMutationsRejectNullInputs()
 	{
 		var mutations = new PullRequestMutations(null!);
 
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.UpdateAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.CloseAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.ReopenAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.MergeAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.AddCommentAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.AddReviewAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.UpdateAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.CloseAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.ReopenAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.MergeAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.AddCommentAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.AddReviewAsync(null!));
 	}
 
 	[TestMethod]
-	public void ReactionMutationsRejectNullInputs()
+	public async Task ReactionMutationsRejectNullInputs()
 	{
 		var mutations = new ReactionMutations(null!);
 
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.AddAsync(null!));
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.RemoveAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.AddAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.RemoveAsync(null!));
 	}
 
 	[TestMethod]
-	public void SubscriptionMutationsRejectNullInputs()
+	public async Task SubscriptionMutationsRejectNullInputs()
 	{
 		var mutations = new SubscriptionMutations(null!);
 
-		Assert.ThrowsExactly<ArgumentNullException>(() => mutations.UpdateAsync(null!));
+		await Assert.ThrowsExactlyAsync<ArgumentNullException>(() => mutations.UpdateAsync(null!));
 	}
 
 	[TestMethod]
-	public void PullRequestReviewRejectsInlineCommentsUntilSupported()
+	public async Task PullRequestReviewRejectsInlineCommentsUntilSupported()
 	{
 		var mutations = new PullRequestMutations(null!);
 		var input = new AddPullRequestReviewRequest
@@ -65,11 +66,11 @@ public sealed class MutationArgumentTests
 			Comments = [],
 		};
 
-		Assert.ThrowsExactly<NotSupportedException>(() => mutations.AddReviewAsync(input));
+		await Assert.ThrowsExactlyAsync<NotSupportedException>(() => mutations.AddReviewAsync(input));
 	}
 
 	[TestMethod]
-	public void MutationExpressionsCompileBeforeExecution()
+	public async Task MutationOperationsAreBuiltBeforeExecution()
 	{
 		var api = new FakeGitHubApiClient();
 		var id = new ID("test-node-id");
@@ -78,24 +79,24 @@ public sealed class MutationArgumentTests
 		var reactionMutations = new ReactionMutations(api);
 		var subscriptionMutations = new SubscriptionMutations(api);
 
-		issueMutations.CreateIssueAsync(new CreateIssueRequest { RepositoryId = id, Title = "Test" });
-		issueMutations.UpdateIssueAsync(new UpdateIssueRequest { Id = id, Title = "Test" });
-		issueMutations.CloseIssueAsync(new CloseIssueRequest { IssueId = id });
-		issueMutations.ReopenIssueAsync(new ReopenIssueRequest { IssueId = id });
-		issueMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
-		issueMutations.UpdateIssueCommentAsync(new UpdateIssueCommentRequest { Id = id, Body = "Test" });
-		issueMutations.DeleteIssueCommentAsync(new DeleteIssueCommentRequest { Id = id });
+		await issueMutations.CreateIssueAsync(new CreateIssueRequest { RepositoryId = id, Title = "Test" });
+		await issueMutations.UpdateIssueAsync(new UpdateIssueRequest { Id = id, Title = "Test" });
+		await issueMutations.CloseIssueAsync(new CloseIssueRequest { IssueId = id });
+		await issueMutations.ReopenIssueAsync(new ReopenIssueRequest { IssueId = id });
+		await issueMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
+		await issueMutations.UpdateIssueCommentAsync(new UpdateIssueCommentRequest { Id = id, Body = "Test" });
+		await issueMutations.DeleteIssueCommentAsync(new DeleteIssueCommentRequest { Id = id });
 
-		pullRequestMutations.UpdateAsync(new UpdatePullRequestRequest { PullRequestId = id, Title = "Test" });
-		pullRequestMutations.CloseAsync(new ClosePullRequestRequest { PullRequestId = id });
-		pullRequestMutations.ReopenAsync(new ReopenPullRequestRequest { PullRequestId = id });
-		pullRequestMutations.MergeAsync(new MergePullRequestRequest { PullRequestId = id });
-		pullRequestMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
-		pullRequestMutations.AddReviewAsync(new AddPullRequestReviewRequest { PullRequestId = id });
+		await pullRequestMutations.UpdateAsync(new UpdatePullRequestRequest { PullRequestId = id, Title = "Test" });
+		await pullRequestMutations.CloseAsync(new ClosePullRequestRequest { PullRequestId = id });
+		await pullRequestMutations.ReopenAsync(new ReopenPullRequestRequest { PullRequestId = id });
+		await pullRequestMutations.MergeAsync(new MergePullRequestRequest { PullRequestId = id });
+		await pullRequestMutations.AddCommentAsync(new AddCommentRequest { SubjectId = id, Body = "Test" });
+		await pullRequestMutations.AddReviewAsync(new AddPullRequestReviewRequest { PullRequestId = id });
 
-		reactionMutations.AddAsync(new AddReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
-		reactionMutations.RemoveAsync(new RemoveReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
-		subscriptionMutations.UpdateAsync(new UpdateSubscriptionRequest
+		await reactionMutations.AddAsync(new AddReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
+		await reactionMutations.RemoveAsync(new RemoveReactionRequest { SubjectId = id, Content = ReactionContent.Heart });
+		await subscriptionMutations.UpdateAsync(new UpdateSubscriptionRequest
 		{
 			SubscribableId = id,
 			State = SubscriptionState.Subscribed,
@@ -105,23 +106,42 @@ public sealed class MutationArgumentTests
 	}
 
 	[TestMethod]
-	public async Task ModifiedQueryExpressionsCompileBeforeExecution()
+	public async Task UpdateIssueOmitsUnspecifiedOptionalInputs()
 	{
-		var api = new FakeGitHubApiClient { ThrowAfterGraphQLCompilation = true };
+		var api = new FakeGitHubApiClient();
+		await new IssueMutations(api).UpdateIssueAsync(new UpdateIssueRequest
+		{
+			Id = new ID("issue-id"),
+			Title = "Updated title",
+		});
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		using var document = JsonDocument.Parse(api.LastVariables);
+		var input = document.RootElement.GetProperty("input");
+		Assert.AreEqual("issue-id", input.GetProperty("id").GetString());
+		Assert.AreEqual("Updated title", input.GetProperty("title").GetString());
+		Assert.IsFalse(input.TryGetProperty("body", out _));
+		Assert.IsFalse(input.TryGetProperty("assigneeIds", out _));
+		Assert.IsFalse(input.TryGetProperty("milestoneId", out _));
+	}
+
+	[TestMethod]
+	public async Task ModifiedQueryOperationsAreBuiltBeforeExecution()
+	{
+		var api = new FakeGitHubApiClient { ThrowAfterGraphQLRequest = true };
+
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new IssueQueries(api).GetAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new IssueQueries(api).GetBodyAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new PullRequestQueries(api).GetAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new PullRequestQueries(api).GetBodyAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new RepositoryQueries(api).GetIssueOptionsAsync("owner", "repository"));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new IssueEventQueries(api).GetAllAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new PullRequestEventQueries(api).GetAllAsync("owner", "repository", 1));
 
 		Assert.AreEqual(7, api.GraphQLCallCount);
@@ -130,31 +150,32 @@ public sealed class MutationArgumentTests
 	private sealed class FakeGitHubApiClient : IGitHubApiClient
 	{
 		public int GraphQLCallCount { get; private set; }
-		public bool ThrowAfterGraphQLCompilation { get; init; }
+		public string LastVariables { get; private set; } = string.Empty;
+		public bool ThrowAfterGraphQLRequest { get; init; }
 
-		public Task<T> RunGraphQLAsync<T>(ICompiledQuery<T> query, CancellationToken cancellationToken = default)
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
+			CancellationToken cancellationToken = default)
 		{
 			GraphQLCallCount++;
-			if (ThrowAfterGraphQLCompilation)
-				throw new QueryCompiledException();
-			return Task.FromResult(default(T)!);
+			var buffer = new ArrayBufferWriter<byte>();
+			using (var writer = new Utf8JsonWriter(buffer))
+			{
+				writer.WriteStartObject();
+				writeVariables?.Invoke(writer);
+				writer.WriteEndObject();
+			}
+			LastVariables = System.Text.Encoding.UTF8.GetString(buffer.WrittenSpan);
+			if (ThrowAfterGraphQLRequest)
+				throw new GraphQLRequestCapturedException();
+			return Task.FromResult(JsonSerializer.Deserialize("{\"result\":{}}", dataTypeInfo)!);
 		}
 
 		public Task<T> RunRestAsync<T>(
-			Func<global::Octokit.IGitHubClient, Task<T>> operation,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
-
-		public Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
-
-		public Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
+			Func<global::Octokit.Rest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 			=> throw new NotSupportedException();
 	}
 
-	private sealed class QueryCompiledException : Exception;
+	private sealed class GraphQLRequestCapturedException : Exception;
 }

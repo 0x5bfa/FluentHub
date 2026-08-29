@@ -1,283 +1,199 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-
 namespace FluentHub.Core.Infrastructure.GitHub.Wrappers
 {
-	internal class ActivityWrapper
+	internal sealed class ActivityWrapper
 	{
-		public List<Activity> Wrap(IReadOnlyList<OctokitV3.Activity> response)
+		public List<Activity> Wrap(IReadOnlyList<OctokitRest.GitHubActivityEvent> response)
 		{
-			List<Activity> activities = new();
+			var activities = new List<Activity>();
 
 			foreach (var item in response)
 			{
-				if (item?.Actor is not { } actor)
+				if (item.Actor is not { } actor)
 					continue;
 
-				var repoNameParts = item.Repo?.Name?.Split('/');
-				Repository itemRep = new()
+				var repoNameParts = item.Repo?.Name.Split('/');
+				var repository = new Repository
 				{
 					Name = repoNameParts?.ElementAtOrDefault(1) ?? string.Empty,
-					Owner = new RepositoryOwner()
+					Owner = new RepositoryOwner
 					{
-						AvatarUrl = item.Repo?.Owner?.AvatarUrl ?? string.Empty,
 						Login = repoNameParts?.ElementAtOrDefault(0) ?? string.Empty,
-					}
+					},
 				};
-
-				User itemUser = new()
+				var user = new User
 				{
 					AvatarUrl = actor.AvatarUrl ?? string.Empty,
-					Login = actor.Login ?? string.Empty,
+					Login = actor.Login,
 					Name = actor.Name ?? string.Empty,
 				};
-
-				Organization itemOrganization = new()
+				var organization = new Organization
 				{
 					AvatarUrl = item.Org?.AvatarUrl ?? string.Empty,
 					Login = item.Org?.Login ?? string.Empty,
-					Name = item.Org?.Name ?? string.Empty
 				};
-
-				Activity indivisual = new()
+				var activity = new Activity
 				{
 					CreatedAt = item.CreatedAt,
-
 					CreatedAtHumanized = item.CreatedAt.ToRelativeTime(),
-
 					Id = item.Id,
-
 					Public = item.Public,
-
-					Repository = itemRep,
-
-					Actor = itemUser,
-
-					Organization = itemOrganization,
+					Repository = repository,
+					Actor = user,
+					Organization = organization,
 				};
+				var payload = item.Payload;
 
 				switch (item.Type)
 				{
 					case "CheckRunEvent":
-						indivisual.Type = ActivityKind.CheckRunEvent;
+						activity.Type = ActivityKind.CheckRunEvent;
 						break;
 					case "CheckSuiteEvent":
-						indivisual.Type = ActivityKind.CheckSuiteEvent;
+						activity.Type = ActivityKind.CheckSuiteEvent;
 						break;
+					case "CommitCommentEvent":
 					case "CommitComment":
-						indivisual.Type = ActivityKind.CommitComment;
+						activity.Type = ActivityKind.CommitComment;
 						break;
-					case "CreateEvent":
+					case "CreateEvent" when payload is not null:
+						activity.Type = ActivityKind.CreateEvent;
+						activity.Details.CreateEvent = new()
 						{
-							if (item.Payload is not OctokitV3.CreateEventPayload createEventPayload)
-								continue;
-
-							indivisual.Type = ActivityKind.CreateEvent;
-							indivisual.Details.CreateEvent = new()
-							{
-								Description = createEventPayload.Description,
-								MasterBranch = createEventPayload.MasterBranch,
-								Ref = createEventPayload.Ref,
-							};
-						}
+							Description = payload.Description,
+							MasterBranch = payload.MasterBranch,
+							Ref = payload.Ref,
+						};
 						break;
-					case "DeleteEvent":
-						{
-							if (item.Payload is not OctokitV3.DeleteEventPayload deleteEventPayload)
-								continue;
-
-							indivisual.Type = ActivityKind.DeleteEvent;
-							indivisual.Details.DeleteEvent = new()
-							{
-								Ref = deleteEventPayload.Ref,
-							};
-						}
+					case "DeleteEvent" when payload is not null:
+						activity.Type = ActivityKind.DeleteEvent;
+						activity.Details.DeleteEvent = new() { Ref = payload.Ref };
 						break;
-					case "ForkEvent":
+					case "ForkEvent" when payload?.Forkee?.Owner is { } forkOwner:
+						activity.Type = ActivityKind.ForkEvent;
+						activity.Details.ForkEvent = new()
 						{
-							if (item.Payload is not OctokitV3.ForkEventPayload forkEventPayload ||
-								forkEventPayload.Forkee?.Owner is not { } forkeeOwner)
-								continue;
-
-							indivisual.Type = ActivityKind.ForkEvent;
-							indivisual.Details.ForkEvent = new()
+							Forkee = new()
 							{
-								Forkee = new()
+								Name = payload.Forkee.Name,
+								Owner = new RepositoryOwner
 								{
-									Name = forkEventPayload.Forkee.Name ?? string.Empty,
-									Owner = new RepositoryOwner()
-									{
-										AvatarUrl = forkeeOwner.AvatarUrl ?? string.Empty,
-										Login = forkeeOwner.Login ?? string.Empty,
-									},
+									AvatarUrl = forkOwner.AvatarUrl ?? string.Empty,
+									Login = forkOwner.Login,
 								},
-							};
-						}
+							},
+						};
 						break;
-					case "IssueCommentEvent":
+					case "IssueCommentEvent" when payload?.Comment is { } issueComment && payload.Issue is { } commentedIssue:
+						activity.Type = ActivityKind.IssueCommentEvent;
+						activity.Details.IssueCommentEvent = new()
 						{
-							if (item.Payload is not OctokitV3.IssueCommentPayload issueCommentPayload ||
-								issueCommentPayload.Comment is not { } issueComment ||
-								issueCommentPayload.Issue is not { } commentedIssue)
-								continue;
-
-							indivisual.Type = ActivityKind.IssueCommentEvent;
-							indivisual.Details.IssueCommentEvent = new()
-							{
-								Action = issueCommentPayload.Action,
-								Comment = new()
-								{
-									Body = issueComment.Body,
-								},
-								Issue = new()
-								{
-									Number = commentedIssue.Number,
-								}
-							};
-						}
+							Action = payload.Action,
+							Comment = new() { Body = issueComment.Body ?? string.Empty },
+							Issue = new() { Number = commentedIssue.Number },
+						};
 						break;
+					case "IssuesEvent":
 					case "IssueEvent":
+						if (payload?.Issue is not { } issue)
+							continue;
+
+						activity.Type = ActivityKind.IssueEvent;
+						activity.Details.IssueEvent = new()
 						{
-							if (item.Payload is not OctokitV3.IssueEventPayload issueEventPayload ||
-								issueEventPayload.Issue is not { } issue)
-								continue;
-
-							indivisual.Type = ActivityKind.IssueEvent;
-							indivisual.Details.IssueEvent = new()
+							Action = payload.Action,
+							Issue = new()
 							{
-								Action = issueEventPayload.Action,
-								Issue = new()
-								{
-									Closed = issue.ClosedAt is not null,
-									Number = issue.Number,
-									Title = issue.Title,
-									UpdatedAt = issue.UpdatedAt.GetValueOrDefault(),
-									UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-
-									Repository = itemRep,
-								},
-							};
-						}
+								Closed = issue.ClosedAt is not null,
+								Number = issue.Number,
+								Title = issue.Title ?? string.Empty,
+								UpdatedAt = issue.UpdatedAt.GetValueOrDefault(),
+								UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
+								Repository = repository,
+							},
+						};
 						break;
+					case "PullRequestReviewCommentEvent":
 					case "PullRequestComment":
-						{
-							if (item.Payload is not OctokitV3.PullRequestCommentPayload pullRequestCommentPayload ||
-								pullRequestCommentPayload.PullRequest is not { } commentedPullRequest)
-								continue;
+						if (payload?.PullRequest is not { } commentedPullRequest)
+							continue;
 
-							indivisual.Type = ActivityKind.PullRequestComment;
-							indivisual.Details.PullRequestCommentEvent = new()
-							{
-								Action = pullRequestCommentPayload.Action,
-								PullRequest = new()
-								{
-									Number = commentedPullRequest.Number,
-								},
-							};
-						}
+						activity.Type = ActivityKind.PullRequestComment;
+						activity.Details.PullRequestCommentEvent = new()
+						{
+							Action = payload.Action,
+							PullRequest = new() { Number = commentedPullRequest.Number },
+						};
 						break;
-					case "PullRequestEvent":
+					case "PullRequestEvent" when payload?.PullRequest is { } pullRequest:
+						activity.Type = ActivityKind.PullRequestEvent;
+						activity.Details.PullRequestEvent = new()
 						{
-							if (item.Payload is not OctokitV3.PullRequestEventPayload pullRequestPayload ||
-								pullRequestPayload.PullRequest is not { } pullRequest)
-								continue;
-
-							indivisual.Type = ActivityKind.PullRequestEvent;
-							indivisual.Details.PullRequestEvent = new()
+							Action = payload.Action,
+							PullRequest = new()
 							{
-								Action = pullRequestPayload.Action,
-								PullRequest = new()
-								{
-									Closed = pullRequest.ClosedAt is not null,
-									Number = pullRequest.Number,
-									Title = pullRequest.Title,
-									UpdatedAt = pullRequest.UpdatedAt,
-									UpdatedAtHumanized = pullRequest.UpdatedAt.ToRelativeTime(),
-									IsDraft = pullRequest.Draft,
-									Merged = pullRequest.Merged,
-
-									Repository = itemRep,
-								},
-							};
-						}
+								Closed = pullRequest.ClosedAt is not null,
+								Number = pullRequest.Number,
+								Title = pullRequest.Title ?? string.Empty,
+								UpdatedAt = pullRequest.UpdatedAt,
+								UpdatedAtHumanized = pullRequest.UpdatedAt.ToRelativeTime(),
+								IsDraft = pullRequest.Draft,
+								Merged = pullRequest.Merged,
+								Repository = repository,
+							},
+						};
 						break;
 					case "PullRequestReviewEvent":
-						{
-							indivisual.Type = ActivityKind.PullRequestReviewEvent;
-						}
+						activity.Type = ActivityKind.PullRequestReviewEvent;
 						break;
-					case "PushEvent":
+					case "PushEvent" when payload is not null:
+						activity.Type = ActivityKind.PushEvent;
+						activity.Details.PushEvent = new()
 						{
-							if (item.Payload is not OctokitV3.PushEventPayload pushEventPayload)
-								continue;
-
-							indivisual.Type = ActivityKind.PushEvent;
-							indivisual.Details.PushEvent = new()
-							{
-								Commits = pushEventPayload.Commits?
-									.Where(commit => commit is not null)
-									.Select(commit => new ActivityCommit
-									{
-										Message = commit.Message ?? string.Empty,
-										Sha = commit.Sha ?? string.Empty,
-										User = new()
-										{
-											AvatarUrl = commit.User?.AvatarUrl ?? string.Empty,
-											Login = commit.User?.Login ?? commit.Author?.Name ?? string.Empty,
-											Name = commit.User?.Name ?? commit.Author?.Name ?? string.Empty,
-										},
-									})
-									.ToList() ?? [],
-								Head = pushEventPayload.Head,
-								Ref = pushEventPayload.Ref,
-								Size = pushEventPayload.Size,
-							};
-						}
-						break;
-					case "ReleaseEvent":
-						{
-							if (item.Payload is not OctokitV3.ReleaseEventPayload releaseEventPayload ||
-								releaseEventPayload.Release is not { } release)
-								continue;
-
-							indivisual.Type = ActivityKind.ReleaseEvent;
-							indivisual.Details.ReleaseEvent = new()
-							{
-								Action = releaseEventPayload.Action,
-								Release = new()
+							Commits = payload.Commits?
+								.Select(commit => new ActivityCommit
 								{
-									Name = release.Name,
-									Description = release.Body,
-								},
-								Sender = itemUser,
-							};
-						}
+									Message = commit.Message ?? string.Empty,
+									Sha = commit.Sha ?? string.Empty,
+									User = new()
+									{
+										Login = commit.Author?.Name ?? string.Empty,
+										Name = commit.Author?.Name ?? string.Empty,
+									},
+								})
+								.ToList() ?? [],
+							Head = payload.Head,
+							Ref = payload.Ref,
+							Size = payload.Size,
+						};
 						break;
-					case "WatchEvent":
+					case "ReleaseEvent" when payload?.Release is { } release:
+						activity.Type = ActivityKind.ReleaseEvent;
+						activity.Details.ReleaseEvent = new()
 						{
-							if (item.Payload is not OctokitV3.StarredEventPayload watchEventPayload)
-								continue;
-
-							indivisual.Type = ActivityKind.WatchEvent;
-							indivisual.Details.StarredEvent = new()
+							Action = payload.Action,
+							Release = new()
 							{
-								Action = watchEventPayload.Action,
-							};
-						}
+								Name = release.Name,
+								Description = release.Body,
+							},
+							Sender = user,
+						};
+						break;
+					case "WatchEvent" when payload is not null:
+						activity.Type = ActivityKind.WatchEvent;
+						activity.Details.StarredEvent = new() { Action = payload.Action };
 						break;
 					case "StatusEvent":
-						{
-							indivisual.Type = ActivityKind.StatusEvent;
-						}
+						activity.Type = ActivityKind.StatusEvent;
 						break;
+					default:
+						continue;
 				}
 
-				activities.Add(indivisual);
+				activities.Add(activity);
 			}
 
 			return activities;

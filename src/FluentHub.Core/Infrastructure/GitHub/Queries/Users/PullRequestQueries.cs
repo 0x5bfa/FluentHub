@@ -1,35 +1,52 @@
-using Octokit.GraphQL.Core;
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
 
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class PullRequestQueries
+	public partial class PullRequestQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
+		private const string Query = """
+			query UserPullRequests($login: String!, $first: Int, $after: String, $last: Int, $before: String, $baseRefName: String, $headRefName: String, $labels: [String!], $orderBy: IssueOrder, $states: [PullRequestState!]) {
+			  result: user(login: $login) {
+			    pullRequests(first: $first, after: $after, last: $last, before: $before, baseRefName: $baseRefName, headRefName: $headRefName, labels: $labels, orderBy: $orderBy, states: $states) {
+			      edges {
+			        node {
+			          baseRefName closed headRefName isDraft merged number title updatedAt
+			          repository { name owner { avatarUrl(size: 500) id login } }
+			          headRepository { name owner { avatarUrl(size: 500) login } }
+			          comments { totalCount }
+			          labels(first: 10) { nodes { color description name } }
+			          latestReviews: reviews(last: 1) { nodes { state } }
+			          commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
+			        }
+			      }
+			      pageInfo { endCursor hasNextPage hasPreviousPage startCursor }
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public PullRequestQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public PullRequestQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
 
 		public Task<PageResult<PullRequest>> GetPageAsync(
 			string login,
 			PageRequest page,
 			RepositoryItemListFilters filters,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetUserPullRequestPageAsync(
-				login,
-				page,
-				filters,
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserPullRequestPageAsync(login, page, filters, cancellationToken);
 
 		public Task<RepositoryItemFilterOptions> GetFilterOptionsAsync(
 			string login,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(
-				login,
-				true,
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(login, true, cancellationToken);
 
 		public async Task<PageResult<PullRequest>> GetPageAsync(
 			string login,
@@ -37,139 +54,45 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			string? baseRefName = null,
 			string? headRefName = null,
 			IEnumerable<string>? labels = null,
-			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.PullRequestState>? states = null,
+			IssueOrder? orderBy = null,
+			IEnumerable<PullRequestState>? states = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			orderBy ??= new()
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
-			};
-			states ??= [OctokitGraphQLModel.PullRequestState.Open];
-
-			var query = new Query()
-				.User(login)
-				.PullRequests(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					baseRefName,
-					headRefName,
-					labels is null ? null! : new Arg<IEnumerable<string>>(labels),
-					orderBy,
-					new Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>>(states))
-				.Select(connection => new PullRequestConnection
+			orderBy ??= new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+			states ??= [PullRequestState.Open];
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (PullRequestEdge?)new PullRequestEdge
-					{
-						Node = edge.Node.Select(x => new PullRequest
+					writer.WriteString("login", login);
+					GraphQLInputWriter.WritePage(writer, page);
+					GraphQLInputWriter.WriteOptionalString(writer, "baseRefName", baseRefName);
+					GraphQLInputWriter.WriteOptionalString(writer, "headRefName", headRefName);
+					GraphQLInputWriter.WriteOptionalStrings(writer, "labels", labels);
+					writer.WriteStartObject("orderBy");
+					writer.WriteString("field", orderBy.Field == IssueOrderField.UpdatedAt ? "UPDATED_AT" : "CREATED_AT");
+					writer.WriteString("direction", orderBy.Direction == OrderDirection.Asc ? "ASC" : "DESC");
+					writer.WriteEndObject();
+					writer.WriteStartArray("states");
+					foreach (var state in states)
+						writer.WriteStringValue(state switch
 						{
-							BaseRefName = x.BaseRefName,
-							Closed = x.Closed,
-							HeadRefName = x.HeadRefName,
-							IsDraft = x.IsDraft,
-							Merged = x.Merged,
-							Number = x.Number,
-							Title = x.Title,
-							UpdatedAt = x.UpdatedAt,
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								})
-								.SingleOrDefault(),
-							})
-							.SingleOrDefault(),
-
-							HeadRepository = x.HeadRepository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Login = owner.Login,
-								})
-								.SingleOrDefault(),
-							})
-							.SingleOrDefault(),
-
-							Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-							{
-								TotalCount = comments.TotalCount,
-							})
-							.SingleOrDefault(),
-
-							Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-							{
-								Nodes = labels.Nodes.Select(y => (Label?)new Label
-								{
-									Color = y.Color,
-									Description = y.Description,
-									Name = y.Name,
-								})
-								.ToList(),
-							})
-							.SingleOrDefault(),
-
-							Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
-							{
-								Nodes = reviews.Nodes.Select(y => (PullRequestReview?)new PullRequestReview
-								{
-									State = (PullRequestReviewState)y.State,
-								})
-								.ToList().DefaultIfEmpty().ToList(),
-							})
-							.SingleOrDefault(),
-
-							Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
-							{
-								Nodes = commits.Nodes.Select(y => (PullRequestCommit?)new PullRequestCommit
-								{
-									Commit = y.Commit.Select(commit => new Commit
-									{
-										StatusCheckRollup = commit.StatusCheckRollup.Select(rollup => new StatusCheckRollup
-										{
-											State = (StatusState)rollup.State,
-										})
-										.SingleOrDefault(),
-									})
-									.SingleOrDefault(),
-								})
-								.ToList().DefaultIfEmpty().ToList(),
-							})
-							.SingleOrDefault(),
-						}).Single()
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<PullRequest>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+							PullRequestState.Open => "OPEN",
+							PullRequestState.Closed => "CLOSED",
+							PullRequestState.Merged => "MERGED",
+							_ => throw new ArgumentOutOfRangeException(nameof(states), state, "Unknown pull request state."),
+						});
+					writer.WriteEndArray();
+				},
+				cancellationToken);
+			var connection = response.Result?.PullRequests
+				?? throw new InvalidDataException("GitHub returned an incomplete user pull requests response.");
+			var items = connection.Edges?.Where(edge => edge?.Node is not null).Select(edge => edge!.Node!).ToList() ?? [];
+			foreach (var pullRequest in items)
+				pullRequest.UpdatedAtHumanized = pullRequest.UpdatedAt.ToRelativeTime();
+			return new(items, connection.PageInfo);
 		}
 	}
 }

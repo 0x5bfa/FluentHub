@@ -1,8 +1,8 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using GraphQL;
-using GraphQL.Client.Abstractions;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -11,53 +11,40 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 		private readonly GitHubSessionManager _sessionManager;
 
 		public GitHubApiClient(GitHubSessionManager sessionManager)
-			=> _sessionManager = sessionManager;
+		{
+			_sessionManager = sessionManager;
+		}
 
 		public string CachePartition
-			=> _sessionManager.CachePartition;
+		{
+			get
+			{
+				return _sessionManager.CachePartition;
+			}
+		}
 
 		public async Task<T> RunRestAsync<T>(
-			Func<OctokitV3.IGitHubClient, Task<T>> operation,
+			Func<OctokitRest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(operation);
 
 			var session = _sessionManager.GetRequiredSession();
-			return await operation(session.Rest).WaitAsync(cancellationToken);
+			return await operation(session.Rest, cancellationToken).ConfigureAwait(false);
 		}
 
-		public Task<T> RunGraphQLAsync<T>(
-			ICompiledQuery<T> query,
-			CancellationToken cancellationToken = default)
+		public Task<T> RunGraphQLAsync<T>(GraphQLOperation<T> operation, JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(query);
-
-			return _sessionManager.GetRequiredSession().GraphQL.Run(
-				query,
-				cancellationToken: cancellationToken);
+			return _sessionManager.GetRequiredSession().GraphQL.ExecuteAsync(
+				operation, dataTypeInfo, writeVariables, cancellationToken);
 		}
 
-		public Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
-			CancellationToken cancellationToken = default)
+		public Task<T> RunDynamicGraphQLAsync<T>(string query, JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default)
 		{
-			ArgumentNullException.ThrowIfNull(request);
-
-			return _sessionManager.GetRequiredSession().RawGraphQL.SendQueryAsync<T>(
-				request,
-				cancellationToken);
-		}
-
-		public Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
-			CancellationToken cancellationToken = default)
-		{
-			ArgumentNullException.ThrowIfNull(request);
-
-			return _sessionManager.GetRequiredSession().RawRest.SendAsync(
-				request,
-				HttpCompletionOption.ResponseHeadersRead,
-				cancellationToken);
+			return _sessionManager.GetRequiredSession().GraphQL.ExecuteDynamicAsync(
+				query, dataTypeInfo, writeVariables, cancellationToken);
 		}
 	}
 }

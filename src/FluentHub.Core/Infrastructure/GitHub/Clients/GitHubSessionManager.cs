@@ -1,11 +1,10 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using FluentHub.Core.Application.Abstractions.Authentication;
-using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.Newtonsoft;
+using Octokit.Rest;
+using Octokit.Transport;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -75,41 +74,20 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 		{
 			public GitHubSession(string accessToken)
 			{
-				Rest = new OctokitV3.GitHubClient(new OctokitV3.ProductHeaderValue("FluentHub"))
-				{
-					Credentials = new OctokitV3.Credentials(accessToken),
-				};
-
-				GraphQL = new Connection(new global::Octokit.GraphQL.ProductHeaderValue("FluentHub"), accessToken);
-
-				RawGraphQL = new GraphQLHttpClient(
-					"https://api.github.com/graphql",
-					new NewtonsoftJsonSerializer());
-				RawGraphQL.HttpClient.DefaultRequestHeaders.Authorization
-					= new AuthenticationHeaderValue("Bearer", accessToken);
-				RawGraphQL.HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("FluentHub");
-
-				RawRest = new HttpClient
-				{
-					BaseAddress = new Uri("https://api.github.com/"),
-				};
-				RawRest.DefaultRequestHeaders.Authorization
-					= new AuthenticationHeaderValue("Bearer", accessToken);
-				RawRest.DefaultRequestHeaders.UserAgent.ParseAdd("FluentHub");
+				Transport = GitHubHttpClient.Create(accessToken, "FluentHub");
+				Rest = new GitHubRestClient(Transport);
+				GraphQL = new GitHubGraphQLClient(Transport);
 			}
 
-			public OctokitV3.IGitHubClient Rest { get; }
+			public GitHubRestClient Rest { get; }
 
-			public Connection GraphQL { get; }
+			public GitHubGraphQLClient GraphQL { get; }
 
-			public GraphQLHttpClient RawGraphQL { get; }
-
-			public HttpClient RawRest { get; }
+			public GitHubHttpClient Transport { get; }
 
 			public void Dispose()
 			{
-				RawGraphQL.Dispose();
-				RawRest.Dispose();
+				Transport.Dispose();
 			}
 		}
 	}

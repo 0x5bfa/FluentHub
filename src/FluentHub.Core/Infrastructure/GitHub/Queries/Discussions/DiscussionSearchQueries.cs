@@ -1,11 +1,14 @@
 using System.IO;
-using GraphQL;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 {
-	internal sealed class DiscussionSearchQueries
+	internal sealed partial class DiscussionSearchQueries
 	{
+		[GeneratedGraphQLOperation<SearchResponse<DiscussionNode>>]
 		private const string SearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
 			  search(query: $query, type: DISCUSSION, first: $first, after: $after) {
@@ -36,6 +39,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 			}
 			""";
 
+		[GeneratedGraphQLOperation<SearchResponse<DiscussionLabelNode>>]
 		private const string LabelSearchQuery = """
 			query($query: String!) {
 			  search(query: $query, type: DISCUSSION, first: 100) {
@@ -101,19 +105,17 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 			if (page.First is not int count)
 				throw new NotSupportedException("Discussion search only supports forward pagination.");
 
-			var request = new GraphQLRequest
-			{
-				Query = SearchQuery,
-				Variables = new
+			var response = await _gitHub.RunGraphQLAsync(
+				SearchQueryOperation,
+				GetJsonTypeInfo<SearchResponse<DiscussionNode>>(),
+				writer =>
 				{
-					query = searchText,
-					first = Math.Min(count, 100),
-					after = page.After,
+					writer.WriteString("query", searchText);
+					writer.WriteNumber("first", Math.Min(count, 100));
+					GraphQLInputWriter.WriteOptionalString(writer, "after", page.After);
 				},
-			};
-			var response = await _gitHub.SendGraphQLAsync<SearchResponse<DiscussionNode>>(request, cancellationToken);
-			ThrowIfErrors(response.Errors);
-			var connection = response.Data?.Search
+				cancellationToken);
+			var connection = response.Search
 				?? throw new InvalidDataException("GitHub returned an incomplete discussion search response.");
 
 			return new PageResult<Discussion>(
@@ -125,15 +127,13 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 			string searchText,
 			CancellationToken cancellationToken)
 		{
-			var request = new GraphQLRequest
-			{
-				Query = LabelSearchQuery,
-				Variables = new { query = searchText },
-			};
-			var response = await _gitHub.SendGraphQLAsync<SearchResponse<DiscussionLabelNode>>(request, cancellationToken);
-			ThrowIfErrors(response.Errors);
+			var response = await _gitHub.RunGraphQLAsync(
+				LabelSearchQueryOperation,
+				GetJsonTypeInfo<SearchResponse<DiscussionLabelNode>>(),
+				writer => writer.WriteString("query", searchText),
+				cancellationToken);
 
-			return response.Data?.Search?.Nodes
+			return response.Search?.Nodes
 				.Where(node => node is not null)
 				.SelectMany(node => node!.Labels.Nodes)
 				.Where(label => !string.IsNullOrWhiteSpace(label?.Name))
@@ -143,10 +143,10 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 				.ToList() ?? [];
 		}
 
-		private static void ThrowIfErrors(GraphQLError[]? errors)
+		private static JsonTypeInfo<T> GetJsonTypeInfo<T>()
 		{
-			if (errors is { Length: > 0 })
-				throw new InvalidOperationException(string.Join("; ", errors.Select(error => error.Message)));
+			return (JsonTypeInfo<T>)(DiscussionSearchJsonContext.Default.GetTypeInfo(typeof(T))
+				?? throw new InvalidOperationException($"No JSON metadata is registered for {typeof(T)}."));
 		}
 
 		private static Discussion MapDiscussion(DiscussionNode node)
@@ -307,5 +307,10 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 
 			public string Login { get; set; } = string.Empty;
 		}
+
+		[JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
+		[JsonSerializable(typeof(SearchResponse<DiscussionNode>))]
+		[JsonSerializable(typeof(SearchResponse<DiscussionLabelNode>))]
+		private sealed partial class DiscussionSearchJsonContext : JsonSerializerContext;
 	}
 }

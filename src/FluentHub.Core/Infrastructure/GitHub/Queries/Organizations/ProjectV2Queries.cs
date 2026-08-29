@@ -1,13 +1,26 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 {
-	public class ProjectV2Queries
+	public partial class ProjectV2Queries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<Organization>>]
+		private const string Query = """
+			query OrganizationProjects($login: String!, $first: Int, $after: String, $last: Int, $before: String) {
+			  result: organization(login: $login) {
+			""" + ProjectV2Query.Selection + """
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public ProjectV2Queries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public ProjectV2Queries(IGitHubApiClient gitHub) => _gitHub = gitHub;
 
 		public async Task<PageResult<ProjectV2>> GetPageAsync(
 			string organization,
@@ -15,49 +28,17 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			var query = new Query()
-				.Organization(organization)
-				.ProjectsV2(page.First, page.After, page.Last, page.Before)
-				.Select(connection => new ProjectV2Connection
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultOrganization,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (ProjectV2Edge?)new ProjectV2Edge
-					{
-						Node = edge.Node.Select(project => new ProjectV2
-						{
-							Closed = project.Closed,
-							ClosedAt = project.ClosedAt,
-							CreatedAt = project.CreatedAt,
-							Id = project.Id,
-							Number = project.Number,
-							Public = project.Public,
-							Readme = project.Readme,
-							ResourcePath = project.ResourcePath,
-							ShortDescription = project.ShortDescription,
-							Title = project.Title,
-							UpdatedAt = project.UpdatedAt,
-							Url = project.Url,
-							ViewerCanUpdate = project.ViewerCanUpdate,
-						}).Single(),
-					}).ToList(),
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<ProjectV2>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+					writer.WriteString("login", organization);
+					GraphQLInputWriter.WritePage(writer, page);
+				},
+				cancellationToken);
+			return ProjectV2Query.ToPage(response.Result?.ProjectsV2
+				?? throw new InvalidDataException("GitHub returned an incomplete organization projects response."));
 		}
 	}
 }

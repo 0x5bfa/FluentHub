@@ -1,12 +1,14 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Application.Models;
 using FluentHub.Core.Infrastructure.GitHub.Mutations;
-using GraphQL;
-using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Octokit.GraphQL;
+using Octokit.Rest;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
+using GitHubApiException = Octokit.Transport.GitHubApiException;
+using GitHubHttpClient = Octokit.Transport.GitHubHttpClient;
 
 namespace FluentHub.Tests;
 
@@ -16,7 +18,7 @@ public sealed class ForkRepositoryMutationTests
 	[TestMethod]
 	public async Task CreateForkSendsCustomDestinationNameAndBranchSelection()
 	{
-		var api = new FakeGitHubApiClient();
+		using var api = new FakeGitHubApiClient();
 		var mutation = new ForkRepositoryMutation(api);
 
 		var result = await mutation.ExecuteAsync(new CreateForkRequest
@@ -35,7 +37,7 @@ public sealed class ForkRepositoryMutationTests
 		Assert.AreEqual(HttpMethod.Post, api.RequestMethod);
 		Assert.AreEqual("repos/source-owner/source-repo/forks", api.RequestUri);
 		Assert.IsTrue(api.AcceptsGitHubJson);
-		Assert.AreEqual("2022-11-28", api.ApiVersion);
+		Assert.AreEqual(global::Octokit.Transport.GitHubHttpClient.RestApiVersion, api.ApiVersion);
 
 		using var document = JsonDocument.Parse(api.RequestBody);
 		var root = document.RootElement;
@@ -48,7 +50,7 @@ public sealed class ForkRepositoryMutationTests
 	[TestMethod]
 	public async Task CreateForkOmitsOrganizationForPersonalDestination()
 	{
-		var api = new FakeGitHubApiClient();
+		using var api = new FakeGitHubApiClient();
 		var mutation = new ForkRepositoryMutation(api);
 
 		await mutation.ExecuteAsync(new CreateForkRequest
@@ -73,14 +75,14 @@ public sealed class ForkRepositoryMutationTests
 	[TestMethod]
 	public async Task CreateForkIncludesGitHubValidationDetailsInError()
 	{
-		var api = new FakeGitHubApiClient
+		using var api = new FakeGitHubApiClient
 		{
 			ResponseBody = "{\"message\":\"Validation Failed\",\"errors\":[{\"field\":\"name\",\"code\":\"already_exists\"}]}",
 			StatusCode = HttpStatusCode.UnprocessableEntity,
 		};
 		var mutation = new ForkRepositoryMutation(api);
 
-		var exception = await Assert.ThrowsExactlyAsync<HttpRequestException>(() =>
+		var exception = await Assert.ThrowsExactlyAsync<GitHubApiException>(() =>
 			mutation.ExecuteAsync(new CreateForkRequest
 			{
 				DestinationOwner = new ForkOwner { Login = "viewer" },
@@ -92,8 +94,25 @@ public sealed class ForkRepositoryMutationTests
 		StringAssert.Contains(exception.Message, "name: already_exists");
 	}
 
-	private sealed class FakeGitHubApiClient : IGitHubApiClient
+	private sealed class FakeGitHubApiClient : IGitHubApiClient, IDisposable
 	{
+		private readonly HttpClient _httpClient;
+		private readonly GitHubHttpClient _transport;
+		private readonly GitHubRestClient _rest;
+
+		public FakeGitHubApiClient()
+		{
+			_httpClient = new HttpClient(new StubHttpMessageHandler(this))
+			{
+				BaseAddress = new Uri("https://api.github.test/", UriKind.Absolute),
+			};
+			_httpClient.DefaultRequestHeaders.Accept.Add(
+				new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
+			_httpClient.DefaultRequestHeaders.Add("X-GitHub-Api-Version", GitHubHttpClient.RestApiVersion);
+			_transport = new GitHubHttpClient(_httpClient);
+			_rest = new GitHubRestClient(_transport);
+		}
+
 		public string ApiVersion { get; private set; } = string.Empty;
 		public bool AcceptsGitHubJson { get; private set; }
 		public string RequestBody { get; private set; } = string.Empty;
@@ -104,34 +123,43 @@ public sealed class ForkRepositoryMutationTests
 		public HttpStatusCode StatusCode { get; init; } = HttpStatusCode.Accepted;
 
 		public Task<T> RunRestAsync<T>(
-			Func<global::Octokit.IGitHubClient, Task<T>> operation,
+			Func<GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
+			=> operation(_rest, cancellationToken);
 
-		public Task<T> RunGraphQLAsync<T>(
-			ICompiledQuery<T> query,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
-
-		public Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
-
-		public async Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
 		{
-			RequestMethod = request.Method;
-			RequestUri = request.RequestUri?.ToString() ?? string.Empty;
-			RequestBody = await request.Content!.ReadAsStringAsync(cancellationToken);
-			AcceptsGitHubJson = request.Headers.Accept.Any(value => value.MediaType == "application/vnd.github+json");
-			ApiVersion = request.Headers.GetValues("X-GitHub-Api-Version").Single();
+			throw new NotSupportedException();
+		}
+		public void Dispose()
+		{
+			_transport.Dispose();
+			_httpClient.Dispose();
+		}
 
-			return new HttpResponseMessage(StatusCode)
+		private sealed class StubHttpMessageHandler(FakeGitHubApiClient owner) : HttpMessageHandler
+		{
+			protected override async Task<HttpResponseMessage> SendAsync(
+				HttpRequestMessage request,
+				CancellationToken cancellationToken)
 			{
-				Content = new StringContent(ResponseBody),
-			};
+				owner.RequestMethod = request.Method;
+				owner.RequestUri = request.RequestUri?.PathAndQuery.TrimStart('/') ?? string.Empty;
+				owner.RequestBody = request.Content is null
+					? string.Empty
+					: await request.Content.ReadAsStringAsync(cancellationToken);
+				owner.AcceptsGitHubJson = request.Headers.Accept.Any(
+					value => value.MediaType == "application/vnd.github+json");
+				owner.ApiVersion = request.Headers.GetValues("X-GitHub-Api-Version").Single();
+
+				return new HttpResponseMessage(owner.StatusCode)
+				{
+					Content = new StringContent(owner.ResponseBody),
+					RequestMessage = request,
+				};
+			}
 		}
 	}
 }

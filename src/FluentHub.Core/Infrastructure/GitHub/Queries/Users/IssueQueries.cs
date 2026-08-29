@@ -1,121 +1,95 @@
-using Octokit.GraphQL.Core;
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
 
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class IssueQueries
+	public partial class IssueQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
+		private const string Query = """
+			query UserIssues($login: String!, $first: Int, $after: String, $last: Int, $before: String, $filterBy: IssueFilters, $labels: [String!], $orderBy: IssueOrder, $states: [IssueState!]) {
+			  result: user(login: $login) {
+			    issues(first: $first, after: $after, last: $last, before: $before, filterBy: $filterBy, labels: $labels, orderBy: $orderBy, states: $states) {
+			      edges {
+			        node {
+			          closed number title updatedAt
+			          repository { name owner { avatarUrl(size: 500) id login } }
+			          comments { totalCount }
+			          labels(first: 10) { nodes { color description name } }
+			        }
+			      }
+			      pageInfo { endCursor hasNextPage hasPreviousPage startCursor }
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public IssueQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public IssueQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
 
 		public Task<PageResult<Issue>> GetPageAsync(
 			string login,
 			PageRequest page,
 			RepositoryItemListFilters filters,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetUserIssuePageAsync(
-				login,
-				page,
-				filters,
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserIssuePageAsync(login, page, filters, cancellationToken);
 
 		public Task<RepositoryItemFilterOptions> GetFilterOptionsAsync(
 			string login,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(
-				login,
-				false,
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetUserFilterOptionsAsync(login, false, cancellationToken);
 
 		public async Task<PageResult<Issue>> GetPageAsync(
 			string login,
 			PageRequest page,
-			OctokitGraphQLModel.IssueFilters? filterBy = null,
+			IssueFilters? filterBy = null,
 			IEnumerable<string>? labels = null,
-			OctokitGraphQLModel.IssueOrder? orderBy = null,
-			IEnumerable<OctokitGraphQLModel.IssueState>? states = null,
+			IssueOrder? orderBy = null,
+			IEnumerable<IssueState>? states = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			orderBy ??= new()
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
-			};
-			states ??= [OctokitGraphQLModel.IssueState.Open];
-
-			var query = new Query()
-				.User(login)
-				.Issues(page.First, page.After, page.Last, page.Before, filterBy, labels is null ? null! : new Arg<IEnumerable<string>>(labels), orderBy, new Arg<IEnumerable<OctokitGraphQLModel.IssueState>>(states))
-				.Select(connection => new IssueConnection
+			orderBy ??= new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+			states ??= [IssueState.Open];
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (IssueEdge?)new IssueEdge
+					writer.WriteString("login", login);
+					GraphQLInputWriter.WritePage(writer, page);
+					if (filterBy is not null)
 					{
-						Node = edge.Node.Select(x => new Issue
-						{
-							Closed = x.Closed,
-							Number = x.Number,
-							Title = x.Title,
-							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								})
-								.SingleOrDefault(),
-							})
-							.SingleOrDefault(),
-
-							Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-							{
-								TotalCount = comments.TotalCount,
-							})
-							.SingleOrDefault(),
-
-							Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-							{
-								Nodes = labels.Nodes.Select(y => (Label?)new Label
-								{
-									Color = y.Color,
-									Description = y.Description,
-									Name = y.Name,
-								})
-								.ToList(),
-							})
-							.SingleOrDefault(),
-						}).Single()
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Issue>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+						writer.WriteStartObject("filterBy");
+						GraphQLInputWriter.WriteOptionalString(writer, "assignee", filterBy.Assignee);
+						GraphQLInputWriter.WriteOptionalStrings(writer, "labels", filterBy.Labels);
+						GraphQLInputWriter.WriteOptionalString(writer, "milestone", filterBy.Milestone);
+						GraphQLInputWriter.WriteOptionalString(writer, "type", filterBy.Type);
+						writer.WriteEndObject();
+					}
+					GraphQLInputWriter.WriteOptionalStrings(writer, "labels", labels);
+					writer.WriteStartObject("orderBy");
+					writer.WriteString("field", orderBy.Field == IssueOrderField.UpdatedAt ? "UPDATED_AT" : "CREATED_AT");
+					writer.WriteString("direction", orderBy.Direction == OrderDirection.Asc ? "ASC" : "DESC");
+					writer.WriteEndObject();
+					writer.WriteStartArray("states");
+					foreach (var state in states)
+						writer.WriteStringValue(state == IssueState.Open ? "OPEN" : "CLOSED");
+					writer.WriteEndArray();
+				},
+				cancellationToken);
+			var connection = response.Result?.Issues
+				?? throw new InvalidDataException("GitHub returned an incomplete user issues response.");
+			var items = connection.Edges?.Where(edge => edge?.Node is not null).Select(edge => edge!.Node!).ToList() ?? [];
+			foreach (var issue in items)
+				issue.UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime();
+			return new(items, connection.PageInfo);
 		}
 	}
 }

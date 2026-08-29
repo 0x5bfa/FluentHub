@@ -1,12 +1,93 @@
-using FluentHub.Core.Infrastructure.GitHub.Clients;
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Application.Abstractions.Caching;
 using FluentHub.Core.Infrastructure.Caching;
+using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class RepositoryQueries
+	public partial class RepositoryQueries
 	{
 		private const string RepositoryDetailsCacheCategory = "repository-details-v2";
+
+		private const string SummaryFields = """
+			fragment RepositorySummaryFields on Repository {
+			  name description stargazerCount forkCount isFork isInOrganization viewerHasStarred updatedAt
+			  licenseInfo { name }
+			  issues(states: OPEN) { totalCount }
+			  pullRequests(states: OPEN) { totalCount }
+			  owner { avatarUrl(size: 500) id login }
+			  primaryLanguage { name color }
+			}
+			""";
+
+		private const string DetailsFields = """
+			fragment RepositoryDetailsFields on Repository {
+			  id homepageUrl forkingAllowed hasIssuesEnabled hasProjectsEnabled isArchived isEmpty isPrivate isTemplate
+			  viewerSubscription name description stargazerCount forkCount isFork isInOrganization viewerHasStarred viewerPermission updatedAt
+			  licenseInfo { name }
+			  defaultBranchRef { name }
+			  watchers { totalCount }
+			  releases { totalCount }
+			  issues(states: OPEN) { totalCount }
+			  pullRequests(states: OPEN) { totalCount }
+			  owner { avatarUrl(size: 500) id login }
+			  latestRelease {
+			    description descriptionHTML isDraft isLatest isPrerelease name publishedAt
+			    author { login avatarUrl(size: 500) }
+			  }
+			  languages(first: 10) { nodes { color name } }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
+		private const string SummaryQuery = """
+			query RepositorySummary($owner: String!, $name: String!) {
+			  result: repository(owner: $owner, name: $name) { ...RepositorySummaryFields }
+			}
+			""" + SummaryFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
+		private const string DetailsQuery = """
+			query RepositoryDetails($owner: String!, $name: String!) {
+			  result: repository(owner: $owner, name: $name) { ...RepositoryDetailsFields }
+			}
+			""" + DetailsFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryDetailsResult>>]
+		private const string CustomDetailsQuery = """
+			query RepositoryCodeDetails($owner: String!, $name: String!) {
+			  result: repository(owner: $owner, name: $name) {
+			    ...RepositoryDetailsFields
+			    heads: refs(refPrefix: "refs/heads/") { totalCount }
+			    tags: refs(refPrefix: "refs/tags/") { totalCount }
+			  }
+			}
+			""" + DetailsFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryDetailsResult>>]
+		private const string RefCountsQuery = """
+			query RepositoryRefCounts($owner: String!, $name: String!) {
+			  result: repository(owner: $owner, name: $name) {
+			    heads: refs(refPrefix: "refs/heads/") { totalCount }
+			    tags: refs(refPrefix: "refs/tags/") { totalCount }
+			  }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
+		private const string IssueOptionsQuery = """
+			query RepositoryIssueOptions($owner: String!, $name: String!, $states: [MilestoneState!]) {
+			  result: repository(owner: $owner, name: $name) {
+			    assignableUsers(first: 100) { nodes { avatarUrl(size: 500) id login name } }
+			    labels(first: 100) { nodes { color description id name } }
+			    milestones(first: 100, states: $states) { nodes { id progressPercentage title } }
+			  }
+			}
+			""";
 
 		private readonly IGitHubApiClient _gitHub;
 		private readonly ICacheService? _cache;
@@ -22,7 +103,6 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			ValidateRepository(owner, name);
 			if (_cache is null)
 				return GetUncachedAsync(owner, name, cancellationToken);
-
 			return _cache.GetOrCreateAsync(
 				CreateRepositoryKey("repositories", owner, name),
 				CachePolicies.Repository,
@@ -33,66 +113,9 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 
 		private async Task<Repository> GetUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
-				new(new OctokitGraphQLModel.IssueState[] {
-					OctokitGraphQLModel.IssueState.Open
-				});
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
-				new(new OctokitGraphQLModel.PullRequestState[] {
-					OctokitGraphQLModel.PullRequestState.Open
-				});
-
-			var query = new Query()
-				.Repository(name, owner)
-				.Select(x => new Repository
-				{
-					Name = x.Name,
-					Description = x.Description,
-					StargazerCount = x.StargazerCount,
-					ForkCount = x.ForkCount,
-					IsFork = x.IsFork,
-					IsInOrganization = x.IsInOrganization,
-					ViewerHasStarred = x.ViewerHasStarred,
-					UpdatedAt = x.UpdatedAt,
-
-					LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
-					{
-						Name = licenseInfo.Name,
-					})
-					.SingleOrDefault(),
-
-					Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					Owner = x.Owner.Select(owner => new RepositoryOwner
-					{
-						AvatarUrl = owner.AvatarUrl(500),
-						Id = owner.Id,
-						Login = owner.Login,
-					})
-					.Single(),
-
-					PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
-					{
-						Name = y.Name,
-						Color = y.Color,
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+			var repository = await GetRepositoryAsync(SummaryQueryOperation, owner, name, cancellationToken);
+			StampRepository(repository);
+			return repository;
 		}
 
 		public Task<Repository> GetDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
@@ -100,7 +123,6 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			ValidateRepository(owner, name);
 			if (_cache is null)
 				return GetDetailsUncachedAsync(owner, name, cancellationToken);
-
 			return _cache.GetOrCreateAsync(
 				CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name),
 				CachePolicies.Repository,
@@ -109,374 +131,92 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 				cancellationToken);
 		}
 
+		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
+		{
+			var repository = await GetRepositoryAsync(DetailsQueryOperation, owner, name, cancellationToken);
+			StampRepository(repository);
+			return repository;
+		}
+
 		public Task InvalidateAsync(string owner, string name, CancellationToken cancellationToken = default)
 		{
 			ValidateRepository(owner, name);
 			if (_cache is null)
 				return Task.CompletedTask;
-
 			return Task.WhenAll(
 				_cache.RemoveAsync(CreateRepositoryKey("repositories", owner, name), cancellationToken),
 				_cache.RemoveAsync(CreateRepositoryKey("repository-details", owner, name), cancellationToken),
 				_cache.RemoveAsync(CreateRepositoryKey(RepositoryDetailsCacheCategory, owner, name), cancellationToken));
 		}
 
-		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
+		public async Task<CustomRepositoryResponseForCodePage> GetCustomDetailsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
 		{
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
-				new(new OctokitGraphQLModel.IssueState[] {
-					OctokitGraphQLModel.IssueState.Open
-				});
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
-				new(new OctokitGraphQLModel.PullRequestState[] {
-					OctokitGraphQLModel.PullRequestState.Open
-				});
-
-			var query = new Query()
-				.Repository(owner: owner, name: name)
-				.Select(x => new Repository
-				{
-					Id = x.Id,
-					HomepageUrl = x.HomepageUrl,
-					ForkingAllowed = x.ForkingAllowed,
-					HasIssuesEnabled = x.HasIssuesEnabled,
-					HasProjectsEnabled = x.HasProjectsEnabled,
-					IsArchived = x.IsArchived,
-					IsEmpty = x.IsEmpty,
-					IsPrivate = x.IsPrivate,
-					IsTemplate = x.IsTemplate,
-					ViewerSubscription = (SubscriptionState?)x.ViewerSubscription,
-					Name = x.Name,
-					Description = x.Description,
-					StargazerCount = x.StargazerCount,
-					ForkCount = x.ForkCount,
-					IsFork = x.IsFork,
-					IsInOrganization = x.IsInOrganization,
-					ViewerHasStarred = x.ViewerHasStarred,
-					ViewerPermission = x.ViewerPermission == null
-						? null
-						: (RepositoryPermission?)x.ViewerPermission.Value,
-					UpdatedAt = x.UpdatedAt,
-
-					LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
-					{
-						Name = licenseInfo.Name,
-					})
-					.SingleOrDefault(),
-
-					DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
-					{
-						Name = defaultbranchref.Name,
-					})
-					.SingleOrDefault(),
-
-					Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
-					{
-						TotalCount = watchers.TotalCount,
-					})
-					.Single(),
-
-					Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
-					{
-						TotalCount = releases.TotalCount,
-					})
-					.Single(),
-
-					Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					Owner = x.Owner.Select(owner => new RepositoryOwner
-					{
-						AvatarUrl = owner.AvatarUrl(500),
-						Id = owner.Id,
-						Login = owner.Login,
-					})
-					.Single(),
-
-					LatestRelease = x.LatestRelease.Select(release => new Release
-					{
-						Description = release.Description,
-						DescriptionHTML = release.DescriptionHTML,
-						IsDraft = release.IsDraft,
-						IsLatest = release.IsLatest,
-						IsPrerelease = release.IsPrerelease,
-						Name = release.Name,
-						PublishedAt = release.PublishedAt,
-						PublishedAtHumanized = release.PublishedAt.ToRelativeTime(),
-
-						Author = release.Author.Select(author => new User
-						{
-							Login = author.Login,
-							AvatarUrl = author.AvatarUrl(500),
-						})
-						.Single(),
-					})
-					.SingleOrDefault(),
-
-					Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
-					{
-						Nodes = langConection.Nodes.Select(lang => (Language?)new Language
-						{
-							Color = lang.Color,
-							Name = lang.Name,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
-		}
-
-		public async Task<CustomRepositoryResponseForCodePage> GetCustomDetailsAsync(string owner, string name, CancellationToken cancellationToken = default)
-		{
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
-				new(new OctokitGraphQLModel.IssueState[] {
-					OctokitGraphQLModel.IssueState.Open
-				});
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
-				new(new OctokitGraphQLModel.PullRequestState[] {
-					OctokitGraphQLModel.PullRequestState.Open
-				});
-
-			var query = new Query()
-				.Select(root => new
-				{
-					first = root.Repository(name, owner, null).Select(x => new Repository
-					{
-						HomepageUrl = x.HomepageUrl,
-						ForkingAllowed = x.ForkingAllowed,
-						HasIssuesEnabled = x.HasIssuesEnabled,
-						HasProjectsEnabled = x.HasProjectsEnabled,
-						IsArchived = x.IsArchived,
-						IsEmpty = x.IsEmpty,
-						IsPrivate = x.IsPrivate,
-						IsTemplate = x.IsTemplate,
-						ViewerSubscription = (SubscriptionState?)x.ViewerSubscription,
-						Name = x.Name,
-						Description = x.Description,
-						StargazerCount = x.StargazerCount,
-						ForkCount = x.ForkCount,
-						IsFork = x.IsFork,
-						IsInOrganization = x.IsInOrganization,
-						ViewerHasStarred = x.ViewerHasStarred,
-						UpdatedAt = x.UpdatedAt,
-
-						LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
-						{
-							Name = licenseInfo.Name,
-						})
-						.SingleOrDefault(),
-
-						DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
-						{
-							Name = defaultbranchref.Name,
-						})
-						.SingleOrDefault(),
-
-						Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
-						{
-							TotalCount = watchers.TotalCount,
-						})
-						.Single(),
-
-						Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
-						{
-							TotalCount = releases.TotalCount,
-						})
-						.Single(),
-
-						Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
-						{
-							TotalCount = issues.TotalCount
-						})
-						.Single(),
-
-						PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
-						{
-							TotalCount = issues.TotalCount
-						})
-						.Single(),
-
-						Owner = x.Owner.Select(owner => new RepositoryOwner
-						{
-							AvatarUrl = owner.AvatarUrl(500),
-							Id = owner.Id,
-							Login = owner.Login,
-						})
-						.Single(),
-
-						LatestRelease = x.LatestRelease.Select(release => new Release
-						{
-							Description = release.Description,
-							DescriptionHTML = release.DescriptionHTML,
-							IsDraft = release.IsDraft,
-							IsLatest = release.IsLatest,
-							IsPrerelease = release.IsPrerelease,
-							Name = release.Name,
-							PublishedAt = release.PublishedAt,
-							PublishedAtHumanized = release.PublishedAt.ToRelativeTime(),
-						}).Single(),
-
-						Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
-						{
-							Nodes = langConection.Nodes.Select(lang => (Language?)new Language
-							{
-								Color = lang.Color,
-								Name = lang.Name,
-							}).ToList(),
-						}).SingleOrDefault(),
-					}).SingleOrDefault(),
-
-					second = root.Repository(name, owner, null).Select(y => new
-					{
-						Heads = y.Refs("refs/heads/", null, null, null, null, null, null, null).Select(ref1 => new RefConnection
-						{
-							TotalCount = ref1.TotalCount,
-						})
-						.SingleOrDefault(),
-
-						Tags = y.Refs("refs/tags/", null, null, null, null, null, null, null).Select(ref2 => new RefConnection
-						{
-							TotalCount = ref2.TotalCount,
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new CustomRepositoryResponseForCodePage()
+			var response = await _gitHub.RunGraphQLAsync(
+				CustomDetailsQueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryDetailsResult,
+				writer => WriteRepository(writer, owner, name),
+				cancellationToken);
+			var repository = response.Result
+				?? throw new InvalidDataException($"GitHub repository '{owner}/{name}' was not found.");
+			StampRepository(repository);
+			return new()
 			{
-				Repository = response.first,
-				BranchesTotalCount = response.second.Heads.TotalCount,
-				TagsTotalCount = response.second.Tags.TotalCount,
+				Repository = repository,
+				BranchesTotalCount = repository.Heads?.TotalCount ?? 0,
+				TagsTotalCount = repository.Tags?.TotalCount ?? 0,
 			};
 		}
 
-		public async Task<(int, int)> GetBranchAndTagCountAsync(string owner, string name, CancellationToken cancellationToken = default)
-		{
-			var query = new Query()
-				.Repository(owner: owner, name: name)
-				.Select(x => new
-				{
-					HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-					TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return (response.HeadRefsCount, response.TagCount);
-		}
-
-		public async Task<Repository> GetIssueOptionsAsync(
+		public async Task<(int, int)> GetBranchAndTagCountAsync(
 			string owner,
 			string name,
 			CancellationToken cancellationToken = default)
 		{
-			var openMilestones = new OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.MilestoneState>>(
-				new[] { OctokitGraphQLModel.MilestoneState.Open });
-
-			var query = new Query()
-				.Repository(name, owner)
-				.Select(repository => new Repository
-				{
-					AssignableUsers = repository.AssignableUsers(100, null, null, null, null).Select(users => new UserConnection
-					{
-						Nodes = users.Nodes.Select(user => (User?)new User
-						{
-							AvatarUrl = user.AvatarUrl(500),
-							Id = user.Id,
-							Login = user.Login,
-							Name = user.Name,
-						}).ToList(),
-					}).SingleOrDefault(),
-
-					Labels = repository.Labels(100, null, null, null, null, null).Select(labels => new LabelConnection
-					{
-						Nodes = labels.Nodes.Select(label => (Label?)new Label
-						{
-							Color = label.Color,
-							Description = label.Description,
-							Id = label.Id,
-							Name = label.Name,
-						}).ToList(),
-					}).SingleOrDefault(),
-
-					Milestones = repository.Milestones(100, null, null, null, null, null, openMilestones).Select(milestones => new MilestoneConnection
-					{
-						Nodes = milestones.Nodes.Select(milestone => (Milestone?)new Milestone
-						{
-							Id = milestone.Id,
-							ProgressPercentage = milestone.ProgressPercentage,
-							Title = milestone.Title,
-						}).ToList(),
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
+			var response = await _gitHub.RunGraphQLAsync(
+				RefCountsQueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryDetailsResult,
+				writer => WriteRepository(writer, owner, name),
+				cancellationToken);
+			return (response.Result?.Heads?.TotalCount ?? 0, response.Result?.Tags?.TotalCount ?? 0);
 		}
 
-		public async Task<Repository> GetIssueListOptionsAsync(
+		public Task<Repository> GetIssueOptionsAsync(
 			string owner,
 			string name,
 			CancellationToken cancellationToken = default)
+			=> GetIssueOptionsAsync(owner, name, openOnly: true, cancellationToken);
+
+		public Task<Repository> GetIssueListOptionsAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
+			=> GetIssueOptionsAsync(owner, name, openOnly: false, cancellationToken);
+
+		private async Task<Repository> GetIssueOptionsAsync(
+			string owner,
+			string name,
+			bool openOnly,
+			CancellationToken cancellationToken)
 		{
-			var query = new Query()
-				.Repository(name, owner)
-				.Select(repository => new Repository
+			var response = await _gitHub.RunGraphQLAsync(
+				IssueOptionsQueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
+				writer =>
 				{
-					AssignableUsers = repository.AssignableUsers(100, null, null, null, null).Select(users => new UserConnection
+					WriteRepository(writer, owner, name);
+					if (openOnly)
 					{
-						Nodes = users.Nodes.Select(user => (User?)new User
-						{
-							AvatarUrl = user.AvatarUrl(500),
-							Id = user.Id,
-							Login = user.Login,
-							Name = user.Name,
-						}).ToList(),
-					}).SingleOrDefault(),
-
-					Labels = repository.Labels(100, null, null, null, null, null).Select(labels => new LabelConnection
-					{
-						Nodes = labels.Nodes.Select(label => (Label?)new Label
-						{
-							Color = label.Color,
-							Description = label.Description,
-							Id = label.Id,
-							Name = label.Name,
-						}).ToList(),
-					}).SingleOrDefault(),
-
-					Milestones = repository.Milestones(100, null, null, null, null, null, null!).Select(milestones => new MilestoneConnection
-					{
-						Nodes = milestones.Nodes.Select(milestone => (Milestone?)new Milestone
-						{
-							Id = milestone.Id,
-							ProgressPercentage = milestone.ProgressPercentage,
-							Title = milestone.Title,
-						}).ToList(),
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return await _gitHub.RunGraphQLAsync(query, cancellationToken);
+						writer.WriteStartArray("states");
+						writer.WriteStringValue("OPEN");
+						writer.WriteEndArray();
+					}
+				},
+				cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException($"GitHub repository '{owner}/{name}' was not found.");
 		}
 
 		public async Task<(IReadOnlyList<string> Branches, IReadOnlyList<string> Tags)> GetBranchAndTagNamesAsync(
@@ -485,30 +225,14 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			ValidateRepository(owner, name);
-			var options = new OctokitV3.ApiOptions
+			return await _gitHub.RunRestAsync(async (client, token) =>
 			{
-				PageCount = int.MaxValue,
-				PageSize = 100,
-				StartPage = 1,
-			};
-
-			return await _gitHub.RunRestAsync(async client =>
-			{
-				var branchesTask = client.Repository.Branch.GetAll(owner, name, options);
-				var tagsTask = client.Repository.GetAllTags(owner, name, options);
+				var branchesTask = client.Repositories.GetBranchesAsync(owner, name, token);
+				var tagsTask = client.Repositories.GetTagsAsync(owner, name, token);
 				await Task.WhenAll(branchesTask, tagsTask);
-
 				return (
-					Branches: (IReadOnlyList<string>)branchesTask.Result
-						.Select(branch => branch.Name)
-						.Where(branch => !string.IsNullOrWhiteSpace(branch))
-						.Distinct(StringComparer.Ordinal)
-						.ToList(),
-					Tags: (IReadOnlyList<string>)tagsTask.Result
-						.Select(tag => tag.Name)
-						.Where(tag => !string.IsNullOrWhiteSpace(tag))
-						.Distinct(StringComparer.Ordinal)
-						.ToList());
+					Branches: (IReadOnlyList<string>)(await branchesTask).Select(branch => branch.Name).Where(value => !string.IsNullOrWhiteSpace(value)).Distinct(StringComparer.Ordinal).ToList(),
+					Tags: (IReadOnlyList<string>)(await tagsTask).Select(tag => tag.Name).Where(value => !string.IsNullOrWhiteSpace(value)).Distinct(StringComparer.Ordinal).ToList());
 			}, cancellationToken);
 		}
 
@@ -517,7 +241,6 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			ValidateRepository(owner, name);
 			if (_cache is null)
 				return GetReadmeMarkdownUncachedAsync(owner, name, cancellationToken);
-
 			return _cache.GetOrCreateAsync(
 				CreateRepositoryKey("repository-readme", owner, name),
 				CachePolicies.Repository,
@@ -530,22 +253,44 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			try
 			{
-				var readme = await _gitHub.RunRestAsync(
-					client => client.Repository.Content.GetReadme(owner, name),
+				return await _gitHub.RunRestAsync(
+					(client, token) => client.Repositories.GetReadmeMarkdownAsync(owner, name, token),
 					cancellationToken);
-				return readme.Content;
 			}
-			catch (global::Octokit.NotFoundException)
+			catch (global::Octokit.Transport.GitHubApiException exception)
+				when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
 			{
 				return string.Empty;
 			}
 		}
 
+		private async Task<Repository> GetRepositoryAsync(GraphQLOperation<GraphQLResult<Repository>> operation,
+			string owner, string name, CancellationToken cancellationToken)
+		{
+			var response = await _gitHub.RunGraphQLAsync(
+				operation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
+				writer => WriteRepository(writer, owner, name),
+				cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException($"GitHub repository '{owner}/{name}' was not found.");
+		}
+
+		private static void StampRepository(Repository repository)
+		{
+			repository.UpdatedAtHumanized = repository.UpdatedAt.ToRelativeTime();
+			if (repository.LatestRelease is { } release)
+				release.PublishedAtHumanized = release.PublishedAt.ToRelativeTime();
+		}
+
+		private static void WriteRepository(System.Text.Json.Utf8JsonWriter writer, string owner, string name)
+		{
+			writer.WriteString("owner", owner);
+			writer.WriteString("name", name);
+		}
+
 		private CacheKey CreateRepositoryKey(string category, string owner, string name)
-			=> CacheKey.ForAccount(
-				_gitHub.CachePartition,
-				category,
-				$"{owner.Trim().ToLowerInvariant()}/{name.Trim().ToLowerInvariant()}");
+			=> CacheKey.ForAccount(_gitHub.CachePartition, category, $"{owner.Trim().ToLowerInvariant()}/{name.Trim().ToLowerInvariant()}");
 
 		private static void ValidateRepository(string owner, string name)
 		{

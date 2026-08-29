@@ -1,81 +1,38 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 {
-	public class PinnedItemQueries
+	public partial class PinnedItemQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<PinnedRepositoriesResult>>]
+		private const string Query = """
+			query OrganizationPinnedRepositories($login: String!) {
+			  result: organization(login: $login) {
+			    pinnedItems(first: 6) {
+			""" + PinnedRepositoryQuery.Nodes + """
+			    }
+			  }
+			}
+			""" + PinnedRepositoryQuery.Fields;
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public PinnedItemQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public PinnedItemQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
+
 		public async Task<List<Repository>> GetAllAsync(string org, CancellationToken cancellationToken = default)
 		{
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
-				new(new OctokitGraphQLModel.IssueState[]
-				{
-					OctokitGraphQLModel.IssueState.Open
-				});
-
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
-				new(new OctokitGraphQLModel.PullRequestState[]
-				{
-					OctokitGraphQLModel.PullRequestState.Open
-				});
-
-			var query = new Query()
-				.Organization(org)
-				.PinnedItems(first: 6)
-				.Nodes
-				.OfType<OctokitGraphQLModel.Repository>()
-				.Select(x => new Repository
-				{
-					Name = x.Name,
-					Description = x.Description,
-					StargazerCount = x.StargazerCount,
-					ForkCount = x.ForkCount,
-					IsFork = x.IsFork,
-					IsInOrganization = x.IsInOrganization,
-					ViewerHasStarred = x.ViewerHasStarred,
-					UpdatedAt = x.UpdatedAt,
-
-					LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
-					{
-						Name = licenseInfo.Name,
-					})
-					.SingleOrDefault(),
-
-					Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
-					{
-						TotalCount = issues.TotalCount
-					})
-					.Single(),
-
-					Owner = x.Owner.Select(owner => new RepositoryOwner
-					{
-						AvatarUrl = owner.AvatarUrl(500),
-						Id = owner.Id,
-						Login = owner.Login,
-					})
-					.Single(),
-
-					PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
-					{
-						Name = y.Name,
-						Color = y.Color,
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response.ToList();
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultPinnedRepositoriesResult,
+				writer => writer.WriteString("login", org),
+				cancellationToken);
+			return PinnedRepositoryQuery.ToList(response.Result?.PinnedItems.Nodes
+				?? throw new InvalidDataException("GitHub returned an incomplete pinned repositories response."));
 		}
 	}
 }

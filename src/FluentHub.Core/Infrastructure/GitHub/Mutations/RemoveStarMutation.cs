@@ -1,9 +1,20 @@
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public class RemoveStarMutation
+	public partial class RemoveStarMutation
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<RemoveStarResult>>]
+		private const string RemoveStar = """
+			mutation RemoveStar($input: RemoveStarInput!) {
+			  result: removeStar(input: $input) {
+			    clientMutationId
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public RemoveStarMutation(IGitHubApiClient gitHub)
@@ -13,18 +24,24 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ID starrableRepoId,
 			CancellationToken cancellationToken = default)
 		{
-			var mutation = new Mutation()
-				.RemoveStar(new(new OctokitGraphQLModel.RemoveStarInput
-				{
-					StarrableId = starrableRepoId,
-				}))
-				.Select(x => new RemoveStarResult
-				{
-					ClientMutationId = x.ClientMutationId,
-				})
-				.Compile();
+			return ExecuteCoreAsync(starrableRepoId, cancellationToken);
+		}
 
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+		private async Task<RemoveStarResult> ExecuteCoreAsync(ID starrableRepoId, CancellationToken cancellationToken)
+		{
+			var response = await _gitHub.RunGraphQLAsync(
+				RemoveStarOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRemoveStarResult,
+				writer =>
+				{
+					writer.WriteStartObject("input");
+					writer.WriteString("starrableId", starrableRepoId.Value);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete remove-star response.");
 		}
 	}
 }

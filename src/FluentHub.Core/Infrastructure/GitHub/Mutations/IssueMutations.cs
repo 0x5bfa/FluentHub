@@ -1,242 +1,267 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public class IssueMutations
+	public partial class IssueMutations
 	{
+		private const string IssueFields = """
+			fragment IssueMutationFields on Issue {
+			  id
+			  body
+			  closed
+			  number
+			  state
+			  stateReason
+			  title
+			  updatedAt
+			  viewerCanClose: viewerCanUpdate
+			  viewerCanLabel: viewerCanUpdate
+			  viewerCanReopen: viewerCanUpdate
+			  viewerCanSubscribe
+			  viewerCanUpdate
+			  viewerSubscription
+			}
+			""";
+
+		private const string CommentFields = """
+			fragment IssueCommentMutationFields on IssueComment {
+			  authorAssociation
+			  body
+			  bodyHTML
+			  createdAt
+			  id
+			  lastEditedAt
+			  updatedAt
+			  url
+			  viewerCanDelete
+			  viewerCanReact
+			  viewerCanUpdate
+			  viewerDidAuthor
+			  author { avatarUrl(size: 500) login }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<CreateIssueResult>>]
+		private const string CreateIssue = """
+			mutation CreateIssue($input: CreateIssueInput!) {
+			  result: createIssue(input: $input) {
+			    clientMutationId
+			    issue { ...IssueMutationFields }
+			  }
+			}
+			""" + IssueFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<UpdateIssueResult>>]
+		private const string UpdateIssue = """
+			mutation UpdateIssue($input: UpdateIssueInput!) {
+			  result: updateIssue(input: $input) {
+			    clientMutationId
+			    issue { ...IssueMutationFields }
+			  }
+			}
+			""" + IssueFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<CloseIssueResult>>]
+		private const string CloseIssue = """
+			mutation CloseIssue($input: CloseIssueInput!) {
+			  result: closeIssue(input: $input) {
+			    clientMutationId
+			    issue { ...IssueMutationFields }
+			  }
+			}
+			""" + IssueFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<ReopenIssueResult>>]
+		private const string ReopenIssue = """
+			mutation ReopenIssue($input: ReopenIssueInput!) {
+			  result: reopenIssue(input: $input) {
+			    clientMutationId
+			    issue { ...IssueMutationFields }
+			  }
+			}
+			""" + IssueFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<AddCommentResult>>]
+		private const string AddComment = """
+			mutation AddComment($input: AddCommentInput!) {
+			  result: addComment(input: $input) {
+			    clientMutationId
+			    commentEdge {
+			      cursor
+			      node { ...IssueCommentMutationFields }
+			    }
+			  }
+			}
+			""" + CommentFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<UpdateIssueCommentResult>>]
+		private const string UpdateIssueComment = """
+			mutation UpdateIssueComment($input: UpdateIssueCommentInput!) {
+			  result: updateIssueComment(input: $input) {
+			    clientMutationId
+			    issueComment { ...IssueCommentMutationFields }
+			  }
+			}
+			""" + CommentFields;
+
+		[GeneratedGraphQLOperation<GraphQLResult<DeleteIssueCommentResult>>]
+		private const string DeleteIssueComment = """
+			mutation DeleteIssueComment($input: DeleteIssueCommentInput!) {
+			  result: deleteIssueComment(input: $input) {
+			    clientMutationId
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public IssueMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<CreateIssueResult> CreateIssueAsync(
+		public async Task<CreateIssueResult> CreateIssueAsync(
 			CreateIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.CreateIssue(new(ToGraphQLInput(request)))
-				.Select(x => new CreateIssueResult
+			var result = await ExecuteMutationAsync(
+				CreateIssueOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultCreateIssueResult,
+				writer =>
 				{
-					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(issue => new Issue
-					{
-						Id = issue.Id,
-						Body = issue.Body,
-						Closed = issue.Closed,
-						Number = issue.Number,
-						State = (IssueState)issue.State,
-						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
-						Title = issue.Title,
-						UpdatedAt = issue.UpdatedAt,
-						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-						ViewerCanClose = issue.ViewerCanUpdate,
-						ViewerCanLabel = issue.ViewerCanUpdate,
-						ViewerCanReopen = issue.ViewerCanUpdate,
-						ViewerCanSubscribe = issue.ViewerCanSubscribe,
-						ViewerCanUpdate = issue.ViewerCanUpdate,
-						ViewerSubscription = issue.ViewerSubscription == null
-							? null
-							: (SubscriptionState?)issue.ViewerSubscription.Value,
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+					writer.WriteStartObject("input");
+					writer.WriteString("repositoryId", request.RepositoryId.Value);
+					writer.WriteString("title", request.Title);
+					GraphQLInputWriter.WriteOptionalString(writer, "body", request.Body);
+					GraphQLInputWriter.WriteOptionalIds(writer, "assigneeIds", request.AssigneeIds);
+					GraphQLInputWriter.WriteOptionalId(writer, "milestoneId", request.MilestoneId);
+					GraphQLInputWriter.WriteOptionalIds(writer, "labelIds", request.LabelIds);
+					GraphQLInputWriter.WriteOptionalIds(writer, "projectIds", request.ProjectIds);
+					GraphQLInputWriter.WriteOptionalString(writer, "issueTemplate", request.IssueTemplate);
+					GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+			StampIssue(result.Issue);
+			return result;
 		}
 
-		public Task<UpdateIssueResult> UpdateIssueAsync(
+		public async Task<UpdateIssueResult> UpdateIssueAsync(
 			UpdateIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.UpdateIssue(new(ToGraphQLInput(request)))
-				.Select(x => new UpdateIssueResult
+			var result = await ExecuteMutationAsync(
+				UpdateIssueOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateIssueResult,
+				writer =>
 				{
-					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(issue => new Issue
-					{
-						Id = issue.Id,
-						Body = issue.Body,
-						Closed = issue.Closed,
-						Number = issue.Number,
-						State = (IssueState)issue.State,
-						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
-						Title = issue.Title,
-						UpdatedAt = issue.UpdatedAt,
-						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-						ViewerCanClose = issue.ViewerCanUpdate,
-						ViewerCanLabel = issue.ViewerCanUpdate,
-						ViewerCanReopen = issue.ViewerCanUpdate,
-						ViewerCanSubscribe = issue.ViewerCanSubscribe,
-						ViewerCanUpdate = issue.ViewerCanUpdate,
-						ViewerSubscription = issue.ViewerSubscription == null
-							? null
-							: (SubscriptionState?)issue.ViewerSubscription.Value,
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+					writer.WriteStartObject("input");
+					writer.WriteString("id", request.Id.Value);
+					GraphQLInputWriter.WriteOptionalString(writer, "title", request.Title);
+					GraphQLInputWriter.WriteOptionalString(writer, "body", request.Body);
+					GraphQLInputWriter.WriteOptionalIds(writer, "assigneeIds", request.AssigneeIds);
+					GraphQLInputWriter.WriteOptionalId(writer, "milestoneId", request.MilestoneId);
+					GraphQLInputWriter.WriteOptionalIds(writer, "labelIds", request.LabelIds);
+					if (request.State is not null)
+						writer.WriteString("state", ToGraphQL(request.State.Value));
+					GraphQLInputWriter.WriteOptionalIds(writer, "projectIds", request.ProjectIds);
+					GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+			StampIssue(result.Issue);
+			return result;
 		}
 
-		public Task<CloseIssueResult> CloseIssueAsync(
+		public async Task<CloseIssueResult> CloseIssueAsync(
 			CloseIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.CloseIssue(new(ToGraphQLInput(request)))
-				.Select(x => new CloseIssueResult
+			var result = await ExecuteMutationAsync(
+				CloseIssueOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultCloseIssueResult,
+				writer =>
 				{
-					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(issue => new Issue
-					{
-						Id = issue.Id,
-						Body = issue.Body,
-						Closed = issue.Closed,
-						Number = issue.Number,
-						State = (IssueState)issue.State,
-						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
-						Title = issue.Title,
-						UpdatedAt = issue.UpdatedAt,
-						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-						ViewerCanClose = issue.ViewerCanUpdate,
-						ViewerCanLabel = issue.ViewerCanUpdate,
-						ViewerCanReopen = issue.ViewerCanUpdate,
-						ViewerCanSubscribe = issue.ViewerCanSubscribe,
-						ViewerCanUpdate = issue.ViewerCanUpdate,
-						ViewerSubscription = issue.ViewerSubscription == null
-							? null
-							: (SubscriptionState?)issue.ViewerSubscription.Value,
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+					writer.WriteStartObject("input");
+					writer.WriteString("issueId", request.IssueId.Value);
+					if (request.StateReason is not null)
+						writer.WriteString("stateReason", ToGraphQL(request.StateReason.Value));
+					GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+			StampIssue(result.Issue);
+			return result;
 		}
 
-		public Task<ReopenIssueResult> ReopenIssueAsync(
+		public async Task<ReopenIssueResult> ReopenIssueAsync(
 			ReopenIssueRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.ReopenIssue(new(ToGraphQLInput(request)))
-				.Select(x => new ReopenIssueResult
-				{
-					ClientMutationId = x.ClientMutationId,
-					Issue = x.Issue.Select(issue => new Issue
-					{
-						Id = issue.Id,
-						Body = issue.Body,
-						Closed = issue.Closed,
-						Number = issue.Number,
-						State = (IssueState)issue.State,
-						StateReason = issue.StateReason == null ? null : (IssueStateReason?)issue.StateReason.Value,
-						Title = issue.Title,
-						UpdatedAt = issue.UpdatedAt,
-						UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime(),
-						ViewerCanClose = issue.ViewerCanUpdate,
-						ViewerCanLabel = issue.ViewerCanUpdate,
-						ViewerCanReopen = issue.ViewerCanUpdate,
-						ViewerCanSubscribe = issue.ViewerCanSubscribe,
-						ViewerCanUpdate = issue.ViewerCanUpdate,
-						ViewerSubscription = issue.ViewerSubscription == null
-							? null
-							: (SubscriptionState?)issue.ViewerSubscription.Value,
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+			var result = await ExecuteMutationAsync(
+				ReopenIssueOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultReopenIssueResult,
+				writer => WriteIdInput(writer, "issueId", request.IssueId, request.ClientMutationId),
+				cancellationToken);
+			StampIssue(result.Issue);
+			return result;
 		}
 
-		public Task<AddCommentResult> AddCommentAsync(
+		public async Task<AddCommentResult> AddCommentAsync(
 			AddCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.AddComment(new(ToGraphQLInput(request)))
-				.Select(x => new AddCommentResult
+			var result = await ExecuteMutationAsync(
+				AddCommentOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultAddCommentResult,
+				writer =>
 				{
-					ClientMutationId = x.ClientMutationId,
-					CommentEdge = x.CommentEdge.Select(edge => new IssueCommentEdge
-					{
-						Cursor = edge.Cursor,
-						Node = edge.Node.Select(comment => new IssueComment
-						{
-							AuthorAssociation = (CommentAuthorAssociation)comment.AuthorAssociation,
-							Body = comment.Body,
-							BodyHTML = comment.BodyHTML,
-							CreatedAt = comment.CreatedAt,
-							CreatedAtHumanized = comment.CreatedAt.ToRelativeTime(),
-							Id = comment.Id,
-							LastEditedAt = comment.LastEditedAt,
-							UpdatedAt = comment.UpdatedAt,
-							UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime(),
-							Url = comment.Url,
-							ViewerCanDelete = comment.ViewerCanDelete,
-							ViewerCanReact = comment.ViewerCanReact,
-							ViewerCanUpdate = comment.ViewerCanUpdate,
-							ViewerDidAuthor = comment.ViewerDidAuthor,
-							Author = comment.Author.Select(author => new Actor
-							{
-								AvatarUrl = author.AvatarUrl(500),
-								Login = author.Login,
-							}).SingleOrDefault(),
-						}).SingleOrDefault(),
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+					writer.WriteStartObject("input");
+					writer.WriteString("subjectId", request.SubjectId.Value);
+					writer.WriteString("body", request.Body);
+					GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+			StampComment(result.CommentEdge?.Node);
+			return result;
 		}
 
-		public Task<UpdateIssueCommentResult> UpdateIssueCommentAsync(
+		public async Task<UpdateIssueCommentResult> UpdateIssueCommentAsync(
 			UpdateIssueCommentRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.UpdateIssueComment(new(ToGraphQLInput(request)))
-				.Select(x => new UpdateIssueCommentResult
+			var result = await ExecuteMutationAsync(
+				UpdateIssueCommentOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateIssueCommentResult,
+				writer =>
 				{
-					ClientMutationId = x.ClientMutationId,
-					IssueComment = x.IssueComment.Select(comment => new IssueComment
-					{
-						AuthorAssociation = (CommentAuthorAssociation)comment.AuthorAssociation,
-						Body = comment.Body,
-						BodyHTML = comment.BodyHTML,
-						CreatedAt = comment.CreatedAt,
-						CreatedAtHumanized = comment.CreatedAt.ToRelativeTime(),
-						Id = comment.Id,
-						LastEditedAt = comment.LastEditedAt,
-						UpdatedAt = comment.UpdatedAt,
-						UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime(),
-						Url = comment.Url,
-						ViewerCanDelete = comment.ViewerCanDelete,
-						ViewerCanReact = comment.ViewerCanReact,
-						ViewerCanUpdate = comment.ViewerCanUpdate,
-						ViewerDidAuthor = comment.ViewerDidAuthor,
-						Author = comment.Author.Select(author => new Actor
-						{
-							AvatarUrl = author.AvatarUrl(500),
-							Login = author.Login,
-						}).SingleOrDefault(),
-					}).SingleOrDefault(),
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+					writer.WriteStartObject("input");
+					writer.WriteString("id", request.Id.Value);
+					writer.WriteString("body", request.Body);
+					GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+			StampComment(result.IssueComment);
+			return result;
 		}
 
 		public Task<DeleteIssueCommentResult> DeleteIssueCommentAsync(
@@ -245,90 +270,69 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.DeleteIssueComment(new(ToGraphQLInput(request)))
-				.Select(x => new DeleteIssueCommentResult
-				{
-					ClientMutationId = x.ClientMutationId,
-				})
-				.Compile();
-
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+			return ExecuteMutationAsync(
+				DeleteIssueCommentOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultDeleteIssueCommentResult,
+				writer => WriteIdInput(writer, "id", request.Id, request.ClientMutationId),
+				cancellationToken);
 		}
 
-		private static OctokitGraphQLModel.CreateIssueInput ToGraphQLInput(CreateIssueRequest request)
-			=> new()
+		private async Task<TResult> ExecuteMutationAsync<TResult>(GraphQLOperation<GraphQLResult<TResult>> operation,
+			JsonTypeInfo<GraphQLResult<TResult>> typeInfo, Action<Utf8JsonWriter> writeVariables,
+			CancellationToken cancellationToken)
+		{
+			var response = await _gitHub.RunGraphQLAsync(
+				operation,
+				typeInfo,
+				writeVariables,
+				cancellationToken);
+
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete issue mutation response.");
+		}
+
+		private static void WriteIdInput(
+			Utf8JsonWriter writer,
+			string idProperty,
+			ID id,
+			string? clientMutationId)
+		{
+			writer.WriteStartObject("input");
+			writer.WriteString(idProperty, id.Value);
+			GraphQLInputWriter.WriteOptionalString(writer, "clientMutationId", clientMutationId);
+			writer.WriteEndObject();
+		}
+
+		private static void StampIssue(Issue? issue)
+		{
+			if (issue is not null)
+				issue.UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime();
+		}
+
+		private static void StampComment(IssueComment? comment)
+		{
+			if (comment is null)
+				return;
+
+			comment.CreatedAtHumanized = comment.CreatedAt.ToRelativeTime();
+			comment.UpdatedAtHumanized = comment.UpdatedAt.ToRelativeTime();
+		}
+
+		private static string ToGraphQL(IssueState state)
+			=> state switch
 			{
-				RepositoryId = request.RepositoryId,
-				Title = request.Title,
-				Body = request.Body,
-				AssigneeIds = request.AssigneeIds,
-				MilestoneId = request.MilestoneId,
-				LabelIds = request.LabelIds,
-				ProjectIds = request.ProjectIds,
-				IssueTemplate = request.IssueTemplate,
-				ClientMutationId = request.ClientMutationId,
+				IssueState.Open => "OPEN",
+				IssueState.Closed => "CLOSED",
+				_ => throw new ArgumentOutOfRangeException(nameof(state), state, "Unknown issue state."),
 			};
 
-		private static OctokitGraphQLModel.UpdateIssueInput ToGraphQLInput(UpdateIssueRequest request)
-			=> new()
-			{
-				Id = request.Id,
-				Title = request.Title,
-				Body = request.Body,
-				AssigneeIds = request.AssigneeIds,
-				MilestoneId = request.MilestoneId,
-				LabelIds = request.LabelIds,
-				State = request.State is null ? null : (OctokitGraphQLModel.IssueState)request.State.Value,
-				ProjectIds = request.ProjectIds,
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.CloseIssueInput ToGraphQLInput(CloseIssueRequest request)
-			=> new()
-			{
-				IssueId = request.IssueId,
-				StateReason = ToGraphQLIssueClosedStateReason(request.StateReason),
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.ReopenIssueInput ToGraphQLInput(ReopenIssueRequest request)
-			=> new()
-			{
-				IssueId = request.IssueId,
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.AddCommentInput ToGraphQLInput(AddCommentRequest request)
-			=> new()
-			{
-				SubjectId = request.SubjectId,
-				Body = request.Body,
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.UpdateIssueCommentInput ToGraphQLInput(UpdateIssueCommentRequest request)
-			=> new()
-			{
-				Id = request.Id,
-				Body = request.Body,
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.DeleteIssueCommentInput ToGraphQLInput(DeleteIssueCommentRequest request)
-			=> new()
-			{
-				Id = request.Id,
-				ClientMutationId = request.ClientMutationId,
-			};
-
-		private static OctokitGraphQLModel.IssueClosedStateReason? ToGraphQLIssueClosedStateReason(IssueClosedStateReason? stateReason)
+		private static string ToGraphQL(IssueClosedStateReason stateReason)
 			=> stateReason switch
 			{
-				null => null,
-				IssueClosedStateReason.Completed => OctokitGraphQLModel.IssueClosedStateReason.Completed,
-				IssueClosedStateReason.NotPlanned => OctokitGraphQLModel.IssueClosedStateReason.NotPlanned,
-				_ => throw new NotSupportedException("Duplicate close reason is not supported by the current Octokit.GraphQL package."),
+				IssueClosedStateReason.Completed => "COMPLETED",
+				IssueClosedStateReason.NotPlanned => "NOT_PLANNED",
+				IssueClosedStateReason.Duplicate => "DUPLICATE",
+				_ => throw new ArgumentOutOfRangeException(nameof(stateReason), stateReason, "Unknown issue close reason."),
 			};
 	}
 }

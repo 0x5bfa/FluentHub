@@ -1,9 +1,20 @@
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public class AddStarMutation
+	public partial class AddStarMutation
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<AddStarResult>>]
+		private const string AddStar = """
+			mutation AddStar($input: AddStarInput!) {
+			  result: addStar(input: $input) {
+			    clientMutationId
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public AddStarMutation(IGitHubApiClient gitHub)
@@ -13,18 +24,24 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ID starrableRepoId,
 			CancellationToken cancellationToken = default)
 		{
-			var mutation = new Mutation()
-				.AddStar(new(new OctokitGraphQLModel.AddStarInput
-				{
-					StarrableId = starrableRepoId,
-				}))
-				.Select(x => new AddStarResult
-				{
-					ClientMutationId = x.ClientMutationId,
-				})
-				.Compile();
+			return ExecuteCoreAsync(starrableRepoId, cancellationToken);
+		}
 
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+		private async Task<AddStarResult> ExecuteCoreAsync(ID starrableRepoId, CancellationToken cancellationToken)
+		{
+			var response = await _gitHub.RunGraphQLAsync(
+				AddStarOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultAddStarResult,
+				writer =>
+				{
+					writer.WriteStartObject("input");
+					writer.WriteString("starrableId", starrableRepoId.Value);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
+
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete add-star response.");
 		}
 	}
 }

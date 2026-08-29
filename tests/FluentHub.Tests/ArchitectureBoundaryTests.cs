@@ -55,7 +55,7 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
-	public void SourceContainsOnlyTwoProductionProjects()
+	public void SourceContainsExpectedProductionProjects()
 	{
 		var root = FindRepositoryRoot();
 		var projects = Directory.EnumerateFiles(Path.Combine(root, "src"), "*.csproj", SearchOption.AllDirectories)
@@ -64,8 +64,119 @@ public sealed partial class ArchitectureBoundaryTests
 			.ToList();
 
 		CollectionAssert.AreEqual(
-			new[] { "src/FluentHub.Core/FluentHub.Core.csproj", "src/FluentHub/FluentHub.csproj" },
+			new[]
+			{
+				"src/FluentHub.Core/FluentHub.Core.csproj",
+				"src/FluentHub/FluentHub.csproj",
+				"src/Octokit.Generators/Octokit.Generators.csproj",
+				"src/Octokit/Octokit.csproj",
+			},
 			projects);
+	}
+
+	[TestMethod]
+	public void OctokitRemainsOneNativeAotCompatibleClassLibrary()
+	{
+		var root = FindRepositoryRoot();
+		var octokitRoot = Path.Combine(root, "src", "Octokit");
+		var projects = Directory.EnumerateFiles(octokitRoot, "*.csproj", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.ToList();
+
+		Assert.HasCount(1, projects);
+		var project = File.ReadAllText(projects[0]);
+		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
+		StringAssert.Contains(project, "<VerifyReferenceAotCompatibility>true</VerifyReferenceAotCompatibility>");
+		StringAssert.Contains(project, "<IsPackable>false</IsPackable>");
+		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
+	}
+
+	[TestMethod]
+	public void OctokitGeneratorRemainsPlatformIndependent()
+	{
+		var root = FindRepositoryRoot();
+		var projectPath = Path.Combine(root, "src", "Octokit.Generators", "Octokit.Generators.csproj");
+		var project = File.ReadAllText(projectPath);
+
+		StringAssert.Contains(project, "<Platforms>AnyCPU</Platforms>");
+		StringAssert.Contains(project, "<PlatformTarget>AnyCPU</PlatformTarget>");
+	}
+
+	[TestMethod]
+	public void RestClientRemainsNativeAotCompatible()
+	{
+		var root = FindRepositoryRoot();
+		var restRoot = Path.Combine(root, "src", "Octokit", "Rest");
+
+		var forbidden = new[]
+		{
+			"Activator.CreateInstance",
+			"CancellationToken.None",
+			"MakeGenericType",
+			"SimpleJson",
+			"Newtonsoft.Json",
+		};
+		var violations = Directory.EnumerateFiles(restRoot, "*.cs", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.SelectMany(path => forbidden
+				.Where(value => File.ReadAllText(path).Contains(value, StringComparison.Ordinal))
+				.Select(value => $"{Path.GetRelativePath(root, path)}: {value}"))
+			.ToList();
+
+		Assert.AreEqual(0, violations.Count,
+			$"Native AOT-incompatible REST patterns remain:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
+	public void GraphQLClientRemainsNativeAotCompatible()
+	{
+		var root = FindRepositoryRoot();
+		var graphQLRoot = Path.Combine(root, "src", "Octokit", "GraphQL");
+
+		var forbidden = new[]
+		{
+			"Activator.CreateInstance",
+			"Expression.Compile",
+			"GraphQL.Client",
+			"MakeGenericType",
+			"Newtonsoft.Json",
+		};
+		var violations = Directory.EnumerateFiles(graphQLRoot, "*.cs", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.SelectMany(path => forbidden
+				.Where(value => File.ReadAllText(path).Contains(value, StringComparison.Ordinal))
+				.Select(value => $"{Path.GetRelativePath(root, path)}: {value}"))
+			.ToList();
+
+		Assert.AreEqual(0, violations.Count,
+			$"Native AOT-incompatible GraphQL patterns remain:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
+	public void StaticGraphQLOperationsUseGeneratedMetadata()
+	{
+		var root = FindRepositoryRoot();
+		var graphQLRoot = Path.Combine(root, "src", "FluentHub.Core", "Infrastructure", "GitHub");
+		var violations = new List<string>();
+
+		foreach (var path in Directory.EnumerateFiles(graphQLRoot, "*.cs", SearchOption.AllDirectories))
+		{
+			var source = File.ReadAllText(path);
+			foreach (Match match in StaticGraphQLOperationRegex().Matches(source))
+			{
+				var precedingSource = source[..match.Index].TrimEnd();
+				var previousLineStart = precedingSource.LastIndexOf('\n') + 1;
+				var previousLine = precedingSource[previousLineStart..].Trim();
+				if (!previousLine.StartsWith("[GeneratedGraphQLOperation<", StringComparison.Ordinal))
+				{
+					var line = source.AsSpan(0, match.Index).Count('\n') + 1;
+					violations.Add($"{Path.GetRelativePath(root, path)}:{line} {match.Groups["name"].Value}");
+				}
+			}
+		}
+
+		Assert.AreEqual(0, violations.Count,
+			$"Static GraphQL documents bypass generation:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
 	}
 
 	[TestMethod]
@@ -174,4 +285,7 @@ public sealed partial class ArchitectureBoundaryTests
 
 	[GeneratedRegex(@"<\s*(?:PersonPicture|primer:Avatar)\b|new\s+PersonPicture\b", RegexOptions.CultureInvariant)]
 	private static partial Regex DirectPersonPictureRegex();
+
+	[GeneratedRegex("(?:private|public|internal)\\s+const\\s+string\\s+(?<name>\\w+)\\s*=\\s*\"\"\"\\s*(?:query|mutation|subscription)\\b", RegexOptions.CultureInvariant)]
+	private static partial Regex StaticGraphQLOperationRegex();
 }

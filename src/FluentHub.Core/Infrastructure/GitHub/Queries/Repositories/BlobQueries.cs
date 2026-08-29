@@ -1,35 +1,58 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class BlobQueries
+	public partial class BlobQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryObjectResult<Blob>>>]
+		private const string Query = """
+			query Blob($name: String!, $owner: String!, $expression: String!) {
+			  result: repository(name: $name, owner: $owner) {
+			    object(expression: $expression) {
+			      ... on Blob {
+			        abbreviatedOid
+			        byteSize
+			        commitUrl
+			        id
+			        isBinary
+			        isTruncated
+			        oid
+			        text
+			      }
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public BlobQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<Blob> GetAsync(string name, string owner, string branch, string path, CancellationToken cancellationToken = default)
+
+		public async Task<Blob> GetAsync(
+			string name,
+			string owner,
+			string branch,
+			string path,
+			CancellationToken cancellationToken = default)
 		{
-			var query = new Query()
-				.Repository(name, owner)
-				.Object(expression: branch + ":" + path)
-				.Cast<OctokitGraphQLModel.Blob>()
-				.Select(x => new Blob
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryObjectResultBlob,
+				writer =>
 				{
-					AbbreviatedOid = x.AbbreviatedOid,
-					ByteSize = x.ByteSize,
-					CommitUrl = x.CommitUrl,
-					Id = x.Id,
-					IsBinary = x.IsTruncated,
-					IsTruncated = x.IsTruncated,
-					Oid = x.Oid,
-					Text = x.Text,
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+					writer.WriteString("name", name);
+					writer.WriteString("owner", owner);
+					writer.WriteString("expression", $"{branch}:{path}");
+				},
+				cancellationToken);
+			return response.Result?.Object
+				?? throw new InvalidDataException($"GitHub blob '{owner}/{name}:{branch}:{path}' was not found.");
 		}
 	}
 }

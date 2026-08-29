@@ -1,13 +1,74 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class IssueQueries
+	public partial class IssueQueries
 	{
+		private const string ReactionFields = """
+			reactionGroups { content viewerHasReacted reactors { totalCount } }
+		""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
+		private const string ItemQuery = """
+			query Issue($owner: String!, $name: String!, $number: Int!) {
+			  result: repository(owner: $owner, name: $name) {
+			    issue(number: $number) {
+			      authorAssociation body closed createdAt id lastEditedAt number state stateReason title updatedAt url
+			      viewerCanClose: viewerCanUpdate viewerCanLabel: viewerCanUpdate viewerCanReact
+			      viewerCanReopen: viewerCanUpdate viewerCanSubscribe viewerCanUpdate viewerDidAuthor viewerSubscription
+			      author { avatarUrl(size: 500) login }
+			      assignees(first: 6) { nodes { avatarUrl(size: 500) id login } }
+			      comments { totalCount }
+			      labels(first: 10) { nodes { color description id name } }
+			      milestone { id title progressPercentage }
+			      participants(first: 6) { nodes { avatarUrl(size: 500) login } }
+			""" + ReactionFields + """
+			      repository { name viewerPermission owner { avatarUrl(size: 500) id login } }
+			    }
+			  }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryBodyResult>>]
+		private const string BodyQuery = """
+			query IssueBody($owner: String!, $name: String!, $number: Int!) {
+			  result: repository(owner: $owner, name: $name) {
+			    issue(number: $number) {
+			      authorAssociation body createdAt id lastEditedAt updatedAt url
+			      viewerCanReact viewerCanUpdate viewerDidAuthor
+			      author { login avatarUrl(size: 500) }
+			""" + ReactionFields + """
+			    }
+			  }
+			}
+			""";
+
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
+		private const string PinnedQuery = """
+			query PinnedIssues($owner: String!, $name: String!) {
+			  result: repository(owner: $owner, name: $name) {
+			    pinnedIssues(first: 3) {
+			      nodes {
+			        issue {
+			          closed number title updatedAt
+			          comments { totalCount }
+			          labels(first: 10) { nodes { color description name } }
+			        }
+			        repository { name owner { avatarUrl(size: 500) id login } }
+			      }
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public IssueQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public IssueQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
 
 		public Task<PageResult<Issue>> GetPageAsync(
 			string owner,
@@ -15,251 +76,99 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			PageRequest page,
 			RepositoryItemListFilters? filters = null,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetIssuePageAsync(
-				owner,
-				name,
-				page,
-				filters ?? new RepositoryItemListFilters(),
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssuePageAsync(owner, name, page, filters ?? new(), cancellationToken);
 
 		public Task<IReadOnlyList<string>> GetAuthorLoginsAsync(
 			string owner,
 			string name,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetAuthorLoginsAsync(
-				owner,
-				name,
-				false,
-				cancellationToken);
+			=> new RepositoryItemSearchQueries(_gitHub).GetAuthorLoginsAsync(owner, name, false, cancellationToken);
 
 		public Task<IReadOnlyList<string>> GetIssueTypeNamesAsync(
 			string owner,
 			string name,
 			CancellationToken cancellationToken = default)
-			=> new RepositoryItemSearchQueries(_gitHub).GetIssueTypeNamesAsync(
-				owner,
-				name,
+			=> new RepositoryItemSearchQueries(_gitHub).GetIssueTypeNamesAsync(owner, name, cancellationToken);
+
+		public async Task<Issue> GetAsync(
+			string owner,
+			string name,
+			int number,
+			CancellationToken cancellationToken = default)
+		{
+			var response = await ExecuteRepositoryAsync(ItemQueryOperation, owner, name, number, cancellationToken);
+			var issue = response.Issue
+				?? throw new InvalidDataException($"GitHub issue '{owner}/{name}#{number}' was not found.");
+			issue.CreatedAtHumanized = issue.CreatedAt.ToRelativeTime();
+			issue.UpdatedAtHumanized = issue.UpdatedAt.ToRelativeTime();
+			return issue;
+		}
+
+		public async Task<IssueComment> GetBodyAsync(
+			string owner,
+			string name,
+			int number,
+			CancellationToken cancellationToken = default)
+		{
+			var response = await _gitHub.RunGraphQLAsync(
+				BodyQueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryBodyResult,
+				writer => WriteVariables(writer, owner, name, number),
 				cancellationToken);
-
-		public async Task<Issue> GetAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
-		{
-			var query = new Query()
-				.Repository(name, owner)
-				.Issue(number)
-				.Select(x => new Issue
-				{
-					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
-					Body = x.Body,
-					Closed = x.Closed,
-					CreatedAt = x.CreatedAt,
-					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
-					Id = x.Id,
-					LastEditedAt = x.LastEditedAt,
-					Number = x.Number,
-					State = (IssueState)x.State,
-					StateReason = x.StateReason == null ? null : (IssueStateReason?)x.StateReason.Value,
-					Title = x.Title,
-					UpdatedAt = x.UpdatedAt,
-					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-					Url = x.Url,
-					ViewerCanClose = x.ViewerCanUpdate,
-					ViewerCanLabel = x.ViewerCanUpdate,
-					ViewerCanReact = x.ViewerCanReact,
-					ViewerCanReopen = x.ViewerCanUpdate,
-					ViewerCanSubscribe = x.ViewerCanSubscribe,
-					ViewerCanUpdate = x.ViewerCanUpdate,
-					ViewerDidAuthor = x.ViewerDidAuthor,
-					ViewerSubscription = x.ViewerSubscription == null
-						? null
-						: (SubscriptionState?)x.ViewerSubscription.Value,
-
-					Author = x.Author.Select(author => new Actor
-					{
-						AvatarUrl = author.AvatarUrl(500),
-						Login = author.Login,
-					})
-					.SingleOrDefault(),
-
-					Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
-					{
-						Nodes = assignees.Nodes.Select(y => (User?)new User
-						{
-							AvatarUrl = y.AvatarUrl(500),
-							Id = y.Id,
-							Login = y.Login,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-
-					Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-					{
-						TotalCount = comments.TotalCount,
-					})
-					.SingleOrDefault(),
-
-					Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-					{
-						Nodes = labels.Nodes.Select(y => (Label?)new Label
-						{
-							Color = y.Color,
-							Description = y.Description,
-							Id = y.Id,
-							Name = y.Name,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-
-					Milestone = x.Milestone.Select(y => new Milestone
-					{
-						Id = y.Id,
-						Title = y.Title,
-						ProgressPercentage = y.ProgressPercentage,
-					})
-					.SingleOrDefault(),
-
-					Participants = x.Participants(6, null, null, null).Select(participants => new UserConnection
-					{
-						Nodes = participants.Nodes.Select(y => (User?)new User
-						{
-							AvatarUrl = y.AvatarUrl(500),
-							Login = y.Login,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-
-					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
-					{
-						Content = (ReactionContent)group.Content,
-						ViewerHasReacted = group.ViewerHasReacted,
-						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
-						{
-							TotalCount = reactors.TotalCount,
-						}).SingleOrDefault(),
-					}).ToList(),
-
-					Repository = x.Repository.Select(repo => new Repository
-					{
-						Name = repo.Name,
-						ViewerPermission = repo.ViewerPermission == null
-							? null
-							: (RepositoryPermission?)repo.ViewerPermission.Value,
-
-						Owner = repo.Owner.Select(owner => new RepositoryOwner
-						{
-							AvatarUrl = owner.AvatarUrl(500),
-							Id = owner.Id,
-							Login = owner.Login,
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+			var body = response.Result?.Issue
+				?? throw new InvalidDataException($"GitHub issue '{owner}/{name}#{number}' was not found.");
+			StampBody(body);
+			return body;
 		}
 
-		public async Task<IssueComment> GetBodyAsync(string owner, string name, int number, CancellationToken cancellationToken = default)
+		public async Task<List<Issue>> GetPinnedAllAsync(
+			string owner,
+			string name,
+			CancellationToken cancellationToken = default)
 		{
-			var query = new Query()
-				.Repository(name, owner)
-				.Issue(number)
-				.Select(x => new IssueComment
+			var response = await _gitHub.RunGraphQLAsync(
+				PinnedQueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
+				writer =>
 				{
-					AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
-					Body = x.Body,
-					CreatedAt = x.CreatedAt,
-					CreatedAtHumanized = x.CreatedAt.ToRelativeTime(),
-					Id = x.Id,
-					LastEditedAt = x.LastEditedAt,
-					UpdatedAt = x.UpdatedAt,
-					UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-					Url = x.Url,
-					ViewerCanReact = x.ViewerCanReact,
-					ViewerCanUpdate = x.ViewerCanUpdate,
-					ViewerDidAuthor = x.ViewerDidAuthor,
-
-					Author = x.Author.Select(author => new Actor
-					{
-						Login = author.Login,
-						AvatarUrl = author.AvatarUrl(500),
-					})
-					.SingleOrDefault(),
-
-					ReactionGroups = x.ReactionGroups.Select(group => new ReactionGroup
-					{
-						Content = (ReactionContent)group.Content,
-						ViewerHasReacted = group.ViewerHasReacted,
-						Reactors = group.Reactors(null, null, null, null).Select(reactors => new ReactorConnection
-						{
-							TotalCount = reactors.TotalCount,
-						}).SingleOrDefault(),
-					}).ToList(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+					writer.WriteString("owner", owner);
+					writer.WriteString("name", name);
+				},
+				cancellationToken);
+			var pinned = response.Result?.PinnedIssues?.Nodes?.Where(item => item is not null).Select(item => item!).ToList() ?? [];
+			var issues = new List<Issue>(pinned.Count);
+			foreach (var item in pinned)
+			{
+				item.Issue.Repository = item.Repository;
+				item.Issue.UpdatedAtHumanized = item.Issue.UpdatedAt.ToRelativeTime();
+				issues.Add(item.Issue);
+			}
+			return issues;
 		}
 
-		public async Task<List<Issue>> GetPinnedAllAsync(string owner, string name, CancellationToken cancellationToken = default)
+		private async Task<Repository> ExecuteRepositoryAsync(GraphQLOperation<GraphQLResult<Repository>> operation,
+			string owner, string name, int number, CancellationToken cancellationToken)
 		{
-			#region query
-			var query = new Query()
-				.Repository(name, owner)
-				.PinnedIssues(3, null, null, null)
-				.Nodes
-				.Select(x => new Issue
-				{
-					Closed = x.Issue.Closed,
-					Number = x.Issue.Number,
-					Title = x.Issue.Title,
-					UpdatedAt = x.Issue.UpdatedAt,
+			var response = await _gitHub.RunGraphQLAsync(
+				operation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
+				writer => WriteVariables(writer, owner, name, number),
+				cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException($"GitHub repository '{owner}/{name}' was not found.");
+		}
 
-					Repository = x.Repository.Select(repo => new Repository
-					{
-						Name = repo.Name,
+		private static void WriteVariables(System.Text.Json.Utf8JsonWriter writer, string owner, string name, int number)
+		{
+			writer.WriteString("owner", owner);
+			writer.WriteString("name", name);
+			writer.WriteNumber("number", number);
+		}
 
-						Owner = repo.Owner.Select(owner => new RepositoryOwner
-						{
-							AvatarUrl = owner.AvatarUrl(500),
-							Id = owner.Id,
-							Login = owner.Login,
-						})
-						.SingleOrDefault(),
-					})
-					.SingleOrDefault(),
-
-					Comments = x.Issue.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
-					{
-						TotalCount = comments.TotalCount,
-					})
-					.SingleOrDefault(),
-
-					Labels = x.Issue.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-					{
-						Nodes = labels.Nodes.Select(y => (Label?)new Label
-						{
-							Color = y.Color,
-							Description = y.Description,
-							Name = y.Name,
-						})
-						.ToList(),
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-			#endregion
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response.ToList();
+		private static void StampBody(IssueComment body)
+		{
+			body.CreatedAtHumanized = body.CreatedAt.ToRelativeTime();
+			body.UpdatedAtHumanized = body.UpdatedAt.ToRelativeTime();
 		}
 	}
 }

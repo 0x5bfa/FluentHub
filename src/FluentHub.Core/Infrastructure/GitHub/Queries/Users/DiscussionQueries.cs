@@ -1,112 +1,63 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Infrastructure.GitHub.Queries.Discussions;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class DiscussionQueries
+	public partial class DiscussionQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
+		private const string Query = """
+			query UserDiscussions($login: String!, $first: Int, $after: String, $last: Int, $before: String, $answered: Boolean, $orderBy: DiscussionOrder, $repositoryId: ID) {
+			  result: user(login: $login) {
+			    repositoryDiscussions(first: $first, after: $after, last: $last, before: $before, answered: $answered, orderBy: $orderBy, repositoryId: $repositoryId) {
+			""" + DiscussionQuery.Connection + """
+			    }
+			  }
+			}
+			""" + DiscussionQuery.ListFields;
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public DiscussionQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public DiscussionQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
 
 		public Task<PageResult<Discussion>> GetPageAsync(
 			string login,
 			PageRequest page,
 			DiscussionListFilters filters,
 			CancellationToken cancellationToken = default)
-			=> new DiscussionSearchQueries(_gitHub).GetAuthorPageAsync(
-				login,
-				page,
-				filters,
-				cancellationToken);
+			=> new DiscussionSearchQueries(_gitHub).GetAuthorPageAsync(login, page, filters, cancellationToken);
 
-		public Task<IReadOnlyList<string>> GetLabelNamesAsync(
-			string login,
-			CancellationToken cancellationToken = default)
-			=> new DiscussionSearchQueries(_gitHub).GetAuthorLabelNamesAsync(
-				login,
-				cancellationToken);
+		public Task<IReadOnlyList<string>> GetLabelNamesAsync(string login, CancellationToken cancellationToken = default)
+			=> new DiscussionSearchQueries(_gitHub).GetAuthorLabelNamesAsync(login, cancellationToken);
 
 		public async Task<PageResult<Discussion>> GetPageAsync(
 			string login,
 			PageRequest page,
 			bool? answered = null,
-			OctokitGraphQLModel.DiscussionOrder? orderBy = null,
+			DiscussionOrder? orderBy = null,
 			ID? repositoryId = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			var query = new Query()
-				.User(login)
-				.RepositoryDiscussions(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					answered,
-					orderBy,
-					repositoryId)
-				.Select(connection => new DiscussionConnection
+			var response = await _gitHub.RunGraphQLAsync(
+				QueryOperation,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (DiscussionEdge?)new DiscussionEdge
-					{
-						Node = edge.Node.Select(x => new Discussion
-						{
-							Category = x.Category.Select(category => new DiscussionCategory
-							{
-								Emoji = category.Emoji,
-								Id = category.Id,
-							})
-							.Single(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Id = owner.Id,
-									Login = owner.Login,
-								})
-								.Single(),
-							})
-							.Single(),
-
-							Id = x.Id,
-							Locked = x.Locked,
-							Number = x.Number,
-							Title = x.Title,
-							UpvoteCount = x.UpvoteCount,
-							Url = x.Url,
-							ViewerCanDelete = x.ViewerCanDelete,
-							ViewerDidAuthor = x.ViewerDidAuthor,
-							ViewerHasUpvoted = x.ViewerHasUpvoted,
-							AnswerChosenAt = x.AnswerChosenAt,
-							UpdatedAt = x.UpdatedAt,
-						}).Single()
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Discussion>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+					writer.WriteString("login", login);
+					GraphQLInputWriter.WritePage(writer, page);
+					GraphQLInputWriter.WriteOptionalBoolean(writer, "answered", answered);
+					DiscussionQuery.WriteOrder(writer, orderBy);
+					GraphQLInputWriter.WriteOptionalId(writer, "repositoryId", repositoryId);
+				},
+				cancellationToken);
+			return DiscussionQuery.ToPage(response.Result?.RepositoryDiscussions
+				?? throw new InvalidDataException("GitHub returned an incomplete user discussions response."));
 		}
 	}
 }

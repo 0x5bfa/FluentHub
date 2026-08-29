@@ -1,7 +1,7 @@
-using GraphQL;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
@@ -11,27 +11,32 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		public NotificationQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<List<Notification>> GetAllAsync(OctokitV3.NotificationsRequest? request = null, OctokitV3.ApiOptions? options = null, CancellationToken cancellationToken = default)
+		public async Task<List<Notification>> GetAllAsync(
+			OctokitRest.NotificationRequest? request = null,
+			OctokitRest.PageOptions? options = null,
+			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunRestAsync(
-				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				(client, token) => client.Notifications.GetAllAsync(request, options, token),
 				cancellationToken);
 
 			List<Notification> notifications = new();
 			foreach (var item in response)
 			{
-				if (item.Subject is null || item.Repository is null)
+				if (item.Subject is not { } subject ||
+					item.Repository?.Owner is not { } owner ||
+					!long.TryParse(item.Id, out var id))
 					continue;
 
 				Notification indivisual = new()
 				{
-					Id = Convert.ToInt64(item.Id),
+					Id = id,
 					Unread = item.Unread,
 					Url = item.Url,
 
 					Subject = new()
 					{
-						Title = item.Subject.Title,
+						Title = subject.Title,
 					},
 
 					Repository = new()
@@ -39,23 +44,20 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 						Name = item.Repository.Name,
 						Owner = new RepositoryOwner()
 						{
-							AvatarUrl = item.Repository.Owner?.AvatarUrl ?? string.Empty,
-							Login = item.Repository.Owner?.Login ?? string.Empty,
+							AvatarUrl = owner.AvatarUrl ?? string.Empty,
+							Login = owner.Login,
 						},
 					},
 				};
 
-				if (item.LastReadAt != null)
+				if (item.LastReadAt is { } lastReadAt)
 				{
-					indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+					indivisual.LastReadAt = lastReadAt;
 					indivisual.LastReadAtHumanized = indivisual.LastReadAt.ToRelativeTime();
 				}
 
-				if (item.UpdatedAt != null)
-				{
-					indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
-					indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.ToRelativeTime();
-				}
+				indivisual.UpdatedAt = item.UpdatedAt;
+				indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.ToRelativeTime();
 
 				indivisual.Reason = item.Reason switch
 				{
@@ -74,9 +76,9 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 					_ => "",
 				};
 
-				var itemNumber = item.Subject.Url?.Split('/').LastOrDefault();
+				var itemNumber = subject.Url?.Split('/').LastOrDefault();
 
-				switch (item.Subject?.Type)
+				switch (subject.Type)
 				{
 					case "Issue":
 						{
@@ -109,17 +111,17 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			// The first Octokit v3 response has insufficient content, so gather the necessary info
 			// from the response to get the necessary data and create a new Octokit v4 request
 
-			var fragments = GetNotificationItemFragments(notifications);
-			if (notifications.Count() == 0 || string.IsNullOrEmpty(fragments))
+			var notificationQuery = BuildNotificationQuery(notifications);
+			if (notificationQuery is null)
 				return notifications;
 
-			// Create a new request with repository info and vaild Issue or PR info
-			var request2 = new GraphQLRequest { Query = @$"query {{ {fragments} }}" };
+			var response2 = await _gitHub.RunDynamicGraphQLAsync(
+				notificationQuery,
+				GitHubGraphQLJsonContext.Default.JsonElement,
+				writer => WriteNotificationVariables(writer, notifications),
+				cancellationToken);
 
-			// Response contains a lot of repository response tokens
-			var response2 = await _gitHub.SendGraphQLAsync<object>(request2, cancellationToken);
-
-			var repositories = ParseGraphQLJsonResponse(response2.Data as JToken, notifications.Count());
+			var repositories = ParseGraphQLJsonResponse(response2, notifications.Count);
 
 			var mappedNotifications = MapRepositoriesToNotifications(notifications, repositories);
 			if (mappedNotifications == null)
@@ -128,18 +130,16 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			return mappedNotifications;
 		}
 
-		private string GetNotificationItemFragments(IReadOnlyList<Notification> notifications)
+		private static string? BuildNotificationQuery(IReadOnlyList<Notification> notifications)
 		{
-			string ItemFragments = "";
-			int index = 0;
+			var definitions = new List<string>();
+			var selections = new StringBuilder();
 
-			foreach (var notification in notifications)
+			for (var index = 0; index < notifications.Count; index++)
 			{
+				var notification = notifications[index];
 				if (notification.Subject is null || notification.Repository?.Owner is null)
-				{
-					index++;
 					continue;
-				}
 
 				switch (notification.Subject.Type)
 				{
@@ -149,81 +149,88 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 					//	break;
 					case NotificationSubjectType.Issue:
 						{
-							var issueFragment = @$"
-repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{notification.Repository.Owner.Login}"") {{
-  Issue: issue(number: {notification.Subject.Number}) {{
+							definitions.Add($"$name{index}: String!");
+							definitions.Add($"$owner{index}: String!");
+							definitions.Add($"$number{index}: Int!");
+							selections.Append($$"""
+repo{{index}}: repository(name: $name{{index}}, owner: $owner{{index}}) {
+  Issue: issue(number: $number{{index}}) {
 	id
 	number
 	state
 	stateReason
-  }}
-}}
-";
-
-							ItemFragments += issueFragment;
+  }
+}
+""");
 							break;
 						}
 					case NotificationSubjectType.PullRequest:
 						{
-							var pullRequestFragment = @$"
-repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{notification.Repository.Owner.Login}"") {{
-  PullRequest: pullRequest(number: {notification.Subject.Number}) {{
+							definitions.Add($"$name{index}: String!");
+							definitions.Add($"$owner{index}: String!");
+							definitions.Add($"$number{index}: Int!");
+							selections.Append($$"""
+repo{{index}}: repository(name: $name{{index}}, owner: $owner{{index}}) {
+  PullRequest: pullRequest(number: $number{{index}}) {
 	id
 	number
 	isDraft
 	state
-  }}
-}}
-";
-
-							ItemFragments += pullRequestFragment;
+  }
+}
+""");
 							break;
 						}
 				}
-
-				index++;
 			}
 
-			return ItemFragments;
+			return definitions.Count == 0
+				? null
+				: $"query({string.Join(", ", definitions)}) {{\n{selections}}}";
 		}
 
-		private List<Repository> ParseGraphQLJsonResponse(JToken? token, int itemCount)
+		private static void WriteNotificationVariables(
+			Utf8JsonWriter writer,
+			IReadOnlyList<Notification> notifications)
+		{
+			for (var index = 0; index < notifications.Count; index++)
+			{
+				var notification = notifications[index];
+				if (notification.Subject?.Type is not (NotificationSubjectType.Issue or NotificationSubjectType.PullRequest) ||
+					notification.Repository?.Owner is null)
+				{
+					continue;
+				}
+
+				writer.WriteString($"name{index}", notification.Repository.Name);
+				writer.WriteString($"owner{index}", notification.Repository.Owner.Login);
+				writer.WriteNumber($"number{index}", notification.Subject.Number);
+			}
+		}
+
+		private static List<Repository> ParseGraphQLJsonResponse(JsonElement token, int itemCount)
 		{
 			List<Repository> repositories = new();
 
-			if (token is null)
+			if (token.ValueKind != JsonValueKind.Object)
 				return repositories;
-
-			if (token["errors"] is JToken errors && errors.FirstOrDefault() is JToken error)
-			{
-				var location = error["locations"]?.FirstOrDefault();
-				throw new OctokitGraphQLCore.Deserializers.ResponseDeserializerException(
-					error["message"]?.ToString() ?? "GraphQL notification query failed.",
-					location?["line"]?.Value<int>() ?? 0,
-					location?["column"]?.Value<int>() ?? 0);
-			}
 
 			for (int index = 0; index < itemCount; index++)
 			{
-				var repo = token[$"repo{index}"];
-
-				if (repo == null || !repo.HasValues)
+				if (!token.TryGetProperty($"repo{index}", out var repo) ||
+					repo.ValueKind != JsonValueKind.Object)
 				{
 					// Add empty
 					repositories.Add(new());
 					continue;
 				}
 
-				var issue = repo["Issue"];
-				var pullRequest = repo["PullRequest"];
-
-				// HasValues because issue can be empty
-				if (issue != null && issue.HasValues)
+				if (repo.TryGetProperty("Issue", out var issue) && issue.ValueKind == JsonValueKind.Object)
 				{
-					Enum.TryParse(issue["state"]?.ToString(), true, out IssueState state);
-					Enum.TryParse(issue["stateReason"]?.ToString(), true, out IssueStateReason stateReason);
-					var id = new ID(issue["id"]?.ToString() ?? string.Empty);
-					int.TryParse(issue["number"]?.ToString(), out int number);
+					Enum.TryParse(issue.GetProperty("state").GetString(), true, out IssueState state);
+					Enum.TryParse(issue.GetProperty("stateReason").GetString(), true, out IssueStateReason stateReason);
+					var id = new ID(issue.GetProperty("id").GetString() ?? string.Empty);
+					var number = issue.GetProperty("number").GetInt32();
 
 					repositories.Add(new()
 					{
@@ -236,12 +243,13 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 						},
 					});
 				}
-				else if (pullRequest != null && pullRequest.HasValues)
+				else if (repo.TryGetProperty("PullRequest", out var pullRequest) &&
+					pullRequest.ValueKind == JsonValueKind.Object)
 				{
-					Enum.TryParse(pullRequest["state"]?.ToString(), true, out PullRequestState state);
-					var id = new ID(pullRequest["id"]?.ToString() ?? string.Empty);
-					int.TryParse(pullRequest["number"]?.ToString(), out int number);
-					bool.TryParse(pullRequest["isDraft"]?.ToString(), out bool isDraft);
+					Enum.TryParse(pullRequest.GetProperty("state").GetString(), true, out PullRequestState state);
+					var id = new ID(pullRequest.GetProperty("id").GetString() ?? string.Empty);
+					var number = pullRequest.GetProperty("number").GetInt32();
+					var isDraft = pullRequest.GetProperty("isDraft").GetBoolean();
 
 					repositories.Add(new()
 					{
@@ -353,12 +361,12 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 
 		public async Task<int> GetUnreadCountAsync(CancellationToken cancellationToken = default)
 		{
-			OctokitV3.NotificationsRequest request = new()
+			OctokitRest.NotificationRequest request = new()
 			{
 				All = true,
 			};
 
-			OctokitV3.ApiOptions options = new()
+			OctokitRest.PageOptions options = new()
 			{
 				PageCount = 1,
 				PageSize = 50,
@@ -367,7 +375,7 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 
 			// Even if there are more than 50 unread items, this method will only count up to a maximum of 50.
 			var response = await _gitHub.RunRestAsync(
-				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				(client, token) => client.Notifications.GetAllAsync(request, options, token),
 				cancellationToken);
 
 			int unreadCount = 0;

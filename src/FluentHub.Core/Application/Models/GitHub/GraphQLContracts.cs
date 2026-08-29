@@ -7,753 +7,667 @@ namespace FluentHub.Core.Application.Models
 {
 	// Application contracts projected by FluentHub's GitHub queries.
 	// Keep these types limited to fields that the application actually requests or consumes.
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum CheckConclusionState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ACTION_REQUIRED")]
-		ActionRequired = (int)global::Octokit.GraphQL.Model.CheckConclusionState.ActionRequired,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ACTION_REQUIRED")]
+		ActionRequired,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TIMED_OUT")]
-		TimedOut = (int)global::Octokit.GraphQL.Model.CheckConclusionState.TimedOut,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TIMED_OUT")]
+		TimedOut,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CANCELLED")]
-		Cancelled = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Cancelled,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CANCELLED")]
+		Cancelled,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FAILURE")]
-		Failure = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Failure,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FAILURE")]
+		Failure,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUCCESS")]
-		Success = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Success,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUCCESS")]
+		Success,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NEUTRAL")]
-		Neutral = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Neutral,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NEUTRAL")]
+		Neutral,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SKIPPED")]
-		Skipped = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Skipped,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SKIPPED")]
+		Skipped,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "STARTUP_FAILURE")]
-		StartupFailure = (int)global::Octokit.GraphQL.Model.CheckConclusionState.StartupFailure,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("STARTUP_FAILURE")]
+		StartupFailure,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "STALE")]
-		Stale = (int)global::Octokit.GraphQL.Model.CheckConclusionState.Stale
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("STALE")]
+		Stale
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum CheckStatusState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "REQUESTED")]
-		Requested = (int)global::Octokit.GraphQL.Model.CheckStatusState.Requested,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REQUESTED")]
+		Requested,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "QUEUED")]
-		Queued = (int)global::Octokit.GraphQL.Model.CheckStatusState.Queued,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("QUEUED")]
+		Queued,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "IN_PROGRESS")]
-		InProgress = (int)global::Octokit.GraphQL.Model.CheckStatusState.InProgress,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("IN_PROGRESS")]
+		InProgress,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMPLETED")]
-		Completed = (int)global::Octokit.GraphQL.Model.CheckStatusState.Completed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMPLETED")]
+		Completed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "WAITING")]
-		Waiting = (int)global::Octokit.GraphQL.Model.CheckStatusState.Waiting,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("WAITING")]
+		Waiting,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.CheckStatusState.Pending
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum CommentAuthorAssociation
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "MEMBER")]
-		Member = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.Member,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MEMBER")]
+		Member,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "OWNER")]
-		Owner = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.Owner,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OWNER")]
+		Owner,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MANNEQUIN")]
-		Mannequin = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.Mannequin,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MANNEQUIN")]
+		Mannequin,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COLLABORATOR")]
-		Collaborator = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.Collaborator,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COLLABORATOR")]
+		Collaborator,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CONTRIBUTOR")]
-		Contributor = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.Contributor,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CONTRIBUTOR")]
+		Contributor,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FIRST_TIME_CONTRIBUTOR")]
-		FirstTimeContributor = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.FirstTimeContributor,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FIRST_TIME_CONTRIBUTOR")]
+		FirstTimeContributor,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FIRST_TIMER")]
-		FirstTimer = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.FirstTimer,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FIRST_TIMER")]
+		FirstTimer,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NONE")]
-		None = (int)global::Octokit.GraphQL.Model.CommentAuthorAssociation.None
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NONE")]
+		None
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ComparisonStatus
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "DIVERGED")]
-		Diverged = (int)global::Octokit.GraphQL.Model.ComparisonStatus.Diverged,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DIVERGED")]
+		Diverged,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "AHEAD")]
-		Ahead = (int)global::Octokit.GraphQL.Model.ComparisonStatus.Ahead,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("AHEAD")]
+		Ahead,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "BEHIND")]
-		Behind = (int)global::Octokit.GraphQL.Model.ComparisonStatus.Behind,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BEHIND")]
+		Behind,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "IDENTICAL")]
-		Identical = (int)global::Octokit.GraphQL.Model.ComparisonStatus.Identical
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("IDENTICAL")]
+		Identical
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ContributionLevel
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "NONE")]
-		None = (int)global::Octokit.GraphQL.Model.ContributionLevel.None,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NONE")]
+		None,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FIRST_QUARTILE")]
-		FirstQuartile = (int)global::Octokit.GraphQL.Model.ContributionLevel.FirstQuartile,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FIRST_QUARTILE")]
+		FirstQuartile,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SECOND_QUARTILE")]
-		SecondQuartile = (int)global::Octokit.GraphQL.Model.ContributionLevel.SecondQuartile,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SECOND_QUARTILE")]
+		SecondQuartile,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "THIRD_QUARTILE")]
-		ThirdQuartile = (int)global::Octokit.GraphQL.Model.ContributionLevel.ThirdQuartile,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("THIRD_QUARTILE")]
+		ThirdQuartile,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FOURTH_QUARTILE")]
-		FourthQuartile = (int)global::Octokit.GraphQL.Model.ContributionLevel.FourthQuartile
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FOURTH_QUARTILE")]
+		FourthQuartile
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum DeploymentState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ABANDONED")]
-		Abandoned = (int)global::Octokit.GraphQL.Model.DeploymentState.Abandoned,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ABANDONED")]
+		Abandoned,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ACTIVE")]
-		Active = (int)global::Octokit.GraphQL.Model.DeploymentState.Active,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ACTIVE")]
+		Active,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DESTROYED")]
-		Destroyed = (int)global::Octokit.GraphQL.Model.DeploymentState.Destroyed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DESTROYED")]
+		Destroyed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ERROR")]
-		Error = (int)global::Octokit.GraphQL.Model.DeploymentState.Error,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ERROR")]
+		Error,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FAILURE")]
-		Failure = (int)global::Octokit.GraphQL.Model.DeploymentState.Failure,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FAILURE")]
+		Failure,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "INACTIVE")]
-		Inactive = (int)global::Octokit.GraphQL.Model.DeploymentState.Inactive,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("INACTIVE")]
+		Inactive,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.DeploymentState.Pending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUCCESS")]
-		Success = (int)global::Octokit.GraphQL.Model.DeploymentState.Success,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUCCESS")]
+		Success,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "QUEUED")]
-		Queued = (int)global::Octokit.GraphQL.Model.DeploymentState.Queued,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("QUEUED")]
+		Queued,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "IN_PROGRESS")]
-		InProgress = (int)global::Octokit.GraphQL.Model.DeploymentState.InProgress,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("IN_PROGRESS")]
+		InProgress,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "WAITING")]
-		Waiting = (int)global::Octokit.GraphQL.Model.DeploymentState.Waiting
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("WAITING")]
+		Waiting
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum DeploymentStatusState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Pending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUCCESS")]
-		Success = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Success,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUCCESS")]
+		Success,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FAILURE")]
-		Failure = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Failure,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FAILURE")]
+		Failure,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "INACTIVE")]
-		Inactive = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Inactive,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("INACTIVE")]
+		Inactive,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ERROR")]
-		Error = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Error,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ERROR")]
+		Error,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "QUEUED")]
-		Queued = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Queued,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("QUEUED")]
+		Queued,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "IN_PROGRESS")]
-		InProgress = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.InProgress,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("IN_PROGRESS")]
+		InProgress,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "WAITING")]
-		Waiting = (int)global::Octokit.GraphQL.Model.DeploymentStatusState.Waiting
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("WAITING")]
+		Waiting
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum DiscussionOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CREATED_AT")]
-		CreatedAt = (int)global::Octokit.GraphQL.Model.DiscussionOrderField.CreatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CREATED_AT")]
+		CreatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UPDATED_AT")]
-		UpdatedAt = (int)global::Octokit.GraphQL.Model.DiscussionOrderField.UpdatedAt
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UPDATED_AT")]
+		UpdatedAt
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum DiscussionStateReason
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "RESOLVED")]
-		Resolved = (int)global::Octokit.GraphQL.Model.DiscussionStateReason.Resolved,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("RESOLVED")]
+		Resolved,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "OUTDATED")]
-		Outdated = (int)global::Octokit.GraphQL.Model.DiscussionStateReason.Outdated,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OUTDATED")]
+		Outdated,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DUPLICATE")]
-		Duplicate = (int)global::Octokit.GraphQL.Model.DiscussionStateReason.Duplicate,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DUPLICATE")]
+		Duplicate,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "REOPENED")]
-		Reopened = (int)global::Octokit.GraphQL.Model.DiscussionStateReason.Reopened
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REOPENED")]
+		Reopened
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum GitSignatureState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "VALID")]
-		Valid = (int)global::Octokit.GraphQL.Model.GitSignatureState.Valid,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("VALID")]
+		Valid,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "INVALID")]
-		Invalid = (int)global::Octokit.GraphQL.Model.GitSignatureState.Invalid,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("INVALID")]
+		Invalid,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MALFORMED_SIG")]
-		MalformedSig = (int)global::Octokit.GraphQL.Model.GitSignatureState.MalformedSig,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MALFORMED_SIG")]
+		MalformedSig,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNKNOWN_KEY")]
-		UnknownKey = (int)global::Octokit.GraphQL.Model.GitSignatureState.UnknownKey,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNKNOWN_KEY")]
+		UnknownKey,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "BAD_EMAIL")]
-		BadEmail = (int)global::Octokit.GraphQL.Model.GitSignatureState.BadEmail,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BAD_EMAIL")]
+		BadEmail,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNVERIFIED_EMAIL")]
-		UnverifiedEmail = (int)global::Octokit.GraphQL.Model.GitSignatureState.UnverifiedEmail,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNVERIFIED_EMAIL")]
+		UnverifiedEmail,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NO_USER")]
-		NoUser = (int)global::Octokit.GraphQL.Model.GitSignatureState.NoUser,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NO_USER")]
+		NoUser,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNKNOWN_SIG_TYPE")]
-		UnknownSigType = (int)global::Octokit.GraphQL.Model.GitSignatureState.UnknownSigType,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNKNOWN_SIG_TYPE")]
+		UnknownSigType,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNSIGNED")]
-		Unsigned = (int)global::Octokit.GraphQL.Model.GitSignatureState.Unsigned,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNSIGNED")]
+		Unsigned,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "GPGVERIFY_UNAVAILABLE")]
-		GpgverifyUnavailable = (int)global::Octokit.GraphQL.Model.GitSignatureState.GpgverifyUnavailable,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("GPGVERIFY_UNAVAILABLE")]
+		GpgverifyUnavailable,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "GPGVERIFY_ERROR")]
-		GpgverifyError = (int)global::Octokit.GraphQL.Model.GitSignatureState.GpgverifyError,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("GPGVERIFY_ERROR")]
+		GpgverifyError,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NOT_SIGNING_KEY")]
-		NotSigningKey = (int)global::Octokit.GraphQL.Model.GitSignatureState.NotSigningKey,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NOT_SIGNING_KEY")]
+		NotSigningKey,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "EXPIRED_KEY")]
-		ExpiredKey = (int)global::Octokit.GraphQL.Model.GitSignatureState.ExpiredKey,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("EXPIRED_KEY")]
+		ExpiredKey,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "OCSP_PENDING")]
-		OcspPending = (int)global::Octokit.GraphQL.Model.GitSignatureState.OcspPending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OCSP_PENDING")]
+		OcspPending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "OCSP_ERROR")]
-		OcspError = (int)global::Octokit.GraphQL.Model.GitSignatureState.OcspError,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OCSP_ERROR")]
+		OcspError,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "BAD_CERT")]
-		BadCert = (int)global::Octokit.GraphQL.Model.GitSignatureState.BadCert,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BAD_CERT")]
+		BadCert,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "OCSP_REVOKED")]
-		OcspRevoked = (int)global::Octokit.GraphQL.Model.GitSignatureState.OcspRevoked
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OCSP_REVOKED")]
+		OcspRevoked
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum IssueClosedStateReason
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMPLETED")]
-		Completed = (int)global::Octokit.GraphQL.Model.IssueClosedStateReason.Completed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMPLETED")]
+		Completed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NOT_PLANNED")]
-		NotPlanned = (int)global::Octokit.GraphQL.Model.IssueClosedStateReason.NotPlanned,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NOT_PLANNED")]
+		NotPlanned,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DUPLICATE")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DUPLICATE")]
 		Duplicate = 2
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum IssueOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CREATED_AT")]
-		CreatedAt = (int)global::Octokit.GraphQL.Model.IssueOrderField.CreatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CREATED_AT")]
+		CreatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UPDATED_AT")]
-		UpdatedAt = (int)global::Octokit.GraphQL.Model.IssueOrderField.UpdatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UPDATED_AT")]
+		UpdatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMMENTS")]
-		Comments = (int)global::Octokit.GraphQL.Model.IssueOrderField.Comments
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMMENTS")]
+		Comments
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum IssueState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OPEN")]
-		Open = (int)global::Octokit.GraphQL.Model.IssueState.Open,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OPEN")]
+		Open,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CLOSED")]
-		Closed = (int)global::Octokit.GraphQL.Model.IssueState.Closed
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CLOSED")]
+		Closed
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum IssueStateReason
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "REOPENED")]
-		Reopened = (int)global::Octokit.GraphQL.Model.IssueStateReason.Reopened,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REOPENED")]
+		Reopened,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NOT_PLANNED")]
-		NotPlanned = (int)global::Octokit.GraphQL.Model.IssueStateReason.NotPlanned,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NOT_PLANNED")]
+		NotPlanned,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMPLETED")]
-		Completed = (int)global::Octokit.GraphQL.Model.IssueStateReason.Completed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMPLETED")]
+		Completed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DUPLICATE")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DUPLICATE")]
 		Duplicate = 3
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum IssueTypeColor
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "GRAY")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("GRAY")]
 		Gray = 0,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "BLUE")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BLUE")]
 		Blue = 1,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "GREEN")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("GREEN")]
 		Green = 2,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "YELLOW")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("YELLOW")]
 		Yellow = 3,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ORANGE")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ORANGE")]
 		Orange = 4,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "RED")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("RED")]
 		Red = 5,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PINK")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PINK")]
 		Pink = 6,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PURPLE")]
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PURPLE")]
 		Purple = 7
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum LockReason
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OFF_TOPIC")]
-		OffTopic = (int)global::Octokit.GraphQL.Model.LockReason.OffTopic,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OFF_TOPIC")]
+		OffTopic,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TOO_HEATED")]
-		TooHeated = (int)global::Octokit.GraphQL.Model.LockReason.TooHeated,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TOO_HEATED")]
+		TooHeated,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "RESOLVED")]
-		Resolved = (int)global::Octokit.GraphQL.Model.LockReason.Resolved,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("RESOLVED")]
+		Resolved,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SPAM")]
-		Spam = (int)global::Octokit.GraphQL.Model.LockReason.Spam
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SPAM")]
+		Spam
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum MergeableState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "MERGEABLE")]
-		Mergeable = (int)global::Octokit.GraphQL.Model.MergeableState.Mergeable,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MERGEABLE")]
+		Mergeable,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CONFLICTING")]
-		Conflicting = (int)global::Octokit.GraphQL.Model.MergeableState.Conflicting,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CONFLICTING")]
+		Conflicting,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNKNOWN")]
-		Unknown = (int)global::Octokit.GraphQL.Model.MergeableState.Unknown
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNKNOWN")]
+		Unknown
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum MilestoneState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OPEN")]
-		Open = (int)global::Octokit.GraphQL.Model.MilestoneState.Open,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OPEN")]
+		Open,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CLOSED")]
-		Closed = (int)global::Octokit.GraphQL.Model.MilestoneState.Closed
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CLOSED")]
+		Closed
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum OrderDirection
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ASC")]
-		Asc = (int)global::Octokit.GraphQL.Model.OrderDirection.Asc,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ASC")]
+		Asc,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DESC")]
-		Desc = (int)global::Octokit.GraphQL.Model.OrderDirection.Desc
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DESC")]
+		Desc
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PackageOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CREATED_AT")]
-		CreatedAt = (int)global::Octokit.GraphQL.Model.PackageOrderField.CreatedAt
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CREATED_AT")]
+		CreatedAt
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PackageType
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "NPM")]
-		Npm = (int)global::Octokit.GraphQL.Model.PackageType.Npm,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NPM")]
+		Npm,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "RUBYGEMS")]
-		Rubygems = (int)global::Octokit.GraphQL.Model.PackageType.Rubygems,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("RUBYGEMS")]
+		Rubygems,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MAVEN")]
-		Maven = (int)global::Octokit.GraphQL.Model.PackageType.Maven,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MAVEN")]
+		Maven,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DOCKER")]
-		Docker = (int)global::Octokit.GraphQL.Model.PackageType.Docker,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DOCKER")]
+		Docker,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DEBIAN")]
-		Debian = (int)global::Octokit.GraphQL.Model.PackageType.Debian,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DEBIAN")]
+		Debian,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NUGET")]
-		Nuget = (int)global::Octokit.GraphQL.Model.PackageType.Nuget,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NUGET")]
+		Nuget,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PYPI")]
-		Pypi = (int)global::Octokit.GraphQL.Model.PackageType.Pypi
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PYPI")]
+		Pypi
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ProjectCardState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CONTENT_ONLY")]
-		ContentOnly = (int)global::Octokit.GraphQL.Model.ProjectCardState.ContentOnly,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CONTENT_ONLY")]
+		ContentOnly,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NOTE_ONLY")]
-		NoteOnly = (int)global::Octokit.GraphQL.Model.ProjectCardState.NoteOnly,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NOTE_ONLY")]
+		NoteOnly,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "REDACTED")]
-		Redacted = (int)global::Octokit.GraphQL.Model.ProjectCardState.Redacted
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REDACTED")]
+		Redacted
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ProjectState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OPEN")]
-		Open = (int)global::Octokit.GraphQL.Model.ProjectState.Open,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OPEN")]
+		Open,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CLOSED")]
-		Closed = (int)global::Octokit.GraphQL.Model.ProjectState.Closed
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CLOSED")]
+		Closed
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ProjectV2ItemType
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ISSUE")]
-		Issue = (int)global::Octokit.GraphQL.Model.ProjectV2ItemType.Issue,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ISSUE")]
+		Issue,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PULL_REQUEST")]
-		PullRequest = (int)global::Octokit.GraphQL.Model.ProjectV2ItemType.PullRequest,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PULL_REQUEST")]
+		PullRequest,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DRAFT_ISSUE")]
-		DraftIssue = (int)global::Octokit.GraphQL.Model.ProjectV2ItemType.DraftIssue,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DRAFT_ISSUE")]
+		DraftIssue,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "REDACTED")]
-		Redacted = (int)global::Octokit.GraphQL.Model.ProjectV2ItemType.Redacted
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REDACTED")]
+		Redacted
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ProjectV2ViewLayout
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "BOARD_LAYOUT")]
-		BoardLayout = (int)global::Octokit.GraphQL.Model.ProjectV2ViewLayout.BoardLayout,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BOARD_LAYOUT")]
+		BoardLayout,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TABLE_LAYOUT")]
-		TableLayout = (int)global::Octokit.GraphQL.Model.ProjectV2ViewLayout.TableLayout,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TABLE_LAYOUT")]
+		TableLayout,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ROADMAP_LAYOUT")]
-		RoadmapLayout = (int)global::Octokit.GraphQL.Model.ProjectV2ViewLayout.RoadmapLayout
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ROADMAP_LAYOUT")]
+		RoadmapLayout
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestMergeMethod
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "MERGE")]
-		Merge = (int)global::Octokit.GraphQL.Model.PullRequestMergeMethod.Merge,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MERGE")]
+		Merge,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SQUASH")]
-		Squash = (int)global::Octokit.GraphQL.Model.PullRequestMergeMethod.Squash,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SQUASH")]
+		Squash,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "REBASE")]
-		Rebase = (int)global::Octokit.GraphQL.Model.PullRequestMergeMethod.Rebase
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REBASE")]
+		Rebase
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestReviewCommentState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.PullRequestReviewCommentState.Pending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUBMITTED")]
-		Submitted = (int)global::Octokit.GraphQL.Model.PullRequestReviewCommentState.Submitted
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUBMITTED")]
+		Submitted
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestReviewEvent
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMMENT")]
-		Comment = (int)global::Octokit.GraphQL.Model.PullRequestReviewEvent.Comment,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMMENT")]
+		Comment,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "APPROVE")]
-		Approve = (int)global::Octokit.GraphQL.Model.PullRequestReviewEvent.Approve,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("APPROVE")]
+		Approve,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "REQUEST_CHANGES")]
-		RequestChanges = (int)global::Octokit.GraphQL.Model.PullRequestReviewEvent.RequestChanges,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("REQUEST_CHANGES")]
+		RequestChanges,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DISMISS")]
-		Dismiss = (int)global::Octokit.GraphQL.Model.PullRequestReviewEvent.Dismiss
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DISMISS")]
+		Dismiss
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestReviewState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.PullRequestReviewState.Pending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COMMENTED")]
-		Commented = (int)global::Octokit.GraphQL.Model.PullRequestReviewState.Commented,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COMMENTED")]
+		Commented,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "APPROVED")]
-		Approved = (int)global::Octokit.GraphQL.Model.PullRequestReviewState.Approved,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("APPROVED")]
+		Approved,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CHANGES_REQUESTED")]
-		ChangesRequested = (int)global::Octokit.GraphQL.Model.PullRequestReviewState.ChangesRequested,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CHANGES_REQUESTED")]
+		ChangesRequested,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "DISMISSED")]
-		Dismissed = (int)global::Octokit.GraphQL.Model.PullRequestReviewState.Dismissed
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("DISMISSED")]
+		Dismissed
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OPEN")]
-		Open = (int)global::Octokit.GraphQL.Model.PullRequestState.Open,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OPEN")]
+		Open,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CLOSED")]
-		Closed = (int)global::Octokit.GraphQL.Model.PullRequestState.Closed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CLOSED")]
+		Closed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MERGED")]
-		Merged = (int)global::Octokit.GraphQL.Model.PullRequestState.Merged
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MERGED")]
+		Merged
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum PullRequestUpdateState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OPEN")]
-		Open = (int)global::Octokit.GraphQL.Model.PullRequestUpdateState.Open,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OPEN")]
+		Open,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CLOSED")]
-		Closed = (int)global::Octokit.GraphQL.Model.PullRequestUpdateState.Closed
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CLOSED")]
+		Closed
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ReactionContent
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "THUMBS_UP")]
-		ThumbsUp = (int)global::Octokit.GraphQL.Model.ReactionContent.ThumbsUp,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("THUMBS_UP")]
+		ThumbsUp,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "THUMBS_DOWN")]
-		ThumbsDown = (int)global::Octokit.GraphQL.Model.ReactionContent.ThumbsDown,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("THUMBS_DOWN")]
+		ThumbsDown,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "LAUGH")]
-		Laugh = (int)global::Octokit.GraphQL.Model.ReactionContent.Laugh,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("LAUGH")]
+		Laugh,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "HOORAY")]
-		Hooray = (int)global::Octokit.GraphQL.Model.ReactionContent.Hooray,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("HOORAY")]
+		Hooray,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "CONFUSED")]
-		Confused = (int)global::Octokit.GraphQL.Model.ReactionContent.Confused,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CONFUSED")]
+		Confused,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "HEART")]
-		Heart = (int)global::Octokit.GraphQL.Model.ReactionContent.Heart,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("HEART")]
+		Heart,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ROCKET")]
-		Rocket = (int)global::Octokit.GraphQL.Model.ReactionContent.Rocket,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ROCKET")]
+		Rocket,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "EYES")]
-		Eyes = (int)global::Octokit.GraphQL.Model.ReactionContent.Eyes
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("EYES")]
+		Eyes
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum ReleaseOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CREATED_AT")]
-		CreatedAt = (int)global::Octokit.GraphQL.Model.ReleaseOrderField.CreatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CREATED_AT")]
+		CreatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NAME")]
-		Name = (int)global::Octokit.GraphQL.Model.ReleaseOrderField.Name
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NAME")]
+		Name
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryAffiliation
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "OWNER")]
-		Owner = (int)global::Octokit.GraphQL.Model.RepositoryAffiliation.Owner,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("OWNER")]
+		Owner,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "COLLABORATOR")]
-		Collaborator = (int)global::Octokit.GraphQL.Model.RepositoryAffiliation.Collaborator,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("COLLABORATOR")]
+		Collaborator,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ORGANIZATION_MEMBER")]
-		OrganizationMember = (int)global::Octokit.GraphQL.Model.RepositoryAffiliation.OrganizationMember
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ORGANIZATION_MEMBER")]
+		OrganizationMember
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryLockReason
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "MOVING")]
-		Moving = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.Moving,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MOVING")]
+		Moving,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "BILLING")]
-		Billing = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.Billing,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("BILLING")]
+		Billing,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "RENAME")]
-		Rename = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.Rename,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("RENAME")]
+		Rename,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MIGRATING")]
-		Migrating = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.Migrating,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MIGRATING")]
+		Migrating,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TRADE_RESTRICTION")]
-		TradeRestriction = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.TradeRestriction,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TRADE_RESTRICTION")]
+		TradeRestriction,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TRANSFERRING_OWNERSHIP")]
-		TransferringOwnership = (int)global::Octokit.GraphQL.Model.RepositoryLockReason.TransferringOwnership
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TRANSFERRING_OWNERSHIP")]
+		TransferringOwnership
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "CREATED_AT")]
-		CreatedAt = (int)global::Octokit.GraphQL.Model.RepositoryOrderField.CreatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("CREATED_AT")]
+		CreatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "UPDATED_AT")]
-		UpdatedAt = (int)global::Octokit.GraphQL.Model.RepositoryOrderField.UpdatedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UPDATED_AT")]
+		UpdatedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PUSHED_AT")]
-		PushedAt = (int)global::Octokit.GraphQL.Model.RepositoryOrderField.PushedAt,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PUSHED_AT")]
+		PushedAt,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "NAME")]
-		Name = (int)global::Octokit.GraphQL.Model.RepositoryOrderField.Name,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("NAME")]
+		Name,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "STARGAZERS")]
-		Stargazers = (int)global::Octokit.GraphQL.Model.RepositoryOrderField.Stargazers
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("STARGAZERS")]
+		Stargazers
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryPermission
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ADMIN")]
-		Admin = (int)global::Octokit.GraphQL.Model.RepositoryPermission.Admin,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ADMIN")]
+		Admin,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "MAINTAIN")]
-		Maintain = (int)global::Octokit.GraphQL.Model.RepositoryPermission.Maintain,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("MAINTAIN")]
+		Maintain,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "WRITE")]
-		Write = (int)global::Octokit.GraphQL.Model.RepositoryPermission.Write,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("WRITE")]
+		Write,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "TRIAGE")]
-		Triage = (int)global::Octokit.GraphQL.Model.RepositoryPermission.Triage,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("TRIAGE")]
+		Triage,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "READ")]
-		Read = (int)global::Octokit.GraphQL.Model.RepositoryPermission.Read
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("READ")]
+		Read
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryPrivacy
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "PUBLIC")]
-		Public = (int)global::Octokit.GraphQL.Model.RepositoryPrivacy.Public,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PUBLIC")]
+		Public,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PRIVATE")]
-		Private = (int)global::Octokit.GraphQL.Model.RepositoryPrivacy.Private
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PRIVATE")]
+		Private
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum RepositoryVisibility
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "PRIVATE")]
-		Private = (int)global::Octokit.GraphQL.Model.RepositoryVisibility.Private,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PRIVATE")]
+		Private,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PUBLIC")]
-		Public = (int)global::Octokit.GraphQL.Model.RepositoryVisibility.Public,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PUBLIC")]
+		Public,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "INTERNAL")]
-		Internal = (int)global::Octokit.GraphQL.Model.RepositoryVisibility.Internal
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("INTERNAL")]
+		Internal
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum StarOrderField
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "STARRED_AT")]
-		StarredAt = (int)global::Octokit.GraphQL.Model.StarOrderField.StarredAt
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("STARRED_AT")]
+		StarredAt
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum StatusState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "EXPECTED")]
-		Expected = (int)global::Octokit.GraphQL.Model.StatusState.Expected,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("EXPECTED")]
+		Expected,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ERROR")]
-		Error = (int)global::Octokit.GraphQL.Model.StatusState.Error,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ERROR")]
+		Error,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "FAILURE")]
-		Failure = (int)global::Octokit.GraphQL.Model.StatusState.Failure,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("FAILURE")]
+		Failure,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PENDING")]
-		Pending = (int)global::Octokit.GraphQL.Model.StatusState.Pending,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PENDING")]
+		Pending,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUCCESS")]
-		Success = (int)global::Octokit.GraphQL.Model.StatusState.Success
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUCCESS")]
+		Success
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum SubscriptionState
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "UNSUBSCRIBED")]
-		Unsubscribed = (int)global::Octokit.GraphQL.Model.SubscriptionState.Unsubscribed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("UNSUBSCRIBED")]
+		Unsubscribed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "SUBSCRIBED")]
-		Subscribed = (int)global::Octokit.GraphQL.Model.SubscriptionState.Subscribed,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("SUBSCRIBED")]
+		Subscribed,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "IGNORED")]
-		Ignored = (int)global::Octokit.GraphQL.Model.SubscriptionState.Ignored
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("IGNORED")]
+		Ignored
 	}
-
-	[global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
 	public enum UserBlockDuration
 	{
-		[global::System.Runtime.Serialization.EnumMember(Value = "ONE_DAY")]
-		OneDay = (int)global::Octokit.GraphQL.Model.UserBlockDuration.OneDay,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ONE_DAY")]
+		OneDay,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "THREE_DAYS")]
-		ThreeDays = (int)global::Octokit.GraphQL.Model.UserBlockDuration.ThreeDays,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("THREE_DAYS")]
+		ThreeDays,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ONE_WEEK")]
-		OneWeek = (int)global::Octokit.GraphQL.Model.UserBlockDuration.OneWeek,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ONE_WEEK")]
+		OneWeek,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "ONE_MONTH")]
-		OneMonth = (int)global::Octokit.GraphQL.Model.UserBlockDuration.OneMonth,
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("ONE_MONTH")]
+		OneMonth,
 
-		[global::System.Runtime.Serialization.EnumMember(Value = "PERMANENT")]
-		Permanent = (int)global::Octokit.GraphQL.Model.UserBlockDuration.Permanent
+		[global::System.Text.Json.Serialization.JsonStringEnumMemberName("PERMANENT")]
+		Permanent
 	}
 
 	public interface IActor
@@ -869,7 +783,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string NameWithOwner { get; set; }
 
-		public IRepositoryOwner Owner { get; set; }
+		public RepositoryOwner Owner { get; set; }
 
 		public string ResourcePath { get; set; }
 
@@ -934,7 +848,7 @@ namespace FluentHub.Core.Application.Models
 
 		public IssueCommentEdge? CommentEdge { get; set; }
 
-		public INode? Subject { get; set; }
+		public Node? Subject { get; set; }
 	}
 
 	public class AddPullRequestReviewRequest
@@ -988,7 +902,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AddedToProjectEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1026,7 +940,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AssignedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Assignee? Assignee { get; set; }
 
@@ -1052,7 +966,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutoMergeDisabledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1069,7 +983,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutoMergeEnabledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1082,7 +996,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutoRebaseEnabledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1095,7 +1009,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutoSquashEnabledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1108,7 +1022,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutomaticBaseChangeFailedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1125,7 +1039,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class AutomaticBaseChangeSucceededEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1142,7 +1056,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class BaseRefChangedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1159,7 +1073,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class BaseRefDeletedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public string? BaseRefName { get; set; }
 
@@ -1174,7 +1088,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class BaseRefForcePushedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Commit? AfterCommit { get; set; }
 
@@ -1406,7 +1320,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ClosedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Closer? Closer { get; set; }
 
@@ -1434,7 +1348,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class Comment
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -1465,13 +1379,13 @@ namespace FluentHub.Core.Application.Models
 
 	public class CommentDeletedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? DeletedCommentAuthor { get; set; }
+		public Actor? DeletedCommentAuthor { get; set; }
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 	}
@@ -1522,7 +1436,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string ResourcePath { get; set; } = default!;
 
-		public IGitSignature? Signature { get; set; }
+		public GitSignature? Signature { get; set; }
 
 		public Status? Status { get; set; }
 
@@ -1539,12 +1453,14 @@ namespace FluentHub.Core.Application.Models
 
 	public class CommitAuthor
 	{
+		public global::System.Collections.Generic.List<string>? Emails { get; set; }
+
 		public global::Octokit.GraphQL.ID? Id { get; set; }
 	}
 
 	public class CommitComment
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -1668,7 +1584,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ConnectedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1738,7 +1654,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ConvertToDraftEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1755,7 +1671,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ConvertedNoteToIssueEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1768,7 +1684,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ConvertedToDiscussionEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1809,7 +1725,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class CrossReferencedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1846,7 +1762,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class DemilestonedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1861,7 +1777,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class DeployedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1884,7 +1800,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor Creator { get; set; } = default!;
+		public Actor Creator { get; set; } = default!;
 
 		public string? Description { get; set; }
 
@@ -1909,7 +1825,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class DeploymentEnvironmentChangedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1928,7 +1844,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor Creator { get; set; } = default!;
+		public Actor Creator { get; set; } = default!;
 
 		public Deployment Deployment { get; set; } = default!;
 
@@ -1947,7 +1863,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class DisconnectedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -1968,7 +1884,7 @@ namespace FluentHub.Core.Application.Models
 
 		public global::System.DateTimeOffset? AnswerChosenAt { get; set; }
 
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -2070,7 +1986,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class DiscussionComment
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -2245,7 +2161,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class HeadRefDeletedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2262,7 +2178,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class HeadRefForcePushedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Commit? AfterCommit { get; set; }
 
@@ -2281,7 +2197,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class HeadRefRestoredEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2298,7 +2214,7 @@ namespace FluentHub.Core.Application.Models
 
 		public UserConnection Assignees { get; set; } = default!;
 
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -2389,7 +2305,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class IssueComment
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -2740,7 +2656,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class LabeledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2799,7 +2715,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class LockedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2837,7 +2753,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MarkedAsDuplicateEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public IssueOrPullRequest? Canonical { get; set; }
 
@@ -2854,7 +2770,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MentionedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2882,7 +2798,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MergePullRequestResult
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public string? ClientMutationId { get; set; }
 
@@ -2891,7 +2807,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MergedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Commit? Commit { get; set; }
 
@@ -2922,7 +2838,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public string? Description { get; set; }
 
@@ -2984,7 +2900,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MilestonedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -2999,7 +2915,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class MovedColumnsInProjectEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -3240,7 +3156,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class PinnedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -3292,7 +3208,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 
@@ -3329,7 +3245,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 
@@ -3420,7 +3336,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public ProjectV2FieldConfiguration? Field { get; set; }
 
@@ -3513,7 +3429,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 
@@ -3600,7 +3516,7 @@ namespace FluentHub.Core.Application.Models
 
 		public UserConnection Assignees { get; set; } = default!;
 
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -3816,7 +3732,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class PullRequestReview
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -3879,7 +3795,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class PullRequestReviewComment
 	{
-		public IActor? Author { get; set; }
+		public Actor? Author { get; set; }
 
 		public CommentAuthorAssociation AuthorAssociation { get; set; }
 
@@ -4321,7 +4237,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReadyForReviewEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4369,7 +4285,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReferencedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Commit? Commit { get; set; }
 
@@ -4543,7 +4459,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class RemovedFromProjectEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4554,7 +4470,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class RenamedTitleEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4606,7 +4522,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReopenedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4695,7 +4611,7 @@ namespace FluentHub.Core.Application.Models
 
 		public IGitObject? Object { get; set; }
 
-		public IRepositoryOwner Owner { get; set; } = default!;
+		public RepositoryOwner Owner { get; set; } = default!;
 
 		public PackageConnection Packages { get; set; } = default!;
 
@@ -4799,7 +4715,11 @@ namespace FluentHub.Core.Application.Models
 
 	public class RequestedReviewer
 	{
+		public string? AvatarUrl { get; set; }
+
 		public Bot? Bot { get; set; }
+
+		public string? Login { get; set; }
 
 		public Mannequin? Mannequin { get; set; }
 
@@ -4808,7 +4728,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReviewDismissedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4858,7 +4778,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReviewRequestRemovedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4873,7 +4793,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class ReviewRequestedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4968,7 +4888,7 @@ namespace FluentHub.Core.Application.Models
 
 		public string? CreatedAtHumanized { get; set; }
 
-		public IActor? Creator { get; set; }
+		public Actor? Creator { get; set; }
 
 		public string? Description { get; set; }
 
@@ -4990,7 +4910,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class SubscribedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -4998,7 +4918,7 @@ namespace FluentHub.Core.Application.Models
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 
-		public ISubscribable Subscribable { get; set; } = default!;
+		public Subscribable Subscribable { get; set; } = default!;
 	}
 
 	public class Tag
@@ -5035,7 +4955,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class TransferredEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -5086,7 +5006,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnassignedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public Assignee? Assignee { get; set; }
 
@@ -5101,7 +5021,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnlabeledEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -5114,7 +5034,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnlockedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -5125,7 +5045,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnmarkedAsDuplicateEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public IssueOrPullRequest? Canonical { get; set; }
 
@@ -5142,7 +5062,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnpinnedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -5155,7 +5075,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UnsubscribedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public global::System.DateTimeOffset CreatedAt { get; set; }
 
@@ -5163,7 +5083,7 @@ namespace FluentHub.Core.Application.Models
 
 		public global::Octokit.GraphQL.ID Id { get; set; }
 
-		public ISubscribable Subscribable { get; set; } = default!;
+		public Subscribable Subscribable { get; set; } = default!;
 	}
 
 	public class UpdateIssueCommentRequest
@@ -5205,7 +5125,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UpdateIssueResult
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public string? ClientMutationId { get; set; }
 
@@ -5239,7 +5159,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UpdatePullRequestResult
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public string? ClientMutationId { get; set; }
 
@@ -5259,7 +5179,7 @@ namespace FluentHub.Core.Application.Models
 	{
 		public string? ClientMutationId { get; set; }
 
-		public ISubscribable? Subscribable { get; set; }
+		public Subscribable? Subscribable { get; set; }
 	}
 
 	public class User
@@ -5359,7 +5279,7 @@ namespace FluentHub.Core.Application.Models
 
 	public class UserBlockedEvent
 	{
-		public IActor? Actor { get; set; }
+		public Actor? Actor { get; set; }
 
 		public UserBlockDuration BlockDuration { get; set; }
 
