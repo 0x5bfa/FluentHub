@@ -5,13 +5,14 @@
 		<AssemblyName>Octokit.GraphQL</AssemblyName>
 		<RootNamespace>Octokit.GraphQL</RootNamespace>
 		<IsPackable>false</IsPackable>
-		<Nullable>disable</Nullable>
-		<ImplicitUsings>disable</ImplicitUsings>
+		<IsAotCompatible>true</IsAotCompatible>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<ProjectReference Include="..\Transport\Octokit.Transport.csproj" />
 	</ItemGroup>
 
 </Project>

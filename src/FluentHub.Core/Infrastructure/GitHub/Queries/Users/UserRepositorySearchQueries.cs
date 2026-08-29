@@ -1,10 +1,11 @@
 using System.IO;
-using GraphQL;
+using System.Text.Json.Serialization;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	internal sealed class UserRepositorySearchQueries
+	internal sealed partial class UserRepositorySearchQueries
 	{
 		private const string RepositorySearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
@@ -90,21 +91,18 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			string? cursor,
 			CancellationToken cancellationToken)
 		{
-			var request = new GraphQLRequest
-			{
-				Query = RepositorySearchQuery,
-				Variables = new
+			var response = await _gitHub.RunGraphQLAsync(
+				RepositorySearchQuery,
+				UserRepositorySearchJsonContext.Default.SearchResponse,
+				writer =>
 				{
-					query = searchText,
-					first = 100,
-					after = cursor,
+					writer.WriteString("query", searchText);
+					writer.WriteNumber("first", 100);
+					GraphQLInputWriter.WriteOptionalString(writer, "after", cursor);
 				},
-			};
-			var response = await _gitHub.SendGraphQLAsync<SearchResponse>(request, cancellationToken);
-			if (response.Errors is { Length: > 0 })
-				throw new InvalidOperationException(string.Join("; ", response.Errors.Select(error => error.Message)));
+				cancellationToken);
 
-			return response.Data?.Search
+			return response.Search
 				?? throw new InvalidDataException("GitHub returned an incomplete repository search response.");
 		}
 
@@ -222,5 +220,9 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 			public string Login { get; set; } = string.Empty;
 		}
+
+		[JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
+		[JsonSerializable(typeof(SearchResponse))]
+		private sealed partial class UserRepositorySearchJsonContext : JsonSerializerContext;
 	}
 }

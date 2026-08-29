@@ -1,11 +1,39 @@
-using FluentHub.Core.Infrastructure.GitHub.Clients;
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Application.Abstractions.Caching;
 using FluentHub.Core.Infrastructure.Caching;
+using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 {
 	public class OrganizationQueries
 	{
+		private const string Query = """
+			query Organization($login: String!) {
+			  result: organization(login: $login) {
+			    avatarUrl(size: 500)
+			    description
+			    email
+			    id
+			    isVerified
+			    location
+			    login
+			    name
+			    twitterUsername
+			    url
+			    viewerCanChangePinnedItems
+			    viewerCanSponsor
+			    viewerIsAMember
+			    viewerIsFollowing
+			    viewerIsSponsoring
+			    websiteUrl
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 		private readonly ICacheService? _cache;
 
@@ -18,7 +46,6 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 		public Task<Organization> GetAsync(string org, CancellationToken cancellationToken = default)
 		{
 			ArgumentException.ThrowIfNullOrWhiteSpace(org);
-
 			if (_cache is null)
 				return GetUncachedAsync(org, cancellationToken);
 
@@ -33,32 +60,13 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 
 		private async Task<Organization> GetUncachedAsync(string org, CancellationToken cancellationToken)
 		{
-			var query = new Query()
-				.Organization(org)
-				.Select(x => new Organization
-				{
-					AvatarUrl = x.AvatarUrl(500),
-					Description = x.Description,
-					Email = x.Email,
-					Id = x.Id,
-					IsVerified = x.IsVerified,
-					Location = x.Location,
-					Login = x.Login,
-					Name = x.Name,
-					TwitterUsername = x.TwitterUsername,
-					Url = x.Url,
-					ViewerCanChangePinnedItems = x.ViewerCanChangePinnedItems,
-					ViewerCanSponsor = x.ViewerCanSponsor,
-					ViewerIsAMember = x.ViewerIsAMember,
-					ViewerIsFollowing = x.ViewerIsFollowing,
-					ViewerIsSponsoring = x.ViewerIsSponsoring,
-					WebsiteUrl = x.WebsiteUrl,
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+			var response = await _gitHub.RunGraphQLAsync(
+				Query,
+				GitHubGraphQLJsonContext.Default.GraphQLResultOrganization,
+				writer => writer.WriteString("login", org),
+				cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException($"GitHub organization '{org}' was not found.");
 		}
 	}
 }

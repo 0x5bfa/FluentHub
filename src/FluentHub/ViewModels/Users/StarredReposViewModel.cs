@@ -5,7 +5,7 @@ using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.Models;
 using FluentHub.ViewModels.Controls.BlockButtons;
 using FluentHub.Core.Application.Models;
-using OctokitGraphQLModel = Octokit.GraphQL.Model;
+using GitHubModels = FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Users
 {
@@ -269,11 +269,11 @@ namespace FluentHub.ViewModels.Users
 			|| filters.Type != UserRepositoryTypeFilter.All
 			|| filters.Sort != StarredRepositorySort.RecentlyStarred;
 
-		private static OctokitGraphQLModel.StarOrder CreateStarOrder()
+		private static GitHubModels.StarOrder CreateStarOrder()
 			=> new()
 			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.StarOrderField.StarredAt,
+				Direction = GitHubModels.OrderDirection.Desc,
+				Field = GitHubModels.StarOrderField.StarredAt,
 			};
 	}
 }

@@ -1,191 +1,106 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
 	public class StarredRepoQueries
 	{
+		private const string PageQuery = """
+			query StarredRepositories($login: String!, $first: Int, $after: String, $last: Int, $before: String, $orderBy: StarOrder, $ownedByViewer: Boolean) {
+			  result: user(login: $login) {
+			    starredRepositories(first: $first, after: $after, last: $last, before: $before, orderBy: $orderBy, ownedByViewer: $ownedByViewer) {
+			""" + RepositoryListQuery.Connection + """
+			    }
+			  }
+			}
+			""" + RepositoryListQuery.Fields;
+
+		private const string LanguagesQuery = """
+			query StarredRepositoryLanguages($login: String!, $after: String) {
+			  result: user(login: $login) {
+			    starredRepositories(first: 100, after: $after) {
+			""" + RepositoryListQuery.LanguageConnection + """
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public StarredRepoQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public StarredRepoQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
+
 		public async Task<PageResult<Repository>> GetPageAsync(
 			string login,
 			PageRequest page,
-			OctokitGraphQLModel.StarOrder? orderBy = null,
+			StarOrder? orderBy = null,
 			bool? ownedByViewer = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
-				new(new OctokitGraphQLModel.IssueState[]
+			var response = await _gitHub.RunGraphQLAsync(
+				PageQuery,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
+				writer =>
 				{
-					OctokitGraphQLModel.IssueState.Open
-				});
-
-			OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
-				new(new OctokitGraphQLModel.PullRequestState[]
-				{
-					OctokitGraphQLModel.PullRequestState.Open
-				});
-
-			var query = new Query()
-				.User(login)
-				.StarredRepositories(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					orderBy,
-					ownedByViewer)
-				.Select(connection => new RepositoryConnection
-				{
-					Edges = connection.Edges.Select(edge => (RepositoryEdge?)new RepositoryEdge
+					writer.WriteString("login", login);
+					GraphQLInputWriter.WritePage(writer, page);
+					if (orderBy is not null)
 					{
-						Node = edge.Node.Select(x => new Repository
-						{
-							Name = x.Name,
-							Description = x.Description,
-							StargazerCount = x.StargazerCount,
-							ForkCount = x.ForkCount,
-							HasSponsorshipsEnabled = x.HasSponsorshipsEnabled,
-							Id = x.Id,
-							IsArchived = x.IsArchived,
-							IsFork = x.IsFork,
-							IsInOrganization = x.IsInOrganization,
-							IsMirror = x.IsMirror,
-							IsPrivate = x.IsPrivate,
-							IsTemplate = x.IsTemplate,
-							PushedAt = x.PushedAt,
-							ViewerHasStarred = x.ViewerHasStarred,
-							UpdatedAt = x.UpdatedAt,
-							UpdatedAtHumanized = x.UpdatedAt.ToRelativeTime(),
-
-							LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
-							{
-								Name = licenseInfo.Name,
-							})
-							.SingleOrDefault(),
-
-							Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
-							{
-								TotalCount = issues.TotalCount
-							})
-							.Single(),
-
-							PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
-							{
-								TotalCount = issues.TotalCount
-							})
-							.Single(),
-
-							Owner = x.Owner.Select(owner => new RepositoryOwner
-							{
-								AvatarUrl = owner.AvatarUrl(500),
-								Id = owner.Id,
-								Login = owner.Login,
-							})
-							.Single(),
-
-							PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
-							{
-								Name = y.Name,
-								Color = y.Color,
-							})
-							.SingleOrDefault(),
-						}).Single()
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Repository>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+						writer.WriteStartObject("orderBy");
+						writer.WriteString("field", "STARRED_AT");
+						writer.WriteString("direction", orderBy.Direction == OrderDirection.Asc ? "ASC" : "DESC");
+						writer.WriteEndObject();
+					}
+					GraphQLInputWriter.WriteOptionalBoolean(writer, "ownedByViewer", ownedByViewer);
+				},
+				cancellationToken);
+			return RepositoryListQuery.ToPage(response.Result?.StarredRepositories
+				?? throw new InvalidDataException("GitHub returned an incomplete starred repositories response."));
 		}
 
-		public async Task<IReadOnlyList<Repository>> GetAllAsync(
-			string login,
-			CancellationToken cancellationToken = default)
+		public async Task<IReadOnlyList<Repository>> GetAllAsync(string login, CancellationToken cancellationToken = default)
 		{
 			var repositories = new List<Repository>();
 			PageRequest? page = PageRequest.Forward(100);
-			var order = new OctokitGraphQLModel.StarOrder
-			{
-				Direction = OctokitGraphQLModel.OrderDirection.Desc,
-				Field = OctokitGraphQLModel.StarOrderField.StarredAt,
-			};
-
+			var order = new StarOrder { Direction = OrderDirection.Desc, Field = StarOrderField.StarredAt };
 			do
 			{
 				var result = await GetPageAsync(login, page, order, cancellationToken: cancellationToken);
 				repositories.AddRange(result.Items);
-				page = result.PageInfo.HasNextPage
-					&& !string.IsNullOrEmpty(result.PageInfo.EndCursor)
+				page = result.PageInfo.HasNextPage && !string.IsNullOrEmpty(result.PageInfo.EndCursor)
 					? PageRequest.Forward(100, result.PageInfo.EndCursor)
 					: null;
 			}
 			while (page is not null);
-
 			return repositories;
 		}
 
-		public async Task<IReadOnlyList<string>> GetLanguagesAsync(
-			string login,
-			CancellationToken cancellationToken = default)
+		public async Task<IReadOnlyList<string>> GetLanguagesAsync(string login, CancellationToken cancellationToken = default)
 		{
 			ArgumentException.ThrowIfNullOrWhiteSpace(login);
-
 			var languages = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 			string? cursor = null;
 			do
 			{
-				var query = new Query()
-					.User(login)
-					.StarredRepositories(first: 100, after: cursor)
-					.Select(connection => new StarredRepositoryConnection
+				var response = await _gitHub.RunGraphQLAsync(
+					LanguagesQuery,
+					GitHubGraphQLJsonContext.Default.GraphQLResultUser,
+					writer =>
 					{
-						Nodes = connection.Nodes.Select(node => (Repository?)new Repository
-						{
-							PrimaryLanguage = node.PrimaryLanguage.Select(language => new Language
-							{
-								Name = language.Name,
-							})
-							.SingleOrDefault(),
-						}).ToList(),
-						PageInfo = new PageInfo
-						{
-							EndCursor = connection.PageInfo.EndCursor,
-							HasNextPage = connection.PageInfo.HasNextPage,
-						},
-					})
-					.Compile();
-				var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-				foreach (var language in response.Nodes?
-					.Select(repository => repository?.PrimaryLanguage?.Name)
-					.Where(name => !string.IsNullOrWhiteSpace(name)) ?? [])
-				{
-					languages.Add(language!);
-				}
-
-				cursor = response.PageInfo.HasNextPage
-					? response.PageInfo.EndCursor
-					: null;
+						writer.WriteString("login", login);
+						GraphQLInputWriter.WriteOptionalString(writer, "after", cursor);
+					},
+					cancellationToken);
+				var connection = response.Result?.StarredRepositories
+					?? throw new InvalidDataException("GitHub returned an incomplete starred repository languages response.");
+				RepositoryListQuery.AddLanguages(languages, connection.Nodes);
+				cursor = connection.PageInfo.HasNextPage ? connection.PageInfo.EndCursor : null;
 			}
 			while (cursor is not null);
-
 			return languages.OrderBy(language => language, StringComparer.OrdinalIgnoreCase).ToList();
 		}
 	}

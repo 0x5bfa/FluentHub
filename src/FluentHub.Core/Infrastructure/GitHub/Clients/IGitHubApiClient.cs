@@ -1,8 +1,8 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using GraphQL;
-using GraphQL.Client.Abstractions;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -15,12 +15,9 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 			CancellationToken cancellationToken = default);
 
 		Task<T> RunGraphQLAsync<T>(
-			ICompiledQuery<T> query,
+			string query,
+			JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default);
-
-		Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
-			CancellationToken cancellationToken = default);
-
 	}
 }

@@ -1,11 +1,8 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using FluentHub.Core.Application.Abstractions.Authentication;
-using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.Newtonsoft;
 using Octokit.Rest;
 using Octokit.Transport;
 
@@ -79,28 +76,17 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 			{
 				Transport = GitHubHttpClient.Create(accessToken, "FluentHub");
 				Rest = new GitHubRestClient(Transport);
-
-				GraphQL = new Connection(new global::Octokit.GraphQL.ProductHeaderValue("FluentHub"), accessToken);
-
-				RawGraphQL = new GraphQLHttpClient(
-					"https://api.github.com/graphql",
-					new NewtonsoftJsonSerializer());
-				RawGraphQL.HttpClient.DefaultRequestHeaders.Authorization
-					= new AuthenticationHeaderValue("Bearer", accessToken);
-				RawGraphQL.HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("FluentHub");
+				GraphQL = new GitHubGraphQLClient(Transport);
 			}
 
 			public GitHubRestClient Rest { get; }
 
-			public Connection GraphQL { get; }
-
-			public GraphQLHttpClient RawGraphQL { get; }
+			public GitHubGraphQLClient GraphQL { get; }
 
 			public GitHubHttpClient Transport { get; }
 
 			public void Dispose()
 			{
-				RawGraphQL.Dispose();
 				Transport.Dispose();
 			}
 		}

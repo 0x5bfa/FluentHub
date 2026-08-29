@@ -1,164 +1,141 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
 	public class CommitQueries
 	{
+		private const string CommitFields = """
+			fragment CommitListFields on Commit {
+			  abbreviatedOid additions changedFilesIfAvailable committedDate deletions message messageHeadline oid
+			  author { avatarUrl(size: 500) user { login } }
+			  repository { name owner { login } }
+			  signature {
+			    isValid payload signature state wasSignedByGitHub
+			    signer { avatarUrl(size: 500) login }
+			  }
+			}
+			""";
+
+		private const string PageQuery = """
+			query CommitHistory($owner: String!, $name: String!, $ref: String!, $first: Int, $after: String, $last: Int, $before: String, $author: CommitAuthor, $path: String, $since: GitTimestamp, $until: GitTimestamp) {
+			  result: repository(owner: $owner, name: $name) {
+			    ref(qualifiedName: $ref) {
+			      target {
+			        ... on Commit {
+			          history(first: $first, after: $after, last: $last, before: $before, author: $author, path: $path, since: $since, until: $until) {
+			            edges { node { ...CommitListFields } }
+			            pageInfo { endCursor hasNextPage hasPreviousPage startCursor }
+			          }
+			        }
+			      }
+			    }
+			  }
+			}
+			""" + CommitFields;
+
+		private const string LatestQuery = """
+			query LatestCommit($owner: String!, $name: String!, $ref: String!, $path: String!) {
+			  result: repository(owner: $owner, name: $name) {
+			    ref(qualifiedName: $ref) {
+			      target {
+			        ... on Commit {
+			          history(first: 1, path: $path) {
+			            nodes {
+			              abbreviatedOid additions changedFilesIfAvailable committedDate deletions message messageHeadline oid
+			              author { avatarUrl(size: 500) user { login } }
+			            }
+			            totalCount
+			          }
+			        }
+			      }
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public CommitQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public CommitQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
+
 		public async Task<PageResult<Commit>> GetPageAsync(
 			string owner,
 			string name,
 			string refs,
 			PageRequest page,
-			OctokitGraphQLModel.CommitAuthor? author = null,
+			CommitAuthor? author = null,
 			string? path = null,
 			string? since = null,
 			string? until = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
+			path = string.IsNullOrEmpty(path) ? "." : path;
 
-			if (string.IsNullOrEmpty(path))
-				path = ".";
-
-			var query = new Query()
-				.Repository(name, owner)
-				.Ref(refs)
-				.Target
-				.Cast<OctokitGraphQLModel.Commit>()
-				.History(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					author,
-					path,
-					since,
-					until)
-				.Select(connection => new CommitHistoryConnection
+			var response = await _gitHub.RunGraphQLAsync(
+				PageQuery,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryRefResult,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (CommitEdge?)new CommitEdge
+					WriteRepositoryRef(writer, owner, name, refs);
+					GraphQLInputWriter.WritePage(writer, page);
+					if (author is not null)
 					{
-						Node = edge.Node.Select(x => new Commit
-						{
-							AbbreviatedOid = x.AbbreviatedOid,
-							Additions = x.Additions,
-							ChangedFilesIfAvailable = x.ChangedFilesIfAvailable,
-							CommittedDate = x.CommittedDate,
-							CommittedDateHumanized = x.CommittedDate.ToRelativeTime(),
-							Deletions = x.Deletions,
-							Message = x.Message,
-							MessageHeadline = x.MessageHeadline,
-							Oid = x.Oid,
-
-							Author = x.Author.Select(author => new GitActor
-							{
-								AvatarUrl = author.AvatarUrl(500),
-
-								User = author.User.Select(user => new User
-								{
-									Login = user.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Signature = x.Signature.Select(signature => new GitSignature
-							{
-								IsValid = signature.IsValid,
-								Payload = signature.Payload,
-								Signature = signature.Payload,
-								State = (GitSignatureState)signature.State,
-								WasSignedByGitHub = signature.WasSignedByGitHub,
-
-								Signer = signature.Signer.Select(user => new User
-								{
-									AvatarUrl = user.AvatarUrl(500),
-									Login = user.Login
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-						}).Single(),
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Commit>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+						writer.WriteStartObject("author");
+						GraphQLInputWriter.WriteOptionalId(writer, "id", author.Id);
+						GraphQLInputWriter.WriteOptionalStrings(writer, "emails", author.Emails);
+						writer.WriteEndObject();
+					}
+					GraphQLInputWriter.WriteOptionalString(writer, "path", path);
+					GraphQLInputWriter.WriteOptionalString(writer, "since", since);
+					GraphQLInputWriter.WriteOptionalString(writer, "until", until);
+				},
+				cancellationToken);
+			var connection = response.Result?.Ref?.Target?.History
+				?? throw new InvalidDataException("GitHub returned an incomplete commit history response.");
+			var commits = connection.Edges?.Where(edge => edge?.Node is not null).Select(edge => edge!.Node!).ToList() ?? [];
+			foreach (var commit in commits)
+				commit.CommittedDateHumanized = commit.CommittedDate.ToRelativeTime();
+			return new(commits, connection.PageInfo);
 		}
 
-		public async Task<Commit> GetLatestAsync(string name, string owner, string refs, string path, CancellationToken cancellationToken = default)
+		public async Task<Commit> GetLatestAsync(
+			string name,
+			string owner,
+			string refs,
+			string path,
+			CancellationToken cancellationToken = default)
 		{
-			if (string.IsNullOrEmpty(path))
-				path = ".";
-
-			var query = new Query()
-				.Repository(name, owner)
-				.Ref(refs)
-				.Target
-				.Cast<OctokitGraphQLModel.Commit>()
-				.Select(commit => new Commit
+			path = string.IsNullOrEmpty(path) ? "." : path;
+			var response = await _gitHub.RunGraphQLAsync(
+				LatestQuery,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryRefResult,
+				writer =>
 				{
-					History = commit.History(1, null, null, null, null, path, null, null).Select(history => new CommitHistoryConnection
-					{
-						Nodes = history.Nodes.Select(y => (Commit?)new Commit
-						{
-							AbbreviatedOid = y.AbbreviatedOid,
-							Additions = y.Additions,
-							ChangedFilesIfAvailable = y.ChangedFilesIfAvailable,
-							CommittedDate = y.CommittedDate,
-							CommittedDateHumanized = y.CommittedDate.ToRelativeTime(),
-							Deletions = y.Deletions,
-							Message = y.Message,
-							MessageHeadline = y.MessageHeadline,
-							Oid = y.Oid,
+					WriteRepositoryRef(writer, owner, name, refs);
+					writer.WriteString("path", path);
+				},
+				cancellationToken);
+			var commit = response.Result?.Ref?.Target
+				?? throw new InvalidDataException("GitHub returned an incomplete latest commit response.");
+			foreach (var item in commit.History?.Nodes?.Where(item => item is not null).Select(item => item!) ?? [])
+				item.CommittedDateHumanized = item.CommittedDate.ToRelativeTime();
+			return commit;
+		}
 
-							Author = y.Author.Select(author => new GitActor
-							{
-								AvatarUrl = author.AvatarUrl(500),
-								User = author.User.Select(user => new User
-								{
-									Login = user.Login,
-								})
-								.SingleOrDefault(),
-							})
-							.SingleOrDefault(),
-						})
-						.ToList(),
-
-						TotalCount = history.TotalCount,
-					})
-					.SingleOrDefault(),
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return response;
+		private static void WriteRepositoryRef(
+			System.Text.Json.Utf8JsonWriter writer,
+			string owner,
+			string name,
+			string refs)
+		{
+			writer.WriteString("owner", owner);
+			writer.WriteString("name", name);
+			writer.WriteString("ref", refs);
 		}
 	}
 }

@@ -1,42 +1,56 @@
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
 	public sealed class SubscriptionMutations
 	{
+		private const string UpdateSubscription = """
+			mutation UpdateSubscription($input: UpdateSubscriptionInput!) {
+			  result: updateSubscription(input: $input) {
+			    clientMutationId
+			    subscribable {
+			      id
+			      viewerCanSubscribe
+			      viewerSubscription
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
 		public SubscriptionMutations(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
 
-		public Task<UpdateSubscriptionResult> UpdateAsync(
+		public async Task<UpdateSubscriptionResult> UpdateAsync(
 			UpdateSubscriptionRequest request,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			var mutation = new Mutation()
-				.UpdateSubscription(new(new OctokitGraphQLModel.UpdateSubscriptionInput
+			var response = await _gitHub.RunGraphQLAsync(
+				UpdateSubscription,
+				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateSubscriptionResult,
+				writer =>
 				{
-					SubscribableId = request.SubscribableId,
-					State = (OctokitGraphQLModel.SubscriptionState)request.State,
-					ClientMutationId = request.ClientMutationId,
-				}))
-				.Select(x => new UpdateSubscriptionResult
-				{
-					ClientMutationId = x.ClientMutationId,
-					Subscribable = x.Subscribable.Select(subject => new Subscribable
+					writer.WriteStartObject("input");
+					writer.WriteString("subscribableId", request.SubscribableId.Value);
+					writer.WriteString("state", request.State switch
 					{
-						Id = subject.Id,
-						ViewerCanSubscribe = subject.ViewerCanSubscribe,
-						ViewerSubscription = subject.ViewerSubscription == null
-							? null
-							: (SubscriptionState?)subject.ViewerSubscription.Value,
-					}).SingleOrDefault(),
-				})
-				.Compile();
+						SubscriptionState.Unsubscribed => "UNSUBSCRIBED",
+						SubscriptionState.Subscribed => "SUBSCRIBED",
+						SubscriptionState.Ignored => "IGNORED",
+						_ => throw new ArgumentOutOfRangeException(nameof(request), request.State, "Unknown subscription state."),
+					});
+					writer.WriteString("clientMutationId", request.ClientMutationId);
+					writer.WriteEndObject();
+				},
+				cancellationToken);
 
-			return _gitHub.RunGraphQLAsync(mutation, cancellationToken);
+			return response.Result
+				?? throw new InvalidDataException("GitHub returned an incomplete update-subscription response.");
 		}
 	}
 }

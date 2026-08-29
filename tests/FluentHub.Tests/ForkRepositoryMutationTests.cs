@@ -1,14 +1,12 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Core.Application.Models;
 using FluentHub.Core.Infrastructure.GitHub.Mutations;
-using GraphQL;
-using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Octokit.GraphQL;
 using Octokit.Rest;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using GitHubApiException = Octokit.Transport.GitHubApiException;
 using GitHubHttpClient = Octokit.Transport.GitHubHttpClient;
 
@@ -130,12 +128,9 @@ public sealed class ForkRepositoryMutationTests
 			=> operation(_rest, cancellationToken);
 
 		public Task<T> RunGraphQLAsync<T>(
-			ICompiledQuery<T> query,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
-
-		public Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
+			string query,
+			JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
 			=> throw new NotSupportedException();
 		public void Dispose()

@@ -104,6 +104,34 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
+	public void GraphQLClientRemainsNativeAotCompatible()
+	{
+		var root = FindRepositoryRoot();
+		var graphQLRoot = Path.Combine(root, "src", "Octokit", "GraphQL");
+		var project = File.ReadAllText(Path.Combine(graphQLRoot, "Octokit.GraphQL.csproj"));
+		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
+		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
+
+		var forbidden = new[]
+		{
+			"Activator.CreateInstance",
+			"Expression.Compile",
+			"GraphQL.Client",
+			"MakeGenericType",
+			"Newtonsoft.Json",
+		};
+		var violations = Directory.EnumerateFiles(graphQLRoot, "*.cs", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.SelectMany(path => forbidden
+				.Where(value => File.ReadAllText(path).Contains(value, StringComparison.Ordinal))
+				.Select(value => $"{Path.GetRelativePath(root, path)}: {value}"))
+			.ToList();
+
+		Assert.AreEqual(0, violations.Count,
+			$"Native AOT-incompatible GraphQL patterns remain:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
 	public void MainProjectCodeUsesOnlyApprovedFolders()
 	{
 		var root = FindRepositoryRoot();

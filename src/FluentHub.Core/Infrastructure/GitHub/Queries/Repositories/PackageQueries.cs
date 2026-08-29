@@ -1,86 +1,51 @@
+// Copyright (c) 0x5BFA. All rights reserved.
+// Licensed under the MIT License. See the LICENSE.
+
+using System.IO;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
 	public class PackageQueries
 	{
+		private const string Query = """
+			query RepositoryPackages($owner: String!, $name: String!, $first: Int, $after: String, $last: Int, $before: String, $names: [String!], $orderBy: PackageOrder, $packageType: PackageType, $repositoryId: ID) {
+			  result: repository(owner: $owner, name: $name) {
+			    packages(first: $first, after: $after, last: $last, before: $before, names: $names, orderBy: $orderBy, packageType: $packageType, repositoryId: $repositoryId) {
+			""" + PackageQuery.Selection + """
+			    }
+			  }
+			}
+			""";
+
 		private readonly IGitHubApiClient _gitHub;
 
-		public PackageQueries(IGitHubApiClient gitHub)
-			=> _gitHub = gitHub;
+		public PackageQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
+
 		public async Task<PageResult<Package>> GetPageAsync(
 			string owner,
 			string name,
 			PageRequest page,
 			IEnumerable<string>? names = null,
-			OctokitGraphQLModel.PackageOrder? orderBy = null,
-			OctokitGraphQLModel.PackageType? packageType = null,
+			PackageOrder? orderBy = null,
+			PackageType? packageType = null,
 			ID? repositoryId = null,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(page);
-
-			var query = new Query()
-				.Repository(name, owner)
-				.Packages(
-					page.First,
-					page.After,
-					page.Last,
-					page.Before,
-					names is not null ? new OctokitGraphQLCore.Arg<IEnumerable<string>>(names) : null!,
-					orderBy,
-					packageType,
-					repositoryId)
-				.Select(connection => new PackageConnection
+			var response = await _gitHub.RunGraphQLAsync(
+				Query,
+				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
+				writer =>
 				{
-					Edges = connection.Edges.Select(edge => (PackageEdge?)new PackageEdge
-					{
-						Node = edge.Node.Select(x => new Package
-						{
-							Id = x.Id,
-							Name = x.Name,
-							PackageType = (PackageType)x.PackageType,
-
-							LatestVersion = x.LatestVersion.Select(lv => new PackageVersion
-							{
-								Version = lv.Version,
-							}).SingleOrDefault(),
-
-							Repository = x.Repository.Select(repo => new Repository
-							{
-								Name = repo.Name,
-								Owner = repo.Owner.Select(owner => new RepositoryOwner
-								{
-									AvatarUrl = owner.AvatarUrl(500),
-									Login = owner.Login,
-								}).SingleOrDefault(),
-							}).SingleOrDefault(),
-
-							Statistics = x.Statistics.Select(stat => new PackageStatistics
-							{
-								DownloadsTotalCount = stat.DownloadsTotalCount,
-							}).SingleOrDefault(),
-						}).Single(),
-					}).ToList(),
-
-					PageInfo = new()
-					{
-						EndCursor = connection.PageInfo.EndCursor,
-						HasNextPage = connection.PageInfo.HasNextPage,
-						HasPreviousPage = connection.PageInfo.HasPreviousPage,
-						StartCursor = connection.PageInfo.StartCursor,
-					},
-				})
-				.Compile();
-
-			var response = await _gitHub.RunGraphQLAsync(query, cancellationToken);
-
-			return new PageResult<Package>(
-				response.Edges?
-					.Where(x => x?.Node is not null)
-					.Select(x => x!.Node!)
-					.ToList() ?? [],
-				response.PageInfo);
+					writer.WriteString("owner", owner);
+					writer.WriteString("name", name);
+					PackageQuery.WriteFilters(writer, page, names, orderBy, packageType, repositoryId);
+				},
+				cancellationToken);
+			return PackageQuery.ToPage(response.Result?.Packages
+				?? throw new InvalidDataException("GitHub returned an incomplete repository packages response."));
 		}
 	}
 }

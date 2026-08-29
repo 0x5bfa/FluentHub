@@ -23,9 +23,24 @@ public sealed class GraphQLError
 	[JsonPropertyName("message")]
 	public string Message { get; init; } = string.Empty;
 
+	[JsonPropertyName("type")]
+	public string? Type { get; init; }
+
+	[JsonPropertyName("locations")]
+	public GraphQLErrorLocation[]? Locations { get; init; }
+
 	[JsonPropertyName("path")]
 	public JsonElement Path { get; init; }
 
 	[JsonPropertyName("extensions")]
 	public JsonElement Extensions { get; init; }
+}
+
+public sealed class GraphQLErrorLocation
+{
+	[JsonPropertyName("line")]
+	public int Line { get; init; }
+
+	[JsonPropertyName("column")]
+	public int Column { get; init; }
 }

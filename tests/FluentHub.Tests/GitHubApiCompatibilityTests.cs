@@ -1,8 +1,7 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
-using GraphQL;
-using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Octokit.GraphQL;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using OrganizationProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Organizations.ProjectV2Queries;
 using RepositoryIssueQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueQueries;
 using RepositoryIssueEventQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueEventQueries;
@@ -83,10 +82,10 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			ThrowAfterGraphQLCompilation = true,
+			ThrowAfterGraphQLRequest = true,
 		};
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new UserActivityQueries(api).GetContributionCalendarAsync("octocat"));
 
 		Assert.HasCount(1, api.GraphQLQueries);
@@ -101,10 +100,15 @@ public sealed class GitHubApiCompatibilityTests
 	[TestMethod]
 	public async Task DetailQueriesDoNotRequestClassicProjectCards()
 	{
-		var api = new FakeGitHubApiClient([]);
+		var api = new FakeGitHubApiClient([])
+		{
+			ThrowAfterGraphQLRequest = true,
+		};
 
-		await new RepositoryIssueQueries(api).GetAsync("owner", "repository", 1);
-		await new RepositoryPullRequestQueries(api).GetAsync("owner", "repository", 1);
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
+			() => new RepositoryIssueQueries(api).GetAsync("owner", "repository", 1));
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
+			() => new RepositoryPullRequestQueries(api).GetAsync("owner", "repository", 1));
 
 		Assert.AreEqual(2, api.GraphQLQueries.Count);
 		foreach (var query in api.GraphQLQueries)
@@ -124,12 +128,12 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			ThrowAfterGraphQLCompilation = true,
+			ThrowAfterGraphQLRequest = true,
 		};
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new RepositoryIssueEventQueries(api).GetAllAsync("owner", "repository", 1));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new RepositoryPullRequestEventQueries(api).GetAllAsync("owner", "repository", 1));
 
 		Assert.AreEqual(2, api.GraphQLQueries.Count);
@@ -141,19 +145,19 @@ public sealed class GitHubApiCompatibilityTests
 	}
 
 	[TestMethod]
-	public async Task ProjectV2QueriesCompileInlineSelections()
+	public async Task ProjectV2QueriesUseInlineSelections()
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			ThrowAfterGraphQLCompilation = true,
+			ThrowAfterGraphQLRequest = true,
 		};
 		var page = FluentHub.Core.PageRequest.Forward(10);
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new RepositoryProjectV2Queries(api).GetPageAsync("owner", "repository", page));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new UserProjectV2Queries(api).GetPageAsync("user", page));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new OrganizationProjectV2Queries(api).GetPageAsync("organization", page));
 
 		Assert.AreEqual(3, api.GraphQLQueries.Count);
@@ -167,8 +171,8 @@ public sealed class GitHubApiCompatibilityTests
 			"octocat",
 			new FluentHub.Core.Infrastructure.GitHub.Queries.Users.UserRepositoryListFilters()));
 
-		Assert.HasCount(1, api.RawGraphQLQueries);
-		var query = api.RawGraphQLQueries[0];
+		Assert.HasCount(1, api.GraphQLQueries);
+		var query = api.GraphQLQueries[0];
 		Assert.IsTrue(query.Contains("hasSponsorshipsEnabled", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("isMirror", StringComparison.Ordinal));
 		Assert.IsTrue(query.Contains("isTemplate", StringComparison.Ordinal));
@@ -180,12 +184,12 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			ThrowAfterGraphQLCompilation = true,
+			ThrowAfterGraphQLRequest = true,
 		};
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new UserRepositoryQueries(api).GetLanguagesAsync("octocat"));
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new UserStarredRepositoryQueries(api).GetLanguagesAsync("octocat"));
 
 		Assert.HasCount(2, api.GraphQLQueries);
@@ -202,10 +206,10 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			ThrowAfterGraphQLCompilation = true,
+			ThrowAfterGraphQLRequest = true,
 		};
 
-		await Assert.ThrowsExactlyAsync<QueryCompiledException>(
+		await Assert.ThrowsExactlyAsync<GraphQLRequestCapturedException>(
 			() => new UserQueries(api).GetProfileReadmeAsync("octocat"));
 
 		Assert.HasCount(1, api.GraphQLQueries);
@@ -244,17 +248,16 @@ public sealed class GitHubApiCompatibilityTests
 		var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(
 			() => new UserQueries(api).GetViewerLoginAsync());
 
-		Assert.AreEqual("GitHub did not return a login for the authenticated user.", exception.Message);
+		Assert.AreEqual("GitHub returned an authenticated user without a login.", exception.Message);
 	}
 
 	private sealed class FakeGitHubApiClient(
 		IReadOnlyList<global::Octokit.Rest.GitHubActivityEvent> activities) : IGitHubApiClient
 	{
 		public List<string> GraphQLQueries { get; } = [];
-		public List<string> RawGraphQLQueries { get; } = [];
 		public global::Octokit.Rest.GitHubUser? AuthenticatedUser { get; init; }
 		public int RestCallCount { get; private set; }
-		public bool ThrowAfterGraphQLCompilation { get; init; }
+		public bool ThrowAfterGraphQLRequest { get; init; }
 
 		public Task<T> RunRestAsync<T>(
 			Func<global::Octokit.Rest.GitHubRestClient, CancellationToken, Task<T>> operation,
@@ -270,22 +273,18 @@ public sealed class GitHubApiCompatibilityTests
 			throw new NotSupportedException($"Unexpected REST response type: {typeof(T)}");
 		}
 
-		public Task<T> RunGraphQLAsync<T>(ICompiledQuery<T> query, CancellationToken cancellationToken = default)
-		{
-			GraphQLQueries.Add(((ICompiledQuery)query).ToString(0));
-			if (ThrowAfterGraphQLCompilation)
-				throw new QueryCompiledException();
-			return Task.FromResult(default(T)!);
-		}
-
-		public Task<GraphQLResponse<T>> SendGraphQLAsync<T>(
-			GraphQLRequest request,
+		public Task<T> RunGraphQLAsync<T>(
+			string query,
+			JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
 		{
-			RawGraphQLQueries.Add(request.Query ?? string.Empty);
-			return Task.FromResult(new GraphQLResponse<T>());
+			GraphQLQueries.Add(query);
+			if (ThrowAfterGraphQLRequest)
+				throw new GraphQLRequestCapturedException();
+			return Task.FromResult(JsonSerializer.Deserialize("{}", dataTypeInfo)!);
 		}
 	}
 
-	private sealed class QueryCompiledException : Exception;
+	private sealed class GraphQLRequestCapturedException : Exception;
 }

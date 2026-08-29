@@ -5,7 +5,7 @@ using FluentHub.Core.Application.Models;
 using FluentHub.Core.Infrastructure.GitHub.Queries.Users;
 using FluentHub.ViewModels.Controls.BlockButtons;
 using System.Text.RegularExpressions;
-using OctokitGraphQLModel = Octokit.GraphQL.Model;
+using GitHubModels = FluentHub.Core.Application.Models;
 
 namespace FluentHub.ViewModels.Organizations
 {
@@ -198,26 +198,26 @@ namespace FluentHub.ViewModels.Organizations
 			};
 			var privacy = _filters.Type switch
 			{
-				UserRepositoryTypeFilter.Public => OctokitGraphQLModel.RepositoryPrivacy.Public,
-				UserRepositoryTypeFilter.Private => OctokitGraphQLModel.RepositoryPrivacy.Private,
-				_ => (OctokitGraphQLModel.RepositoryPrivacy?)null,
+				UserRepositoryTypeFilter.Public => GitHubModels.RepositoryPrivacy.Public,
+				UserRepositoryTypeFilter.Private => GitHubModels.RepositoryPrivacy.Private,
+				_ => (GitHubModels.RepositoryPrivacy?)null,
 			};
 			var order = _filters.Sort switch
 			{
-				UserRepositorySort.LastUpdated => new OctokitGraphQLModel.RepositoryOrder
+				UserRepositorySort.LastUpdated => new GitHubModels.RepositoryOrder
 				{
-					Direction = OctokitGraphQLModel.OrderDirection.Desc,
-					Field = OctokitGraphQLModel.RepositoryOrderField.UpdatedAt,
+					Direction = GitHubModels.OrderDirection.Desc,
+					Field = GitHubModels.RepositoryOrderField.UpdatedAt,
 				},
-				UserRepositorySort.Name => new OctokitGraphQLModel.RepositoryOrder
+				UserRepositorySort.Name => new GitHubModels.RepositoryOrder
 				{
-					Direction = OctokitGraphQLModel.OrderDirection.Asc,
-					Field = OctokitGraphQLModel.RepositoryOrderField.Name,
+					Direction = GitHubModels.OrderDirection.Asc,
+					Field = GitHubModels.RepositoryOrderField.Name,
 				},
-				UserRepositorySort.Stars => new OctokitGraphQLModel.RepositoryOrder
+				UserRepositorySort.Stars => new GitHubModels.RepositoryOrder
 				{
-					Direction = OctokitGraphQLModel.OrderDirection.Desc,
-					Field = OctokitGraphQLModel.RepositoryOrderField.Stargazers,
+					Direction = GitHubModels.OrderDirection.Desc,
+					Field = GitHubModels.RepositoryOrderField.Stargazers,
 				},
 				_ => throw new ArgumentOutOfRangeException(nameof(_filters.Sort), _filters.Sort, "Unsupported repository sort."),
 			};

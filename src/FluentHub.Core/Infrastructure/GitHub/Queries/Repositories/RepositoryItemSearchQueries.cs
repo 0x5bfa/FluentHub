@@ -1,10 +1,12 @@
 using System.IO;
-using GraphQL;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	internal sealed class RepositoryItemSearchQueries
+	internal sealed partial class RepositoryItemSearchQueries
 	{
 		private const string IssueSearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
@@ -178,21 +180,15 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 				State = RepositoryItemStateFilter.All,
 				Sort = RepositoryItemSort.BestMatch,
 			};
-			var request = new GraphQLRequest
-			{
-				Query = AuthorSearchQuery,
-				Variables = new
-				{
-					query = RepositoryItemSearchQueryBuilder.Build(owner, name, isPullRequest, filters),
-				},
-			};
-			var response = await _gitHub.SendGraphQLAsync<SearchResponse<AuthorSearchNode>>(
-				request,
+			var response = await _gitHub.RunGraphQLAsync(
+				AuthorSearchQuery,
+				GetJsonTypeInfo<SearchResponse<AuthorSearchNode>>(),
+				writer => writer.WriteString(
+					"query",
+					RepositoryItemSearchQueryBuilder.Build(owner, name, isPullRequest, filters)),
 				cancellationToken);
 
-			ThrowIfErrors(response.Errors);
-
-			return response.Data?.Search?.Nodes
+			return response.Search?.Nodes
 				.Where(node => !string.IsNullOrWhiteSpace(node?.Author?.Login))
 				.Select(node => node!.Author!.Login)
 				.Distinct(StringComparer.OrdinalIgnoreCase)
@@ -236,29 +232,25 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			if (page.First is not int count)
 				throw new NotSupportedException("Repository item search only supports forward pagination.");
 
-			var request = new GraphQLRequest
-			{
-				Query = query,
-				Variables = new
+			var response = await _gitHub.RunGraphQLAsync(
+				query,
+				GetJsonTypeInfo<SearchResponse<TNode>>(),
+				writer =>
 				{
-					query = searchText,
-					first = Math.Min(count, 100),
-					after = page.After,
+					writer.WriteString("query", searchText);
+					writer.WriteNumber("first", Math.Min(count, 100));
+					GraphQLInputWriter.WriteOptionalString(writer, "after", page.After);
 				},
-			};
-			var response = await _gitHub.SendGraphQLAsync<SearchResponse<TNode>>(request, cancellationToken);
+				cancellationToken);
 
-			ThrowIfErrors(response.Errors);
-			return response.Data?.Search
+			return response.Search
 				?? throw new InvalidDataException("GitHub returned an incomplete repository item search response.");
 		}
 
-		private static void ThrowIfErrors(GraphQLError[]? errors)
+		private static JsonTypeInfo<T> GetJsonTypeInfo<T>()
 		{
-			if (errors is not { Length: > 0 })
-				return;
-
-			throw new InvalidOperationException(string.Join("; ", errors.Select(error => error.Message)));
+			return (JsonTypeInfo<T>)(RepositoryItemSearchJsonContext.Default.GetTypeInfo(typeof(T))
+				?? throw new InvalidOperationException($"No JSON metadata is registered for {typeof(T)}."));
 		}
 
 		private static RepositoryItemFilterOptions CreateFilterOptions<TNode>(IEnumerable<TNode?> nodes)
@@ -454,5 +446,11 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			public string Title { get; set; } = string.Empty;
 		}
+
+		[JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
+		[JsonSerializable(typeof(SearchResponse<AuthorSearchNode>))]
+		[JsonSerializable(typeof(SearchResponse<IssueSearchNode>))]
+		[JsonSerializable(typeof(SearchResponse<PullRequestSearchNode>))]
+		private sealed partial class RepositoryItemSearchJsonContext : JsonSerializerContext;
 	}
 }
