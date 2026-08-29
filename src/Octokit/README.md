@@ -1,6 +1,6 @@
-# Octokit libraries
+# Octokit library
 
-This directory contains source-owned GitHub API class libraries used by FluentHub:
+This directory contains FluentHub's source-owned GitHub API class library. It is one Native AOT-compatible assembly with three focused namespaces:
 
 - `Transport` provides authenticated HTTP, source-generated JSON operations, GitHub errors, and rate-limit metadata.
 - `Rest` is a small Native AOT-compatible client organized by GitHub feature area.
@@ -25,4 +25,4 @@ For `Rest`, `GraphQL`, and `Transport` changes:
 5. Keep transport concerns such as authentication, errors, and rate limits out of feature clients.
 6. Build in Release with the trim and AOT analyzers enabled before merging.
 
-These projects are pure class libraries and are not packed as NuGet packages. Tests belong in FluentHub's test project and exercise both the transport boundary and application-facing behavior.
+`Octokit.csproj` compiles all three areas into one pure class library and is not packed as a NuGet package. The folders preserve the architectural boundaries without exposing separate assembly and project-reference boundaries. Tests belong in FluentHub's test project and exercise both the transport boundary and application-facing behavior.

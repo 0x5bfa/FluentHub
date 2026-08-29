@@ -32,9 +32,7 @@
   </Folder>
 
   <Folder Name="/src/Octokit/">
-    <Project Path="src/Octokit/GraphQL/Octokit.GraphQL.csproj" />
-    <Project Path="src/Octokit/Rest/Octokit.Rest.csproj" />
-    <Project Path="src/Octokit/Transport/Octokit.Transport.csproj" />
+    <Project Path="src/Octokit/Octokit.csproj" />
   </Folder>
 
   <Folder Name="/tests/">

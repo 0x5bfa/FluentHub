@@ -14,9 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Octokit\GraphQL\Octokit.GraphQL.csproj" />
-		<ProjectReference Include="..\Octokit\Rest\Octokit.Rest.csproj" />
-		<ProjectReference Include="..\Octokit\Transport\Octokit.Transport.csproj" />
+		<ProjectReference Include="..\Octokit\Octokit.csproj" />
 	</ItemGroup>
 
 </Project>

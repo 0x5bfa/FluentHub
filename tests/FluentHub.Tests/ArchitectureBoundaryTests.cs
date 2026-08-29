@@ -68,11 +68,26 @@ public sealed partial class ArchitectureBoundaryTests
 			{
 				"src/FluentHub.Core/FluentHub.Core.csproj",
 				"src/FluentHub/FluentHub.csproj",
-				"src/Octokit/GraphQL/Octokit.GraphQL.csproj",
-				"src/Octokit/Rest/Octokit.Rest.csproj",
-				"src/Octokit/Transport/Octokit.Transport.csproj",
+				"src/Octokit/Octokit.csproj",
 			},
 			projects);
+	}
+
+	[TestMethod]
+	public void OctokitRemainsOneNativeAotCompatibleClassLibrary()
+	{
+		var root = FindRepositoryRoot();
+		var octokitRoot = Path.Combine(root, "src", "Octokit");
+		var projects = Directory.EnumerateFiles(octokitRoot, "*.csproj", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.ToList();
+
+		Assert.HasCount(1, projects);
+		var project = File.ReadAllText(projects[0]);
+		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
+		StringAssert.Contains(project, "<VerifyReferenceAotCompatibility>true</VerifyReferenceAotCompatibility>");
+		StringAssert.Contains(project, "<IsPackable>false</IsPackable>");
+		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
 	}
 
 	[TestMethod]
@@ -80,9 +95,6 @@ public sealed partial class ArchitectureBoundaryTests
 	{
 		var root = FindRepositoryRoot();
 		var restRoot = Path.Combine(root, "src", "Octokit", "Rest");
-		var project = File.ReadAllText(Path.Combine(restRoot, "Octokit.Rest.csproj"));
-		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
-		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
 
 		var forbidden = new[]
 		{
@@ -108,9 +120,6 @@ public sealed partial class ArchitectureBoundaryTests
 	{
 		var root = FindRepositoryRoot();
 		var graphQLRoot = Path.Combine(root, "src", "Octokit", "GraphQL");
-		var project = File.ReadAllText(Path.Combine(graphQLRoot, "Octokit.GraphQL.csproj"));
-		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
-		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
 
 		var forbidden = new[]
 		{
