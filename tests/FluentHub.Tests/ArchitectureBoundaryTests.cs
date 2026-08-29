@@ -68,6 +68,7 @@ public sealed partial class ArchitectureBoundaryTests
 			{
 				"src/FluentHub.Core/FluentHub.Core.csproj",
 				"src/FluentHub/FluentHub.csproj",
+				"src/Octokit.Generators/Octokit.Generators.csproj",
 				"src/Octokit/Octokit.csproj",
 			},
 			projects);

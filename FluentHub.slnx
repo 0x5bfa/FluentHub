@@ -33,14 +33,11 @@
 
   <Folder Name="/src/Octokit/">
     <Project Path="src/Octokit/Octokit.csproj" />
+    <Project Path="src/Octokit.Generators/Octokit.Generators.csproj" />
   </Folder>
 
   <Folder Name="/tests/">
     <Project Path="tests/FluentHub.Tests/FluentHub.Tests.csproj" />
-  </Folder>
-
-  <Folder Name="/tools/">
-    <Project Path="tools/Octokit.Generators/Octokit.Generators.csproj" />
   </Folder>
 
 </Solution>
