@@ -76,6 +76,34 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
+	public void RestClientRemainsNativeAotCompatible()
+	{
+		var root = FindRepositoryRoot();
+		var restRoot = Path.Combine(root, "src", "Octokit", "Rest");
+		var project = File.ReadAllText(Path.Combine(restRoot, "Octokit.Rest.csproj"));
+		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
+		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
+
+		var forbidden = new[]
+		{
+			"Activator.CreateInstance",
+			"CancellationToken.None",
+			"MakeGenericType",
+			"SimpleJson",
+			"Newtonsoft.Json",
+		};
+		var violations = Directory.EnumerateFiles(restRoot, "*.cs", SearchOption.AllDirectories)
+			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
+			.SelectMany(path => forbidden
+				.Where(value => File.ReadAllText(path).Contains(value, StringComparison.Ordinal))
+				.Select(value => $"{Path.GetRelativePath(root, path)}: {value}"))
+			.ToList();
+
+		Assert.AreEqual(0, violations.Count,
+			$"Native AOT-incompatible REST patterns remain:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
 	public void MainProjectCodeUsesOnlyApprovedFolders()
 	{
 		var root = FindRepositoryRoot();

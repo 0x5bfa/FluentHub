@@ -13,15 +13,17 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 			=> _gitHub = gitHub;
 		public async Task<List<Repository>> GetAllAsync(string term, CancellationToken cancellationToken = default)
 		{
-			var request = new OctokitV3.SearchRepositoriesRequest(term);
 			var response = await _gitHub.RunRestAsync(
-				client => client.Search.SearchRepo(request),
+				(client, token) => client.Search.SearchRepositoriesAsync(term, token),
 				cancellationToken);
 
 			List<Repository> result = new();
 
 			foreach (var item in response.Items)
 			{
+				if (item.Owner is not { } owner)
+					continue;
+
 				result.Add(new Repository
 				{
 					Name = item.Name,
@@ -38,8 +40,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 
 					Owner = new RepositoryOwner()
 					{
-						AvatarUrl = item.Owner.AvatarUrl,
-						Login = item.Owner.Login,
+						AvatarUrl = owner.AvatarUrl ?? string.Empty,
+						Login = owner.Login,
 					},
 				});
 			}

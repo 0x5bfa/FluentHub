@@ -3,7 +3,6 @@
 
 using GraphQL;
 using GraphQL.Client.Abstractions;
-using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -12,12 +11,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 		string CachePartition => "anonymous";
 
 		Task<T> RunRestAsync<T>(
-			Func<OctokitV3.IGitHubClient, Task<T>> operation,
-			CancellationToken cancellationToken = default);
-
-		Task<T> GetRestAsync<T>(
-			string relativeUri,
-			JsonTypeInfo<T> responseTypeInfo,
+			Func<OctokitRest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default);
 
 		Task<T> RunGraphQLAsync<T>(
@@ -28,8 +22,5 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 			GraphQLRequest request,
 			CancellationToken cancellationToken = default);
 
-		Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
-			CancellationToken cancellationToken = default);
 	}
 }

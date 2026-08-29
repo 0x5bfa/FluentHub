@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
@@ -56,6 +57,34 @@ public sealed class GitHubHttpClient : IDisposable
 		return await JsonSerializer.DeserializeAsync(responseStream, responseTypeInfo, cancellationToken).ConfigureAwait(false)
 			?? throw new InvalidOperationException($"GitHub returned an empty JSON response for '{relativeUri}'.");
 	}
+
+	public Task<TResponse> PostAsync<TRequest, TResponse>(
+		string relativeUri,
+		TRequest body,
+		JsonTypeInfo<TRequest> requestTypeInfo,
+		JsonTypeInfo<TResponse> responseTypeInfo,
+		CancellationToken cancellationToken = default)
+		=> SendJsonAsync(
+			HttpMethod.Post,
+			relativeUri,
+			body,
+			requestTypeInfo,
+			responseTypeInfo,
+			cancellationToken);
+
+	public Task<TResponse> PatchAsync<TRequest, TResponse>(
+		string relativeUri,
+		TRequest body,
+		JsonTypeInfo<TRequest> requestTypeInfo,
+		JsonTypeInfo<TResponse> responseTypeInfo,
+		CancellationToken cancellationToken = default)
+		=> SendJsonAsync(
+			HttpMethod.Patch,
+			relativeUri,
+			body,
+			requestTypeInfo,
+			responseTypeInfo,
+			cancellationToken);
 
 	public async Task<GraphQLResponse<TData>> ExecuteGraphQLAsync<TData>(
 		string query,
@@ -123,6 +152,30 @@ public sealed class GitHubHttpClient : IDisposable
 			_httpClient.Dispose();
 	}
 
+	private async Task<TResponse> SendJsonAsync<TRequest, TResponse>(
+		HttpMethod method,
+		string relativeUri,
+		TRequest body,
+		JsonTypeInfo<TRequest> requestTypeInfo,
+		JsonTypeInfo<TResponse> responseTypeInfo,
+		CancellationToken cancellationToken)
+	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(relativeUri);
+		ArgumentNullException.ThrowIfNull(body);
+		ArgumentNullException.ThrowIfNull(requestTypeInfo);
+		ArgumentNullException.ThrowIfNull(responseTypeInfo);
+
+		using var request = new HttpRequestMessage(method, relativeUri)
+		{
+			Content = JsonContent.Create(body, requestTypeInfo),
+		};
+		using var response = await SendSuccessfulAsync(request, cancellationToken).ConfigureAwait(false);
+		await using var responseStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+
+		return await JsonSerializer.DeserializeAsync(responseStream, responseTypeInfo, cancellationToken).ConfigureAwait(false)
+			?? throw new InvalidOperationException($"GitHub returned an empty JSON response for '{relativeUri}'.");
+	}
+
 	private async Task<HttpResponseMessage> SendSuccessfulAsync(
 		HttpRequestMessage request,
 		CancellationToken cancellationToken)
@@ -131,14 +184,23 @@ public sealed class GitHubHttpClient : IDisposable
 		if (response.IsSuccessStatusCode)
 			return response;
 
-		throw await CreateExceptionAsync(response, cancellationToken).ConfigureAwait(false);
+		throw await CreateExceptionAsync(
+			response,
+			request.RequestUri,
+			cancellationToken).ConfigureAwait(false);
 	}
 
 	private static async Task<GitHubApiException> CreateExceptionAsync(
 		HttpResponseMessage response,
+		Uri? requestUri,
 		CancellationToken cancellationToken)
 	{
 		var statusCode = response.StatusCode;
+		var rateLimit = ReadRateLimit(response.Headers);
+		var retryAfter = response.Headers.RetryAfter?.Delta;
+		if (retryAfter is null && response.Headers.RetryAfter?.Date is { } retryDate)
+			retryAfter = retryDate - DateTimeOffset.UtcNow;
+
 		try
 		{
 			var responseBody = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
@@ -162,6 +224,10 @@ public sealed class GitHubHttpClient : IDisposable
 					{
 						documentationUrl = documentationElement.GetString();
 					}
+
+					var details = ReadErrorDetails(root);
+					if (details.Count > 0)
+						message = $"{message}: {string.Join("; ", details)}";
 				}
 				catch (JsonException)
 				{
@@ -169,11 +235,76 @@ public sealed class GitHubHttpClient : IDisposable
 				}
 			}
 
-			return new GitHubApiException(statusCode, message, documentationUrl, responseBody);
+			return new GitHubApiException(
+				statusCode,
+				message,
+				documentationUrl,
+				responseBody,
+				requestUri,
+				rateLimit,
+				retryAfter > TimeSpan.Zero ? retryAfter : null);
 		}
 		finally
 		{
 			response.Dispose();
 		}
+	}
+
+	private static GitHubRateLimit ReadRateLimit(HttpResponseHeaders headers)
+		=> new(
+			ReadInt32(headers, "X-RateLimit-Limit"),
+			ReadInt32(headers, "X-RateLimit-Remaining"),
+			ReadInt32(headers, "X-RateLimit-Used"),
+			ReadUnixTime(headers, "X-RateLimit-Reset"),
+			ReadString(headers, "X-RateLimit-Resource"));
+
+	private static int? ReadInt32(HttpResponseHeaders headers, string name)
+		=> int.TryParse(ReadString(headers, name), out var value) ? value : null;
+
+	private static DateTimeOffset? ReadUnixTime(HttpResponseHeaders headers, string name)
+		=> long.TryParse(ReadString(headers, name), out var value)
+			? DateTimeOffset.FromUnixTimeSeconds(value)
+			: null;
+
+	private static string? ReadString(HttpResponseHeaders headers, string name)
+		=> headers.TryGetValues(name, out var values) ? values.FirstOrDefault() : null;
+
+	private static List<string> ReadErrorDetails(JsonElement root)
+	{
+		if (!root.TryGetProperty("errors", out var errors) || errors.ValueKind != JsonValueKind.Array)
+			return [];
+
+		var details = new List<string>();
+		foreach (var error in errors.EnumerateArray())
+		{
+			if (error.ValueKind == JsonValueKind.String && error.GetString() is { Length: > 0 } text)
+			{
+				details.Add(text);
+				continue;
+			}
+
+			if (error.ValueKind != JsonValueKind.Object)
+				continue;
+
+			if (error.TryGetProperty("message", out var messageElement) &&
+				messageElement.GetString() is { Length: > 0 } detailMessage)
+			{
+				details.Add(detailMessage);
+				continue;
+			}
+
+			var field = error.TryGetProperty("field", out var fieldElement)
+				? fieldElement.GetString()
+				: null;
+			var code = error.TryGetProperty("code", out var codeElement)
+				? codeElement.GetString()
+				: null;
+			if (!string.IsNullOrWhiteSpace(field) && !string.IsNullOrWhiteSpace(code))
+				details.Add($"{field}: {code}");
+			else if (!string.IsNullOrWhiteSpace(code))
+				details.Add(code);
+		}
+
+		return details;
 	}
 }

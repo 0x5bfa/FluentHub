@@ -143,9 +143,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		public async Task<string> GetViewerLoginAsync(CancellationToken cancellationToken = default)
 		{
-			var user = await _gitHub.GetRestAsync(
-				"user",
-				Serialization.GitHubApiJsonContext.Default.AuthenticatedUserResponse,
+			var user = await _gitHub.RunRestAsync(
+				(client, token) => client.Users.GetAuthenticatedAsync(token),
 				cancellationToken);
 			var login = user.Login?.Trim();
 

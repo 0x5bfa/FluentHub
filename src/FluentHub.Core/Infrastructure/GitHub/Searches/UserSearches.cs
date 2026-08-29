@@ -13,9 +13,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 			=> _gitHub = gitHub;
 		public async Task<List<User>> GetAllAsync(string term, CancellationToken cancellationToken = default)
 		{
-			var request = new OctokitV3.SearchUsersRequest(term);
 			var response = await _gitHub.RunRestAsync(
-				client => client.Search.SearchUsers(request),
+				(client, token) => client.Search.SearchUsersAsync(term, token),
 				cancellationToken);
 
 			List<User> result = new();
@@ -24,7 +23,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 			{
 				result.Add(new User
 				{
-					AvatarUrl = item.AvatarUrl,
+					AvatarUrl = item.AvatarUrl ?? string.Empty,
 					Bio = item.Bio,
 					Location = item.Location,
 					Login = item.Login,

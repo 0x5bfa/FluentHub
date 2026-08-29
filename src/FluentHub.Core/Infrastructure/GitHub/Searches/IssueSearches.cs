@@ -13,26 +13,28 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 			=> _gitHub = gitHub;
 		public async Task<List<Issue>> GetAllAsync(string term, CancellationToken cancellationToken = default)
 		{
-			var request = new OctokitV3.SearchIssuesRequest(term);
 			var response = await _gitHub.RunRestAsync(
-				client => client.Search.SearchIssues(request),
+				(client, token) => client.Search.SearchIssuesAsync(term, token),
 				cancellationToken);
 
 			List<Issue> result = new();
 
 			foreach (var item in response.Items)
 			{
+				if (item.User is not { } author)
+					continue;
+
 				var indivisual = new Issue
 				{
 					Closed = item.ClosedAt != null,
 					CreatedAt = item.CreatedAt,
-					Title = item.Title,
+					Title = item.Title ?? string.Empty,
 					Number = item.Number,
 
 					Author = new Actor()
 					{
-						AvatarUrl = item.User.AvatarUrl,
-						Login = item.User.Login,
+						AvatarUrl = author.AvatarUrl ?? string.Empty,
+						Login = author.Login,
 					},
 
 					Comments = new()
@@ -61,8 +63,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Searches
 				{
 					indivisual.Labels.Nodes.Add(new Label()
 					{
-						Color = label.Color,
-						Name = label.Name,
+						Color = label.Color ?? string.Empty,
+						Name = label.Name ?? string.Empty,
 					});
 				}
 

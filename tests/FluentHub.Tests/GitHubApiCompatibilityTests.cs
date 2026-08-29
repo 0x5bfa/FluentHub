@@ -1,10 +1,8 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
-using FluentHub.Core.Infrastructure.GitHub.Serialization;
 using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
-using System.Text.Json.Serialization.Metadata;
 using OrganizationProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Organizations.ProjectV2Queries;
 using RepositoryIssueQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueQueries;
 using RepositoryIssueEventQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueEventQueries;
@@ -25,15 +23,15 @@ public sealed class GitHubApiCompatibilityTests
 	[TestMethod]
 	public async Task ActivityQueriesTreatMissingPushCommitsAsEmpty()
 	{
-		var activity = new global::Octokit.Activity(
-			"PushEvent",
-			true,
-			null!,
-			new global::Octokit.User(),
-			null!,
-			DateTimeOffset.UtcNow,
-			"event-id",
-			new global::Octokit.PushEventPayload());
+		var activity = new global::Octokit.Rest.GitHubActivityEvent
+		{
+			Type = "PushEvent",
+			Public = true,
+			Actor = new global::Octokit.Rest.GitHubUser(),
+			CreatedAt = DateTimeOffset.UtcNow,
+			Id = "event-id",
+			Payload = new global::Octokit.Rest.GitHubActivityPayload(),
+		};
 		var api = new FakeGitHubApiClient([activity]);
 
 		var activities = await new UserActivityQueries(api).GetAllAsync("user");
@@ -46,15 +44,14 @@ public sealed class GitHubApiCompatibilityTests
 	[TestMethod]
 	public async Task ActivityQueriesSkipEventsWithMissingActor()
 	{
-		var activity = new global::Octokit.Activity(
-			"PushEvent",
-			true,
-			null!,
-			null!,
-			null!,
-			DateTimeOffset.UtcNow,
-			"event-id",
-			new global::Octokit.PushEventPayload());
+		var activity = new global::Octokit.Rest.GitHubActivityEvent
+		{
+			Type = "PushEvent",
+			Public = true,
+			CreatedAt = DateTimeOffset.UtcNow,
+			Id = "event-id",
+			Payload = new global::Octokit.Rest.GitHubActivityPayload(),
+		};
 		var api = new FakeGitHubApiClient([activity]);
 
 		var activities = await new UserActivityQueries(api).GetAllAsync("user");
@@ -65,15 +62,15 @@ public sealed class GitHubApiCompatibilityTests
 	[TestMethod]
 	public async Task ActivityQueriesSkipEventsWithIncompletePayload()
 	{
-		var activity = new global::Octokit.Activity(
-			"IssueEvent",
-			true,
-			null!,
-			new global::Octokit.User(),
-			null!,
-			DateTimeOffset.UtcNow,
-			"event-id",
-			new global::Octokit.IssueEventPayload());
+		var activity = new global::Octokit.Rest.GitHubActivityEvent
+		{
+			Type = "IssuesEvent",
+			Public = true,
+			Actor = new global::Octokit.Rest.GitHubUser(),
+			CreatedAt = DateTimeOffset.UtcNow,
+			Id = "event-id",
+			Payload = new global::Octokit.Rest.GitHubActivityPayload(),
+		};
 		var api = new FakeGitHubApiClient([activity]);
 
 		var activities = await new UserActivityQueries(api).GetAllAsync("user");
@@ -226,14 +223,13 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			AuthenticatedUser = new AuthenticatedUserResponse { Login = " octocat " },
+			AuthenticatedUser = new global::Octokit.Rest.GitHubUser { Login = " octocat " },
 		};
 
 		var login = await new UserQueries(api).GetViewerLoginAsync();
 
 		Assert.AreEqual("octocat", login);
 		Assert.AreEqual(1, api.RestCallCount);
-		Assert.AreEqual("user", api.LastRestUri);
 		Assert.IsEmpty(api.GraphQLQueries);
 	}
 
@@ -242,7 +238,7 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			AuthenticatedUser = new AuthenticatedUserResponse(),
+			AuthenticatedUser = new global::Octokit.Rest.GitHubUser(),
 		};
 
 		var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(
@@ -251,35 +247,25 @@ public sealed class GitHubApiCompatibilityTests
 		Assert.AreEqual("GitHub did not return a login for the authenticated user.", exception.Message);
 	}
 
-	private sealed class FakeGitHubApiClient(IReadOnlyList<global::Octokit.Activity> activities) : IGitHubApiClient
+	private sealed class FakeGitHubApiClient(
+		IReadOnlyList<global::Octokit.Rest.GitHubActivityEvent> activities) : IGitHubApiClient
 	{
 		public List<string> GraphQLQueries { get; } = [];
 		public List<string> RawGraphQLQueries { get; } = [];
-		public AuthenticatedUserResponse? AuthenticatedUser { get; init; }
-		public string? LastRestUri { get; private set; }
+		public global::Octokit.Rest.GitHubUser? AuthenticatedUser { get; init; }
 		public int RestCallCount { get; private set; }
 		public bool ThrowAfterGraphQLCompilation { get; init; }
 
-		public Task<T> GetRestAsync<T>(
-			string relativeUri,
-			JsonTypeInfo<T> responseTypeInfo,
+		public Task<T> RunRestAsync<T>(
+			Func<global::Octokit.Rest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 		{
 			RestCallCount++;
-			LastRestUri = relativeUri;
 
-			if (AuthenticatedUser is T authenticatedUser)
-				return Task.FromResult(authenticatedUser);
-
-			throw new NotSupportedException($"Unexpected typed REST response type: {typeof(T)}");
-		}
-
-		public Task<T> RunRestAsync<T>(
-			Func<global::Octokit.IGitHubClient, Task<T>> operation,
-			CancellationToken cancellationToken = default)
-		{
 			if (activities is T response)
 				return Task.FromResult(response);
+			if (AuthenticatedUser is T authenticatedUser)
+				return Task.FromResult(authenticatedUser);
 
 			throw new NotSupportedException($"Unexpected REST response type: {typeof(T)}");
 		}
@@ -299,11 +285,6 @@ public sealed class GitHubApiCompatibilityTests
 			RawGraphQLQueries.Add(request.Query ?? string.Empty);
 			return Task.FromResult(new GraphQLResponse<T>());
 		}
-
-		public Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
-			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
 	}
 
 	private sealed class QueryCompiledException : Exception;

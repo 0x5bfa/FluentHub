@@ -11,27 +11,32 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		public NotificationQueries(IGitHubApiClient gitHub)
 			=> _gitHub = gitHub;
-		public async Task<List<Notification>> GetAllAsync(OctokitV3.NotificationsRequest? request = null, OctokitV3.ApiOptions? options = null, CancellationToken cancellationToken = default)
+		public async Task<List<Notification>> GetAllAsync(
+			OctokitRest.NotificationRequest? request = null,
+			OctokitRest.PageOptions? options = null,
+			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunRestAsync(
-				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				(client, token) => client.Notifications.GetAllAsync(request, options, token),
 				cancellationToken);
 
 			List<Notification> notifications = new();
 			foreach (var item in response)
 			{
-				if (item.Subject is null || item.Repository is null)
+				if (item.Subject is not { } subject ||
+					item.Repository?.Owner is not { } owner ||
+					!long.TryParse(item.Id, out var id))
 					continue;
 
 				Notification indivisual = new()
 				{
-					Id = Convert.ToInt64(item.Id),
+					Id = id,
 					Unread = item.Unread,
 					Url = item.Url,
 
 					Subject = new()
 					{
-						Title = item.Subject.Title,
+						Title = subject.Title,
 					},
 
 					Repository = new()
@@ -39,23 +44,20 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 						Name = item.Repository.Name,
 						Owner = new RepositoryOwner()
 						{
-							AvatarUrl = item.Repository.Owner?.AvatarUrl ?? string.Empty,
-							Login = item.Repository.Owner?.Login ?? string.Empty,
+							AvatarUrl = owner.AvatarUrl ?? string.Empty,
+							Login = owner.Login,
 						},
 					},
 				};
 
-				if (item.LastReadAt != null)
+				if (item.LastReadAt is { } lastReadAt)
 				{
-					indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+					indivisual.LastReadAt = lastReadAt;
 					indivisual.LastReadAtHumanized = indivisual.LastReadAt.ToRelativeTime();
 				}
 
-				if (item.UpdatedAt != null)
-				{
-					indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
-					indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.ToRelativeTime();
-				}
+				indivisual.UpdatedAt = item.UpdatedAt;
+				indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.ToRelativeTime();
 
 				indivisual.Reason = item.Reason switch
 				{
@@ -74,9 +76,9 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 					_ => "",
 				};
 
-				var itemNumber = item.Subject.Url?.Split('/').LastOrDefault();
+				var itemNumber = subject.Url?.Split('/').LastOrDefault();
 
-				switch (item.Subject?.Type)
+				switch (subject.Type)
 				{
 					case "Issue":
 						{
@@ -353,12 +355,12 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 
 		public async Task<int> GetUnreadCountAsync(CancellationToken cancellationToken = default)
 		{
-			OctokitV3.NotificationsRequest request = new()
+			OctokitRest.NotificationRequest request = new()
 			{
 				All = true,
 			};
 
-			OctokitV3.ApiOptions options = new()
+			OctokitRest.PageOptions options = new()
 			{
 				PageCount = 1,
 				PageSize = 50,
@@ -367,7 +369,7 @@ repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{noti
 
 			// Even if there are more than 50 unread items, this method will only count up to a maximum of 50.
 			var response = await _gitHub.RunRestAsync(
-				client => client.Activity.Notifications.GetAllForCurrent(request, options),
+				(client, token) => client.Notifications.GetAllAsync(request, options, token),
 				cancellationToken);
 
 			int unreadCount = 0;

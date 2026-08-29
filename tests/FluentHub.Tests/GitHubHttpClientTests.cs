@@ -28,9 +28,19 @@ public sealed class GitHubHttpClientTests
 	[TestMethod]
 	public async Task GetAsyncPreservesGitHubErrorDetails()
 	{
-		var handler = new StubHttpMessageHandler(_ => JsonResponse(
-			HttpStatusCode.Forbidden,
-			"{\"message\":\"API rate limit exceeded\",\"documentation_url\":\"https://docs.github.test/rate-limit\"}"));
+		var reset = DateTimeOffset.UtcNow.AddMinutes(5).ToUnixTimeSeconds();
+		var handler = new StubHttpMessageHandler(_ =>
+		{
+			var response = JsonResponse(
+				HttpStatusCode.Forbidden,
+				"{\"message\":\"API rate limit exceeded\",\"documentation_url\":\"https://docs.github.test/rate-limit\"}");
+			response.Headers.TryAddWithoutValidation("X-RateLimit-Limit", "5000");
+			response.Headers.TryAddWithoutValidation("X-RateLimit-Remaining", "0");
+			response.Headers.TryAddWithoutValidation("X-RateLimit-Used", "5000");
+			response.Headers.TryAddWithoutValidation("X-RateLimit-Reset", reset.ToString());
+			response.Headers.TryAddWithoutValidation("X-RateLimit-Resource", "core");
+			return response;
+		});
 		using var httpClient = CreateHttpClient(handler);
 		using var github = new GitHubHttpClient(httpClient);
 
@@ -40,6 +50,12 @@ public sealed class GitHubHttpClientTests
 		Assert.AreEqual(HttpStatusCode.Forbidden, exception.StatusCode);
 		Assert.AreEqual("API rate limit exceeded", exception.Message);
 		Assert.AreEqual("https://docs.github.test/rate-limit", exception.DocumentationUrl);
+		Assert.AreEqual("https://api.github.test/user", exception.RequestUri?.ToString());
+		Assert.AreEqual(5000, exception.RateLimit.Limit);
+		Assert.AreEqual(0, exception.RateLimit.Remaining);
+		Assert.AreEqual(5000, exception.RateLimit.Used);
+		Assert.AreEqual(reset, exception.RateLimit.Reset?.ToUnixTimeSeconds());
+		Assert.AreEqual("core", exception.RateLimit.Resource);
 		StringAssert.Contains(exception.ResponseBody, "rate limit");
 	}
 

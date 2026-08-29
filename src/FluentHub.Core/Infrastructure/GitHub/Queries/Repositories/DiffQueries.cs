@@ -15,12 +15,12 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var commit = await _gitHub.RunRestAsync(
-				client => client.Repository.Commit.Get(owner, name, refs),
+				(client, token) => client.Repositories.GetCommitAsync(owner, name, refs, token),
 				cancellationToken);
 
 			return new CommitChanges
 			{
-				Files = commit.Files.Select(Map).ToList(),
+				Files = commit.Files?.Select(Map).ToList() ?? [],
 			};
 		}
 
@@ -31,42 +31,26 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var files = await _gitHub.RunRestAsync(
-				client => client.Repository.PullRequest.Files(owner, name, number),
+				(client, token) => client.Repositories.GetPullRequestFilesAsync(owner, name, number, token),
 				cancellationToken);
 
 			return files.Select(Map).ToList();
 		}
 
-		private static FileChange Map(OctokitV3.GitHubCommitFile file)
+		private static FileChange Map(OctokitRest.GitHubFileChange file)
 			=> new()
 			{
 				Additions = file.Additions,
 				Changes = file.Changes,
 				Deletions = file.Deletions,
-				BlobUrl = file.BlobUrl,
-				ContentsUrl = file.ContentsUrl,
-				Filename = file.Filename,
-				Patch = file.Patch,
-				PreviousFileName = file.PreviousFileName,
-				RawUrl = file.RawUrl,
-				Sha = file.Sha,
-				Status = file.Status,
-			};
-
-		private static FileChange Map(OctokitV3.PullRequestFile file)
-			=> new()
-			{
-				Additions = file.Additions,
-				Changes = file.Changes,
-				Deletions = file.Deletions,
-				BlobUrl = file.BlobUrl,
-				ContentsUrl = file.ContentsUrl,
-				Filename = file.FileName,
-				Patch = file.Patch,
-				PreviousFileName = file.PreviousFileName,
-				RawUrl = file.RawUrl,
-				Sha = file.Sha,
-				Status = file.Status,
+				BlobUrl = file.BlobUrl ?? string.Empty,
+				ContentsUrl = file.ContentsUrl ?? string.Empty,
+				Filename = file.Filename ?? string.Empty,
+				Patch = file.Patch ?? string.Empty,
+				PreviousFileName = file.PreviousFilename,
+				RawUrl = file.RawUrl ?? string.Empty,
+				Sha = file.Sha ?? string.Empty,
+				Status = file.Status ?? string.Empty,
 			};
 	}
 }

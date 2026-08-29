@@ -485,26 +485,22 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			ValidateRepository(owner, name);
-			var options = new OctokitV3.ApiOptions
-			{
-				PageCount = int.MaxValue,
-				PageSize = 100,
-				StartPage = 1,
-			};
 
-			return await _gitHub.RunRestAsync(async client =>
+			return await _gitHub.RunRestAsync(async (client, token) =>
 			{
-				var branchesTask = client.Repository.Branch.GetAll(owner, name, options);
-				var tagsTask = client.Repository.GetAllTags(owner, name, options);
+				var branchesTask = client.Repositories.GetBranchesAsync(owner, name, token);
+				var tagsTask = client.Repositories.GetTagsAsync(owner, name, token);
 				await Task.WhenAll(branchesTask, tagsTask);
+				var branches = await branchesTask;
+				var tags = await tagsTask;
 
 				return (
-					Branches: (IReadOnlyList<string>)branchesTask.Result
+					Branches: (IReadOnlyList<string>)branches
 						.Select(branch => branch.Name)
 						.Where(branch => !string.IsNullOrWhiteSpace(branch))
 						.Distinct(StringComparer.Ordinal)
 						.ToList(),
-					Tags: (IReadOnlyList<string>)tagsTask.Result
+					Tags: (IReadOnlyList<string>)tags
 						.Select(tag => tag.Name)
 						.Where(tag => !string.IsNullOrWhiteSpace(tag))
 						.Distinct(StringComparer.Ordinal)
@@ -530,12 +526,12 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			try
 			{
-				var readme = await _gitHub.RunRestAsync(
-					client => client.Repository.Content.GetReadme(owner, name),
+				return await _gitHub.RunRestAsync(
+					(client, token) => client.Repositories.GetReadmeMarkdownAsync(owner, name, token),
 					cancellationToken);
-				return readme.Content;
 			}
-			catch (global::Octokit.NotFoundException)
+			catch (global::Octokit.Transport.GitHubApiException exception)
+				when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
 			{
 				return string.Empty;
 			}

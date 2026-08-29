@@ -1,9 +1,6 @@
 using System.IO;
-using System.Net;
-using System.Net.Http.Headers;
 using GraphQL;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
-using Newtonsoft.Json.Linq;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
@@ -208,24 +205,24 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			string name,
 			CancellationToken cancellationToken)
 		{
-			var endpoint = $"repos/{Uri.EscapeDataString(owner)}/{Uri.EscapeDataString(name)}/issue-types";
-			using var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
-			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-			request.Headers.Add("X-GitHub-Api-Version", Octokit.Transport.GitHubHttpClient.RestApiVersion);
+			try
+			{
+				var response = await _gitHub.RunRestAsync(
+					(client, token) => client.Repositories.GetIssueTypesAsync(owner, name, token),
+					cancellationToken);
 
-			using var response = await _gitHub.SendRestAsync(request, cancellationToken);
-			if (response.StatusCode == HttpStatusCode.NotFound)
-				return [];
-
-			response.EnsureSuccessStatusCode();
-			var content = await response.Content.ReadAsStringAsync(cancellationToken);
-			return JArray.Parse(content)
-				.Select(item => item["name"]?.ToString())
+				return response
+				.Select(item => item.Name)
 				.Where(type => !string.IsNullOrWhiteSpace(type))
-				.Select(type => type!)
 				.Distinct(StringComparer.OrdinalIgnoreCase)
 				.OrderBy(type => type, StringComparer.OrdinalIgnoreCase)
 				.ToList();
+			}
+			catch (global::Octokit.Transport.GitHubApiException exception)
+				when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
+			{
+				return [];
+			}
 		}
 
 		private async Task<SearchConnection<TNode>> SearchAsync<TNode>(

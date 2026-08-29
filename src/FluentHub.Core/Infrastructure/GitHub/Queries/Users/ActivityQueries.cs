@@ -17,15 +17,12 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		public async Task<List<Activity>> GetAllAsync(string login, CancellationToken cancellationToken = default)
 		{
-			OctokitV3.ApiOptions options = new()
-			{
-				PageCount = 1,
-				PageSize = 60,
-				StartPage = 1
-			};
-
 			var response = await _gitHub.RunRestAsync(
-				client => client.Activity.Events.GetAllUserReceived(login, options),
+				(client, token) => client.Activity.GetReceivedEventsAsync(
+					login,
+					pageSize: 60,
+					page: 1,
+					cancellationToken: token),
 				cancellationToken);
 
 			Wrappers.ActivityWrapper wrapper = new();

@@ -1,7 +1,5 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using System.IO;
-using System.Net.Http.Headers;
-using System.Text.Json;
 using Octokit.Transport;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
@@ -17,10 +15,10 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			CancellationToken cancellationToken = default)
 		{
 			var viewer = await _gitHub.RunRestAsync(
-				client => client.User.Current(),
+				(client, token) => client.Users.GetAuthenticatedAsync(token),
 				cancellationToken);
 			var organizations = await _gitHub.RunRestAsync(
-				client => client.Organization.GetAllForCurrent(),
+				(client, token) => client.Organizations.GetForAuthenticatedAsync(token),
 				cancellationToken);
 
 			return new[]
@@ -54,116 +52,43 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentException.ThrowIfNullOrWhiteSpace(request.DestinationOwner.Login);
 			ArgumentException.ThrowIfNullOrWhiteSpace(request.RepositoryName);
 
-			var endpoint = $"repos/{Uri.EscapeDataString(request.SourceOwner)}/{Uri.EscapeDataString(request.SourceName)}/forks";
-			using var message = new HttpRequestMessage(HttpMethod.Post, endpoint)
-			{
-				Content = new StringContent(CreateRequestJson(request), Encoding.UTF8, "application/json"),
-			};
-			message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-			message.Headers.Add("X-GitHub-Api-Version", GitHubHttpClient.RestApiVersion);
-
-			using var response = await _gitHub.SendRestAsync(message, cancellationToken);
-			var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
-			if (!response.IsSuccessStatusCode)
-			{
-				throw new HttpRequestException(
-					GetErrorMessage(responseJson) ?? $"GitHub returned {(int)response.StatusCode} ({response.ReasonPhrase}).",
-					null,
-					response.StatusCode);
-			}
-
-			using var responseDocument = JsonDocument.Parse(responseJson);
-			var responseRoot = responseDocument.RootElement;
-			var createdName = GetRequiredString(responseRoot, "name");
-			var createdFullName = GetRequiredString(responseRoot, "full_name");
-			if (!responseRoot.TryGetProperty("owner", out var createdOwnerElement))
+			var created = await _gitHub.RunRestAsync(
+				(client, token) => client.Repositories.CreateForkAsync(
+					request.SourceOwner,
+					request.SourceName,
+					new OctokitRest.CreateForkOptions
+					{
+						Organization = request.DestinationOwner.IsOrganization
+							? request.DestinationOwner.Login
+							: null,
+						Name = request.RepositoryName.Trim(),
+						DefaultBranchOnly = request.DefaultBranchOnly,
+					},
+					token),
+				cancellationToken);
+			var createdOwner = created.Owner?.Login;
+			if (string.IsNullOrWhiteSpace(created.Name) ||
+				string.IsNullOrWhiteSpace(created.FullName) ||
+				string.IsNullOrWhiteSpace(createdOwner))
 			{
 				throw new InvalidDataException("GitHub returned an incomplete fork response.");
 			}
-			var createdOwner = GetRequiredString(createdOwnerElement, "login");
 
 			if (request.Description is not null)
 			{
 				await UpdateDescriptionAsync(
 					createdOwner,
-					createdName,
+					created.Name,
 					request.Description,
 					cancellationToken);
 			}
 
 			return new CreateForkResult
 			{
-				FullName = createdFullName,
-				Name = createdName,
+				FullName = created.FullName,
+				Name = created.Name,
 				Owner = createdOwner,
 			};
-		}
-
-		private static string CreateRequestJson(CreateForkRequest request)
-		{
-			using var stream = new MemoryStream();
-			using (var writer = new Utf8JsonWriter(stream))
-			{
-				writer.WriteStartObject();
-				if (request.DestinationOwner.IsOrganization)
-					writer.WriteString("organization", request.DestinationOwner.Login);
-				writer.WriteString("name", request.RepositoryName.Trim());
-				writer.WriteBoolean("default_branch_only", request.DefaultBranchOnly);
-				writer.WriteEndObject();
-			}
-
-			return Encoding.UTF8.GetString(stream.ToArray());
-		}
-
-		private static string? GetErrorMessage(string responseJson)
-		{
-			try
-			{
-				using var document = JsonDocument.Parse(responseJson);
-				var root = document.RootElement;
-				var message = root.TryGetProperty("message", out var messageElement)
-					? messageElement.GetString()
-					: null;
-
-				if (!root.TryGetProperty("errors", out var errors) || errors.ValueKind != JsonValueKind.Array)
-					return message;
-
-				var details = errors.EnumerateArray()
-					.Select(error =>
-					{
-						if (error.TryGetProperty("message", out var detailMessage))
-							return detailMessage.GetString();
-
-						var field = error.TryGetProperty("field", out var fieldElement)
-							? fieldElement.GetString()
-							: null;
-						var code = error.TryGetProperty("code", out var codeElement)
-							? codeElement.GetString()
-							: null;
-						return field is not null && code is not null ? $"{field}: {code}" : code;
-					})
-					.Where(detail => !string.IsNullOrWhiteSpace(detail))
-					.ToList();
-
-				return details.Count == 0
-					? message
-					: $"{message ?? "GitHub rejected the fork request"}: {string.Join("; ", details)}";
-			}
-			catch (System.Text.Json.JsonException)
-			{
-				return null;
-			}
-		}
-
-		private static string GetRequiredString(JsonElement element, string propertyName)
-		{
-			if (element.TryGetProperty(propertyName, out var property) &&
-				property.GetString() is { Length: > 0 } value)
-			{
-				return value;
-			}
-
-			throw new InvalidDataException("GitHub returned an incomplete fork response.");
 		}
 
 		private async Task UpdateDescriptionAsync(
@@ -177,14 +102,16 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 				try
 				{
 					await _gitHub.RunRestAsync(
-						client => client.Repository.Edit(
+						(client, token) => client.Repositories.UpdateDescriptionAsync(
 							owner,
 							name,
-							new OctokitV3.RepositoryUpdate { Description = description }),
+							description,
+							token),
 						cancellationToken);
 					return;
 				}
-				catch (OctokitV3.NotFoundException) when (attempt < 3)
+				catch (GitHubApiException exception)
+					when (exception.StatusCode == System.Net.HttpStatusCode.NotFound && attempt < 3)
 				{
 					await Task.Delay(TimeSpan.FromSeconds(attempt + 1), cancellationToken);
 				}

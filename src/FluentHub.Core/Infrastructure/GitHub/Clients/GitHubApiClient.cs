@@ -3,7 +3,6 @@
 
 using GraphQL;
 using GraphQL.Client.Abstractions;
-using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -18,27 +17,13 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 			=> _sessionManager.CachePartition;
 
 		public async Task<T> RunRestAsync<T>(
-			Func<OctokitV3.IGitHubClient, Task<T>> operation,
+			Func<OctokitRest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 		{
 			ArgumentNullException.ThrowIfNull(operation);
 
 			var session = _sessionManager.GetRequiredSession();
-			return await operation(session.Rest).WaitAsync(cancellationToken);
-		}
-
-		public Task<T> GetRestAsync<T>(
-			string relativeUri,
-			JsonTypeInfo<T> responseTypeInfo,
-			CancellationToken cancellationToken = default)
-		{
-			ArgumentException.ThrowIfNullOrWhiteSpace(relativeUri);
-			ArgumentNullException.ThrowIfNull(responseTypeInfo);
-
-			return _sessionManager.GetRequiredSession().Transport.GetAsync(
-				relativeUri,
-				responseTypeInfo,
-				cancellationToken);
+			return await operation(session.Rest, cancellationToken).ConfigureAwait(false);
 		}
 
 		public Task<T> RunGraphQLAsync<T>(
@@ -63,15 +48,5 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 				cancellationToken);
 		}
 
-		public Task<HttpResponseMessage> SendRestAsync(
-			HttpRequestMessage request,
-			CancellationToken cancellationToken = default)
-		{
-			ArgumentNullException.ThrowIfNull(request);
-
-			return _sessionManager.GetRequiredSession().Transport.SendAsync(
-				request,
-				cancellationToken);
-		}
 	}
 }
