@@ -92,6 +92,17 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
+	public void OctokitGeneratorRemainsPlatformIndependent()
+	{
+		var root = FindRepositoryRoot();
+		var projectPath = Path.Combine(root, "src", "Octokit.Generators", "Octokit.Generators.csproj");
+		var project = File.ReadAllText(projectPath);
+
+		StringAssert.Contains(project, "<Platforms>AnyCPU</Platforms>");
+		StringAssert.Contains(project, "<PlatformTarget>AnyCPU</PlatformTarget>");
+	}
+
+	[TestMethod]
 	public void RestClientRemainsNativeAotCompatible()
 	{
 		var root = FindRepositoryRoot();
