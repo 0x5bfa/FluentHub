@@ -7,12 +7,13 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class IssueQueries
+	public partial class IssueQueries
 	{
 		private const string ReactionFields = """
 			reactionGroups { content viewerHasReacted reactors { totalCount } }
 		""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string ItemQuery = """
 			query Issue($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -33,6 +34,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryBodyResult>>]
 		private const string BodyQuery = """
 			query IssueBody($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -46,6 +48,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string PinnedQuery = """
 			query PinnedIssues($owner: String!, $name: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -93,7 +96,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			int number,
 			CancellationToken cancellationToken = default)
 		{
-			var response = await ExecuteRepositoryAsync(ItemQuery, owner, name, number, cancellationToken);
+			var response = await ExecuteRepositoryAsync(ItemQueryOperation, owner, name, number, cancellationToken);
 			var issue = response.Issue
 				?? throw new InvalidDataException($"GitHub issue '{owner}/{name}#{number}' was not found.");
 			issue.CreatedAtHumanized = issue.CreatedAt.ToRelativeTime();
@@ -108,7 +111,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				BodyQuery,
+				BodyQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryBodyResult,
 				writer => WriteVariables(writer, owner, name, number),
 				cancellationToken);
@@ -124,7 +127,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				PinnedQuery,
+				PinnedQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{
@@ -143,15 +146,11 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			return issues;
 		}
 
-		private async Task<Repository> ExecuteRepositoryAsync(
-			string query,
-			string owner,
-			string name,
-			int number,
-			CancellationToken cancellationToken)
+		private async Task<Repository> ExecuteRepositoryAsync(GraphQLOperation<GraphQLResult<Repository>> operation,
+			string owner, string name, int number, CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer => WriteVariables(writer, owner, name, number),
 				cancellationToken);

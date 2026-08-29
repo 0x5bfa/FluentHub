@@ -8,6 +8,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 {
 	internal sealed partial class DiscussionSearchQueries
 	{
+		[GeneratedGraphQLOperation<SearchResponse<DiscussionNode>>]
 		private const string SearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
 			  search(query: $query, type: DISCUSSION, first: $first, after: $after) {
@@ -38,6 +39,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 			}
 			""";
 
+		[GeneratedGraphQLOperation<SearchResponse<DiscussionLabelNode>>]
 		private const string LabelSearchQuery = """
 			query($query: String!) {
 			  search(query: $query, type: DISCUSSION, first: 100) {
@@ -104,7 +106,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 				throw new NotSupportedException("Discussion search only supports forward pagination.");
 
 			var response = await _gitHub.RunGraphQLAsync(
-				SearchQuery,
+				SearchQueryOperation,
 				GetJsonTypeInfo<SearchResponse<DiscussionNode>>(),
 				writer =>
 				{
@@ -126,7 +128,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Discussions
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				LabelSearchQuery,
+				LabelSearchQueryOperation,
 				GetJsonTypeInfo<SearchResponse<DiscussionLabelNode>>(),
 				writer => writer.WriteString("query", searchText),
 				cancellationToken);

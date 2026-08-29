@@ -8,8 +8,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class IssueQueries
+	public partial class IssueQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string Query = """
 			query UserIssues($login: String!, $first: Int, $after: String, $last: Int, $before: String, $filterBy: IssueFilters, $labels: [String!], $orderBy: IssueOrder, $states: [IssueState!]) {
 			  result: user(login: $login) {
@@ -57,7 +58,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			orderBy ??= new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 			states ??= [IssueState.Open];
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer =>
 				{

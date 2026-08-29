@@ -4,8 +4,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public class AddStarMutation
+	public partial class AddStarMutation
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<AddStarResult>>]
 		private const string AddStar = """
 			mutation AddStar($input: AddStarInput!) {
 			  result: addStar(input: $input) {
@@ -29,7 +30,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		private async Task<AddStarResult> ExecuteCoreAsync(ID starrableRepoId, CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				AddStar,
+				AddStarOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultAddStarResult,
 				writer =>
 				{

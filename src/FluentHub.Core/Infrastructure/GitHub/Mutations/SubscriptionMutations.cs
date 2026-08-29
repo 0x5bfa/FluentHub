@@ -4,8 +4,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public sealed class SubscriptionMutations
+	public sealed partial class SubscriptionMutations
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<UpdateSubscriptionResult>>]
 		private const string UpdateSubscription = """
 			mutation UpdateSubscription($input: UpdateSubscriptionInput!) {
 			  result: updateSubscription(input: $input) {
@@ -31,7 +32,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var response = await _gitHub.RunGraphQLAsync(
-				UpdateSubscription,
+				UpdateSubscriptionOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateSubscriptionResult,
 				writer =>
 				{

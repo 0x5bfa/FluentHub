@@ -8,8 +8,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class DiscussionQueries
+	public partial class DiscussionQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string Query = """
 			query UserDiscussions($login: String!, $first: Int, $after: String, $last: Int, $before: String, $answered: Boolean, $orderBy: DiscussionOrder, $repositoryId: ID) {
 			  result: user(login: $login) {
@@ -44,7 +45,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer =>
 				{

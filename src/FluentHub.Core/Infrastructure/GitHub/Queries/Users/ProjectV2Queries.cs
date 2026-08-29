@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class ProjectV2Queries
+	public partial class ProjectV2Queries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string Query = """
 			query UserProjects($login: String!, $first: Int, $after: String, $last: Int, $before: String) {
 			  result: user(login: $login) {
@@ -28,7 +29,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer =>
 				{

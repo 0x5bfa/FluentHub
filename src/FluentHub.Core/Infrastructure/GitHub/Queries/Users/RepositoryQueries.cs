@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class RepositoryQueries
+	public partial class RepositoryQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string PageQuery = """
 			query UserRepositories($login: String!, $first: Int, $after: String, $last: Int, $before: String, $affiliations: [RepositoryAffiliation], $isArchived: Boolean, $isFork: Boolean, $isLocked: Boolean, $orderBy: RepositoryOrder, $ownerAffiliations: [RepositoryAffiliation], $privacy: RepositoryPrivacy) {
 			  result: user(login: $login) {
@@ -19,6 +20,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			}
 			""" + RepositoryListQuery.Fields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string LanguagesQuery = """
 			query UserRepositoryLanguages($login: String!, $after: String) {
 			  result: user(login: $login) {
@@ -47,7 +49,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				PageQuery,
+				PageQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer =>
 				{
@@ -75,7 +77,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			do
 			{
 				var response = await _gitHub.RunGraphQLAsync(
-					LanguagesQuery,
+					LanguagesQueryOperation,
 					GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 					writer =>
 					{

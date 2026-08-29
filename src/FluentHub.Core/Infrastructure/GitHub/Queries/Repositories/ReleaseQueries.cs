@@ -7,7 +7,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class ReleaseQueries
+	public partial class ReleaseQueries
 	{
 		private const string ReleaseFields = """
 			fragment ReleaseFields on Release {
@@ -16,6 +16,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string PageQuery = """
 			query Releases($owner: String!, $name: String!, $first: Int, $after: String, $last: Int, $before: String, $orderBy: ReleaseOrder) {
 			  result: repository(owner: $owner, name: $name) {
@@ -27,6 +28,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""" + ReleaseFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string ItemQuery = """
 			query Release($owner: String!, $name: String!, $tagName: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -52,7 +54,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				PageQuery,
+				PageQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{
@@ -80,7 +82,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				ItemQuery,
+				ItemQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{

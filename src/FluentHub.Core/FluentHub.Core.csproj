@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Octokit\Octokit.csproj" />
+		<ProjectReference Include="..\..\tools\Octokit.Generators\Octokit.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 </Project>

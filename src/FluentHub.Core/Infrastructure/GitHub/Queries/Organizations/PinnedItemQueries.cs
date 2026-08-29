@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 {
-	public class PinnedItemQueries
+	public partial class PinnedItemQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<PinnedRepositoriesResult>>]
 		private const string Query = """
 			query OrganizationPinnedRepositories($login: String!) {
 			  result: organization(login: $login) {
@@ -26,7 +27,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 		public async Task<List<Repository>> GetAllAsync(string org, CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultPinnedRepositoriesResult,
 				writer => writer.WriteString("login", org),
 				cancellationToken);

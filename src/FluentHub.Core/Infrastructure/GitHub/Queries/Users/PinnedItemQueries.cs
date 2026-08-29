@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class PinnedItemQueries
+	public partial class PinnedItemQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<PinnedRepositoriesResult>>]
 		private const string PinnedQuery = """
 			query PinnedRepositories($login: String!) {
 			  result: user(login: $login) {
@@ -19,6 +20,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			}
 			""" + PinnedRepositoryQuery.Fields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<PinnedRepositoriesResult>>]
 		private const string PinnableQuery = """
 			query PinnableRepositories($login: String!) {
 			  result: user(login: $login) {
@@ -29,6 +31,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			}
 			""" + PinnedRepositoryQuery.Fields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<PinnedRepositoriesResult>>]
 		private const string CombinedQuery = """
 			query PinnableAndPinnedRepositories($login: String!) {
 			  result: user(login: $login) {
@@ -44,31 +47,39 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 		private readonly IGitHubApiClient _gitHub;
 
-		public PinnedItemQueries(IGitHubApiClient gitHub) => _gitHub = gitHub;
+		public PinnedItemQueries(IGitHubApiClient gitHub)
+		{
+			_gitHub = gitHub;
+		}
 
 		public async Task<List<Repository>> GetAllAsync(string login, CancellationToken cancellationToken = default)
-			=> PinnedRepositoryQuery.ToList((await ExecuteAsync(PinnedQuery, login, cancellationToken)).PinnedItems.Nodes);
+		{
+			var result = await ExecuteAsync(PinnedQueryOperation, login, cancellationToken);
+			return PinnedRepositoryQuery.ToList(result.PinnedItems.Nodes);
+		}
 
 		public async Task<List<Repository>> GetAllPinnableItemsAsync(string login, CancellationToken cancellationToken = default)
-			=> PinnedRepositoryQuery.ToList((await ExecuteAsync(PinnableQuery, login, cancellationToken)).PinnableItems.Nodes);
+		{
+			var result = await ExecuteAsync(PinnableQueryOperation, login, cancellationToken);
+			return PinnedRepositoryQuery.ToList(result.PinnableItems.Nodes);
+		}
 
 		public async Task<(List<Repository>, List<Repository>)> GetAllPinnableAndPinnedItemsAsync(
 			string login,
 			CancellationToken cancellationToken = default)
 		{
-			var result = await ExecuteAsync(CombinedQuery, login, cancellationToken);
+			var result = await ExecuteAsync(CombinedQueryOperation, login, cancellationToken);
 			return (
 				PinnedRepositoryQuery.ToList(result.PinnableItems.Nodes),
 				PinnedRepositoryQuery.ToList(result.PinnedItems.Nodes));
 		}
 
 		private async Task<PinnedRepositoriesResult> ExecuteAsync(
-			string query,
-			string login,
+			GraphQLOperation<GraphQLResult<PinnedRepositoriesResult>> operation, string login,
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultPinnedRepositoriesResult,
 				writer => writer.WriteString("login", login),
 				cancellationToken);

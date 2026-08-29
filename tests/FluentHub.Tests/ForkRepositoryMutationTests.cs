@@ -127,12 +127,12 @@ public sealed class ForkRepositoryMutationTests
 			CancellationToken cancellationToken = default)
 			=> operation(_rest, cancellationToken);
 
-		public Task<T> RunGraphQLAsync<T>(
-			string query,
-			JsonTypeInfo<T> dataTypeInfo,
-			Action<Utf8JsonWriter>? writeVariables = null,
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
-			=> throw new NotSupportedException();
+		{
+			throw new NotSupportedException();
+		}
 		public void Dispose()
 		{
 			_transport.Dispose();

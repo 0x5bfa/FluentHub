@@ -8,8 +8,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class DiscussionQueries
+	public partial class DiscussionQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string PageQuery = """
 			query RepositoryDiscussions($owner: String!, $name: String!, $first: Int, $after: String, $last: Int, $before: String, $categoryId: ID, $orderBy: DiscussionOrder) {
 			  result: repository(owner: $owner, name: $name) {
@@ -20,6 +21,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""" + DiscussionQuery.ListFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string ItemQuery = """
 			query Discussion($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -63,7 +65,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				PageQuery,
+				PageQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{
@@ -84,7 +86,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				ItemQuery,
+				ItemQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{

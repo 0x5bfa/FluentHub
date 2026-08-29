@@ -9,8 +9,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class UserQueries
+	public partial class UserQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string UserQuery = """
 			query User($login: String!) {
 			  result: user(login: $login) {
@@ -24,6 +25,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<ProfileReadmeQueryResult>>]
 		private const string ProfileReadmeQuery = """
 			query ProfileReadme($login: String!) {
 			  result: repository(name: $login, owner: $login) {
@@ -63,7 +65,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 		private async Task<User> GetUncachedAsync(string login, CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				UserQuery,
+				UserQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer => writer.WriteString("login", login),
 				cancellationToken);
@@ -91,7 +93,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				ProfileReadmeQuery,
+				ProfileReadmeQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultProfileReadmeQueryResult,
 				writer => writer.WriteString("login", login),
 				cancellationToken);

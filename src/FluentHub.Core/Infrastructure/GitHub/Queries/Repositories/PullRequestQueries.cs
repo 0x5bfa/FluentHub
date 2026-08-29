@@ -7,12 +7,13 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class PullRequestQueries
+	public partial class PullRequestQueries
 	{
 		private const string ReactionFields = """
 			reactionGroups { content viewerHasReacted reactors { totalCount } }
 		""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string ItemQuery = """
 			query PullRequest($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -39,6 +40,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryBodyResult>>]
 		private const string BodyQuery = """
 			query PullRequestBody($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -77,7 +79,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				ItemQuery,
+				ItemQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer => WriteVariables(writer, owner, name, number),
 				cancellationToken);
@@ -100,7 +102,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				BodyQuery,
+				BodyQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryBodyResult,
 				writer => WriteVariables(writer, owner, name, number),
 				cancellationToken);

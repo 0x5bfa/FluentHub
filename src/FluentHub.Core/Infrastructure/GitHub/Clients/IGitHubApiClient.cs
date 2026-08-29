@@ -8,16 +8,25 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
 	public interface IGitHubApiClient
 	{
-		string CachePartition => "anonymous";
+		string CachePartition
+		{
+			get
+			{
+				return "anonymous";
+			}
+		}
 
 		Task<T> RunRestAsync<T>(
 			Func<OctokitRest.GitHubRestClient, CancellationToken, Task<T>> operation,
 			CancellationToken cancellationToken = default);
 
-		Task<T> RunGraphQLAsync<T>(
-			string query,
-			JsonTypeInfo<T> dataTypeInfo,
-			Action<Utf8JsonWriter>? writeVariables = null,
-			CancellationToken cancellationToken = default);
+		Task<T> RunGraphQLAsync<T>(GraphQLOperation<T> operation, JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default);
+
+		Task<T> RunDynamicGraphQLAsync<T>(string query, JsonTypeInfo<T> dataTypeInfo,
+			Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default)
+		{
+			throw new NotSupportedException("Dynamic GraphQL operations are not supported by this client.");
+		}
 	}
 }

@@ -20,8 +20,10 @@ public sealed class GitHubGraphQLClientTests
 		using var transport = new GitHubHttpClient(httpClient);
 		var client = new GitHubGraphQLClient(transport);
 
+		var operation = new GraphQLOperation<GraphQLClientTestData>(
+			"query Viewer($includeName: Boolean!) { viewer { login } }", "Viewer", GraphQLOperationType.Query);
 		var result = await client.ExecuteAsync(
-			"query Viewer($includeName: Boolean!) { viewer { login } }",
+			operation,
 			GraphQLClientTestJsonContext.Default.GraphQLClientTestData,
 			writer => writer.WriteBoolean("includeName", true));
 
@@ -34,7 +36,7 @@ public sealed class GitHubGraphQLClientTests
 	}
 
 	[TestMethod]
-	public async Task ExecuteAsyncPreservesGraphQLErrorDetails()
+	public async Task ExecuteDynamicAsyncPreservesGraphQLErrorDetails()
 	{
 		var handler = new StubHttpMessageHandler(
 			"{\"errors\":[{\"message\":\"Resource not accessible\",\"type\":\"FORBIDDEN\",\"locations\":[{\"line\":2,\"column\":3}]}]}");
@@ -42,7 +44,7 @@ public sealed class GitHubGraphQLClientTests
 		using var transport = new GitHubHttpClient(httpClient);
 		var client = new GitHubGraphQLClient(transport);
 
-		var exception = await Assert.ThrowsExactlyAsync<GraphQLException>(() => client.ExecuteAsync(
+		var exception = await Assert.ThrowsExactlyAsync<GraphQLException>(() => client.ExecuteDynamicAsync(
 			"query { viewer { login } }",
 			GraphQLClientTestJsonContext.Default.GraphQLClientTestData));
 
@@ -54,10 +56,12 @@ public sealed class GitHubGraphQLClientTests
 	}
 
 	private static HttpClient CreateHttpClient(HttpMessageHandler handler)
-		=> new(handler)
+	{
+		return new(handler)
 		{
 			BaseAddress = new Uri("https://api.github.test/", UriKind.Absolute),
 		};
+	}
 
 	private sealed class StubHttpMessageHandler(string responseBody) : HttpMessageHandler
 	{

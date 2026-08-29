@@ -7,7 +7,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class CommitQueries
+	public partial class CommitQueries
 	{
 		private const string CommitFields = """
 			fragment CommitListFields on Commit {
@@ -21,6 +21,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryRefResult>>]
 		private const string PageQuery = """
 			query CommitHistory($owner: String!, $name: String!, $ref: String!, $first: Int, $after: String, $last: Int, $before: String, $author: CommitAuthor, $path: String, $since: GitTimestamp, $until: GitTimestamp) {
 			  result: repository(owner: $owner, name: $name) {
@@ -38,6 +39,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""" + CommitFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryRefResult>>]
 		private const string LatestQuery = """
 			query LatestCommit($owner: String!, $name: String!, $ref: String!, $path: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -77,7 +79,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			path = string.IsNullOrEmpty(path) ? "." : path;
 
 			var response = await _gitHub.RunGraphQLAsync(
-				PageQuery,
+				PageQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryRefResult,
 				writer =>
 				{
@@ -112,7 +114,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 		{
 			path = string.IsNullOrEmpty(path) ? "." : path;
 			var response = await _gitHub.RunGraphQLAsync(
-				LatestQuery,
+				LatestQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryRefResult,
 				writer =>
 				{

@@ -8,6 +8,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
 	internal sealed partial class RepositoryItemSearchQueries
 	{
+		[GeneratedGraphQLOperation<SearchResponse<IssueSearchNode>>]
 		private const string IssueSearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
 			  search(query: $query, type: ISSUE, first: $first, after: $after) {
@@ -31,6 +32,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<SearchResponse<PullRequestSearchNode>>]
 		private const string PullRequestSearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
 			  search(query: $query, type: ISSUE, first: $first, after: $after) {
@@ -55,6 +57,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<SearchResponse<AuthorSearchNode>>]
 		private const string AuthorSearchQuery = """
 			query($query: String!) {
 			  search(query: $query, type: ISSUE, first: 100) {
@@ -79,7 +82,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken)
 		{
 			var connection = await SearchAsync<IssueSearchNode>(
-				IssueSearchQuery,
+				IssueSearchQueryOperation,
 				RepositoryItemSearchQueryBuilder.Build(owner, name, false, filters),
 				page,
 				cancellationToken);
@@ -96,7 +99,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken)
 		{
 			var connection = await SearchAsync<IssueSearchNode>(
-				IssueSearchQuery,
+				IssueSearchQueryOperation,
 				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, false, filters),
 				page,
 				cancellationToken);
@@ -114,7 +117,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken)
 		{
 			var connection = await SearchAsync<PullRequestSearchNode>(
-				PullRequestSearchQuery,
+				PullRequestSearchQueryOperation,
 				RepositoryItemSearchQueryBuilder.Build(owner, name, true, filters),
 				page,
 				cancellationToken);
@@ -131,7 +134,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken)
 		{
 			var connection = await SearchAsync<PullRequestSearchNode>(
-				PullRequestSearchQuery,
+				PullRequestSearchQueryOperation,
 				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, true, filters),
 				page,
 				cancellationToken);
@@ -154,7 +157,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			if (isPullRequest)
 			{
 				var pullRequests = await SearchAsync<PullRequestSearchNode>(
-					PullRequestSearchQuery,
+					PullRequestSearchQueryOperation,
 					RepositoryItemSearchQueryBuilder.BuildForAuthor(login, true, filters),
 					PageRequest.Forward(100),
 					cancellationToken);
@@ -162,7 +165,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 
 			var issues = await SearchAsync<IssueSearchNode>(
-				IssueSearchQuery,
+				IssueSearchQueryOperation,
 				RepositoryItemSearchQueryBuilder.BuildForAuthor(login, false, filters),
 				PageRequest.Forward(100),
 				cancellationToken);
@@ -181,7 +184,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 				Sort = RepositoryItemSort.BestMatch,
 			};
 			var response = await _gitHub.RunGraphQLAsync(
-				AuthorSearchQuery,
+				AuthorSearchQueryOperation,
 				GetJsonTypeInfo<SearchResponse<AuthorSearchNode>>(),
 				writer => writer.WriteString(
 					"query",
@@ -221,11 +224,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 		}
 
-		private async Task<SearchConnection<TNode>> SearchAsync<TNode>(
-			string query,
-			string searchText,
-			PageRequest page,
-			CancellationToken cancellationToken)
+		private async Task<SearchConnection<TNode>> SearchAsync<TNode>(GraphQLOperation<SearchResponse<TNode>> operation,
+			string searchText, PageRequest page, CancellationToken cancellationToken)
 		{
 			ArgumentNullException.ThrowIfNull(page);
 
@@ -233,7 +233,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 				throw new NotSupportedException("Repository item search only supports forward pagination.");
 
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				GetJsonTypeInfo<SearchResponse<TNode>>(),
 				writer =>
 				{

@@ -20,7 +20,7 @@ public sealed class PullRequestEventQueries
 		CancellationToken cancellationToken = default)
 	{
 		var response = await _gitHub.RunGraphQLAsync(
-			TimelineQueries.PullRequest,
+			TimelineQueries.PullRequestOperation,
 			GitHubGraphQLJsonContext.Default.JsonElement,
 			writer =>
 			{

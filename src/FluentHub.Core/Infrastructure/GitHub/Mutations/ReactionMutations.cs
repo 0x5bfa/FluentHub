@@ -7,7 +7,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public sealed class ReactionMutations
+	public sealed partial class ReactionMutations
 	{
 		private const string ReactionFields = """
 			clientMutationId
@@ -18,6 +18,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<AddReactionResult>>]
 		private const string AddReaction = """
 			mutation AddReaction($input: AddReactionInput!) {
 			  result: addReaction(input: $input) {
@@ -26,6 +27,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<RemoveReactionResult>>]
 		private const string RemoveReaction = """
 			mutation RemoveReaction($input: RemoveReactionInput!) {
 			  result: removeReaction(input: $input) {
@@ -46,7 +48,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var response = await _gitHub.RunGraphQLAsync(
-				AddReaction,
+				AddReactionOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultAddReactionResult,
 				writer => WriteInput(writer, request.SubjectId, request.Content, request.ClientMutationId),
 				cancellationToken);
@@ -62,7 +64,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var response = await _gitHub.RunGraphQLAsync(
-				RemoveReaction,
+				RemoveReactionOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRemoveReactionResult,
 				writer => WriteInput(writer, request.SubjectId, request.Content, request.ClientMutationId),
 				cancellationToken);

@@ -153,10 +153,8 @@ public sealed class MutationArgumentTests
 		public string LastVariables { get; private set; } = string.Empty;
 		public bool ThrowAfterGraphQLRequest { get; init; }
 
-		public Task<T> RunGraphQLAsync<T>(
-			string query,
-			JsonTypeInfo<T> dataTypeInfo,
-			Action<Utf8JsonWriter>? writeVariables = null,
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
 		{
 			GraphQLCallCount++;

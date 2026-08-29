@@ -9,8 +9,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 {
-	public class OrganizationQueries
+	public partial class OrganizationQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<Organization>>]
 		private const string Query = """
 			query Organization($login: String!) {
 			  result: organization(login: $login) {
@@ -61,7 +62,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Organizations
 		private async Task<Organization> GetUncachedAsync(string org, CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultOrganization,
 				writer => writer.WriteString("login", org),
 				cancellationToken);

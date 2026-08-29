@@ -9,7 +9,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class RepositoryQueries
+	public partial class RepositoryQueries
 	{
 		private const string RepositoryDetailsCacheCategory = "repository-details-v2";
 
@@ -43,18 +43,21 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string SummaryQuery = """
 			query RepositorySummary($owner: String!, $name: String!) {
 			  result: repository(owner: $owner, name: $name) { ...RepositorySummaryFields }
 			}
 			""" + SummaryFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string DetailsQuery = """
 			query RepositoryDetails($owner: String!, $name: String!) {
 			  result: repository(owner: $owner, name: $name) { ...RepositoryDetailsFields }
 			}
 			""" + DetailsFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryDetailsResult>>]
 		private const string CustomDetailsQuery = """
 			query RepositoryCodeDetails($owner: String!, $name: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -65,6 +68,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""" + DetailsFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryDetailsResult>>]
 		private const string RefCountsQuery = """
 			query RepositoryRefCounts($owner: String!, $name: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -74,6 +78,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string IssueOptionsQuery = """
 			query RepositoryIssueOptions($owner: String!, $name: String!, $states: [MilestoneState!]) {
 			  result: repository(owner: $owner, name: $name) {
@@ -108,7 +113,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 
 		private async Task<Repository> GetUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
-			var repository = await GetRepositoryAsync(SummaryQuery, owner, name, cancellationToken);
+			var repository = await GetRepositoryAsync(SummaryQueryOperation, owner, name, cancellationToken);
 			StampRepository(repository);
 			return repository;
 		}
@@ -128,7 +133,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 
 		private async Task<Repository> GetDetailsUncachedAsync(string owner, string name, CancellationToken cancellationToken)
 		{
-			var repository = await GetRepositoryAsync(DetailsQuery, owner, name, cancellationToken);
+			var repository = await GetRepositoryAsync(DetailsQueryOperation, owner, name, cancellationToken);
 			StampRepository(repository);
 			return repository;
 		}
@@ -150,7 +155,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				CustomDetailsQuery,
+				CustomDetailsQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryDetailsResult,
 				writer => WriteRepository(writer, owner, name),
 				cancellationToken);
@@ -171,7 +176,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				RefCountsQuery,
+				RefCountsQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryDetailsResult,
 				writer => WriteRepository(writer, owner, name),
 				cancellationToken);
@@ -197,7 +202,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				IssueOptionsQuery,
+				IssueOptionsQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{
@@ -259,14 +264,11 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			}
 		}
 
-		private async Task<Repository> GetRepositoryAsync(
-			string query,
-			string owner,
-			string name,
-			CancellationToken cancellationToken)
+		private async Task<Repository> GetRepositoryAsync(GraphQLOperation<GraphQLResult<Repository>> operation,
+			string owner, string name, CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer => WriteRepository(writer, owner, name),
 				cancellationToken);

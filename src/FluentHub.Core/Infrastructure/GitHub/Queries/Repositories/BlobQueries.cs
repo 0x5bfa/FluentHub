@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class BlobQueries
+	public partial class BlobQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryObjectResult<Blob>>>]
 		private const string Query = """
 			query Blob($name: String!, $owner: String!, $expression: String!) {
 			  result: repository(name: $name, owner: $owner) {
@@ -41,7 +42,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryObjectResultBlob,
 				writer =>
 				{

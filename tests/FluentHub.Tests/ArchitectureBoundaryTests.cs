@@ -141,6 +141,33 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
+	public void StaticGraphQLOperationsUseGeneratedMetadata()
+	{
+		var root = FindRepositoryRoot();
+		var graphQLRoot = Path.Combine(root, "src", "FluentHub.Core", "Infrastructure", "GitHub");
+		var violations = new List<string>();
+
+		foreach (var path in Directory.EnumerateFiles(graphQLRoot, "*.cs", SearchOption.AllDirectories))
+		{
+			var source = File.ReadAllText(path);
+			foreach (Match match in StaticGraphQLOperationRegex().Matches(source))
+			{
+				var precedingSource = source[..match.Index].TrimEnd();
+				var previousLineStart = precedingSource.LastIndexOf('\n') + 1;
+				var previousLine = precedingSource[previousLineStart..].Trim();
+				if (!previousLine.StartsWith("[GeneratedGraphQLOperation<", StringComparison.Ordinal))
+				{
+					var line = source.AsSpan(0, match.Index).Count('\n') + 1;
+					violations.Add($"{Path.GetRelativePath(root, path)}:{line} {match.Groups["name"].Value}");
+				}
+			}
+		}
+
+		Assert.AreEqual(0, violations.Count,
+			$"Static GraphQL documents bypass generation:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+	}
+
+	[TestMethod]
 	public void MainProjectCodeUsesOnlyApprovedFolders()
 	{
 		var root = FindRepositoryRoot();
@@ -246,4 +273,7 @@ public sealed partial class ArchitectureBoundaryTests
 
 	[GeneratedRegex(@"<\s*(?:PersonPicture|primer:Avatar)\b|new\s+PersonPicture\b", RegexOptions.CultureInvariant)]
 	private static partial Regex DirectPersonPictureRegex();
+
+	[GeneratedRegex("(?:private|public|internal)\\s+const\\s+string\\s+(?<name>\\w+)\\s*=\\s*\"\"\"\\s*(?:query|mutation|subscription)\\b", RegexOptions.CultureInvariant)]
+	private static partial Regex StaticGraphQLOperationRegex();
 }

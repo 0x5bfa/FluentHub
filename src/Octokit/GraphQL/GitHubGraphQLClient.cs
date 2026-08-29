@@ -27,11 +27,20 @@ public sealed class GitHubGraphQLClient
 		_transport = transport;
 	}
 
-	public async Task<TData> ExecuteAsync<TData>(
-		string query,
-		JsonTypeInfo<TData> dataTypeInfo,
-		Action<Utf8JsonWriter>? writeVariables = null,
-		CancellationToken cancellationToken = default)
+	public Task<TData> ExecuteAsync<TData>(GraphQLOperation<TData> operation, JsonTypeInfo<TData> dataTypeInfo,
+		Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default)
+	{
+		return ExecuteCoreAsync(operation.Document, dataTypeInfo, writeVariables, cancellationToken);
+	}
+
+	public Task<TData> ExecuteDynamicAsync<TData>(string query, JsonTypeInfo<TData> dataTypeInfo,
+		Action<Utf8JsonWriter>? writeVariables = null, CancellationToken cancellationToken = default)
+	{
+		return ExecuteCoreAsync(query, dataTypeInfo, writeVariables, cancellationToken);
+	}
+
+	private async Task<TData> ExecuteCoreAsync<TData>(string query, JsonTypeInfo<TData> dataTypeInfo,
+		Action<Utf8JsonWriter>? writeVariables, CancellationToken cancellationToken)
 	{
 		ArgumentException.ThrowIfNullOrWhiteSpace(query);
 		ArgumentNullException.ThrowIfNull(dataTypeInfo);

@@ -3,8 +3,9 @@
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories;
 
-internal static class TimelineQueries
+internal static partial class TimelineQueries
 {
+	[GeneratedGraphQLOperation<System.Text.Json.JsonElement>]
 	public const string Issue = """
 		query($owner: String!, $name: String!, $number: Int!) {
 		  result: repository(owner: $owner, name: $name) {
@@ -193,6 +194,7 @@ internal static class TimelineQueries
 		}
 		""";
 
+	[GeneratedGraphQLOperation<System.Text.Json.JsonElement>]
 	public const string PullRequest = """
 		query($owner: String!, $name: String!, $number: Int!) {
 		  result: repository(owner: $owner, name: $name) {

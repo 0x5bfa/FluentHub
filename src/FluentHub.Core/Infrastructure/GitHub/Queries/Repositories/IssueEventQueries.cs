@@ -20,7 +20,7 @@ public sealed class IssueEventQueries
 		CancellationToken cancellationToken = default)
 	{
 		var response = await _gitHub.RunGraphQLAsync(
-			TimelineQueries.Issue,
+			TimelineQueries.IssueOperation,
 			GitHubGraphQLJsonContext.Default.JsonElement,
 			writer =>
 			{

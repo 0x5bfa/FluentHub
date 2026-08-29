@@ -8,8 +8,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class TreeQueries
+	public partial class TreeQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<RepositoryObjectResult<Tree>>>]
 		private const string TreeQuery = """
 			query Tree($owner: String!, $name: String!, $expression: String!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -32,7 +33,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				TreeQuery,
+				TreeQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepositoryObjectResultTree,
 				writer =>
 				{
@@ -56,7 +57,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 				return (files, []);
 
 			var query = BuildCommitQuery(files.Count);
-			var data = await _gitHub.RunGraphQLAsync(
+			var data = await _gitHub.RunDynamicGraphQLAsync(
 				query,
 				GitHubGraphQLJsonContext.Default.JsonElement,
 				writer =>

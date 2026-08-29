@@ -115,7 +115,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			if (notificationQuery is null)
 				return notifications;
 
-			var response2 = await _gitHub.RunGraphQLAsync(
+			var response2 = await _gitHub.RunDynamicGraphQLAsync(
 				notificationQuery,
 				GitHubGraphQLJsonContext.Default.JsonElement,
 				writer => WriteNotificationVariables(writer, notifications),

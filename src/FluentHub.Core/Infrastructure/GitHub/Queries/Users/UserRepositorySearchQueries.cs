@@ -7,6 +7,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
 	internal sealed partial class UserRepositorySearchQueries
 	{
+		[GeneratedGraphQLOperation<SearchResponse>]
 		private const string RepositorySearchQuery = """
 			query($query: String!, $first: Int!, $after: String) {
 			  search(query: $query, type: REPOSITORY, first: $first, after: $after) {
@@ -92,7 +93,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				RepositorySearchQuery,
+				RepositorySearchQueryOperation,
 				UserRepositorySearchJsonContext.Default.SearchResponse,
 				writer =>
 				{

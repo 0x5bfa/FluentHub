@@ -9,8 +9,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class ActivityQueries
+	public partial class ActivityQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string ContributionCalendarQuery = """
 			query ContributionCalendar($login: String!) {
 			  result: user(login: $login) {
@@ -67,7 +68,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				ContributionCalendarQuery,
+				ContributionCalendarQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer => writer.WriteString("login", login),
 				cancellationToken);

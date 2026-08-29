@@ -9,7 +9,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public sealed class PullRequestMutations
+	public sealed partial class PullRequestMutations
 	{
 		private const string PullRequestFields = """
 			fragment PullRequestMutationFields on PullRequest {
@@ -49,6 +49,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<UpdatePullRequestResult>>]
 		private const string UpdatePullRequest = """
 			mutation UpdatePullRequest($input: UpdatePullRequestInput!) {
 			  result: updatePullRequest(input: $input) {
@@ -58,6 +59,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + PullRequestFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<ClosePullRequestResult>>]
 		private const string ClosePullRequest = """
 			mutation ClosePullRequest($input: ClosePullRequestInput!) {
 			  result: closePullRequest(input: $input) {
@@ -67,6 +69,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + PullRequestFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<ReopenPullRequestResult>>]
 		private const string ReopenPullRequest = """
 			mutation ReopenPullRequest($input: ReopenPullRequestInput!) {
 			  result: reopenPullRequest(input: $input) {
@@ -76,6 +79,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + PullRequestFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<MergePullRequestResult>>]
 		private const string MergePullRequest = """
 			mutation MergePullRequest($input: MergePullRequestInput!) {
 			  result: mergePullRequest(input: $input) {
@@ -85,6 +89,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + PullRequestFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<AddCommentResult>>]
 		private const string AddComment = """
 			mutation AddComment($input: AddCommentInput!) {
 			  result: addComment(input: $input) {
@@ -97,6 +102,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + CommentFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<AddPullRequestReviewResult>>]
 		private const string AddPullRequestReview = """
 			mutation AddPullRequestReview($input: AddPullRequestReviewInput!) {
 			  result: addPullRequestReview(input: $input) {
@@ -126,7 +132,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				UpdatePullRequest,
+				UpdatePullRequestOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUpdatePullRequestResult,
 				writer =>
 				{
@@ -156,7 +162,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		{
 			ArgumentNullException.ThrowIfNull(request);
 			var result = await ExecuteMutationAsync(
-				ClosePullRequest,
+				ClosePullRequestOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultClosePullRequestResult,
 				writer => WriteIdInput(writer, request.PullRequestId, request.ClientMutationId),
 				cancellationToken);
@@ -170,7 +176,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		{
 			ArgumentNullException.ThrowIfNull(request);
 			var result = await ExecuteMutationAsync(
-				ReopenPullRequest,
+				ReopenPullRequestOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultReopenPullRequestResult,
 				writer => WriteIdInput(writer, request.PullRequestId, request.ClientMutationId),
 				cancellationToken);
@@ -184,7 +190,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		{
 			ArgumentNullException.ThrowIfNull(request);
 			var result = await ExecuteMutationAsync(
-				MergePullRequest,
+				MergePullRequestOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultMergePullRequestResult,
 				writer =>
 				{
@@ -210,7 +216,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 		{
 			ArgumentNullException.ThrowIfNull(request);
 			var result = await ExecuteMutationAsync(
-				AddComment,
+				AddCommentOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultAddCommentResult,
 				writer =>
 				{
@@ -234,7 +240,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 				throw new NotSupportedException("Inline review comments are not supported by this mutation wrapper.");
 
 			var result = await ExecuteMutationAsync(
-				AddPullRequestReview,
+				AddPullRequestReviewOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultAddPullRequestReviewResult,
 				writer =>
 				{
@@ -254,14 +260,12 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			return result;
 		}
 
-		private async Task<TResult> ExecuteMutationAsync<TResult>(
-			string query,
-			JsonTypeInfo<GraphQLResult<TResult>> typeInfo,
-			Action<Utf8JsonWriter> writeVariables,
+		private async Task<TResult> ExecuteMutationAsync<TResult>(GraphQLOperation<GraphQLResult<TResult>> operation,
+			JsonTypeInfo<GraphQLResult<TResult>> typeInfo, Action<Utf8JsonWriter> writeVariables,
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				typeInfo,
 				writeVariables,
 				cancellationToken);

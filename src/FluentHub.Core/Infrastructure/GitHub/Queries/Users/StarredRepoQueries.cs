@@ -7,8 +7,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 {
-	public class StarredRepoQueries
+	public partial class StarredRepoQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string PageQuery = """
 			query StarredRepositories($login: String!, $first: Int, $after: String, $last: Int, $before: String, $orderBy: StarOrder, $ownedByViewer: Boolean) {
 			  result: user(login: $login) {
@@ -19,6 +20,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			}
 			""" + RepositoryListQuery.Fields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<User>>]
 		private const string LanguagesQuery = """
 			query StarredRepositoryLanguages($login: String!, $after: String) {
 			  result: user(login: $login) {
@@ -42,7 +44,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 		{
 			ArgumentNullException.ThrowIfNull(page);
 			var response = await _gitHub.RunGraphQLAsync(
-				PageQuery,
+				PageQueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 				writer =>
 				{
@@ -87,7 +89,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			do
 			{
 				var response = await _gitHub.RunGraphQLAsync(
-					LanguagesQuery,
+					LanguagesQueryOperation,
 					GitHubGraphQLJsonContext.Default.GraphQLResultUser,
 					writer =>
 					{

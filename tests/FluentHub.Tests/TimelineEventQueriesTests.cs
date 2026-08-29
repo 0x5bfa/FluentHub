@@ -97,12 +97,12 @@ public sealed class TimelineEventQueriesTests
 
 	private sealed class JsonGitHubApiClient(string responseJson) : IGitHubApiClient
 	{
-		public Task<T> RunGraphQLAsync<T>(
-			string query,
-			JsonTypeInfo<T> dataTypeInfo,
-			Action<Utf8JsonWriter>? writeVariables = null,
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
-			=> Task.FromResult(JsonSerializer.Deserialize(responseJson, dataTypeInfo)!);
+		{
+			return Task.FromResult(JsonSerializer.Deserialize(responseJson, dataTypeInfo)!);
+		}
 
 		public Task<T> RunRestAsync<T>(
 			Func<global::Octokit.Rest.GitHubRestClient, CancellationToken, Task<T>> operation,

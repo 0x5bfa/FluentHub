@@ -273,13 +273,11 @@ public sealed class GitHubApiCompatibilityTests
 			throw new NotSupportedException($"Unexpected REST response type: {typeof(T)}");
 		}
 
-		public Task<T> RunGraphQLAsync<T>(
-			string query,
-			JsonTypeInfo<T> dataTypeInfo,
-			Action<Utf8JsonWriter>? writeVariables = null,
+		public Task<T> RunGraphQLAsync<T>(global::Octokit.GraphQL.GraphQLOperation<T> operation,
+			JsonTypeInfo<T> dataTypeInfo, Action<Utf8JsonWriter>? writeVariables = null,
 			CancellationToken cancellationToken = default)
 		{
-			GraphQLQueries.Add(query);
+			GraphQLQueries.Add(operation.Document);
 			if (ThrowAfterGraphQLRequest)
 				throw new GraphQLRequestCapturedException();
 			return Task.FromResult(JsonSerializer.Deserialize("{}", dataTypeInfo)!);

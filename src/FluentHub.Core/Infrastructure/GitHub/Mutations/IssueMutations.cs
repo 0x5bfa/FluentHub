@@ -9,7 +9,7 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
-	public class IssueMutations
+	public partial class IssueMutations
 	{
 		private const string IssueFields = """
 			fragment IssueMutationFields on Issue {
@@ -48,6 +48,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""";
 
+		[GeneratedGraphQLOperation<GraphQLResult<CreateIssueResult>>]
 		private const string CreateIssue = """
 			mutation CreateIssue($input: CreateIssueInput!) {
 			  result: createIssue(input: $input) {
@@ -57,6 +58,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + IssueFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<UpdateIssueResult>>]
 		private const string UpdateIssue = """
 			mutation UpdateIssue($input: UpdateIssueInput!) {
 			  result: updateIssue(input: $input) {
@@ -66,6 +68,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + IssueFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<CloseIssueResult>>]
 		private const string CloseIssue = """
 			mutation CloseIssue($input: CloseIssueInput!) {
 			  result: closeIssue(input: $input) {
@@ -75,6 +78,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + IssueFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<ReopenIssueResult>>]
 		private const string ReopenIssue = """
 			mutation ReopenIssue($input: ReopenIssueInput!) {
 			  result: reopenIssue(input: $input) {
@@ -84,6 +88,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + IssueFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<AddCommentResult>>]
 		private const string AddComment = """
 			mutation AddComment($input: AddCommentInput!) {
 			  result: addComment(input: $input) {
@@ -96,6 +101,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + CommentFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<UpdateIssueCommentResult>>]
 		private const string UpdateIssueComment = """
 			mutation UpdateIssueComment($input: UpdateIssueCommentInput!) {
 			  result: updateIssueComment(input: $input) {
@@ -105,6 +111,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			}
 			""" + CommentFields;
 
+		[GeneratedGraphQLOperation<GraphQLResult<DeleteIssueCommentResult>>]
 		private const string DeleteIssueComment = """
 			mutation DeleteIssueComment($input: DeleteIssueCommentInput!) {
 			  result: deleteIssueComment(input: $input) {
@@ -125,7 +132,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				CreateIssue,
+				CreateIssueOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultCreateIssueResult,
 				writer =>
 				{
@@ -153,7 +160,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				UpdateIssue,
+				UpdateIssueOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateIssueResult,
 				writer =>
 				{
@@ -182,7 +189,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				CloseIssue,
+				CloseIssueOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultCloseIssueResult,
 				writer =>
 				{
@@ -205,7 +212,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				ReopenIssue,
+				ReopenIssueOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultReopenIssueResult,
 				writer => WriteIdInput(writer, "issueId", request.IssueId, request.ClientMutationId),
 				cancellationToken);
@@ -220,7 +227,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				AddComment,
+				AddCommentOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultAddCommentResult,
 				writer =>
 				{
@@ -242,7 +249,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			var result = await ExecuteMutationAsync(
-				UpdateIssueComment,
+				UpdateIssueCommentOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultUpdateIssueCommentResult,
 				writer =>
 				{
@@ -264,20 +271,18 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 			ArgumentNullException.ThrowIfNull(request);
 
 			return ExecuteMutationAsync(
-				DeleteIssueComment,
+				DeleteIssueCommentOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultDeleteIssueCommentResult,
 				writer => WriteIdInput(writer, "id", request.Id, request.ClientMutationId),
 				cancellationToken);
 		}
 
-		private async Task<TResult> ExecuteMutationAsync<TResult>(
-			string query,
-			JsonTypeInfo<GraphQLResult<TResult>> typeInfo,
-			Action<Utf8JsonWriter> writeVariables,
+		private async Task<TResult> ExecuteMutationAsync<TResult>(GraphQLOperation<GraphQLResult<TResult>> operation,
+			JsonTypeInfo<GraphQLResult<TResult>> typeInfo, Action<Utf8JsonWriter> writeVariables,
 			CancellationToken cancellationToken)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				query,
+				operation,
 				typeInfo,
 				writeVariables,
 				cancellationToken);

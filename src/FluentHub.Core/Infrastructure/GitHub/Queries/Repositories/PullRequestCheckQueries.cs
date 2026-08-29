@@ -6,8 +6,9 @@ using FluentHub.Core.Infrastructure.GitHub.Serialization;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 {
-	public class PullRequestCheckQueries
+	public partial class PullRequestCheckQueries
 	{
+		[GeneratedGraphQLOperation<GraphQLResult<Repository>>]
 		private const string Query = """
 			query PullRequestChecks($owner: String!, $name: String!, $number: Int!) {
 			  result: repository(owner: $owner, name: $name) {
@@ -50,7 +51,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			CancellationToken cancellationToken = default)
 		{
 			var response = await _gitHub.RunGraphQLAsync(
-				Query,
+				QueryOperation,
 				GitHubGraphQLJsonContext.Default.GraphQLResultRepository,
 				writer =>
 				{
