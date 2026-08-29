@@ -50,7 +50,7 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Padding="16,8,16,4">
+		<Grid Height="44" Padding="16,0">
 			<TextBlock VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}">
 				<Run Text="{x:Bind Calendar.TotalContributions, Mode=OneWay}" />
 				<Run Text=" contributions in the last year" />
@@ -80,9 +80,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<ItemsRepeater
-					Grid.Column="1"
-					ItemsSource="{x:Bind MonthItems, Mode=OneTime}">
+				<ItemsRepeater Grid.Column="1" ItemsSource="{x:Bind MonthItems, Mode=OneTime}">
 					<ItemsRepeater.Layout>
 						<StackLayout Orientation="Horizontal" Spacing="0" />
 					</ItemsRepeater.Layout>
