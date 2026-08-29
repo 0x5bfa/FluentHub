@@ -3,6 +3,7 @@
 
 using GraphQL;
 using GraphQL.Client.Abstractions;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -24,6 +25,20 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 
 			var session = _sessionManager.GetRequiredSession();
 			return await operation(session.Rest).WaitAsync(cancellationToken);
+		}
+
+		public Task<T> GetRestAsync<T>(
+			string relativeUri,
+			JsonTypeInfo<T> responseTypeInfo,
+			CancellationToken cancellationToken = default)
+		{
+			ArgumentException.ThrowIfNullOrWhiteSpace(relativeUri);
+			ArgumentNullException.ThrowIfNull(responseTypeInfo);
+
+			return _sessionManager.GetRequiredSession().Transport.GetAsync(
+				relativeUri,
+				responseTypeInfo,
+				cancellationToken);
 		}
 
 		public Task<T> RunGraphQLAsync<T>(
@@ -54,9 +69,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			return _sessionManager.GetRequiredSession().RawRest.SendAsync(
+			return _sessionManager.GetRequiredSession().Transport.SendAsync(
 				request,
-				HttpCompletionOption.ResponseHeadersRead,
 				cancellationToken);
 		}
 	}

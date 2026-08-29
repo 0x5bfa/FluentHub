@@ -2,6 +2,7 @@ using FluentHub.Core.Infrastructure.GitHub.Clients;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Octokit.Transport;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 {
@@ -59,7 +60,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Mutations
 				Content = new StringContent(CreateRequestJson(request), Encoding.UTF8, "application/json"),
 			};
 			message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-			message.Headers.Add("X-GitHub-Api-Version", "2022-11-28");
+			message.Headers.Add("X-GitHub-Api-Version", GitHubHttpClient.RestApiVersion);
 
 			using var response = await _gitHub.SendRestAsync(message, cancellationToken);
 			var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);

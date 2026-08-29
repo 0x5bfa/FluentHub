@@ -55,7 +55,7 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
-	public void SourceContainsOnlyTwoProductionProjects()
+	public void SourceContainsExpectedProductionProjects()
 	{
 		var root = FindRepositoryRoot();
 		var projects = Directory.EnumerateFiles(Path.Combine(root, "src"), "*.csproj", SearchOption.AllDirectories)
@@ -64,7 +64,14 @@ public sealed partial class ArchitectureBoundaryTests
 			.ToList();
 
 		CollectionAssert.AreEqual(
-			new[] { "src/FluentHub.Core/FluentHub.Core.csproj", "src/FluentHub/FluentHub.csproj" },
+			new[]
+			{
+				"src/FluentHub.Core/FluentHub.Core.csproj",
+				"src/FluentHub/FluentHub.csproj",
+				"src/Octokit/GraphQL/Octokit.GraphQL.csproj",
+				"src/Octokit/Rest/Octokit.Rest.csproj",
+				"src/Octokit/Transport/Octokit.Transport.csproj",
+			},
 			projects);
 	}
 

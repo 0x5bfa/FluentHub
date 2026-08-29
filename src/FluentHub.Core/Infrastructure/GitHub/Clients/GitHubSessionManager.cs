@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using FluentHub.Core.Application.Abstractions.Authentication;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
+using Octokit.Transport;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -89,13 +90,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 					= new AuthenticationHeaderValue("Bearer", accessToken);
 				RawGraphQL.HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("FluentHub");
 
-				RawRest = new HttpClient
-				{
-					BaseAddress = new Uri("https://api.github.com/"),
-				};
-				RawRest.DefaultRequestHeaders.Authorization
-					= new AuthenticationHeaderValue("Bearer", accessToken);
-				RawRest.DefaultRequestHeaders.UserAgent.ParseAdd("FluentHub");
+				Transport = GitHubHttpClient.Create(accessToken, "FluentHub");
 			}
 
 			public OctokitV3.IGitHubClient Rest { get; }
@@ -104,12 +99,12 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 
 			public GraphQLHttpClient RawGraphQL { get; }
 
-			public HttpClient RawRest { get; }
+			public GitHubHttpClient Transport { get; }
 
 			public void Dispose()
 			{
 				RawGraphQL.Dispose();
-				RawRest.Dispose();
+				Transport.Dispose();
 			}
 		}
 	}

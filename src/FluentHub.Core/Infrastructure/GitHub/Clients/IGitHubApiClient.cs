@@ -3,6 +3,7 @@
 
 using GraphQL;
 using GraphQL.Client.Abstractions;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Core.Infrastructure.GitHub.Clients
 {
@@ -12,6 +13,11 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 
 		Task<T> RunRestAsync<T>(
 			Func<OctokitV3.IGitHubClient, Task<T>> operation,
+			CancellationToken cancellationToken = default);
+
+		Task<T> GetRestAsync<T>(
+			string relativeUri,
+			JsonTypeInfo<T> responseTypeInfo,
 			CancellationToken cancellationToken = default);
 
 		Task<T> RunGraphQLAsync<T>(

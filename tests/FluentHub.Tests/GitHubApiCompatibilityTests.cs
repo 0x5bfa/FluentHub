@@ -1,8 +1,10 @@
 using FluentHub.Core.Infrastructure.GitHub.Clients;
+using FluentHub.Core.Infrastructure.GitHub.Serialization;
 using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
+using System.Text.Json.Serialization.Metadata;
 using OrganizationProjectV2Queries = FluentHub.Core.Infrastructure.GitHub.Queries.Organizations.ProjectV2Queries;
 using RepositoryIssueQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueQueries;
 using RepositoryIssueEventQueries = FluentHub.Core.Infrastructure.GitHub.Queries.Repositories.IssueEventQueries;
@@ -224,13 +226,14 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			AuthenticatedUser = CreateUser(" octocat "),
+			AuthenticatedUser = new AuthenticatedUserResponse { Login = " octocat " },
 		};
 
 		var login = await new UserQueries(api).GetViewerLoginAsync();
 
 		Assert.AreEqual("octocat", login);
 		Assert.AreEqual(1, api.RestCallCount);
+		Assert.AreEqual("user", api.LastRestUri);
 		Assert.IsEmpty(api.GraphQLQueries);
 	}
 
@@ -239,7 +242,7 @@ public sealed class GitHubApiCompatibilityTests
 	{
 		var api = new FakeGitHubApiClient([])
 		{
-			AuthenticatedUser = new global::Octokit.User(),
+			AuthenticatedUser = new AuthenticatedUserResponse(),
 		};
 
 		var exception = await Assert.ThrowsExactlyAsync<InvalidOperationException>(
@@ -248,32 +251,33 @@ public sealed class GitHubApiCompatibilityTests
 		Assert.AreEqual("GitHub did not return a login for the authenticated user.", exception.Message);
 	}
 
-	private static global::Octokit.User CreateUser(string login)
-	{
-		var user = new global::Octokit.User();
-		var loginProperty = typeof(global::Octokit.User).GetProperty(nameof(global::Octokit.User.Login))
-			?? throw new InvalidOperationException("Octokit.User.Login was not found.");
-		loginProperty.SetValue(user, login);
-		return user;
-	}
-
 	private sealed class FakeGitHubApiClient(IReadOnlyList<global::Octokit.Activity> activities) : IGitHubApiClient
 	{
 		public List<string> GraphQLQueries { get; } = [];
 		public List<string> RawGraphQLQueries { get; } = [];
-		public global::Octokit.User? AuthenticatedUser { get; init; }
+		public AuthenticatedUserResponse? AuthenticatedUser { get; init; }
+		public string? LastRestUri { get; private set; }
 		public int RestCallCount { get; private set; }
 		public bool ThrowAfterGraphQLCompilation { get; init; }
+
+		public Task<T> GetRestAsync<T>(
+			string relativeUri,
+			JsonTypeInfo<T> responseTypeInfo,
+			CancellationToken cancellationToken = default)
+		{
+			RestCallCount++;
+			LastRestUri = relativeUri;
+
+			if (AuthenticatedUser is T authenticatedUser)
+				return Task.FromResult(authenticatedUser);
+
+			throw new NotSupportedException($"Unexpected typed REST response type: {typeof(T)}");
+		}
 
 		public Task<T> RunRestAsync<T>(
 			Func<global::Octokit.IGitHubClient, Task<T>> operation,
 			CancellationToken cancellationToken = default)
 		{
-			RestCallCount++;
-
-			if (AuthenticatedUser is T authenticatedUser)
-				return Task.FromResult(authenticatedUser);
-
 			if (activities is T response)
 				return Task.FromResult(response);
 

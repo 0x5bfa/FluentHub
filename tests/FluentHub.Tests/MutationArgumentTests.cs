@@ -6,6 +6,7 @@ using GraphQL;
 using GraphQL.Client.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Tests;
 
@@ -131,6 +132,12 @@ public sealed class MutationArgumentTests
 	{
 		public int GraphQLCallCount { get; private set; }
 		public bool ThrowAfterGraphQLCompilation { get; init; }
+
+		public Task<T> GetRestAsync<T>(
+			string relativeUri,
+			JsonTypeInfo<T> responseTypeInfo,
+			CancellationToken cancellationToken = default)
+			=> throw new NotSupportedException();
 
 		public Task<T> RunGraphQLAsync<T>(ICompiledQuery<T> query, CancellationToken cancellationToken = default)
 		{

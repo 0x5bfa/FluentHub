@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octokit.GraphQL;
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace FluentHub.Tests;
 
@@ -35,7 +36,7 @@ public sealed class ForkRepositoryMutationTests
 		Assert.AreEqual(HttpMethod.Post, api.RequestMethod);
 		Assert.AreEqual("repos/source-owner/source-repo/forks", api.RequestUri);
 		Assert.IsTrue(api.AcceptsGitHubJson);
-		Assert.AreEqual("2022-11-28", api.ApiVersion);
+		Assert.AreEqual(global::Octokit.Transport.GitHubHttpClient.RestApiVersion, api.ApiVersion);
 
 		using var document = JsonDocument.Parse(api.RequestBody);
 		var root = document.RootElement;
@@ -102,6 +103,12 @@ public sealed class ForkRepositoryMutationTests
 		public string ResponseBody { get; init; } =
 			"{\"name\":\"renamed-fork\",\"full_name\":\"destination-org/renamed-fork\",\"owner\":{\"login\":\"destination-org\"}}";
 		public HttpStatusCode StatusCode { get; init; } = HttpStatusCode.Accepted;
+
+		public Task<T> GetRestAsync<T>(
+			string relativeUri,
+			JsonTypeInfo<T> responseTypeInfo,
+			CancellationToken cancellationToken = default)
+			=> throw new NotSupportedException();
 
 		public Task<T> RunRestAsync<T>(
 			Func<global::Octokit.IGitHubClient, Task<T>> operation,

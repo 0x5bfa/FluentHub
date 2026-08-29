@@ -211,7 +211,7 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Repositories
 			var endpoint = $"repos/{Uri.EscapeDataString(owner)}/{Uri.EscapeDataString(name)}/issue-types";
 			using var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
 			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-			request.Headers.Add("X-GitHub-Api-Version", "2026-03-10");
+			request.Headers.Add("X-GitHub-Api-Version", Octokit.Transport.GitHubHttpClient.RestApiVersion);
 
 			using var response = await _gitHub.SendRestAsync(request, cancellationToken);
 			if (response.StatusCode == HttpStatusCode.NotFound)
