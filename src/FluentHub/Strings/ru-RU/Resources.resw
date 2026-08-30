@@ -118,375 +118,375 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Настройки учётной записи</value>
+    <value>Account Settings</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Активность</value>
+    <value>Activities</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Выберите тему</value>
+    <value>Choose your color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>Основные</value>
+    <value>General</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Внешний вид</value>
+    <value>Appearance</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Язык</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Язык</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Пользовательские темы</value>
+    <value>Custom themes</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Назад</value>
+    <value>Back</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Настроить закрепленные</value>
+    <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Участник программы для разработчиков</value>
+    <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Обсуждения</value>
+    <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Редактировать профиль</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Пока недоступно.</value>
+    <value>Not available yet.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Активность</value>
+    <value>Activity</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>Нет недавних действий.</value>
+    <value>No recent activity.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Перейти к приложению FluentHub.</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Нажмите "Войти с помощью GitHub";</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Подписаться</value>
+    <value>Follow</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Подписчики</value>
+    <value>Followers</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>подписчики</value>
+    <value>followers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Подписки</value>
+    <value>Following</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>подписки</value>
+    <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Нажмите "Открыть FluentHub DEV";</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Вперёд</value>
+    <value>Forward</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Назад</value>
+    <value>Back</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Вперёд</value>
+    <value>Forward</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Главная</value>
+    <value>Home</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Избранное</value>
+    <value>Favorites</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>Нет избранных элементов.</value>
+    <value>No favorite items available.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Работа</value>
+    <value>Work</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Дом</value>
+    <value>Home</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Недавние</value>
+    <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Документация</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Авторизация FluentHub</value>
+    <value>Authorize FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Задачи</value>
+    <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Что-то пошло не так</value>
+    <value>Something went wrong</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Открывает папку с логами, в которой на локальном диске хранятся сведения об ошибках приложения.</value>
+    <value>Opens the log folder where app error details are stored on the local disk.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Открыть папку с логами</value>
+    <value>Open log location</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Открывает нашу страницу GitHub для создания проблемы. Примечание: В будущем FluentHub будет автоматически вставлять содержимое ошибки, данные, логи и отправлять их команде FluentHub через GitHub при нажатии этой кнопки.</value>
+    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Сообщить о проблеме</value>
+    <value>Report this issue</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Показывает результаты трассировки стека в диалоговом окне.</value>
+    <value>Displays the stack trace results in a dialog.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Смотреть трассировку стека</value>
+    <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Войти с помощью GitHub</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>Создать</value>
+    <value>New</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>Создать</value>
+    <value>New</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>Новая организация</value>
+    <value>New organization</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Новый репозиторий</value>
+    <value>New repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Уведомления</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Назначено</value>
+    <value>Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Готово</value>
+    <value>Done</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Фильтр по:</value>
+    <value>Filter by:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Входящие</value>
+    <value>Inbox</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Упоминания</value>
+    <value>Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Упоминания Команды</value>
+    <value>Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Участвующие</value>
+    <value>Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Запрошена рецензия</value>
+    <value>Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Сохранено</value>
+    <value>Saved</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Группировать по:</value>
+    <value>Group by:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>Нет</value>
+    <value>None</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Дата</value>
+    <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Репозиторий</value>
+    <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Уведомления</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Нет новых уведомлений.</value>
+    <value>No recent notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Поиск в уведомлениях</value>
+    <value>Search notifications</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Непрочитанные</value>
+    <value>Unread</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>Нет обсуждений</value>
+    <value>No discussions</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>Нет подписчиков</value>
+    <value>No followers</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>Нет подписок</value>
+    <value>No following</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Нет задач</value>
+    <value>No issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Нет организаций</value>
+    <value>No organizations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Нет популярных репозиториев</value>
+    <value>No popular repositories</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Нет запросов на слияние</value>
+    <value>No pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Нет репозиториев</value>
+    <value>No repositories</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>Нет избранного</value>
+    <value>No stars</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Организации</value>
+    <value>Organizations</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Обзор</value>
+    <value>Overview</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Пакеты</value>
+    <value>Packages</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Закрепленные репозитории</value>
+    <value>Pinned repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Популярные репозитории</value>
+    <value>Popular repositories</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Проекты</value>
+    <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Запросы на слияние</value>
+    <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Обновить</value>
+    <value>Refresh</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Репозитории</value>
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Репозитории</value>
+    <value>Repositories</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Search</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Search</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в обсуждениях</value>
+    <value>Search discussions</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в подписчиках</value>
+    <value>Search followers</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Искать в подписках</value>
+    <value>Search following</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в задачах</value>
+    <value>Search issues</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в организациях</value>
+    <value>Search organizations</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в запросах на слияние</value>
+    <value>Search pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в репозиториях</value>
+    <value>Search repositories</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Поиск в избранном</value>
+    <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Если вы являетесь администратором одной или нескольких организаций, предоставьте им доступ к FluentHub;</value>
+    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Отзыв</value>
+    <value>Feedback</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Выйти</value>
+    <value>Sign out</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Избранное</value>
+    <value>Stars</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Сменить учётную запись</value>
+    <value>Switch account</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Как в системе</value>
+    <value>Sync with system setting</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Тёмная</value>
+    <value>Dark</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Светлая</value>
+    <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Нажмите "Авторизация FluentHub";</value>
+    <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Повторить</value>
+    <value>Try Again</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Отписаться</value>
+    <value>Unfollow</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Ваши обсуждения</value>
+    <value>Your discussions</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Ваши задачи</value>
+    <value>Your issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Ваши организации</value>
+    <value>Your organizations</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Ваш профиль</value>
+    <value>Your profile</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Ваши запросы на слияние</value>
+    <value>Your pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Ваши репозитории</value>
+    <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Ваше избранное</value>
+    <value>Your stars</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Ваши обсуждения</value>
+    <value>Your discussions</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Ваши подписчики</value>
+    <value>Your followers</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Ваши подписки</value>
+    <value>Your following</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Ваши задачи</value>
+    <value>Your issues</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Ваши организации</value>
+    <value>Your organizations</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Ваши запросы на слияние</value>
+    <value>Your pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Ваши репозитории</value>
+    <value>Your repositories</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Ваше избранное</value>
+    <value>Your stars</value>
   </data>
 </root>
