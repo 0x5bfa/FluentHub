@@ -26,6 +26,8 @@ namespace FluentHub.Views
 		private async void OnRootViewLoaded(object sender, RoutedEventArgs e)
 		{
 			MainWindow.Instance.SetTitleBar(TitleBar);
+			if (NavigationView.SelectedItem is null && NavigationView.MenuItems.Count > 0)
+				NavigationView.SelectedItem = NavigationView.MenuItems[0];
 
 			if (_repositoryItemsAdded)
 				return;
@@ -66,11 +68,15 @@ namespace FluentHub.Views
 			if (args.SelectedItem is not NavigationViewItem item)
 				return;
 
-			ContentFrame.Content = new TextBlock
+			ContentPresenter.Content = item.Tag?.ToString() switch
 			{
-				Text = item.Tag?.ToString() ?? item.Content?.ToString(),
-				HorizontalAlignment = HorizontalAlignment.Center,
-				VerticalAlignment = VerticalAlignment.Center,
+				"Inbox" => new InboxView(),
+				_ => new TextBlock
+				{
+					Text = item.Tag?.ToString() ?? item.Content?.ToString(),
+					HorizontalAlignment = HorizontalAlignment.Center,
+					VerticalAlignment = VerticalAlignment.Center,
+				},
 			};
 		}
 	}

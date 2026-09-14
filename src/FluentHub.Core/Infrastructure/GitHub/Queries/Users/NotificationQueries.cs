@@ -78,30 +78,29 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 
 				var itemNumber = subject.Url?.Split('/').LastOrDefault();
 
-				switch (subject.Type)
+				if (subject.Type is "Issue" or "PullRequest")
 				{
-					case "Issue":
+					if (int.TryParse(itemNumber, out var number))
+					{
+						indivisual.Subject.Type = subject.Type == "Issue"
+							? NotificationSubjectType.Issue
+							: NotificationSubjectType.PullRequest;
+						indivisual.Subject.Number = number;
+					}
+					else
+					{
+						indivisual.Subject.Type = NotificationSubjectType.Unknown;
+					}
+				}
+				else
+				{
+					indivisual.Subject.Type = subject.Type switch
 						{
-							indivisual.Subject.Type = NotificationSubjectType.Issue;
-							indivisual.Subject.Number = Convert.ToInt32(itemNumber);
-							break;
-						}
-					case "PullRequest":
-						{
-							indivisual.Subject.Type = NotificationSubjectType.PullRequest;
-							indivisual.Subject.Number = Convert.ToInt32(itemNumber);
-							break;
-						}
-					case "Discussion":
-						{
-							indivisual.Subject.Type = NotificationSubjectType.Discussion;
-							break;
-						}
-					case "Commit":
-						{
-							indivisual.Subject.Type = NotificationSubjectType.Commit;
-							break;
-						}
+							"Discussion" => NotificationSubjectType.Discussion,
+							"Commit" => NotificationSubjectType.Commit,
+							"Release" => NotificationSubjectType.Release,
+							_ => NotificationSubjectType.Unknown,
+						};
 				}
 
 				notifications.Add(indivisual);
@@ -115,19 +114,26 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 			if (notificationQuery is null)
 				return notifications;
 
-			var response2 = await _gitHub.RunDynamicGraphQLAsync(
-				notificationQuery,
-				GitHubGraphQLJsonContext.Default.JsonElement,
-				writer => WriteNotificationVariables(writer, notifications),
-				cancellationToken);
+			try
+			{
+				var response2 = await _gitHub.RunDynamicGraphQLAsync(
+					notificationQuery,
+					GitHubGraphQLJsonContext.Default.JsonElement,
+					writer => WriteNotificationVariables(writer, notifications),
+					cancellationToken);
 
-			var repositories = ParseGraphQLJsonResponse(response2, notifications.Count);
+				var repositories = ParseGraphQLJsonResponse(response2, notifications.Count);
 
-			var mappedNotifications = MapRepositoriesToNotifications(notifications, repositories);
-			if (mappedNotifications == null)
-				return notifications;
+				var mappedNotifications = MapRepositoriesToNotifications(notifications, repositories);
+				if (mappedNotifications is not null)
+					return mappedNotifications;
+			}
+			catch (Octokit.GraphQL.GraphQLException)
+			{
+				// Subject enrichment is optional; keep the REST notifications when GitHub rejects it.
+			}
 
-			return mappedNotifications;
+			return notifications;
 		}
 
 		private static string? BuildNotificationQuery(IReadOnlyList<Notification> notifications)

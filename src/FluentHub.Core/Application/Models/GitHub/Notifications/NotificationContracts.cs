@@ -28,7 +28,7 @@ namespace FluentHub.Core.Application.Models
 
 	public sealed class NotificationSubject
 	{
-		public NotificationSubjectType Type { get; set; }
+		public NotificationSubjectType Type { get; set; } = NotificationSubjectType.Unknown;
 
 		public string? TypeHumanized { get; set; }
 
@@ -51,5 +51,6 @@ namespace FluentHub.Core.Application.Models
 		Discussion,
 		Commit,
 		Release,
+		Unknown,
 	}
 }

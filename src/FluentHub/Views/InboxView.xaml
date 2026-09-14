@@ -1,0 +1,156 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Views.InboxView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:viewModels="using:FluentHub.ViewModels">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0" Padding="32,24,32,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Spacing="4">
+				<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Inbox" />
+				<TextBlock
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="Notifications from the repositories you follow."
+					TextWrapping="Wrap" />
+			</StackPanel>
+
+			<Button
+				Grid.Column="1"
+				Command="{x:Bind ViewModel.RefreshCommand}"
+				Content="Refresh">
+				<Button.KeyboardAccelerators>
+					<KeyboardAccelerator Key="R" Modifiers="Control" />
+				</Button.KeyboardAccelerators>
+			</Button>
+		</Grid>
+
+		<TextBlock
+			Grid.Row="1"
+			Margin="32,20,32,12"
+			Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+			Text="{x:Bind ViewModel.UnreadSummary, Mode=OneWay}" />
+
+		<Grid Grid.Row="2" Margin="0,0,0,24">
+			<ProgressRing
+				x:Name="LoadingIndicator"
+				Width="40"
+				Height="40"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+				IsActive="True" />
+
+			<ListView
+				x:Name="NotificationList"
+				x:Load="{x:Bind ViewModel.HasItems, Mode=OneWay}"
+				IsItemClickEnabled="True"
+				ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+				SelectionMode="None">
+				<ListView.ItemContainerStyle>
+					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+						<Setter Property="Margin" Value="28,0" />
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate x:DataType="viewModels:InboxItemViewModel">
+						<Grid Padding="12,10" ColumnSpacing="12">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+
+							<Ellipse
+								x:Name="UnreadIndicator"
+								Width="8"
+								Height="8"
+								Margin="0,6,4,0"
+								x:Load="{x:Bind IsUnread, Mode=OneWay}"
+								Fill="{ThemeResource SystemFillColorSuccessBrush}" />
+
+							<SymbolIcon
+								Grid.Column="0"
+								Margin="0,2,0,0"
+								Symbol="Mail" />
+
+							<StackPanel Grid.Column="2" Spacing="3">
+								<StackPanel Orientation="Horizontal" Spacing="8">
+									<TextBlock FontWeight="SemiBold" Text="{x:Bind RepositoryName}" />
+									<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind TypeLabel}" />
+								</StackPanel>
+								<TextBlock Text="{x:Bind Title}" TextWrapping="Wrap" />
+								<TextBlock
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Style="{StaticResource CaptionTextBlockStyle}"
+									Text="{x:Bind Reason}"
+									TextWrapping="Wrap" />
+							</StackPanel>
+
+							<TextBlock
+								Grid.Column="3"
+								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+								Style="{StaticResource CaptionTextBlockStyle}"
+								Text="{x:Bind UpdatedAt}" />
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<StackPanel
+				x:Name="EmptyState"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
+				Spacing="8">
+				<SymbolIcon HorizontalAlignment="Center" Symbol="Mail" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="You're all caught up" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="There are no notifications to show."
+					TextWrapping="Wrap" />
+			</StackPanel>
+
+			<StackPanel
+				x:Name="ErrorState"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
+				Spacing="8">
+				<SymbolIcon
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+					Symbol="Important" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="Inbox unavailable" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+					TextWrapping="Wrap" />
+				<Button
+					HorizontalAlignment="Center"
+					Command="{x:Bind ViewModel.RefreshCommand}"
+					Content="Try again" />
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

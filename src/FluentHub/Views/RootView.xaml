@@ -50,7 +50,7 @@
 				</NavigationViewItem>
 				<NavigationViewItemHeader Content="Repositories" />
 			</NavigationView.MenuItems>
-			<Frame x:Name="ContentFrame" />
+			<ContentPresenter x:Name="ContentPresenter" />
 		</NavigationView>
 	</Grid>
 </UserControl>
