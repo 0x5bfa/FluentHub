@@ -408,15 +408,15 @@
 				Content="{x:Bind CustomCustomTabView.SelectedItem.CurrentScreen.View, Mode=OneWay}" />
 
 			<InfoBar
+				Title="Navigation failed"
 				Grid.Row="2"
 				Margin="16"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
+				Canvas.ZIndex="1"
 				IsOpen="{x:Bind CustomCustomTabView.SelectedItem.Chrome.HasError, Mode=OneWay}"
 				Message="{x:Bind CustomCustomTabView.SelectedItem.Chrome.ErrorMessage, Mode=OneWay}"
-				Severity="Error"
-				Title="Navigation failed"
-				Canvas.ZIndex="1" />
+				Severity="Error" />
 
 			<Grid Grid.RowSpan="3">
 				<NavigationView

@@ -15,7 +15,7 @@ namespace FluentHub.Views
 
 		public LoginWindow()
 		{
-			SystemBackdrop = new MicaBackdrop { Kind = MicaKind.BaseAlt };
+			SystemBackdrop = new MicaBackdrop();
 
 			AppWindow.Title = "FluentHub";
 			AppWindow.SetIcon(Path.Combine(

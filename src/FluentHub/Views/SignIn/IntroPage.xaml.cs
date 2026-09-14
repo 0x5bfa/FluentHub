@@ -21,7 +21,7 @@ namespace FluentHub.Views.SignIn
 		public IntroViewModel ViewModel { get; }
 
 		protected override void OnActivated(AppRoute route)
-			=> App.Current.SignInWindow?.SetTitleBar(AppTitleBar);
+			=> App.Current.SignInWindow?.SetTitleBar(TitleBar);
 
 		private void OnContinueButtonClick(object sender, RoutedEventArgs e)
 			=> App.Current.CompleteSignIn();

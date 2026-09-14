@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<!--<VerifyReferenceAotCompatibility>true</VerifyReferenceAotCompatibility>-->
-		<IsAotCompatible>true</IsAotCompatible>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>

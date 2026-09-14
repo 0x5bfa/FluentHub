@@ -13,9 +13,11 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid x:Name="AppTitleBar" Background="Transparent">
-			<uc:TitleBar Margin="16,4,0,0" />
-		</Grid>
+		<TitleBar x:Name="TitleBar" Title="FluentHub">
+			<TitleBar.IconSource>
+				<ImageIconSource ImageSource="/Assets/AppTiles/StoreLogo.png" />
+			</TitleBar.IconSource>
+		</TitleBar>
 
 		<ScrollViewer
 			Grid.Row="1"
@@ -40,12 +42,6 @@
 						VerticalAlignment="Center"
 						x:Load="{x:Bind ViewModel.IsWelcomeStage, Mode=OneWay}"
 						Spacing="12">
-						<Viewbox
-							Width="96"
-							Height="96"
-							Margin="0,0,0,12">
-							<Image Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.scale-400.png" />
-						</Viewbox>
 						<TextBlock
 							HorizontalAlignment="Center"
 							Style="{StaticResource TitleTextBlockStyle}"
@@ -224,9 +220,7 @@
 									Background="{ThemeResource SubtleFillColorSecondaryBrush}"
 									CornerRadius="6">
 									<StackPanel Spacing="6">
-										<TextBlock
-											Style="{StaticResource CaptionTextBlockStyle}"
-											Text="Technical details" />
+										<TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="Technical details" />
 										<TextBlock
 											FontFamily="Cascadia Mono"
 											FontSize="12"
