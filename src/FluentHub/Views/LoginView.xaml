@@ -13,7 +13,7 @@
 
 		<TitleBar x:Name="TitleBar" Title="FluentHub">
 			<TitleBar.IconSource>
-				<ImageIconSource ImageSource="/Assets/AppTiles/StoreLogo.png" />
+				<ImageIconSource ImageSource="/Assets/Branding.png" />
 			</TitleBar.IconSource>
 		</TitleBar>
 
