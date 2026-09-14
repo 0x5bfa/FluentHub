@@ -6,7 +6,6 @@
 		<OutputType>WinExe</OutputType>
 		<Platforms>x86;x64;arm64</Platforms>
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-		<Nullable>enable</Nullable>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
@@ -15,7 +14,7 @@
 		<UseWinUI>true</UseWinUI>
 		<WinUISDKReferences>false</WinUISDKReferences>
 		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
-		<!--<ApplicationIcon>Assets\AppTiles\Dev\Logo.ico</ApplicationIcon>-->
+		<!--<ApplicationIcon>Assets\AppTiles\Logo.ico</ApplicationIcon>-->
 		<DisableXbfLineInfo>false</DisableXbfLineInfo>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 
