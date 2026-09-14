@@ -25,9 +25,5 @@ namespace FluentHub.Core
 			public const string GlyphsPath = @"ms-appx:///Assets/Glyphs";
 		}
 
-		public static class LocalSettings
-		{
-			public const string UserSettingsFileName = @"UserSettings.json";
-		}
 	}
 }

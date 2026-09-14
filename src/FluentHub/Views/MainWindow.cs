@@ -2,17 +2,21 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Media;
 using System.IO;
 using WinUIEx;
 
 namespace FluentHub.Views
 {
-	public sealed class LoginWindow : WindowEx
+	public sealed class MainWindow : WindowEx
 	{
-		private readonly LoginView _rootView;
+		private static MainWindow? _Instance;
+		private RootView _rootView;
 
-		public LoginWindow()
+		public static MainWindow Instance => _Instance ??= new();
+
+		public MainWindow()
 		{
 			SystemBackdrop = new MicaBackdrop();
 
@@ -21,19 +25,24 @@ namespace FluentHub.Views
 			AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
 			AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
 			AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-			Width = 480;
-			Height = 720;
-			IsMaximizable = false;
-			IsResizable = false;
+			MinHeight = 516;
+			MinWidth = 516;
 
-			_rootView = new LoginView();
+			_rootView = new RootView();
 			Content = _rootView;
 		}
 
-		public void Initialize()
+		public void InitializeApplication(object? activatedEventArgs, bool forceReload = false)
 		{
+			_ = activatedEventArgs;
+
+			if (forceReload)
+			{
+				_rootView = new RootView();
+				Content = _rootView;
+			}
+
 			Activate();
-			this.CenterOnScreen();
 		}
 	}
 }
