@@ -30,6 +30,12 @@ namespace FluentHub.Core.Application.Models
 	{
 		public NotificationSubjectType Type { get; set; } = NotificationSubjectType.Unknown;
 
+		public string? TypeName { get; set; }
+
+		public string? Url { get; set; }
+
+		public string? Reference { get; set; }
+
 		public string? TypeHumanized { get; set; }
 
 		public int Number { get; set; }
@@ -48,6 +54,7 @@ namespace FluentHub.Core.Application.Models
 		PullRequestClosed,
 		PullRequestMerged,
 		PullRequestDraft,
+		Actions,
 		Discussion,
 		Commit,
 		Release,

@@ -2,6 +2,8 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Controls;
+using FluentHub.Core.Application.Navigation;
+using FluentHub.Services;
 using FluentHub.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -12,11 +14,13 @@ namespace FluentHub.Views
 	{
 		private bool _repositoryItemsAdded;
 		private InboxView? _currentInboxView;
+		private readonly AppRouteViewFactory _routeViewFactory;
 
 		public RootView()
 		{
 			var app = App.Current;
 			ViewModel = new RootViewModel(app.GitHub, app.Session, app.Settings);
+			_routeViewFactory = new AppRouteViewFactory(app.GitHub);
 
 			InitializeComponent();
 			Loaded += OnRootViewLoaded;
@@ -84,12 +88,17 @@ namespace FluentHub.Views
 				_currentInboxView = null;
 			}
 
-			UIElement content = item.Tag?.ToString() switch
+			var tag = item.Tag?.ToString();
+			UIElement content = tag switch
 			{
 				"Inbox" => new InboxView(),
+				_ when TryParseRepositorySlug(tag, out var repository)
+					=> _routeViewFactory.Create(
+						new RepositoryRoute(repository, RepositorySection.Overview),
+						Navigate),
 				_ => new TextBlock
 				{
-					Text = item.Tag?.ToString() ?? item.Content?.ToString(),
+					Text = tag ?? item.Content?.ToString(),
 					HorizontalAlignment = HorizontalAlignment.Center,
 					VerticalAlignment = VerticalAlignment.Center,
 				},
@@ -105,6 +114,27 @@ namespace FluentHub.Views
 		}
 
 		private void OnNotificationSelected(InboxView source, InboxItemViewModel item)
-			=> BladeView.Push(source, new NotificationDetailView(item));
+		{
+			if (item.Route is { } route)
+				Navigate(source, route);
+		}
+
+		private void Navigate(UIElement source, AppRoute route)
+			=> BladeView.Push(source, _routeViewFactory.Create(route, Navigate));
+
+		private static bool TryParseRepositorySlug(string? value, out RepositorySlug repository)
+		{
+			var parts = value?.Split('/', StringSplitOptions.RemoveEmptyEntries);
+			if (parts is { Length: 2 } &&
+				!string.IsNullOrWhiteSpace(parts[0]) &&
+				!string.IsNullOrWhiteSpace(parts[1]))
+			{
+				repository = new RepositorySlug(parts[0], parts[1]);
+				return true;
+			}
+
+			repository = default;
+			return false;
+		}
 	}
 }

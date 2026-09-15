@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using FluentHub.Controls;
 using FluentHub.Core;
 using FluentHub.Core.Application.Models;
+using FluentHub.Core.Application.Navigation;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Services;
 using Microsoft.UI.Xaml.Media;
@@ -212,6 +213,7 @@ public sealed class InboxItemViewModel
 			NotificationSubjectType.PullRequestClosed => "GitPullRequestClosed16",
 			NotificationSubjectType.PullRequestMerged => "GitMerge16",
 			NotificationSubjectType.PullRequestDraft => "GitPullRequestDraft16",
+			NotificationSubjectType.Actions => "Workflow16",
 			NotificationSubjectType.Discussion => "CommentDiscussion16",
 			NotificationSubjectType.Commit => "GitCommit16",
 			NotificationSubjectType.Release => "Tag16",
@@ -227,4 +229,41 @@ public sealed class InboxItemViewModel
 	public string? Url => _notification.Url;
 
 	public bool HasUrl => !string.IsNullOrWhiteSpace(Url);
+
+	public AppRoute? Route
+	{
+		get
+		{
+			if (_notification.Repository?.Owner?.Login is not { Length: > 0 } owner ||
+				_notification.Repository.Name is not { Length: > 0 } name)
+			{
+				return null;
+			}
+
+			var repository = new RepositorySlug(owner, name);
+			return SubjectType switch
+			{
+				NotificationSubjectType.Issue or
+				NotificationSubjectType.IssueOpen or
+				NotificationSubjectType.IssueClosedAsCompleted or
+				NotificationSubjectType.IssueClosedAsNotPlanned when _notification.Subject.Number > 0
+					=> new RepositoryIssueRoute(repository, _notification.Subject.Number),
+				NotificationSubjectType.PullRequest or
+				NotificationSubjectType.PullRequestOpen or
+				NotificationSubjectType.PullRequestClosed or
+				NotificationSubjectType.PullRequestMerged or
+				NotificationSubjectType.PullRequestDraft when _notification.Subject.Number > 0
+					=> new RepositoryPullRequestRoute(repository, _notification.Subject.Number),
+				NotificationSubjectType.Discussion when _notification.Subject.Number > 0
+					=> new RepositoryDiscussionRoute(repository, _notification.Subject.Number),
+				NotificationSubjectType.Commit when !string.IsNullOrWhiteSpace(_notification.Subject.Reference)
+					=> new RepositoryCommitRoute(repository, _notification.Subject.Reference!),
+				NotificationSubjectType.Release when !string.IsNullOrWhiteSpace(_notification.Subject.Reference)
+					=> new RepositoryReleaseRoute(repository, _notification.Subject.Reference!),
+				NotificationSubjectType.Actions
+					=> new RepositoryRoute(repository, RepositorySection.Actions),
+				_ => null,
+			};
+		}
+	}
 }

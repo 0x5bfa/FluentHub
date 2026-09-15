@@ -124,9 +124,11 @@ public enum OrganizationSection
 
 public enum RepositorySection
 {
+	Overview,
 	Issues,
 	PullRequests,
 	Discussions,
+	Actions,
 	Projects,
 	Releases,
 	Insights,

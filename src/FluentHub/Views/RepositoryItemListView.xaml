@@ -1,0 +1,129 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Views.RepositoryItemListView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls"
+	xmlns:viewModels="using:FluentHub.ViewModels">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel
+			Grid.Row="0"
+			Padding="24,24,24,16"
+			Spacing="4">
+			<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+			<TextBlock
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Text="Select an item to open it in a new blade."
+				TextWrapping="Wrap" />
+		</StackPanel>
+
+		<Grid Grid.Row="1">
+			<ProgressRing
+				x:Name="LoadingIndicator"
+				Width="40"
+				Height="40"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+				IsActive="True" />
+
+			<ListView
+				x:Name="ItemList"
+				Padding="0,0,0,24"
+				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
+				IsItemClickEnabled="True"
+				ItemClick="OnItemClick"
+				ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+				SelectionMode="Single">
+				<ListView.ItemContainerStyle>
+					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+						<Setter Property="Margin" Value="28,0" />
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate x:DataType="viewModels:RouteListItemViewModel">
+						<Grid Padding="12,10" ColumnSpacing="12">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<PathIcon
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								Data="{controls:OcticonData Name=IssueOpened16}"
+								Foreground="{ThemeResource InboxStatusNeutralBrush}" />
+							<StackPanel Grid.Column="1" Spacing="2">
+								<TextBlock
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Style="{StaticResource CaptionTextBlockStyle}"
+									Text="{x:Bind RepositoryName}" />
+								<TextBlock
+									MaxLines="2"
+									Text="{x:Bind Title}"
+									TextTrimming="CharacterEllipsis"
+									TextWrapping="Wrap" />
+							</StackPanel>
+							<TextBlock
+								Grid.Column="2"
+								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+								Style="{StaticResource CaptionTextBlockStyle}"
+								Text="{x:Bind UpdatedAt}" />
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+
+			<StackPanel
+				x:Name="EmptyPanel"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
+				Spacing="8">
+				<PathIcon
+					Width="24"
+					Height="24"
+					HorizontalAlignment="Center"
+					Data="{controls:OcticonData Name=Inbox16}"
+					Foreground="{ThemeResource InboxStatusNeutralBrush}" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="{x:Bind ViewModel.EmptyText, Mode=OneWay}" />
+			</StackPanel>
+
+			<StackPanel
+				x:Name="ErrorPanel"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
+				Spacing="8">
+				<SymbolIcon
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+					Symbol="Important" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="Items unavailable" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+					TextWrapping="Wrap" />
+				<Button
+					x:Name="RetryButton"
+					HorizontalAlignment="Center"
+					Command="{x:Bind ViewModel.RetryCommand}"
+					Content="Try again" />
+			</StackPanel>
+		</Grid>
+	</Grid>
+</UserControl>

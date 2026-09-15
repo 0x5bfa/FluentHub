@@ -1,0 +1,92 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Views.RepositoryView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls">
+
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+		<StackPanel Padding="24" Spacing="16">
+			<Grid ColumnSpacing="12">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<PathIcon
+					Width="32"
+					Height="32"
+					Data="{controls:OcticonData Name=Repo24}"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+				<StackPanel Grid.Column="1" Spacing="2">
+					<TextBlock
+						Style="{StaticResource TitleTextBlockStyle}"
+						Text="{x:Bind ViewModel.Name, Mode=OneWay}"
+						TextWrapping="Wrap" />
+					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.FullName, Mode=OneWay}" />
+				</StackPanel>
+			</Grid>
+
+			<ProgressRing
+				x:Name="LoadingIndicator"
+				Width="40"
+				Height="40"
+				HorizontalAlignment="Center"
+				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+				IsActive="True" />
+
+			<StackPanel
+				x:Name="ContentPanel"
+				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
+				Spacing="16">
+				<TextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" TextWrapping="Wrap" />
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<Button Click="OnIssuesClick" Content="Issues" />
+					<Button Click="OnPullRequestsClick" Content="Pull requests" />
+					<Button Click="OnDiscussionsClick" Content="Discussions" />
+					<Button Click="OnActionsClick" Content="Actions" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Spacing="16">
+					<TextBlock Text="{x:Bind ViewModel.OpenIssues, Mode=OneWay}" />
+					<TextBlock Text="open issues" />
+					<TextBlock Text="{x:Bind ViewModel.OpenPullRequests, Mode=OneWay}" />
+					<TextBlock Text="open pull requests" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Spacing="16">
+					<TextBlock Text="{x:Bind ViewModel.Stars, Mode=OneWay}" />
+					<TextBlock Text="stars" />
+					<TextBlock Text="{x:Bind ViewModel.Forks, Mode=OneWay}" />
+					<TextBlock Text="forks" />
+				</StackPanel>
+				<TextBlock
+					x:Name="DefaultBranchText"
+					x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
+					Text="{x:Bind ViewModel.DefaultBranch, Mode=OneWay}" />
+			</StackPanel>
+
+			<StackPanel
+				x:Name="ErrorPanel"
+				HorizontalAlignment="Center"
+				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
+				Spacing="8">
+				<SymbolIcon
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+					Symbol="Important" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Style="{StaticResource SubtitleTextBlockStyle}"
+					Text="Repository unavailable" />
+				<TextBlock
+					HorizontalAlignment="Center"
+					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+					TextWrapping="Wrap" />
+				<Button
+					x:Name="RetryButton"
+					HorizontalAlignment="Center"
+					Command="{x:Bind ViewModel.RetryCommand}"
+					Content="Try again" />
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

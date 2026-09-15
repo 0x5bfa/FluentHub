@@ -1,0 +1,39 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Views.ActionsView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls">
+
+	<StackPanel
+		Padding="24"
+		HorizontalAlignment="Center"
+		VerticalAlignment="Center"
+		Spacing="12">
+		<PathIcon
+			Width="32"
+			Height="32"
+			HorizontalAlignment="Center"
+			Data="{controls:OcticonData Name=Workflow24}"
+			Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+		<TextBlock
+			HorizontalAlignment="Center"
+			Style="{StaticResource TitleTextBlockStyle}"
+			Text="Actions" />
+		<TextBlock
+			HorizontalAlignment="Center"
+			Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+			Text="{x:Bind ViewModel.RepositoryName, Mode=OneWay}"
+			TextWrapping="Wrap" />
+		<TextBlock
+			HorizontalAlignment="Center"
+			Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+			Text="View workflow runs and checks on GitHub."
+			TextWrapping="Wrap" />
+		<Button
+			x:Name="OpenActionsButton"
+			HorizontalAlignment="Center"
+			Click="OnOpenActionsClick"
+			Content="Open Actions on GitHub" />
+	</StackPanel>
+</UserControl>

@@ -37,6 +37,8 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 					Subject = new()
 					{
 						Title = subject.Title,
+						TypeName = subject.Type,
+						Url = subject.Url,
 					},
 
 					Repository = new()
@@ -76,11 +78,14 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 					_ => "",
 				};
 
-				var itemNumber = subject.Url?.Split('/').LastOrDefault();
+				var itemReference = subject.Url?
+					.Split('/', StringSplitOptions.RemoveEmptyEntries)
+					.LastOrDefault();
+				indivisual.Subject.Reference = itemReference;
 
 				if (subject.Type is "Issue" or "PullRequest")
 				{
-					if (int.TryParse(itemNumber, out var number))
+					if (int.TryParse(itemReference, out var number))
 					{
 						indivisual.Subject.Type = subject.Type == "Issue"
 							? NotificationSubjectType.Issue
@@ -94,10 +99,14 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 				}
 				else
 				{
+					if (int.TryParse(itemReference, out var number))
+						indivisual.Subject.Number = number;
+
 					indivisual.Subject.Type = subject.Type switch
-						{
-							"Discussion" => NotificationSubjectType.Discussion,
-							"Commit" => NotificationSubjectType.Commit,
+					{
+						"Discussion" => NotificationSubjectType.Discussion,
+						"CheckSuite" or "WorkflowRun" => NotificationSubjectType.Actions,
+						"Commit" => NotificationSubjectType.Commit,
 							"Release" => NotificationSubjectType.Release,
 							_ => NotificationSubjectType.Unknown,
 						};
