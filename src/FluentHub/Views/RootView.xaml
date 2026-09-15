@@ -2,7 +2,8 @@
 <UserControl
 	x:Class="FluentHub.Views.RootView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -30,24 +31,37 @@
 			<NavigationView.MenuItems>
 				<NavigationViewItem Content="Inbox" Tag="Inbox">
 					<NavigationViewItem.Icon>
-						<SymbolIcon Symbol="Mail" />
+						<PathIcon
+							Width="16"
+							Height="16"
+							Data="{controls:OcticonData Name=Inbox16}" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem Content="My pulls" Tag="MyPulls">
 					<NavigationViewItem.Icon>
-						<SymbolIcon Symbol="OpenFile" />
+						<PathIcon
+							Width="16"
+							Height="16"
+							Data="{controls:OcticonData Name=GitPullRequest16}" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem Content="Reviews" Tag="Reviews">
 					<NavigationViewItem.Icon>
-						<SymbolIcon Symbol="View" />
+						<PathIcon
+							Width="16"
+							Height="16"
+							Data="{controls:OcticonData Name=CodeReview16}" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem Content="Assigned" Tag="Assigned">
 					<NavigationViewItem.Icon>
-						<SymbolIcon Symbol="Contact" />
+						<PathIcon
+							Width="16"
+							Height="16"
+							Data="{controls:OcticonData Name=Person16}" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
+				<NavigationViewItemSeparator />
 				<NavigationViewItemHeader Content="Repositories" />
 			</NavigationView.MenuItems>
 			<ContentPresenter x:Name="ContentPresenter" />

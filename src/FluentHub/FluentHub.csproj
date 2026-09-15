@@ -43,7 +43,10 @@
 
 	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
-		<Content Include="Assets\**" />
+		<Content Remove="Assets\Octicons\**\*.svg" />
+		<None Remove="Assets\Octicons\**\*.svg" />
+		<Content Include="Assets\**" Exclude="Assets\Octicons\**\*.svg" />
+		<AdditionalFiles Include="Assets\Octicons\**\*.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,6 +70,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
+		<ProjectReference Include="..\Octokit.Generators\Octokit.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 </Project>

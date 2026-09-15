@@ -102,6 +102,4 @@ public sealed class RepositoryNavigationItem
 	public string FullName { get; }
 
 	public bool IsPrivate { get; }
-
-	public string IconGlyph => IsPrivate ? "\uE72E" : "\uE8B7";
 }

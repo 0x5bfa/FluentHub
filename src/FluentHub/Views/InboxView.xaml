@@ -3,6 +3,7 @@
 	x:Class="FluentHub.Views.InboxView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls"
 	xmlns:viewModels="using:FluentHub.ViewModels">
 
 	<Grid>
@@ -42,7 +43,7 @@
 			Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 			Text="{x:Bind ViewModel.UnreadSummary, Mode=OneWay}" />
 
-		<Grid Grid.Row="2" Margin="0,0,0,24">
+		<Grid Grid.Row="2">
 			<ProgressRing
 				x:Name="LoadingIndicator"
 				Width="40"
@@ -54,10 +55,12 @@
 
 			<ListView
 				x:Name="NotificationList"
+				Margin="0,0,0,24"
 				x:Load="{x:Bind ViewModel.HasItems, Mode=OneWay}"
 				IsItemClickEnabled="True"
+				IsMultiSelectCheckBoxEnabled="True"
 				ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-				SelectionMode="None">
+				SelectionMode="Multiple">
 				<ListView.ItemContainerStyle>
 					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
 						<Setter Property="Margin" Value="28,0" />
@@ -65,9 +68,8 @@
 				</ListView.ItemContainerStyle>
 				<ListView.ItemTemplate>
 					<DataTemplate x:DataType="viewModels:InboxItemViewModel">
-						<Grid Padding="12,10" ColumnSpacing="12">
+						<Grid Padding="12,10" ColumnSpacing="8">
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
@@ -75,35 +77,47 @@
 
 							<Ellipse
 								x:Name="UnreadIndicator"
+								Grid.Column="0"
 								Width="8"
 								Height="8"
-								Margin="0,6,4,0"
-								x:Load="{x:Bind IsUnread, Mode=OneWay}"
-								Fill="{ThemeResource SystemFillColorSuccessBrush}" />
+								Margin="0,6,0,0"
+								HorizontalAlignment="Center"
+								x:Load="{x:Bind IsUnread}"
+								Fill="{ThemeResource AccentFillColorDefaultBrush}" />
 
-							<SymbolIcon
+							<PathIcon
 								Grid.Column="0"
-								Margin="0,2,0,0"
-								Symbol="Mail" />
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								Data="{x:Bind IconGeometry, Mode=OneWay}" />
 
-							<StackPanel Grid.Column="2" Spacing="3">
-								<StackPanel Orientation="Horizontal" Spacing="8">
-									<TextBlock FontWeight="SemiBold" Text="{x:Bind RepositoryName}" />
-									<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind TypeLabel}" />
-								</StackPanel>
-								<TextBlock Text="{x:Bind Title}" TextWrapping="Wrap" />
+							<StackPanel Grid.Column="1" Spacing="2">
 								<TextBlock
 									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 									Style="{StaticResource CaptionTextBlockStyle}"
+									Text="{x:Bind RepositoryName}" />
+								<TextBlock
+									MaxLines="2"
+									Text="{x:Bind Title}"
+									TextTrimming="CharacterEllipsis"
+									TextWrapping="Wrap" />
+								<TextBlock
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									MaxLines="2"
+									Style="{StaticResource CaptionTextBlockStyle}"
 									Text="{x:Bind Reason}"
+									TextTrimming="CharacterEllipsis"
 									TextWrapping="Wrap" />
 							</StackPanel>
 
 							<TextBlock
-								Grid.Column="3"
+								Grid.Column="2"
 								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 								Style="{StaticResource CaptionTextBlockStyle}"
-								Text="{x:Bind UpdatedAt}" />
+								Text="{x:Bind UpdatedAt}"
+								TextTrimming="CharacterEllipsis"
+								TextWrapping="Wrap" />
 						</Grid>
 					</DataTemplate>
 				</ListView.ItemTemplate>
@@ -115,7 +129,11 @@
 				VerticalAlignment="Center"
 				x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
 				Spacing="8">
-				<SymbolIcon HorizontalAlignment="Center" Symbol="Mail" />
+				<PathIcon
+					Width="24"
+					Height="24"
+					HorizontalAlignment="Center"
+					Data="{controls:OcticonData Name=Inbox16}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"

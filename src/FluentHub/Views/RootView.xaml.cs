@@ -1,6 +1,7 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.Controls;
 using FluentHub.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -42,7 +43,7 @@ namespace FluentHub.Views
 					{
 						Content = repository.Name,
 						Tag = repository.FullName,
-						Icon = new FontIcon { Glyph = repository.IconGlyph },
+						Icon = Octicons.CreateIcon(repository.IsPrivate ? OcticonName.Lock16 : OcticonName.Repo16),
 					});
 				}
 

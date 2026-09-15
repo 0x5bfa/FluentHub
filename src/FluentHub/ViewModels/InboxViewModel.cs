@@ -3,10 +3,12 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentHub.Controls;
 using FluentHub.Core;
 using FluentHub.Core.Application.Models;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Services;
+using Microsoft.UI.Xaml.Media;
 using System.Collections.ObjectModel;
 using OctokitRest = Octokit.Rest;
 
@@ -177,23 +179,23 @@ public sealed class InboxItemViewModel
 			? "Untitled notification"
 			: _notification.Subject.Title;
 
-	public string TypeLabel
-		=> _notification.Subject.Type switch
+	public Geometry IconGeometry
+		=> Octicons.CreateGeometry(_notification.Subject.Type switch
 		{
 			NotificationSubjectType.Issue or
-			NotificationSubjectType.IssueOpen or
+			NotificationSubjectType.IssueOpen => "IssueOpened16",
 			NotificationSubjectType.IssueClosedAsCompleted or
-			NotificationSubjectType.IssueClosedAsNotPlanned => "Issue",
+			NotificationSubjectType.IssueClosedAsNotPlanned => "IssueClosed16",
 			NotificationSubjectType.PullRequest or
-			NotificationSubjectType.PullRequestOpen or
-			NotificationSubjectType.PullRequestClosed or
-			NotificationSubjectType.PullRequestMerged or
-			NotificationSubjectType.PullRequestDraft => "Pull request",
-			NotificationSubjectType.Discussion => "Discussion",
-			NotificationSubjectType.Commit => "Commit",
-			NotificationSubjectType.Release => "Release",
-			_ => "Notification",
-		};
+			NotificationSubjectType.PullRequestOpen => "GitPullRequest16",
+			NotificationSubjectType.PullRequestClosed => "GitPullRequestClosed16",
+			NotificationSubjectType.PullRequestMerged => "GitMerge16",
+			NotificationSubjectType.PullRequestDraft => "GitPullRequestDraft16",
+			NotificationSubjectType.Discussion => "CommentDiscussion16",
+			NotificationSubjectType.Commit => "GitCommit16",
+			NotificationSubjectType.Release => "Tag16",
+			_ => "Bell16",
+		});
 
 	public string Reason => _notification.Reason ?? string.Empty;
 
