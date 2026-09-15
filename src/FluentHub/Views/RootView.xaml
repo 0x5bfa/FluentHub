@@ -3,7 +3,62 @@
 	x:Class="FluentHub.Views.RootView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="using:FluentHub.Controls">
+	xmlns:controls="using:FluentHub.Controls"
+	x:Name="ViewRoot">
+
+	<UserControl.Resources>
+		<Style x:Key="MeControlButtonStyle" TargetType="Button">
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="HorizontalAlignment" Value="Center" />
+			<Setter Property="UseSystemFocusVisuals" Value="True" />
+			<Setter Property="CornerRadius" Value="16" />
+			<Setter Property="FocusVisualMargin" Value="-3,-3,-3,-3" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<ContentPresenter
+							x:Name="ContentPresenter"
+							HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalAlignment}"
+							AutomationProperties.AccessibilityView="Raw"
+							Content="{TemplateBinding Content}"
+							ContentTemplate="{TemplateBinding ContentTemplate}"
+							ContentTransitions="{TemplateBinding ContentTransitions}"
+							RenderTransformOrigin="0.5,0.5">
+							<ContentPresenter.RenderTransform>
+								<CompositeTransform />
+							</ContentPresenter.RenderTransform>
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualStateGroup.Transitions>
+										<VisualTransition GeneratedDuration="0:0:0.2">
+											<VisualTransition.GeneratedEasingFunction>
+												<CubicEase EasingMode="EaseOut" />
+											</VisualTransition.GeneratedEasingFunction>
+										</VisualTransition>
+									</VisualStateGroup.Transitions>
+									<VisualState x:Name="Normal" />
+									<VisualState x:Name="PointerOver">
+										<VisualState.Setters>
+											<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0.94" />
+											<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0.94" />
+										</VisualState.Setters>
+									</VisualState>
+									<VisualState x:Name="Pressed">
+										<VisualState.Setters>
+											<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0.84" />
+											<Setter Target="ContentPresenter.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0.84" />
+										</VisualState.Setters>
+									</VisualState>
+									<VisualState x:Name="Disabled" />
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+						</ContentPresenter>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -12,18 +67,86 @@
 		</Grid.RowDefinitions>
 
 		<TitleBar
-			x:Name="TitleBar"
+			x:Name="MainTitleBar"
 			Title="FluentHub"
-			Grid.Row="0">
+			Grid.Row="0"
+			IsPaneToggleButtonVisible="True">
 			<TitleBar.IconSource>
 				<ImageIconSource ImageSource="/Assets/Branding.png" />
 			</TitleBar.IconSource>
+			<TitleBar.Content>
+				<AutoSuggestBox Width="256" PlaceholderText="Search GitHub..." />
+			</TitleBar.Content>
+			<TitleBar.RightHeader>
+				<Button
+					x:Name="ProfileButton"
+					Width="36"
+					Height="36"
+					AutomationProperties.Name="Account menu"
+					Style="{StaticResource MeControlButtonStyle}"
+					ToolTipService.ToolTip="Account">
+					<Button.Flyout>
+						<MenuFlyout Placement="BottomEdgeAlignedRight">
+							<MenuFlyoutItem Tag="{x:Bind ViewModel, Mode=OneWay}">
+								<MenuFlyoutItem.Template>
+									<ControlTemplate TargetType="MenuFlyoutItem">
+										<Grid
+											xmlns:vm="using:FluentHub.ViewModels"
+											Width="256"
+											Padding="12,12,12,12"
+											ColumnSpacing="12"
+											DataContext="{TemplateBinding Tag}">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+											</Grid.ColumnDefinitions>
+											<controls:Avatar
+												VerticalAlignment="Top"
+												Alt="{x:Bind ((vm:RootViewModel)Tag).ProfileDisplayName, Mode=OneWay}"
+												Size="48"
+												Source="{x:Bind ((vm:RootViewModel)Tag).ProfilePicture, Mode=OneWay}" />
+											<StackPanel Grid.Column="1" Margin="0,4,0,0">
+												<TextBlock Text="{x:Bind ((vm:RootViewModel)Tag).ProfileDisplayName, Mode=OneWay}" />
+												<TextBlock
+													Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+													Style="{StaticResource CaptionTextBlockStyle}"
+													Text="{x:Bind ((vm:RootViewModel)Tag).ProfileUsername, Mode=OneWay}" />
+												<HyperlinkButton
+													x:Name="ProfileActionHyperlinkButton"
+													Margin="-8,2,0,-4"
+													Padding="6,4,6,5"
+													Click="OnProfileActionHyperlinkButtonClick"
+													Content="{x:Bind ((vm:RootViewModel)Tag).ProfileActionText, Mode=OneWay}"
+													FontSize="12" />
+											</StackPanel>
+										</Grid>
+									</ControlTemplate>
+								</MenuFlyoutItem.Template>
+							</MenuFlyoutItem>
+							<MenuFlyoutSeparator />
+							<MenuFlyoutItem Click="OnAppSettingsClick" Text="App settings" />
+
+						</MenuFlyout>
+					</Button.Flyout>
+					<Border
+						Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+						BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"
+						BorderThickness="1"
+						CornerRadius="14">
+						<controls:Avatar
+							Alt="{x:Bind ViewModel.ProfileDisplayName, Mode=OneWay}"
+							Size="28"
+							Source="{x:Bind ViewModel.ProfilePicture, Mode=OneWay}" />
+					</Border>
+				</Button>
+			</TitleBar.RightHeader>
 		</TitleBar>
 
 		<NavigationView
 			x:Name="NavigationView"
 			Grid.Row="1"
 			IsBackButtonVisible="Collapsed"
+			IsPaneToggleButtonVisible="False"
 			IsSettingsVisible="False"
 			OpenPaneLength="240"
 			PaneDisplayMode="Left"
@@ -61,8 +184,6 @@
 							Data="{controls:OcticonData Name=Person16}" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
-				<NavigationViewItemSeparator />
-				<NavigationViewItemHeader Content="Repositories" />
 			</NavigationView.MenuItems>
 			<controls:BladeView x:Name="BladeView" />
 		</NavigationView>

@@ -20,17 +20,15 @@ namespace FluentHub.Views
 				app.Settings);
 
 			InitializeComponent();
-			Loaded += OnLoginViewLoaded;
 			Unloaded += (_, _) => ViewModel.CancelAuthorization();
 		}
 
 		public LoginViewModel ViewModel { get; }
 
-		private void OnLoginViewLoaded(object sender, RoutedEventArgs e)
-			=> App.Current.SignInWindow?.SetTitleBar(TitleBar);
+		public event EventHandler? SignInCompleted;
 
 		private void OnContinueButtonClick(object sender, RoutedEventArgs e)
-			=> App.Current.CompleteSignIn();
+			=> SignInCompleted?.Invoke(this, EventArgs.Empty);
 
 		private void OnCopyDeviceCodeButtonClick(object sender, RoutedEventArgs e)
 		{

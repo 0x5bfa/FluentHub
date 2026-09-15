@@ -4,7 +4,7 @@
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Media;
-using System.IO;
+using Windows.UI.WindowManagement;
 using WinUIEx;
 
 namespace FluentHub.Views
@@ -23,6 +23,7 @@ namespace FluentHub.Views
 			AppWindow.Title = "FluentHub";
 			AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/Branding.ico"));
 			AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+			AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
 			AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
 			AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 			MinHeight = 516;

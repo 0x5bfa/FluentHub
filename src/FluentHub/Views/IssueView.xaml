@@ -6,100 +6,58 @@
 	xmlns:controls="using:FluentHub.Controls"
 	xmlns:local="using:FluentHub.Views"
 	xmlns:viewModels="using:FluentHub.ViewModels"
-	x:Name="Root"
-	x:DataType="local:IssueView">
+	xmlns:wctcontrols="using:CommunityToolkit.WinUI.Controls"
+	x:Name="Root">
 
-	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-		<StackPanel Padding="24" Spacing="16">
-			<Grid ColumnSpacing="12">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<PathIcon
-					Width="32"
-					Height="32"
-					Data="{controls:OcticonData Name=IssueOpened24}"
-					Foreground="{ThemeResource InboxStatusOpenBrush}" />
-				<StackPanel Grid.Column="1" Spacing="2">
+	<wctcontrols:SwitchPresenter TargetType="viewModels:LoadingState" Value="{x:Bind ViewModel.LoadingState, Mode=OneWay}">
+		<wctcontrols:Case Value="Loading">
+			<ProgressRing
+				Width="40"
+				Height="40"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				IsActive="True" />
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Loaded">
+			<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+				<StackPanel Padding="24" Spacing="8">
+
+					<HyperlinkButton
+						Margin="-8,-4,0,-4"
+						Padding="8,4"
+						Content="{x:Bind ViewModel.RepositoryName, Mode=OneWay}"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
 					<TextBlock
 						Style="{StaticResource TitleTextBlockStyle}"
 						Text="{x:Bind ViewModel.Title, Mode=OneWay}"
 						TextWrapping="Wrap" />
-					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.RepositoryName, Mode=OneWay}" />
-				</StackPanel>
-			</Grid>
 
-			<ProgressRing
-				x:Name="LoadingIndicator"
-				Width="40"
-				Height="40"
-				HorizontalAlignment="Center"
-				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
-				IsActive="True" />
+					<PathIcon
+						Width="32"
+						Height="32"
+						HorizontalAlignment="Left"
+						Data="{controls:OcticonData Name=IssueOpened24}"
+						Foreground="{ThemeResource InboxStatusOpenBrush}" />
 
-			<StackPanel
-				x:Name="ContentPanel"
-				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
-				Spacing="16">
-				<StackPanel Spacing="4">
-					<TextBlock
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Description" />
-					<TextBlock Text="{x:Bind ViewModel.Body, Mode=OneWay}" TextWrapping="Wrap" />
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Spacing="8">
-					<Button
-						x:Name="AuthorButton"
-						x:Load="{x:Bind ViewModel.HasAuthor, Mode=OneWay}"
-						Click="OnAuthorClick"
-						Content="{x:Bind ViewModel.AuthorLogin, Mode=OneWay}" />
-					<Button
-						x:Name="RepositoryButton"
-						Click="OnRepositoryClick"
-						Content="Repository" />
-				</StackPanel>
-				<StackPanel Spacing="4">
-					<TextBlock
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="State" />
-					<TextBlock Text="{x:Bind ViewModel.StateLabel, Mode=OneWay}" />
-				</StackPanel>
-				<StackPanel Spacing="4">
-					<TextBlock
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Updated" />
-					<TextBlock Text="{x:Bind ViewModel.UpdatedAt, Mode=OneWay}" />
-				</StackPanel>
-			</StackPanel>
+					<Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
-			<StackPanel
-				x:Name="ErrorPanel"
-				HorizontalAlignment="Center"
-				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
-				Spacing="8">
-				<SymbolIcon
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-					Symbol="Important" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="Issue unavailable" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
-					TextWrapping="Wrap" />
-				<Button
-					x:Name="RetryButton"
-					HorizontalAlignment="Center"
-					Command="{x:Bind ViewModel.RetryCommand}"
-					Content="Try again" />
-			</StackPanel>
-		</StackPanel>
-	</ScrollViewer>
+					<controls:MarkdownCommentCard
+						ActionText="opened"
+						AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
+						AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
+						Body="{x:Bind ViewModel.Body, Mode=OneWay}"
+						DateText="{x:Bind ViewModel.CreatedAt, Mode=OneWay}"
+						IsEdited="{x:Bind ViewModel.IsBodyEdited, Mode=OneWay}" />
+
+					<controls:Timeline ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
+
+				</StackPanel>
+			</ScrollViewer>
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Error">
+			<controls:LoadErrorDisplay ErrorMessage="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" RetryCommand="{x:Bind ViewModel.RetryCommand, Mode=OneWay}" />
+		</wctcontrols:Case>
+	</wctcontrols:SwitchPresenter>
+
 </UserControl>

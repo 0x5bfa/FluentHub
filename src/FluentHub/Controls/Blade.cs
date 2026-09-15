@@ -19,7 +19,7 @@ public sealed class Blade : INotifyPropertyChanged
 
 	public UIElement Content { get; }
 
-	public double Width { get; private set; }
+	public double Width { get; set; }
 
 	public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -40,13 +40,15 @@
 				x:Name="ContentPanel"
 				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
 				Spacing="16">
-				<StackPanel Spacing="4">
-					<TextBlock
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Description" />
-					<TextBlock Text="{x:Bind ViewModel.Body, Mode=OneWay}" TextWrapping="Wrap" />
-				</StackPanel>
+				<controls:MarkdownCommentCard
+					ActionText="opened"
+					AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
+					AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
+					Body="{x:Bind ViewModel.Body, Mode=OneWay}"
+					DateText="{x:Bind ViewModel.CreatedAt, Mode=OneWay}"
+					IsEdited="{x:Bind ViewModel.IsBodyEdited, Mode=OneWay}" />
+
+				<controls:Timeline ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<Button
 						x:Name="AuthorButton"

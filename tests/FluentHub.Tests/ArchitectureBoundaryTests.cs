@@ -224,25 +224,25 @@ public sealed partial class ArchitectureBoundaryTests
 	}
 
 	[TestMethod]
-	public void PersonPictureIsCentralizedInUserAvatar()
+	public void PersonPictureIsCentralizedInAvatar()
 	{
 		var root = FindRepositoryRoot();
 		var presentationRoot = Path.Combine(root, "src", "FluentHub");
-		var userAvatarPath = Path.Combine(
+		var avatarPath = Path.Combine(
 			presentationRoot,
 			"Controls",
-			"UserAvatar.cs");
+			"Avatar.cs");
 		var violations = Directory.EnumerateFiles(presentationRoot, "*", SearchOption.AllDirectories)
 			.Where(path => Path.GetExtension(path) is ".cs" or ".xaml")
 			.Where(path => !HasPathSegment(path, "obj") && !HasPathSegment(path, "bin"))
-			.Where(path => !string.Equals(path, userAvatarPath, StringComparison.OrdinalIgnoreCase))
+			.Where(path => !string.Equals(path, avatarPath, StringComparison.OrdinalIgnoreCase))
 			.SelectMany(path => DirectPersonPictureRegex().Matches(File.ReadAllText(path))
 				.Select(match => $"{Path.GetRelativePath(root, path)}: {match.Value}"))
 			.ToList();
 
 		Assert.AreEqual(0, violations.Count,
-			$"User avatars bypass the shared control:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
-		StringAssert.Contains(File.ReadAllText(userAvatarPath), "new PersonPicture");
+			$"Avatars bypass the shared control:{Environment.NewLine}{string.Join(Environment.NewLine, violations)}");
+		StringAssert.Contains(File.ReadAllText(avatarPath), "new PersonPicture");
 	}
 
 	private static string FindRepositoryRoot()

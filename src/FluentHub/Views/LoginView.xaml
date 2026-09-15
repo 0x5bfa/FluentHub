@@ -6,21 +6,7 @@
 	Background="Transparent">
 
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="48" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-
-		<TitleBar x:Name="TitleBar" Title="FluentHub">
-			<TitleBar.IconSource>
-				<ImageIconSource ImageSource="/Assets/Branding.png" />
-			</TitleBar.IconSource>
-		</TitleBar>
-
-		<ScrollViewer
-			Grid.Row="1"
-			HorizontalScrollBarVisibility="Disabled"
-			VerticalScrollBarVisibility="Auto">
+		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 			<Grid
 				MinHeight="600"
 				Margin="36,20,36,28"

@@ -14,48 +14,47 @@ namespace FluentHub.ViewModels;
 
 public abstract class RouteViewModelBase : ObservableObject
 {
-	private bool _isLoading;
-	private bool _isLoaded;
+	private LoadingState _loadingState = LoadingState.Loading;
 	private string? _errorMessage;
 	private CancellationTokenSource? _loadCancellation;
 	private Task? _loadTask;
 
 	protected RouteViewModelBase()
 	{
-		RetryCommand = new AsyncRelayCommand(RetryAsync, () => !IsLoading);
+		RetryCommand = new AsyncRelayCommand(
+			RetryAsync,
+			() => LoadingState != LoadingState.Loading);
 	}
 
-	public bool IsLoading
+	public LoadingState LoadingState
 	{
-		get => _isLoading;
+		get => _loadingState;
 		private set
 		{
-			if (!SetProperty(ref _isLoading, value))
+			if (!SetProperty(ref _loadingState, value))
 				return;
 
+			OnPropertyChanged(nameof(IsLoading));
+			OnPropertyChanged(nameof(IsLoaded));
+			OnPropertyChanged(nameof(HasError));
 			RetryCommand.NotifyCanExecuteChanged();
 		}
 	}
 
-	public bool IsLoaded
-	{
-		get => _isLoaded;
-		private set => SetProperty(ref _isLoaded, value);
-	}
+	public bool IsLoading => LoadingState == LoadingState.Loading;
+
+	public bool IsLoaded => LoadingState == LoadingState.Loaded;
 
 	public string? ErrorMessage
 	{
 		get => _errorMessage;
 		private set
 		{
-			if (!SetProperty(ref _errorMessage, value))
-				return;
-
-			OnPropertyChanged(nameof(HasError));
+			SetProperty(ref _errorMessage, value);
 		}
 	}
 
-	public bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
+	public bool HasError => LoadingState == LoadingState.Error;
 
 	public AsyncRelayCommand RetryCommand { get; }
 
@@ -82,7 +81,7 @@ public abstract class RouteViewModelBase : ObservableObject
 		if (IsLoading)
 			return;
 
-		IsLoaded = false;
+		LoadingState = LoadingState.Loading;
 		await LoadAsync();
 	}
 
@@ -95,14 +94,14 @@ public abstract class RouteViewModelBase : ObservableObject
 	{
 		using var cancellation = new CancellationTokenSource();
 		_loadCancellation = cancellation;
-		IsLoading = true;
-		IsLoaded = false;
+		LoadingState = LoadingState.Loading;
 		ErrorMessage = null;
 
 		try
 		{
 			await LoadCoreAsync(cancellation.Token);
-			IsLoaded = true;
+			cancellation.Token.ThrowIfCancellationRequested();
+			LoadingState = LoadingState.Loaded;
 		}
 		catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
 		{
@@ -111,13 +110,12 @@ public abstract class RouteViewModelBase : ObservableObject
 		catch (Exception)
 		{
 			ErrorMessage = "Couldn't load this page. Try again.";
+			LoadingState = LoadingState.Error;
 		}
 		finally
 		{
 			if (ReferenceEquals(_loadCancellation, cancellation))
 				_loadCancellation = null;
-
-			IsLoading = false;
 		}
 	}
 }
@@ -126,6 +124,7 @@ public sealed class IssueViewModel : RouteViewModelBase
 {
 	private readonly IFluentHubGitHubClient _gitHub;
 	private Issue? _issue;
+	private IReadOnlyList<TimelineItemViewModel> _timelineItems = [];
 
 	public IssueViewModel(IFluentHubGitHubClient gitHub, RepositoryIssueRoute route)
 	{
@@ -147,6 +146,16 @@ public sealed class IssueViewModel : RouteViewModelBase
 
 	public string AuthorLogin => _issue?.Author?.Login ?? string.Empty;
 
+	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin) ? "Unknown user" : AuthorLogin;
+
+	public string AuthorAvatarUrl => _issue?.Author?.AvatarUrl ?? string.Empty;
+
+	public string CreatedAt => GetUpdatedAt(_issue?.CreatedAt, _issue?.CreatedAtHumanized);
+
+	public bool IsBodyEdited => _issue?.LastEditedAt is not null;
+
+	public IReadOnlyList<TimelineItemViewModel> TimelineItems => _timelineItems;
+
 	public bool HasAuthor => !string.IsNullOrWhiteSpace(AuthorLogin);
 
 	public string UpdatedAt => GetUpdatedAt(_issue?.UpdatedAt, _issue?.UpdatedAtHumanized);
@@ -160,6 +169,24 @@ public sealed class IssueViewModel : RouteViewModelBase
 			Route.Repository.Name,
 			Route.Number,
 			cancellationToken);
+
+		try
+		{
+			_timelineItems = TimelineItemViewModel.Create(await _gitHub.Repositories.IssueEvents.GetAllAsync(
+				Route.Repository.Owner,
+				Route.Repository.Name,
+				Route.Number,
+				cancellationToken));
+		}
+		catch (OperationCanceledException)
+		{
+			throw;
+		}
+		catch
+		{
+			_timelineItems = [];
+		}
+
 		NotifyDetailsChanged();
 	}
 
@@ -170,6 +197,11 @@ public sealed class IssueViewModel : RouteViewModelBase
 		OnPropertyChanged(nameof(Body));
 		OnPropertyChanged(nameof(StateLabel));
 		OnPropertyChanged(nameof(AuthorLogin));
+		OnPropertyChanged(nameof(AuthorName));
+		OnPropertyChanged(nameof(AuthorAvatarUrl));
+		OnPropertyChanged(nameof(CreatedAt));
+		OnPropertyChanged(nameof(IsBodyEdited));
+		OnPropertyChanged(nameof(TimelineItems));
 		OnPropertyChanged(nameof(HasAuthor));
 		OnPropertyChanged(nameof(UpdatedAt));
 	}
@@ -188,6 +220,7 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 {
 	private readonly IFluentHubGitHubClient _gitHub;
 	private PullRequest? _pullRequest;
+	private IReadOnlyList<TimelineItemViewModel> _timelineItems = [];
 
 	public PullRequestViewModel(IFluentHubGitHubClient gitHub, RepositoryPullRequestRoute route)
 	{
@@ -214,6 +247,16 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 
 	public string AuthorLogin => _pullRequest?.Author?.Login ?? string.Empty;
 
+	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin) ? "Unknown user" : AuthorLogin;
+
+	public string AuthorAvatarUrl => _pullRequest?.Author?.AvatarUrl ?? string.Empty;
+
+	public string CreatedAt => IssueViewModel.GetUpdatedAt(_pullRequest?.CreatedAt, _pullRequest?.CreatedAtHumanized);
+
+	public bool IsBodyEdited => _pullRequest?.LastEditedAt is not null;
+
+	public IReadOnlyList<TimelineItemViewModel> TimelineItems => _timelineItems;
+
 	public bool HasAuthor => !string.IsNullOrWhiteSpace(AuthorLogin);
 
 	public string BranchSummary
@@ -237,6 +280,24 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 			Route.Repository.Name,
 			Route.Number,
 			cancellationToken);
+
+		try
+		{
+			_timelineItems = TimelineItemViewModel.Create(await _gitHub.Repositories.PullRequestEvents.GetAllAsync(
+				Route.Repository.Owner,
+				Route.Repository.Name,
+				Route.Number,
+				cancellationToken));
+		}
+		catch (OperationCanceledException)
+		{
+			throw;
+		}
+		catch
+		{
+			_timelineItems = [];
+		}
+
 		NotifyDetailsChanged();
 	}
 
@@ -247,6 +308,11 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 		OnPropertyChanged(nameof(Body));
 		OnPropertyChanged(nameof(StateLabel));
 		OnPropertyChanged(nameof(AuthorLogin));
+		OnPropertyChanged(nameof(AuthorName));
+		OnPropertyChanged(nameof(AuthorAvatarUrl));
+		OnPropertyChanged(nameof(CreatedAt));
+		OnPropertyChanged(nameof(IsBodyEdited));
+		OnPropertyChanged(nameof(TimelineItems));
 		OnPropertyChanged(nameof(HasAuthor));
 		OnPropertyChanged(nameof(BranchSummary));
 		OnPropertyChanged(nameof(ChangeSummary));

@@ -46,6 +46,23 @@ namespace FluentHub.Core.Infrastructure.GitHub.Clients
 			=> Volatile.Read(ref _current)
 				?? throw new InvalidOperationException("The GitHub API session has not been initialized.");
 
+		public void SignOut()
+		{
+			lock (_syncRoot)
+			{
+				if (_disposed)
+					return;
+
+				Volatile.Write(ref _current, null);
+				Volatile.Write(ref _cachePartition, "anonymous");
+
+				foreach (var session in _sessions)
+					session.Dispose();
+
+				_sessions.Clear();
+			}
+		}
+
 		public void Dispose()
 		{
 			lock (_syncRoot)

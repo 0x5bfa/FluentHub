@@ -40,8 +40,6 @@ public partial class App : Application
 
 	public IFluentHubGitHubClient GitHub { get; }
 
-	public LoginWindow? SignInWindow { get; private set; }
-
 	protected override async void OnLaunched(LaunchActivatedEventArgs args)
 	{
 		try
@@ -53,20 +51,10 @@ public partial class App : Application
 			Settings.ClearInMemory();
 		}
 
-		if (Settings.HasSession && TryRestoreSession())
-			ShowMainWindow();
-		else
-			ShowSignInWindow();
-	}
-
-	public void CompleteSignIn()
-	{
-		if (!Settings.HasSession || !Session.IsAuthenticated)
-			return;
+		if (Settings.HasSession)
+			TryRestoreSession();
 
 		ShowMainWindow();
-		SignInWindow?.Close();
-		SignInWindow = null;
 	}
 
 	private bool TryRestoreSession()
@@ -87,16 +75,5 @@ public partial class App : Application
 	{
 		_mainWindow ??= MainWindow.Instance;
 		_mainWindow.InitializeApplication(null);
-	}
-
-	private void ShowSignInWindow()
-	{
-		if (SignInWindow is null)
-		{
-			SignInWindow = new LoginWindow();
-			SignInWindow.Closed += (_, _) => SignInWindow = null;
-		}
-
-		SignInWindow.Initialize();
 	}
 }

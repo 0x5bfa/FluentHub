@@ -23,8 +23,7 @@ public sealed partial class BladeView : UserControl
 		get => _bladeWidth;
 		set
 		{
-			if (value <= 0)
-				throw new ArgumentOutOfRangeException(nameof(value));
+			ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value);
 			if (_bladeWidth == value)
 				return;
 
@@ -36,7 +35,7 @@ public sealed partial class BladeView : UserControl
 		}
 	}
 
-	public ObservableCollection<Blade> Blades { get; } = new();
+	public ObservableCollection<Blade> Blades { get; } = [];
 
 	public void Replace(UIElement content)
 	{

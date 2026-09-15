@@ -63,7 +63,8 @@
 				SelectionMode="Single">
 				<ListView.ItemContainerStyle>
 					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-						<Setter Property="Margin" Value="28,0" />
+						<Setter Property="Margin" Value="16,0" />
+						<Setter Property="Padding" Value="4,0" />
 					</Style>
 				</ListView.ItemContainerStyle>
 				<ListView.ItemTemplate>
