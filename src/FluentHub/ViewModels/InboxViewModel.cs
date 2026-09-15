@@ -179,8 +179,29 @@ public sealed class InboxItemViewModel
 			? "Untitled notification"
 			: _notification.Subject.Title;
 
+	private NotificationSubjectType SubjectType => _notification.Subject.Type;
+
+	public bool IsOpen
+		=> SubjectType is
+			NotificationSubjectType.Issue or
+			NotificationSubjectType.IssueOpen or
+			NotificationSubjectType.PullRequest or
+			NotificationSubjectType.PullRequestOpen;
+
+	public bool IsDone
+		=> SubjectType is
+			NotificationSubjectType.IssueClosedAsCompleted or
+			NotificationSubjectType.IssueClosedAsNotPlanned or
+			NotificationSubjectType.PullRequestMerged;
+
+	public bool IsClosed => SubjectType is NotificationSubjectType.PullRequestClosed;
+
+	public bool IsDraft => SubjectType is NotificationSubjectType.PullRequestDraft;
+
+	public bool IsNeutral => !IsOpen && !IsDone && !IsClosed && !IsDraft;
+
 	public Geometry IconGeometry
-		=> Octicons.CreateGeometry(_notification.Subject.Type switch
+		=> Octicons.CreateGeometry(SubjectType switch
 		{
 			NotificationSubjectType.Issue or
 			NotificationSubjectType.IssueOpen => "IssueOpened16",
@@ -204,4 +225,6 @@ public sealed class InboxItemViewModel
 			?? _notification.UpdatedAt.ToLocalTime().ToString("g");
 
 	public string? Url => _notification.Url;
+
+	public bool HasUrl => !string.IsNullOrWhiteSpace(Url);
 }

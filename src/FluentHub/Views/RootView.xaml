@@ -64,7 +64,7 @@
 				<NavigationViewItemSeparator />
 				<NavigationViewItemHeader Content="Repositories" />
 			</NavigationView.MenuItems>
-			<ContentPresenter x:Name="ContentPresenter" />
+			<controls:BladeView x:Name="BladeView" />
 		</NavigationView>
 	</Grid>
 </UserControl>

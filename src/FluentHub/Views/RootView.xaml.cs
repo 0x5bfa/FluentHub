@@ -11,6 +11,7 @@ namespace FluentHub.Views
 	public sealed partial class RootView : UserControl
 	{
 		private bool _repositoryItemsAdded;
+		private InboxView? _currentInboxView;
 
 		public RootView()
 		{
@@ -29,6 +30,8 @@ namespace FluentHub.Views
 			MainWindow.Instance.SetTitleBar(TitleBar);
 			if (NavigationView.SelectedItem is null && NavigationView.MenuItems.Count > 0)
 				NavigationView.SelectedItem = NavigationView.MenuItems[0];
+			else if (NavigationView.SelectedItem is NavigationViewItem selectedItem && BladeView.Blades.Count == 0)
+				ShowNavigationItem(selectedItem);
 
 			if (_repositoryItemsAdded)
 				return;
@@ -69,7 +72,19 @@ namespace FluentHub.Views
 			if (args.SelectedItem is not NavigationViewItem item)
 				return;
 
-			ContentPresenter.Content = item.Tag?.ToString() switch
+			ShowNavigationItem(item);
+		}
+
+		private void ShowNavigationItem(NavigationViewItem item)
+		{
+
+			if (_currentInboxView is not null)
+			{
+				_currentInboxView.NotificationSelected -= OnNotificationSelected;
+				_currentInboxView = null;
+			}
+
+			UIElement content = item.Tag?.ToString() switch
 			{
 				"Inbox" => new InboxView(),
 				_ => new TextBlock
@@ -79,6 +94,17 @@ namespace FluentHub.Views
 					VerticalAlignment = VerticalAlignment.Center,
 				},
 			};
+
+			if (content is InboxView inboxView)
+			{
+				_currentInboxView = inboxView;
+				_currentInboxView.NotificationSelected += OnNotificationSelected;
+			}
+
+			BladeView.Replace(content);
 		}
+
+		private void OnNotificationSelected(InboxView source, InboxItemViewModel item)
+			=> BladeView.Push(source, new NotificationDetailView(item));
 	}
 }

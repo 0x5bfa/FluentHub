@@ -55,12 +55,12 @@
 
 			<ListView
 				x:Name="NotificationList"
-				Margin="0,0,0,24"
+				Padding="0,0,0,24"
 				x:Load="{x:Bind ViewModel.HasItems, Mode=OneWay}"
 				IsItemClickEnabled="True"
-				IsMultiSelectCheckBoxEnabled="True"
+				ItemClick="OnNotificationItemClick"
 				ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-				SelectionMode="Multiple">
+				SelectionMode="Single">
 				<ListView.ItemContainerStyle>
 					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
 						<Setter Property="Margin" Value="28,0" />
@@ -86,11 +86,54 @@
 								Fill="{ThemeResource AccentFillColorDefaultBrush}" />
 
 							<PathIcon
+								x:Name="OpenIcon"
 								Grid.Column="0"
 								Width="16"
 								Height="16"
 								VerticalAlignment="Top"
-								Data="{x:Bind IconGeometry, Mode=OneWay}" />
+								x:Load="{x:Bind IsOpen}"
+								Data="{x:Bind IconGeometry, Mode=OneWay}"
+								Foreground="{ThemeResource InboxStatusOpenBrush}" />
+
+							<PathIcon
+								x:Name="DoneIcon"
+								Grid.Column="0"
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								x:Load="{x:Bind IsDone}"
+								Data="{x:Bind IconGeometry, Mode=OneWay}"
+								Foreground="{ThemeResource InboxStatusDoneBrush}" />
+
+							<PathIcon
+								x:Name="ClosedIcon"
+								Grid.Column="0"
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								x:Load="{x:Bind IsClosed}"
+								Data="{x:Bind IconGeometry, Mode=OneWay}"
+								Foreground="{ThemeResource InboxStatusClosedBrush}" />
+
+							<PathIcon
+								x:Name="DraftIcon"
+								Grid.Column="0"
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								x:Load="{x:Bind IsDraft}"
+								Data="{x:Bind IconGeometry, Mode=OneWay}"
+								Foreground="{ThemeResource InboxStatusDraftBrush}" />
+
+							<PathIcon
+								x:Name="NeutralIcon"
+								Grid.Column="0"
+								Width="16"
+								Height="16"
+								VerticalAlignment="Top"
+								x:Load="{x:Bind IsNeutral}"
+								Data="{x:Bind IconGeometry, Mode=OneWay}"
+								Foreground="{ThemeResource InboxStatusNeutralBrush}" />
 
 							<StackPanel Grid.Column="1" Spacing="2">
 								<TextBlock
@@ -133,7 +176,8 @@
 					Width="24"
 					Height="24"
 					HorizontalAlignment="Center"
-					Data="{controls:OcticonData Name=Inbox16}" />
+					Data="{controls:OcticonData Name=Inbox16}"
+					Foreground="{ThemeResource InboxStatusNeutralBrush}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"

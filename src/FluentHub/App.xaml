@@ -6,6 +6,29 @@
 
 	<Application.Resources>
 		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<SolidColorBrush x:Key="InboxStatusOpenBrush" Color="#FF1A7F37" />
+					<SolidColorBrush x:Key="InboxStatusDoneBrush" Color="#FF8250DF" />
+					<SolidColorBrush x:Key="InboxStatusClosedBrush" Color="#FFD1242F" />
+					<SolidColorBrush x:Key="InboxStatusDraftBrush" Color="#FF59636E" />
+					<SolidColorBrush x:Key="InboxStatusNeutralBrush" Color="#FF59636E" />
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="InboxStatusOpenBrush" Color="#FF3FB950" />
+					<SolidColorBrush x:Key="InboxStatusDoneBrush" Color="#FFA371F7" />
+					<SolidColorBrush x:Key="InboxStatusClosedBrush" Color="#FFF85149" />
+					<SolidColorBrush x:Key="InboxStatusDraftBrush" Color="#FF8B949E" />
+					<SolidColorBrush x:Key="InboxStatusNeutralBrush" Color="#FF8B949E" />
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="HighContrast">
+					<StaticResource x:Key="InboxStatusOpenBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+					<StaticResource x:Key="InboxStatusDoneBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+					<StaticResource x:Key="InboxStatusClosedBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+					<StaticResource x:Key="InboxStatusDraftBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+					<StaticResource x:Key="InboxStatusNeutralBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
 			<ResourceDictionary.MergedDictionaries>
 				<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
 			</ResourceDictionary.MergedDictionaries>

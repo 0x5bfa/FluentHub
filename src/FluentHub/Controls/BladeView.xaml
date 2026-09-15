@@ -1,0 +1,32 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Controls.BladeView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:FluentHub.Controls"
+	x:Name="Root">
+
+	<ScrollViewer
+		x:Name="BladeScrollViewer"
+		HorizontalScrollBarVisibility="Auto"
+		HorizontalScrollMode="Enabled"
+		VerticalScrollBarVisibility="Disabled"
+		VerticalScrollMode="Disabled">
+		<ItemsRepeater x:Name="BladeItems" ItemsSource="{x:Bind Blades}">
+			<ItemsRepeater.Layout>
+				<StackLayout Orientation="Horizontal" Spacing="0" />
+			</ItemsRepeater.Layout>
+			<ItemsRepeater.ItemTemplate>
+				<DataTemplate x:DataType="controls:Blade">
+					<Grid>
+						<ContentPresenter Width="{x:Bind Width, Mode=OneWay}" Content="{x:Bind Content}" />
+						<Rectangle
+							Width="1"
+							HorizontalAlignment="Right"
+							Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+					</Grid>
+				</DataTemplate>
+			</ItemsRepeater.ItemTemplate>
+		</ItemsRepeater>
+	</ScrollViewer>
+</UserControl>
