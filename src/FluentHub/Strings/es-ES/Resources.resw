@@ -117,376 +117,555 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Ajustes de cuenta</value>
+  <data name="AppRouteViewFactory.CommitTitle" xml:space="preserve">
+    <value>Commit {0}</value>
   </data>
-  <data name="Activities" xml:space="preserve">
-    <value>Actividades</value>
+  <data name="AppRouteViewFactory.ReleaseTitle" xml:space="preserve">
+    <value>Release {0}</value>
   </data>
-  <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Elije tu color</value>
+  <data name="Common.Commented" xml:space="preserve">
+    <value>commented</value>
   </data>
-  <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+  <data name="Common.GitHub" xml:space="preserve">
+    <value>GitHub</value>
   </data>
-  <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Apariencia</value>
+  <data name="Common.Loading" xml:space="preserve">
+    <value>Loading</value>
   </data>
-  <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Idioma</value>
+  <data name="Common.NoDescriptionProvided" xml:space="preserve">
+    <value>No description provided.</value>
   </data>
-  <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Idioma</value>
+  <data name="Common.UnknownUser" xml:space="preserve">
+    <value>Unknown user</value>
   </data>
-  <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Temas personalizados</value>
+  <data name="InboxItemViewModel.UntitledNotification" xml:space="preserve">
+    <value>Untitled notification</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Atrás</value>
+  <data name="InboxViewModel.LoadError" xml:space="preserve">
+    <value>Couldn't load your inbox. Try again.</value>
   </data>
-  <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Personaliza tus pines</value>
+  <data name="InboxViewModel.NotAuthenticatedError" xml:space="preserve">
+    <value>Sign in to GitHub to load your inbox.</value>
   </data>
-  <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Miembro del programa de desarrolladores</value>
+  <data name="InboxViewModel.UnreadSummary.None" xml:space="preserve">
+    <value>No unread notifications</value>
   </data>
-  <data name="Discussions" xml:space="preserve">
-    <value>Discusiones</value>
+  <data name="InboxViewModel.UnreadSummary.Plural" xml:space="preserve">
+    <value>{0} unread notifications</value>
   </data>
-  <data name="EditUserProfile" xml:space="preserve">
-    <value>Modificar el perfil de usuario</value>
+  <data name="InboxViewModel.UnreadSummary.Singular" xml:space="preserve">
+    <value>{0} unread notification</value>
   </data>
-  <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Aún no disponible.</value>
+  <data name="Login.AccountReadyStatus" xml:space="preserve">
+    <value>Your GitHub account is ready to use.</value>
   </data>
-  <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Actividad</value>
+  <data name="Login.AuthorizationNotCompletedMessage" xml:space="preserve">
+    <value>The authorization request was canceled or denied. Try again and approve FluentHub on GitHub.</value>
   </data>
-  <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No hay actividad reciente</value>
+  <data name="Login.AuthorizationNotCompletedTitle" xml:space="preserve">
+    <value>GitHub authorization was not completed</value>
   </data>
-  <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Proceda a la aplicación FluentHub.</value>
+  <data name="Login.CouldNotCompleteAuthorizationMessage" xml:space="preserve">
+    <value>FluentHub did not receive a usable access token from GitHub. Start the sign-in process again.</value>
   </data>
-  <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Iniciar sesión en GitHub"</value>
+  <data name="Login.CouldNotCompleteAuthorizationTitle" xml:space="preserve">
+    <value>GitHub couldn't complete the authorization</value>
   </data>
-  <data name="Follow" xml:space="preserve">
-    <value>Seguir</value>
+  <data name="Login.CouldNotCompleteSignInMessage" xml:space="preserve">
+    <value>An unexpected error interrupted the sign-in process. Try again.</value>
   </data>
-  <data name="Followers" xml:space="preserve">
-    <value>Seguidores</value>
+  <data name="Login.CouldNotCompleteSignInTitle" xml:space="preserve">
+    <value>Couldn't complete GitHub sign-in</value>
   </data>
-  <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>seguidores</value>
+  <data name="Login.CouldNotConnectMessage" xml:space="preserve">
+    <value>Check your internet connection and GitHub's availability, then try again.</value>
   </data>
-  <data name="Following" xml:space="preserve">
-    <value>Siguiendo</value>
+  <data name="Login.CouldNotConnectTitle" xml:space="preserve">
+    <value>Couldn't connect to GitHub</value>
   </data>
-  <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>siguiendo</value>
+  <data name="Login.CouldNotLoadGitHubAccountMessage" xml:space="preserve">
+    <value>GitHub authorized FluentHub, but the signed-in user could not be retrieved. Check your connection and try again.</value>
   </data>
-  <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Haz clic en "Abrir FluentHub DEV";</value>
+  <data name="Login.CouldNotLoadGitHubAccountTitle" xml:space="preserve">
+    <value>Signed in, but couldn't load your GitHub account</value>
   </data>
-  <data name="Forward" xml:space="preserve">
-    <value>Reenviar</value>
+  <data name="Login.CouldNotOpenGitHubMessage" xml:space="preserve">
+    <value>Windows could not open the GitHub authorization page. Check your default browser and try again.</value>
   </data>
-  <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Atrás</value>
+  <data name="Login.CouldNotOpenGitHubPage" xml:space="preserve">
+    <value>Windows could not open the GitHub authorization page.</value>
   </data>
-  <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Reenviar</value>
+  <data name="Login.CouldNotOpenGitHubTitle" xml:space="preserve">
+    <value>Couldn't open GitHub in your browser</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Login.CouldNotSaveSettingsMessage" xml:space="preserve">
+    <value>GitHub authorized FluentHub, but the local JSON settings file could not be written. Check your access to the local app data folder.</value>
   </data>
-  <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favoritos</value>
+  <data name="Login.CouldNotSaveSettingsTitle" xml:space="preserve">
+    <value>Signed in, but couldn't save your settings</value>
   </data>
-  <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No hay artículos favoritos disponibles.</value>
+  <data name="Login.CouldNotStartSignInMessage" xml:space="preserve">
+    <value>FluentHub could not request a one-time sign-in code from GitHub. Try again in a moment.</value>
   </data>
-  <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Trabajo</value>
+  <data name="Login.CouldNotStartSignInTitle" xml:space="preserve">
+    <value>Couldn't start GitHub sign-in</value>
   </data>
-  <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Login.ErrorDetailsWithMessage" xml:space="preserve">
+    <value>Step: {0}&#13;
+{1}: {2}</value>
   </data>
-  <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Reciente</value>
+  <data name="Login.ErrorDetailsWithoutMessage" xml:space="preserve">
+    <value>Step: {0}&#13;
+{1}</value>
   </data>
-  <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentación</value>
+  <data name="Login.GitHubAccountLoadingStatus" xml:space="preserve">
+    <value>Loading your GitHub account...</value>
   </data>
-  <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Autorizar FluentHub</value>
+  <data name="Login.GitHubAuthorizationUrlInvalid" xml:space="preserve">
+    <value>GitHub returned an invalid authorization URL.</value>
   </data>
-  <data name="Issues" xml:space="preserve">
-    <value>Problemas</value>
+  <data name="Login.GitHubSlowedDownStatus" xml:space="preserve">
+    <value>GitHub asked us to slow down. Still waiting...</value>
   </data>
-  <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Se produjo un error</value>
+  <data name="Login.OpeningGitHubStatus" xml:space="preserve">
+    <value>Opening GitHub in your browser...</value>
   </data>
-  <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Abre la carpeta de registro donde los detalles de error de la aplicación se almacenan en el disco local.</value>
+  <data name="Login.RequestingDeviceCodeStatus" xml:space="preserve">
+    <value>Requesting a GitHub device code...</value>
   </data>
-  <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Abrir ubicación del registro</value>
+  <data name="Login.SignInCodeExpiredMessage" xml:space="preserve">
+    <value>The one-time code was not approved in time. Start the sign-in process again.</value>
   </data>
-  <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Abre nuestra página de GitHub para crear un problema. Nota: En el futuro, FluentHub automáticamente pegará el contenido del error, detalles, y envíalos al equipo de FluentHub a través de GitHub cuando hagas clic en este botón.</value>
+  <data name="Login.SignInCodeExpiredTitle" xml:space="preserve">
+    <value>The GitHub sign-in code expired</value>
   </data>
-  <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Reportar este problema</value>
+  <data name="Login.WaitingForAuthorizationStatus" xml:space="preserve">
+    <value>Waiting for authorization in your browser...</value>
   </data>
-  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Muestra los resultados del stack trace en un diálogo.</value>
+  <data name="MainWindow.Title" xml:space="preserve">
+    <value>FluentHub</value>
   </data>
-  <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Ver stack trace</value>
+  <data name="RepositoryItemListViewModel.DiscussionsTitle" xml:space="preserve">
+    <value>Discussions</value>
   </data>
-  <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Conectarse con Github</value>
+  <data name="RepositoryItemListViewModel.EmptyText" xml:space="preserve">
+    <value>No {0} found.</value>
   </data>
-  <data name="New" xml:space="preserve">
-    <value>Nuevo</value>
+  <data name="RepositoryItemListViewModel.IssuesTitle" xml:space="preserve">
+    <value>Issues</value>
   </data>
-  <data name="NewMutation.Text" xml:space="preserve">
-    <value>Nuevo</value>
+  <data name="RepositoryItemListViewModel.ItemsTitle" xml:space="preserve">
+    <value>Items</value>
   </data>
-  <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>Nueva organización</value>
+  <data name="RepositoryItemListViewModel.PullRequestsTitle" xml:space="preserve">
+    <value>Pull requests</value>
   </data>
-  <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Nuevo repositorio</value>
+  <data name="RepositoryItemListViewModel.RepositoryTitle" xml:space="preserve">
+    <value>{0} {1}</value>
   </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>Notificaciones</value>
+  <data name="RepositoryItemListViewModel.UserTitle" xml:space="preserve">
+    <value>{0}'s {1}</value>
   </data>
-  <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Asignado</value>
+  <data name="RepositoryListViewModel.Title" xml:space="preserve">
+    <value>{0}'s repositories</value>
   </data>
-  <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Hecho</value>
+  <data name="RouteViewModelBase.LoadError" xml:space="preserve">
+    <value>Couldn't load this page. Try again.</value>
   </data>
-  <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filtrar por:</value>
+  <data name="RouteViewModel.DiscussionClosedState" xml:space="preserve">
+    <value>Closed</value>
   </data>
-  <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Bandeja de entrada</value>
+  <data name="RouteViewModel.DiscussionEngagementSummary" xml:space="preserve">
+    <value>{0} upvotes</value>
   </data>
-  <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>Mencionado</value>
+  <data name="RouteViewModel.DiscussionFallbackTitle" xml:space="preserve">
+    <value>Discussion #{0}</value>
   </data>
-  <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>Equipo mencionado</value>
+  <data name="RouteViewModel.DiscussionOpenState" xml:space="preserve">
+    <value>Open</value>
   </data>
-  <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>Participación</value>
+  <data name="RouteViewModel.IssueFallbackTitle" xml:space="preserve">
+    <value>Issue #{0}</value>
   </data>
-  <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>Revisión Solicitada</value>
+  <data name="RouteViewModel.PullRequestBranchSummary" xml:space="preserve">
+    <value>{0} → {1}</value>
   </data>
-  <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Guardado</value>
+  <data name="RouteViewModel.PullRequestChangeSummary" xml:space="preserve">
+    <value>{0} additions, {1} deletions, {2} files</value>
   </data>
-  <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Agrupar por:</value>
+  <data name="RouteViewModel.PullRequestDraftState" xml:space="preserve">
+    <value>Draft</value>
   </data>
-  <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>Nada</value>
+  <data name="RouteViewModel.PullRequestFallbackTitle" xml:space="preserve">
+    <value>Pull request #{0}</value>
   </data>
-  <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Fecha</value>
+  <data name="RouteViewModel.PullRequestMergedState" xml:space="preserve">
+    <value>Merged</value>
   </data>
-  <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Repositorio</value>
+  <data name="RouteViewModel.UserNoBioProvided" xml:space="preserve">
+    <value>No bio provided.</value>
   </data>
-  <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Notificaciones</value>
+  <data name="Root.AuthenticationRequiredMessage" xml:space="preserve">
+    <value>Sign in to GitHub to view your activity.</value>
   </data>
-  <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>No hay ninguna notificación reciente</value>
+  <data name="Root.CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Buscar notificaciones</value>
+  <data name="Root.RepositoriesHeader" xml:space="preserve">
+    <value>Repositories</value>
   </data>
-  <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>No leídos</value>
+  <data name="Root.SettingsText" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="NoUserDiscussions" xml:space="preserve">
-    <value>No hay discusiones</value>
+  <data name="Root.SignInDialogTitle" xml:space="preserve">
+    <value>Sign in to GitHub</value>
   </data>
-  <data name="NoUserFollowers" xml:space="preserve">
-    <value>Sin seguidores</value>
+  <data name="RootViewModel.LogInText" xml:space="preserve">
+    <value>Log in</value>
   </data>
-  <data name="NoUserFollowing" xml:space="preserve">
-    <value>Ninguna persona seguida</value>
+  <data name="RootViewModel.LogOutText" xml:space="preserve">
+    <value>Log out</value>
   </data>
-  <data name="NoUserIssues" xml:space="preserve">
-    <value>No hay problemas</value>
+  <data name="RootViewModel.SignInText" xml:space="preserve">
+    <value>Sign in</value>
   </data>
-  <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Sin organizaciones</value>
+  <data name="Timeline.AddedLabel" xml:space="preserve">
+    <value>added a label</value>
   </data>
-  <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>No hay repositorios populares</value>
+  <data name="Timeline.AddedMilestone" xml:space="preserve">
+    <value>added a milestone</value>
   </data>
-  <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No hay pull requests</value>
+  <data name="Timeline.AddedToProject" xml:space="preserve">
+    <value>added this to a project</value>
   </data>
-  <data name="NoUserRepositories" xml:space="preserve">
-    <value>No hay repositorios</value>
+  <data name="Timeline.AssignedItem" xml:space="preserve">
+    <value>assigned an item</value>
   </data>
-  <data name="NoUserStars" xml:space="preserve">
-    <value>Sin estrellas</value>
+  <data name="Timeline.BlockedUser" xml:space="preserve">
+    <value>blocked a user</value>
   </data>
-  <data name="Organizations" xml:space="preserve">
-    <value>Organizaciones</value>
+  <data name="Timeline.ClosedThis" xml:space="preserve">
+    <value>closed this</value>
   </data>
-  <data name="Overview" xml:space="preserve">
-    <value>Resumen</value>
+  <data name="Timeline.CommentDeleted" xml:space="preserve">
+    <value>deleted a comment</value>
   </data>
-  <data name="Packages" xml:space="preserve">
-    <value>Paquetes</value>
+  <data name="Timeline.Connected" xml:space="preserve">
+    <value>connected this with another item</value>
   </data>
-  <data name="PinnedRepositories" xml:space="preserve">
-    <value>Repositorios fijados</value>
+  <data name="Timeline.ConvertedNoteToIssue" xml:space="preserve">
+    <value>converted a note to an issue</value>
   </data>
-  <data name="PopularRepositories" xml:space="preserve">
-    <value>Repositorios populares</value>
+  <data name="Timeline.ConvertedToDiscussion" xml:space="preserve">
+    <value>converted this to a discussion</value>
   </data>
-  <data name="Projects" xml:space="preserve">
-    <value>Proyectos</value>
+  <data name="Timeline.CrossReferenced" xml:space="preserve">
+    <value>cross-referenced this</value>
   </data>
-  <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+  <data name="Timeline.DismissedReview" xml:space="preserve">
+    <value>dismissed a review</value>
   </data>
-  <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Actualizar</value>
+  <data name="Timeline.Disconnected" xml:space="preserve">
+    <value>disconnected this from another item</value>
   </data>
-  <data name="Repositories" xml:space="preserve">
-    <value>Repositorios</value>
+  <data name="Timeline.EventFallback" xml:space="preserve">
+    <value>{0} event</value>
   </data>
-  <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositorios</value>
+  <data name="Timeline.LockedConversation" xml:space="preserve">
+    <value>locked this conversation</value>
   </data>
-  <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Buscar</value>
+  <data name="Timeline.MarkedAsDuplicate" xml:space="preserve">
+    <value>marked this as a duplicate</value>
   </data>
-  <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Búsqueda</value>
+  <data name="Timeline.MergedThis" xml:space="preserve">
+    <value>merged this</value>
   </data>
-  <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar discusiones</value>
+  <data name="Timeline.MovedInProject" xml:space="preserve">
+    <value>moved this in a project</value>
   </data>
-  <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar seguidores</value>
+  <data name="Timeline.PinnedThis" xml:space="preserve">
+    <value>pinned this</value>
   </data>
-  <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar seguidos</value>
+  <data name="Timeline.ReadyForReview" xml:space="preserve">
+    <value>marked this ready for review</value>
   </data>
-  <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar problemas</value>
+  <data name="Timeline.ReferencedThis" xml:space="preserve">
+    <value>referenced this</value>
   </data>
-  <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar organizaciones</value>
+  <data name="Timeline.RemovedLabel" xml:space="preserve">
+    <value>removed a label</value>
   </data>
-  <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar pull requests</value>
+  <data name="Timeline.RemovedMilestone" xml:space="preserve">
+    <value>removed the milestone</value>
   </data>
-  <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar repositorios</value>
+  <data name="Timeline.RemovedReviewRequest" xml:space="preserve">
+    <value>removed a review request</value>
   </data>
-  <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar estrellas</value>
+  <data name="Timeline.RemovedFromProject" xml:space="preserve">
+    <value>removed this from a project</value>
   </data>
-  <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Si está administrando una o más organizaciones, por favor dé acceso a FluentHub;</value>
+  <data name="Timeline.RenamedTitle" xml:space="preserve">
+    <value>renamed the title</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Configuración</value>
+  <data name="Timeline.ReopenedThis" xml:space="preserve">
+    <value>reopened this</value>
   </data>
-  <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Configuración</value>
+  <data name="Timeline.RequestedReview" xml:space="preserve">
+    <value>requested a review</value>
   </data>
-  <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Sugerencias</value>
+  <data name="Timeline.Reviewed" xml:space="preserve">
+    <value>reviewed</value>
   </data>
-  <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Obtener ayuda</value>
+  <data name="Timeline.Subscribed" xml:space="preserve">
+    <value>subscribed</value>
   </data>
-  <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Cerrar sesión</value>
+  <data name="Timeline.TransferredThis" xml:space="preserve">
+    <value>transferred this</value>
   </data>
-  <data name="Stars" xml:space="preserve">
-    <value>Estrellas</value>
+  <data name="Timeline.UnassignedItem" xml:space="preserve">
+    <value>unassigned an item</value>
   </data>
-  <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Cambiar de cuenta</value>
+  <data name="Timeline.UnlockedConversation" xml:space="preserve">
+    <value>unlocked this conversation</value>
   </data>
-  <data name="ThemeAuto" xml:space="preserve">
-    <value>Sincronizar con ajustes del sistema</value>
+  <data name="Timeline.UnmarkedAsDuplicate" xml:space="preserve">
+    <value>unmarked this as a duplicate</value>
   </data>
-  <data name="ThemeDark" xml:space="preserve">
-    <value>Oscuro</value>
+  <data name="Timeline.UnpinnedThis" xml:space="preserve">
+    <value>unpinned this</value>
   </data>
-  <data name="ThemeLight" xml:space="preserve">
-    <value>Claro</value>
+  <data name="Timeline.Unsubscribed" xml:space="preserve">
+    <value>unsubscribed</value>
   </data>
-  <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Haz clic en "Autorizar FluentHub";</value>
+  <data name="Timeline.UpdatedCommitDiscussion" xml:space="preserve">
+    <value>updated a commit discussion</value>
   </data>
-  <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Inténtalo de nuevo</value>
+  <data name="Timeline.UpdatedPullRequest" xml:space="preserve">
+    <value>updated the pull request</value>
   </data>
-  <data name="Unfollow" xml:space="preserve">
-    <value>Dejar de seguir</value>
+  <data name="Timeline.UpdatedReviewThread" xml:space="preserve">
+    <value>updated a review thread</value>
   </data>
-  <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Tus discusiones</value>
+  <data name="Timeline.UpdatedThis" xml:space="preserve">
+    <value>updated this</value>
   </data>
-  <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Tus problemas</value>
+  <data name="Actions.Description" xml:space="preserve">
+    <value>View workflow runs and checks on GitHub.</value>
   </data>
-  <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Tus organizaciones</value>
+  <data name="Actions.OpenOnGitHub" xml:space="preserve">
+    <value>Open Actions on GitHub</value>
   </data>
-  <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Tu perfil</value>
+  <data name="Actions.Title" xml:space="preserve">
+    <value>Actions</value>
   </data>
-  <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Tus pull requests</value>
+  <data name="Common.Account" xml:space="preserve">
+    <value>Account</value>
   </data>
-  <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Tus repositorios</value>
+  <data name="Common.AccountMenu" xml:space="preserve">
+    <value>Account menu</value>
   </data>
-  <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Tus estrellas</value>
+  <data name="Common.AppSettings" xml:space="preserve">
+    <value>App settings</value>
   </data>
-  <data name="YourDiscussions" xml:space="preserve">
-    <value>Tus discusiones</value>
+  <data name="Common.Closed" xml:space="preserve">
+    <value>Closed</value>
   </data>
-  <data name="YourFollowers" xml:space="preserve">
-    <value>Tus seguidores</value>
+  <data name="Common.Edited" xml:space="preserve">
+    <value>edited</value>
   </data>
-  <data name="YourFollowing" xml:space="preserve">
-    <value>Siguiendo</value>
+  <data name="Common.Followers" xml:space="preserve">
+    <value>followers</value>
   </data>
-  <data name="YourIssues" xml:space="preserve">
-    <value>Tus problemas</value>
+  <data name="Common.Following" xml:space="preserve">
+    <value>following</value>
   </data>
-  <data name="YourOrganizations" xml:space="preserve">
-    <value>Tus organizaciones</value>
+  <data name="Common.Forks" xml:space="preserve">
+    <value>forks</value>
   </data>
-  <data name="YourPullRequests" xml:space="preserve">
-    <value>Tus pull requests</value>
+  <data name="Common.Open" xml:space="preserve">
+    <value>Open</value>
   </data>
-  <data name="YourRepositories" xml:space="preserve">
-    <value>Tus repositorios</value>
+  <data name="Common.OpenIssues" xml:space="preserve">
+    <value>open issues</value>
   </data>
-  <data name="YourStars" xml:space="preserve">
-    <value>Tus estrellas</value>
+  <data name="Common.OpenPullRequests" xml:space="preserve">
+    <value>open pull requests</value>
+  </data>
+  <data name="Common.OpenOnGitHub" xml:space="preserve">
+    <value>Open on GitHub</value>
+  </data>
+  <data name="Common.Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Common.RetryLoading" xml:space="preserve">
+    <value>Retry loading</value>
+  </data>
+  <data name="Common.SearchGitHub" xml:space="preserve">
+    <value>Search GitHub...</value>
+  </data>
+  <data name="Common.SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Common.Stars" xml:space="preserve">
+    <value>stars</value>
+  </data>
+  <data name="Common.TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Common.Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Discussion.CategoryLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Discussion.DescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Discussion.EngagementLabel" xml:space="preserve">
+    <value>Engagement</value>
+  </data>
+  <data name="Discussion.RepositoryLabel" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Discussion.StateLabel" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Discussion.Unavailable" xml:space="preserve">
+    <value>Discussion unavailable</value>
+  </data>
+  <data name="Discussion.UpdatedLabel" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Inbox.AllCaughtUp" xml:space="preserve">
+    <value>You're all caught up</value>
+  </data>
+  <data name="Inbox.Description" xml:space="preserve">
+    <value>Notifications from the repositories you follow.</value>
+  </data>
+  <data name="Inbox.NoNotifications" xml:space="preserve">
+    <value>There are no notifications to show.</value>
+  </data>
+  <data name="Inbox.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Inbox.Title" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="Inbox.Unavailable" xml:space="preserve">
+    <value>Inbox unavailable</value>
+  </data>
+  <data name="Login.AccountReadyDescription" xml:space="preserve">
+    <value>Your GitHub account is ready to use in FluentHub.</value>
+  </data>
+  <data name="Login.AddAnotherAccount" xml:space="preserve">
+    <value>Add another account</value>
+  </data>
+  <data name="Login.AllSetTitle" xml:space="preserve">
+    <value>You're all set</value>
+  </data>
+  <data name="Login.AuthorizationConfirmed" xml:space="preserve">
+    <value>Authorization confirmed</value>
+  </data>
+  <data name="Login.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Login.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Login.CopyCode" xml:space="preserve">
+    <value>Copy code</value>
+  </data>
+  <data name="Login.DeviceCodeDescription" xml:space="preserve">
+    <value>Enter this one-time code on GitHub to continue.</value>
+  </data>
+  <data name="Login.GitHubAccount" xml:space="preserve">
+    <value>GitHub account</value>
+  </data>
+  <data name="Login.GitHubEnterprise" xml:space="preserve">
+    <value>GitHub Enterprise</value>
+  </data>
+  <data name="Login.OpenGitHubAgain" xml:space="preserve">
+    <value>Open GitHub again</value>
+  </data>
+  <data name="Login.PasswordNotice" xml:space="preserve">
+    <value>Your password is entered only on GitHub.</value>
+  </data>
+  <data name="Login.SignInTitle" xml:space="preserve">
+    <value>Sign in to GitHub</value>
+  </data>
+  <data name="Login.SignInWithGitHub" xml:space="preserve">
+    <value>Sign in with GitHub</value>
+  </data>
+  <data name="Login.TechnicalDetails" xml:space="preserve">
+    <value>Technical details</value>
+  </data>
+  <data name="Login.TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Login.WelcomeDescription" xml:space="preserve">
+    <value>Explore repositories, issues, pull requests, and more from a native Windows app.</value>
+  </data>
+  <data name="Login.WelcomeTitle" xml:space="preserve">
+    <value>Welcome to FluentHub</value>
+  </data>
+  <data name="Organization.Unavailable" xml:space="preserve">
+    <value>Organization unavailable</value>
+  </data>
+  <data name="PullRequest.BranchesLabel" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="PullRequest.ChangesLabel" xml:space="preserve">
+    <value>Changes</value>
+  </data>
+  <data name="PullRequest.RepositoryLabel" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="PullRequest.StateLabel" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="PullRequest.Unavailable" xml:space="preserve">
+    <value>Pull request unavailable</value>
+  </data>
+  <data name="PullRequest.UpdatedLabel" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Repository.SelectItem" xml:space="preserve">
+    <value>Select an item to open it in a new blade.</value>
+  </data>
+  <data name="Repository.SelectRepository" xml:space="preserve">
+    <value>Select a repository to open it in a new blade.</value>
+  </data>
+  <data name="Repository.Unavailable" xml:space="preserve">
+    <value>Repository unavailable</value>
+  </data>
+  <data name="RepositoryItemList.Unavailable" xml:space="preserve">
+    <value>Items unavailable</value>
+  </data>
+  <data name="RepositoryList.NoRepositoriesFound" xml:space="preserve">
+    <value>No repositories found.</value>
+  </data>
+  <data name="RepositoryList.Unavailable" xml:space="preserve">
+    <value>Repositories unavailable</value>
+  </data>
+  <data name="User.Unavailable" xml:space="preserve">
+    <value>User unavailable</value>
+  </data>
+  <data name="Root.AssignedNavigationItem" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="Root.InboxNavigationItem" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="Root.MyPullsNavigationItem" xml:space="preserve">
+    <value>My pulls</value>
+  </data>
+  <data name="Root.ReviewsNavigationItem" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="Timeline.Opened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="Timeline.CommittedChanges" xml:space="preserve">
+    <value>committed changes</value>
   </data>
 </root>
