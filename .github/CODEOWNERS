@@ -1,7 +1,0 @@
-# Code owners file.
-# This file controls who is automatically requested for review when someone opens a pull request that modifies code that they own.
-
-# For syntax help,
-# visit https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax
-
-*        @0x5BFA

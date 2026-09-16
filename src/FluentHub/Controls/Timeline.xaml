@@ -13,22 +13,15 @@
 
 				<Border
 					Width="2"
-					Height="6"
+					Height="12"
 					Margin="22,0,0,0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-				<Border
-					Width="2"
-					Height="6"
-					Margin="22,0,0,0"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Bottom"
-					Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 				<controls:MarkdownCommentCard
 					x:Name="CommentCard"
-					Margin="0,6"
+					Margin="0,12,0,0"
 					x:Load="{x:Bind IsComment, Mode=OneWay}"
 					ActionText="{x:Bind ActionText, Mode=OneWay}"
 					AuthorName="{x:Bind AuthorName, Mode=OneWay}"
@@ -39,7 +32,7 @@
 
 				<Grid
 					x:Name="ActivityPanel"
-					Margin="0,6"
+					Margin="0,12,0,0"
 					Padding="12,0"
 					x:Load="{x:Bind IsActivity, Mode=OneWay}">
 					<Grid ColumnSpacing="8">
@@ -68,6 +61,7 @@
 
 						<TextBlock
 							Grid.Column="2"
+							VerticalAlignment="Center"
 							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 							Style="{StaticResource CaptionTextBlockStyle}"
 							Text="{x:Bind DateText, Mode=OneWay}" />

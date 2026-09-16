@@ -20,7 +20,7 @@
 		</wctcontrols:Case>
 		<wctcontrols:Case Value="Loaded">
 			<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-				<StackPanel Padding="24" Spacing="8">
+				<StackPanel Padding="24">
 
 					<HyperlinkButton
 						Margin="-8,-4,0,-4"
@@ -29,6 +29,7 @@
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
 
 					<TextBlock
+						Margin="0,4"
 						Style="{StaticResource TitleTextBlockStyle}"
 						Text="{x:Bind ViewModel.Title, Mode=OneWay}"
 						TextWrapping="Wrap" />
@@ -36,13 +37,18 @@
 					<PathIcon
 						Width="32"
 						Height="32"
+						Margin="0,4"
 						HorizontalAlignment="Left"
 						Data="{controls:OcticonData Name=IssueOpened24}"
 						Foreground="{ThemeResource InboxStatusOpenBrush}" />
 
-					<Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+					<Rectangle
+						Height="1"
+						Margin="0,4"
+						Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
 					<controls:MarkdownCommentCard
+						Margin="0,4,0,0"
 						ActionText="opened"
 						AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
 						AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"

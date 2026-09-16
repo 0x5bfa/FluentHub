@@ -4,37 +4,15 @@ labels: [bug]
 assignees: [0x5bfa]
 title: "Bug: "
 body:
-  - type: dropdown
-    id: windows
-    attributes:
-      label: 🪟 What version of Windows is this issue present?
-      multiple: true
-      options:
-        - 🪟 Windows 10
-        - 🪟 Windows 10 Release Preview
-        - 🪟 Windows 10 Beta
-        - 🪟 Windows 10 Dev
-        - 🪟 Windows 11
-        - 🪟 Windows 11 Release Preview
-        - 🪟 Windows 11 Beta
-        - 🪟 Windows 11 Dev
-    validations:
-      required: true
   - type: textarea
     attributes:
-      label: 🔢 What version of FluentHub are you on?
-      description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: 📄 Description
+      label: Description
       description: A clear and concise description of what the bug is.
     validations:
       required: true
   - type: textarea
     attributes:
-      label: 🪜 Steps To Reproduce
+      label: Steps to reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
         1. Go to '....'
@@ -45,29 +23,36 @@ body:
       required: false
   - type: textarea
     attributes:
-      label: 🤔 Expected behavior
+      label: Expected behavior
       description: A clear and concise description of what you expected to happen.
   - type: textarea
-    id: workaround
     attributes:
-      label: ⚒️ Did you find any workaround?
-      description: Did you find any workaround for this issue? This can unblock other people while waiting for this issue to be resolved or even give us a hint on how to fix this.
-  - type: textarea
-    attributes:
-      label: 📑 Stack Trace
-      description: Copy and paste the stack trace from FluentHub's error page.
-      value: |
-        <details><summary>Stack trace details</summary><div>
-        
-        ```
-        paste here
-        ```
-        
-        </div></details>
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: 📸 Assets
+      label: Assets
       description: |
         A list of assets (errors, screenshots) relevant to the bug.
+  - type: textarea
+    attributes:
+      label: FluentHub version
+      description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
+    validations:
+      required: true
+  - type: dropdown
+    id: windows
+    attributes:
+      label: Windows version
+      multiple: true
+      options:
+        - "Windows Insider Build (xxxxx)"
+        - "Windows 11 (26H1): Build 28000"
+        - "Windows 11 (25H2): Build 26200"
+        - "Windows 11 (24H2): Build 26120"
+        - "Windows 11 (24H2): Build 26100"
+        - "Windows 11 (23H2): Build 22631"
+        - "Windows 11 (22H2): Build 22621"
+        - "Windows 11 (21H2): Build 22000"
+        - "Windows 10 (21H2): Build 19044"
+        - "Windows 10 (21H1): Build 19043"
+        - "Windows 10 (20H2): Build 19042"
+        - "Windows 10 (1809): Build 17763"
+    validations:
+      required: true
