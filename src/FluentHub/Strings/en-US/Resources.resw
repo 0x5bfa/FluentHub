@@ -117,4 +117,334 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppRouteViewFactory.CommitTitle" xml:space="preserve">
+    <value>Commit {0}</value>
+  </data>
+  <data name="AppRouteViewFactory.ReleaseTitle" xml:space="preserve">
+    <value>Release {0}</value>
+  </data>
+  <data name="Common.Commented" xml:space="preserve">
+    <value>commented</value>
+  </data>
+  <data name="Common.GitHub" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="Common.Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="Common.NoDescriptionProvided" xml:space="preserve">
+    <value>No description provided.</value>
+  </data>
+  <data name="Common.UnknownUser" xml:space="preserve">
+    <value>Unknown user</value>
+  </data>
+  <data name="InboxItemViewModel.UntitledNotification" xml:space="preserve">
+    <value>Untitled notification</value>
+  </data>
+  <data name="InboxViewModel.LoadError" xml:space="preserve">
+    <value>Couldn't load your inbox. Try again.</value>
+  </data>
+  <data name="InboxViewModel.NotAuthenticatedError" xml:space="preserve">
+    <value>Sign in to GitHub to load your inbox.</value>
+  </data>
+  <data name="InboxViewModel.UnreadSummary.None" xml:space="preserve">
+    <value>No unread notifications</value>
+  </data>
+  <data name="InboxViewModel.UnreadSummary.Plural" xml:space="preserve">
+    <value>{0} unread notifications</value>
+  </data>
+  <data name="InboxViewModel.UnreadSummary.Singular" xml:space="preserve">
+    <value>{0} unread notification</value>
+  </data>
+  <data name="Login.AccountReadyStatus" xml:space="preserve">
+    <value>Your GitHub account is ready to use.</value>
+  </data>
+  <data name="Login.AuthorizationNotCompletedMessage" xml:space="preserve">
+    <value>The authorization request was canceled or denied. Try again and approve FluentHub on GitHub.</value>
+  </data>
+  <data name="Login.AuthorizationNotCompletedTitle" xml:space="preserve">
+    <value>GitHub authorization was not completed</value>
+  </data>
+  <data name="Login.CouldNotCompleteAuthorizationMessage" xml:space="preserve">
+    <value>FluentHub did not receive a usable access token from GitHub. Start the sign-in process again.</value>
+  </data>
+  <data name="Login.CouldNotCompleteAuthorizationTitle" xml:space="preserve">
+    <value>GitHub couldn't complete the authorization</value>
+  </data>
+  <data name="Login.CouldNotCompleteSignInMessage" xml:space="preserve">
+    <value>An unexpected error interrupted the sign-in process. Try again.</value>
+  </data>
+  <data name="Login.CouldNotCompleteSignInTitle" xml:space="preserve">
+    <value>Couldn't complete GitHub sign-in</value>
+  </data>
+  <data name="Login.CouldNotConnectMessage" xml:space="preserve">
+    <value>Check your internet connection and GitHub's availability, then try again.</value>
+  </data>
+  <data name="Login.CouldNotConnectTitle" xml:space="preserve">
+    <value>Couldn't connect to GitHub</value>
+  </data>
+  <data name="Login.CouldNotLoadGitHubAccountMessage" xml:space="preserve">
+    <value>GitHub authorized FluentHub, but the signed-in user could not be retrieved. Check your connection and try again.</value>
+  </data>
+  <data name="Login.CouldNotLoadGitHubAccountTitle" xml:space="preserve">
+    <value>Signed in, but couldn't load your GitHub account</value>
+  </data>
+  <data name="Login.CouldNotOpenGitHubMessage" xml:space="preserve">
+    <value>Windows could not open the GitHub authorization page. Check your default browser and try again.</value>
+  </data>
+  <data name="Login.CouldNotOpenGitHubPage" xml:space="preserve">
+    <value>Windows could not open the GitHub authorization page.</value>
+  </data>
+  <data name="Login.CouldNotOpenGitHubTitle" xml:space="preserve">
+    <value>Couldn't open GitHub in your browser</value>
+  </data>
+  <data name="Login.CouldNotSaveSettingsMessage" xml:space="preserve">
+    <value>GitHub authorized FluentHub, but the local JSON settings file could not be written. Check your access to the local app data folder.</value>
+  </data>
+  <data name="Login.CouldNotSaveSettingsTitle" xml:space="preserve">
+    <value>Signed in, but couldn't save your settings</value>
+  </data>
+  <data name="Login.CouldNotStartSignInMessage" xml:space="preserve">
+    <value>FluentHub could not request a one-time sign-in code from GitHub. Try again in a moment.</value>
+  </data>
+  <data name="Login.CouldNotStartSignInTitle" xml:space="preserve">
+    <value>Couldn't start GitHub sign-in</value>
+  </data>
+  <data name="Login.ErrorDetailsWithMessage" xml:space="preserve">
+    <value>Step: {0}&#xD;&#xA;{1}: {2}</value>
+  </data>
+  <data name="Login.ErrorDetailsWithoutMessage" xml:space="preserve">
+    <value>Step: {0}&#xD;&#xA;{1}</value>
+  </data>
+  <data name="Login.GitHubAccountLoadingStatus" xml:space="preserve">
+    <value>Loading your GitHub account...</value>
+  </data>
+  <data name="Login.GitHubAuthorizationUrlInvalid" xml:space="preserve">
+    <value>GitHub returned an invalid authorization URL.</value>
+  </data>
+  <data name="Login.GitHubSlowedDownStatus" xml:space="preserve">
+    <value>GitHub asked us to slow down. Still waiting...</value>
+  </data>
+  <data name="Login.OpeningGitHubStatus" xml:space="preserve">
+    <value>Opening GitHub in your browser...</value>
+  </data>
+  <data name="Login.RequestingDeviceCodeStatus" xml:space="preserve">
+    <value>Requesting a GitHub device code...</value>
+  </data>
+  <data name="Login.SignInCodeExpiredMessage" xml:space="preserve">
+    <value>The one-time code was not approved in time. Start the sign-in process again.</value>
+  </data>
+  <data name="Login.SignInCodeExpiredTitle" xml:space="preserve">
+    <value>The GitHub sign-in code expired</value>
+  </data>
+  <data name="Login.WaitingForAuthorizationStatus" xml:space="preserve">
+    <value>Waiting for authorization in your browser...</value>
+  </data>
+  <data name="MainWindow.Title" xml:space="preserve">
+    <value>FluentHub</value>
+  </data>
+  <data name="RepositoryItemListViewModel.DiscussionsTitle" xml:space="preserve">
+    <value>Discussions</value>
+  </data>
+  <data name="RepositoryItemListViewModel.EmptyText" xml:space="preserve">
+    <value>No {0} found.</value>
+  </data>
+  <data name="RepositoryItemListViewModel.IssuesTitle" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="RepositoryItemListViewModel.ItemsTitle" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="RepositoryItemListViewModel.PullRequestsTitle" xml:space="preserve">
+    <value>Pull requests</value>
+  </data>
+  <data name="RepositoryItemListViewModel.RepositoryTitle" xml:space="preserve">
+    <value>{0} {1}</value>
+  </data>
+  <data name="RepositoryItemListViewModel.UserTitle" xml:space="preserve">
+    <value>{0}'s {1}</value>
+  </data>
+  <data name="RepositoryListViewModel.Title" xml:space="preserve">
+    <value>{0}'s repositories</value>
+  </data>
+  <data name="RouteViewModelBase.LoadError" xml:space="preserve">
+    <value>Couldn't load this page. Try again.</value>
+  </data>
+  <data name="RouteViewModel.DiscussionClosedState" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="RouteViewModel.DiscussionEngagementSummary" xml:space="preserve">
+    <value>{0} upvotes</value>
+  </data>
+  <data name="RouteViewModel.DiscussionFallbackTitle" xml:space="preserve">
+    <value>Discussion #{0}</value>
+  </data>
+  <data name="RouteViewModel.DiscussionOpenState" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="RouteViewModel.IssueFallbackTitle" xml:space="preserve">
+    <value>Issue #{0}</value>
+  </data>
+  <data name="RouteViewModel.PullRequestBranchSummary" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="RouteViewModel.PullRequestChangeSummary" xml:space="preserve">
+    <value>{0} additions, {1} deletions, {2} files</value>
+  </data>
+  <data name="RouteViewModel.PullRequestDraftState" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="RouteViewModel.PullRequestFallbackTitle" xml:space="preserve">
+    <value>Pull request #{0}</value>
+  </data>
+  <data name="RouteViewModel.PullRequestMergedState" xml:space="preserve">
+    <value>Merged</value>
+  </data>
+  <data name="RouteViewModel.UserNoBioProvided" xml:space="preserve">
+    <value>No bio provided.</value>
+  </data>
+  <data name="Root.AuthenticationRequiredMessage" xml:space="preserve">
+    <value>Sign in to GitHub to view your activity.</value>
+  </data>
+  <data name="Root.CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Root.RepositoriesHeader" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="Root.SettingsText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Root.SignInDialogTitle" xml:space="preserve">
+    <value>Sign in to GitHub</value>
+  </data>
+  <data name="RootViewModel.LogInText" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="RootViewModel.LogOutText" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="RootViewModel.SignInText" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Timeline.AddedLabel" xml:space="preserve">
+    <value>added a label</value>
+  </data>
+  <data name="Timeline.AddedMilestone" xml:space="preserve">
+    <value>added a milestone</value>
+  </data>
+  <data name="Timeline.AddedToProject" xml:space="preserve">
+    <value>added this to a project</value>
+  </data>
+  <data name="Timeline.AssignedItem" xml:space="preserve">
+    <value>assigned an item</value>
+  </data>
+  <data name="Timeline.BlockedUser" xml:space="preserve">
+    <value>blocked a user</value>
+  </data>
+  <data name="Timeline.ClosedThis" xml:space="preserve">
+    <value>closed this</value>
+  </data>
+  <data name="Timeline.CommentDeleted" xml:space="preserve">
+    <value>deleted a comment</value>
+  </data>
+  <data name="Timeline.Connected" xml:space="preserve">
+    <value>connected this with another item</value>
+  </data>
+  <data name="Timeline.ConvertedNoteToIssue" xml:space="preserve">
+    <value>converted a note to an issue</value>
+  </data>
+  <data name="Timeline.ConvertedToDiscussion" xml:space="preserve">
+    <value>converted this to a discussion</value>
+  </data>
+  <data name="Timeline.CrossReferenced" xml:space="preserve">
+    <value>cross-referenced this</value>
+  </data>
+  <data name="Timeline.DismissedReview" xml:space="preserve">
+    <value>dismissed a review</value>
+  </data>
+  <data name="Timeline.Disconnected" xml:space="preserve">
+    <value>disconnected this from another item</value>
+  </data>
+  <data name="Timeline.EventFallback" xml:space="preserve">
+    <value>{0} event</value>
+  </data>
+  <data name="Timeline.LockedConversation" xml:space="preserve">
+    <value>locked this conversation</value>
+  </data>
+  <data name="Timeline.MarkedAsDuplicate" xml:space="preserve">
+    <value>marked this as a duplicate</value>
+  </data>
+  <data name="Timeline.MergedThis" xml:space="preserve">
+    <value>merged this</value>
+  </data>
+  <data name="Timeline.MovedInProject" xml:space="preserve">
+    <value>moved this in a project</value>
+  </data>
+  <data name="Timeline.PinnedThis" xml:space="preserve">
+    <value>pinned this</value>
+  </data>
+  <data name="Timeline.ReadyForReview" xml:space="preserve">
+    <value>marked this ready for review</value>
+  </data>
+  <data name="Timeline.ReferencedThis" xml:space="preserve">
+    <value>referenced this</value>
+  </data>
+  <data name="Timeline.RemovedLabel" xml:space="preserve">
+    <value>removed a label</value>
+  </data>
+  <data name="Timeline.RemovedMilestone" xml:space="preserve">
+    <value>removed the milestone</value>
+  </data>
+  <data name="Timeline.RemovedReviewRequest" xml:space="preserve">
+    <value>removed a review request</value>
+  </data>
+  <data name="Timeline.RemovedFromProject" xml:space="preserve">
+    <value>removed this from a project</value>
+  </data>
+  <data name="Timeline.RenamedTitle" xml:space="preserve">
+    <value>renamed the title</value>
+  </data>
+  <data name="Timeline.ReopenedThis" xml:space="preserve">
+    <value>reopened this</value>
+  </data>
+  <data name="Timeline.RequestedReview" xml:space="preserve">
+    <value>requested a review</value>
+  </data>
+  <data name="Timeline.Reviewed" xml:space="preserve">
+    <value>reviewed</value>
+  </data>
+  <data name="Timeline.Subscribed" xml:space="preserve">
+    <value>subscribed</value>
+  </data>
+  <data name="Timeline.TransferredThis" xml:space="preserve">
+    <value>transferred this</value>
+  </data>
+  <data name="Timeline.UnassignedItem" xml:space="preserve">
+    <value>unassigned an item</value>
+  </data>
+  <data name="Timeline.UnlockedConversation" xml:space="preserve">
+    <value>unlocked this conversation</value>
+  </data>
+  <data name="Timeline.UnmarkedAsDuplicate" xml:space="preserve">
+    <value>unmarked this as a duplicate</value>
+  </data>
+  <data name="Timeline.UnpinnedThis" xml:space="preserve">
+    <value>unpinned this</value>
+  </data>
+  <data name="Timeline.Unsubscribed" xml:space="preserve">
+    <value>unsubscribed</value>
+  </data>
+  <data name="Timeline.UpdatedCommitDiscussion" xml:space="preserve">
+    <value>updated a commit discussion</value>
+  </data>
+  <data name="Timeline.UpdatedPullRequest" xml:space="preserve">
+    <value>updated the pull request</value>
+  </data>
+  <data name="Timeline.UpdatedReviewThread" xml:space="preserve">
+    <value>updated a review thread</value>
+  </data>
+  <data name="Timeline.UpdatedThis" xml:space="preserve">
+    <value>updated this</value>
+  </data>
 </root>

@@ -12,6 +12,7 @@
 - Prefer async/await end-to-end for I/O and network flows; avoid blocking calls on UI paths.
 - Do not commit secrets, access tokens, refresh tokens, or machine-local credentials. OAuth client IDs are public identifiers.
 - Add or update concise comments only where behavior is non-obvious.
+- Add every new user-facing string to `src/FluentHub/Strings/en-US/Resources.resw` instead of hardcoding it; do not update other locale files because Crowdin updates them automatically.
 
 ## Build & Validation
 - Restore and build solution before finalizing changes:
