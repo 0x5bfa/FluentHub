@@ -13,7 +13,7 @@
 		<UseWinUI>true</UseWinUI>
 		<WinUISDKReferences>false</WinUISDKReferences>
 		<WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
-		<!--<ApplicationIcon>Assets\AppTiles\Logo.ico</ApplicationIcon>-->
+		<ApplicationIcon>Assets\Branding.ico</ApplicationIcon>
 		<DisableXbfLineInfo>false</DisableXbfLineInfo>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 
