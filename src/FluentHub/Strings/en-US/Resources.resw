@@ -211,10 +211,12 @@
     <value>Couldn't start GitHub sign-in</value>
   </data>
   <data name="Login.ErrorDetailsWithMessage" xml:space="preserve">
-    <value>Step: {0}&#xD;&#xA;{1}: {2}</value>
+    <value>Step: {0}&#13;
+{1}: {2}</value>
   </data>
   <data name="Login.ErrorDetailsWithoutMessage" xml:space="preserve">
-    <value>Step: {0}&#xD;&#xA;{1}</value>
+    <value>Step: {0}&#13;
+{1}</value>
   </data>
   <data name="Login.GitHubAccountLoadingStatus" xml:space="preserve">
     <value>Loading your GitHub account...</value>
