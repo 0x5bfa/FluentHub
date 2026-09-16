@@ -4,6 +4,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization"
 	xmlns:viewModels="using:FluentHub.ViewModels">
 
 	<Grid>
@@ -20,17 +21,17 @@
 			</Grid.ColumnDefinitions>
 
 			<StackPanel Spacing="4">
-				<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Inbox" />
+				<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{localization:Localized ResourceKey=Inbox.Title}" />
 				<TextBlock
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					Text="Notifications from the repositories you follow."
+					Text="{localization:Localized ResourceKey=Inbox.Description}"
 					TextWrapping="Wrap" />
 			</StackPanel>
 
 			<Button
 				Grid.Column="1"
 				Command="{x:Bind ViewModel.RefreshCommand}"
-				Content="Refresh">
+				Content="{localization:Localized ResourceKey=Inbox.Refresh}">
 				<Button.KeyboardAccelerators>
 					<KeyboardAccelerator Key="R" Modifiers="Control" />
 				</Button.KeyboardAccelerators>
@@ -182,11 +183,11 @@
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="You're all caught up" />
+					Text="{localization:Localized ResourceKey=Inbox.AllCaughtUp}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					Text="There are no notifications to show."
+					Text="{localization:Localized ResourceKey=Inbox.NoNotifications}"
 					TextWrapping="Wrap" />
 			</StackPanel>
 
@@ -203,7 +204,7 @@
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="Inbox unavailable" />
+					Text="{localization:Localized ResourceKey=Inbox.Unavailable}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -212,7 +213,7 @@
 				<Button
 					HorizontalAlignment="Center"
 					Command="{x:Bind ViewModel.RefreshCommand}"
-					Content="Try again" />
+					Content="{localization:Localized ResourceKey=Common.TryAgain}" />
 			</StackPanel>
 		</Grid>
 	</Grid>

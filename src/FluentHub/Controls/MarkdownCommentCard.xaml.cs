@@ -16,7 +16,7 @@ public sealed partial class MarkdownCommentCard : UserControl
 			nameof(AuthorName),
 			typeof(string),
 			typeof(MarkdownCommentCard),
-			new PropertyMetadata("Unknown user"));
+			new PropertyMetadata(Strings.Common_UnknownUser.GetLocalized()));
 
 	public static readonly DependencyProperty AvatarUrlProperty =
 		DependencyProperty.Register(
@@ -37,7 +37,7 @@ public sealed partial class MarkdownCommentCard : UserControl
 			nameof(ActionText),
 			typeof(string),
 			typeof(MarkdownCommentCard),
-			new PropertyMetadata("commented"));
+			new PropertyMetadata(Strings.Common_Commented.GetLocalized()));
 
 	public static readonly DependencyProperty BodyProperty =
 		DependencyProperty.Register(

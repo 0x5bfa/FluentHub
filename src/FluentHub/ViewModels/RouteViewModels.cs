@@ -109,7 +109,7 @@ public abstract class RouteViewModelBase : ObservableObject
 		}
 		catch (Exception)
 		{
-			ErrorMessage = "Couldn't load this page. Try again.";
+			ErrorMessage = Strings.RouteViewModelBase_LoadError.GetLocalized();
 			LoadingState = LoadingState.Error;
 		}
 		finally
@@ -136,17 +136,31 @@ public sealed class IssueViewModel : RouteViewModelBase
 
 	public RepositorySlug Repository => Route.Repository;
 
-	public string Title => _issue?.Title ?? $"Issue #{Route.Number}";
+	public string Title
+		=> _issue?.Title ?? string.Format(
+			CultureInfo.CurrentCulture,
+			Strings.RouteViewModel_IssueFallbackTitle.GetLocalized(),
+			Route.Number);
 
 	public string RepositoryName => GetRepositoryName(_issue?.Repository, Route.Repository);
 
-	public string Body => string.IsNullOrWhiteSpace(_issue?.Body) ? "No description provided." : _issue.Body;
+	public string Body => string.IsNullOrWhiteSpace(_issue?.Body)
+		? Strings.Common_NoDescriptionProvided.GetLocalized()
+		: _issue.Body;
 
-	public string StateLabel => _issue?.State.ToString() ?? "Loading";
+	public string StateLabel
+		=> _issue?.State switch
+		{
+			IssueState.Open => Strings.Common_Open.GetLocalized(),
+			IssueState.Closed => Strings.Common_Closed.GetLocalized(),
+			_ => Strings.Common_Loading.GetLocalized(),
+		};
 
 	public string AuthorLogin => _issue?.Author?.Login ?? string.Empty;
 
-	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin) ? "Unknown user" : AuthorLogin;
+	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin)
+		? Strings.Common_UnknownUser.GetLocalized()
+		: AuthorLogin;
 
 	public string AuthorAvatarUrl => _issue?.Author?.AvatarUrl ?? string.Empty;
 
@@ -232,22 +246,35 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 
 	public RepositorySlug Repository => Route.Repository;
 
-	public string Title => _pullRequest?.Title ?? $"Pull request #{Route.Number}";
+	public string Title
+		=> _pullRequest?.Title ?? string.Format(
+			CultureInfo.CurrentCulture,
+			Strings.RouteViewModel_PullRequestFallbackTitle.GetLocalized(),
+			Route.Number);
 
 	public string RepositoryName => IssueViewModel.GetRepositoryName(_pullRequest?.Repository, Route.Repository);
 
-	public string Body => string.IsNullOrWhiteSpace(_pullRequest?.Body) ? "No description provided." : _pullRequest.Body;
+	public string Body => string.IsNullOrWhiteSpace(_pullRequest?.Body)
+		? Strings.Common_NoDescriptionProvided.GetLocalized()
+		: _pullRequest.Body;
 
 	public string StateLabel
 		=> _pullRequest is { IsDraft: true }
-			? "Draft"
+			? Strings.RouteViewModel_PullRequestDraftState.GetLocalized()
 			: _pullRequest?.Merged == true
-				? "Merged"
-				: _pullRequest?.State.ToString() ?? "Loading";
+				? Strings.RouteViewModel_PullRequestMergedState.GetLocalized()
+				: _pullRequest?.State switch
+				{
+					PullRequestState.Open => Strings.Common_Open.GetLocalized(),
+					PullRequestState.Closed => Strings.Common_Closed.GetLocalized(),
+					_ => Strings.Common_Loading.GetLocalized(),
+				};
 
 	public string AuthorLogin => _pullRequest?.Author?.Login ?? string.Empty;
 
-	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin) ? "Unknown user" : AuthorLogin;
+	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin)
+		? Strings.Common_UnknownUser.GetLocalized()
+		: AuthorLogin;
 
 	public string AuthorAvatarUrl => _pullRequest?.Author?.AvatarUrl ?? string.Empty;
 
@@ -262,12 +289,21 @@ public sealed class PullRequestViewModel : RouteViewModelBase
 	public string BranchSummary
 		=> _pullRequest is null
 			? string.Empty
-			: $"{_pullRequest.HeadRefName} → {_pullRequest.BaseRefName}";
+			: string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.RouteViewModel_PullRequestBranchSummary.GetLocalized(),
+				_pullRequest.HeadRefName,
+				_pullRequest.BaseRefName);
 
 	public string ChangeSummary
 		=> _pullRequest is null
 			? string.Empty
-			: $"{_pullRequest.Additions} additions, {_pullRequest.Deletions} deletions, {_pullRequest.ChangedFiles} files";
+			: string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.RouteViewModel_PullRequestChangeSummary.GetLocalized(),
+				_pullRequest.Additions,
+				_pullRequest.Deletions,
+				_pullRequest.ChangedFiles);
 
 	public string UpdatedAt => IssueViewModel.GetUpdatedAt(_pullRequest?.UpdatedAt, _pullRequest?.UpdatedAtHumanized);
 
@@ -335,11 +371,17 @@ public sealed class DiscussionViewModel : RouteViewModelBase
 
 	public RepositorySlug Repository => Route.Repository;
 
-	public string Title => _discussion?.Title ?? $"Discussion #{Route.Number}";
+	public string Title
+		=> _discussion?.Title ?? string.Format(
+			CultureInfo.CurrentCulture,
+			Strings.RouteViewModel_DiscussionFallbackTitle.GetLocalized(),
+			Route.Number);
 
 	public string RepositoryName => IssueViewModel.GetRepositoryName(_discussion?.Repository, Route.Repository);
 
-	public string Body => string.IsNullOrWhiteSpace(_discussion?.Body) ? "No description provided." : _discussion.Body;
+	public string Body => string.IsNullOrWhiteSpace(_discussion?.Body)
+		? Strings.Common_NoDescriptionProvided.GetLocalized()
+		: _discussion.Body;
 
 	public string CategoryName => _discussion?.Category?.Name ?? string.Empty;
 
@@ -347,9 +389,16 @@ public sealed class DiscussionViewModel : RouteViewModelBase
 
 	public bool HasAuthor => !string.IsNullOrWhiteSpace(AuthorLogin);
 
-	public string StateLabel => _discussion?.Closed == true ? "Closed" : "Open";
+	public string StateLabel => _discussion?.Closed == true
+		? Strings.RouteViewModel_DiscussionClosedState.GetLocalized()
+		: Strings.RouteViewModel_DiscussionOpenState.GetLocalized();
 
-	public string EngagementSummary => _discussion is null ? string.Empty : $"{_discussion.UpvoteCount} upvotes";
+	public string EngagementSummary => _discussion is null
+		? string.Empty
+		: string.Format(
+			CultureInfo.CurrentCulture,
+			Strings.RouteViewModel_DiscussionEngagementSummary.GetLocalized(),
+			_discussion.UpvoteCount);
 
 	public string UpdatedAt => IssueViewModel.GetUpdatedAt(_discussion?.UpdatedAt, _discussion?.UpdatedAtHumanized);
 
@@ -399,7 +448,7 @@ public sealed class RepositoryViewModel : RouteViewModelBase
 	public string FullName => IssueViewModel.GetRepositoryName(_repository, Route.Repository);
 
 	public string Description => string.IsNullOrWhiteSpace(_repository?.Description)
-		? "No description provided."
+		? Strings.Common_NoDescriptionProvided.GetLocalized()
 		: _repository.Description;
 
 	public bool HasDescription => !string.IsNullOrWhiteSpace(_repository?.Description);
@@ -457,7 +506,9 @@ public sealed class UserViewModel : RouteViewModelBase
 
 	public string DisplayName => string.IsNullOrWhiteSpace(_user?.Name) ? Login : _user.Name;
 
-	public string Bio => string.IsNullOrWhiteSpace(_user?.Bio) ? "No bio provided." : _user.Bio;
+	public string Bio => string.IsNullOrWhiteSpace(_user?.Bio)
+		? Strings.RouteViewModel_UserNoBioProvided.GetLocalized()
+		: _user.Bio;
 
 	public string Location => _user?.Location ?? string.Empty;
 
@@ -509,7 +560,7 @@ public sealed class OrganizationViewModel : RouteViewModelBase
 	public string DisplayName => string.IsNullOrWhiteSpace(_organization?.Name) ? Login : _organization.Name;
 
 	public string Description => string.IsNullOrWhiteSpace(_organization?.Description)
-		? "No description provided."
+		? Strings.Common_NoDescriptionProvided.GetLocalized()
 		: _organization.Description;
 
 	public string Location => _organization?.Location ?? string.Empty;
@@ -594,12 +645,23 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	public string Title
 		=> _route switch
 		{
-			RepositoryRoute route => $"{route.Repository} {GetKindTitle()}",
-			UserRoute route => $"{route.Login}'s {GetKindTitle()}",
+			RepositoryRoute route => string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.RepositoryItemListViewModel_RepositoryTitle.GetLocalized(),
+				route.Repository,
+				GetKindTitle()),
+			UserRoute route => string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.RepositoryItemListViewModel_UserTitle.GetLocalized(),
+				route.Login,
+				GetKindTitle()),
 			_ => GetKindTitle(),
 		};
 
-	public string EmptyText => $"No {GetKindTitle().ToLowerInvariant()} found.";
+	public string EmptyText => string.Format(
+		CultureInfo.CurrentCulture,
+		Strings.RepositoryItemListViewModel_EmptyText.GetLocalized(),
+		GetKindTitle().ToLower(CultureInfo.CurrentCulture));
 
 	public bool IsEmpty => IsLoaded && Items.Count == 0;
 
@@ -750,10 +812,10 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	private string GetKindTitle()
 		=> Kind switch
 		{
-			RepositoryItemListKind.Issues => "Issues",
-			RepositoryItemListKind.PullRequests => "Pull requests",
-			RepositoryItemListKind.Discussions => "Discussions",
-			_ => "Items",
+			RepositoryItemListKind.Issues => Strings.RepositoryItemListViewModel_IssuesTitle.GetLocalized(),
+			RepositoryItemListKind.PullRequests => Strings.RepositoryItemListViewModel_PullRequestsTitle.GetLocalized(),
+			RepositoryItemListKind.Discussions => Strings.RepositoryItemListViewModel_DiscussionsTitle.GetLocalized(),
+			_ => Strings.RepositoryItemListViewModel_ItemsTitle.GetLocalized(),
 		};
 }
 
@@ -803,7 +865,10 @@ public sealed class RepositoryListViewModel : RouteViewModelBase
 
 	public RepositoryListOwnerKind OwnerKind { get; }
 
-	public string Title => $"{OwnerLogin}'s repositories";
+	public string Title => string.Format(
+		CultureInfo.CurrentCulture,
+		Strings.RepositoryListViewModel_Title.GetLocalized(),
+		OwnerLogin);
 
 	public ObservableCollection<RepositoryListItemViewModel> Items { get; } = [];
 
@@ -832,7 +897,7 @@ public sealed class RepositoryListViewModel : RouteViewModelBase
 				slug,
 				name,
 				$"{owner}/{name}",
-				repository.Description ?? "No description provided.",
+				repository.Description ?? Strings.Common_NoDescriptionProvided.GetLocalized(),
 				repository.IsPrivate));
 		}
 

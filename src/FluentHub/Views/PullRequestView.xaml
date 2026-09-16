@@ -4,6 +4,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	x:Name="Root">
 
@@ -41,7 +42,7 @@
 				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
 				Spacing="16">
 				<controls:MarkdownCommentCard
-					ActionText="opened"
+					ActionText="{localization:Localized ResourceKey=Timeline.Opened}"
 					AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
 					AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
 					Body="{x:Bind ViewModel.Body, Mode=OneWay}"
@@ -58,34 +59,34 @@
 					<Button
 						x:Name="RepositoryButton"
 						Click="OnRepositoryClick"
-						Content="Repository" />
+						Content="{localization:Localized ResourceKey=PullRequest.RepositoryLabel}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="State" />
+						Text="{localization:Localized ResourceKey=PullRequest.StateLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.StateLabel, Mode=OneWay}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Branches" />
+						Text="{localization:Localized ResourceKey=PullRequest.BranchesLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.BranchSummary, Mode=OneWay}" TextWrapping="Wrap" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Changes" />
+						Text="{localization:Localized ResourceKey=PullRequest.ChangesLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.ChangeSummary, Mode=OneWay}" TextWrapping="Wrap" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Updated" />
+						Text="{localization:Localized ResourceKey=PullRequest.UpdatedLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.UpdatedAt, Mode=OneWay}" />
 				</StackPanel>
 			</StackPanel>
@@ -102,7 +103,7 @@
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="Pull request unavailable" />
+					Text="{localization:Localized ResourceKey=PullRequest.Unavailable}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -112,7 +113,7 @@
 					x:Name="RetryButton"
 					HorizontalAlignment="Center"
 					Command="{x:Bind ViewModel.RetryCommand}"
-					Content="Try again" />
+					Content="{localization:Localized ResourceKey=Common.TryAgain}" />
 			</StackPanel>
 		</StackPanel>
 	</ScrollViewer>

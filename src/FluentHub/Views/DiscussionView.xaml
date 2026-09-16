@@ -4,6 +4,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization"
 	xmlns:markdown="using:CommunityToolkit.WinUI.Controls"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	x:Name="Root">
@@ -45,7 +46,7 @@
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Description" />
+						Text="{localization:Localized ResourceKey=Discussion.DescriptionLabel}" />
 					<markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Body, Mode=OneWay}" />
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" Spacing="8">
@@ -57,34 +58,34 @@
 					<Button
 						x:Name="RepositoryButton"
 						Click="OnRepositoryClick"
-						Content="Repository" />
+						Content="{localization:Localized ResourceKey=Discussion.RepositoryLabel}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Category" />
+						Text="{localization:Localized ResourceKey=Discussion.CategoryLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.CategoryName, Mode=OneWay}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="State" />
+						Text="{localization:Localized ResourceKey=Discussion.StateLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.StateLabel, Mode=OneWay}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Engagement" />
+						Text="{localization:Localized ResourceKey=Discussion.EngagementLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.EngagementSummary, Mode=OneWay}" />
 				</StackPanel>
 				<StackPanel Spacing="4">
 					<TextBlock
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Style="{StaticResource CaptionTextBlockStyle}"
-						Text="Updated" />
+						Text="{localization:Localized ResourceKey=Discussion.UpdatedLabel}" />
 					<TextBlock Text="{x:Bind ViewModel.UpdatedAt, Mode=OneWay}" />
 				</StackPanel>
 			</StackPanel>
@@ -101,7 +102,7 @@
 				<TextBlock
 					HorizontalAlignment="Center"
 					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="Discussion unavailable" />
+					Text="{localization:Localized ResourceKey=Discussion.Unavailable}" />
 				<TextBlock
 					HorizontalAlignment="Center"
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -111,7 +112,7 @@
 					x:Name="RetryButton"
 					HorizontalAlignment="Center"
 					Command="{x:Bind ViewModel.RetryCommand}"
-					Content="Try again" />
+					Content="{localization:Localized ResourceKey=Common.TryAgain}" />
 			</StackPanel>
 		</StackPanel>
 	</ScrollViewer>

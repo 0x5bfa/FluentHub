@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
 	xmlns:local="using:FluentHub.Views"
+	xmlns:localization="using:FluentHub.Localization"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	xmlns:wctcontrols="using:CommunityToolkit.WinUI.Controls"
 	x:Name="Root">
@@ -49,7 +50,7 @@
 
 					<controls:MarkdownCommentCard
 						Margin="0,4,0,0"
-						ActionText="opened"
+						ActionText="{localization:Localized ResourceKey=Timeline.Opened}"
 						AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
 						AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
 						Body="{x:Bind ViewModel.Body, Mode=OneWay}"

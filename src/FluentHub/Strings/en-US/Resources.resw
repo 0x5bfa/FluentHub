@@ -447,4 +447,223 @@
   <data name="Timeline.UpdatedThis" xml:space="preserve">
     <value>updated this</value>
   </data>
+  <data name="Actions.Description" xml:space="preserve">
+    <value>View workflow runs and checks on GitHub.</value>
+  </data>
+  <data name="Actions.OpenOnGitHub" xml:space="preserve">
+    <value>Open Actions on GitHub</value>
+  </data>
+  <data name="Actions.Title" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Common.Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Common.AccountMenu" xml:space="preserve">
+    <value>Account menu</value>
+  </data>
+  <data name="Common.AppSettings" xml:space="preserve">
+    <value>App settings</value>
+  </data>
+  <data name="Common.Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Common.Edited" xml:space="preserve">
+    <value>edited</value>
+  </data>
+  <data name="Common.Followers" xml:space="preserve">
+    <value>followers</value>
+  </data>
+  <data name="Common.Following" xml:space="preserve">
+    <value>following</value>
+  </data>
+  <data name="Common.Forks" xml:space="preserve">
+    <value>forks</value>
+  </data>
+  <data name="Common.Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Common.OpenIssues" xml:space="preserve">
+    <value>open issues</value>
+  </data>
+  <data name="Common.OpenPullRequests" xml:space="preserve">
+    <value>open pull requests</value>
+  </data>
+  <data name="Common.OpenOnGitHub" xml:space="preserve">
+    <value>Open on GitHub</value>
+  </data>
+  <data name="Common.Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Common.RetryLoading" xml:space="preserve">
+    <value>Retry loading</value>
+  </data>
+  <data name="Common.SearchGitHub" xml:space="preserve">
+    <value>Search GitHub...</value>
+  </data>
+  <data name="Common.SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Common.Stars" xml:space="preserve">
+    <value>stars</value>
+  </data>
+  <data name="Common.TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Common.Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Discussion.CategoryLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Discussion.DescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Discussion.EngagementLabel" xml:space="preserve">
+    <value>Engagement</value>
+  </data>
+  <data name="Discussion.RepositoryLabel" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Discussion.StateLabel" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Discussion.Unavailable" xml:space="preserve">
+    <value>Discussion unavailable</value>
+  </data>
+  <data name="Discussion.UpdatedLabel" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Inbox.AllCaughtUp" xml:space="preserve">
+    <value>You're all caught up</value>
+  </data>
+  <data name="Inbox.Description" xml:space="preserve">
+    <value>Notifications from the repositories you follow.</value>
+  </data>
+  <data name="Inbox.NoNotifications" xml:space="preserve">
+    <value>There are no notifications to show.</value>
+  </data>
+  <data name="Inbox.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Inbox.Title" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="Inbox.Unavailable" xml:space="preserve">
+    <value>Inbox unavailable</value>
+  </data>
+  <data name="Login.AccountReadyDescription" xml:space="preserve">
+    <value>Your GitHub account is ready to use in FluentHub.</value>
+  </data>
+  <data name="Login.AddAnotherAccount" xml:space="preserve">
+    <value>Add another account</value>
+  </data>
+  <data name="Login.AllSetTitle" xml:space="preserve">
+    <value>You're all set</value>
+  </data>
+  <data name="Login.AuthorizationConfirmed" xml:space="preserve">
+    <value>Authorization confirmed</value>
+  </data>
+  <data name="Login.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Login.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Login.CopyCode" xml:space="preserve">
+    <value>Copy code</value>
+  </data>
+  <data name="Login.DeviceCodeDescription" xml:space="preserve">
+    <value>Enter this one-time code on GitHub to continue.</value>
+  </data>
+  <data name="Login.GitHubAccount" xml:space="preserve">
+    <value>GitHub account</value>
+  </data>
+  <data name="Login.GitHubEnterprise" xml:space="preserve">
+    <value>GitHub Enterprise</value>
+  </data>
+  <data name="Login.OpenGitHubAgain" xml:space="preserve">
+    <value>Open GitHub again</value>
+  </data>
+  <data name="Login.PasswordNotice" xml:space="preserve">
+    <value>Your password is entered only on GitHub.</value>
+  </data>
+  <data name="Login.SignInTitle" xml:space="preserve">
+    <value>Sign in to GitHub</value>
+  </data>
+  <data name="Login.SignInWithGitHub" xml:space="preserve">
+    <value>Sign in with GitHub</value>
+  </data>
+  <data name="Login.TechnicalDetails" xml:space="preserve">
+    <value>Technical details</value>
+  </data>
+  <data name="Login.TryAgain" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="Login.WelcomeDescription" xml:space="preserve">
+    <value>Explore repositories, issues, pull requests, and more from a native Windows app.</value>
+  </data>
+  <data name="Login.WelcomeTitle" xml:space="preserve">
+    <value>Welcome to FluentHub</value>
+  </data>
+  <data name="Organization.Unavailable" xml:space="preserve">
+    <value>Organization unavailable</value>
+  </data>
+  <data name="PullRequest.BranchesLabel" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="PullRequest.ChangesLabel" xml:space="preserve">
+    <value>Changes</value>
+  </data>
+  <data name="PullRequest.RepositoryLabel" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="PullRequest.StateLabel" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="PullRequest.Unavailable" xml:space="preserve">
+    <value>Pull request unavailable</value>
+  </data>
+  <data name="PullRequest.UpdatedLabel" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Repository.SelectItem" xml:space="preserve">
+    <value>Select an item to open it in a new blade.</value>
+  </data>
+  <data name="Repository.SelectRepository" xml:space="preserve">
+    <value>Select a repository to open it in a new blade.</value>
+  </data>
+  <data name="Repository.Unavailable" xml:space="preserve">
+    <value>Repository unavailable</value>
+  </data>
+  <data name="RepositoryItemList.Unavailable" xml:space="preserve">
+    <value>Items unavailable</value>
+  </data>
+  <data name="RepositoryList.NoRepositoriesFound" xml:space="preserve">
+    <value>No repositories found.</value>
+  </data>
+  <data name="RepositoryList.Unavailable" xml:space="preserve">
+    <value>Repositories unavailable</value>
+  </data>
+  <data name="User.Unavailable" xml:space="preserve">
+    <value>User unavailable</value>
+  </data>
+  <data name="Root.AssignedNavigationItem" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="Root.InboxNavigationItem" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="Root.MyPullsNavigationItem" xml:space="preserve">
+    <value>My pulls</value>
+  </data>
+  <data name="Root.ReviewsNavigationItem" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="Timeline.Opened" xml:space="preserve">
+    <value>opened</value>
+  </data>
+  <data name="Timeline.CommittedChanges" xml:space="preserve">
+    <value>committed changes</value>
+  </data>
 </root>

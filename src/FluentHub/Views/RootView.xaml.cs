@@ -13,7 +13,6 @@ namespace FluentHub.Views
 {
 	public sealed partial class RootView : UserControl
 	{
-		private const string AuthenticationRequiredMessage = "Sign in to GitHub to view your activity.";
 		private bool _repositoryItemsAdded;
 		private bool _isSignInDialogOpen;
 		private NavigationViewItemSeparator? _repositorySeparator;
@@ -86,7 +85,7 @@ namespace FluentHub.Views
 				}
 				else
 				{
-					ShowContent(CreateCenteredText(AuthenticationRequiredMessage));
+					ShowContent(CreateCenteredText(Strings.Root_AuthenticationRequiredMessage.GetLocalized()));
 				}
 			}
 			catch (OperationCanceledException)
@@ -100,14 +99,14 @@ namespace FluentHub.Views
 		}
 
 		private void OnAppSettingsClick(object sender, RoutedEventArgs e)
-			=> ShowContent(CreateCenteredText("Settings"));
+			=> ShowContent(CreateCenteredText(Strings.Root_SettingsText.GetLocalized()));
 
 		private void ShowNavigationItem(NavigationViewItem item)
 		{
 			var tag = item.Tag?.ToString();
 			if (!ViewModel.IsAuthenticated && RequiresAuthentication(tag))
 			{
-				ShowContent(CreateCenteredText(AuthenticationRequiredMessage));
+				ShowContent(CreateCenteredText(Strings.Root_AuthenticationRequiredMessage.GetLocalized()));
 				return;
 			}
 
@@ -160,7 +159,7 @@ namespace FluentHub.Views
 					_repositorySeparator = new NavigationViewItemSeparator();
 					_repositoryHeader = new NavigationViewItemHeader
 					{
-						Content = "Repositories",
+						Content = Strings.Root_RepositoriesHeader.GetLocalized(),
 					};
 					NavigationView.MenuItems.Add(_repositorySeparator);
 					NavigationView.MenuItems.Add(_repositoryHeader);
@@ -219,9 +218,9 @@ namespace FluentHub.Views
 			var loginView = new LoginView();
 			var dialog = new ContentDialog
 			{
-				Title = "Sign in to GitHub",
+				Title = Strings.Root_SignInDialogTitle.GetLocalized(),
 				Content = loginView,
-				CloseButtonText = "Cancel",
+				CloseButtonText = Strings.Root_CancelButtonText.GetLocalized(),
 				DefaultButton = ContentDialogButton.Close,
 				XamlRoot = XamlRoot,
 			};

@@ -80,7 +80,7 @@ public sealed class TimelineItemViewModel
 				review.CreatedAt,
 				review.CreatedAtHumanized,
 				review.LastEditedAt is not null,
-				"reviewed"),
+				Strings.Timeline_Reviewed.GetLocalized()),
 			PullRequestReviewComment reviewComment => Comment(
 				reviewComment.Author,
 				reviewComment.Body,
@@ -93,44 +93,44 @@ public sealed class TimelineItemViewModel
 				comment.CreatedAt,
 				comment.CreatedAtHumanized,
 				comment.LastEditedAt is not null),
-			AddedToProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "added this to a project"),
-			AssignedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "assigned an item"),
-			ClosedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "closed this"),
-			CommentDeletedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "deleted a comment"),
-			ConnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "connected this with another item"),
-			ConvertedNoteToIssueEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "converted a note to an issue"),
-			ConvertedToDiscussionEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "converted this to a discussion"),
-			CrossReferencedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "cross-referenced this"),
-			DemilestonedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "removed the milestone"),
-			DisconnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "disconnected this from another item"),
-			LabeledEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "added a label"),
-			LockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "locked this conversation"),
-			MarkedAsDuplicateEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "marked this as a duplicate"),
-			MergedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "merged this"),
-			MilestonedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "added a milestone"),
-			MovedColumnsInProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "moved this in a project"),
-			PinnedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "pinned this"),
-			ReferencedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "referenced this"),
-			ReadyForReviewEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "marked this ready for review"),
-			RemovedFromProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "removed this from a project"),
-			RenamedTitleEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "renamed the title"),
-			ReopenedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "reopened this"),
-			ReviewDismissedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "dismissed a review"),
-			ReviewRequestRemovedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "removed a review request"),
-			ReviewRequestedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "requested a review"),
-			SubscribedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "subscribed"),
-			TransferredEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "transferred this"),
-			UnassignedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "unassigned an item"),
-			UnlabeledEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "removed a label"),
-			UnlockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "unlocked this conversation"),
-			UnmarkedAsDuplicateEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "unmarked this as a duplicate"),
-			UnpinnedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "unpinned this"),
-			UnsubscribedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "unsubscribed"),
-			UserBlockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, "blocked a user"),
-			PullRequestCommit value => CommitActivity(value.Commit?.Author, value.Commit?.CommittedDate, null, "committed changes"),
-			PullRequestRevisionMarker value => Activity(null, value.CreatedAt, value.CreatedAtHumanized, "updated the pull request"),
-			PullRequestReviewThread => Activity(null, null, null, "updated a review thread"),
-			PullRequestCommitCommentThread => Activity(null, null, null, "updated a commit discussion"),
+			AddedToProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_AddedToProject.GetLocalized()),
+			AssignedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_AssignedItem.GetLocalized()),
+			ClosedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ClosedThis.GetLocalized()),
+			CommentDeletedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_CommentDeleted.GetLocalized()),
+			ConnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Connected.GetLocalized()),
+			ConvertedNoteToIssueEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ConvertedNoteToIssue.GetLocalized()),
+			ConvertedToDiscussionEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ConvertedToDiscussion.GetLocalized()),
+			CrossReferencedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_CrossReferenced.GetLocalized()),
+			DemilestonedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RemovedMilestone.GetLocalized()),
+			DisconnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Disconnected.GetLocalized()),
+			LabeledEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_AddedLabel.GetLocalized()),
+			LockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_LockedConversation.GetLocalized()),
+			MarkedAsDuplicateEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_MarkedAsDuplicate.GetLocalized()),
+			MergedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_MergedThis.GetLocalized()),
+			MilestonedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_AddedMilestone.GetLocalized()),
+			MovedColumnsInProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_MovedInProject.GetLocalized()),
+			PinnedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_PinnedThis.GetLocalized()),
+			ReferencedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ReferencedThis.GetLocalized()),
+			ReadyForReviewEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ReadyForReview.GetLocalized()),
+			RemovedFromProjectEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RemovedFromProject.GetLocalized()),
+			RenamedTitleEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RenamedTitle.GetLocalized()),
+			ReopenedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ReopenedThis.GetLocalized()),
+			ReviewDismissedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_DismissedReview.GetLocalized()),
+			ReviewRequestRemovedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RemovedReviewRequest.GetLocalized()),
+			ReviewRequestedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RequestedReview.GetLocalized()),
+			SubscribedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Subscribed.GetLocalized()),
+			TransferredEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_TransferredThis.GetLocalized()),
+			UnassignedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_UnassignedItem.GetLocalized()),
+			UnlabeledEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RemovedLabel.GetLocalized()),
+			UnlockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_UnlockedConversation.GetLocalized()),
+			UnmarkedAsDuplicateEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_UnmarkedAsDuplicate.GetLocalized()),
+			UnpinnedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_UnpinnedThis.GetLocalized()),
+			UnsubscribedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Unsubscribed.GetLocalized()),
+			UserBlockedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_BlockedUser.GetLocalized()),
+			PullRequestCommit value => CommitActivity(value.Commit?.Author, value.Commit?.CommittedDate, null, Strings.Timeline_CommittedChanges.GetLocalized()),
+			PullRequestRevisionMarker value => Activity(null, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_UpdatedPullRequest.GetLocalized()),
+			PullRequestReviewThread => Activity(null, null, null, Strings.Timeline_UpdatedReviewThread.GetLocalized()),
+			PullRequestCommitCommentThread => Activity(null, null, null, Strings.Timeline_UpdatedCommitDiscussion.GetLocalized()),
 			_ => Activity(null, null, null, GetFallbackMessage(item)),
 		};
 	}
@@ -141,14 +141,14 @@ public sealed class TimelineItemViewModel
 		DateTimeOffset createdAt,
 		string? createdAtHumanized,
 		bool isEdited,
-		string actionText = "commented")
+		string? actionText = null)
 		=> new(
 			TimelineItemKind.Comment,
 			GetAuthorName(author?.Login),
 			author?.AvatarUrl,
 			FormatDate(createdAt, createdAtHumanized),
-			actionText,
-			string.IsNullOrWhiteSpace(body) ? "No description provided." : body,
+			actionText ?? Strings.Common_Commented.GetLocalized(),
+			string.IsNullOrWhiteSpace(body) ? Strings.Common_NoDescriptionProvided.GetLocalized() : body,
 			string.Empty,
 			isEdited);
 
@@ -183,7 +183,7 @@ public sealed class TimelineItemViewModel
 			false);
 
 	private static string GetAuthorName(string? login)
-		=> string.IsNullOrWhiteSpace(login) ? "GitHub" : login;
+		=> string.IsNullOrWhiteSpace(login) ? Strings.Common_GitHub.GetLocalized() : login;
 
 	private static string FormatDate(DateTimeOffset? value, string? humanized)
 	{
@@ -199,7 +199,10 @@ public sealed class TimelineItemViewModel
 	{
 		var name = item.GetType().Name;
 		return name.EndsWith("Event", StringComparison.Ordinal)
-			? name[..^"Event".Length].ToLowerInvariant() + " event"
-			: "updated this";
+			? string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.Timeline_EventFallback.GetLocalized(),
+				name[..^"Event".Length].ToLowerInvariant())
+			: Strings.Timeline_UpdatedThis.GetLocalized();
 	}
 }

@@ -3,7 +3,8 @@
 	x:Class="FluentHub.Views.ExternalRouteView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="using:FluentHub.Controls">
+	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization">
 
 	<StackPanel
 		Padding="24"
@@ -25,6 +26,6 @@
 			x:Name="OpenButton"
 			HorizontalAlignment="Center"
 			Click="OnOpenClick"
-			Content="Open on GitHub" />
+			Content="{localization:Localized ResourceKey=Common.OpenOnGitHub}" />
 	</StackPanel>
 </UserControl>

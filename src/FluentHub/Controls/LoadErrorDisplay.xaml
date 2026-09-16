@@ -4,6 +4,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization"
 	x:Name="Root">
 
 	<Grid Padding="32">
@@ -22,7 +23,7 @@
 				HorizontalAlignment="Center"
 				FontSize="36"
 				Style="{StaticResource BodyStrongTextBlockStyle}"
-				Text="Something went wrong"
+				Text="{localization:Localized ResourceKey=Common.SomethingWentWrong}"
 				TextAlignment="Center"
 				TextWrapping="Wrap" />
 			<TextBlock
@@ -34,9 +35,9 @@
 				TextWrapping="Wrap" />
 			<Button
 				HorizontalAlignment="Center"
-				AutomationProperties.Name="Retry loading"
+				AutomationProperties.Name="{localization:Localized ResourceKey=Common.RetryLoading}"
 				Command="{x:Bind RetryCommand, Mode=OneWay}"
-				Content="Try again" />
+				Content="{localization:Localized ResourceKey=Common.TryAgain}" />
 		</StackPanel>
 	</Grid>
 </UserControl>

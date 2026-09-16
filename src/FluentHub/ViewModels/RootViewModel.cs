@@ -45,7 +45,7 @@ public sealed class RootViewModel : ObservableObject
 
 	public string ProfileDisplayName
 		=> string.IsNullOrWhiteSpace(_profileDisplayName)
-			? _settings.SignedInUserName ?? "Sign in"
+			? _settings.SignedInUserName ?? Strings.RootViewModel_SignInText.GetLocalized()
 			: _profileDisplayName;
 
 	public string ProfileUsername
@@ -54,7 +54,9 @@ public sealed class RootViewModel : ObservableObject
 			: $"@{_settings.SignedInUserName}";
 
 	public string ProfileActionText
-		=> IsAuthenticated ? "Log out" : "Log in";
+		=> IsAuthenticated
+			? Strings.RootViewModel_LogOutText.GetLocalized()
+			: Strings.RootViewModel_LogInText.GetLocalized();
 
 	public ImageSource? ProfilePicture => _profilePicture;
 

@@ -68,9 +68,18 @@ public sealed class InboxViewModel : ObservableObject
 	}
 
 	public string UnreadSummary
-		=> UnreadCount == 0
-			? "No unread notifications"
-			: $"{UnreadCount} unread notification{(UnreadCount == 1 ? string.Empty : "s")}";
+	{
+		get
+		{
+			if (UnreadCount == 0)
+				return Strings.InboxViewModel_UnreadSummary_None.GetLocalized();
+
+			var resourceKey = UnreadCount == 1
+				? Strings.InboxViewModel_UnreadSummary_Singular
+				: Strings.InboxViewModel_UnreadSummary_Plural;
+			return string.Format(CultureInfo.CurrentCulture, resourceKey.GetLocalized(), UnreadCount);
+		}
+	}
 
 	public bool HasItems => Items.Count > 0;
 
@@ -99,7 +108,7 @@ public sealed class InboxViewModel : ObservableObject
 		var login = _settings.SignedInUserName;
 		if (string.IsNullOrWhiteSpace(login) || !_session.IsAuthenticated)
 		{
-			ErrorMessage = "Sign in to GitHub to load your inbox.";
+			ErrorMessage = Strings.InboxViewModel_NotAuthenticatedError.GetLocalized();
 			return;
 		}
 
@@ -142,7 +151,7 @@ public sealed class InboxViewModel : ObservableObject
 		}
 		catch (Exception)
 		{
-			ErrorMessage = "Couldn't load your inbox. Try again.";
+			ErrorMessage = Strings.InboxViewModel_LoadError.GetLocalized();
 		}
 		finally
 		{
@@ -173,11 +182,11 @@ public sealed class InboxItemViewModel
 			? repository.Owner is { } owner
 				? $"{owner.Login}/{repository.Name}"
 				: repository.Name
-			: "GitHub";
+			: Strings.Common_GitHub.GetLocalized();
 
 	public string Title
 		=> string.IsNullOrWhiteSpace(_notification.Subject.Title)
-			? "Untitled notification"
+			? Strings.InboxItemViewModel_UntitledNotification.GetLocalized()
 			: _notification.Subject.Title;
 
 	private NotificationSubjectType SubjectType => _notification.Subject.Type;

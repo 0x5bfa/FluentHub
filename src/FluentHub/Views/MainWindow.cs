@@ -20,7 +20,7 @@ namespace FluentHub.Views
 		{
 			SystemBackdrop = new MicaBackdrop();
 
-			AppWindow.Title = "FluentHub";
+			AppWindow.Title = Strings.MainWindow_Title.GetLocalized();
 			AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/Branding.ico"));
 			AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
 			AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;

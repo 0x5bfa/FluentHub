@@ -37,10 +37,16 @@ public sealed class AppRouteViewFactory
 				discussion,
 				navigate),
 			RepositoryCommitRoute commit => new ExternalRouteView(
-				$"Commit {commit.Sha}",
+				string.Format(
+					CultureInfo.CurrentCulture,
+					Strings.AppRouteViewFactory_CommitTitle.GetLocalized(),
+					commit.Sha),
 				$"https://github.com/{Uri.EscapeDataString(commit.Repository.Owner)}/{Uri.EscapeDataString(commit.Repository.Name)}/commit/{Uri.EscapeDataString(commit.Sha)}"),
 			RepositoryReleaseRoute release => new ExternalRouteView(
-				$"Release {release.Tag}",
+				string.Format(
+					CultureInfo.CurrentCulture,
+					Strings.AppRouteViewFactory_ReleaseTitle.GetLocalized(),
+					release.Tag),
 				$"https://github.com/{Uri.EscapeDataString(release.Repository.Owner)}/{Uri.EscapeDataString(release.Repository.Name)}/releases/tag/{Uri.EscapeDataString(release.Tag)}"),
 			RepositoryRoute repository when repository.Section == RepositorySection.Overview
 				=> new RepositoryView(

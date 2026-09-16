@@ -71,6 +71,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
 		<ProjectReference Include="..\Octokit.Generators\Octokit.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<AdditionalFiles Include="Strings\en-US\Resources.resw" />
 	</ItemGroup>
 
 </Project>

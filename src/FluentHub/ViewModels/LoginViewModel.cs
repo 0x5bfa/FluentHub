@@ -180,7 +180,7 @@ public sealed class LoginViewModel : ObservableObject
 			ResetError();
 			DeviceUserCode = string.Empty;
 			DeviceVerificationUri = string.Empty;
-			DeviceAuthorizationStatus = "Requesting a GitHub device code...";
+			DeviceAuthorizationStatus = Strings.Login_RequestingDeviceCodeStatus.GetLocalized();
 			Stage = LoginStage.DeviceCode;
 
 			var deviceAuthorization = await _authorizationService
@@ -189,15 +189,15 @@ public sealed class LoginViewModel : ObservableObject
 			DeviceVerificationUri = deviceAuthorization.VerificationUri;
 
 			operation = LoginOperation.OpenBrowser;
-			DeviceAuthorizationStatus = "Opening GitHub in your browser...";
+			DeviceAuthorizationStatus = Strings.Login_OpeningGitHubStatus.GetLocalized();
 			await OpenDeviceVerificationUriAsync();
-			DeviceAuthorizationStatus = "Waiting for authorization in your browser...";
+			DeviceAuthorizationStatus = Strings.Login_WaitingForAuthorizationStatus.GetLocalized();
 
 			var progress = new Progress<DeviceAuthorizationPollingStatus>(status =>
 				DeviceAuthorizationStatus = status switch
 				{
-					DeviceAuthorizationPollingStatus.Pending => "Waiting for authorization in your browser...",
-					DeviceAuthorizationPollingStatus.SlowedDown => "GitHub asked us to slow down. Still waiting...",
+					DeviceAuthorizationPollingStatus.Pending => Strings.Login_WaitingForAuthorizationStatus.GetLocalized(),
+					DeviceAuthorizationPollingStatus.SlowedDown => Strings.Login_GitHubSlowedDownStatus.GetLocalized(),
 					_ => DeviceAuthorizationStatus,
 				});
 
@@ -208,7 +208,7 @@ public sealed class LoginViewModel : ObservableObject
 				cancellationToken);
 
 			Stage = LoginStage.Syncing;
-			DeviceAuthorizationStatus = "Loading your GitHub account...";
+			DeviceAuthorizationStatus = Strings.Login_GitHubAccountLoadingStatus.GetLocalized();
 			operation = LoginOperation.ResolveAccount;
 			_session.SwitchAccount(accessToken);
 			var login = await _gitHub.Users.Users.GetViewerLoginAsync(cancellationToken);
@@ -217,7 +217,7 @@ public sealed class LoginViewModel : ObservableObject
 			await _settings.SaveSessionAsync(login, accessToken, cancellationToken);
 
 			SignedInLogin = login;
-			DeviceAuthorizationStatus = "Your GitHub account is ready to use.";
+			DeviceAuthorizationStatus = Strings.Login_AccountReadyStatus.GetLocalized();
 			Stage = LoginStage.Success;
 		}
 		catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -241,10 +241,10 @@ public sealed class LoginViewModel : ObservableObject
 	private async Task OpenDeviceVerificationUriAsync()
 	{
 		if (!Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
-			throw new InvalidOperationException("GitHub returned an invalid authorization URL.");
+			throw new InvalidOperationException(Strings.Login_GitHubAuthorizationUrlInvalid.GetLocalized());
 
 		if (!await Launcher.LaunchUriAsync(uri))
-			throw new InvalidOperationException("Windows could not open the GitHub authorization page.");
+			throw new InvalidOperationException(Strings.Login_CouldNotOpenGitHubPage.GetLocalized());
 	}
 
 	private void ReturnToWelcome()
@@ -270,40 +270,49 @@ public sealed class LoginViewModel : ObservableObject
 		(ErrorTitle, ErrorMessage) = exception switch
 		{
 			TimeoutException => (
-				"The GitHub sign-in code expired",
-				"The one-time code was not approved in time. Start the sign-in process again."),
+				Strings.Login_SignInCodeExpiredTitle.GetLocalized(),
+				Strings.Login_SignInCodeExpiredMessage.GetLocalized()),
 			UnauthorizedAccessException => (
-				"GitHub authorization was not completed",
-				"The authorization request was canceled or denied. Try again and approve FluentHub on GitHub."),
+				Strings.Login_AuthorizationNotCompletedTitle.GetLocalized(),
+				Strings.Login_AuthorizationNotCompletedMessage.GetLocalized()),
 			HttpRequestException => (
-				"Couldn't connect to GitHub",
-				"Check your internet connection and GitHub's availability, then try again."),
+				Strings.Login_CouldNotConnectTitle.GetLocalized(),
+				Strings.Login_CouldNotConnectMessage.GetLocalized()),
 			_ => operation switch
 			{
 				LoginOperation.RequestDeviceCode => (
-					"Couldn't start GitHub sign-in",
-					"FluentHub could not request a one-time sign-in code from GitHub. Try again in a moment."),
+					Strings.Login_CouldNotStartSignInTitle.GetLocalized(),
+					Strings.Login_CouldNotStartSignInMessage.GetLocalized()),
 				LoginOperation.OpenBrowser => (
-					"Couldn't open GitHub in your browser",
-					"Windows could not open the GitHub authorization page. Check your default browser and try again."),
+					Strings.Login_CouldNotOpenGitHubTitle.GetLocalized(),
+					Strings.Login_CouldNotOpenGitHubMessage.GetLocalized()),
 				LoginOperation.WaitForAuthorization => (
-					"GitHub couldn't complete the authorization",
-					"FluentHub did not receive a usable access token from GitHub. Start the sign-in process again."),
+					Strings.Login_CouldNotCompleteAuthorizationTitle.GetLocalized(),
+					Strings.Login_CouldNotCompleteAuthorizationMessage.GetLocalized()),
 				LoginOperation.ResolveAccount => (
-					"Signed in, but couldn't load your GitHub account",
-					"GitHub authorized FluentHub, but the signed-in user could not be retrieved. Check your connection and try again."),
+					Strings.Login_CouldNotLoadGitHubAccountTitle.GetLocalized(),
+					Strings.Login_CouldNotLoadGitHubAccountMessage.GetLocalized()),
 				LoginOperation.SaveSettings => (
-					"Signed in, but couldn't save your settings",
-					"GitHub authorized FluentHub, but the local JSON settings file could not be written. Check your access to the local app data folder."),
+					Strings.Login_CouldNotSaveSettingsTitle.GetLocalized(),
+					Strings.Login_CouldNotSaveSettingsMessage.GetLocalized()),
 				_ => (
-					"Couldn't complete GitHub sign-in",
-					"An unexpected error interrupted the sign-in process. Try again."),
+					Strings.Login_CouldNotCompleteSignInTitle.GetLocalized(),
+					Strings.Login_CouldNotCompleteSignInMessage.GetLocalized()),
 			},
 		};
 
 		ErrorDetails = string.IsNullOrWhiteSpace(exception.Message)
-			? $"Step: {operation}\r\n{exception.GetType().Name}"
-			: $"Step: {operation}\r\n{exception.GetType().Name}: {exception.Message}";
+			? string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.Login_ErrorDetailsWithoutMessage.GetLocalized(),
+				operation,
+				exception.GetType().Name)
+			: string.Format(
+				CultureInfo.CurrentCulture,
+				Strings.Login_ErrorDetailsWithMessage.GetLocalized(),
+				operation,
+				exception.GetType().Name,
+				exception.Message);
 		DeviceAuthorizationStatus = string.Empty;
 		Stage = LoginStage.Error;
 	}
