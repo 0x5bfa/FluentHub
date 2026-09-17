@@ -131,7 +131,8 @@ public sealed class StringsPropertyGenerator : IIncrementalGenerator
 		builder.AppendLine("\t\tif (LocalizedResources.TryGetValue(resourceKey, out var value))");
 		builder.AppendLine("\t\t\treturn value;");
 		builder.AppendLine();
-		builder.AppendLine("\t\tvalue = Resources?.TryGetValue(resourceKey)?.ValueAsString ?? resourceKey;");
+		builder.AppendLine("\t\tvar resourceMapKey = resourceKey.Replace('.', '/');");
+		builder.AppendLine("\t\tvalue = Resources?.TryGetValue(resourceMapKey)?.ValueAsString ?? resourceKey;");
 		builder.AppendLine("\t\treturn LocalizedResources.GetOrAdd(resourceKey, value);");
 		builder.AppendLine("\t}");
 		builder.AppendLine();
