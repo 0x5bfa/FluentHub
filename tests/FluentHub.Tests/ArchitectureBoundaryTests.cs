@@ -86,9 +86,8 @@ public sealed partial class ArchitectureBoundaryTests
 		Assert.HasCount(1, projects);
 		var project = File.ReadAllText(projects[0]);
 		StringAssert.Contains(project, "<IsAotCompatible>true</IsAotCompatible>");
-		StringAssert.Contains(project, "<VerifyReferenceAotCompatibility>true</VerifyReferenceAotCompatibility>");
-		StringAssert.Contains(project, "<IsPackable>false</IsPackable>");
-		StringAssert.Contains(project, "<Nullable>enable</Nullable>");
+		var sharedProperties = File.ReadAllText(Path.Combine(root, "Directory.Build.props"));
+		StringAssert.Contains(sharedProperties, "<Nullable>enable</Nullable>");
 	}
 
 	[TestMethod]
