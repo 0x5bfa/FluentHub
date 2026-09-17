@@ -76,7 +76,6 @@ $submissionParameters = @{
     ReleaseNotes = $releaseNotes
     FlightId = $env:STORE_FLIGHT_ID
     PackageRolloutPercentage = $env:STORE_ROLLOUT_PERCENTAGE
-    SubmissionMetadataPath = $env:STORE_SUBMISSION_METADATA_PATH
 }
 
 & $submissionScript @submissionParameters
