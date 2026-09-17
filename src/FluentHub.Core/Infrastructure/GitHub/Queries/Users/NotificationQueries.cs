@@ -137,9 +137,15 @@ namespace FluentHub.Core.Infrastructure.GitHub.Queries.Users
 				if (mappedNotifications is not null)
 					return mappedNotifications;
 			}
-			catch (Octokit.GraphQL.GraphQLException)
+			catch (Octokit.GraphQL.GraphQLException exception)
 			{
-				// Subject enrichment is optional; keep the REST notifications when GitHub rejects it.
+				if (exception.PartialData is not { } partialData)
+					return notifications;
+
+				var repositories = ParseGraphQLJsonResponse(partialData, notifications.Count);
+				var mappedNotifications = MapRepositoriesToNotifications(notifications, repositories);
+				if (mappedNotifications is not null)
+					return mappedNotifications;
 			}
 
 			return notifications;

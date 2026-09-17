@@ -55,6 +55,22 @@ public sealed class GitHubGraphQLClientTests
 		Assert.AreEqual("FORBIDDEN: Resource not accessible (line 2, column 3)", exception.Message);
 	}
 
+	[TestMethod]
+	public async Task ExecuteDynamicAsyncPreservesPartialDataWithGraphQLErrors()
+	{
+		var handler = new StubHttpMessageHandler(
+			"{\"data\":{\"viewer\":{\"login\":\"octocat\"}},\"errors\":[{\"message\":\"Resource not accessible\"}]}");
+		using var httpClient = CreateHttpClient(handler);
+		using var transport = new GitHubHttpClient(httpClient);
+		var client = new GitHubGraphQLClient(transport);
+
+		var exception = await Assert.ThrowsExactlyAsync<GraphQLException>(() => client.ExecuteDynamicAsync(
+			"query { viewer { login } }",
+			GraphQLClientTestJsonContext.Default.GraphQLClientTestData));
+
+		Assert.AreEqual("octocat", exception.PartialData?.GetProperty("viewer").GetProperty("login").GetString());
+	}
+
 	private static HttpClient CreateHttpClient(HttpMessageHandler handler)
 	{
 		return new(handler)

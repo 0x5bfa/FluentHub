@@ -53,7 +53,7 @@ public sealed class GitHubGraphQLClient
 			cancellationToken).ConfigureAwait(false);
 
 		if (response.Errors is { Length: > 0 })
-			throw new GraphQLException(response.Errors);
+			throw new GraphQLException(response.Errors, response.Data);
 
 		if (response.Data is not { ValueKind: not (JsonValueKind.Null or JsonValueKind.Undefined) } data)
 			throw new GraphQLException("GitHub returned a GraphQL response without data.");

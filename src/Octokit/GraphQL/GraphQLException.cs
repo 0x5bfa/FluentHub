@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Octokit.Transport;
 
 namespace Octokit.GraphQL;
@@ -18,13 +19,20 @@ public sealed class GraphQLException : Exception
 		Errors = [];
 	}
 
-	internal GraphQLException(IReadOnlyList<GraphQLError> errors)
+	internal GraphQLException(IReadOnlyList<GraphQLError> errors, JsonElement? partialData = null)
 		: base(CreateMessage(errors))
 	{
 		Errors = errors;
+		if (partialData is { } data &&
+			data.ValueKind is not (JsonValueKind.Null or JsonValueKind.Undefined))
+		{
+			PartialData = data.Clone();
+		}
 	}
 
 	public IReadOnlyList<GraphQLError> Errors { get; }
+
+	public JsonElement? PartialData { get; }
 
 	private static string CreateMessage(IReadOnlyList<GraphQLError> errors)
 		=> errors.Count == 0
