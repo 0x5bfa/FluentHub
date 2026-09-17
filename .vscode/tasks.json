@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-x64",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/FluentHub/FluentHub.csproj",
+                "-c",
+                "Debug",
+                "-p:Platform=x64",
+                "-r",
+                "win-x64"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build-arm64",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/FluentHub/FluentHub.csproj",
+                "-c",
+                "Debug",
+                "-p:Platform=arm64",
+                "-r",
+                "win-arm64"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        }
+    ]
+}

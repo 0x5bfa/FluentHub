@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "WinUI x64",
+            "type": "winapp",
+            "request": "launch",
+            "debuggerType": "coreclr",
+            "inputFolder": "${workspaceFolder}/src/FluentHub/bin/x64/Debug/net10.0-windows10.0.26100.0/win-x64",
+            "preLaunchTask": "build-x64"
+        },
+        {
+            "name": "WinUI ARM64",
+            "type": "winapp",
+            "request": "launch",
+            "debuggerType": "coreclr",
+            "inputFolder": "${workspaceFolder}/src/FluentHub/bin/arm64/Debug/net10.0-windows10.0.26100.0/win-arm64",
+            "preLaunchTask": "build-arm64"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "winuiOutput",
+            "type": "pickString",
+            "description": "Select FluentHub build",
+            "options": [
+                {
+                    "label": "x64",
+                    "value": "${workspaceFolder}/src/FluentHub/bin/x64/Debug/net10.0-windows10.0.26100.0/win-x64"
+                },
+                {
+                    "label": "ARM64",
+                    "value": "${workspaceFolder}/src/FluentHub/bin/arm64/Debug/net10.0-windows10.0.26100.0/win-arm64"
+                }
+            ]
+        }
+    ]
+}
