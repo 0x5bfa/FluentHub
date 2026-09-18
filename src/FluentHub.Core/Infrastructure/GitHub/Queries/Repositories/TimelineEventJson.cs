@@ -98,7 +98,7 @@ internal static class TimelineEventJson
 			nameof(UnlockedEvent) => Deserialize<UnlockedEvent>(node),
 			nameof(UnmarkedAsDuplicateEvent) => Deserialize<UnmarkedAsDuplicateEvent>(node),
 			nameof(UnpinnedEvent) => Deserialize<UnpinnedEvent>(node),
-			nameof(UnsubscribedEvent) => Deserialize<UnsubscribedEvent>(node),
+			//nameof(UnsubscribedEvent) => Deserialize<UnsubscribedEvent>(node),
 			nameof(UserBlockedEvent) => Deserialize<UserBlockedEvent>(node),
 			_ => null,
 		};

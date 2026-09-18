@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using FluentHub.Core.Infrastructure.GitHub.Authorization;
 using FluentHub.Core.Infrastructure.GitHub.Clients;
 using FluentHub.Services;
-using System.Windows.Input;
 using Windows.System;
 
 namespace FluentHub.ViewModels;
@@ -20,22 +19,13 @@ public enum LoginStage
 	Success,
 }
 
-public sealed class LoginViewModel : ObservableObject
+public sealed partial class LoginViewModel : ObservableObject
 {
 	private readonly AuthorizationService _authorizationService;
 	private readonly GitHubSessionManager _session;
 	private readonly IFluentHubGitHubClient _gitHub;
 	private readonly JsonSettingsStore _settings;
 	private CancellationTokenSource? _authorizationCancellation;
-	private LoginStage _stage = LoginStage.Welcome;
-	private bool _isTaskLoading;
-	private string _deviceUserCode = string.Empty;
-	private string _deviceVerificationUri = string.Empty;
-	private string _deviceAuthorizationStatus = string.Empty;
-	private string _signedInLogin = string.Empty;
-	private string _errorTitle = string.Empty;
-	private string _errorMessage = string.Empty;
-	private string _errorDetails = string.Empty;
 
 	public LoginViewModel(
 		AuthorizationService authorizationService,
@@ -47,31 +37,15 @@ public sealed class LoginViewModel : ObservableObject
 		_session = session ?? throw new ArgumentNullException(nameof(session));
 		_gitHub = gitHub ?? throw new ArgumentNullException(nameof(gitHub));
 		_settings = settings ?? throw new ArgumentNullException(nameof(settings));
-
-		AuthorizeWithBrowserCommand = new AsyncRelayCommand(
-			AuthorizeWithBrowserAsync,
-			() => !IsTaskLoading);
-		OpenDeviceVerificationUriCommand = new AsyncRelayCommand(
-			OpenDeviceVerificationUriAsync,
-			() => IsDeviceAuthorizationAvailable);
-		ReturnToWelcomeCommand = new RelayCommand(ReturnToWelcome);
 	}
 
-	public LoginStage Stage
-	{
-		get => _stage;
-		private set
-		{
-			if (!SetProperty(ref _stage, value))
-				return;
-
-			OnPropertyChanged(nameof(IsWelcomeStage));
-			OnPropertyChanged(nameof(IsDeviceCodeStage));
-			OnPropertyChanged(nameof(IsSyncingStage));
-			OnPropertyChanged(nameof(IsErrorStage));
-			OnPropertyChanged(nameof(IsSuccessStage));
-		}
-	}
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsWelcomeStage))]
+	[NotifyPropertyChangedFor(nameof(IsDeviceCodeStage))]
+	[NotifyPropertyChangedFor(nameof(IsSyncingStage))]
+	[NotifyPropertyChangedFor(nameof(IsErrorStage))]
+	[NotifyPropertyChangedFor(nameof(IsSuccessStage))]
+	public partial LoginStage Stage { get; private set; } = LoginStage.Welcome;
 
 	public bool IsWelcomeStage => Stage == LoginStage.Welcome;
 
@@ -83,73 +57,34 @@ public sealed class LoginViewModel : ObservableObject
 
 	public bool IsSuccessStage => Stage == LoginStage.Success;
 
-	public bool IsTaskLoading
-	{
-		get => _isTaskLoading;
-		private set
-		{
-			if (!SetProperty(ref _isTaskLoading, value))
-				return;
+	[ObservableProperty]
+	[NotifyCanExecuteChangedFor(nameof(AuthorizeWithBrowserCommand))]
+	public partial bool IsTaskLoading { get; private set; }
 
-			AuthorizeWithBrowserCommand.NotifyCanExecuteChanged();
-		}
-	}
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsDeviceAuthorizationAvailable))]
+	[NotifyCanExecuteChangedFor(nameof(OpenDeviceVerificationUriCommand))]
+	public partial string DeviceUserCode { get; private set; } = string.Empty;
 
-	public string DeviceUserCode
-	{
-		get => _deviceUserCode;
-		private set
-		{
-			if (!SetProperty(ref _deviceUserCode, value))
-				return;
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsDeviceAuthorizationAvailable))]
+	[NotifyCanExecuteChangedFor(nameof(OpenDeviceVerificationUriCommand))]
+	public partial string DeviceVerificationUri { get; private set; } = string.Empty;
 
-			OnPropertyChanged(nameof(IsDeviceAuthorizationAvailable));
-			OpenDeviceVerificationUriCommand.NotifyCanExecuteChanged();
-		}
-	}
+	[ObservableProperty]
+	public partial string DeviceAuthorizationStatus { get; private set; } = string.Empty;
 
-	public string DeviceVerificationUri
-	{
-		get => _deviceVerificationUri;
-		private set
-		{
-			if (!SetProperty(ref _deviceVerificationUri, value))
-				return;
+	[ObservableProperty]
+	public partial string SignedInLogin { get; private set; } = string.Empty;
 
-			OnPropertyChanged(nameof(IsDeviceAuthorizationAvailable));
-			OpenDeviceVerificationUriCommand.NotifyCanExecuteChanged();
-		}
-	}
+	[ObservableProperty]
+	public partial string ErrorTitle { get; private set; } = string.Empty;
 
-	public string DeviceAuthorizationStatus
-	{
-		get => _deviceAuthorizationStatus;
-		private set => SetProperty(ref _deviceAuthorizationStatus, value);
-	}
+	[ObservableProperty]
+	public partial string ErrorMessage { get; private set; } = string.Empty;
 
-	public string SignedInLogin
-	{
-		get => _signedInLogin;
-		private set => SetProperty(ref _signedInLogin, value);
-	}
-
-	public string ErrorTitle
-	{
-		get => _errorTitle;
-		private set => SetProperty(ref _errorTitle, value);
-	}
-
-	public string ErrorMessage
-	{
-		get => _errorMessage;
-		private set => SetProperty(ref _errorMessage, value);
-	}
-
-	public string ErrorDetails
-	{
-		get => _errorDetails;
-		private set => SetProperty(ref _errorDetails, value);
-	}
+	[ObservableProperty]
+	public partial string ErrorDetails { get; private set; } = string.Empty;
 
 	public bool IsDeviceAuthorizationAvailable
 		=> !string.IsNullOrWhiteSpace(DeviceUserCode) &&
@@ -157,15 +92,10 @@ public sealed class LoginViewModel : ObservableObject
 
 	public string Version => App.AppVersion;
 
-	public AsyncRelayCommand AuthorizeWithBrowserCommand { get; }
-
-	public AsyncRelayCommand OpenDeviceVerificationUriCommand { get; }
-
-	public RelayCommand ReturnToWelcomeCommand { get; }
-
 	public void CancelAuthorization()
 		=> _authorizationCancellation?.Cancel();
 
+	[RelayCommand(CanExecute = nameof(CanAuthorizeWithBrowser))]
 	private async Task AuthorizeWithBrowserAsync()
 	{
 		CancelAuthorization();
@@ -238,6 +168,9 @@ public sealed class LoginViewModel : ObservableObject
 		}
 	}
 
+	private bool CanAuthorizeWithBrowser() => !IsTaskLoading;
+
+	[RelayCommand(CanExecute = nameof(CanOpenDeviceVerificationUri))]
 	private async Task OpenDeviceVerificationUriAsync()
 	{
 		if (!Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
@@ -247,6 +180,7 @@ public sealed class LoginViewModel : ObservableObject
 			throw new InvalidOperationException(Strings.Login_CouldNotOpenGitHubPage.GetLocalized());
 	}
 
+	[RelayCommand]
 	private void ReturnToWelcome()
 	{
 		CancelAuthorization();
@@ -257,6 +191,8 @@ public sealed class LoginViewModel : ObservableObject
 		ResetError();
 		Stage = LoginStage.Welcome;
 	}
+
+	private bool CanOpenDeviceVerificationUri() => IsDeviceAuthorizationAvailable;
 
 	private void ResetError()
 	{

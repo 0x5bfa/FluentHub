@@ -32,6 +32,18 @@ public sealed class TimelineEventQueriesTests
 			            "id": "connected-id",
 			            "source": { "__typename": "Issue", "number": 1, "title": "Source issue" },
 			            "subject": { "__typename": "PullRequest", "number": 2, "title": "Target pull request" }
+			          },
+			          {
+			            "__typename": "MentionedEvent",
+			            "createdAt": "2026-08-03T00:00:00Z",
+			            "id": "mentioned-id",
+			            "actor": { "avatarUrl": "https://example.test/mentioned-avatar", "login": "mentioned" }
+			          },
+			          {
+			            "__typename": "SubscribedEvent",
+			            "createdAt": "2026-08-04T00:00:00Z",
+			            "id": "subscribed-id",
+			            "actor": { "avatarUrl": "https://example.test/subscribed-avatar", "login": "subscribed" }
 			          }
 			        ]
 			      }
@@ -42,7 +54,7 @@ public sealed class TimelineEventQueriesTests
 
 		var events = await new IssueEventQueries(api).GetAllAsync("owner", "repository", 1);
 
-		Assert.HasCount(2, events);
+		Assert.HasCount(4, events);
 		var assigned = (AssignedEvent)events[0];
 		Assert.AreEqual("octocat", assigned.Actor?.Login);
 		Assert.AreEqual("hubot", assigned.Assignee?.User?.Login);
@@ -50,6 +62,8 @@ public sealed class TimelineEventQueriesTests
 		var connected = (ConnectedEvent)events[1];
 		Assert.AreEqual("Source issue", connected.Source.Issue?.Title);
 		Assert.AreEqual("Target pull request", connected.Subject.PullRequest?.Title);
+		Assert.AreEqual("mentioned", ((MentionedEvent)events[2]).Actor?.Login);
+		Assert.AreEqual("subscribed", ((SubscribedEvent)events[3]).Actor?.Login);
 	}
 
 	[TestMethod]
@@ -93,6 +107,56 @@ public sealed class TimelineEventQueriesTests
 		Assert.AreEqual("octocat", commit.Commit.Author?.User?.Login);
 		var reviewRequested = (ReviewRequestedEvent)events[1];
 		Assert.AreEqual("reviewer", reviewRequested.RequestedReviewer?.User?.Login);
+	}
+
+	[TestMethod]
+	public async Task IssueTimelineReadsTitleChangeAndCrossReferenceDetails()
+	{
+		var api = new JsonGitHubApiClient("""
+			{
+			  "result": {
+			    "issue": {
+			      "timelineItems": {
+			        "nodes": [
+			          {
+			            "__typename": "RenamedTitleEvent",
+			            "createdAt": "2026-08-04T00:00:00Z",
+			            "currentTitle": "New title",
+			            "id": "renamed-id",
+			            "previousTitle": "Old title"
+			          },
+			          {
+			            "__typename": "CrossReferencedEvent",
+			            "createdAt": "2026-08-05T00:00:00Z",
+			            "id": "cross-reference-id",
+			            "source": {
+			              "__typename": "PullRequest",
+			              "number": 42,
+			              "title": "Cross-reference source",
+			              "repository": { "nameWithOwner": "owner/repository" }
+			            },
+			            "target": {
+			              "__typename": "Issue",
+			              "number": 1,
+			              "title": "Current issue"
+			            }
+			          }
+			        ]
+			      }
+			    }
+			  }
+			}
+			""");
+
+		var events = await new IssueEventQueries(api).GetAllAsync("owner", "repository", 1);
+
+		Assert.HasCount(2, events);
+		var renamed = (RenamedTitleEvent)events[0];
+		Assert.AreEqual("Old title", renamed.PreviousTitle);
+		Assert.AreEqual("New title", renamed.CurrentTitle);
+		var crossReferenced = (CrossReferencedEvent)events[1];
+		Assert.AreEqual(42, crossReferenced.Source.PullRequest?.Number);
+		Assert.AreEqual("owner/repository", crossReferenced.Source.PullRequest?.Repository.NameWithOwner);
 	}
 
 	private sealed class JsonGitHubApiClient(string responseJson) : IGitHubApiClient

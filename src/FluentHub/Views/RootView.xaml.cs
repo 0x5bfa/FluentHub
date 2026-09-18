@@ -29,6 +29,7 @@ namespace FluentHub.Views
 			_routeViewFactory = new AppRouteViewFactory(app.GitHub);
 
 			InitializeComponent();
+			UpdateProfileButtonVisual();
 			Loaded += OnRootViewLoaded;
 			Unloaded += OnRootViewUnloaded;
 		}
@@ -62,7 +63,25 @@ namespace FluentHub.Views
 			ShowNavigationItem(item);
 		}
 
-		private async void OnProfileActionHyperlinkButtonClick(object sender, RoutedEventArgs e)
+		private void OnTitleBarPaneToggleRequested(TitleBar sender, object args)
+			=> NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+
+		private void OnNavigationViewDisplayModeChanged(
+			NavigationView sender,
+			NavigationViewDisplayModeChangedEventArgs args)
+			=> MainTitleBar.IsPaneToggleButtonVisible = sender.PaneDisplayMode != NavigationViewPaneDisplayMode.Top;
+
+		private void OnProfileFlyoutOpening(object sender, object args)
+		{
+			var isAuthenticated = ViewModel.IsAuthenticated;
+			UpdateProfileButtonVisual();
+			SignInMenuFlyoutItem.Visibility = isAuthenticated ? Visibility.Collapsed : Visibility.Visible;
+			ProfileMenuFlyoutItem.Visibility = isAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+			ProfileFlyoutSeparator.Visibility = Visibility.Visible;
+			AppSettingsMenuFlyoutItem.Visibility = Visibility.Visible;
+		}
+
+		private async void OnProfileActionClick(object sender, RoutedEventArgs e)
 		{
 			ProfileButton.Flyout?.Hide();
 
@@ -75,6 +94,7 @@ namespace FluentHub.Views
 				}
 
 				await ViewModel.SignOutAsync();
+				UpdateProfileButtonVisual();
 				RemoveRepositoryNavigationItems();
 
 				if (NavigationView.MenuItems.Count > 0 &&
@@ -236,6 +256,7 @@ namespace FluentHub.Views
 				if (ViewModel.IsAuthenticated)
 				{
 					ViewModel.RefreshAuthenticationState();
+					UpdateProfileButtonVisual();
 					await Task.WhenAll(
 						AddRepositoryNavigationItemsAsync(),
 						ViewModel.LoadProfileAsync());
@@ -266,6 +287,13 @@ namespace FluentHub.Views
 
 		private static bool RequiresAuthentication(string? tag)
 			=> tag is "Inbox" or "MyPulls" or "Reviews" or "Assigned";
+
+		private void UpdateProfileButtonVisual()
+		{
+			var isAuthenticated = ViewModel.IsAuthenticated;
+			SignedOutProfileIcon.Visibility = isAuthenticated ? Visibility.Collapsed : Visibility.Visible;
+			ProfileAvatar.Visibility = isAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+		}
 
 		private static TextBlock CreateCenteredText(string text)
 			=> new()

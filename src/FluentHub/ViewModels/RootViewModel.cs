@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace FluentHub.ViewModels;
 
-public sealed class RootViewModel : ObservableObject
+public sealed partial class RootViewModel : ObservableObject
 {
 	private readonly IFluentHubGitHubClient _gitHub;
 	private readonly GitHubSessionManager _session;
@@ -21,11 +21,8 @@ public sealed class RootViewModel : ObservableObject
 	private CancellationTokenSource? _repositoryLoadCancellation;
 	private CancellationTokenSource? _profileLoadCancellation;
 	private bool _repositoriesLoaded;
-	private bool _isLoadingRepositories;
 	private bool _profileLoaded;
 	private bool _isLoadingProfile;
-	private string? _profileDisplayName;
-	private ImageSource? _profilePicture;
 
 	public RootViewModel(
 		IFluentHubGitHubClient gitHub,
@@ -44,9 +41,9 @@ public sealed class RootViewModel : ObservableObject
 		=> _session.IsAuthenticated && _settings.HasSession;
 
 	public string ProfileDisplayName
-		=> string.IsNullOrWhiteSpace(_profileDisplayName)
+		=> string.IsNullOrWhiteSpace(ProfileDisplayNameValue)
 			? _settings.SignedInUserName ?? Strings.RootViewModel_SignInText.GetLocalized()
-			: _profileDisplayName;
+			: ProfileDisplayNameValue;
 
 	public string ProfileUsername
 		=> string.IsNullOrWhiteSpace(_settings.SignedInUserName)
@@ -58,13 +55,18 @@ public sealed class RootViewModel : ObservableObject
 			? Strings.RootViewModel_LogOutText.GetLocalized()
 			: Strings.RootViewModel_LogInText.GetLocalized();
 
-	public ImageSource? ProfilePicture => _profilePicture;
+	public ImageSource? ProfilePicture => ProfilePictureValue;
 
-	public bool IsLoadingRepositories
-	{
-		get => _isLoadingRepositories;
-		private set => SetProperty(ref _isLoadingRepositories, value);
-	}
+	[ObservableProperty]
+	public partial bool IsLoadingRepositories { get; private set; }
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(ProfileDisplayName))]
+	private partial string? ProfileDisplayNameValue { get; set; }
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(ProfilePicture))]
+	private partial ImageSource? ProfilePictureValue { get; set; }
 
 	public async Task LoadRepositoriesAsync()
 	{
@@ -134,12 +136,9 @@ public sealed class RootViewModel : ObservableObject
 			if (!IsAuthenticated)
 				return;
 
-			_profileDisplayName = string.IsNullOrWhiteSpace(user.Name) ? user.Login : user.Name;
-			_profilePicture = CreateProfilePicture(user.AvatarUrl);
+			ProfileDisplayNameValue = string.IsNullOrWhiteSpace(user.Name) ? user.Login : user.Name;
+			ProfilePictureValue = CreateProfilePicture(user.AvatarUrl);
 			_profileLoaded = true;
-			OnPropertyChanged(nameof(ProfileDisplayName));
-			OnPropertyChanged(nameof(ProfileUsername));
-			OnPropertyChanged(nameof(ProfilePicture));
 		}
 		catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
 		{
@@ -181,18 +180,18 @@ public sealed class RootViewModel : ObservableObject
 		_repositories.Clear();
 		_repositoriesLoaded = false;
 		_profileLoaded = false;
-		_profileDisplayName = null;
-		_profilePicture = null;
+		ProfileDisplayNameValue = null;
+		ProfilePictureValue = null;
 		RefreshAuthenticationState();
 	}
 
 	public void RefreshAuthenticationState()
 	{
+		// Session and settings are not observable, so this is the notification bridge for their state.
 		OnPropertyChanged(nameof(IsAuthenticated));
 		OnPropertyChanged(nameof(ProfileDisplayName));
 		OnPropertyChanged(nameof(ProfileUsername));
 		OnPropertyChanged(nameof(ProfileActionText));
-		OnPropertyChanged(nameof(ProfilePicture));
 	}
 
 	private static ImageSource? CreateProfilePicture(string? avatarUrl)

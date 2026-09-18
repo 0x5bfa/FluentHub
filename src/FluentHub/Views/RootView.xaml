@@ -71,12 +71,13 @@
 			x:Name="MainTitleBar"
 			Title="{localization:Localized ResourceKey=MainWindow.Title}"
 			Grid.Row="0"
-			IsPaneToggleButtonVisible="True">
+			IsPaneToggleButtonVisible="True"
+			PaneToggleRequested="OnTitleBarPaneToggleRequested">
 			<TitleBar.IconSource>
 				<ImageIconSource ImageSource="/Assets/Branding.png" />
 			</TitleBar.IconSource>
 			<TitleBar.Content>
-			<AutoSuggestBox Width="256" PlaceholderText="{localization:Localized ResourceKey=Common.SearchGitHub}" />
+				<AutoSuggestBox Width="256" PlaceholderText="{localization:Localized ResourceKey=Common.SearchGitHub}" />
 			</TitleBar.Content>
 			<TitleBar.RightHeader>
 				<Button
@@ -87,8 +88,28 @@
 					Style="{StaticResource MeControlButtonStyle}"
 					ToolTipService.ToolTip="{localization:Localized ResourceKey=Common.Account}">
 					<Button.Flyout>
-						<MenuFlyout Placement="BottomEdgeAlignedRight">
-							<MenuFlyoutItem Tag="{x:Bind ViewModel, Mode=OneWay}">
+						<MenuFlyout
+							x:Name="ProfileFlyout"
+							Opening="OnProfileFlyoutOpening"
+							Placement="BottomEdgeAlignedRight">
+							<MenuFlyout.MenuFlyoutPresenterStyle>
+								<Style TargetType="MenuFlyoutPresenter">
+									<Setter Property="MinWidth" Value="256" />
+									<Setter Property="Width" Value="256" />
+								</Style>
+							</MenuFlyout.MenuFlyoutPresenterStyle>
+							<MenuFlyoutItem
+								x:Name="SignInMenuFlyoutItem"
+								Click="OnProfileActionClick"
+								Text="{localization:Localized ResourceKey=RootViewModel.SignInText}">
+								<MenuFlyoutItem.Icon>
+									<FontIcon Glyph="&#xF427;" />
+								</MenuFlyoutItem.Icon>
+							</MenuFlyoutItem>
+							<MenuFlyoutItem
+								x:Name="ProfileMenuFlyoutItem"
+								Tag="{x:Bind ViewModel, Mode=OneWay}"
+								Visibility="Collapsed">
 								<MenuFlyoutItem.Template>
 									<ControlTemplate TargetType="MenuFlyoutItem">
 										<Grid
@@ -116,7 +137,7 @@
 													x:Name="ProfileActionHyperlinkButton"
 													Margin="-8,2,0,-4"
 													Padding="6,4,6,5"
-													Click="OnProfileActionHyperlinkButtonClick"
+													Click="OnProfileActionClick"
 													Content="{x:Bind ((vm:RootViewModel)Tag).ProfileActionText, Mode=OneWay}"
 													FontSize="12" />
 											</StackPanel>
@@ -124,8 +145,15 @@
 									</ControlTemplate>
 								</MenuFlyoutItem.Template>
 							</MenuFlyoutItem>
-							<MenuFlyoutSeparator />
-			<MenuFlyoutItem Click="OnAppSettingsClick" Text="{localization:Localized ResourceKey=Common.AppSettings}" />
+							<MenuFlyoutSeparator x:Name="ProfileFlyoutSeparator" />
+							<MenuFlyoutItem
+								x:Name="AppSettingsMenuFlyoutItem"
+								Click="OnAppSettingsClick"
+								Text="{localization:Localized ResourceKey=Common.AppSettings}">
+								<MenuFlyoutItem.Icon>
+									<SymbolIcon Symbol="Setting" />
+								</MenuFlyoutItem.Icon>
+							</MenuFlyoutItem>
 
 						</MenuFlyout>
 					</Button.Flyout>
@@ -134,10 +162,21 @@
 						BorderBrush="{ThemeResource ControlStrokeColorSecondaryBrush}"
 						BorderThickness="1"
 						CornerRadius="14">
-						<controls:Avatar
-							Alt="{x:Bind ViewModel.ProfileDisplayName, Mode=OneWay}"
-							Size="28"
-							Source="{x:Bind ViewModel.ProfilePicture, Mode=OneWay}" />
+						<Grid>
+							<FontIcon
+								x:Name="SignedOutProfileIcon"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								FontSize="16"
+								Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+								Glyph="&#xE77B;" />
+							<controls:Avatar
+								x:Name="ProfileAvatar"
+								Alt="{x:Bind ViewModel.ProfileDisplayName, Mode=OneWay}"
+								Size="28"
+								Source="{x:Bind ViewModel.ProfilePicture, Mode=OneWay}"
+								Visibility="Collapsed" />
+						</Grid>
 					</Border>
 				</Button>
 			</TitleBar.RightHeader>
@@ -146,6 +185,7 @@
 		<NavigationView
 			x:Name="NavigationView"
 			Grid.Row="1"
+			DisplayModeChanged="OnNavigationViewDisplayModeChanged"
 			IsBackButtonVisible="Collapsed"
 			IsPaneToggleButtonVisible="False"
 			IsSettingsVisible="False"

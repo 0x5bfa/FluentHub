@@ -4,76 +4,122 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:localization="using:FluentHub.Localization"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	x:Name="Root">
 
 	<UserControl.Resources>
-		<DataTemplate x:Key="TimelineItemTemplate" x:DataType="viewModels:TimelineItemViewModel">
-			<Grid>
+		<DataTemplate x:Key="CommentTemplate" x:DataType="viewModels:TimelineItemViewModel">
+			<StackPanel>
+				<controls:MarkdownCommentCard
+					ActionText="{x:Bind ActionText, Mode=OneTime}"
+					AuthorName="{x:Bind AuthorName, Mode=OneTime}"
+					AvatarUrl="{x:Bind AvatarUrl, Mode=OneTime}"
+					Body="{x:Bind Body, Mode=OneTime}"
+					DateText="{x:Bind DateText, Mode=OneTime}"
+					IsEdited="{x:Bind IsEdited, Mode=OneTime}" />
 
 				<Border
 					Width="2"
-					Height="12"
-					Margin="22,0,0,0"
+					Height="8"
+					Margin="21,0,0,0"
 					HorizontalAlignment="Left"
 					VerticalAlignment="Top"
 					Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+			</StackPanel>
+		</DataTemplate>
 
-				<controls:MarkdownCommentCard
-					x:Name="CommentCard"
-					Margin="0,12,0,0"
-					x:Load="{x:Bind IsComment, Mode=OneWay}"
-					ActionText="{x:Bind ActionText, Mode=OneWay}"
-					AuthorName="{x:Bind AuthorName, Mode=OneWay}"
-					AvatarUrl="{x:Bind AvatarUrl, Mode=OneWay}"
-					Body="{x:Bind Body, Mode=OneWay}"
-					DateText="{x:Bind DateText, Mode=OneWay}"
-					IsEdited="{x:Bind IsEdited, Mode=OneWay}" />
+		<DataTemplate x:Key="ActivityDateTemplate" x:DataType="viewModels:TimelineItemViewModel">
+			<TextBlock
+				VerticalAlignment="Top"
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Style="{StaticResource CaptionTextBlockStyle}"
+				Text="{x:Bind DateText, Mode=OneTime}" />
+		</DataTemplate>
 
-				<Grid
-					x:Name="ActivityPanel"
-					Margin="0,12,0,0"
-					Padding="12,0"
-					x:Load="{x:Bind IsActivity, Mode=OneWay}">
-					<Grid ColumnSpacing="8">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
+		<DataTemplate x:Key="CrossReferenceTemplate" x:DataType="viewModels:TimelineReference">
+			<StackPanel Orientation="Horizontal" Spacing="4">
+				<HyperlinkButton
+					x:Name="ReferenceLinkButton"
+					Padding="0"
+					x:Load="{x:Bind HasUri, Mode=OneWay}"
+					Content="{x:Bind DisplayText, Mode=OneWay}"
+					NavigateUri="{x:Bind Uri, Mode=OneWay}" />
+				<TextBlock
+					x:Name="ReferenceTextBlock"
+					x:Load="{x:Bind HasNoUri, Mode=OneWay}"
+					Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+					Text="{x:Bind DisplayText, Mode=OneWay}"
+					TextDecorations="Underline"
+					TextWrapping="Wrap" />
+			</StackPanel>
+		</DataTemplate>
 
-						<controls:Avatar
-							VerticalAlignment="Top"
-							Alt="{x:Bind AuthorName, Mode=OneWay}"
-							Size="24"
-							Src="{x:Bind AvatarUrl, Mode=OneWay}" />
+		<DataTemplate x:Key="ActivityTemplate" x:DataType="viewModels:TimelineItemViewModel">
+			<Grid Padding="12,0,0,0" ColumnSpacing="8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
-						<StackPanel
-							Grid.Column="1"
-							Orientation="Horizontal"
-							Spacing="2">
-							<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind AuthorName, Mode=OneWay}" />
-							<TextBlock
-								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-								Text="{x:Bind Message, Mode=OneWay}"
-								TextWrapping="Wrap" />
-						</StackPanel>
+				<controls:Avatar
+					Grid.Column="0"
+					VerticalAlignment="Top"
+					Alt="{x:Bind AuthorName, Mode=OneTime}"
+					Size="24"
+					Src="{x:Bind AvatarUrl, Mode=OneTime}" />
 
-						<TextBlock
-							Grid.Column="2"
-							VerticalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Style="{StaticResource CaptionTextBlockStyle}"
-							Text="{x:Bind DateText, Mode=OneWay}" />
-					</Grid>
-				</Grid>
+				<controls:TimelineActivityFlow
+					Grid.Column="1"
+					Margin="0,2,0,0"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Top"
+					AuthorName="{x:Bind AuthorName, Mode=OneTime}"
+					Parts="{x:Bind ActivityContent.Parts, Mode=OneTime}" />
+
+				<ContentControl
+					Grid.Column="2"
+					Margin="0,2,0,0"
+					VerticalAlignment="Top"
+					Content="{x:Bind}"
+					ContentTemplate="{StaticResource ActivityDateTemplate}" />
+
+				<ContentControl
+					x:Name="CrossReferencePresenter"
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					Margin="32,0,0,8"
+					VerticalAlignment="Center"
+					x:Load="{x:Bind HasCrossReference, Mode=OneWay}"
+					Content="{x:Bind CrossReference, Mode=OneWay}"
+					ContentTemplate="{StaticResource CrossReferenceTemplate}" />
+
+				<Border
+					Grid.RowSpan="2"
+					Width="2"
+					MinHeight="8"
+					Margin="11,24,0,0"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Stretch"
+					Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 			</Grid>
 		</DataTemplate>
+
+		<controls:TimelineItemTemplateSelector
+			x:Key="TimelineItemTemplateSelector"
+			ActivityTemplate="{StaticResource ActivityTemplate}"
+			CommentTemplate="{StaticResource CommentTemplate}" />
 	</UserControl.Resources>
 
 	<Grid>
 		<ItemsRepeater
-			ItemTemplate="{StaticResource TimelineItemTemplate}"
+			ItemTemplate="{StaticResource TimelineItemTemplateSelector}"
 			ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
 			VerticalCacheLength="2" />
 	</Grid>

@@ -27,11 +27,21 @@
 						Alt="{x:Bind AuthorName, Mode=OneWay}"
 						Size="24"
 						Src="{x:Bind AvatarUrl, Mode=OneWay}" />
-					<TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind AuthorName, Mode=OneWay}" />
-					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ActionText, Mode=OneWay}" />
-					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind DateText, Mode=OneWay}" />
+					<TextBlock
+						VerticalAlignment="Center"
+						Style="{StaticResource BodyStrongTextBlockStyle}"
+						Text="{x:Bind AuthorName, Mode=OneWay}" />
+					<TextBlock
+						VerticalAlignment="Center"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Text="{x:Bind ActionText, Mode=OneWay}" />
+					<TextBlock
+						VerticalAlignment="Center"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Text="{x:Bind DateText, Mode=OneWay}" />
 					<TextBlock
 						x:Name="EditedTextBlock"
+						VerticalAlignment="Center"
 						x:Load="{x:Bind IsEdited, Mode=OneWay}"
 						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
 						Text="{localization:Localized ResourceKey=Common.Edited}" />

@@ -15,16 +15,13 @@ using OctokitRest = Octokit.Rest;
 
 namespace FluentHub.ViewModels;
 
-public sealed class InboxViewModel : ObservableObject
+public sealed partial class InboxViewModel : ObservableObject
 {
 	private readonly IFluentHubGitHubClient _gitHub;
 	private readonly GitHubSessionManager _session;
 	private readonly JsonSettingsStore _settings;
 	private readonly ObservableCollection<InboxItemViewModel> _items = new();
 	private CancellationTokenSource? _loadCancellation;
-	private bool _isLoading;
-	private int _unreadCount;
-	private string? _errorMessage;
 
 	public InboxViewModel(
 		IFluentHubGitHubClient gitHub,
@@ -35,37 +32,18 @@ public sealed class InboxViewModel : ObservableObject
 		_session = session ?? throw new ArgumentNullException(nameof(session));
 		_settings = settings ?? throw new ArgumentNullException(nameof(settings));
 		Items = new ReadOnlyObservableCollection<InboxItemViewModel>(_items);
-		RefreshCommand = new AsyncRelayCommand(LoadAsync, () => !IsLoading);
 	}
 
 	public ReadOnlyObservableCollection<InboxItemViewModel> Items { get; }
 
-	public AsyncRelayCommand RefreshCommand { get; }
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsEmpty))]
+	[NotifyCanExecuteChangedFor(nameof(RefreshCommand))]
+	public partial bool IsLoading { get; private set; }
 
-	public bool IsLoading
-	{
-		get => _isLoading;
-		private set
-		{
-			if (!SetProperty(ref _isLoading, value))
-				return;
-
-			RefreshCommand.NotifyCanExecuteChanged();
-			OnPropertyChanged(nameof(IsEmpty));
-		}
-	}
-
-	public int UnreadCount
-	{
-		get => _unreadCount;
-		private set
-		{
-			if (!SetProperty(ref _unreadCount, value))
-				return;
-
-			OnPropertyChanged(nameof(UnreadSummary));
-		}
-	}
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(UnreadSummary))]
+	public partial int UnreadCount { get; private set; }
 
 	public string UnreadSummary
 	{
@@ -85,20 +63,17 @@ public sealed class InboxViewModel : ObservableObject
 
 	public bool IsEmpty => !IsLoading && !HasItems && !HasError;
 
-	public string? ErrorMessage
-	{
-		get => _errorMessage;
-		private set
-		{
-			if (!SetProperty(ref _errorMessage, value))
-				return;
-
-			OnPropertyChanged(nameof(HasError));
-			OnPropertyChanged(nameof(IsEmpty));
-		}
-	}
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(HasError))]
+	[NotifyPropertyChangedFor(nameof(IsEmpty))]
+	public partial string? ErrorMessage { get; private set; }
 
 	public bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
+
+	[RelayCommand(CanExecute = nameof(CanRefresh))]
+	private Task RefreshAsync() => LoadAsync();
+
+	private bool CanRefresh() => !IsLoading;
 
 	public async Task LoadAsync()
 	{
@@ -142,6 +117,7 @@ public sealed class InboxViewModel : ObservableObject
 					UnreadCount++;
 			}
 
+			// ObservableCollection notifies Items, but not the derived flags based on its Count.
 			OnPropertyChanged(nameof(HasItems));
 			OnPropertyChanged(nameof(IsEmpty));
 		}

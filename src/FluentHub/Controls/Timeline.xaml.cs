@@ -30,3 +30,24 @@ public sealed partial class Timeline : UserControl
 		set => SetValue(ItemsSourceProperty, value);
 	}
 }
+
+public sealed partial class TimelineItemTemplateSelector : DataTemplateSelector
+{
+	public DataTemplate ActivityTemplate { get; set; } = default!;
+
+	public DataTemplate CommentTemplate { get; set; } = default!;
+
+	protected override DataTemplate SelectTemplateCore(object item)
+		=> GetTemplate(item);
+
+	protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+		=> GetTemplate(item);
+
+	private DataTemplate GetTemplate(object item)
+	{
+		return item is TimelineItemViewModel timelineItem
+			&& timelineItem.IsComment
+			? CommentTemplate
+			: ActivityTemplate;
+	}
+}

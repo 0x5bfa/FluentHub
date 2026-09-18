@@ -63,13 +63,13 @@ internal static partial class TimelineQueries
 		            actor { avatarUrl(size: 500) login }
 		            source {
 		              __typename
-		              ... on Issue { number title repository { name owner { avatarUrl(size: 500) login } } }
-		              ... on PullRequest { number title repository { name owner { avatarUrl(size: 500) login } } }
+		              ... on Issue { number title url repository { name nameWithOwner owner { avatarUrl(size: 500) login } } }
+		              ... on PullRequest { number title url repository { name nameWithOwner owner { avatarUrl(size: 500) login } } }
 		            }
 		            target {
 		              __typename
-		              ... on Issue { number title repository { name owner { avatarUrl(size: 500) login } } }
-		              ... on PullRequest { number title repository { name owner { avatarUrl(size: 500) login } } }
+		              ... on Issue { number title url repository { name nameWithOwner owner { avatarUrl(size: 500) login } } }
+		              ... on PullRequest { number title url repository { name nameWithOwner owner { avatarUrl(size: 500) login } } }
 		            }
 		          }
 		          ... on DemilestonedEvent {
@@ -257,13 +257,13 @@ internal static partial class TimelineQueries
 		            actor { avatarUrl(size: 500) login } createdAt id isCrossRepository referencedAt url willCloseTarget
 		            source {
 		              __typename
-		              ... on Issue { title }
-		              ... on PullRequest { title }
+		              ... on Issue { number title url repository { nameWithOwner } }
+		              ... on PullRequest { number title url repository { nameWithOwner } }
 		            }
 		            target {
 		              __typename
-		              ... on Issue { title }
-		              ... on PullRequest { title }
+		              ... on Issue { number title url repository { nameWithOwner } }
+		              ... on PullRequest { number title url repository { nameWithOwner } }
 		            }
 		          }
 		          ... on DemilestonedEvent {
@@ -323,6 +323,7 @@ internal static partial class TimelineQueries
 		            id
 		            commit {
 		              author { avatarUrl(size: 500) user { login } }
+		              committedDate
 		              message
 		            }
 		          }
