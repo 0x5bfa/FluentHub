@@ -332,6 +332,9 @@
   <data name="Timeline.AddedLabel" xml:space="preserve">
     <value>added a label</value>
   </data>
+  <data name="Timeline.AddedLabelWithName" xml:space="preserve">
+    <value>added the {0} label</value>
+  </data>
   <data name="Timeline.AddedMilestone" xml:space="preserve">
     <value>added a milestone</value>
   </data>
@@ -362,6 +365,9 @@
   <data name="Timeline.CrossReferenced" xml:space="preserve">
     <value>cross-referenced this</value>
   </data>
+  <data name="Timeline.CrossReferenceLocation" xml:space="preserve">
+    <value>Referenced from</value>
+  </data>
   <data name="Timeline.DismissedReview" xml:space="preserve">
     <value>dismissed a review</value>
   </data>
@@ -376,6 +382,9 @@
   </data>
   <data name="Timeline.MarkedAsDuplicate" xml:space="preserve">
     <value>marked this as a duplicate</value>
+  </data>
+  <data name="Timeline.MentionedThis" xml:space="preserve">
+    <value>mentioned this</value>
   </data>
   <data name="Timeline.MergedThis" xml:space="preserve">
     <value>merged this</value>
@@ -395,6 +404,9 @@
   <data name="Timeline.RemovedLabel" xml:space="preserve">
     <value>removed a label</value>
   </data>
+  <data name="Timeline.RemovedLabelWithName" xml:space="preserve">
+    <value>removed the {0} label</value>
+  </data>
   <data name="Timeline.RemovedMilestone" xml:space="preserve">
     <value>removed the milestone</value>
   </data>
@@ -406,6 +418,9 @@
   </data>
   <data name="Timeline.RenamedTitle" xml:space="preserve">
     <value>renamed the title</value>
+  </data>
+  <data name="Timeline.RenamedTitleWithValues" xml:space="preserve">
+    <value>renamed the title from {0} to {1}</value>
   </data>
   <data name="Timeline.ReopenedThis" xml:space="preserve">
     <value>reopened this</value>
