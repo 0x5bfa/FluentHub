@@ -52,7 +52,9 @@ public partial class App : Application
 		}
 
 		if (Settings.HasSession)
+		{
 			TryRestoreSession();
+		}
 
 		ShowMainWindow();
 	}

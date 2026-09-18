@@ -4,8 +4,9 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
+	xmlns:extensions="using:FluentHub.Extensions"
 	xmlns:local="using:FluentHub.Views"
-	xmlns:localization="using:FluentHub.Localization"
+	xmlns:localization="using:FluentHub.Extensions"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	xmlns:wctcontrols="using:CommunityToolkit.WinUI.Controls"
 	x:Name="Root">
@@ -40,7 +41,7 @@
 						Height="32"
 						Margin="0,4"
 						HorizontalAlignment="Left"
-						Data="{controls:OcticonData Name=IssueOpened24}"
+						Data="{extensions:OcticonData Name=IssueOpened24}"
 						Foreground="{ThemeResource InboxStatusOpenBrush}" />
 
 					<Rectangle

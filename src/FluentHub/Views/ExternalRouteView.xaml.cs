@@ -23,6 +23,8 @@ public sealed partial class ExternalRouteView : UserControl
 	private async void OnOpenClick(object sender, RoutedEventArgs e)
 	{
 		if (Uri.TryCreate(Url, UriKind.Absolute, out var uri))
+		{
 			await Launcher.LaunchUriAsync(uri);
+		}
 	}
 }

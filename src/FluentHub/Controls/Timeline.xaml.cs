@@ -1,6 +1,7 @@
 // Copyright (c) 0x5BFA. All rights reserved.
 // Licensed under the MIT License. See the LICENSE.
 
+using CommunityToolkit.WinUI;
 using FluentHub.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -12,23 +13,16 @@ namespace FluentHub.Controls;
 /// </summary>
 public sealed partial class Timeline : UserControl
 {
-	public static readonly DependencyProperty ItemsSourceProperty =
-		DependencyProperty.Register(
-			nameof(ItemsSource),
-			typeof(IReadOnlyList<TimelineItemViewModel>),
-			typeof(Timeline),
-			new PropertyMetadata(Array.Empty<TimelineItemViewModel>()));
-
 	public Timeline()
 	{
 		InitializeComponent();
 	}
 
-	public IReadOnlyList<TimelineItemViewModel> ItemsSource
-	{
-		get => (IReadOnlyList<TimelineItemViewModel>)GetValue(ItemsSourceProperty);
-		set => SetValue(ItemsSourceProperty, value);
-	}
+	[GeneratedDependencyProperty(DefaultValueCallback = nameof(CreateDefaultItems))]
+	public partial IReadOnlyList<TimelineItemViewModel> ItemsSource { get; set; }
+
+	private static IReadOnlyList<TimelineItemViewModel> CreateDefaultItems()
+		=> Array.Empty<TimelineItemViewModel>();
 }
 
 public sealed partial class TimelineItemTemplateSelector : DataTemplateSelector
@@ -38,10 +32,14 @@ public sealed partial class TimelineItemTemplateSelector : DataTemplateSelector
 	public DataTemplate CommentTemplate { get; set; } = default!;
 
 	protected override DataTemplate SelectTemplateCore(object item)
-		=> GetTemplate(item);
+	{
+		return GetTemplate(item);
+	}
 
 	protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
-		=> GetTemplate(item);
+	{
+		return GetTemplate(item);
+	}
 
 	private DataTemplate GetTemplate(object item)
 	{

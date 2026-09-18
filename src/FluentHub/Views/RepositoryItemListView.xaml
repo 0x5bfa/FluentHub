@@ -4,7 +4,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Localization"
+	xmlns:extensions="using:FluentHub.Extensions"
+	xmlns:localization="using:FluentHub.Extensions"
 	xmlns:viewModels="using:FluentHub.ViewModels">
 
 	<Grid>
@@ -59,7 +60,7 @@
 								Width="16"
 								Height="16"
 								VerticalAlignment="Top"
-								Data="{controls:OcticonData Name=IssueOpened16}"
+								Data="{extensions:OcticonData Name=IssueOpened16}"
 								Foreground="{ThemeResource InboxStatusNeutralBrush}" />
 							<StackPanel Grid.Column="1" Spacing="2">
 								<TextBlock
@@ -92,7 +93,7 @@
 					Width="24"
 					Height="24"
 					HorizontalAlignment="Center"
-					Data="{controls:OcticonData Name=Inbox16}"
+					Data="{extensions:OcticonData Name=Inbox16}"
 					Foreground="{ThemeResource InboxStatusNeutralBrush}" />
 				<TextBlock
 					HorizontalAlignment="Center"

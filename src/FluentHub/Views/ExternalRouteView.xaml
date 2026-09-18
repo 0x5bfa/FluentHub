@@ -4,7 +4,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Localization">
+	xmlns:localization="using:FluentHub.Extensions"
+	xmlns:extensions="using:FluentHub.Extensions">
 
 	<StackPanel
 		Padding="24"
@@ -15,7 +16,7 @@
 			Width="32"
 			Height="32"
 			HorizontalAlignment="Center"
-			Data="{controls:OcticonData Name=LinkExternal24}"
+			Data="{extensions:OcticonData Name=LinkExternal24}"
 			Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
 		<TextBlock
 			HorizontalAlignment="Center"

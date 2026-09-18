@@ -29,20 +29,32 @@ public sealed partial class RepositoryView : UserControl
 	public RepositoryViewModel ViewModel { get; }
 
 	private async void OnRepositoryViewLoaded(object sender, RoutedEventArgs e)
-		=> await ViewModel.LoadAsync();
+	{
+		await ViewModel.LoadAsync();
+	}
 
 	private void OnRepositoryViewUnloaded(object sender, RoutedEventArgs e)
-		=> ViewModel.CancelLoading();
+	{
+		ViewModel.CancelLoading();
+	}
 
 	private void OnIssuesClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Issues));
+	{
+		_navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Issues));
+	}
 
 	private void OnPullRequestsClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.PullRequests));
+	{
+		_navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.PullRequests));
+	}
 
 	private void OnDiscussionsClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Discussions));
+	{
+		_navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Discussions));
+	}
 
 	private void OnActionsClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Actions));
+	{
+		_navigate(this, new RepositoryRoute(ViewModel.Repository, RepositorySection.Actions));
+	}
 }

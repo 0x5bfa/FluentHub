@@ -30,20 +30,30 @@ public sealed partial class OrganizationView : UserControl
 	public OrganizationViewModel ViewModel { get; }
 
 	private async void OnOrganizationViewLoaded(object sender, RoutedEventArgs e)
-		=> await ViewModel.LoadAsync();
+	{
+		await ViewModel.LoadAsync();
+	}
 
 	private void OnOrganizationViewUnloaded(object sender, RoutedEventArgs e)
-		=> ViewModel.CancelLoading();
+	{
+		ViewModel.CancelLoading();
+	}
 
 	private void OnRepositoriesClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new OrganizationRoute(ViewModel.Login, OrganizationSection.Repositories));
+	{
+		_navigate(this, new OrganizationRoute(ViewModel.Login, OrganizationSection.Repositories));
+	}
 
 	private void OnOverviewClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new OrganizationRoute(ViewModel.Login));
+	{
+		_navigate(this, new OrganizationRoute(ViewModel.Login));
+	}
 
 	private async void OnWebsiteClick(object sender, RoutedEventArgs e)
 	{
 		if (Uri.TryCreate(ViewModel.Website, UriKind.Absolute, out var uri))
+		{
 			await Launcher.LaunchUriAsync(uri);
+		}
 	}
 }

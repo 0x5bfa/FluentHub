@@ -98,7 +98,9 @@ public sealed class JsonSettingsStore
 		{
 			ClearInMemory();
 			if (File.Exists(FilePath))
+			{
 				File.Delete(FilePath);
+			}
 		}
 		finally
 		{
@@ -116,7 +118,9 @@ public sealed class JsonSettingsStore
 	{
 		var directory = Path.GetDirectoryName(FilePath);
 		if (!string.IsNullOrWhiteSpace(directory))
+		{
 			Directory.CreateDirectory(directory);
+		}
 
 		var temporaryPath = FilePath + ".tmp";
 		try
@@ -150,7 +154,9 @@ public sealed class JsonSettingsStore
 			try
 			{
 				if (File.Exists(temporaryPath))
+				{
 					File.Delete(temporaryPath);
+				}
 			}
 			catch (IOException)
 			{

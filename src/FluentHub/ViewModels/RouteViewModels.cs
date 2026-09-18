@@ -36,7 +36,9 @@ public abstract partial class RouteViewModelBase : ObservableObject
 	public async Task LoadAsync()
 	{
 		if (IsLoaded || _loadTask is not null)
+		{
 			return;
+		}
 
 		var loadTask = LoadInternalAsync();
 		_loadTask = loadTask;
@@ -47,7 +49,9 @@ public abstract partial class RouteViewModelBase : ObservableObject
 		finally
 		{
 			if (ReferenceEquals(_loadTask, loadTask))
+			{
 				_loadTask = null;
+			}
 		}
 	}
 
@@ -55,16 +59,23 @@ public abstract partial class RouteViewModelBase : ObservableObject
 	public async Task RetryAsync()
 	{
 		if (IsLoading)
+		{
 			return;
+		}
 
 		LoadingState = LoadingState.Loading;
 		await LoadAsync();
 	}
 
-	private bool CanRetry() => !IsLoading;
+	private bool CanRetry()
+	{
+		return !IsLoading;
+	}
 
 	public void CancelLoading()
-		=> _loadCancellation?.Cancel();
+	{
+		_loadCancellation?.Cancel();
+	}
 
 	protected abstract Task LoadCoreAsync(CancellationToken cancellationToken);
 
@@ -93,7 +104,9 @@ public abstract partial class RouteViewModelBase : ObservableObject
 		finally
 		{
 			if (ReferenceEquals(_loadCancellation, cancellation))
+			{
 				_loadCancellation = null;
+			}
 		}
 	}
 }
@@ -180,11 +193,13 @@ public sealed partial class IssueViewModel : RouteViewModelBase
 
 		try
 		{
-			LoadedTimelineItems = TimelineItemViewModel.Create(await _gitHub.Repositories.IssueEvents.GetAllAsync(
-				Route.Repository.Owner,
-				Route.Repository.Name,
-				Route.Number,
-				cancellationToken));
+			LoadedTimelineItems = TimelineItemViewModel.Create(
+				await _gitHub.Repositories.IssueEvents.GetAllAsync(
+					Route.Repository.Owner,
+					Route.Repository.Name,
+					Route.Number,
+					cancellationToken),
+				Route.Repository);
 		}
 		catch (OperationCanceledException)
 		{
@@ -197,13 +212,17 @@ public sealed partial class IssueViewModel : RouteViewModelBase
 	}
 
 	internal static string GetRepositoryName(Repository? repository, RepositorySlug fallback)
-		=> repository?.Owner?.Login is { Length: > 0 } owner &&
-			repository.Name is { Length: > 0 } name
-			? $"{owner}/{name}"
-			: fallback.ToString();
+	{
+		return repository?.Owner?.Login is { Length: > 0 } owner &&
+				repository.Name is { Length: > 0 } name
+				? $"{owner}/{name}"
+				: fallback.ToString();
+	}
 
 	internal static string GetUpdatedAt(DateTimeOffset? updatedAt, string? humanized)
-		=> humanized ?? updatedAt?.ToLocalTime().ToString("g") ?? string.Empty;
+	{
+		return humanized ?? updatedAt?.ToLocalTime().ToString("g") ?? string.Empty;
+	}
 }
 
 public sealed partial class PullRequestViewModel : RouteViewModelBase
@@ -313,11 +332,13 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 
 		try
 		{
-			LoadedTimelineItems = TimelineItemViewModel.Create(await _gitHub.Repositories.PullRequestEvents.GetAllAsync(
-				Route.Repository.Owner,
-				Route.Repository.Name,
-				Route.Number,
-				cancellationToken));
+			LoadedTimelineItems = TimelineItemViewModel.Create(
+				await _gitHub.Repositories.PullRequestEvents.GetAllAsync(
+					Route.Repository.Owner,
+					Route.Repository.Name,
+					Route.Number,
+					cancellationToken),
+				Route.Repository);
 		}
 		catch (OperationCanceledException)
 		{
@@ -628,13 +649,15 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	public bool IsEmpty => IsLoaded && Items.Count == 0;
 
 	public AppRoute CreateRoute(RouteListItemViewModel item)
-		=> Kind switch
+	{
+		return Kind switch
 		{
 			RepositoryItemListKind.Issues => new RepositoryIssueRoute(item.Repository, item.Number),
 			RepositoryItemListKind.PullRequests => new RepositoryPullRequestRoute(item.Repository, item.Number),
 			RepositoryItemListKind.Discussions => new RepositoryDiscussionRoute(item.Repository, item.Number),
 			_ => throw new ArgumentOutOfRangeException(),
 		};
+	}
 
 	protected override async Task LoadCoreAsync(CancellationToken cancellationToken)
 	{
@@ -662,11 +685,17 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 		{
 			case RepositoryItemListKind.Issues:
 				foreach (var issue in (await _gitHub.Repositories.Issues.GetPageAsync(repository.Owner, repository.Name, page, filters, cancellationToken)).Items)
+				{
 					AddIssue(issue, repository);
+				}
+
 				break;
 			case RepositoryItemListKind.PullRequests:
 				foreach (var pullRequest in (await _gitHub.Repositories.PullRequests.GetPageAsync(repository.Owner, repository.Name, page, filters, cancellationToken)).Items)
+				{
 					AddPullRequest(pullRequest, repository);
+				}
+
 				break;
 			case RepositoryItemListKind.Discussions:
 				foreach (var discussion in (await _gitHub.Repositories.Discussions.GetPageAsync(
@@ -676,7 +705,10 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 					categoryId: null,
 					orderBy: null,
 					cancellationToken)).Items)
+				{
 					AddDiscussion(discussion, repository);
+				}
+
 				break;
 		}
 	}
@@ -690,11 +722,17 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 		{
 			case RepositoryItemListKind.Issues:
 				foreach (var issue in (await _gitHub.Users.Issues.GetPageAsync(login, page, filters, cancellationToken)).Items)
+				{
 					AddIssue(issue, default);
+				}
+
 				break;
 			case RepositoryItemListKind.PullRequests:
 				foreach (var pullRequest in (await _gitHub.Users.PullRequests.GetPageAsync(login, page, filters, cancellationToken)).Items)
+				{
 					AddPullRequest(pullRequest, default);
+				}
+
 				break;
 			case RepositoryItemListKind.Discussions:
 				foreach (var discussion in (await _gitHub.Users.Discussions.GetPageAsync(
@@ -704,7 +742,10 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 					orderBy: null,
 					repositoryId: null,
 					cancellationToken)).Items)
+				{
 					AddDiscussion(discussion, default);
+				}
+
 				break;
 		}
 	}
@@ -712,7 +753,9 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	private void AddIssue(Issue issue, RepositorySlug fallback)
 	{
 		if (!TryGetRepositorySlug(issue.Repository, fallback, out var repository))
+		{
 			return;
+		}
 
 		Items.Add(new RouteListItemViewModel(
 			repository,
@@ -725,7 +768,9 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	private void AddPullRequest(PullRequest pullRequest, RepositorySlug fallback)
 	{
 		if (!TryGetRepositorySlug(pullRequest.Repository, fallback, out var repository))
+		{
 			return;
+		}
 
 		Items.Add(new RouteListItemViewModel(
 			repository,
@@ -738,7 +783,9 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	private void AddDiscussion(Discussion discussion, RepositorySlug fallback)
 	{
 		if (!TryGetRepositorySlug(discussion.Repository, fallback, out var repository))
+		{
 			return;
+		}
 
 		Items.Add(new RouteListItemViewModel(
 			repository,
@@ -770,13 +817,15 @@ public sealed class RepositoryItemListViewModel : RouteViewModelBase
 	}
 
 	private string GetKindTitle()
-		=> Kind switch
+	{
+		return Kind switch
 		{
 			RepositoryItemListKind.Issues => Strings.RepositoryItemListViewModel_IssuesTitle.GetLocalized(),
 			RepositoryItemListKind.PullRequests => Strings.RepositoryItemListViewModel_PullRequestsTitle.GetLocalized(),
 			RepositoryItemListKind.Discussions => Strings.RepositoryItemListViewModel_DiscussionsTitle.GetLocalized(),
 			_ => Strings.RepositoryItemListViewModel_ItemsTitle.GetLocalized(),
 		};
+	}
 }
 
 public enum RepositoryListOwnerKind
@@ -850,7 +899,9 @@ public sealed class RepositoryListViewModel : RouteViewModelBase
 		foreach (var repository in repositories)
 		{
 			if (repository.Owner?.Login is not { Length: > 0 } owner || repository.Name is not { Length: > 0 } name)
+			{
 				continue;
+			}
 
 			var slug = new RepositorySlug(owner, name);
 			Items.Add(new RepositoryListItemViewModel(

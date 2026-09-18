@@ -30,26 +30,40 @@ public sealed partial class UserView : UserControl
 	public UserViewModel ViewModel { get; }
 
 	private async void OnUserViewLoaded(object sender, RoutedEventArgs e)
-		=> await ViewModel.LoadAsync();
+	{
+		await ViewModel.LoadAsync();
+	}
 
 	private void OnUserViewUnloaded(object sender, RoutedEventArgs e)
-		=> ViewModel.CancelLoading();
+	{
+		ViewModel.CancelLoading();
+	}
 
 	private void OnRepositoriesClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new UserRoute(ViewModel.Login, UserSection.Repositories));
+	{
+		_navigate(this, new UserRoute(ViewModel.Login, UserSection.Repositories));
+	}
 
 	private void OnIssuesClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new UserRoute(ViewModel.Login, UserSection.Issues));
+	{
+		_navigate(this, new UserRoute(ViewModel.Login, UserSection.Issues));
+	}
 
 	private void OnPullRequestsClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new UserRoute(ViewModel.Login, UserSection.PullRequests));
+	{
+		_navigate(this, new UserRoute(ViewModel.Login, UserSection.PullRequests));
+	}
 
 	private void OnDiscussionsClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, new UserRoute(ViewModel.Login, UserSection.Discussions));
+	{
+		_navigate(this, new UserRoute(ViewModel.Login, UserSection.Discussions));
+	}
 
 	private async void OnWebsiteClick(object sender, RoutedEventArgs e)
 	{
 		if (Uri.TryCreate(ViewModel.Website, UriKind.Absolute, out var uri))
+		{
 			await Launcher.LaunchUriAsync(uri);
+		}
 	}
 }

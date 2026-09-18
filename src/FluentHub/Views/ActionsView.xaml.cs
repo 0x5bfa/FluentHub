@@ -21,6 +21,8 @@ public sealed partial class ActionsView : UserControl
 	private async void OnOpenActionsClick(object sender, RoutedEventArgs e)
 	{
 		if (Uri.TryCreate(ViewModel.ActionsUrl, UriKind.Absolute, out var uri))
+		{
 			await Launcher.LaunchUriAsync(uri);
+		}
 	}
 }

@@ -3,40 +3,21 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using CommunityToolkit.WinUI;
 using System.Windows.Input;
 
 namespace FluentHub.Controls;
 
 public sealed partial class LoadErrorDisplay : UserControl
 {
-	public static readonly DependencyProperty ErrorMessageProperty =
-		DependencyProperty.Register(
-			nameof(ErrorMessage),
-			typeof(string),
-			typeof(LoadErrorDisplay),
-			new PropertyMetadata(string.Empty));
-
-	public static readonly DependencyProperty RetryCommandProperty =
-		DependencyProperty.Register(
-			nameof(RetryCommand),
-			typeof(ICommand),
-			typeof(LoadErrorDisplay),
-			new PropertyMetadata(null));
-
 	public LoadErrorDisplay()
 	{
 		InitializeComponent();
 	}
 
-	public string? ErrorMessage
-	{
-		get => (string?)GetValue(ErrorMessageProperty);
-		set => SetValue(ErrorMessageProperty, value);
-	}
+	[GeneratedDependencyProperty(DefaultValue = "")]
+	public partial string? ErrorMessage { get; set; }
 
-	public ICommand? RetryCommand
-	{
-		get => (ICommand?)GetValue(RetryCommandProperty);
-		set => SetValue(RetryCommandProperty, value);
-	}
+	[GeneratedDependencyProperty]
+	public partial ICommand? RetryCommand { get; set; }
 }

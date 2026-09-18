@@ -3,11 +3,13 @@
 
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using CommunityToolkit.WinUI;
 using FluentHub.ViewModels;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
+using Microsoft.UI.Xaml.Media;
 using Windows.UI.Text;
 
 namespace FluentHub.Controls;
@@ -18,20 +20,6 @@ namespace FluentHub.Controls;
 /// </summary>
 public sealed partial class TimelineActivityFlow : UserControl
 {
-	public static readonly DependencyProperty AuthorNameProperty =
-		DependencyProperty.Register(
-			nameof(AuthorName),
-			typeof(string),
-			typeof(TimelineActivityFlow),
-			new PropertyMetadata(string.Empty, OnFlowPropertyChanged));
-
-	public static readonly DependencyProperty PartsProperty =
-		DependencyProperty.Register(
-			nameof(Parts),
-			typeof(ObservableCollection<TimelineActivityPart>),
-			typeof(TimelineActivityFlow),
-			new PropertyMetadata(null, OnPartsChanged));
-
 	private ObservableCollection<TimelineActivityPart>? _observedParts;
 
 	public TimelineActivityFlow()
@@ -40,29 +28,26 @@ public sealed partial class TimelineActivityFlow : UserControl
 		Loaded += OnLoaded;
 	}
 
-	public string AuthorName
+	[GeneratedDependencyProperty(DefaultValue = "")]
+	public partial string AuthorName { get; set; }
+
+	[GeneratedDependencyProperty]
+	public partial ObservableCollection<TimelineActivityPart>? Parts { get; set; }
+
+	[GeneratedDependencyProperty]
+	public partial Brush? PrimaryForeground { get; set; }
+
+	partial void OnAuthorNamePropertyChanged(DependencyPropertyChangedEventArgs e)
+		=> Rebuild();
+
+	partial void OnPartsPropertyChanged(DependencyPropertyChangedEventArgs e)
 	{
-		get => (string)GetValue(AuthorNameProperty);
-		set => SetValue(AuthorNameProperty, value);
+		SetObservedParts(e.NewValue as ObservableCollection<TimelineActivityPart>);
+		Rebuild();
 	}
 
-	public ObservableCollection<TimelineActivityPart>? Parts
-	{
-		get => (ObservableCollection<TimelineActivityPart>?)GetValue(PartsProperty);
-		set => SetValue(PartsProperty, value);
-	}
-
-	private static void OnFlowPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-	{
-		((TimelineActivityFlow)dependencyObject).Rebuild();
-	}
-
-	private static void OnPartsChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-	{
-		var flow = (TimelineActivityFlow)dependencyObject;
-		flow.SetObservedParts(args.NewValue as ObservableCollection<TimelineActivityPart>);
-		flow.Rebuild();
-	}
+	partial void OnPrimaryForegroundPropertyChanged(DependencyPropertyChangedEventArgs e)
+		=> Rebuild();
 
 	private void OnLoaded(object sender, RoutedEventArgs e)
 	{
@@ -106,6 +91,7 @@ public sealed partial class TimelineActivityFlow : UserControl
 			{
 				FontWeight = FontWeights.SemiBold,
 				Text = authorName,
+				Foreground = PrimaryForeground,
 			});
 		}
 
@@ -114,7 +100,11 @@ public sealed partial class TimelineActivityFlow : UserControl
 		{
 			if (authorName.Length > 0)
 			{
-				paragraph.Inlines.Add(new Run { Text = " " });
+				paragraph.Inlines.Add(new Run
+				{
+					Text = " ",
+					Foreground = FlowTextBlock.Foreground,
+				});
 			}
 
 			foreach (var part in parts)
@@ -134,6 +124,10 @@ public sealed partial class TimelineActivityFlow : UserControl
 	{
 		switch (part.Kind)
 		{
+			case TimelineActivityPartKind.PrimaryText:
+				paragraph.Inlines.Add(CreateRun(part.Text, PrimaryForeground));
+				break;
+
 			case TimelineActivityPartKind.Label:
 			case TimelineActivityPartKind.Status:
 				paragraph.Inlines.Add(CreateBadge(part));
@@ -142,7 +136,7 @@ public sealed partial class TimelineActivityFlow : UserControl
 			case TimelineActivityPartKind.Link:
 				if (part.Uri is null)
 				{
-					paragraph.Inlines.Add(CreateRun(part.Text));
+					paragraph.Inlines.Add(CreateRun(part.Text, FlowTextBlock.Foreground));
 					break;
 				}
 
@@ -155,19 +149,20 @@ public sealed partial class TimelineActivityFlow : UserControl
 				paragraph.Inlines.Add(new Run
 				{
 					Text = part.Text,
+					Foreground = FlowTextBlock.Foreground,
 					TextDecorations = TextDecorations.Strikethrough,
 				});
 				break;
 
 			default:
-				paragraph.Inlines.Add(CreateRun(part.Text));
+				paragraph.Inlines.Add(CreateRun(part.Text, FlowTextBlock.Foreground));
 				break;
 		}
 	}
 
-	private static Run CreateRun(string text)
+	private static Run CreateRun(string text, Brush? foreground = null)
 	{
-		return new Run { Text = text };
+		return new Run { Text = text, Foreground = foreground };
 	}
 
 	private static InlineUIContainer CreateBadge(TimelineActivityPart part)

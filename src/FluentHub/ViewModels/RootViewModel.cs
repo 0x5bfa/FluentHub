@@ -71,11 +71,15 @@ public sealed partial class RootViewModel : ObservableObject
 	public async Task LoadRepositoriesAsync()
 	{
 		if (_repositoriesLoaded || IsLoadingRepositories)
+		{
 			return;
+		}
 
 		var login = _settings.SignedInUserName;
 		if (!IsAuthenticated || string.IsNullOrWhiteSpace(login))
+		{
 			return;
+		}
 
 		using var cancellation = new CancellationTokenSource();
 		_repositoryLoadCancellation = cancellation;
@@ -99,11 +103,15 @@ public sealed partial class RootViewModel : ObservableObject
 			}
 
 			if (!IsAuthenticated)
+			{
 				return;
+			}
 
 			_repositories.Clear();
 			foreach (var repository in repositories)
+			{
 				_repositories.Add(repository);
+			}
 
 			_repositoriesLoaded = true;
 		}
@@ -120,11 +128,15 @@ public sealed partial class RootViewModel : ObservableObject
 	public async Task LoadProfileAsync()
 	{
 		if (_profileLoaded || _isLoadingProfile || !IsAuthenticated)
+		{
 			return;
+		}
 
 		var login = _settings.SignedInUserName;
 		if (string.IsNullOrWhiteSpace(login))
+		{
 			return;
+		}
 
 		using var cancellation = new CancellationTokenSource();
 		_profileLoadCancellation = cancellation;
@@ -134,7 +146,9 @@ public sealed partial class RootViewModel : ObservableObject
 		{
 			var user = await _gitHub.Users.Users.GetAsync(login, cancellation.Token);
 			if (!IsAuthenticated)
+			{
 				return;
+			}
 
 			ProfileDisplayNameValue = string.IsNullOrWhiteSpace(user.Name) ? user.Login : user.Name;
 			ProfilePictureValue = CreateProfilePicture(user.AvatarUrl);

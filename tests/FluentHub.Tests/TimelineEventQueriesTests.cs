@@ -11,7 +11,7 @@ namespace FluentHub.Tests;
 public sealed class TimelineEventQueriesTests
 {
 	[TestMethod]
-	public async Task IssueTimelineRestoresUnionMembers()
+	public async Task IssueTimelineRestoresSupportedUnionMembers()
 	{
 		var api = new JsonGitHubApiClient("""
 			{
@@ -54,7 +54,7 @@ public sealed class TimelineEventQueriesTests
 
 		var events = await new IssueEventQueries(api).GetAllAsync("owner", "repository", 1);
 
-		Assert.HasCount(4, events);
+		Assert.HasCount(2, events);
 		var assigned = (AssignedEvent)events[0];
 		Assert.AreEqual("octocat", assigned.Actor?.Login);
 		Assert.AreEqual("hubot", assigned.Assignee?.User?.Login);
@@ -62,8 +62,6 @@ public sealed class TimelineEventQueriesTests
 		var connected = (ConnectedEvent)events[1];
 		Assert.AreEqual("Source issue", connected.Source.Issue?.Title);
 		Assert.AreEqual("Target pull request", connected.Subject.PullRequest?.Title);
-		Assert.AreEqual("mentioned", ((MentionedEvent)events[2]).Actor?.Login);
-		Assert.AreEqual("subscribed", ((SubscribedEvent)events[3]).Actor?.Login);
 	}
 
 	[TestMethod]

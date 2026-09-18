@@ -3,7 +3,7 @@
 
 using Microsoft.UI.Xaml.Markup;
 
-namespace FluentHub.Localization;
+namespace FluentHub.Extensions;
 
 /// <summary>
 /// Resolves an application string resource for use in XAML.

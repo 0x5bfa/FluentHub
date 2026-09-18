@@ -93,7 +93,14 @@ public sealed partial class LoginViewModel : ObservableObject
 	public string Version => App.AppVersion;
 
 	public void CancelAuthorization()
-		=> _authorizationCancellation?.Cancel();
+	{
+		_authorizationCancellation?.Cancel();
+	}
+
+	public Task StartAuthorizationAsync()
+	{
+		return AuthorizeWithBrowserAsync();
+	}
 
 	[RelayCommand(CanExecute = nameof(CanAuthorizeWithBrowser))]
 	private async Task AuthorizeWithBrowserAsync()
@@ -162,22 +169,31 @@ public sealed partial class LoginViewModel : ObservableObject
 		finally
 		{
 			if (ReferenceEquals(_authorizationCancellation, cancellation))
+			{
 				_authorizationCancellation = null;
+			}
 
 			IsTaskLoading = false;
 		}
 	}
 
-	private bool CanAuthorizeWithBrowser() => !IsTaskLoading;
+	private bool CanAuthorizeWithBrowser()
+	{
+		return !IsTaskLoading;
+	}
 
 	[RelayCommand(CanExecute = nameof(CanOpenDeviceVerificationUri))]
 	private async Task OpenDeviceVerificationUriAsync()
 	{
 		if (!Uri.TryCreate(DeviceVerificationUri, UriKind.Absolute, out var uri))
+		{
 			throw new InvalidOperationException(Strings.Login_GitHubAuthorizationUrlInvalid.GetLocalized());
+		}
 
 		if (!await Launcher.LaunchUriAsync(uri))
+		{
 			throw new InvalidOperationException(Strings.Login_CouldNotOpenGitHubPage.GetLocalized());
+		}
 	}
 
 	[RelayCommand]
@@ -192,7 +208,10 @@ public sealed partial class LoginViewModel : ObservableObject
 		Stage = LoginStage.Welcome;
 	}
 
-	private bool CanOpenDeviceVerificationUri() => IsDeviceAuthorizationAvailable;
+	private bool CanOpenDeviceVerificationUri()
+	{
+		return IsDeviceAuthorizationAvailable;
+	}
 
 	private void ResetError()
 	{
@@ -249,7 +268,9 @@ public sealed partial class LoginViewModel : ObservableObject
 				operation,
 				exception.GetType().Name,
 				exception.Message);
-		DeviceAuthorizationStatus = string.Empty;
+		DeviceAuthorizationStatus = string.IsNullOrWhiteSpace(ErrorMessage)
+			? ErrorTitle
+			: ErrorMessage;
 		Stage = LoginStage.Error;
 	}
 

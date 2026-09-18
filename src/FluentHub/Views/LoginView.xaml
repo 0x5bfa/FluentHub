@@ -3,308 +3,72 @@
 	x:Class="FluentHub.Views.LoginView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:localization="using:FluentHub.Localization"
-	Background="Transparent">
+	xmlns:localization="using:FluentHub.Extensions">
 
-	<Grid>
-		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-			<Grid
-				MinHeight="600"
-				Margin="36,20,36,28"
-				RowSpacing="12">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
+	<StackPanel Spacing="8">
+		<TextBlock
+			Margin="0,0,0,8"
+			HorizontalAlignment="Center"
+			Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+			Text="{localization:Localized ResourceKey=Login.DeviceCodeDescription}"
+			TextAlignment="Center"
+			TextWrapping="Wrap" />
 
-				<Grid Grid.Row="1">
-					<!--  Welcome  -->
-					<StackPanel
-						x:Name="WelcomePanel"
-						MaxWidth="360"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						x:Load="{x:Bind ViewModel.IsWelcomeStage, Mode=OneWay}"
-						Spacing="12">
-						<TextBlock
-							HorizontalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="{localization:Localized ResourceKey=Login.WelcomeTitle}" />
-						<TextBlock
-							Margin="0,0,0,24"
-							HorizontalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Text="{localization:Localized ResourceKey=Login.WelcomeDescription}"
-							TextAlignment="Center"
-							TextWrapping="Wrap" />
-						<Button
-							HorizontalAlignment="Stretch"
-							Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-							Content="{localization:Localized ResourceKey=Login.SignInWithGitHub}"
-							Style="{StaticResource AccentButtonStyle}" />
-						<Button
-							HorizontalAlignment="Stretch"
-							Content="{localization:Localized ResourceKey=Login.GitHubEnterprise}"
-							IsEnabled="False" />
-						<TextBlock
-							Margin="0,18,0,0"
-							HorizontalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Style="{StaticResource CaptionTextBlockStyle}"
-							Text="{localization:Localized ResourceKey=Login.PasswordNotice}" />
-					</StackPanel>
+		<Grid
+			Padding="16"
+			Background="{ThemeResource LayerFillColorDefaultBrush}"
+			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+			BorderThickness="1"
+			ColumnSpacing="8"
+			CornerRadius="{StaticResource OverlayCornerRadius}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-					<!--  Device code  -->
-					<StackPanel
-						x:Name="DeviceCodePanel"
-						MaxWidth="380"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						x:Load="{x:Bind ViewModel.IsDeviceCodeStage, Mode=OneWay}"
-						Spacing="12">
-						<Button
-							Margin="-12,0,0,4"
-							HorizontalAlignment="Left"
-							Background="Transparent"
-							BorderThickness="0"
-							Command="{x:Bind ViewModel.ReturnToWelcomeCommand}">
-							<StackPanel Orientation="Horizontal" Spacing="6">
-								<FontIcon FontSize="14" Glyph="&#xE72B;" />
-								<TextBlock Text="{localization:Localized ResourceKey=Login.Back}" />
-							</StackPanel>
-						</Button>
-						<TextBlock
-							HorizontalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="{localization:Localized ResourceKey=Login.SignInTitle}" />
-						<TextBlock
-							Margin="0,0,0,8"
-							HorizontalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Text="{localization:Localized ResourceKey=Login.DeviceCodeDescription}"
-							TextAlignment="Center"
-							TextWrapping="Wrap" />
+			<TextBlock
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				FontFamily="Cascadia Mono"
+				FontSize="36"
+				FontWeight="SemiBold"
+				IsTextSelectionEnabled="True"
+				Text="{x:Bind ViewModel.DeviceUserCode, Mode=OneWay}" />
 
-						<Border
-							Padding="16"
-							Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-							BorderThickness="1"
-							CornerRadius="{StaticResource OverlayCornerRadius}">
-							<Grid ColumnSpacing="8">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<TextBlock
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontFamily="Cascadia Mono"
-									FontSize="36"
-									FontWeight="SemiBold"
-									IsTextSelectionEnabled="True"
-									Text="{x:Bind ViewModel.DeviceUserCode, Mode=OneWay}" />
+			<Button
+				x:Name="CopyCodeButton"
+				Grid.Column="1"
+				Width="32"
+				Height="32"
+				Padding="0"
+				Click="OnCopyDeviceCodeButtonClick"
+				IsEnabled="{x:Bind ViewModel.IsDeviceAuthorizationAvailable, Mode=OneWay}"
+				ToolTipService.ToolTip="{localization:Localized ResourceKey=Login.CopyCode}">
+				<FontIcon FontSize="16" Glyph="&#xE8C8;" />
+			</Button>
+		</Grid>
 
-								<Button
-									x:Name="CopyCodeButton"
-									Grid.Column="1"
-									Width="36"
-									Height="32"
-									Padding="0"
-									Click="OnCopyDeviceCodeButtonClick"
-									IsEnabled="{x:Bind ViewModel.IsDeviceAuthorizationAvailable, Mode=OneWay}"
-									ToolTipService.ToolTip="{localization:Localized ResourceKey=Login.CopyCode}">
-									<FontIcon FontSize="16" Glyph="&#xE8C8;" />
-								</Button>
-							</Grid>
-						</Border>
+		<Button
+			HorizontalAlignment="Stretch"
+			Command="{x:Bind ViewModel.OpenDeviceVerificationUriCommand}"
+			Content="{localization:Localized ResourceKey=Login.OpenGitHubAgain}"
+			IsEnabled="{x:Bind ViewModel.IsDeviceAuthorizationAvailable, Mode=OneWay}" />
 
-						<Button
-							HorizontalAlignment="Stretch"
-							Command="{x:Bind ViewModel.OpenDeviceVerificationUriCommand}"
-							Content="{localization:Localized ResourceKey=Login.OpenGitHubAgain}"
-							IsEnabled="{x:Bind ViewModel.IsDeviceAuthorizationAvailable, Mode=OneWay}"
-							Style="{StaticResource AccentButtonStyle}" />
-						<StackPanel
-							Margin="0,4,0,0"
-							HorizontalAlignment="Center"
-							Orientation="Horizontal"
-							Spacing="10">
-							<ProgressRing
-								Width="18"
-								Height="18"
-								IsActive="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}" />
-							<TextBlock
-								VerticalAlignment="Center"
-								Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-								Text="{x:Bind ViewModel.DeviceAuthorizationStatus, Mode=OneWay}"
-								TextWrapping="Wrap" />
-						</StackPanel>
-					</StackPanel>
-
-					<!--  Sync  -->
-					<StackPanel
-						x:Name="SyncingPanel"
-						MaxWidth="360"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						x:Load="{x:Bind ViewModel.IsSyncingStage, Mode=OneWay}"
-						Spacing="14">
-						<ProgressRing
-							Width="72"
-							Height="72"
-							Margin="0,0,0,18"
-							IsActive="True" />
-						<TextBlock
-							HorizontalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="{localization:Localized ResourceKey=Login.AuthorizationConfirmed}" />
-						<TextBlock
-							HorizontalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Text="{x:Bind ViewModel.DeviceAuthorizationStatus, Mode=OneWay}"
-							TextAlignment="Center"
-							TextWrapping="Wrap" />
-						<ProgressBar Margin="0,20,0,0" IsIndeterminate="True" />
-					</StackPanel>
-
-					<!--  Error  -->
-					<StackPanel
-						x:Name="ErrorPanel"
-						MaxWidth="420"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						x:Load="{x:Bind ViewModel.IsErrorStage, Mode=OneWay}"
-						Spacing="12">
-						<Border
-							Padding="20"
-							Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-							BorderThickness="1"
-							CornerRadius="{StaticResource OverlayCornerRadius}">
-							<StackPanel Spacing="10">
-								<SymbolIcon
-									HorizontalAlignment="Center"
-									Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-									Symbol="Important" />
-								<TextBlock
-									HorizontalAlignment="Center"
-									Style="{StaticResource TitleTextBlockStyle}"
-									Text="{x:Bind ViewModel.ErrorTitle, Mode=OneWay}"
-									TextAlignment="Center"
-									TextWrapping="Wrap" />
-								<TextBlock
-									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-									Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
-									TextAlignment="Center"
-									TextWrapping="Wrap" />
-								<Border
-									Margin="0,8,0,0"
-									Padding="12"
-									Background="{ThemeResource SubtleFillColorSecondaryBrush}"
-									CornerRadius="6">
-									<StackPanel Spacing="6">
-										<TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{localization:Localized ResourceKey=Login.TechnicalDetails}" />
-										<TextBlock
-											FontFamily="Cascadia Mono"
-											FontSize="12"
-											IsTextSelectionEnabled="True"
-											Text="{x:Bind ViewModel.ErrorDetails, Mode=OneWay}"
-											TextWrapping="Wrap" />
-									</StackPanel>
-								</Border>
-							</StackPanel>
-						</Border>
-						<Button
-							HorizontalAlignment="Stretch"
-							Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-							Content="{localization:Localized ResourceKey=Login.TryAgain}"
-							Style="{StaticResource AccentButtonStyle}" />
-						<Button
-							HorizontalAlignment="Stretch"
-							Command="{x:Bind ViewModel.ReturnToWelcomeCommand}"
-							Content="{localization:Localized ResourceKey=Login.Back}" />
-					</StackPanel>
-
-					<!--  Success  -->
-					<StackPanel
-						x:Name="SuccessPanel"
-						MaxWidth="360"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						x:Load="{x:Bind ViewModel.IsSuccessStage, Mode=OneWay}"
-						Spacing="12">
-						<Border
-							Width="72"
-							Height="72"
-							Margin="0,0,0,18"
-							Background="{ThemeResource SystemFillColorSuccessBackgroundBrush}"
-							CornerRadius="100">
-							<FontIcon
-								FontSize="24"
-								Foreground="{ThemeResource SystemFillColorSuccessBrush}"
-								Glyph="&#xE8FB;" />
-						</Border>
-						<TextBlock
-							HorizontalAlignment="Center"
-							Style="{StaticResource TitleTextBlockStyle}"
-							Text="{localization:Localized ResourceKey=Login.AllSetTitle}" />
-						<TextBlock
-							Margin="0,0,0,16"
-							HorizontalAlignment="Center"
-							Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-							Text="{localization:Localized ResourceKey=Login.AccountReadyDescription}"
-							TextAlignment="Center"
-							TextWrapping="Wrap" />
-						<Border
-							Padding="16"
-							Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-							BorderThickness="1"
-							CornerRadius="8">
-							<Grid ColumnSpacing="12">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="44" />
-									<ColumnDefinition Width="*" />
-								</Grid.ColumnDefinitions>
-								<Border
-									Width="40"
-									Height="40"
-									Background="{ThemeResource SubtleFillColorSecondaryBrush}"
-									CornerRadius="20">
-									<SymbolIcon Symbol="Contact" />
-								</Border>
-								<StackPanel Grid.Column="1" VerticalAlignment="Center">
-									<TextBlock FontWeight="SemiBold" Text="{x:Bind ViewModel.SignedInLogin, Mode=OneWay}" />
-									<TextBlock
-										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-										Style="{StaticResource CaptionTextBlockStyle}"
-										Text="{localization:Localized ResourceKey=Login.GitHubAccount}" />
-								</StackPanel>
-							</Grid>
-						</Border>
-						<Button
-							Margin="0,8,0,0"
-							HorizontalAlignment="Stretch"
-							Click="OnContinueButtonClick"
-							Content="{localization:Localized ResourceKey=Login.Continue}"
-							Style="{StaticResource AccentButtonStyle}" />
-						<Button
-							HorizontalAlignment="Stretch"
-							Command="{x:Bind ViewModel.ReturnToWelcomeCommand}"
-							Content="{localization:Localized ResourceKey=Login.AddAnotherAccount}" />
-					</StackPanel>
-				</Grid>
-
-				<TextBlock
-					Grid.Row="2"
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					IsTextSelectionEnabled="True"
-					Style="{StaticResource CaptionTextBlockStyle}"
-					Text="{x:Bind ViewModel.Version, Mode=OneWay}" />
-			</Grid>
-		</ScrollViewer>
-	</Grid>
+		<StackPanel
+			Margin="0,4,0,0"
+			HorizontalAlignment="Center"
+			Orientation="Horizontal"
+			Spacing="10">
+			<ProgressRing
+				Width="18"
+				Height="18"
+				IsActive="{x:Bind ViewModel.IsTaskLoading, Mode=OneWay}" />
+			<TextBlock
+				VerticalAlignment="Center"
+				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+				Text="{x:Bind ViewModel.DeviceAuthorizationStatus, Mode=OneWay}"
+				TextAlignment="Center"
+				TextWrapping="Wrap" />
+		</StackPanel>
+	</StackPanel>
 </UserControl>

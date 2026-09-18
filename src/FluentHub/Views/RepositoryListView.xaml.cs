@@ -30,14 +30,20 @@ public sealed partial class RepositoryListView : UserControl
 	public RepositoryListViewModel ViewModel { get; }
 
 	private async void OnRepositoryListViewLoaded(object sender, RoutedEventArgs e)
-		=> await ViewModel.LoadAsync();
+	{
+		await ViewModel.LoadAsync();
+	}
 
 	private void OnRepositoryListViewUnloaded(object sender, RoutedEventArgs e)
-		=> ViewModel.CancelLoading();
+	{
+		ViewModel.CancelLoading();
+	}
 
 	private void OnItemClick(object sender, ItemClickEventArgs e)
 	{
 		if (e.ClickedItem is RepositoryListItemViewModel item)
+		{
 			_navigate(this, new RepositoryRoute(item.Repository, RepositorySection.Overview));
+		}
 	}
 }

@@ -50,7 +50,9 @@ public sealed partial class InboxViewModel : ObservableObject
 		get
 		{
 			if (UnreadCount == 0)
+			{
 				return Strings.InboxViewModel_UnreadSummary_None.GetLocalized();
+			}
 
 			var resourceKey = UnreadCount == 1
 				? Strings.InboxViewModel_UnreadSummary_Singular
@@ -71,14 +73,22 @@ public sealed partial class InboxViewModel : ObservableObject
 	public bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
 
 	[RelayCommand(CanExecute = nameof(CanRefresh))]
-	private Task RefreshAsync() => LoadAsync();
+	private Task RefreshAsync()
+	{
+		return LoadAsync();
+	}
 
-	private bool CanRefresh() => !IsLoading;
+	private bool CanRefresh()
+	{
+		return !IsLoading;
+	}
 
 	public async Task LoadAsync()
 	{
 		if (IsLoading)
+		{
 			return;
+		}
 
 		var login = _settings.SignedInUserName;
 		if (string.IsNullOrWhiteSpace(login) || !_session.IsAuthenticated)
@@ -114,7 +124,9 @@ public sealed partial class InboxViewModel : ObservableObject
 				var item = new InboxItemViewModel(notification);
 				_items.Add(item);
 				if (item.IsUnread)
+				{
 					UnreadCount++;
+				}
 			}
 
 			// ObservableCollection notifies Items, but not the derived flags based on its Count.
@@ -132,14 +144,18 @@ public sealed partial class InboxViewModel : ObservableObject
 		finally
 		{
 			if (ReferenceEquals(_loadCancellation, cancellation))
+			{
 				_loadCancellation = null;
+			}
 
 			IsLoading = false;
 		}
 	}
 
 	public void CancelLoading()
-		=> _loadCancellation?.Cancel();
+	{
+		_loadCancellation?.Cancel();
+	}
 }
 
 public sealed class InboxItemViewModel

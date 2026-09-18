@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.Core.Application.Models;
+using FluentHub.Core.Application.Navigation;
 using System.Collections.ObjectModel;
 
 namespace FluentHub.ViewModels;
@@ -9,6 +10,7 @@ namespace FluentHub.ViewModels;
 public enum TimelineActivityPartKind
 {
 	Text,
+	PrimaryText,
 	Label,
 	Status,
 	Link,
@@ -34,19 +36,34 @@ public sealed class TimelineActivityPart
 	public string? Color { get; }
 
 	public static TimelineActivityPart FromText(string text)
-		=> new(TimelineActivityPartKind.Text, text);
+	{
+		return new(TimelineActivityPartKind.Text, text);
+	}
+
+	public static TimelineActivityPart FromPrimaryText(string text)
+	{
+		return new(TimelineActivityPartKind.PrimaryText, text);
+	}
 
 	public static TimelineActivityPart Label(string text, string? color = null)
-		=> new(TimelineActivityPartKind.Label, text, color: color);
+	{
+		return new(TimelineActivityPartKind.Label, text, color: color);
+	}
 
 	public static TimelineActivityPart Status(string text)
-		=> new(TimelineActivityPartKind.Status, text);
+	{
+		return new(TimelineActivityPartKind.Status, text);
+	}
 
 	public static TimelineActivityPart Link(string text, Uri? uri = null)
-		=> new(TimelineActivityPartKind.Link, text, uri);
+	{
+		return new(TimelineActivityPartKind.Link, text, uri);
+	}
 
 	public static TimelineActivityPart Strikethrough(string text)
-		=> new(TimelineActivityPartKind.Strikethrough, text);
+	{
+		return new(TimelineActivityPartKind.Strikethrough, text);
+	}
 }
 
 public sealed class TimelineActivityContent
@@ -61,7 +78,9 @@ public sealed class TimelineActivityContent
 	public string Text => string.Concat(Parts.Select(static part => part.Text));
 
 	public static TimelineActivityContent FromText(string text)
-		=> new([TimelineActivityPart.FromText(text)]);
+	{
+		return new([TimelineActivityPart.FromText(text)]);
+	}
 
 	public static TimelineActivityContent FromLocalizedFormat(
 		string format,
@@ -71,7 +90,9 @@ public sealed class TimelineActivityContent
 		ArgumentNullException.ThrowIfNull(values);
 
 		if (values.Length == 0)
+		{
 			return FromText(format);
+		}
 
 		var parts = new List<TimelineActivityPart>();
 		var literalStart = 0;
@@ -79,11 +100,15 @@ public sealed class TimelineActivityContent
 		for (var index = 0; index < format.Length; index++)
 		{
 			if (format[index] != '{')
+			{
 				continue;
+			}
 
 			var closingBrace = format.IndexOf('}', index + 1);
 			if (closingBrace < 0)
+			{
 				break;
+			}
 
 			if (!int.TryParse(
 				format.AsSpan(index + 1, closingBrace - index - 1),
@@ -109,7 +134,9 @@ public sealed class TimelineActivityContent
 	private static void AddText(List<TimelineActivityPart> parts, string text)
 	{
 		if (text.Length == 0)
+		{
 			return;
+		}
 
 		if (parts.LastOrDefault() is { Kind: TimelineActivityPartKind.Text } previous)
 		{
@@ -123,12 +150,20 @@ public sealed class TimelineActivityContent
 
 public sealed class TimelineReference
 {
-	public TimelineReference(string location, string title, Uri? uri)
+	public TimelineReference(string? repositoryName, int number, string title, Uri? uri)
 	{
-		Location = location;
+		RepositoryName = repositoryName;
+		Number = number;
 		Title = title;
 		Uri = uri;
+		Location = string.IsNullOrWhiteSpace(repositoryName)
+			? number > 0 ? $"#{number}" : string.Empty
+			: repositoryName;
 	}
+
+	public string? RepositoryName { get; }
+
+	public int Number { get; }
 
 	public string Location { get; }
 
@@ -141,7 +176,14 @@ public sealed class TimelineReference
 	public bool HasNoUri => Uri is null;
 
 	public string DisplayText
-		=> string.IsNullOrWhiteSpace(Title) ? Location : $"{Location} {Title}";
+		=> string.Join(
+			" ",
+			new[]
+			{
+				RepositoryName,
+				Title,
+				Number > 0 ? $"#{Number}" : null,
+			}.Where(static value => !string.IsNullOrWhiteSpace(value)));
 }
 
 public enum TimelineItemKind
@@ -227,15 +269,19 @@ public sealed class TimelineItemViewModel
 
 	public bool HasCrossReference => CrossReference is not null;
 
-	public static IReadOnlyList<TimelineItemViewModel> Create(IEnumerable<object>? items)
+	public static IReadOnlyList<TimelineItemViewModel> Create(
+		IEnumerable<object>? items,
+		RepositorySlug? currentRepository = null)
 	{
 		if (items is null)
+		{
 			return [];
+		}
 
-		return items.Select(Create).ToList();
+		return items.Select(item => Create(item, currentRepository)).ToList();
 	}
 
-	private static TimelineItemViewModel Create(object item)
+	private static TimelineItemViewModel Create(object item, RepositorySlug? currentRepository)
 	{
 		return item switch
 		{
@@ -271,7 +317,7 @@ public sealed class TimelineItemViewModel
 			ConnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Connected.GetLocalized()),
 			ConvertedNoteToIssueEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ConvertedNoteToIssue.GetLocalized()),
 			ConvertedToDiscussionEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_ConvertedToDiscussion.GetLocalized()),
-			CrossReferencedEvent value => CrossReferenceActivity(value),
+			CrossReferencedEvent value => CrossReferenceActivity(value, currentRepository),
 			DemilestonedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RemovedMilestone.GetLocalized()),
 			DisconnectedEvent value => Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_Disconnected.GetLocalized()),
 			LabeledEvent value => LabelActivity(
@@ -341,15 +387,17 @@ public sealed class TimelineItemViewModel
 		string? createdAtHumanized,
 		bool isEdited,
 		string? actionText = null)
-		=> new(
-			TimelineItemKind.Comment,
-			GetAuthorName(author?.Login),
-			author?.AvatarUrl,
-			FormatDate(createdAt, createdAtHumanized),
-			actionText ?? Strings.Common_Commented.GetLocalized(),
-			string.IsNullOrWhiteSpace(body) ? Strings.Common_NoDescriptionProvided.GetLocalized() : body,
-			string.Empty,
-			isEdited);
+	{
+		return new(
+				TimelineItemKind.Comment,
+				GetAuthorName(author?.Login),
+				author?.AvatarUrl,
+				FormatDate(createdAt, createdAtHumanized),
+				actionText ?? Strings.Common_Commented.GetLocalized(),
+				string.IsNullOrWhiteSpace(body) ? Strings.Common_NoDescriptionProvided.GetLocalized() : body,
+				string.Empty,
+				isEdited);
+	}
 
 	private static TimelineItemViewModel Activity(
 		Actor? actor,
@@ -363,28 +411,32 @@ public sealed class TimelineItemViewModel
 		string? referenceTitle = null,
 		TimelineActivityContent? activityContent = null,
 		TimelineReference? crossReference = null)
-		=> new(
-			kind,
-			GetAuthorName(actor?.Login),
-			actor?.AvatarUrl,
-			FormatDate(createdAt, createdAtHumanized),
-			string.Empty,
-			string.Empty,
-			message,
-			false,
-			previousTitle,
-			currentTitle,
-			referenceLocation,
-			referenceTitle,
-			activityContent,
-			crossReference);
+	{
+		return new(
+				kind,
+				GetAuthorName(actor?.Login),
+				actor?.AvatarUrl,
+				FormatDate(createdAt, createdAtHumanized),
+				string.Empty,
+				string.Empty,
+				message,
+				false,
+				previousTitle,
+				currentTitle,
+				referenceLocation,
+				referenceTitle,
+				activityContent,
+				crossReference);
+	}
 
 	private static TimelineItemViewModel FallbackActivity(
 		Actor? actor,
 		DateTimeOffset createdAt,
 		string? createdAtHumanized,
 		object item)
-		=> Activity(actor, createdAt, createdAtHumanized, GetFallbackMessage(item));
+	{
+		return Activity(actor, createdAt, createdAtHumanized, GetFallbackMessage(item));
+	}
 
 	private static TimelineItemViewModel LabelActivity(
 		Actor? actor,
@@ -397,15 +449,19 @@ public sealed class TimelineItemViewModel
 		var message = messageResourceKey.GetLocalized();
 		var labelName = label?.Name;
 		if (string.IsNullOrWhiteSpace(labelName))
+		{
 			return Activity(
 				actor,
 				createdAt,
 				createdAtHumanized,
 				message);
+		}
 
 		var richMessage = richMessageResourceKey.GetLocalized();
 		if (richMessage == richMessageResourceKey)
+		{
 			return Activity(actor, createdAt, createdAtHumanized, message);
+		}
 
 		var content = TimelineActivityContent.FromLocalizedFormat(
 			richMessage,
@@ -422,17 +478,21 @@ public sealed class TimelineItemViewModel
 	private static TimelineItemViewModel TitleChangedActivity(RenamedTitleEvent value)
 	{
 		if (string.IsNullOrWhiteSpace(value.PreviousTitle) || string.IsNullOrWhiteSpace(value.CurrentTitle))
+		{
 			return Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, Strings.Timeline_RenamedTitle.GetLocalized());
+		}
 
 		var message = Strings.Timeline_RenamedTitle.GetLocalized();
 		var richMessage = Strings.Timeline_RenamedTitleWithValues.GetLocalized();
 		if (richMessage == Strings.Timeline_RenamedTitleWithValues)
+		{
 			return Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, message);
+		}
 
 		var content = TimelineActivityContent.FromLocalizedFormat(
 			richMessage,
 			TimelineActivityPart.Strikethrough(value.PreviousTitle),
-			TimelineActivityPart.FromText(value.CurrentTitle));
+			TimelineActivityPart.FromPrimaryText(value.CurrentTitle));
 
 		return Activity(
 			value.Actor,
@@ -445,12 +505,16 @@ public sealed class TimelineItemViewModel
 			activityContent: content);
 	}
 
-	private static TimelineItemViewModel CrossReferenceActivity(CrossReferencedEvent value)
+	private static TimelineItemViewModel CrossReferenceActivity(
+		CrossReferencedEvent value,
+		RepositorySlug? currentRepository)
 	{
-		var details = GetReferenceDetails(value.Source);
-		var message = Strings.Timeline_CrossReferenced.GetLocalized();
+		var details = GetReferenceDetails(value.Source, currentRepository);
+		var message = Strings.Timeline_MentionedThis.GetLocalized();
 		if (details is null)
+		{
 			return Activity(value.Actor, value.CreatedAt, value.CreatedAtHumanized, message);
+		}
 
 		return Activity(
 			value.Actor,
@@ -463,13 +527,19 @@ public sealed class TimelineItemViewModel
 			crossReference: details);
 	}
 
-	private static TimelineReference? GetReferenceDetails(ReferencedSubject? source)
+	private static TimelineReference? GetReferenceDetails(
+		ReferencedSubject? source,
+		RepositorySlug? currentRepository)
 	{
 		if (source?.Issue is { } issue)
-			return CreateReference(issue.Number, issue.Repository, issue.Title, issue.Url);
+		{
+			return CreateReference(issue.Number, issue.Repository, issue.Title, issue.Url, currentRepository);
+		}
 
 		if (source?.PullRequest is { } pullRequest)
-			return CreateReference(pullRequest.Number, pullRequest.Repository, pullRequest.Title, pullRequest.Url);
+		{
+			return CreateReference(pullRequest.Number, pullRequest.Repository, pullRequest.Title, pullRequest.Url, currentRepository);
+		}
 
 		return null;
 	}
@@ -478,27 +548,29 @@ public sealed class TimelineItemViewModel
 		int number,
 		Repository? repository,
 		string title,
-		string? url)
+		string? url,
+		RepositorySlug? currentRepository)
 	{
-		var location = FormatReference(number, repository) ?? title;
+		var repositoryName = FormatRepositoryName(repository);
+		if (currentRepository is { } current &&
+			string.Equals(repositoryName, current.ToString(), StringComparison.OrdinalIgnoreCase))
+		{
+			repositoryName = null;
+		}
+
 		var uri = Uri.TryCreate(url, UriKind.Absolute, out var parsedUri) ? parsedUri : null;
-		return new TimelineReference(location, title, uri);
+		return new TimelineReference(repositoryName, number, title, uri);
 	}
 
-	private static string? FormatReference(int number, Repository? repository)
+	private static string? FormatRepositoryName(Repository? repository)
 	{
-		var repositoryName = repository is null
+		return repository is null
 			? null
 			: !string.IsNullOrWhiteSpace(repository.NameWithOwner)
 				? repository.NameWithOwner
 				: !string.IsNullOrWhiteSpace(repository.Owner?.Login) && !string.IsNullOrWhiteSpace(repository.Name)
 					? $"{repository.Owner.Login}/{repository.Name}"
 					: repository.Name;
-
-		if (string.IsNullOrWhiteSpace(repositoryName))
-			return number > 0 ? $"#{number}" : null;
-
-		return number > 0 ? $"{repositoryName}#{number}" : repositoryName;
 	}
 
 	private static TimelineItemViewModel CommitActivity(
@@ -506,23 +578,29 @@ public sealed class TimelineItemViewModel
 		DateTimeOffset? createdAt,
 		string? createdAtHumanized,
 		string message)
-		=> new(
-			TimelineItemKind.Activity,
-			GetAuthorName(actor?.User?.Login ?? actor?.Name),
-			actor?.AvatarUrl,
-			FormatDate(createdAt, createdAtHumanized),
-			string.Empty,
-			string.Empty,
-			message,
-			false);
+	{
+		return new(
+				TimelineItemKind.Activity,
+				GetAuthorName(actor?.User?.Login ?? actor?.Name),
+				actor?.AvatarUrl,
+				FormatDate(createdAt, createdAtHumanized),
+				string.Empty,
+				string.Empty,
+				message,
+				false);
+	}
 
 	private static string GetAuthorName(string? login)
-		=> string.IsNullOrWhiteSpace(login) ? Strings.Common_GitHub.GetLocalized() : login;
+	{
+		return string.IsNullOrWhiteSpace(login) ? Strings.Common_GitHub.GetLocalized() : login;
+	}
 
 	private static string FormatDate(DateTimeOffset? value, string? humanized)
 	{
 		if (!string.IsNullOrWhiteSpace(humanized))
+		{
 			return humanized;
+		}
 
 		return value is { } date && date != default
 			? date.ToLocalTime().ToString("g")

@@ -1,9 +1,9 @@
 <!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
 <UserControl
 	x:Class="FluentHub.Controls.Label"
-	x:Name="Root"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Name="Root">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.ThemeDictionaries>
@@ -43,65 +43,125 @@
 				<Setter Property="VerticalAlignment" Value="Center" />
 			</Style>
 
-			<Style x:Key="LabelDefaultBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelDefaultBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
 			</Style>
-			<Style x:Key="LabelPrimaryBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelPrimaryBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource LabelPrimaryBorderBrush}" />
 			</Style>
-			<Style x:Key="LabelSecondaryBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelSecondaryBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
 			</Style>
-			<Style x:Key="LabelAccentBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelAccentBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
 			</Style>
-			<Style x:Key="LabelSuccessBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelSuccessBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource SystemFillColorSuccessBrush}" />
 			</Style>
-			<Style x:Key="LabelAttentionBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelAttentionBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource SystemFillColorCautionBrush}" />
 			</Style>
-			<Style x:Key="LabelSevereBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelSevereBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource LabelSevereBrush}" />
 			</Style>
-			<Style x:Key="LabelDangerBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelDangerBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource SystemFillColorCriticalBrush}" />
 			</Style>
-			<Style x:Key="LabelDoneBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelDoneBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource LabelDoneBrush}" />
 			</Style>
-			<Style x:Key="LabelSponsorsBorderStyle" BasedOn="{StaticResource LabelBorderBaseStyle}" TargetType="Border">
+			<Style
+				x:Key="LabelSponsorsBorderStyle"
+				BasedOn="{StaticResource LabelBorderBaseStyle}"
+				TargetType="Border">
 				<Setter Property="BorderBrush" Value="{ThemeResource LabelSponsorsBrush}" />
 			</Style>
 
-			<Style x:Key="LabelDefaultTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelDefaultTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
 			</Style>
-			<Style x:Key="LabelPrimaryTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelPrimaryTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
 			</Style>
-			<Style x:Key="LabelSecondaryTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelSecondaryTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
 			</Style>
-			<Style x:Key="LabelAccentTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelAccentTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
 			</Style>
-			<Style x:Key="LabelSuccessTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelSuccessTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource SystemFillColorSuccessBrush}" />
 			</Style>
-			<Style x:Key="LabelAttentionTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelAttentionTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource SystemFillColorCautionBrush}" />
 			</Style>
-			<Style x:Key="LabelSevereTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelSevereTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource LabelSevereBrush}" />
 			</Style>
-			<Style x:Key="LabelDangerTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelDangerTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource SystemFillColorCriticalBrush}" />
 			</Style>
-			<Style x:Key="LabelDoneTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelDoneTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource LabelDoneBrush}" />
 			</Style>
-			<Style x:Key="LabelSponsorsTextStyle" BasedOn="{StaticResource LabelTextBaseStyle}" TargetType="TextBlock">
+			<Style
+				x:Key="LabelSponsorsTextStyle"
+				BasedOn="{StaticResource LabelTextBaseStyle}"
+				TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{ThemeResource LabelSponsorsBrush}" />
 			</Style>
 		</ResourceDictionary>

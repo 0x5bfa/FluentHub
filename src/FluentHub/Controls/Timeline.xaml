@@ -4,7 +4,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Localization"
+	xmlns:localization="using:FluentHub.Extensions"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	x:Name="Root">
 
@@ -80,6 +80,7 @@
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Top"
 					AuthorName="{x:Bind AuthorName, Mode=OneTime}"
+					PrimaryForeground="{ThemeResource TextFillColorPrimaryBrush}"
 					Parts="{x:Bind ActivityContent.Parts, Mode=OneTime}" />
 
 				<ContentControl

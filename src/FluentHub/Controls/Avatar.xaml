@@ -1,0 +1,13 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Controls.Avatar"
+	x:Name="Root"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<PersonPicture
+		x:Name="Picture"
+		DisplayName="{x:Bind Alt, Mode=OneWay}"
+		IsGroup="{x:Bind Square, Mode=OneWay}"
+		IsTabStop="False" />
+</UserControl>

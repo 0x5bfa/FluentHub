@@ -4,7 +4,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Localization"
+	xmlns:localization="using:FluentHub.Extensions"
+	xmlns:extensions="using:FluentHub.Extensions"
 	xmlns:markdown="using:CommunityToolkit.WinUI.Controls"
 	xmlns:viewModels="using:FluentHub.ViewModels"
 	x:Name="Root">
@@ -19,7 +20,7 @@
 				<PathIcon
 					Width="32"
 					Height="32"
-					Data="{controls:OcticonData Name=CommentDiscussion24}"
+				Data="{extensions:OcticonData Name=CommentDiscussion24}"
 					Foreground="{ThemeResource InboxStatusNeutralBrush}" />
 				<StackPanel Grid.Column="1" Spacing="2">
 					<TextBlock

@@ -4,7 +4,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Localization"
+	xmlns:extensions="using:FluentHub.Extensions"
+	xmlns:localization="using:FluentHub.Extensions"
 	x:Name="Root">
 
 	<Grid Padding="32">
@@ -17,7 +18,7 @@
 				Width="32"
 				Height="32"
 				HorizontalAlignment="Center"
-				Data="{controls:OcticonData Name=Alert24}"
+				Data="{extensions:OcticonData Name=Alert24}"
 				Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
 			<TextBlock
 				HorizontalAlignment="Center"

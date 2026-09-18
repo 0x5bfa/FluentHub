@@ -29,17 +29,25 @@ public sealed partial class DiscussionView : UserControl
 	public DiscussionViewModel ViewModel { get; }
 
 	private async void OnDiscussionViewLoaded(object sender, RoutedEventArgs e)
-		=> await ViewModel.LoadAsync();
+	{
+		await ViewModel.LoadAsync();
+	}
 
 	private void OnDiscussionViewUnloaded(object sender, RoutedEventArgs e)
-		=> ViewModel.CancelLoading();
+	{
+		ViewModel.CancelLoading();
+	}
 
 	private void OnAuthorClick(object sender, RoutedEventArgs e)
 	{
 		if (ViewModel.HasAuthor)
+		{
 			_navigate(this, new UserRoute(ViewModel.AuthorLogin));
+		}
 	}
 
 	private void OnRepositoryClick(object sender, RoutedEventArgs e)
-		=> _navigate(this, ViewModel.RepositoryRoute);
+	{
+		_navigate(this, ViewModel.RepositoryRoute);
+	}
 }

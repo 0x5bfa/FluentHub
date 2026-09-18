@@ -3,13 +3,13 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using CommunityToolkit.WinUI;
 using System.Collections.ObjectModel;
 
 namespace FluentHub.Controls;
 
 public sealed partial class BladeView : UserControl
 {
-	private double _bladeWidth = 480;
 	private Blade? _rootBlade;
 
 	public BladeView()
@@ -18,28 +18,32 @@ public sealed partial class BladeView : UserControl
 		SizeChanged += OnBladeViewSizeChanged;
 	}
 
-	public double BladeWidth
-	{
-		get => _bladeWidth;
-		set
-		{
-			ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value);
-			if (_bladeWidth == value)
-				return;
+	[GeneratedDependencyProperty(DefaultValue = 480D)]
+	public partial double BladeWidth { get; set; }
 
-			_bladeWidth = value;
-			foreach (var blade in Blades)
-				if (!ReferenceEquals(blade, _rootBlade))
-					blade.SetWidth(value);
-			UpdateRootWidth();
+	partial void OnBladeWidthSet(ref double propertyValue)
+	{
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(propertyValue);
+	}
+
+	partial void OnBladeWidthPropertyChanged(DependencyPropertyChangedEventArgs e)
+	{
+		foreach (var blade in Blades)
+		{
+			if (!ReferenceEquals(blade, _rootBlade))
+			{
+				blade.Width = BladeWidth;
+			}
 		}
+
+		UpdateRootWidth();
 	}
 
 	public ObservableCollection<Blade> Blades { get; } = [];
 
 	public void Replace(UIElement content)
 	{
-		_rootBlade = new Blade(content, width: _bladeWidth);
+		_rootBlade = new Blade(content, width: BladeWidth);
 		Blades.Clear();
 		Blades.Add(_rootBlade);
 		UpdateRootWidth();
@@ -65,12 +69,16 @@ public sealed partial class BladeView : UserControl
 		}
 
 		if (sourceBladeIndex < 0)
+		{
 			return;
+		}
 
 		while (Blades.Count > sourceBladeIndex + 1)
+		{
 			Blades.RemoveAt(Blades.Count - 1);
+		}
 
-		Blades.Add(new Blade(content, width: _bladeWidth));
+		Blades.Add(new Blade(content, width: BladeWidth));
 		UpdateRootWidth();
 		ScrollToLatestBlade();
 	}
@@ -78,17 +86,34 @@ public sealed partial class BladeView : UserControl
 	private void ScrollToLatestBlade()
 	{
 		DispatcherQueue.TryEnqueue(() =>
-			BladeScrollViewer.ChangeView(BladeScrollViewer.ScrollableWidth, null, null));
+		{
+			BladeScrollViewer.ChangeView(BladeScrollViewer.ScrollableWidth, null, null);
+		});
 	}
 
 	private void OnBladeViewSizeChanged(object sender, SizeChangedEventArgs e)
-		=> UpdateRootWidth();
+	{
+		UpdateRootWidth();
+	}
 
 	private void UpdateRootWidth()
 	{
 		if (_rootBlade is null)
+		{
 			return;
+		}
 
-		_rootBlade.SetWidth(Blades.Count == 1 && ActualWidth > 0 ? ActualWidth : _bladeWidth);
+		_rootBlade.Width = Blades.Count == 1 && ActualWidth > 0 ? ActualWidth : BladeWidth;
+	}
+}
+
+public sealed partial class Blade : ContentControl
+{
+	public Blade(UIElement content, double width = 480)
+	{
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(width);
+
+		Content = content ?? throw new ArgumentNullException(nameof(content));
+		Width = width;
 	}
 }

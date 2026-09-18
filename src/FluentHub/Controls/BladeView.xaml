@@ -19,7 +19,7 @@
 			</ItemsRepeater.Layout>
 			<ItemsRepeater.ItemTemplate>
 				<DataTemplate x:DataType="controls:Blade">
-					<Grid x:Name="RootGrid" Width="560">
+					<Grid x:Name="RootGrid" Width="{x:Bind Width, Mode=OneWay}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="Auto" />

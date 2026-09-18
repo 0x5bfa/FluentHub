@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using System.Globalization;
+using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
@@ -30,27 +31,6 @@ public enum LabelVariant
 /// </summary>
 public sealed partial class Label : UserControl
 {
-	public static readonly DependencyProperty TextProperty =
-		DependencyProperty.Register(
-			nameof(Text),
-			typeof(string),
-			typeof(Label),
-			new PropertyMetadata(string.Empty, OnTextChanged));
-
-	public static readonly DependencyProperty VariantProperty =
-		DependencyProperty.Register(
-			nameof(Variant),
-			typeof(LabelVariant),
-			typeof(Label),
-			new PropertyMetadata(LabelVariant.Default, OnAppearanceChanged));
-
-	public static readonly DependencyProperty ColorProperty =
-		DependencyProperty.Register(
-			nameof(Color),
-			typeof(string),
-			typeof(Label),
-			new PropertyMetadata(null, OnAppearanceChanged));
-
 	public Label()
 	{
 		InitializeComponent();
@@ -62,44 +42,42 @@ public sealed partial class Label : UserControl
 	/// <summary>
 	/// Gets or sets the text displayed by the label.
 	/// </summary>
-	public string Text
-	{
-		get => (string?)GetValue(TextProperty) ?? string.Empty;
-		set => SetValue(TextProperty, value);
-	}
+	[GeneratedDependencyProperty(DefaultValue = "")]
+	public partial string Text { get; set; }
 
 	/// <summary>
 	/// Gets or sets the visual color variant.
 	/// </summary>
-	public LabelVariant Variant
-	{
-		get => (LabelVariant)GetValue(VariantProperty);
-		set => SetValue(VariantProperty, value);
-	}
+	[GeneratedDependencyProperty(DefaultValue = LabelVariant.Default)]
+	public partial LabelVariant Variant { get; set; }
 
 	/// <summary>
 	/// Gets or sets a hex color used when <see cref="Variant"/> is <see cref="LabelVariant.Custom"/>.
 	/// Supports #RGB, #ARGB, #RRGGBB, and #AARRGGBB.
 	/// </summary>
-	public string? Color
-	{
-		get => (string?)GetValue(ColorProperty);
-		set => SetValue(ColorProperty, value);
-	}
+	[GeneratedDependencyProperty]
+	public partial string? Color { get; set; }
 
-	private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-		=> ((Label)dependencyObject).UpdateText();
+	partial void OnTextPropertyChanged(DependencyPropertyChangedEventArgs e)
+		=> UpdateText();
 
-	private static void OnAppearanceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-		=> ((Label)dependencyObject).UpdateAppearance();
+	partial void OnVariantPropertyChanged(DependencyPropertyChangedEventArgs e)
+		=> UpdateAppearance();
+
+	partial void OnColorPropertyChanged(DependencyPropertyChangedEventArgs e)
+		=> UpdateAppearance();
 
 	private void OnActualThemeChanged(FrameworkElement sender, object args)
-		=> UpdateAppearance();
+	{
+		UpdateAppearance();
+	}
 
 	private void UpdateText()
 	{
 		if (TextElement is null)
+		{
 			return;
+		}
 
 		TextElement.Text = Text ?? string.Empty;
 		AutomationProperties.SetName(this, TextElement.Text);
@@ -108,7 +86,9 @@ public sealed partial class Label : UserControl
 	private void UpdateAppearance()
 	{
 		if (Container is null || TextElement is null)
+		{
 			return;
+		}
 
 		var styleVariant = Variant == LabelVariant.Custom ? LabelVariant.Default : Variant;
 		Container.ClearValue(Border.BorderBrushProperty);
@@ -129,10 +109,14 @@ public sealed partial class Label : UserControl
 		color = default;
 		var hex = value?.Trim();
 		if (string.IsNullOrEmpty(hex))
+		{
 			return false;
+		}
 
 		if (hex[0] == '#')
+		{
 			hex = hex[1..];
+		}
 
 		if (hex.Length is 3 or 4)
 		{
@@ -140,7 +124,9 @@ public sealed partial class Label : UserControl
 		}
 
 		if (hex.Length == 6)
+		{
 			hex = "FF" + hex;
+		}
 
 		if (hex.Length != 8 ||
 			!uint.TryParse(hex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var argb))
