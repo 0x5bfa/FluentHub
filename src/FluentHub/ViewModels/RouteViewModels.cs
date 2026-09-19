@@ -233,16 +233,10 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 	[NotifyPropertyChangedFor(nameof(Title))]
 	[NotifyPropertyChangedFor(nameof(RepositoryName))]
 	[NotifyPropertyChangedFor(nameof(Body))]
-	[NotifyPropertyChangedFor(nameof(StateLabel))]
-	[NotifyPropertyChangedFor(nameof(AuthorLogin))]
 	[NotifyPropertyChangedFor(nameof(AuthorName))]
 	[NotifyPropertyChangedFor(nameof(AuthorAvatarUrl))]
 	[NotifyPropertyChangedFor(nameof(CreatedAt))]
 	[NotifyPropertyChangedFor(nameof(IsBodyEdited))]
-	[NotifyPropertyChangedFor(nameof(HasAuthor))]
-	[NotifyPropertyChangedFor(nameof(BranchSummary))]
-	[NotifyPropertyChangedFor(nameof(ChangeSummary))]
-	[NotifyPropertyChangedFor(nameof(UpdatedAt))]
 	private partial PullRequest? LoadedPullRequest { get; set; }
 
 	[ObservableProperty]
@@ -271,23 +265,16 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 		? Strings.Common_NoDescriptionProvided.GetLocalized()
 		: LoadedPullRequest.Body;
 
-	public string StateLabel
-		=> LoadedPullRequest is { IsDraft: true }
-			? Strings.RouteViewModel_PullRequestDraftState.GetLocalized()
-			: LoadedPullRequest?.Merged == true
-				? Strings.RouteViewModel_PullRequestMergedState.GetLocalized()
-				: LoadedPullRequest?.State switch
-				{
-					PullRequestState.Open => Strings.Common_Open.GetLocalized(),
-					PullRequestState.Closed => Strings.Common_Closed.GetLocalized(),
-					_ => Strings.Common_Loading.GetLocalized(),
-				};
-
-	public string AuthorLogin => LoadedPullRequest?.Author?.Login ?? string.Empty;
-
-	public string AuthorName => string.IsNullOrWhiteSpace(AuthorLogin)
-		? Strings.Common_UnknownUser.GetLocalized()
-		: AuthorLogin;
+	public string AuthorName
+	{
+		get
+		{
+			var authorLogin = LoadedPullRequest?.Author?.Login;
+			return string.IsNullOrWhiteSpace(authorLogin)
+				? Strings.Common_UnknownUser.GetLocalized()
+				: authorLogin;
+		}
+	}
 
 	public string AuthorAvatarUrl => LoadedPullRequest?.Author?.AvatarUrl ?? string.Empty;
 
@@ -296,31 +283,6 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 	public bool IsBodyEdited => LoadedPullRequest?.LastEditedAt is not null;
 
 	public IReadOnlyList<TimelineItemViewModel> TimelineItems => LoadedTimelineItems;
-
-	public bool HasAuthor => !string.IsNullOrWhiteSpace(AuthorLogin);
-
-	public string BranchSummary
-		=> LoadedPullRequest is null
-			? string.Empty
-			: string.Format(
-				CultureInfo.CurrentCulture,
-				Strings.RouteViewModel_PullRequestBranchSummary.GetLocalized(),
-				LoadedPullRequest.HeadRefName,
-				LoadedPullRequest.BaseRefName);
-
-	public string ChangeSummary
-		=> LoadedPullRequest is null
-			? string.Empty
-			: string.Format(
-				CultureInfo.CurrentCulture,
-				Strings.RouteViewModel_PullRequestChangeSummary.GetLocalized(),
-				LoadedPullRequest.Additions,
-				LoadedPullRequest.Deletions,
-				LoadedPullRequest.ChangedFiles);
-
-	public string UpdatedAt => IssueViewModel.GetUpdatedAt(LoadedPullRequest?.UpdatedAt, LoadedPullRequest?.UpdatedAtHumanized);
-
-	public AppRoute RepositoryRoute => new RepositoryRoute(Route.Repository, RepositorySection.Overview);
 
 	protected override async Task LoadCoreAsync(CancellationToken cancellationToken)
 	{

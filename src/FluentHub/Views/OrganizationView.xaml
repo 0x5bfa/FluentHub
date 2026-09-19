@@ -6,81 +6,70 @@
 	xmlns:controls="using:FluentHub.Controls"
 	xmlns:extensions="using:FluentHub.Extensions"
 	xmlns:localization="using:FluentHub.Extensions"
-	xmlns:markdown="using:CommunityToolkit.WinUI.Controls">
+	xmlns:markdown="using:CommunityToolkit.WinUI.Controls"
+	xmlns:viewModels="using:FluentHub.ViewModels"
+	xmlns:wctcontrols="using:CommunityToolkit.WinUI.Controls">
 
-	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-		<StackPanel Padding="24" Spacing="16">
-			<Grid ColumnSpacing="12">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<PathIcon
-					Width="32"
-					Height="32"
-					Data="{extensions:OcticonData Name=Organization24}"
-					Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-				<StackPanel Grid.Column="1" Spacing="2">
-					<TextBlock
-						Style="{StaticResource TitleTextBlockStyle}"
-						Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
-						TextWrapping="Wrap" />
-					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.Login, Mode=OneWay}" />
-				</StackPanel>
+	<wctcontrols:SwitchPresenter
+		HorizontalAlignment="Stretch"
+		VerticalAlignment="Stretch"
+		TargetType="viewModels:LoadingState"
+		Value="{x:Bind ViewModel.LoadingState, Mode=OneWay}">
+		<wctcontrols:Case Value="Loading">
+			<Grid MinHeight="160">
+				<ProgressRing
+					Width="40"
+					Height="40"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					IsActive="True" />
 			</Grid>
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Loaded">
+			<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+				<StackPanel Padding="24" Spacing="8">
+					<Grid Margin="0,0,0,8" ColumnSpacing="12">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<PathIcon
+							Width="32"
+							Height="32"
+							Data="{extensions:OcticonData Name=Organization24}"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+						<StackPanel Grid.Column="1" Spacing="2">
+							<TextBlock
+								Style="{StaticResource TitleTextBlockStyle}"
+								Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+								TextWrapping="Wrap" />
+							<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{x:Bind ViewModel.Login, Mode=OneWay}" />
+						</StackPanel>
+					</Grid>
 
-			<ProgressRing
-				x:Name="LoadingIndicator"
-				Width="40"
-				Height="40"
-				HorizontalAlignment="Center"
-				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
-				IsActive="True" />
+					<Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
-			<StackPanel
-				x:Name="ContentPanel"
-				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
-				Spacing="16">
-				<markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
-				<StackPanel Orientation="Horizontal" Spacing="8">
-					<Button Click="OnRepositoriesClick" Content="{localization:Localized ResourceKey=Root.RepositoriesHeader}" />
-					<Button Click="OnOverviewClick" Content="{localization:Localized ResourceKey=Common.Overview}" />
+					<StackPanel Spacing="16">
+						<markdown:MarkdownTextBlock Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<Button Click="OnRepositoriesClick" Content="{localization:Localized ResourceKey=Root.RepositoriesHeader}" />
+							<Button Click="OnOverviewClick" Content="{localization:Localized ResourceKey=Common.Overview}" />
+						</StackPanel>
+						<TextBlock
+							x:Name="LocationText"
+							x:Load="{x:Bind ViewModel.HasLocation, Mode=OneWay}"
+							Text="{x:Bind ViewModel.Location, Mode=OneWay}" />
+						<Button
+							x:Name="WebsiteButton"
+							x:Load="{x:Bind ViewModel.HasWebsite, Mode=OneWay}"
+							Click="OnWebsiteClick"
+							Content="{localization:Localized ResourceKey=Common.Website}" />
+					</StackPanel>
 				</StackPanel>
-				<TextBlock
-					x:Name="LocationText"
-					x:Load="{x:Bind ViewModel.HasLocation, Mode=OneWay}"
-					Text="{x:Bind ViewModel.Location, Mode=OneWay}" />
-				<Button
-					x:Name="WebsiteButton"
-					x:Load="{x:Bind ViewModel.HasWebsite, Mode=OneWay}"
-					Click="OnWebsiteClick"
-					Content="{localization:Localized ResourceKey=Common.Website}" />
-			</StackPanel>
-
-			<StackPanel
-				x:Name="ErrorPanel"
-				HorizontalAlignment="Center"
-				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
-				Spacing="8">
-				<SymbolIcon
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-					Symbol="Important" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="{localization:Localized ResourceKey=Organization.Unavailable}" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
-					TextWrapping="Wrap" />
-				<Button
-					x:Name="RetryButton"
-					HorizontalAlignment="Center"
-					Command="{x:Bind ViewModel.RetryCommand}"
-					Content="{localization:Localized ResourceKey=Common.TryAgain}" />
-			</StackPanel>
-		</StackPanel>
-	</ScrollViewer>
+			</ScrollViewer>
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Error">
+			<controls:LoadErrorDisplay ErrorMessage="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" RetryCommand="{x:Bind ViewModel.RetryCommand, Mode=OneWay}" />
+		</wctcontrols:Case>
+	</wctcontrols:SwitchPresenter>
 </UserControl>

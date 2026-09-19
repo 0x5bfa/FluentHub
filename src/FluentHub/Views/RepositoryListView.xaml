@@ -6,117 +6,102 @@
 	xmlns:controls="using:FluentHub.Controls"
 	xmlns:extensions="using:FluentHub.Extensions"
 	xmlns:localization="using:FluentHub.Extensions"
-	xmlns:viewModels="using:FluentHub.ViewModels">
+	xmlns:viewModels="using:FluentHub.ViewModels"
+	xmlns:wctcontrols="using:CommunityToolkit.WinUI.Controls">
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+	<wctcontrols:SwitchPresenter
+		HorizontalAlignment="Stretch"
+		VerticalAlignment="Stretch"
+		TargetType="viewModels:LoadingState"
+		Value="{x:Bind ViewModel.LoadingState, Mode=OneWay}">
+		<wctcontrols:Case Value="Loading">
+			<Grid MinHeight="160">
+				<ProgressRing
+					Width="40"
+					Height="40"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					IsActive="True" />
+			</Grid>
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Loaded">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
 
-		<StackPanel
-			Grid.Row="0"
-			Padding="24,24,24,16"
-			Spacing="4">
-			<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
-			<TextBlock
-				Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-				Text="{localization:Localized ResourceKey=Repository.SelectRepository}"
-				TextWrapping="Wrap" />
-		</StackPanel>
+				<StackPanel
+					Grid.Row="0"
+					Padding="24,24,24,16"
+					Spacing="4">
+					<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.Title, Mode=OneWay}" />
+					<TextBlock
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Text="{localization:Localized ResourceKey=Repository.SelectRepository}"
+						TextWrapping="Wrap" />
+				</StackPanel>
 
-		<Grid Grid.Row="1">
-			<ProgressRing
-				x:Name="LoadingIndicator"
-				Width="40"
-				Height="40"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
-				IsActive="True" />
+				<Grid Grid.Row="1">
+					<ListView
+						Padding="0,0,0,24"
+						IsItemClickEnabled="True"
+						ItemClick="OnItemClick"
+						ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+						SelectionMode="Single">
+						<ListView.ItemContainerStyle>
+							<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+								<Setter Property="Margin" Value="28,0" />
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate x:DataType="viewModels:RepositoryListItemViewModel">
+								<Grid Padding="12,10" ColumnSpacing="12">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<PathIcon
+										Width="16"
+										Height="16"
+										VerticalAlignment="Top"
+										Data="{extensions:OcticonData Name=Repo16}"
+										Foreground="{ThemeResource InboxStatusNeutralBrush}" />
+									<StackPanel Grid.Column="1" Spacing="2">
+										<TextBlock Text="{x:Bind FullName}" />
+										<TextBlock
+											Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="{x:Bind Description}"
+											TextTrimming="CharacterEllipsis" />
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
 
-			<ListView
-				x:Name="RepositoryList"
-				Padding="0,0,0,24"
-				x:Load="{x:Bind ViewModel.IsLoaded, Mode=OneWay}"
-				IsItemClickEnabled="True"
-				ItemClick="OnItemClick"
-				ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-				SelectionMode="Single">
-				<ListView.ItemContainerStyle>
-					<Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-						<Setter Property="Margin" Value="28,0" />
-					</Style>
-				</ListView.ItemContainerStyle>
-				<ListView.ItemTemplate>
-					<DataTemplate x:DataType="viewModels:RepositoryListItemViewModel">
-						<Grid Padding="12,10" ColumnSpacing="12">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<PathIcon
-								Width="16"
-								Height="16"
-								VerticalAlignment="Top"
-								Data="{extensions:OcticonData Name=Repo16}"
-								Foreground="{ThemeResource InboxStatusNeutralBrush}" />
-							<StackPanel Grid.Column="1" Spacing="2">
-								<TextBlock Text="{x:Bind FullName}" />
-								<TextBlock
-									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-									Style="{StaticResource CaptionTextBlockStyle}"
-									Text="{x:Bind Description}"
-									TextTrimming="CharacterEllipsis" />
-							</StackPanel>
-						</Grid>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-
-			<StackPanel
-				x:Name="EmptyPanel"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
-				Spacing="8">
-				<PathIcon
-					Width="24"
-					Height="24"
-					HorizontalAlignment="Center"
-					Data="{extensions:OcticonData Name=Repo24}"
-					Foreground="{ThemeResource InboxStatusNeutralBrush}" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="{localization:Localized ResourceKey=RepositoryList.NoRepositoriesFound}" />
-			</StackPanel>
-
-			<StackPanel
-				x:Name="ErrorPanel"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				x:Load="{x:Bind ViewModel.HasError, Mode=OneWay}"
-				Spacing="8">
-				<SymbolIcon
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-					Symbol="Important" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Style="{StaticResource SubtitleTextBlockStyle}"
-					Text="{localization:Localized ResourceKey=RepositoryList.Unavailable}" />
-				<TextBlock
-					HorizontalAlignment="Center"
-					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-					Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
-					TextWrapping="Wrap" />
-				<Button
-					x:Name="RetryButton"
-					HorizontalAlignment="Center"
-					Command="{x:Bind ViewModel.RetryCommand}"
-					Content="{localization:Localized ResourceKey=Common.TryAgain}" />
-			</StackPanel>
-		</Grid>
-	</Grid>
+					<StackPanel
+						x:Name="EmptyPanel"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						x:Load="{x:Bind ViewModel.IsEmpty, Mode=OneWay}"
+						Spacing="8">
+						<PathIcon
+							Width="24"
+							Height="24"
+							HorizontalAlignment="Center"
+							Data="{extensions:OcticonData Name=Repo24}"
+							Foreground="{ThemeResource InboxStatusNeutralBrush}" />
+						<TextBlock
+							HorizontalAlignment="Center"
+							Style="{StaticResource SubtitleTextBlockStyle}"
+							Text="{localization:Localized ResourceKey=RepositoryList.NoRepositoriesFound}" />
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</wctcontrols:Case>
+		<wctcontrols:Case Value="Error">
+			<controls:LoadErrorDisplay ErrorMessage="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" RetryCommand="{x:Bind ViewModel.RetryCommand, Mode=OneWay}" />
+		</wctcontrols:Case>
+	</wctcontrols:SwitchPresenter>
 </UserControl>

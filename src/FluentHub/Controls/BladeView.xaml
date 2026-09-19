@@ -25,14 +25,10 @@
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<ContentPresenter HorizontalAlignment="Stretch" Content="{x:Bind Content}" />
-						<Rectangle
-							Grid.Column="1"
-							Width="1"
-							HorizontalAlignment="Right"
-							Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 						<wctcontrols:ContentSizer
 							Grid.Column="1"
 							HorizontalAlignment="Right"
+							Background="{ThemeResource LayerFillColorAltBrush}"
 							TargetControl="{Binding ElementName=RootGrid}" />
 					</Grid>
 				</DataTemplate>

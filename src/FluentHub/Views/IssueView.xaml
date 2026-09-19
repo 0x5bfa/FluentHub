@@ -21,55 +21,75 @@
 				IsActive="True" />
 		</wctcontrols:Case>
 		<wctcontrols:Case Value="Loaded">
-			<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-				<StackPanel Padding="24">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
 
-					<HyperlinkButton
-						Margin="-8,-4,0,-4"
-						Padding="8,4"
-						Content="{x:Bind ViewModel.RepositoryName, Mode=OneWay}"
-						Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+				<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+					<StackPanel Padding="24">
 
-					<TextBlock
-						Margin="0,4"
-						Style="{StaticResource TitleTextBlockStyle}"
-						Text="{x:Bind ViewModel.Title, Mode=OneWay}"
-						TextWrapping="Wrap" />
+						<HyperlinkButton
+							Margin="-8,-4,0,-4"
+							Padding="8,4"
+							Content="{x:Bind ViewModel.RepositoryName, Mode=OneWay}"
+							Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
 
-					<PathIcon
-						Width="32"
-						Height="32"
-						Margin="0,4"
-						HorizontalAlignment="Left"
-						Data="{extensions:OcticonData Name=IssueOpened24}"
-						Foreground="{ThemeResource InboxStatusOpenBrush}" />
+						<TextBlock
+							Margin="0,4"
+							MaxLines="3"
+							Style="{StaticResource TitleTextBlockStyle}"
+							Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+							TextTrimming="CharacterEllipsis"
+							TextWrapping="Wrap" />
 
-					<Rectangle
-						Height="1"
-						Margin="0,4"
-						Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+						<PathIcon
+							Width="32"
+							Height="32"
+							Margin="0,4"
+							HorizontalAlignment="Left"
+							Data="{extensions:OcticonData Name=IssueOpened24}"
+							Foreground="{ThemeResource InboxStatusOpenBrush}" />
 
-					<controls:MarkdownCommentCard
-						Margin="0,4,0,0"
-						ActionText="{localization:Localized ResourceKey=Timeline.Opened}"
-						AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
-						AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
-						Body="{x:Bind ViewModel.Body, Mode=OneWay}"
-						DateText="{x:Bind ViewModel.CreatedAt, Mode=OneWay}"
-						IsEdited="{x:Bind ViewModel.IsBodyEdited, Mode=OneWay}" />
+						<Rectangle
+							Height="1"
+							Margin="0,4"
+							Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
-					<Border
-						Width="2"
-						Height="8"
-						Margin="23,0,0,0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+						<controls:MarkdownCommentCard
+							Margin="0,4,0,0"
+							ActionText="{localization:Localized ResourceKey=Timeline.Opened}"
+							AuthorName="{x:Bind ViewModel.AuthorName, Mode=OneWay}"
+							AvatarUrl="{x:Bind ViewModel.AuthorAvatarUrl, Mode=OneWay}"
+							Body="{x:Bind ViewModel.Body, Mode=OneWay}"
+							DateText="{x:Bind ViewModel.CreatedAt, Mode=OneWay}"
+							IsEdited="{x:Bind ViewModel.IsBodyEdited, Mode=OneWay}" />
 
-					<controls:Timeline ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
+						<Border
+							Width="2"
+							Height="8"
+							Margin="23,0,0,0"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
+							Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
 
-				</StackPanel>
-			</ScrollViewer>
+						<controls:Timeline ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
+
+					</StackPanel>
+				</ScrollViewer>
+
+				<Grid
+					Grid.Row="1"
+					Padding="24,12"
+					BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+					BorderThickness="0,1,0,0">
+					<Button
+						MinWidth="96"
+						HorizontalAlignment="Right"
+						Content="Comment" />
+				</Grid>
+			</Grid>
 		</wctcontrols:Case>
 		<wctcontrols:Case Value="Error">
 			<controls:LoadErrorDisplay ErrorMessage="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" RetryCommand="{x:Bind ViewModel.RetryCommand, Mode=OneWay}" />

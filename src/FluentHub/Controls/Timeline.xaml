@@ -80,8 +80,8 @@
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Top"
 					AuthorName="{x:Bind AuthorName, Mode=OneTime}"
-					PrimaryForeground="{ThemeResource TextFillColorPrimaryBrush}"
-					Parts="{x:Bind ActivityContent.Parts, Mode=OneTime}" />
+					Parts="{x:Bind ActivityContent.Parts, Mode=OneTime}"
+					PrimaryForeground="{ThemeResource TextFillColorPrimaryBrush}" />
 
 				<ContentControl
 					Grid.Column="2"

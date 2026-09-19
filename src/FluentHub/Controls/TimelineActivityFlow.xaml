@@ -6,5 +6,7 @@
 	<RichTextBlock
 		x:Name="FlowTextBlock"
 		Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+		MaxLines="3"
+		TextTrimming="CharacterEllipsis"
 		TextWrapping="Wrap" />
 </UserControl>

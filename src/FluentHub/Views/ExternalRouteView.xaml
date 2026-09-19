@@ -4,8 +4,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="using:FluentHub.Controls"
-	xmlns:localization="using:FluentHub.Extensions"
-	xmlns:extensions="using:FluentHub.Extensions">
+	xmlns:extensions="using:FluentHub.Extensions"
+	xmlns:localization="using:FluentHub.Extensions">
 
 	<StackPanel
 		Padding="24"

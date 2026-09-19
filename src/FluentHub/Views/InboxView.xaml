@@ -22,10 +22,17 @@
 			</Grid.ColumnDefinitions>
 
 			<StackPanel Spacing="4">
-				<TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{localization:Localized ResourceKey=Inbox.Title}" />
+				<TextBlock
+					MaxLines="1"
+					Style="{StaticResource TitleTextBlockStyle}"
+					Text="{localization:Localized ResourceKey=Inbox.Title}"
+					TextTrimming="CharacterEllipsis"
+					TextWrapping="NoWrap" />
 				<TextBlock
 					Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+					MaxLines="3"
 					Text="{localization:Localized ResourceKey=Inbox.Description}"
+					TextTrimming="CharacterEllipsis"
 					TextWrapping="Wrap" />
 			</StackPanel>
 

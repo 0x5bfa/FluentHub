@@ -11,15 +11,11 @@ namespace FluentHub.Views;
 
 public sealed partial class PullRequestView : UserControl
 {
-	private readonly Action<UIElement, AppRoute> _navigate;
-
 	public PullRequestView(
 		IFluentHubGitHubClient gitHub,
-		RepositoryPullRequestRoute route,
-		Action<UIElement, AppRoute> navigate)
+		RepositoryPullRequestRoute route)
 	{
 		ViewModel = new PullRequestViewModel(gitHub, route);
-		_navigate = navigate ?? throw new ArgumentNullException(nameof(navigate));
 
 		InitializeComponent();
 		Loaded += OnPullRequestViewLoaded;
@@ -36,18 +32,5 @@ public sealed partial class PullRequestView : UserControl
 	private void OnPullRequestViewUnloaded(object sender, RoutedEventArgs e)
 	{
 		ViewModel.CancelLoading();
-	}
-
-	private void OnAuthorClick(object sender, RoutedEventArgs e)
-	{
-		if (ViewModel.HasAuthor)
-		{
-			_navigate(this, new UserRoute(ViewModel.AuthorLogin));
-		}
-	}
-
-	private void OnRepositoryClick(object sender, RoutedEventArgs e)
-	{
-		_navigate(this, ViewModel.RepositoryRoute);
 	}
 }

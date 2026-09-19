@@ -30,8 +30,7 @@ public sealed class AppRouteViewFactory
 				navigate),
 			RepositoryPullRequestRoute pullRequest => new PullRequestView(
 				_gitHub,
-				pullRequest,
-				navigate),
+				pullRequest),
 			RepositoryDiscussionRoute discussion => new DiscussionView(
 				_gitHub,
 				discussion,
