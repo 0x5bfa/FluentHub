@@ -120,6 +120,7 @@ public sealed partial class IssueViewModel : RouteViewModelBase
 	[NotifyPropertyChangedFor(nameof(RepositoryName))]
 	[NotifyPropertyChangedFor(nameof(Body))]
 	[NotifyPropertyChangedFor(nameof(StateLabel))]
+	[NotifyPropertyChangedFor(nameof(StateStatus))]
 	[NotifyPropertyChangedFor(nameof(AuthorLogin))]
 	[NotifyPropertyChangedFor(nameof(AuthorName))]
 	[NotifyPropertyChangedFor(nameof(AuthorAvatarUrl))]
@@ -162,6 +163,16 @@ public sealed partial class IssueViewModel : RouteViewModelBase
 			IssueState.Closed => Strings.Common_Closed.GetLocalized(),
 			_ => Strings.Common_Loading.GetLocalized(),
 		};
+
+	public string StateStatus
+		=> LoadedIssue?.StateReason == IssueStateReason.NotPlanned
+			? "issueClosedNotPlanned"
+			: LoadedIssue?.State switch
+			{
+				IssueState.Open => "issueOpened",
+				IssueState.Closed => "issueClosed",
+				_ => "unavailable",
+			};
 
 	public string AuthorLogin => LoadedIssue?.Author?.Login ?? string.Empty;
 
@@ -233,6 +244,8 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 	[NotifyPropertyChangedFor(nameof(Title))]
 	[NotifyPropertyChangedFor(nameof(RepositoryName))]
 	[NotifyPropertyChangedFor(nameof(Body))]
+	[NotifyPropertyChangedFor(nameof(StateLabel))]
+	[NotifyPropertyChangedFor(nameof(StateStatus))]
 	[NotifyPropertyChangedFor(nameof(AuthorName))]
 	[NotifyPropertyChangedFor(nameof(AuthorAvatarUrl))]
 	[NotifyPropertyChangedFor(nameof(CreatedAt))]
@@ -264,6 +277,28 @@ public sealed partial class PullRequestViewModel : RouteViewModelBase
 	public string Body => string.IsNullOrWhiteSpace(LoadedPullRequest?.Body)
 		? Strings.Common_NoDescriptionProvided.GetLocalized()
 		: LoadedPullRequest.Body;
+
+	public string StateLabel
+		=> LoadedPullRequest?.IsDraft == true
+			? Strings.RouteViewModel_PullRequestDraftState.GetLocalized()
+			: LoadedPullRequest?.State switch
+			{
+				PullRequestState.Open => Strings.Common_Open.GetLocalized(),
+				PullRequestState.Closed => Strings.Common_Closed.GetLocalized(),
+				PullRequestState.Merged => Strings.RouteViewModel_PullRequestMergedState.GetLocalized(),
+				_ => Strings.Common_Loading.GetLocalized(),
+			};
+
+	public string StateStatus
+		=> LoadedPullRequest?.IsDraft == true
+			? "draft"
+			: LoadedPullRequest?.State switch
+			{
+				PullRequestState.Open => "pullOpened",
+				PullRequestState.Closed => "pullClosed",
+				PullRequestState.Merged => "pullMerged",
+				_ => "unavailable",
+			};
 
 	public string AuthorName
 	{

@@ -1,0 +1,172 @@
+<!--  Copyright (c) 0x5BFA. All rights reserved. Licensed under the MIT License. See the LICENSE.  -->
+<UserControl
+	x:Class="FluentHub.Controls.StateLabel"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:extensions="using:FluentHub.Extensions"
+	AutomationProperties.Name="{x:Bind Text, Mode=OneWay}">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<SolidColorBrush x:Key="StateLabelOpenBrush" Color="#FF1A7F37" />
+					<SolidColorBrush x:Key="StateLabelDoneBrush" Color="#FF8250DF" />
+					<SolidColorBrush x:Key="StateLabelClosedBrush" Color="#FFD1242F" />
+					<SolidColorBrush x:Key="StateLabelAttentionBrush" Color="#FF9A6700" />
+					<SolidColorBrush x:Key="StateLabelDraftBrush" Color="#FF59636E" />
+					<SolidColorBrush x:Key="StateLabelNeutralBrush" Color="#FF59636E" />
+					<SolidColorBrush x:Key="StateLabelForegroundBrush" Color="#FFFFFFFF" />
+					<SolidColorBrush x:Key="StateLabelBorderBrush" Color="#00000000" />
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="StateLabelOpenBrush" Color="#FF3FB950" />
+					<SolidColorBrush x:Key="StateLabelDoneBrush" Color="#FFA371F7" />
+					<SolidColorBrush x:Key="StateLabelClosedBrush" Color="#FFF85149" />
+					<SolidColorBrush x:Key="StateLabelAttentionBrush" Color="#FFD29922" />
+					<SolidColorBrush x:Key="StateLabelDraftBrush" Color="#FF8B949E" />
+					<SolidColorBrush x:Key="StateLabelNeutralBrush" Color="#FF8B949E" />
+					<SolidColorBrush x:Key="StateLabelForegroundBrush" Color="#FFFFFFFF" />
+					<SolidColorBrush x:Key="StateLabelBorderBrush" Color="#00000000" />
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="HighContrast">
+					<SolidColorBrush x:Key="StateLabelOpenBrush" Color="Transparent" />
+					<SolidColorBrush x:Key="StateLabelDoneBrush" Color="Transparent" />
+					<SolidColorBrush x:Key="StateLabelClosedBrush" Color="Transparent" />
+					<SolidColorBrush x:Key="StateLabelAttentionBrush" Color="Transparent" />
+					<SolidColorBrush x:Key="StateLabelDraftBrush" Color="Transparent" />
+					<SolidColorBrush x:Key="StateLabelNeutralBrush" Color="Transparent" />
+					<StaticResource x:Key="StateLabelForegroundBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+					<StaticResource x:Key="StateLabelBorderBrush" ResourceKey="SystemColorWindowTextColorBrush" />
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<Border
+		x:Name="Container"
+		Padding="12,8"
+		HorizontalAlignment="Left"
+		VerticalAlignment="Center"
+		Background="{ThemeResource StateLabelNeutralBrush}"
+		BorderBrush="{ThemeResource StateLabelBorderBrush}"
+		BorderThickness="1"
+		CornerRadius="18">
+		<StackPanel Orientation="Horizontal" Spacing="4">
+			<PathIcon
+				x:Name="Icon"
+				Width="16"
+				Height="16"
+				VerticalAlignment="Center"
+				Foreground="{ThemeResource StateLabelForegroundBrush}"
+				Visibility="Collapsed" />
+			<TextBlock
+				x:Name="TextElement"
+				VerticalAlignment="Center"
+				FontSize="14"
+				FontWeight="SemiBold"
+				Foreground="{ThemeResource StateLabelForegroundBrush}"
+				Text="{x:Bind Text, Mode=OneWay}"
+				TextWrapping="NoWrap" />
+		</StackPanel>
+	</Border>
+
+	<VisualStateManager.VisualStateGroups>
+		<VisualStateGroup x:Name="SizeStates">
+			<VisualState x:Name="Medium" />
+			<VisualState x:Name="Small">
+				<VisualState.Setters>
+					<Setter Target="Container.Padding" Value="8,4" />
+					<Setter Target="Container.CornerRadius" Value="10" />
+					<Setter Target="Icon.Width" Value="12" />
+					<Setter Target="Icon.Height" Value="12" />
+					<Setter Target="TextElement.FontSize" Value="12" />
+				</VisualState.Setters>
+			</VisualState>
+		</VisualStateGroup>
+
+		<VisualStateGroup x:Name="StatusStates">
+			<VisualState x:Name="IssueOpened">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelOpenBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=IssueOpened24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="PullOpened">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelOpenBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=GitPullRequest24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="IssueClosed">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelDoneBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=IssueClosed24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="IssueClosedNotPlanned">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelNeutralBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=Skip24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="PullClosed">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelClosedBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=GitPullRequestClosed24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="PullMerged">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelDoneBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=GitMerge24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="Draft">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelDraftBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=GitPullRequestDraft24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="IssueDraft">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelDraftBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=IssueDraft24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="PullQueued">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelAttentionBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=GitMergeQueue24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="Unavailable">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelNeutralBrush}" />
+					<Setter Target="Icon.Data" Value="{extensions:OcticonData Name=Alert24}" />
+					<Setter Target="Icon.Visibility" Value="Visible" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="Open">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelOpenBrush}" />
+					<Setter Target="Icon.Visibility" Value="Collapsed" />
+				</VisualState.Setters>
+			</VisualState>
+			<VisualState x:Name="Closed">
+				<VisualState.Setters>
+					<Setter Target="Container.Background" Value="{ThemeResource StateLabelDoneBrush}" />
+					<Setter Target="Icon.Visibility" Value="Collapsed" />
+				</VisualState.Setters>
+			</VisualState>
+		</VisualStateGroup>
+	</VisualStateManager.VisualStateGroups>
+</UserControl>
